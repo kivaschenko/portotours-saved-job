@@ -69,3 +69,6 @@ python3 manage.py test --verbosity=2 --keepdb
 ```
 ## Production mode
 
+#### The cloud used for production deployment: 
+[Digital Ocean Docs](https://docs.digitalocean.com/products/)
+

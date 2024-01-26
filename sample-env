@@ -1,0 +1,36 @@
+# Database
+DB_NAME=*****
+DB_USER=*****
+DB_PASSWORD=*****
+DB_HOST=*****
+DB_PORT=*****
+DB_SSLMODE=require
+
+# Redis
+REDIS_USERNAME=*****
+REDIS_PASSWORD=*****
+REDIS_HOST=*****
+REDIS_PORT=*****
+
+# Media storage
+MEDIA_BASE_URL=
+
+# Django
+SECRET_KEY=
+CACHES_LOCATION=redis://*****:****/1
+CACHES_KEY_PREFIX=portotours
+ALLOWED_HOSTS=localhost,127.0.0.1,*
+
+# Celery
+CELERY_BROKER_URL=redis://*****:****/3
+CELERY_RESULT_BACKEND=redis://*****:****/3
+
+# Email
+EMAIL_FROM_USER=****
+EMAIL_HOST=****
+EMAIL_HOST_USER=****
+EMAIL_HOST_PASSWORD=****
+DEFAULT_FROM_EMAIL=****
+
+# Logging
+LOGGING_FILE=portotours.log
