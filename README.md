@@ -1,16 +1,17 @@
 # About
 
-This project was created as a backend api for placing and searching for ads on the wholesale market of grain crops, fuel, fertilizers, pellets, meal, that is, raw and processed products, as well as related products for cultivation.
-
-The main goal is to make the search convenient for farmers and sales managers by tying ads to locations. It is planned to expand the search tools, creating subscriptions for search parameters, chat for communication, price analytics and comparison with stock prices, respectively, data visualization.
-
-Add calculation of land logistics with navigation route and input of price per ton-kilometer, automatic offers under the budget of the final price, taking into account the average cost of delivery.
-
+This project is being developed as a site for the sale of digital products - reservation of seats in bus or car trips in Portugal.
 Under development still...
 
 # Installation
 
 ## Development mode
+This project uses PostGis extension for Postgresql DB because you should install
+[GDAL libraries](https://docs.djangoproject.com/en/5.0/ref/contrib/gis/gdal/) to your local machine, for Linux example:
+```
+sudo apt-get install binutils libproj-dev gdal-bin
+```
+
 Go to root directory:
 ```
 cd portotours
