@@ -133,6 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -185,6 +186,6 @@ LOGGING = {
     }
 }
 
-
+AUTH_USER_MODEL='accounts.User'
 LOGOUT_REDIRECT_URL = "home"
 LOGIN_REDIRECT_URL = "home"

@@ -67,6 +67,17 @@ celery -A portotours flower -l INFO
 ```
 python3 manage.py test --verbosity=2 --keepdb
 ```
+#### Test credentials Django dashboard:
+- before upload fixtures: `python manage.py loaddata accounts/fixtures/testing/users.json`
+
+- Test admin
+  - Admin email (username): `dev@example.com`
+  - Admin password: `112358`
+
+- Test customer
+  - email: `customer@example.com`
+  - password: `$0me$eecret`
+  
 ## Production mode
 
 #### The cloud used for production deployment: 
