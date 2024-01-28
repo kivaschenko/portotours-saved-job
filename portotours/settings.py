@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.gis',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'dotenv',
     # local
     'accounts.apps.AccountsConfig',
+    'products.apps.ProductsConfig',
 ]
 
 MIDDLEWARE = [
@@ -171,7 +173,7 @@ LOGGING = {
         },
     },
     "loggers": {
-        "offers": {
+        "products": {
             "handlers": ["log_to_stdout", "log_to_file"],
             "level": "INFO",
             "propagate": True,
@@ -179,10 +181,6 @@ LOGGING = {
         # 'django.db.backends': {
         #     'level': 'DEBUG',
         # }
-    },
-    "root": {
-        "handlers": ["log_to_stdout", "log_to_file"],
-        "level": "INFO",
     }
 }
 

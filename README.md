@@ -37,6 +37,11 @@ Install all dependencies:
 pip install --upgrade pip setuptools
 pip install -r requirements.txt
 ```
+Run migrations if new DB:
+```
+python manage.py migrate
+```
+
 To create superuser:
 ```
 python manage.py createsuperuser
