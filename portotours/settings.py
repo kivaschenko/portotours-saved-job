@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 3rd parties
     'dotenv',
+    'sass_processor',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -135,7 +136,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
+STATIC_ROOT = BASE_DIR / 'static'
+# STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -187,3 +189,20 @@ LOGGING = {
 AUTH_USER_MODEL = 'accounts.User'
 LOGOUT_REDIRECT_URL = "home"
 LOGIN_REDIRECT_URL = "home"
+
+# Bootstrap Sass
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+)
+
+
+SASS_PROCESSOR_INCLUDE_DIRS = [
+    os.path.join(BASE_DIR, 'static/custom_css'),
+]
+
+# Set up Sass Processor settings
+SASS_PROCESSOR_ENABLED = True
+SASS_PROCESSOR_ROOT = BASE_DIR / 'static'

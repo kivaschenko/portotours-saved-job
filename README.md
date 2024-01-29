@@ -58,10 +58,13 @@ python manage.py runserver
 ```
 
 ### Celery
+
+not implemented yet, coming soon...
 ```
 celery -A portotours worker -l INFO --beat --scheduler django
 ```
 ### Flower
+not implemented yet, coming soon...
 ```
 celery -A portotours flower -l INFO
 ```
@@ -84,6 +87,17 @@ python3 manage.py test --verbosity=2 --keepdb
   - email: `customer@example.com`
   - password: `$0me$eecret`
   
+### CSS, style Sass, Bootstrap 5
+There are using `django-sass-processor` to compile `.scss` files.
+Custom CSS file lives in `static/custom_css/custom.scss`.
+If you have update some changes (added new .scss ) then run:
+```
+./manage.py compilescss
+./manage.py collectstatic
+```
+within your (venv) command line interface.
+[According Django Sass Processor docs.](https://github.com/jrief/django-sass-processor)
+
 ## Production mode
 
 #### The cloud used for production deployment: 

@@ -1,12 +1,14 @@
 {% load static %}
+{% load sass_tags %}
+
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Test Project title - {% block title %}{% endblock %}</title>
-    <!-- Bootstrap 5 CSS -->
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <!-- Bootstrap 5 Custom CSS -->
+    <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css" />
     <!-- Icons -->
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
     <!-- Favicons -->
