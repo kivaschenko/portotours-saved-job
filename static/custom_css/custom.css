@@ -1,0 +1,39 @@
+@import url(../bootstrap/scss/bootstrap.css);
+body {
+  background-color: #72ace7; }
+
+h4 {
+  font-family: Jamrul;
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 2.35rem; }
+
+.card {
+  background-color: #F0500B;
+  margin-top: 5rem;
+  margin-bottom: 5rem; }
+
+.card .card-body {
+  padding: 3rem;
+  background-color: #ba77e3;
+  text-align: center;
+  color: #6a1a21; }
+
+.btn-primary {
+  background-color: #F0500B;
+  border-color: #F0500B; }
+
+.btn {
+  border-radius: 2.35rem; }
+
+.navbar {
+  background-color: white;
+  color: #0F0F10; }
+
+a {
+  color: #0F0F10; }
+
+.nav-link {
+  color: #0F0F10; }
+
+/*# sourceMappingURL=custom.css.map */
