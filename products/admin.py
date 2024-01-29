@@ -5,6 +5,8 @@ from django.contrib.gis.forms.widgets import OSMWidget
 from products.models import *  # noqa
 
 
+# ------------
+# MeetingPoint
 class CustomOSMWidget(OSMWidget):
     template_name = "gis/openlayers-osm.html"
     default_lon = -9
@@ -68,3 +70,12 @@ class MeetingPointAdmin(GISModelAdmin):
         except (model.DoesNotExist, ValidationError, ValueError):
             return None
 
+
+# --------
+# Language
+
+@admin.register(Language)
+class LanguageAdmin(admin.ModelAdmin):
+    fields = ['name', 'abbreviation', 'is_active']
+    list_display = ['name', 'abbreviation', 'is_active']
+    list_filter = ['name', 'abbreviation', 'is_active']

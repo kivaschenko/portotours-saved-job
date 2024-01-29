@@ -49,6 +49,7 @@ python manage.py createsuperuser
 ### Loading fixtures
 ```
 python manage.py loaddata --format json products/fixtures/*
+python manage.py loaddata --format=json products/fixtures/prod/languages.json
 ```
 
 ### Run project:

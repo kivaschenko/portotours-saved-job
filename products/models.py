@@ -7,11 +7,14 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 from geopy.geocoders import Nominatim
-geolocator = Nominatim(timeout=5, user_agent="portotours")
 
+geolocator = Nominatim(timeout=5, user_agent="portotours")
 
 logger = logging.getLogger(__name__)
 
+
+# ---------
+# Geo Point
 class MeetingPoint(models.Model):
     name = models.CharField(max_length=60, unique=True, null=False, blank=False)
     slug = models.SlugField(max_length=70, unique=True, blank=True, help_text="Slug generated from name")
@@ -21,12 +24,12 @@ class MeetingPoint(models.Model):
     city = models.CharField(max_length=150, blank=True, help_text="City name max 150 characters", null=True)
     address = models.CharField(max_length=255, blank=True, help_text="Address name max 255 characters", null=True)
     auto_location = models.BooleanField(default=True, null=False,
-                                        help_text="After saving coordinates will be auto-defined by address",)
+                                        help_text="After saving coordinates will be auto-defined by address", )
     latitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
     update_coords_by_geom = models.BooleanField(default=False, null=False,
-                                                       help_text="Automatically update longitude and latitude from map "
-                                                                 "marker place. Turn off Auto location for this.")
+                                                help_text="Automatically update longitude and latitude from map "
+                                                          "marker place. Turn off Auto location for this.")
     auto_update_address_name = models.BooleanField(default=True, null=False,
                                                    help_text="Automatically update address name form open street maps "
                                                              "response by coordinates.")
@@ -77,6 +80,30 @@ class MeetingPoint(models.Model):
 
     def reverse_geolocation(self):
         location = geolocator.reverse(f"{self.latitude}, {self.longitude}")
-        print('location: ', location)
         return location.address
 
+
+# --------
+# Language
+class LanguageActiveManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
+
+
+class Language(models.Model):
+    abbreviation = models.CharField(max_length=3)
+    name = models.CharField(max_length=60)
+    is_active = models.BooleanField(default=True)
+
+    active = LanguageActiveManager()
+    objects = models.Manager()
+
+    class Meta:
+        ordering = ('name',)
+        unique_together = ('abbreviation', 'name')
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return f"<Language(id={self.id}, name={self.name})>"
