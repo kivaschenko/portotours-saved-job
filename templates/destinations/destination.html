@@ -1,27 +1,32 @@
 {% extends "base.html" %}
+{% block head %}
+    <title>{{ object.page_title }}</title>
+    <meta name="description" content="{{ object.page_description }}">
+    <meta name="keywords" content="{{ object.page_keywords }}">
+{% endblock head %}
 {% block content %}
-<div class="container">
-    <!-- Header image and title -->
-    <div>
-        <h1>{{ object.main_title }}</h1>
-        <p><b>{{ object.main_subtitle }}</b></p>
-    </div>
-    <!-- Introduction -->
-    <div>
-        <h2>{{ object.introduction_title }}</h2>
-        <p><b>{{ object.introduction_subtitle }}</b></p>
-        <p>{{ object.introduction_text|linebreaks }}</p>
-    </div>
+    <div class="container">
+        <!-- Header image and title -->
+        <div>
+            <h1>{{ object.main_title }}</h1>
+            <p><b>{{ object.main_subtitle }}</b></p>
+        </div>
+        <!-- Introduction -->
+        <div>
+            <h2>{{ object.introduction_title }}</h2>
+            <p><b>{{ object.introduction_subtitle }}</b></p>
+            <p>{{ object.introduction_text|linebreaks }}</p>
+        </div>
 
-    <!-- About block -->
-    <div>
-        <h2>All About {{ object.name }}</h2>
-        <h5>{{ object.when_to_visit_title }}</h5>
-        <div>{{ object.when_to_visit_text|safe }}</div>
-        <h5>{{ object.getting_around_title }}</h5>
-        <div>{{ object.getting_around_text|safe }}</div>
-        <h5>{{ object.travel_tips_title }}</h5>
-        <div>{{ object.travel_tips_text|safe }}</div>
+        <!-- About block -->
+        <div>
+            <h2>All About {{ object.name }}</h2>
+            <h5>{{ object.when_to_visit_title }}</h5>
+            <div>{{ object.when_to_visit_text|safe }}</div>
+            <h5>{{ object.getting_around_title }}</h5>
+            <div>{{ object.getting_around_text|safe }}</div>
+            <h5>{{ object.travel_tips_title }}</h5>
+            <div>{{ object.travel_tips_text|safe }}</div>
+        </div>
     </div>
-</div>
 {% endblock %}

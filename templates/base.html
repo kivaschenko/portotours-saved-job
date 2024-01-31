@@ -6,7 +6,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Test Project title - {% block title %}{% endblock %}</title>
+    {% block head %}
+    <title>Test Project title - </title>
+    {% endblock head %}
     <!-- Bootstrap 5 Custom CSS -->
     <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css" />
     <!-- Icons -->
