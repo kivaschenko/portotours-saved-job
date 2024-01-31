@@ -46,8 +46,8 @@
   --main-color: #000;
   --second-color: #FFB23B;
   --text-color-main: #0F0F10;
-  --text-color-second: #f00;
-  --text-color-third: #fff; }
+  --text-color-second: #fff;
+  --text-color-third: #000; }
 
 .text-color-main {
   color: var(--text-color-main); }
@@ -59,6 +59,11 @@ h1 {
   font-size: 92px;
   line-height: 110px;
   font-family: 'LatoBold'; }
+
+h2 {
+  font-size: 44px;
+  line-height: 56px;
+  font-family: 'SemiBold'; }
 
 .container {
   max-width: 1312px;
@@ -88,7 +93,7 @@ h1 {
   text-align: center; }
 
 .destination-hero-title {
-  color: var(--text-color-main);
+  color: var(--text-color-second);
   display: flex;
   align-items: baseline;
   justify-content: center;
@@ -103,8 +108,49 @@ h1 {
     align-self: flex-end; }
 
 .destination-hero-subtitle {
-  color: var(--text-color-main);
+  color: var(--text-color-second);
   margin: 0; }
+
+.what-to-see .container {
+  max-width: 1090px;
+  margin: 0 auto;
+  padding-top: 100px;
+  padding-bottom: 50px; }
+
+.what-to-see .what-to-see-title {
+  margin-bottom: 16px;
+  margin-top: 0;
+  text-align: center; }
+
+.what-to-see .what-to-see-subtitle {
+  margin-top: 0;
+  margin-bottom: 32px;
+  text-align: center; }
+
+.what-to-see .what-to-see-text {
+  margin: 0; }
+  .what-to-see .what-to-see-text + .what-to-see-text {
+    margin-top: 16px; }
+
+.experience .container {
+  padding-top: 50px;
+  padding-bottom: 70px;
+  text-align: center; }
+
+.experience .experience-title {
+  margin-bottom: 16px;
+  margin-top: 0; }
+
+.experience .experience-subtitle {
+  margin-bottom: 40px;
+  margin-top: 0; }
+
+.experience .experience-cards-wrapper {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between; }
+  .experience .experience-cards-wrapper .experience-card {
+    width: calc((100% - 69px)/4); }
 
 .header .container {
   padding-top: 22px;
