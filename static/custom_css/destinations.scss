@@ -1,0 +1,35 @@
+.destination {
+    &-hero {
+        background-image: url(../images/destination-hero-img.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        }
+        &-container {
+            padding-top: 130px;
+            padding-bottom: 140px;
+            text-align: center;
+        }
+        &-hero-title {
+            color: var(--text-color-main);
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            margin-bottom: 32px;
+             span {
+                margin-left: 24px;
+                margin-right: 24px;
+                font-size: 44px;
+                line-height: 56px;
+                font-family: 'LatoSemiBold';
+             }
+             img {
+                align-self: flex-end;
+             }
+        }
+        &-hero-subtitle {
+            color: var(--text-color-main);
+            margin: 0;
+        }
+}
+    

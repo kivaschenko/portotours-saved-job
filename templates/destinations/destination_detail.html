@@ -1,6 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
-<div class="container">
-<h3>Do what you need here...</h3>
-</div>
+<section class="destination-hero">
+    <div class="destination-container container">
+        <h1 class="destination-hero-title">
+            Explore Lisbon
+            <span>
+                with
+            </span>
+            <img src="{% static 'images/main-logo.svg' %}" alt="">
+        </h1>
+        <p class="destination-hero-subtitle body-text-b2">
+            Portugal's capital, a dazzling mixture of variable cultures and traditions, rich in architecture and natural wonders.
+        </p>
+    </div>
+</section>
 {% endblock %}
