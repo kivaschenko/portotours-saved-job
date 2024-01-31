@@ -58,10 +58,50 @@
                             </ul>
                         </li>
                     </ul>
+                        <label for="languageSelect">Select Language:</label>
+    <select id="languageSelect" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="it">Italiano</option>
+        <option value="pt">Português</option>
+
+        <!-- Add more language options as needed -->
+    </select>
                 {% else %}
                     <a class="btn btn-outline-primary m-2" href="{% url 'login' %}">Login or Signup</a>
                 {% endif %}
             </div>
         </div>
     </nav>
+<script>
+        // Example of changeLanguage function that works within destination_list.html
+        // function changeLanguage() {
+        //     // Get the selected language code from the dropdown
+        //     let selectedLanguage = document.getElementById("languageSelect").value;
+        //     let replace_value = '/' + selectedLanguage + '/';
+        //     console.log('selected_language:', selectedLanguage);
+        //     // Update the URL with the selected language
+        //     let currentUrl = window.location.href;
+        //     // Replace language code
+        //     let newUrl = currentUrl.replace(/\/[a-z]{2}\//, replace_value);
+
+        //     console.log("Original URL:", currentUrl);
+        //     console.log("Modified URL:", newUrl);
+
+        //     // Change the window location to the new URL
+        //     window.location.href = newUrl;
+        // };
+        // // Function to be executed when the page has fully loaded
+        // function onPageLoad() {
+        //     // Get the element with the id 'greeting'
+        //     let languageElement = document.getElementById('languageSelect');
+
+        //     // Modify the content of the element
+        //     languageElement.value = `{{ current_language }}`;
+        // }
+
+        // // Register the onPageLoad function to be executed on window.onload
+        // window.onload = onPageLoad;
+</script>
 </div>
