@@ -14,10 +14,10 @@
     <!-- Icons -->
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
     <!-- Favicons -->
-    <link rel="icon" href="{% static 'favicon.ico' %}">
+    <link rel="icon" href="{% static 'images/Favicon_32x32.svg' %}">
 </head>
 <body class="d-flex flex-column min-vh-100">
-<main>
+<header class="header">
     {% block header %}
         <!-- Navbar -->
         {% include 'include/navbar.html' %}
@@ -26,10 +26,12 @@
         {% include 'include/messages.html' %}
         <!-- End Messages-->
     {% endblock %}
-    <div class="container-fluid">
+</header>
+<main>
+    
         {% block content %}
         {% endblock content %}
-    </div>
+   
 </main>
 <footer class="mt-auto">
     <div class="container">

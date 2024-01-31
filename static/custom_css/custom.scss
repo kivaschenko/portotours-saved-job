@@ -1,9 +1,11 @@
 // Import Bootstrap source files
 @import "../bootstrap/scss/bootstrap.css";
-
+@import "./root.scss";
+@import "./destinations.scss";
+@import "./header.scss";
 // Your custom styles here
 body {
-    background-color: #72ace7;
+    
 }
 
 // Override Bootstrap variables if needed
@@ -42,11 +44,6 @@ h4 {
 
 .btn {
     border-radius: 2.35rem;
-}
-
-.navbar {
-    background-color: white;
-    color: #0F0F10;
 }
 
 a {

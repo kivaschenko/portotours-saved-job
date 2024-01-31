@@ -1,8 +1,38 @@
 {% load static %}
 <div class="container">
+    <div class="header-top-row">
+        <div class="header-left-col">
+            <div class="header-logo-wrapper">
+                <a href="/" class="logo-link">
+                    <img src="{% static 'images/logo_black.svg' %}" alt="Logo">
+                </a>
+            </div>
+        </div>
+        <div class="header-right-col">
+            <div class="cart-wrapper body-text-b3">
+                <img src="{% static 'images/cart-icon.svg' %}" alt="">
+                Cart
+            </div>
+            <div class="language-switcher">
+                <div class="default-language">
+                    <img src="{% static 'images/gb-flag.png' %}" alt="">
+                    <span class="arrow-icon">
+                        <img src="{% static 'images/language-arrow.png' %}" alt="">
+                    </span>
+                </div>
+            </div>
+            <div class="contact-phone">
+                <img src="{% static 'images/phone-icon.png' %}" alt="">
+                <p class="phone-number body-text-b3">
+                    (808) 555-0111
+                </p>
+            </div>
+        </div>
+        
+    </div>
     <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+        <div class="container">
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -11,31 +41,70 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Tours</a>
+                        <a class="nav-link body-text-b3" aria-current="page" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'destination-list-by-language' lang='en' %}">Destinations</a>
+                        <a class="nav-link body-text-b3" aria-current="page" href="{% url 'destination-list-by-language' lang='en' %}">Destinations</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Destinations
+                        <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
+                        data-bs-toggle="dropdown" href="#">
+                            Lisbon Things To Do
                         </a>
                         <ul class="dropdown-menu">
+                            
+                            <li><a class="dropdown-item" href="#">Lorem ipsum</a></li>                            
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
+                        data-bs-toggle="dropdown" href="#">Out Of Lisbon Things To Do</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Lorem</a></li>
+                            <li><a class="dropdown-item" href="#">Lorem ipsum</a></li>                            
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle body-text-b3" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                           Porto Things To Do
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Test destination page</a></li>
                             <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle body-text-b3" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                           Out Of Porto Things To Do
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Test destination page</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
+                        <label for="languageSelect">Select Language:</label>
+                        <select id="languageSelect" onchange="changeLanguage()">
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                            <option value="es">Español</option>
+                            <option value="it">Italiano</option>
+                            <option value="pt">Português</option>
+
+                            <!-- Add more language options as needed -->
+                        </select>
+                <!-- <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                </form> -->
                 {% if user.is_authenticated %}
-                    <form method="post" action="{% url 'logout' %}">
+                    <!-- <form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
                         <button class="btn btn-outline-danger m-2" type="submit">logout</button>
                     </form>
@@ -44,7 +113,7 @@
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                    <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                   
                                     <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
                                 </svg>
                             </a>
@@ -57,19 +126,9 @@
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
                             </ul>
                         </li>
-                    </ul>
-                        <label for="languageSelect">Select Language:</label>
-    <select id="languageSelect" onchange="changeLanguage()">
-        <option value="en">English</option>
-        <option value="fr">Français</option>
-        <option value="es">Español</option>
-        <option value="it">Italiano</option>
-        <option value="pt">Português</option>
-
-        <!-- Add more language options as needed -->
-    </select>
+                    </ul> -->
                 {% else %}
-                    <a class="btn btn-outline-primary m-2" href="{% url 'login' %}">Login or Signup</a>
+                    <!-- <a class="btn btn-outline-primary m-2" href="{% url 'login' %}">Login or Signup</a> -->
                 {% endif %}
             </div>
         </div>
