@@ -93,7 +93,7 @@ class LanguageActiveManager(models.Manager):
 
 
 class Language(models.Model):
-    abbreviation = models.CharField(max_length=3)
+    code = models.CharField(max_length=3)
     name = models.CharField(max_length=60)
     is_active = models.BooleanField(default=True)
 
@@ -102,13 +102,21 @@ class Language(models.Model):
 
     class Meta:
         ordering = ('name',)
-        unique_together = ('abbreviation', 'name')
+        unique_together = ('code', 'name')
 
     def __str__(self):
         return self.name
 
     def __repr__(self):
         return f"<Language(id={self.id}, name={self.name})>"
+
+
+# ------------
+# Destinations
+
+class DestinationActiveManager(models.Manager):
+    def get_queryset(self):
+        return super(DestinationActiveManager,self).get_queryset().filter(is_active=True)
 
 
 class Destination(models.Model):
@@ -118,7 +126,7 @@ class Destination(models.Model):
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
     # SEO part
-    slug = models.SlugField(max_length=60, unique=True, db_index=True, editable=True,
+    slug = models.SlugField(max_length=60, unique=True, db_index=True, editable=True, blank=True,
                             help_text="max 60 characters, exactly url tail that is unique")
     page_title = models.CharField(max_length=120, help_text="seo title for header in search list, max 120 characters",
                                   null=True, blank=True)
@@ -140,6 +148,8 @@ class Destination(models.Model):
     travel_tips_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     travel_tips_text = models.TextField(max_length=2000, help_text="max 6000 characters", null=True, blank=True)
 
+    objects = models.Manager()
+    active = DestinationActiveManager()
     class Meta:
         ordering = ('name',)
         unique_together = ('name', 'slug')
@@ -158,3 +168,8 @@ class Destination(models.Model):
 
     def display_travel_tips_text(self):
         return mark_safe(self.travel_tips_text)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Destination, self).save(*args, **kwargs)

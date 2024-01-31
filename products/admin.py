@@ -76,9 +76,9 @@ class MeetingPointAdmin(GISModelAdmin):
 
 @admin.register(Language)
 class LanguageAdmin(admin.ModelAdmin):
-    fields = ['name', 'abbreviation', 'is_active']
-    list_display = ['name', 'abbreviation', 'is_active']
-    list_filter = ['name', 'abbreviation', 'is_active']
+    fields = ['name', 'code', 'is_active']
+    list_display = ['name', 'code', 'is_active']
+    list_filter = ['name', 'code', 'is_active']
 
 
 # -----------

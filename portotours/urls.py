@@ -28,6 +28,7 @@ urlpatterns += [
     # path('products/portugal/destinations/some-test-slug-for-current-destionation-detail-view/',
     #      products_views.DestinationDetailView.as_view(), name="destination-detail"),  # <- remove this before merge to master!
     path('products/portugal/destinations/', products_views.DestinationListView.as_view(), name="destination-list"),
+    path('destinations/<str:lang>/', products_views.DestinationLanguageListView.as_view(), name='destination-list-by-language'),
     path('products/portugal/destinations/<slug:slug>/', products_views.DestinationDetailView.as_view(), name="destination-detail"),
 ]
 
