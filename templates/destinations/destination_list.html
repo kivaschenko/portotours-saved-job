@@ -7,7 +7,7 @@
             {% for object in object_list %}
                 <div class="card">
                     <div class="card-title">
-                        <h2><a href="{% url 'destination-detail' object.slug %}">{{ object.name }}</a></h2>
+                        <h2><a href="{% url 'destination-detail'  lang=object.language.code.lower slug=object.slug %}">{{ object.name }}</a></h2>
                     </div>
                     <div class="card-body">
                         {{ object.short_introduction_text }}
