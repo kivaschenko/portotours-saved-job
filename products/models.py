@@ -5,6 +5,8 @@ from django.db import models
 from django.contrib.gis.db import models as gis_models
 from django.urls import reverse
 from django.utils.text import slugify
+from django.utils.safestring import mark_safe
+from django.conf import settings
 
 from geopy.geocoders import Nominatim
 
@@ -91,7 +93,7 @@ class LanguageActiveManager(models.Manager):
 
 
 class Language(models.Model):
-    abbreviation = models.CharField(max_length=3)
+    code = models.CharField(max_length=3)
     name = models.CharField(max_length=60)
     is_active = models.BooleanField(default=True)
 
@@ -100,10 +102,75 @@ class Language(models.Model):
 
     class Meta:
         ordering = ('name',)
-        unique_together = ('abbreviation', 'name')
+        unique_together = ('code', 'name')
 
     def __str__(self):
         return self.name
 
     def __repr__(self):
         return f"<Language(id={self.id}, name={self.name})>"
+
+
+# ------------
+# Destinations
+
+class DestinationActiveManager(models.Manager):
+    def get_queryset(self):
+        return super(DestinationActiveManager,self).get_queryset().filter(is_active=True)
+
+
+class Destination(models.Model):
+    # Business logic part
+    name = models.CharField(max_length=60, help_text="max 60 characters, city name usually")
+    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # SEO part
+    slug = models.SlugField(max_length=60, unique=True, db_index=True, editable=True, blank=True,
+                            help_text="max 60 characters, exactly url tail that is unique")
+    page_title = models.CharField(max_length=120, help_text="seo title for header in search list, max 120 characters",
+                                  null=True, blank=True)
+    page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters",
+                                        null=True, blank=True)
+    keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
+    # Content part
+    main_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    main_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    introduction_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    introduction_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    introduction_text = models.TextField(max_length=3000, help_text="max 2000 characters", null=True, blank=True)
+    short_introduction_text = models.CharField(max_length=255, null=True, blank=True,
+                                               help_text="short text for recommendation cards, max 255 characters")
+    when_to_visit_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    when_to_visit_text = models.TextField(max_length=1000, help_text="max 2000 characters", null=True, blank=True)
+    getting_around_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    getting_around_text = models.TextField(max_length=1000, help_text="max 2000 characters", null=True, blank=True)
+    travel_tips_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    travel_tips_text = models.TextField(max_length=2000, help_text="max 6000 characters", null=True, blank=True)
+
+    objects = models.Manager()
+    active = DestinationActiveManager()
+    class Meta:
+        ordering = ('name',)
+        unique_together = ('name', 'slug')
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('products:destination-detail', kwargs={'lang': self.language.code.lower(),
+                                                              'slug': self.slug})
+
+    def display_when_to_visit_text(self):
+        return mark_safe(self.when_to_visit_text)
+
+    def display_getting_around_text(self):
+        return mark_safe(self.getting_around_text)
+
+    def display_travel_tips_text(self):
+        return mark_safe(self.travel_tips_text)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Destination, self).save(*args, **kwargs)
