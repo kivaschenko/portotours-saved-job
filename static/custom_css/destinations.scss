@@ -79,6 +79,15 @@
         justify-content: space-between;
         .experience-card {
             width: calc((100% - 69px)/4);
+            border-radius: 26px;
+            border: 1px solid #D9D9D9;
+            .experience-card-img {
+                display: block;
+                margin-bottom: 16px;
+            }
+            .experience-card-title {
+
+            }
         }
     }
 }

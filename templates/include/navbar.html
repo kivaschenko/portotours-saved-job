@@ -52,7 +52,7 @@
                             Lisbon Things To Do
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'destination-detail' %}">Explore Lisbon</a></li>
+                            
                             <li><a class="dropdown-item" href="#">Lorem ipsum</a></li>                            
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
@@ -89,6 +89,16 @@
                         </ul>
                     </li>
                 </ul>
+                        <label for="languageSelect">Select Language:</label>
+                        <select id="languageSelect" onchange="changeLanguage()">
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                            <option value="es">Español</option>
+                            <option value="it">Italiano</option>
+                            <option value="pt">Português</option>
+
+                            <!-- Add more language options as needed -->
+                        </select>
                 <!-- <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
@@ -117,17 +127,6 @@
                             </ul>
                         </li>
                     </ul> -->
-                    
-                        <label for="languageSelect">Select Language:</label>
-                        <select id="languageSelect" onchange="changeLanguage()">
-                            <option value="en">English</option>
-                            <option value="fr">Français</option>
-                            <option value="es">Español</option>
-                            <option value="it">Italiano</option>
-                            <option value="pt">Português</option>
-
-                            <!-- Add more language options as needed -->
-                        </select>
                 {% else %}
                     <!-- <a class="btn btn-outline-primary m-2" href="{% url 'login' %}">Login or Signup</a> -->
                 {% endif %}
