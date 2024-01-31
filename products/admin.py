@@ -87,5 +87,5 @@ class LanguageAdmin(admin.ModelAdmin):
 @admin.register(Destination)
 class DestinationAdmin(admin.ModelAdmin):
     exclude = ['updated_at']
-    list_display = ['name', 'slug', 'is_active', 'updated_at']
-    list_filter = ['name', 'page_title', 'is_active']
+    list_display = ['name', 'slug', 'language', 'is_active', 'updated_at']
+    list_filter = ['name', 'language', 'slug', 'page_title', 'is_active']
