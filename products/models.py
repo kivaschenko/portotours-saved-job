@@ -158,7 +158,8 @@ class Destination(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('products:destination-detail', kwargs={'slug': self.slug})
+        return reverse('products:destination-detail', kwargs={'lang': self.language.code.lower(),
+                                                              'slug': self.slug})
 
     def display_when_to_visit_text(self):
         return mark_safe(self.when_to_visit_text)
