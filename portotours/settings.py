@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'sass_processor',
     'ckeditor',
     'ckeditor_uploader',
+    'storages',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -235,3 +236,20 @@ CKEDITOR_CONFIGS = {
         'width': 800,
     },
 }
+
+# DigitalOcean Spaces
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
+AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
+# AWS_S3_CUSTOM_DOMAIN = 'https://portotoursmedia.fra1.digitaloceanspaces.com'

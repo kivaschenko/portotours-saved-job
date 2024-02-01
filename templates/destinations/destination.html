@@ -10,6 +10,7 @@
         <div>
             <h1>{{ object.main_title|safe }}</h1>
             <p><b>{{ object.main_subtitle }}</b></p>
+            <img src="{{ object.parent_destination.banner.url }}" alt="Banner for {{ object.parent_destination.parent_name }}">
         </div>
         <!-- Introduction -->
         <div>
