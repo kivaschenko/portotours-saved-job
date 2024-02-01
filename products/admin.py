@@ -84,6 +84,13 @@ class LanguageAdmin(admin.ModelAdmin):
 # -----------
 # Destination
 
+@admin.register(ParentDestination)
+class ParentDestinationAdmin(admin.ModelAdmin):
+    exclude = ['updated_at']
+    list_display = ['parent_name']
+    list_filter = ['parent_name']
+
+
 @admin.register(Destination)
 class DestinationAdmin(admin.ModelAdmin):
     exclude = ['updated_at']

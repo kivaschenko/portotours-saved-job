@@ -114,13 +114,34 @@ class Language(models.Model):
 # ------------
 # Destinations
 
+class ParentDestination(models.Model):
+    """A parent destination brings together all destinations with multilingual content,
+    but all in one location as a geographic and destination. To save the common banner,
+    card image and link between destination details page languages.
+    """
+    parent_name = models.CharField(max_length=60, unique=True, db_index=True)
+    banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
+    card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.parent_name
+
+    class Meta:
+        ordering = ('parent_name',)
+
+
 class DestinationActiveManager(models.Manager):
     def get_queryset(self):
-        return super(DestinationActiveManager,self).get_queryset().filter(is_active=True)
+        return super(DestinationActiveManager, self).get_queryset().filter(is_active=True)
 
 
 class Destination(models.Model):
     # Business logic part
+    parent_destination = models.ForeignKey(ParentDestination, on_delete=models.SET_NULL,
+                                           related_name='child_destinations', null=True, blank=True,
+                                           help_text="The Parent destination brings together all destinations "
+                                                     "with multilingual content but same location and common banner.")
     name = models.CharField(max_length=60, help_text="max 60 characters, city name usually")
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     is_active = models.BooleanField(default=True)
@@ -150,6 +171,7 @@ class Destination(models.Model):
 
     objects = models.Manager()
     active = DestinationActiveManager()
+
     class Meta:
         ordering = ('name',)
         unique_together = ('name', 'slug')
