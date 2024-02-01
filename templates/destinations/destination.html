@@ -8,14 +8,14 @@
     <div class="container">
         <!-- Header image and title -->
         <div>
-            <h1>{{ object.main_title }}</h1>
+            <h1>{{ object.main_title|safe }}</h1>
             <p><b>{{ object.main_subtitle }}</b></p>
         </div>
         <!-- Introduction -->
         <div>
             <h2>{{ object.introduction_title }}</h2>
             <p><b>{{ object.introduction_subtitle }}</b></p>
-            <p>{{ object.introduction_text|linebreaks }}</p>
+            <p>{{ object.introduction_text|safe }}</p>
         </div>
 
         <!-- About block -->
