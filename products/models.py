@@ -183,6 +183,10 @@ class Destination(models.Model):
         return reverse('products:destination-detail', kwargs={'lang': self.language.code.lower(),
                                                               'slug': self.slug})
 
+    @property
+    def localized_url(self):
+        return f"/destinations/{self.language.code.lower()}/{self.slug}/"
+
     def display_when_to_visit_text(self):
         return mark_safe(self.when_to_visit_text)
 
