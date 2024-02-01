@@ -1,6 +1,243 @@
 @import url(../bootstrap/scss/bootstrap.css);
-body {
-  background-color: #72ace7; }
+@font-face {
+  font-family: 'LatoBlack';
+  src: local("Lato"), url("../fonts/Lato-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'LatoHeavy';
+  src: local("Lato"), url("../fonts/Lato-Heavy.ttf") format("truetype");
+  font-weight: 800;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'LatoBold';
+  src: local("Lato"), url("../fonts/Lato-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'LatoSemiBold';
+  src: local("Lato"), url("../fonts/Lato-Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'LatoMedium';
+  src: local("Lato"), url("../fonts/Lato-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'LatoRegular';
+  src: local("Lato"), url("../fonts/Lato-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'LatoLight';
+  src: local("Nunito Sans"), url("../fonts/Lato-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap; }
+
+:root {
+  /*<editor-fold desc="COLORS">*/
+  --main-color: #000;
+  --second-color: #FFB23B;
+  --text-color-main: #0F0F10;
+  --text-color-second: #fff;
+  --text-color-third: #000; }
+
+.text-color-main {
+  color: var(--text-color-main); }
+
+.text-color-second {
+  color: var(--text-color-second); }
+
+h1 {
+  font-size: 92px;
+  line-height: 110px;
+  font-family: 'LatoBold'; }
+
+h2 {
+  font-size: 44px;
+  line-height: 56px;
+  font-family: 'SemiBold'; }
+
+.container {
+  max-width: 1312px;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0; }
+
+.body-text-b2 {
+  font-family: 'LatoSemiBold';
+  font-size: 18px;
+  line-height: 28px; }
+
+.body-text-b3 {
+  font-family: 'LatoRegular';
+  font-size: 16px;
+  line-height: 26px; }
+
+.destination-hero {
+  background-image: url(../images/destination-hero-img.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; }
+
+.destination-container {
+  padding-top: 130px;
+  padding-bottom: 140px;
+  text-align: center; }
+
+.destination-hero-title {
+  color: var(--text-color-second);
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 32px; }
+  .destination-hero-title span {
+    margin-left: 24px;
+    margin-right: 24px;
+    font-size: 44px;
+    line-height: 56px;
+    font-family: 'LatoSemiBold'; }
+  .destination-hero-title img {
+    align-self: flex-end; }
+
+.destination-hero-subtitle {
+  color: var(--text-color-second);
+  margin: 0; }
+
+.what-to-see .container {
+  max-width: 1090px;
+  margin: 0 auto;
+  padding-top: 100px;
+  padding-bottom: 50px; }
+
+.what-to-see .what-to-see-title {
+  margin-bottom: 16px;
+  margin-top: 0;
+  text-align: center; }
+
+.what-to-see .what-to-see-subtitle {
+  margin-top: 0;
+  margin-bottom: 32px;
+  text-align: center; }
+
+.what-to-see .what-to-see-text {
+  margin: 0; }
+  .what-to-see .what-to-see-text + .what-to-see-text {
+    margin-top: 16px; }
+
+.experience .container {
+  padding-top: 50px;
+  padding-bottom: 70px;
+  text-align: center; }
+
+.experience .experience-title {
+  margin-bottom: 16px;
+  margin-top: 0; }
+
+.experience .experience-subtitle {
+  margin-bottom: 40px;
+  margin-top: 0; }
+
+.experience .experience-cards-wrapper {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between; }
+  .experience .experience-cards-wrapper .experience-card {
+    width: calc((100% - 69px)/4);
+    border-radius: 26px;
+    border: 1px solid #D9D9D9; }
+    .experience .experience-cards-wrapper .experience-card .experience-card-img {
+      display: block;
+      margin-bottom: 16px; }
+
+.header .container {
+  padding-top: 22px;
+  padding-bottom: 24px; }
+
+.header-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+
+.header-logo-wrapper {
+  max-width: 160px; }
+  .header-logo-wrapper .logo-link {
+    width: 100%;
+    display: block; }
+    .header-logo-wrapper .logo-link img {
+      display: block;
+      width: 100%; }
+
+.header-right-col {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+  .header-right-col .cart-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 40px; }
+    .header-right-col .cart-wrapper img {
+      margin-right: 14px; }
+  .header-right-col .language-switcher {
+    margin-right: 40px; }
+    .header-right-col .language-switcher .default-language {
+      cursor: pointer;
+      display: flex;
+      align-items: center; }
+      .header-right-col .language-switcher .default-language > img {
+        max-width: 24px;
+        margin-right: 10px;
+        max-height: 24px; }
+      .header-right-col .language-switcher .default-language span {
+        height: 24px; }
+        .header-right-col .language-switcher .default-language span img {
+          display: block; }
+  .header-right-col .contact-phone {
+    display: flex;
+    align-items: center; }
+    .header-right-col .contact-phone img {
+      width: 20px;
+      height: 20px;
+      margin-right: 14px; }
+    .header-right-col .contact-phone .phone-number {
+      margin-bottom: 0; }
+
+.header .navbar {
+  padding-top: 16px;
+  padding-bottom: 0; }
+  .header .navbar .container {
+    padding-top: 0;
+    padding-bottom: 0; }
+  .header .navbar .navbar-nav {
+    justify-content: space-between;
+    width: 100%; }
+    .header .navbar .navbar-nav .nav-link {
+      padding: 0; }
+    .header .navbar .navbar-nav .dropdown-toggle::after {
+      vertical-align: top;
+      margin-left: 10px;
+      background-image: url(../images/language-arrow.png);
+      width: 24px;
+      height: 24px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      border: none;
+      transition: transform 0.3s ease; }
+    .header .navbar .navbar-nav .dropdown-toggle.show::after {
+      transform: rotate(180deg);
+      transition: transform 0.3s ease; }
+    .header .navbar .navbar-nav .nav-link:hover,
+    .header .navbar .navbar-nav .nav-link:focus {
+      color: inherit; }
 
 h4 {
   font-family: Jamrul;
@@ -25,10 +262,6 @@ h4 {
 
 .btn {
   border-radius: 2.35rem; }
-
-.navbar {
-  background-color: white;
-  color: #0F0F10; }
 
 a {
   color: #0F0F10; }

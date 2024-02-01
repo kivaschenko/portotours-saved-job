@@ -206,3 +206,8 @@ SASS_PROCESSOR_INCLUDE_DIRS = [
 # Set up Sass Processor settings
 SASS_PROCESSOR_ENABLED = True
 SASS_PROCESSOR_ROOT = BASE_DIR / 'static'
+
+
+
+GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', '/opt/homebrew/Cellar/gdal/3.8.3_1/lib/libgdal.dylib')
+GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', '/opt/homebrew/Cellar/geos/3.12.1/lib/libgeos_c.dylib')
