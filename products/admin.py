@@ -1,6 +1,10 @@
 from django.contrib import admin
+from django.forms import ModelForm
 from django.contrib.gis.admin import GISModelAdmin
 from django.contrib.gis.forms.widgets import OSMWidget
+from django.core.exceptions import ValidationError
+
+from ckeditor.widgets import CKEditorWidget
 
 from products.models import *  # noqa
 
@@ -91,8 +95,21 @@ class ParentDestinationAdmin(admin.ModelAdmin):
     list_filter = ['parent_name']
 
 
+class DestinationAdminForm(ModelForm):
+    class Meta:
+        model = Destination
+        fields = '__all__'
+        widgets = {
+            'introduction_text': CKEditorWidget(),
+            'when_to_visit_text': CKEditorWidget(),
+            'getting_around_text': CKEditorWidget(),
+            'travel_tips_text': CKEditorWidget(),
+        }
+
+
 @admin.register(Destination)
 class DestinationAdmin(admin.ModelAdmin):
+    form = DestinationAdminForm
     exclude = ['updated_at']
     list_display = ['name', 'slug', 'language', 'is_active', 'updated_at']
     list_filter = ['name', 'language', 'slug', 'page_title', 'is_active']

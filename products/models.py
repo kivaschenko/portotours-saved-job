@@ -9,6 +9,7 @@ from django.utils.safestring import mark_safe
 from django.conf import settings
 
 from geopy.geocoders import Nominatim
+from ckeditor.fields import RichTextField
 
 geolocator = Nominatim(timeout=5, user_agent="portotours")
 
@@ -159,15 +160,15 @@ class Destination(models.Model):
     main_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     introduction_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     introduction_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
-    introduction_text = models.TextField(max_length=3000, help_text="max 6000 characters", null=True, blank=True)
+    introduction_text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
     short_introduction_text = models.CharField(max_length=255, null=True, blank=True,
                                                help_text="short text for recommendation cards, max 255 characters")
     when_to_visit_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
-    when_to_visit_text = models.TextField(max_length=1000, help_text="max 6000 characters", null=True, blank=True)
+    when_to_visit_text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
     getting_around_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
-    getting_around_text = models.TextField(max_length=1000, help_text="max 6000 characters", null=True, blank=True)
+    getting_around_text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
     travel_tips_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
-    travel_tips_text = models.TextField(max_length=2000, help_text="max 6000 characters", null=True, blank=True)
+    travel_tips_text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
 
     objects = models.Manager()
     active = DestinationActiveManager()
