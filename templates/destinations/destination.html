@@ -7,10 +7,13 @@
 {% block content %}
     <div class="container">
         <!-- Header image and title -->
-        <div>
-            <h1>{{ object.main_title|safe }}</h1>
-            <p><b>{{ object.main_subtitle }}</b></p>
-            <img src="{{ object.parent_destination.banner.url }}" alt="Banner for {{ object.parent_destination.parent_name }}">
+        <div class="card">
+            <img src="{{ object.parent_destination.banner.url }}"
+                 alt="Banner for {{ object.parent_destination.parent_name }}">
+            <div class="card-img-overlay">
+                <h1 class="card-title">{{ object.main_title|safe }}</h1>
+                <p>{{ object.main_subtitle }}</p>
+            </div>
         </div>
         <!-- Introduction -->
         <div>
@@ -30,10 +33,10 @@
             <div>{{ object.travel_tips_text|safe }}</div>
         </div>
     </div>
-        <script>
+    <script>
         // Define all window.location.pathname according language value
         const languages = {{ languages|safe }};  // from response extra_context
-        
+
         // Function to be executed when the language select changes
         function changeLanguage() {
             // Get the selected language code
@@ -43,9 +46,10 @@
             if (languages[selectedLanguage]) {
                 let newPathname = languages[selectedLanguage];
                 window.location.pathname = newPathname;
-            };
+            }
+            ;
         };
-        
+
         // Function to be executed when the page has fully loaded
         function onPageLoad() {
             // Get the element with the id 'greeting'

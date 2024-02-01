@@ -18,25 +18,6 @@ $theme-colors: (
   "secondary": $secondary
 );
 
-h4 {
-    font-family: Jamrul;
-    font-weight: 600;
-    font-size: 1.75rem;
-    line-height: 2.35rem;
-}
-.card {
-    background-color: $primary;
-    margin-top: 5rem;
-    margin-bottom: 5rem;
-}
-
-.card .card-body {
-    padding: 3rem;
-    background-color: $secondary;
-    text-align: center;
-    color: #6a1a21;
-}
-
 .btn-primary {
     background-color: $primary;
     border-color: $primary;
