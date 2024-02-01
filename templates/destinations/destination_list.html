@@ -58,6 +58,7 @@
             // Change the window location to the new URL
             window.location.href = newUrl;
         };
+        
         // Function to be executed when the page has fully loaded
         function onPageLoad() {
             // Get the element with the id 'greeting'
@@ -69,5 +70,8 @@
 
         // Register the onPageLoad function to be executed on window.onload
         window.onload = onPageLoad;
+        
+        // Attach the changeLanguage function to the change event of the select element
+        document.getElementById("languageSelect").addEventListener("change", changeLanguage);
     </script>
 {% endblock %}
