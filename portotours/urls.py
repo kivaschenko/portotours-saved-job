@@ -25,8 +25,11 @@ urlpatterns = [
 
 # DESTINATIONS
 urlpatterns += [
-    path('products/portugal/destinations/some-test-slug-for-current-destionation-detail-view/',
-         products_views.DestinationDetailView.as_view(), name="destination-detail"),
+    # path('products/portugal/destinations/some-test-slug-for-current-destionation-detail-view/',
+    #      products_views.DestinationDetailView.as_view(), name="destination-detail"),  # <- remove this before merge to master!
+    path('products/portugal/destinations/', products_views.DestinationListView.as_view(), name="destination-list"),
+    path('destinations/<str:lang>/', products_views.DestinationLanguageListView.as_view(), name='destination-list-by-language'),
+    path('destinations/<str:lang>/<slug:slug>/', products_views.DestinationDetailView.as_view(), name="destination-detail"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

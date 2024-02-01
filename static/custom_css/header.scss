@@ -1,0 +1,103 @@
+.header {
+    .container {
+        padding-top: 22px;
+        padding-bottom: 24px;
+    }
+    &-top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &-logo-wrapper {
+        max-width: 160px;
+        .logo-link {
+            width: 100%;
+            display: block;
+            img {
+                display: block;
+                width: 100%;
+            }
+        }
+    }
+    &-right-col {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .cart-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-right: 40px;
+            img {
+                margin-right: 14px;
+            }
+        }
+        .language-switcher {
+            margin-right: 40px;
+            .default-language {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                > img {
+                    max-width: 24px;
+                    margin-right: 10px;
+                    max-height: 24px;
+                }
+                span {
+                    height: 24px;
+                    img {
+                        display: block;
+                    }
+                }
+            }
+        }
+        .contact-phone {
+            display: flex;
+            align-items: center;
+            img {
+                width: 20px;
+                height: 20px;
+                margin-right: 14px;
+            }
+            .phone-number {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .navbar {
+        padding-top: 16px;
+        padding-bottom: 0;
+        .container {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .navbar-nav {
+            justify-content: space-between;
+            width: 100%;
+            .nav-link {
+                padding: 0;
+            }
+            .dropdown-toggle::after {
+                vertical-align: top;
+                margin-left: 10px;
+                background-image: url(../images/language-arrow.png);
+                width: 24px;
+                height: 24px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                border: none;
+                transition: transform 0.3s ease;
+            }
+            .dropdown-toggle.show::after {
+                transform: rotate(180deg);
+                transition: transform 0.3s ease;
+            }
+            .nav-link:hover,
+            .nav-link:focus {
+                color: inherit;
+            }
+        }
+    }
+}

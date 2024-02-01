@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <!-- TODO add translate block for header -->
+        <h1>Destinations List</h1>
+        {% if object_list %}
+            {% for object in object_list %}
+                <div class="card">
+                    <div class="card-title">
+                        <h2><a href="{% url 'destination-detail'  lang=object.language.code.lower slug=object.slug %}">{{ object.name }}</a></h2>
+                    </div>
+                    <div class="card-body">
+                        {{ object.short_introduction_text }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Pagination block -->
+        {% for contact in page_obj %}
+            {# Each "contact" is a Contact model object. #}
+            {{ contact.full_name|upper }}<br>
+            ...
+        {% endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <script>
+        function changeLanguage() {
+            // Get the selected language code from the dropdown
+            let selectedLanguage = document.getElementById("languageSelect").value;
+            let replace_value = '/' + selectedLanguage + '/';
+            console.log('selected_language:', selectedLanguage);
+            // Update the URL with the selected language
+            let currentUrl = window.location.href;
+            // Replace language code
+            let newUrl = currentUrl.replace(/\/[a-z]{2}\//, replace_value);
+
+            console.log("Original URL:", currentUrl);
+            console.log("Modified URL:", newUrl);
+
+            // Change the window location to the new URL
+            window.location.href = newUrl;
+        };
+        
+        // Function to be executed when the page has fully loaded
+        function onPageLoad() {
+            // Get the element with the id 'greeting'
+            let languageElement = document.getElementById('languageSelect');
+
+            // Modify the content of the element
+            languageElement.value = `{{ current_language }}`;
+        }
+
+        // Register the onPageLoad function to be executed on window.onload
+        window.onload = onPageLoad;
+        
+        // Attach the changeLanguage function to the change event of the select element
+        document.getElementById("languageSelect").addEventListener("change", changeLanguage);
+    </script>
+{% endblock %}

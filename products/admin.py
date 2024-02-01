@@ -76,6 +76,23 @@ class MeetingPointAdmin(GISModelAdmin):
 
 @admin.register(Language)
 class LanguageAdmin(admin.ModelAdmin):
-    fields = ['name', 'abbreviation', 'is_active']
-    list_display = ['name', 'abbreviation', 'is_active']
-    list_filter = ['name', 'abbreviation', 'is_active']
+    fields = ['name', 'code', 'is_active']
+    list_display = ['name', 'code', 'is_active']
+    list_filter = ['name', 'code', 'is_active']
+
+
+# -----------
+# Destination
+
+@admin.register(ParentDestination)
+class ParentDestinationAdmin(admin.ModelAdmin):
+    exclude = ['updated_at']
+    list_display = ['parent_name']
+    list_filter = ['parent_name']
+
+
+@admin.register(Destination)
+class DestinationAdmin(admin.ModelAdmin):
+    exclude = ['updated_at']
+    list_display = ['name', 'slug', 'language', 'is_active', 'updated_at']
+    list_filter = ['name', 'language', 'slug', 'page_title', 'is_active']
