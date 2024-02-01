@@ -207,7 +207,17 @@ SASS_PROCESSOR_INCLUDE_DIRS = [
 SASS_PROCESSOR_ENABLED = True
 SASS_PROCESSOR_ROOT = BASE_DIR / 'static'
 
+# For debug mode if platform is macOS
+if DEBUG is True:
+    import platform
 
+    # Get the system's platform
+    current_platform = platform.system()
 
-GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', '/opt/homebrew/Cellar/gdal/3.8.3_1/lib/libgdal.dylib')
-GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', '/opt/homebrew/Cellar/geos/3.12.1/lib/libgeos_c.dylib')
+    # Check if the platform is macOS
+    if current_platform == 'Darwin':
+        print("The current operating system is macOS.")
+        GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', '/opt/homebrew/Cellar/gdal/3.8.3_1/lib/libgdal.dylib')
+        GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', '/opt/homebrew/Cellar/geos/3.12.1/lib/libgeos_c.dylib')
+    else:
+        print("The current operating system is not macOS.")
