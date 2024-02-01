@@ -5,12 +5,22 @@
         <h1>Destinations List</h1>
         {% if object_list %}
             {% for object in object_list %}
-                <div class="card">
-                    <div class="card-title">
-                        <h2><a href="{% url 'destination-detail'  lang=object.language.code.lower slug=object.slug %}">{{ object.name }}</a></h2>
-                    </div>
-                    <div class="card-body">
-                        {{ object.short_introduction_text }}
+                <div class="card mb-3" style="max-width: 90%;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ object.parent_destination.card_image.url }}" class="img-fluid rounded-start" alt="Card image for {{ object.name }}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ object.name }}</h5>
+                                <p class="card-text">{{ object.short_introduction_text }}</p>
+                                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small>
+                                </p>
+                                <p><a href="{% url 'destination-detail'  lang=object.language.code.lower slug=object.slug %}">
+                                    SEE MORE ...
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
@@ -58,7 +68,7 @@
             // Change the window location to the new URL
             window.location.href = newUrl;
         };
-        
+
         // Function to be executed when the page has fully loaded
         function onPageLoad() {
             // Get the element with the id 'greeting'
@@ -70,7 +80,7 @@
 
         // Register the onPageLoad function to be executed on window.onload
         window.onload = onPageLoad;
-        
+
         // Attach the changeLanguage function to the change event of the select element
         document.getElementById("languageSelect").addEventListener("change", changeLanguage);
     </script>
