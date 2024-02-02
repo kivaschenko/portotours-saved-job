@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     # 3rd parties
     'dotenv',
     'sass_processor',
+    'ckeditor',
+    'ckeditor_uploader',
+    'storages',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -207,7 +210,46 @@ SASS_PROCESSOR_INCLUDE_DIRS = [
 SASS_PROCESSOR_ENABLED = True
 SASS_PROCESSOR_ROOT = BASE_DIR / 'static'
 
+# For debug mode if platform is macOS
+if DEBUG is True:
+    import platform
+
+    # Get the system's platform
+    current_platform = platform.system()
+
+    # Check if the platform is macOS
+    if current_platform == 'Darwin':
+        print("The current operating system is macOS.")
+        GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', '/opt/homebrew/Cellar/gdal/3.8.3_1/lib/libgdal.dylib')
+        GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', '/opt/homebrew/Cellar/geos/3.12.1/lib/libgeos_c.dylib')
+    else:
+        print("The current operating system is not macOS.")
 
 
-GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', '/opt/homebrew/Cellar/gdal/3.8.3_1/lib/libgdal.dylib')
-GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', '/opt/homebrew/Cellar/geos/3.12.1/lib/libgeos_c.dylib')
+# CKEDITOR
+CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        'height': 300,
+        'width': 800,
+    },
+}
+
+# DigitalOcean Spaces
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
+AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
+# AWS_S3_CUSTOM_DOMAIN = 'https://portotoursmedia.fra1.digitaloceanspaces.com'
