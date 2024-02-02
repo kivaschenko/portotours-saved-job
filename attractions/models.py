@@ -110,6 +110,9 @@ class Attraction(models.Model):
     def display_introduction_text_below_slider(self):
         return mark_safe(self.introduction_text_below_slider)
 
+    def display_time_of_work(self):
+        return mark_safe(self.time_of_work)
+
     def display_address(self):
         return mark_safe(self.address)
 
@@ -159,3 +162,6 @@ class FAQAttraction(models.Model):
     def __repr__(self):
         return (f'<FAQAttraction(id={self.id} parent_attraction={self.parent_attraction} '
                 f'language={self.language} question={self.question}...)>')
+
+    def display_answer(self):
+        return mark_safe(self.answer)

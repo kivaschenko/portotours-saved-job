@@ -46,6 +46,7 @@ class FAQAttractionForm(ModelForm):
         }
         exclude = ['updated_at']
 
+
 @admin.register(FAQAttraction)
 class FAQAttractionAdmin(ModelAdmin):
     form = FAQAttractionForm
