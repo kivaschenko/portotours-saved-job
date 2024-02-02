@@ -14,11 +14,34 @@
                 Cart
             </div>
             <div class="language-switcher">
-                <div class="default-language">
-                    <img src="{% static 'images/gb-flag.png' %}" alt="">
+                <div class="default-language" id="defaultLanguage">
+                    <img class="language-icon-en language-icon" src="{% static 'images/en_flag.png' %}" alt="gb">
+                    <img class="language-icon-pt language-icon" src="{% static 'images/pt_flag.png' %}" alt="pt">
+                    <img class="language-icon-es language-icon" src="{% static 'images/es_flag.png' %}" alt="es">
+                    <img class="language-icon-fr language-icon" src="{% static 'images/fr_flag.png' %}" alt="rf">
                     <span class="arrow-icon">
                         <img src="{% static 'images/language-arrow.png' %}" alt="">
                     </span>
+                </div>
+                <div class="custom-select-wrapper">
+                    <ul id="languageOptions">
+                        <li data-language="en">
+                            <img src="{% static 'images/en_flag.png' %}" alt="">
+                            English
+                        </li>
+                        <li data-language="pt">
+                            <img src="{% static 'images/pt_flag.png' %}" alt="">
+                            Português
+                        </li>
+                        <li data-language="es">
+                            <img src="{% static 'images/es_flag.png' %}" alt="">
+                            Español
+                        </li>
+                        <li data-language="fr">
+                            <img src="{% static 'images/fr_flag.png' %}" alt="">
+                            Français
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="contact-phone">
@@ -89,16 +112,7 @@
                         </ul>
                     </li>
                 </ul>
-                        <label for="languageSelect">Select Language:</label>
-                        <select id="languageSelect" onchange="changeLanguage()">
-                            <option value="en">English</option>
-                            <option value="fr">Français</option>
-                            <option value="es">Español</option>
-                            <option value="it">Italiano</option>
-                            <option value="pt">Português</option>
-
-                            <!-- Add more language options as needed -->
-                        </select>
+                        
                 <!-- <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
@@ -133,34 +147,123 @@
             </div>
         </div>
     </nav>
-<script>
-        // Example of changeLanguage function that works within destination_list.html
-        // function changeLanguage() {
-        //     // Get the selected language code from the dropdown
-        //     let selectedLanguage = document.getElementById("languageSelect").value;
-        //     let replace_value = '/' + selectedLanguage + '/';
-        //     console.log('selected_language:', selectedLanguage);
-        //     // Update the URL with the selected language
-        //     let currentUrl = window.location.href;
-        //     // Replace language code
-        //     let newUrl = currentUrl.replace(/\/[a-z]{2}\//, replace_value);
+    <!-- <script>
+        let languageBtn = document.querySelector('.default-language');
+        languageBtn.addEventListener('click', () => {
+            languageBtn.classList.toggle('opened')
+        });
+        
+        
 
-        //     console.log("Original URL:", currentUrl);
-        //     console.log("Modified URL:", newUrl);
+        function changeLanguage() {
+            // Get the selected language code from the dropdown
+            let selectedLanguage = document.getElementById("languageSelect").value;
+            let replace_value = '/' + selectedLanguage + '/';
+            console.log('selected_language:', selectedLanguage);
+            // Update the URL with the selected language
+            let currentUrl = window.location.href;
+            // Replace language code
+            let newUrl = currentUrl.replace(/\/[a-z]{2}\//, replace_value);
 
-        //     // Change the window location to the new URL
-        //     window.location.href = newUrl;
-        // };
-        // // Function to be executed when the page has fully loaded
-        // function onPageLoad() {
-        //     // Get the element with the id 'greeting'
-        //     let languageElement = document.getElementById('languageSelect');
+            console.log("Original URL:", currentUrl);
+            console.log("Modified URL:", newUrl);
 
-        //     // Modify the content of the element
-        //     languageElement.value = `{{ current_language }}`;
-        // }
+            // Change the window location to the new URL
+            window.location.href = newUrl;
+        };
+        // Function to be executed when the page has fully loaded
+        function onPageLoad() {
+            // Get the element with the id 'greeting'
+            let languageElement = document.getElementById('languageSelect');
 
-        // // Register the onPageLoad function to be executed on window.onload
-        // window.onload = onPageLoad;
-</script>
+            // Modify the content of the element
+            languageElement.value = `{{ current_language }}`;
+        }
+
+        // Register the onPageLoad function to be executed on window.onload
+        window.onload = onPageLoad;
+    </script> -->
+
+    <script>
+
+        let languageBtn = document.querySelector('.default-language');
+            languageBtn.addEventListener('click', () => {
+            languageBtn.classList.toggle('opened')
+        });
+        
+        function changeLanguage(selectedLanguage) {
+            // Replace language code
+            let currentUrl = window.location.href;
+            let replaceValue = '/' + selectedLanguage + '/';
+            let newUrl = currentUrl.replace(/\/[a-z]{2}\//, replaceValue);
+
+           
+
+            console.log("Original URL:", currentUrl);
+            console.log("Modified URL:", newUrl);
+
+            // Change the window location to the new URL
+            window.location.href = newUrl;
+
+
+            let defaultLanguageElement = document.getElementById('defaultLanguage');
+            // Remove the 'active' class from all language icons
+            defaultLanguageElement.querySelectorAll('.language-icon').forEach(function (icon) {
+                icon.classList.remove('active');
+            });
+
+            let selectedLanguageIcon = defaultLanguageElement.querySelector('.language-icon-' + selectedLanguage);
+            if (selectedLanguageIcon) {
+                selectedLanguageIcon.classList.add('active');
+                console.log('work')
+            }
+        }
+
+        function onPageLoad() {
+            // Get the default language element
+            let defaultLanguageElement = document.getElementById('defaultLanguage');
+            
+            // Get the language options list
+            let languageOptionsList = document.getElementById('languageOptions');
+
+            // Attach click event to each language option
+            languageOptionsList.querySelectorAll('li').forEach(function (option) {
+                option.addEventListener('click', function () {
+                    // Get the selected language code from the data attribute
+                    let selectedLanguage = option.getAttribute('data-language');
+                    
+                    // Call the changeLanguage function with the selected language
+                    changeLanguage(selectedLanguage);
+                });
+            });
+
+
+            let currentUrl = window.location.href;
+            // Modify the content of the default language element
+           
+            let languageMatch = currentUrl.match(/\/([a-z]{2})\//);
+
+            if (languageMatch) {
+                let selectedLanguage = languageMatch[1];
+                
+                // Убираем класс 'active' у всех картинок
+                document.querySelectorAll('.language-icon').forEach(function (icon) {
+                    icon.classList.remove('active');
+                });
+
+                // Находим картинку с соответствующим классом и добавляем ей класс 'active'
+                let selectedIcon = document.querySelector('.language-icon-' + selectedLanguage);
+                if (selectedIcon) {
+                    selectedIcon.classList.add('active');
+                }
+            }
+
+
+        }
+
+        
+
+        // Register the onPageLoad function to be executed on window.onload
+        window.onload = onPageLoad;
+    </script>
 </div>

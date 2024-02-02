@@ -48,7 +48,7 @@
 
     --text-color-main: #0F0F10;
     --text-color-second: #fff;
-    --text-color-third: #000;
+    --text-color-third: #F0500B;
 
 }
 
@@ -68,7 +68,12 @@ h1 {
 h2 {
     font-size: 44px;
     line-height: 56px;
-    font-family: 'SemiBold';
+    font-family: 'LatoSemiBold';
+}
+h5 {
+    font-size: 26px;
+    line-height: 36px;
+    font-family: 'LatoMedium';
 }
 .container {
     max-width: 1312px;
@@ -85,4 +90,32 @@ h2 {
     font-family: 'LatoRegular';
     font-size: 16px;
     line-height: 26px;
+}
+.body-text-b3-sb {
+    font-family: 'LatoSemiBold';
+    font-size: 16px;
+    line-height: 26px;
+}
+.body-text-b4 {
+    font-family: 'LatoRegular';
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.btn-type-2 {
+    border-radius: 40px;
+    border: 1.5px solid var(--text-color-third);
+    background: var(--text-color-second);
+    color: var(--text-color-third);
+    padding: 19px 62px;
+    width: fit-content;
+    font-family: 'LatoSemiBold';
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+}
+.btn-type-2:hover {
+    background: #FFF6F2;
+    color: #DA4303;
 }

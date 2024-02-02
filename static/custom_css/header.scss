@@ -34,22 +34,65 @@
         }
         .language-switcher {
             margin-right: 40px;
+            position: relative;
+            z-index: 20;
             .default-language {
                 cursor: pointer;
                 display: flex;
                 align-items: center;
-                > img {
+                &.opened {
+                    + .custom-select-wrapper {
+                        display: block;
+                    }
+                    span {
+                        transform: rotate(180deg);
+                        transition: transform 0.3s ease;
+                    }
+                }
+                .language-icon {
                     max-width: 24px;
                     margin-right: 10px;
                     max-height: 24px;
+                    display: none;
+                    &.active {
+                        display: block;
+                    }
                 }
                 span {
                     height: 24px;
+                    transition: transform 0.3s ease;
                     img {
                         display: block;
                     }
                 }
             }
+            .custom-select-wrapper {
+                display: none;
+                position: absolute;
+                top: 30px;
+                left: -5px;
+                background-color: white;
+                border: 1px solid var(--text-color-main);
+                border-radius: 10px;
+                padding: 0 5px;
+                ul {
+                    padding-left: 0;
+                    list-style: none;
+                    margin: 0;
+                    li {
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                        > img {
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+            
         }
         .contact-phone {
             display: flex;
