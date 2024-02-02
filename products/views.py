@@ -35,6 +35,12 @@ class DestinationDetailView(DetailView):
                 lang = brother.language.code.lower()
                 url = brother.localized_url
                 self.extra_context['languages'].update({lang: url})
+        # find FAQ Destination for current language
+        current_faqs = obj.parent_destination.faq_destinations.filter(language=obj.language).all()
+        if current_faqs:
+            self.extra_context.update({'current_faqs': current_faqs})
+        else:
+            self.extra_context['current_faqs'] = []
         return obj
 
 

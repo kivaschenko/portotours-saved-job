@@ -5,64 +5,77 @@
     <meta name="keywords" content="{{ object.page_keywords }}">
 {% endblock head %}
 {% block content %}
-    <div class="container">
-        <!-- Header image and title -->
-        <div class="card">
-            <img src="{{ object.parent_destination.banner.url }}"
-                 alt="Banner for {{ object.parent_destination.parent_name }}">
-            <div class="card-img-overlay">
-                <h1 class="card-title">{{ object.main_title|safe }}</h1>
-                <p>{{ object.main_subtitle }}</p>
-            </div>
-        </div>
-        <!-- Introduction -->
-        <div>
-            <h2>{{ object.introduction_title }}</h2>
-            <p><b>{{ object.introduction_subtitle }}</b></p>
-            <p>{{ object.introduction_text|safe }}</p>
-        </div>
-
-        <!-- About block -->
-        <div>
-            <h2>All About {{ object.name }}</h2>
-            <h5>{{ object.when_to_visit_title }}</h5>
-            <div>{{ object.when_to_visit_text|safe }}</div>
-            <h5>{{ object.getting_around_title }}</h5>
-            <div>{{ object.getting_around_text|safe }}</div>
-            <h5>{{ object.travel_tips_title }}</h5>
-            <div>{{ object.travel_tips_text|safe }}</div>
+<div class="container">
+    <!-- Header image and title -->
+    <div class="card">
+        <img src="{{ object.parent_destination.banner.url }}"
+             alt="Banner for {{ object.parent_destination.parent_name }}">
+        <div class="card-img-overlay">
+            <h1 class="card-title">{{ object.main_title|safe }}</h1>
+            <p>{{ object.main_subtitle }}</p>
         </div>
     </div>
-    <script>
-        // Define all window.location.pathname according language value
-        const languages = {{ languages|safe }};  // from response extra_context
+    <!-- Introduction -->
+    <div>
+        <h2>{{ object.introduction_title }}</h2>
+        <p><b>{{ object.introduction_subtitle }}</b></p>
+        <p>{{ object.introduction_text|safe }}</p>
+    </div>
 
-        // Function to be executed when the language select changes
-        function changeLanguage() {
-            // Get the selected language code
-            let selectedLanguage = document.getElementById("languageSelect").value;
+    <!-- About block -->
+    <div>
+        <h2>All About {{ object.name }}</h2>
+        <h5>{{ object.when_to_visit_title }}</h5>
+        <div>{{ object.when_to_visit_text|safe }}</div>
+        <h5>{{ object.getting_around_title }}</h5>
+        <div>{{ object.getting_around_text|safe }}</div>
+        <h5>{{ object.travel_tips_title }}</h5>
+        <div>{{ object.travel_tips_text|safe }}</div>
+    </div>
+    <!-- FAQ block -->
+    <div>
+        <h3>Title FAQ</h3>
+        <p>subtitle FAQ</p>
+        {% if current_faqs %}
+            {% for record in current_faqs %}
+                <h4>{{ record.question }}</h4>
+                <div>{{ record.answer|safe }}</div>
+            {% endfor %}
+        {% else %}
+        <p>No FAQ yet written...</p>
+        {% endif %}
+    </div>
+</div>
+<script>
+    // Define all window.location.pathname according language value
+    const languages = {{ languages|safe }};  // from response extra_context
 
-            // Update the URL with the selected language if pathname exists
-            if (languages[selectedLanguage]) {
-                let newPathname = languages[selectedLanguage];
-                window.location.pathname = newPathname;
-            }
-            ;
-        };
+    // Function to be executed when the language select changes
+    function changeLanguage() {
+        // Get the selected language code
+        let selectedLanguage = document.getElementById("languageSelect").value;
 
-        // Function to be executed when the page has fully loaded
-        function onPageLoad() {
-            // Get the element with the id 'greeting'
-            let languageElement = document.getElementById('languageSelect');
-
-            // Modify the content of the element
-            languageElement.value = `{{ current_language }}`;
+        // Update the URL with the selected language if pathname exists
+        if (languages[selectedLanguage]) {
+            let newPathname = languages[selectedLanguage];
+            window.location.pathname = newPathname;
         }
+        ;
+    };
 
-        // Register the onPageLoad function to be executed on window.onload
-        window.onload = onPageLoad;
+    // Function to be executed when the page has fully loaded
+    function onPageLoad() {
+        // Get the element with the id 'greeting'
+        let languageElement = document.getElementById('languageSelect');
 
-        // Attach the changeLanguage function to the change event of the select element
-        document.getElementById("languageSelect").addEventListener("change", changeLanguage);
-    </script>
+        // Modify the content of the element
+        languageElement.value = `{{ current_language }}`;
+    }
+
+    // Register the onPageLoad function to be executed on window.onload
+    window.onload = onPageLoad;
+
+    // Attach the changeLanguage function to the change event of the select element
+    document.getElementById("languageSelect").addEventListener("change", changeLanguage);
+</script>
 {% endblock %}

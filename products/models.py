@@ -203,6 +203,11 @@ class Destination(models.Model):
         super(Destination, self).save(*args, **kwargs)
 
 
+class FAQDestinationManager(models.Manager):
+    def get_queryset(self):
+        return super(FAQDestinationManager, self).get_queryset().filter(is_active=True)
+
+
 class FAQDestination(models.Model):
     parent_destination = models.ForeignKey(ParentDestination, on_delete=models.SET_NULL,
                                            related_name='faq_destinations', null=True, blank=True,
@@ -213,6 +218,8 @@ class FAQDestination(models.Model):
     answer = RichTextField(max_length=3000, help_text="max 3000 characters", null=True, blank=True)
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
+    # Get only active FAQ queryset by default
+    objects = FAQDestinationManager()
 
     class Meta:
         db_table = 'faq_destination'
