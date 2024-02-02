@@ -29,8 +29,7 @@ urlpatterns += [path('ckeditor/', include('ckeditor_uploader.urls')),]
 
 # DESTINATIONS
 urlpatterns += [
-    path('destinations/', products_views.DestinationListView.as_view(), name="destination-list"),
-    path('destinations/<str:lang>/', products_views.DestinationLanguageListView.as_view(), name='destination-list-by-language'),
+    path('destinations/<str:lang>/', products_views.DestinationListView.as_view(), name='destination-list'),
     path('destinations/<str:lang>/<slug:slug>/', products_views.DestinationDetailView.as_view(), name="destination-detail"),
 ]
 

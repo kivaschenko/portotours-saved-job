@@ -190,6 +190,15 @@ class Destination(models.Model):
     def localized_url(self):
         return f"/destinations/{self.language.code.lower()}/{self.slug}/"
 
+    def display_main_title(self):
+        return mark_safe(self.main_title)
+
+    def display_introduction_title(self):
+        return mark_safe(self.introduction_title)
+
+    def display_introduction_text(self):
+        return mark_safe(self.introduction_text)
+
     def display_when_to_visit_text(self):
         return mark_safe(self.when_to_visit_text)
 
@@ -236,3 +245,6 @@ class FAQDestination(models.Model):
     def __repr__(self):
         return (f'<FAQDestination(id={self.id} parent_destination={self.parent_destination} '
                 f'language={self.language} question={self.question}...)>')
+
+    def display_answer(self):
+        return mark_safe(self.answer)
