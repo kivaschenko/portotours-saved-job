@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
+{% block head %}
+    <title>{{ object.page_title }}</title>
+    <meta name="description" content="{{ object.page_description }}">
+    <meta name="keywords" content="{{ object.page_keywords }}">
+{% endblock head %}
 {% block content %}
 <section class="destination-hero">
     <div class="destination-container container">
         <h1 class="destination-hero-title text-color-second">
-            {{ object.main_title|safe }}
+            {{ object.display_main_title }}
             
             <img src="{% static 'images/main-logo.svg' %}" alt="">
         </h1>
@@ -16,13 +21,13 @@
 <section class="what-to-see">
     <div class="container">
         <h2 class="what-to-see-title">
-            {{ object.introduction_title|safe }}
+            {{ object.display_introduction_title }}
         </h2>
         <p class="what-to-see-subtitle body-text-b2">
             {{ object.introduction_subtitle }}
         </p>
         <p class="what-to-see-text body-text-b3">
-            {{ object.introduction_text|safe }}
+            {{ object.display_introduction_text }}
         </p>
         
     </div>
@@ -109,7 +114,7 @@
                         {{ object.when_to_visit_title }}
                     </h5>
                     <p class="card-text body-text-b3">
-                        {{ object.when_to_visit_text|safe }}
+                        {{ object.display_when_to_visit_text }}
                     </p>
                 </div>
             </div>
@@ -122,7 +127,7 @@
                         {{ object.getting_around_title }}
                     </h5>
                     <p class="body-text-b3">
-                        {{ object.getting_around_text|safe }}
+                        {{ object.display_getting_around_text }}
                     </p>
                 </div>
             </div>
@@ -134,7 +139,7 @@
                     <h5 class="card-title">
                         {{ object.travel_tips_title }}
                     </h5>
-                    {{ object.travel_tips_text|safe }}
+                    {{ object.display_travel_tips_text }}
                     
                 </div>
             </div>
@@ -249,81 +254,12 @@
             {% for record in current_faqs %}
             <div class="faq-block">
                 <p class="faq-question">{{ record.question }}</p>
-                <div>{{ record.answer|safe }}</div>
+                <div>{{ record.display_answer }}</div>
             </div>
             {% endfor %}
         {% else %}
         <p>No FAQ yet written...</p>
         {% endif %}
-        <!-- <div class="faq-block">
-            <p class="faq-question">
-                What is a top list of must-have attractions in Lisbon?
-            </p>
-            <p class="faq-answer body-text-b3">
-                Lisbon is beautiful in its variety, where everybody can create their own list of the best spots. 
-                <br>
-                <br>
-                But as for the first visit, the main  places are as follows: 
-            </p>
-            
-            <ul class="faq-answer-list">
-                <li>Alfama District</li>
-                <li>São Jorge Castle</li>
-                <li>Commerce Square</li>
-                <li>Lisbon Cathedral</li>
-                <li>National Pantheon</li>
-                <li>Rossio Square</li>
-                <li>Chiado District</li>
-                <li>Lisbon Oceanarium</li>
-                <li>Ajuda National Palace</li>
-                <li>Lisbon Botanical Garden</li>
-                <li>Amoreiras 360º Panoramic View</li>
-                <li>Calouste Gulbenkian Museum</li>
-                <li>Miradouro da Senhora do Monte</li>
-                <li>National Coach Museum</li>
-            </ul>
-        </div>
-        <div class="faq-block">
-            <p class="faq-question">
-                What are the top-rated tours in Lisbon?
-            </p>
-            <p class="faq-answer">
-                The choice of OneDayTours in Lisbon is variable, and among the available options, there is the best match for everybody. As for the best by travelers choice, the list is below:
-            </p>
-            
-            <ol class="faq-answer-list">
-                <li>
-                   <a href="">Sintra and Cascais: OneDayTours from Lisbon</a>
-                </li>
-                <li><a href="">Lisbon: OneDayTours with Wine and Cuisine Tasting</a></li>
-                <li><a href="">OneDayTours to Fátima, Óbidos, Batalha, Nazaré from Lisbon</a></li>
-                <li><a href="">OneDayTours to Magical Sintra with Regaleira and Pena Palace from Lisbon</a></li>
-                <li><a href="">Porto, Nazare, and Obidos OneDayTours from Lisbon</a></li>
-                <li><a href="">OneDayTours from Lisbon to Arrabida with Wine and Food Tasting</a></li>
-                <li><a href="">Setubal from Lisbon: OneDayTours to Wine Region with Tasting</a></li>
-                <li><a href="">Sintra, Pena, and Moorish Castle OneDayTours from Lisbon</a></li>
-            </ol>
-        </div>
-        <div class="faq-block">
-            <p class="faq-question">
-                What are the best experiences in Lisbon?
-            </p>
-            <p class="faq-answer">
-                Lisbon is unique in its variety. You can never get bored here if you choose a variable program for your leisure, trusting experienced guides who carefully created OneDayTours, among which can be chosen: 
-            </p>
-            
-            <ul class="faq-answer-list">
-                <li>Walking Tours</li>
-                <li>Culinary Tours</li>
-                <li>Wine Tasting</li>
-                <li>Fado Shows</li>
-                <li>Surfing Lessons</li>
-                <li>Boat Tours(Cruises)</li>
-                <li>Photo Tours</li>
-                <li>Coastal(Beach Tours)</li>
-                <li>Jeep/Car/Tuk-tuk Tours</li>
-            </ul>
-        </div> -->
     </div>
 </section>
 

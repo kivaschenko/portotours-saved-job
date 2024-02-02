@@ -123,6 +123,7 @@ class ParentDestination(models.Model):
     parent_name = models.CharField(max_length=60, unique=True, db_index=True)
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    priority_number = models.IntegerField(null=True, blank=True, default=0)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -130,6 +131,7 @@ class ParentDestination(models.Model):
 
     class Meta:
         ordering = ('parent_name',)
+        verbose_name_plural = 'Parent Destinations'
 
 
 class DestinationActiveManager(models.Manager):
@@ -188,6 +190,15 @@ class Destination(models.Model):
     def localized_url(self):
         return f"/destinations/{self.language.code.lower()}/{self.slug}/"
 
+    def display_main_title(self):
+        return mark_safe(self.main_title)
+
+    def display_introduction_title(self):
+        return mark_safe(self.introduction_title)
+
+    def display_introduction_text(self):
+        return mark_safe(self.introduction_text)
+
     def display_when_to_visit_text(self):
         return mark_safe(self.when_to_visit_text)
 
@@ -212,7 +223,7 @@ class FAQDestination(models.Model):
     parent_destination = models.ForeignKey(ParentDestination, on_delete=models.SET_NULL,
                                            related_name='faq_destinations', null=True, blank=True,
                                            help_text="The Parent destination brings together all destinations "
-                                                     "with multilingual content but same location and common banner.")
+                                                     "with multilingual content but same location and common FAQ.")
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     question = models.CharField(max_length=255, help_text="max 255 characters")
     answer = RichTextField(max_length=3000, help_text="max 3000 characters", null=True, blank=True)
@@ -235,6 +246,5 @@ class FAQDestination(models.Model):
         return (f'<FAQDestination(id={self.id} parent_destination={self.parent_destination} '
                 f'language={self.language} question={self.question}...)>')
 
-
-class Attraction(models.Model):
-    pass
+    def display_answer(self):
+        return mark_safe(self.answer)
