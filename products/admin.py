@@ -127,5 +127,5 @@ class FAQDestinationAdminForm(ModelForm):
 class FAQDestinationAdmin(admin.ModelAdmin):
     form = FAQDestinationAdminForm
     exclude = ['updated_at']
-    list_display = ['parent_destination', 'language', 'question', 'is_active', 'updated_at']
-    list_filter = ['parent_destination', 'language', 'question', 'is_active']
+    list_display = ['parent_destination', 'language', 'question', 'priority_number', 'is_active', 'updated_at']
+    list_filter = ['parent_destination', 'language', 'question', 'priority_number', 'is_active']

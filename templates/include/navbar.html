@@ -14,11 +14,34 @@
                 Cart
             </div>
             <div class="language-switcher">
-                <div class="default-language">
-                    <img src="{% static 'images/gb-flag.png' %}" alt="">
+                <div class="default-language" id="defaultLanguage">
+                    <img class="language-icon-en language-icon" src="{% static 'images/en_flag.png' %}" alt="gb">
+                    <img class="language-icon-pt language-icon" src="{% static 'images/pt_flag.png' %}" alt="pt">
+                    <img class="language-icon-es language-icon" src="{% static 'images/es_flag.png' %}" alt="es">
+                    <img class="language-icon-fr language-icon" src="{% static 'images/fr_flag.png' %}" alt="rf">
                     <span class="arrow-icon">
                         <img src="{% static 'images/language-arrow.png' %}" alt="">
                     </span>
+                </div>
+                <div class="custom-select-wrapper">
+                    <ul id="languageOptions">
+                        <li data-language="en">
+                            <img src="{% static 'images/en_flag.png' %}" alt="">
+                            English
+                        </li>
+                        <li data-language="pt">
+                            <img src="{% static 'images/pt_flag.png' %}" alt="">
+                            Português
+                        </li>
+                        <li data-language="es">
+                            <img src="{% static 'images/es_flag.png' %}" alt="">
+                            Español
+                        </li>
+                        <li data-language="fr">
+                            <img src="{% static 'images/fr_flag.png' %}" alt="">
+                            Français
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="contact-phone">
@@ -89,16 +112,7 @@
                         </ul>
                     </li>
                 </ul>
-                        <label for="languageSelect">Select Language:</label>
-                        <select id="languageSelect">
-                            <option value="en">English</option>
-                            <option value="fr">Français</option>
-                            <option value="es">Español</option>
-                            <option value="it">Italiano</option>
-                            <option value="pt">Português</option>
-
-                            <!-- Add more language options as needed -->
-                        </select>
+                        
                 <!-- <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
@@ -133,34 +147,10 @@
             </div>
         </div>
     </nav>
-<script>
-        // Example of changeLanguage function that works within destination_list.html
-        // function changeLanguage() {
-        //     // Get the selected language code from the dropdown
-        //     let selectedLanguage = document.getElementById("languageSelect").value;
-        //     let replace_value = '/' + selectedLanguage + '/';
-        //     console.log('selected_language:', selectedLanguage);
-        //     // Update the URL with the selected language
-        //     let currentUrl = window.location.href;
-        //     // Replace language code
-        //     let newUrl = currentUrl.replace(/\/[a-z]{2}\//, replace_value);
-
-        //     console.log("Original URL:", currentUrl);
-        //     console.log("Modified URL:", newUrl);
-
-        //     // Change the window location to the new URL
-        //     window.location.href = newUrl;
-        // };
-        // // Function to be executed when the page has fully loaded
-        // function onPageLoad() {
-        //     // Get the element with the id 'greeting'
-        //     let languageElement = document.getElementById('languageSelect');
-
-        //     // Modify the content of the element
-        //     languageElement.value = `{{ current_language }}`;
-        // }
-
-        // // Register the onPageLoad function to be executed on window.onload
-        // window.onload = onPageLoad;
-</script>
+    <script>
+        let languageBtn = document.querySelector('.default-language');
+            languageBtn.addEventListener('click', () => {
+            languageBtn.classList.toggle('opened')
+        });
+    </script>
 </div>

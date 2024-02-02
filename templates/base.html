@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
     <!-- Favicons -->
     <link rel="icon" href="{% static 'images/Favicon_32x32.svg' %}">
+    <!-- Swiper Slider -->
+    <link rel="stylesheet" href="{% static 'custom_css/swiper-bundle.min.css' %}" />
+    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 </head>
 <body class="d-flex flex-column min-vh-100">
 <header class="header">
@@ -33,107 +36,65 @@
         {% endblock content %}
    
 </main>
-<footer class="mt-auto">
+<footer class="mt-auto footer">
     <div class="container">
-
         <div class="row">
-            <div class="col-2">
-                <h5>Section</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">Home</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">Features</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">Pricing</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">FAQs</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">About</a>
-                    </li>
+            <div class="footer-info">
+                <img src="{% static 'images/main-logo.svg' %}" alt="">
+                <div class="phone-wrapper">
+                    <img src="{% static 'images/phone-icon-white.svg' %}" alt="">
+                    (808) 555-0111
+                </div>
+                <div class="address-wrapper">
+                    <img src="{% static 'images/pin-icon-white.svg' %}" alt="">
+                    2464 Royal Ln. Mesa, New Jersey 45463
+                </div>
+                <div class="email-wrapper">
+                    <img src="{% static 'images/email-icon-white.svg' %}" alt="">
+                    examople@gmail.com
+                </div>
+            </div>
+            <div class="footer-block">
+                <p class="footer-block-title">
+                    About
+                </p>
+                <ul class="footer-block-list">
+                    <li><a href="" class="footer-link">About us</a></li>
+                    <li><a href="" class="footer-link">Best price guarantee</a></li>
+                    <li><a href="" class="footer-link">Terms and conditions</a></li>
+                    <li><a href="" class="footer-link">Privacy policy </a></li>
+                    <li><a href="" class="footer-link">Cookie policy</a></li>
+                    <li><a href="" class="footer-link">Jobs</a></li>
                 </ul>
             </div>
-
-            <div class="col-2">
-                <h5>Section</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">Home</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">Features</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">Pricing</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">FAQs</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">About</a>
-                    </li>
+            <div class="footer-block">
+                <p class="footer-block-title">
+                    Our service
+                </p>
+                <ul class="footer-block-list">
+                    <li><a href="" class="footer-link">Group tours</a></li>
+                    <li><a href="" class="footer-link">Private Tours</a></li>
+                    <li><a href="" class="footer-link">Airport pick up</a></li>
                 </ul>
             </div>
-
-            <div class="col-2">
-                <h5>Section</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">Home</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">Features</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">Pricing</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">FAQs</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#"
-                                                 class="nav-link p-0 text-muted">About</a>
-                    </li>
+            <div class="footer-block">
+                <p class="footer-block-title">
+                    Top things to do in Portugal
+                </p>
+                <ul class="footer-block-list">
+                    <li><a href="" class="footer-link">Name of tour</a></li>
+                    <li><a href="" class="footer-link">lang Name of tour</a></li>
+                    <li><a href="" class="footer-link">Name of tour</a></li>
+                    <li><a href="" class="footer-link">long-long Name of tour </a></li>
+                    <li><a href="" class="footer-link">Name of tour</a></li>
+                    <li><a href="" class="footer-link">long Name of tour</a></li>
                 </ul>
-            </div>
-
-            <div class="col-4 offset-1">
-                <form>
-                    <h5>Subscribe to our newsletter</h5>
-                    <p>Monthly digest of whats new and exciting from us.</p>
-                    <div class="d-flex w-100 gap-2">
-                        <label for="newsletter1" class="visually-hidden">Email
-                            address</label>
-                        <input id="newsletter1" type="text" class="form-control"
-                               placeholder="Email address">
-                        <button class="btn btn-primary" type="button">Subscribe</button>
-                    </div>
-                </form>
             </div>
         </div>
 
-        <div class="d-flex justify-content-between py-4 my-4 border-top">
+        <div class="footer-bottom-block">
             <p>&copy; 2021 Company, Inc. All rights reserved.</p>
-            <ul class="list-unstyled d-flex">
-                <li class="ms-3"><a class="link-dark" href="#">
-                    <svg class="bi" width="24" height="24">
-                        <use xlink:href="#twitter"/>
-                    </svg>
-                </a></li>
-                <li class="ms-3"><a class="link-dark" href="#">
-                    <svg class="bi" width="24" height="24">
-                        <use xlink:href="#instagram"/>
-                    </svg>
-                </a></li>
-                <li class="ms-3"><a class="link-dark" href="#">
-                    <svg class="bi" width="24" height="24">
-                        <use xlink:href="#facebook"/>
-                    </svg>
-                </a></li>
-            </ul>
+            
         </div>
     </div>
 </footer>

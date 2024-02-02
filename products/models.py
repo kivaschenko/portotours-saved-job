@@ -216,6 +216,7 @@ class FAQDestination(models.Model):
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     question = models.CharField(max_length=255, help_text="max 255 characters")
     answer = RichTextField(max_length=3000, help_text="max 3000 characters", null=True, blank=True)
+    priority_number = models.IntegerField(null=True, blank=True, default=0)
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
     # Get only active FAQ queryset by default
@@ -225,7 +226,7 @@ class FAQDestination(models.Model):
         db_table = 'faq_destination'
         verbose_name = 'Frequently Asked Questions for Destination'
         verbose_name_plural = 'Frequently Asked Questions for Destination'
-        ordering = ('parent_destination', 'question')
+        ordering = ('priority_number',)
 
     def __str__(self):
         return self.question
@@ -234,3 +235,6 @@ class FAQDestination(models.Model):
         return (f'<FAQDestination(id={self.id} parent_destination={self.parent_destination} '
                 f'language={self.language} question={self.question}...)>')
 
+
+class Attraction(models.Model):
+    pass

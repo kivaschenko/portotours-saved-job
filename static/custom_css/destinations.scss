@@ -77,18 +77,293 @@
         display: flex;
         align-items: stretch;
         justify-content: space-between;
+        
         .experience-card {
             width: calc((100% - 69px)/4);
             border-radius: 26px;
             border: 1px solid #D9D9D9;
+            position: relative;
             .experience-card-img {
                 display: block;
                 margin-bottom: 16px;
             }
             .experience-card-title {
+                text-align: left;
+                padding: 0 16px 8px;
+                font-family: 'LatoSemiBold';
+                margin: 0;
+            }
+            .experience-card-text {
+                text-align: left;
+                padding: 0 16px;
+                margin-bottom: 56px;
+            }
+            .experience-card-link {
+                position: absolute;
+                bottom: 16px;
+                left: 16px;
+                display: flex;
+                align-items: center;
+                color: var(--text-color-third);
+                text-transform: uppercase;
+                font-family: 'LatoSemiBold';
+                font-size: 18px;
+                line-height: normal;
+                text-decoration: none;
+                img {
+                    margin-left: 10px;
+                    
+                }
+            }
+        }
+       
+    }
+    .experience-link-more {
+        font-family: 'LatoSemiBold';
+        padding: 19px 62px;
+        text-transform: uppercase;
+        text-align: center;
+        width: fit-content;
+        margin: 40px auto 0;
+        display: block;
+        text-decoration: none;
+    }
+}
+    
+.all-about {
+    .container {
+        max-width: 1090px;
+        padding-top: 70px;
+        padding-bottom: 70px;
+        text-align: center;
+    }
+    .all-about-title {
+        margin: 0;
+        padding-bottom: 60px;
+    }
+    .all-about-cards-wrapper {
+        .all-about-card {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            + .all-about-card {
+                margin-top: 40px;
+            }
+            .card-img-wrapper {
+                width: 120px;
+                    img {
+                        width: 100%;
+                    }
+            }
+            .card-text-content-wrapper {
+                width: calc(100% - 120px - 40px);
+                text-align: left;
+                .card-title {
+                    margin-bottom: 20px;
+                }
+                .card-text {
+                    margin-bottom: 0;
+                }
+                .body-text-b3-sb {
+                    margin-bottom: 10px;
+                    &:not(:first-child) {
+                        margin-top: 16px;
+                    }
+                }
+            }
+        }
+    }
 
+}
+
+.top-attractions {
+    .container {
+        padding-top: 70px;
+        padding-bottom: 140px;
+        text-align: center;
+        .top-attractions-title {
+            margin-bottom: 20px;
+        }
+        .top-attractions-subtitle {
+            margin-bottom: 40px;
+        }
+        .swiper-attractions {
+            overflow: hidden;
+            position: relative;
+            padding-right: 20px;
+            padding-left: 20px;
+            width: calc(100% + 40px);
+            margin-left: -20px;
+            .swiper-slide {
+                .attraction-image {
+                    margin-bottom: 20px;
+                }
+                h5 {
+                    text-transform: capitalize;
+                    margin: 0;
+                    color: var(--text-color-first);
+                }
+            }
+            .swiper-button-next, .swiper-rtl .swiper-button-prev {
+                right: 0;
+                width: 44px;
+                height: 44px;
+                transform: translateY(-50%);
+            }
+            .swiper-button-next:after, .swiper-rtl .swiper-button-prev:after {
+                content: "";
+                background-image: url(../images/slider-icon-arrow.svg);
+                width: 44px;
+                height: 44px;
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+            .swiper-button-prev, .swiper-rtl .swiper-button-next {
+                left: 0;
+                width: 44px;
+                height: 44px;
+                transform: translateY(-50%);
+            }
+            .swiper-button-prev:after, .swiper-rtl .swiper-button-next:after{
+                content: "";
+                background-image: url(../images/slider-icon-arrow.svg);
+                width: 44px;
+                height: 44px;
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
+                transform: scaleX(-1);
+            }
+        }
+        .top-attractions-link {
+            margin: 40px auto 0;
+        }
+    }
+}
+
+.also-interested {
+    background-color: #F3FAF5;
+    .container {
+        text-align: center;
+        padding-top: 80px;
+        padding-bottom: 80px;
+        .also-interested-title {
+            margin-bottom: 20px;
+        }
+        .also-interested-subtitle {
+            margin-bottom: 40px;
+        }
+        .also-interested-cards-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            .also-interested-card {
+                width: calc((100% - 48px)/3);
+                .also-interested-img {
+                    margin-bottom: 16px;
+                    display: block;
+                }
+                .also-interested-card-title {
+                    margin-top: 0;
+                    margin-bottom: 10px;
+                }
+                .also-interested-card-text {
+                    margin: 0;
+                }
+            }
+        }
+        .also-interested-more-info-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .also-interested-more-info-title {
+                text-transform: capitalize;
+                margin: 0;
+            }
+            .also-interested-info-link {
+                width: 340px;
             }
         }
     }
 }
-    
+
+.faq {
+    .container {
+        padding-top: 140px;
+        padding-bottom: 140px;
+        max-width: 1090px;
+    }
+    .faq-title {
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: capitalize;
+    }
+    .faq-subtitle {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .faq-block {
+        border-radius: 16px;
+        border: 1px solid var(--text-color-third);
+        background: var(--text-color-second);
+        padding: 24px;
+        + .faq-block {
+            margin-top: 16px;
+        }
+    }
+    .faq-question {
+        font-family: 'LatoBold';
+        font-size: 18px;
+        line-height: 28px;
+        margin-top: 0;
+        margin-bottom: 16px;
+    }
+    ul.faq-answer-list {
+        list-style: none;
+        padding-left: 24px;
+        margin: 0;
+        li {
+            position: relative;
+            margin-bottom: 0;
+            font-family: 'LatoRegular';
+            font-size: 16px;
+            line-height: 26px;
+            + li {
+                margin-top: 8px;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color: #F0500B;
+                border-radius: 50%;
+                left: -24px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+    ol.faq-answer-list {
+        margin: 0;
+        padding-left: 18px;
+        li {
+            position: relative;
+            margin-bottom: 0;
+            font-family: 'LatoRegular';
+            font-size: 16px;
+            line-height: 26px;
+            a {
+                &:hover {
+                    color: var(--text-color-third);
+                }
+            }
+            + li {
+                margin-top: 8px;
+            }
+            
+        }
+    }
+}
