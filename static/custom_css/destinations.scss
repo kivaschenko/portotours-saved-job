@@ -355,6 +355,11 @@
             font-family: 'LatoRegular';
             font-size: 16px;
             line-height: 26px;
+            a {
+                &:hover {
+                    color: var(--text-color-third);
+                }
+            }
             + li {
                 margin-top: 8px;
             }

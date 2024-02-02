@@ -402,6 +402,8 @@ h5 {
     font-family: 'LatoRegular';
     font-size: 16px;
     line-height: 26px; }
+    .faq ol.faq-answer-list li a:hover {
+      color: var(--text-color-third); }
     .faq ol.faq-answer-list li + li {
       margin-top: 8px; }
 
