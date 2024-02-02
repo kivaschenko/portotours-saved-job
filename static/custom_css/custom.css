@@ -586,23 +586,6 @@ h5 {
         line-height: normal;
         margin: 0; }
 
-h4 {
-  font-family: Jamrul;
-  font-weight: 600;
-  font-size: 1.75rem;
-  line-height: 2.35rem; }
-
-.card {
-  background-color: #F0500B;
-  margin-top: 5rem;
-  margin-bottom: 5rem; }
-
-.card .card-body {
-  padding: 3rem;
-  background-color: #ba77e3;
-  text-align: center;
-  color: #6a1a21; }
-
 .btn-primary {
   background-color: #F0500B;
   border-color: #F0500B; }
