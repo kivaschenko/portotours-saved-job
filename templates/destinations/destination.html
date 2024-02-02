@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block head %}
     <title>{{ object.page_title }}</title>
     <meta name="description" content="{{ object.page_description }}">
@@ -49,33 +50,6 @@
 <script>
     // Define all window.location.pathname according language value
     const languages = {{ languages|safe }};  // from response extra_context
-
-    // Function to be executed when the language select changes
-    function changeLanguage() {
-        // Get the selected language code
-        let selectedLanguage = document.getElementById("languageSelect").value;
-
-        // Update the URL with the selected language if pathname exists
-        if (languages[selectedLanguage]) {
-            let newPathname = languages[selectedLanguage];
-            window.location.pathname = newPathname;
-        }
-        ;
-    };
-
-    // Function to be executed when the page has fully loaded
-    function onPageLoad() {
-        // Get the element with the id 'greeting'
-        let languageElement = document.getElementById('languageSelect');
-
-        // Modify the content of the element
-        languageElement.value = `{{ current_language }}`;
-    }
-
-    // Register the onPageLoad function to be executed on window.onload
-    window.onload = onPageLoad;
-
-    // Attach the changeLanguage function to the change event of the select element
-    document.getElementById("languageSelect").addEventListener("change", changeLanguage);
 </script>
+    <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
 {% endblock %}

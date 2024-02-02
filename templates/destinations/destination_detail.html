@@ -349,9 +349,12 @@
       },
     });
 </script>
-{% endblock %}
+    <script>
+    // Define all window.location.pathname according language value
+    const languages = {{ languages|safe }};  // from response extra_context
+    // Define current language according object.language 
+    const currentLanguage = `{{ current_language }}`  // from response extra_context
 
-
-{% block js %}
-
+</script>
+    <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
 {% endblock %}
