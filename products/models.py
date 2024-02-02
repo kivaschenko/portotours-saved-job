@@ -234,7 +234,3 @@ class FAQDestination(models.Model):
     def __repr__(self):
         return (f'<FAQDestination(id={self.id} parent_destination={self.parent_destination} '
                 f'language={self.language} question={self.question}...)>')
-
-
-class Attraction(models.Model):
-    pass
