@@ -113,3 +113,19 @@ class DestinationAdmin(admin.ModelAdmin):
     exclude = ['updated_at']
     list_display = ['name', 'slug', 'language', 'is_active', 'updated_at']
     list_filter = ['name', 'language', 'slug', 'page_title', 'is_active']
+
+
+class FAQDestinationAdminForm(ModelForm):
+    class Meta:
+        model = FAQDestination
+        fields = '__all__'
+        widgets = {
+            'answer': CKEditorWidget(),
+        }
+
+@admin.register(FAQDestination)
+class FAQDestinationAdmin(admin.ModelAdmin):
+    form = FAQDestinationAdminForm
+    exclude = ['updated_at']
+    list_display = ['parent_destination', 'language', 'question', 'is_active', 'updated_at']
+    list_filter = ['parent_destination', 'language', 'question', 'is_active']

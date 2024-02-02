@@ -201,3 +201,36 @@ class Destination(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super(Destination, self).save(*args, **kwargs)
+
+
+class FAQDestinationManager(models.Manager):
+    def get_queryset(self):
+        return super(FAQDestinationManager, self).get_queryset().filter(is_active=True)
+
+
+class FAQDestination(models.Model):
+    parent_destination = models.ForeignKey(ParentDestination, on_delete=models.SET_NULL,
+                                           related_name='faq_destinations', null=True, blank=True,
+                                           help_text="The Parent destination brings together all destinations "
+                                                     "with multilingual content but same location and common banner.")
+    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
+    question = models.CharField(max_length=255, help_text="max 255 characters")
+    answer = RichTextField(max_length=3000, help_text="max 3000 characters", null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # Get only active FAQ queryset by default
+    objects = FAQDestinationManager()
+
+    class Meta:
+        db_table = 'faq_destination'
+        verbose_name = 'Frequently Asked Questions for Destination'
+        verbose_name_plural = 'Frequently Asked Questions for Destination'
+        ordering = ('parent_destination', 'question')
+
+    def __str__(self):
+        return self.question
+
+    def __repr__(self):
+        return (f'<FAQDestination(id={self.id} parent_destination={self.parent_destination} '
+                f'language={self.language} question={self.question}...)>')
+
