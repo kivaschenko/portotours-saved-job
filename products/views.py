@@ -20,10 +20,7 @@ class DestinationListView(ListView):
 
 class DestinationDetailView(DetailView):
     model = Destination
-<<<<<<< HEAD
     template_name = 'destinations/destination_detail.html'  # rename to 'destination_detail.html'
-=======
-    template_name = 'destinations/destination.html'  # rename to 'destination_detail.html'
     extra_context = {'languages': {}}
     queryset = Destination.active.all()
 
@@ -45,7 +42,6 @@ class DestinationDetailView(DetailView):
         else:
             self.extra_context['current_faqs'] = []
         return obj
->>>>>>> 6976ed1d295ead41541c620aff50d1c781453185
 
 
 class DestinationLanguageListView(ListView):
