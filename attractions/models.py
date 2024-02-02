@@ -32,6 +32,8 @@ class ParentAttraction(models.Model):
 
     class Meta:
         ordering = ('parent_name',)
+        verbose_name = 'Parent Attraction'
+        verbose_name_plural = 'Parent Attractions'
 
 
 class AttractionActiveManager(models.Manager):
@@ -124,3 +126,36 @@ class Attraction(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super(Attraction, self).save(*args, **kwargs)
+
+
+class FAQAttractionManager(models.Manager):
+    def get_queryset(self):
+        return super(FAQAttractionManager, self).get_queryset().filter(is_active=True)
+
+
+class FAQAttraction(models.Model):
+    parent_attraction = models.ForeignKey(ParentAttraction, on_delete=models.SET_NULL,
+                                          related_name='faq_attractions', null=True, blank=True,
+                                          help_text="The Parent Attraction brings together all attractions "
+                                                    "with multilingual content but same location and common FAQ.")
+    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
+    question = models.CharField(max_length=255, help_text="max 255 characters")
+    answer = RichTextField(max_length=3000, help_text="max 3000 characters", null=True, blank=True)
+    priority_number = models.IntegerField(null=True, blank=True, default=0)
+    is_active = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # Get only active FAQ queryset by default
+    objects = FAQAttractionManager()
+
+    class Meta:
+        db_table = 'faq_attractions'
+        verbose_name = 'Frequently Asked Questions for Attractions'
+        verbose_name_plural = 'Frequently Asked Questions for Attractions'
+        ordering = ('priority_number',)
+
+    def __str__(self):
+        return self.question
+
+    def __repr__(self):
+        return (f'<FAQAttraction(id={self.id} parent_attraction={self.parent_attraction} '
+                f'language={self.language} question={self.question}...)>')

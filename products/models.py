@@ -130,6 +130,7 @@ class ParentDestination(models.Model):
 
     class Meta:
         ordering = ('parent_name',)
+        verbose_name_plural = 'Parent Destinations'
 
 
 class DestinationActiveManager(models.Manager):
@@ -212,7 +213,7 @@ class FAQDestination(models.Model):
     parent_destination = models.ForeignKey(ParentDestination, on_delete=models.SET_NULL,
                                            related_name='faq_destinations', null=True, blank=True,
                                            help_text="The Parent destination brings together all destinations "
-                                                     "with multilingual content but same location and common banner.")
+                                                     "with multilingual content but same location and common FAQ.")
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     question = models.CharField(max_length=255, help_text="max 255 characters")
     answer = RichTextField(max_length=3000, help_text="max 3000 characters", null=True, blank=True)

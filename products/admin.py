@@ -111,8 +111,8 @@ class DestinationAdminForm(ModelForm):
 class DestinationAdmin(admin.ModelAdmin):
     form = DestinationAdminForm
     exclude = ['updated_at']
-    list_display = ['name', 'slug', 'language', 'is_active', 'updated_at']
-    list_filter = ['name', 'language', 'slug', 'page_title', 'is_active']
+    list_display = ['name', 'slug', 'language', 'parent_destination', 'is_active', 'updated_at']
+    list_filter = ['name', 'language', 'slug', 'parent_destination', 'page_title', 'is_active']
 
 
 class FAQDestinationAdminForm(ModelForm):
@@ -122,6 +122,7 @@ class FAQDestinationAdminForm(ModelForm):
         widgets = {
             'answer': CKEditorWidget(),
         }
+
 
 @admin.register(FAQDestination)
 class FAQDestinationAdmin(admin.ModelAdmin):
