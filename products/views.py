@@ -1,16 +1,10 @@
-from django.http import Http404
-from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import DetailView, ListView
 
 from products.models import Destination, Language
 
 
 # -----------
 # Destination
-
-class DestinationDetailView(TemplateView):
-    template_name = 'destinations/destination_detail.html'  # remove after testing!
-
 
 class DestinationListView(ListView):
     model = Destination
@@ -21,7 +15,6 @@ class DestinationListView(ListView):
 class DestinationDetailView(DetailView):
     model = Destination
     template_name = 'destinations/destination_detail.html'  # rename to 'destination_detail.html'
-    # template_name = 'destinations/destination.html'  # rename to 'destination_detail.html'
     extra_context = {'languages': {}}
     queryset = Destination.active.all()
 
