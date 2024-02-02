@@ -17,6 +17,8 @@ class ParentAttraction(models.Model):
     card image and link between attraction details page languages.
     """
     parent_name = models.CharField(max_length=60, unique=True, db_index=True)
+    priority_number = models.IntegerField(null=True, blank=True, default=0,
+                                          help_text="number for ordering in list on page by default")
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
     slider_image_1 = models.FileField(upload_to='media/sliders/', null=True, blank=True)
     slider_image_2 = models.FileField(upload_to='media/sliders/', null=True, blank=True)
@@ -49,8 +51,6 @@ class Attraction(models.Model):
                                                     "with multilingual content but same location and common images.")
     name = models.CharField(max_length=60, help_text="max 60 characters, city name usually")
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
-    priority_number = models.IntegerField(null=True, blank=True, default=0,
-                                          help_text="number for ordering in list on page by default")
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
     # SEO part
@@ -87,7 +87,7 @@ class Attraction(models.Model):
     active = AttractionActiveManager()
 
     class Meta:
-        ordering = ('priority_number', 'name')
+        ordering = ('name',)
         db_table = 'attractions'
         unique_together = ('name', 'slug')
 

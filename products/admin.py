@@ -91,7 +91,7 @@ class LanguageAdmin(admin.ModelAdmin):
 @admin.register(ParentDestination)
 class ParentDestinationAdmin(admin.ModelAdmin):
     exclude = ['updated_at']
-    list_display = ['parent_name']
+    list_display = ['parent_name', 'priority_number']
     list_filter = ['parent_name']
 
 

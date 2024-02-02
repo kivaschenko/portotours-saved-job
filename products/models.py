@@ -123,6 +123,7 @@ class ParentDestination(models.Model):
     parent_name = models.CharField(max_length=60, unique=True, db_index=True)
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    priority_number = models.IntegerField(null=True, blank=True, default=0)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
