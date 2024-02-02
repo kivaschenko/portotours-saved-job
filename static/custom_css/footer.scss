@@ -1,0 +1,81 @@
+.footer {
+    background-color: #0F0F10;
+    .container {
+        padding-top: 54px;
+        padding-bottom: 54px;
+        .row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: start;
+            padding-bottom: 40px;
+            border-bottom: 1px solid white;
+            .footer-info {
+                width: fit-content;
+                margin-right: 100px;
+                > img {
+                    max-width: 160px;
+                    display: block;
+                    margin-bottom: 28px;
+                }
+                .phone-wrapper,
+                .address-wrapper,
+                .email-wrapper {
+                    display: flex;
+                    align-items: center;
+                    color: white;
+                    font-family: 'LatoRegular';
+                    font-size: 16px;
+                    line-height: normal;
+                    margin-bottom: 17px;
+                    img {
+                        margin-right: 14px;
+                    }
+                }
+            }
+            .footer-block {
+                margin-right: 100px;
+                width: fit-content;
+                .footer-block-title {
+                    color: white;
+                    font-family: 'LatoSemiBold';
+                    font-size: 16px;
+                    line-height: normal;
+                    text-transform: capitalize;
+                    margin-bottom: 14px;
+                }
+                .footer-block-list {
+                    padding-left: 0;
+                    list-style: none;
+                    margin: 0;
+                    li {
+                        + li {
+                            margin-top: 8px;
+                        }
+                    }
+                    a {
+                        color: white;
+                        font-family: 'LatoRegular';
+                        font-size: 16px;
+                        line-height: normal;
+                        display: block;
+                        text-decoration: none;
+                        &:hover {
+                            color: white;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+        .footer-bottom-block {
+            padding-top: 24px;
+            p {
+                color: white;
+                font-family: 'LatoRegular';
+                font-size: 13px;
+                line-height: normal;
+                margin: 0;
+            }
+        }
+    }
+}
