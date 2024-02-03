@@ -5,19 +5,27 @@ FROM python:3.10-bullseye
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# Set work directory
+WORKDIR /app/
+
 # Update
 RUN apt-get update
 # GDAL
 RUN apt-get install -y binutils libgdal-dev
-# Set work directory
-WORKDIR /app/
 
 # Install dependencies
-COPY requirements.txt /app
+COPY requirements.txt /app/
 RUN pip install --upgrade pip setuptools
-RUN pip install -r requirements.txt --no-cache-dir
+RUN pip install  --no-cache-dir -r requirements.txt
 
-# Copy project
+# Copy the Django project files
 COPY . /app/
 
-CMD python3 manage.py migrate && python3 manage.py runserver 8000
+# Collect static files and migrate database
+RUN python manage.py collectstatic --noinput
+RUN python manage.py migrate
+
+# Expose the port that Django will run on
+EXPOSE 8000
+
+CMD ["python3", "manage.py", "runserver"]
