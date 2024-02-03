@@ -36,10 +36,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Docker
+        uses: actions/setup-docker@v2
+
+      - name: Log in to DockerHub
+        run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
       - name: Build and push Docker image
         run: |
           docker build -t kivaschenko/portotours:$GITHUB_SHA .
-          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
           docker push kivaschenko/portotours:$GITHUB_SHA
 
   deploy_to_digitalocean:
