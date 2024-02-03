@@ -57,7 +57,7 @@ jobs:
           ssh-private-key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
 
       - name: Grant write permissions to /root/
-        run: ssh root@164.90.170.238 "chmod 700 /root/"
+        run: ssh -o StrictHostKeyChecking=no root@164.90.170.238 "chmod 700 /root/"
 
       - name: Deploy to DigitalOcean Droplet
         run: |
