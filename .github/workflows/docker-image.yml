@@ -59,6 +59,19 @@ jobs:
       - name: Grant write permissions to /root/
         run: ssh -o StrictHostKeyChecking=no root@164.90.170.238 "chmod 700 /root/"
 
+      - name: Copy deploy.sh
+        run: scp -o StrictHostKeyChecking=no deploy.sh runner@164.90.170.238:~/deploy.sh
+
+      - name: Debugging
+        run: |
+          whoami
+          groups
+          ls -la /root/
+          ls -la /root/deploy.sh
+          cat /root/deploy.sh
+          scp -v -o StrictHostKeyChecking=no deploy.sh root@164.90.170.238:/root/deploy.sh
+          ssh -v -o StrictHostKeyChecking=no root@164.90.170.238 'bash -s' < /root/deploy.sh
+
       - name: Deploy to DigitalOcean Droplet
         run: |
           whoami
