@@ -63,6 +63,6 @@ jobs:
           
       - name: Deploy to DigitalOcean Droplet
         run: |
-          scp -o StrictHostKeyChecking=no deploy.sh runner@164.90.170.238:~/deploy.sh
-          ssh -o StrictHostKeyChecking=no runner@164.90.170.238 'bash -s' < ~/deploy.sh
+          scp -o StrictHostKeyChecking=no deploy.sh root@164.90.170.238:~/deploy.sh
+          ssh -o StrictHostKeyChecking=no root@164.90.170.238 'bash -s' < ~/deploy.sh
 
