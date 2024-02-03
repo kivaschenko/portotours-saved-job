@@ -30,4 +30,4 @@ RUN python manage.py migrate
 # Expose the port that Django will run on
 EXPOSE 8000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "your_project.wsgi:application"]
+CMD ["gunicorn", "--workers", "4", "--bind", "0.0.0.0:8000", "portotours.wsgi:application"]
