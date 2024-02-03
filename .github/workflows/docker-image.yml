@@ -52,11 +52,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up SSH key
-        uses: webfactory/ssh-agent@v0.6.0
+        uses: webfactory/ssh-agent@v0.5.5
         with:
           ssh-private-key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
 
       - name: Deploy to DigitalOcean Droplet
         run: |
+          whoami
+          ls -la /root/
+          ls -la /root/deploy.sh
+          cat /root/deploy.sh
           scp -o StrictHostKeyChecking=no deploy.sh root@164.90.170.238:/root/deploy.sh
           ssh -o StrictHostKeyChecking=no root@164.90.170.238 'bash -s' < /root/deploy.sh
