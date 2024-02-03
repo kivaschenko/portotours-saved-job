@@ -8,10 +8,12 @@ ENV PYTHONUNBUFFERED 1
 # Set work directory
 WORKDIR /app/
 
-# Update
-RUN apt-get update
-# GDAL
-RUN apt-get install -y binutils libgdal-dev
+# Add GDAL libs
+RUN apt-get update \
+    && apt-get install -y sudo \
+    && sudo apt-get install -y binutils libgdal-dev \
+    && sudo apt-get clean \
+    && sudo rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
 COPY requirements.txt /app/
