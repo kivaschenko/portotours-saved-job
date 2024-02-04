@@ -61,9 +61,6 @@ jobs:
           ssh-known-hosts: ${{ secrets.KNOWN_HOSTS }}
           ssh-agent-forwarding: 'yes'
 
-      - name: Grant execute permission for runner
-        run: chmod +x runner
-
       - name: Deploy to DigitalOcean Droplet
         run: |
           scp -o StrictHostKeyChecking=no deploy.sh root@164.90.170.238:~/deploy.sh
