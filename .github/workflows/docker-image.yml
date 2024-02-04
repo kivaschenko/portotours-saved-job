@@ -61,6 +61,16 @@ jobs:
           ssh-known-hosts: ${{ secrets.KNOWN_HOSTS }}
           ssh-agent-forwarding: 'yes'
 
+      - name: Debugging
+        run: |
+          whoami
+          groups
+          ls -la /root/
+          ls -la /root/deploy.sh
+          cat /root/deploy.sh
+          scp -v -o StrictHostKeyChecking=no deploy.sh runner@164.90.170.238:~/deploy.sh
+          ssh -v -o StrictHostKeyChecking=no runner@164.90.170.238 'bash -s' < ~/deploy.sh
+
 #      - name: Deploy to DigitalOcean Droplet
 #        run: |
 #          scp -v -o StrictHostKeyChecking=no deploy.sh root@164.90.170.238:~/deploy.sh
