@@ -63,4 +63,4 @@ jobs:
             docker pull kivaschenko/portotours:latest
             docker stop django-portotours || true
             docker rm django-portotours || true
-            docker run -d --name django-portotours -p 80:80 kivaschenko/portotours:latest
+            docker run -d --name django-portotours -p 8000:8000 kivaschenko/portotours:latest
