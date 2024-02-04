@@ -13,8 +13,10 @@ django-sass-processor==1.4
 django-storages==1.14.2
 geographiclib==2.0
 geopy==2.4.1
+gunicorn==21.2.0
 jmespath==1.0.1
 libsass==0.23.0
+packaging==23.2
 psycopg2-binary==2.9.9
 python-dateutil==2.8.2
 python-dotenv==1.0.1
