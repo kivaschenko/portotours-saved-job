@@ -58,7 +58,7 @@ jobs:
         with:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
           script: |
             docker pull kivaschenko/portotours:latest
             docker stop django-portotours || true
