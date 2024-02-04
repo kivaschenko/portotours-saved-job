@@ -53,25 +53,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up SSH key
-        uses: webfactory/ssh-agent@v0.7.0
+      - name: SSH into Digital Ocean Droplet
+        uses: appleboy/ssh-action@master
         with:
-          ssh-private-key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
-          ssh-strict-host-key-checking: 'no'
-          ssh-known-hosts: ${{ secrets.KNOWN_HOSTS }}
-          ssh-agent-forwarding: 'yes'
-
-      - name: Debugging
-        run: |
-          whoami
-          groups
-          ls -la /root/
-          ls -la /root/deploy.sh
-          cat /root/deploy.sh
-          scp -v -o StrictHostKeyChecking=no deploy.sh runner@164.90.170.238:~/deploy.sh
-          ssh -v -o StrictHostKeyChecking=no runner@164.90.170.238 'bash -s' < ~/deploy.sh
-
-#      - name: Deploy to DigitalOcean Droplet
-#        run: |
-#          scp -v -o StrictHostKeyChecking=no deploy.sh root@164.90.170.238:~/deploy.sh
-#          ssh -v -o StrictHostKeyChecking=no root@164.90.170.238 'bash -s' < ~/deploy.sh
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker pull kivaschenko/portotours:latest
+            docker stop django-portotours || true
+            docker rm django-portotours || true
+            docker run -d --name django-portotours -p 80:80 kivaschenko/portotours:latest
