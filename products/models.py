@@ -8,6 +8,8 @@ from django.utils.text import slugify
 
 from geopy.geocoders import Nominatim
 
+from destinations.models import Destination
+
 geolocator = Nominatim(timeout=5, user_agent="portotours")
 
 logger = logging.getLogger(__name__)
@@ -107,3 +109,22 @@ class Language(models.Model):
 
     def __repr__(self):
         return f"<Language(id={self.id}, name={self.name})>"
+
+
+# -----------
+# Experience
+
+class Experience(models.Model):
+    short_name = models.CharField(max_length=60, unique=True,
+                                  help_text="Short name for the experience, max 60 characters")
+    long_name = models.CharField(max_length=255, help_text="Long name for the experience, max 255 characters",
+                                 blank=True, null=True)
+    short_description = models.CharField(max_length=255,
+                                         help_text="Short description for the Short Name, max 255 characters",
+                                         blank=True, null=True)
+    destinations = models.ManyToManyField(Destination, help_text="may be bind to multiple destinations")
+    languages = models.ManyToManyField(Language, help_text="may be few languages for this experience")
+    meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
+                                      on_delete=models.SET_NULL, null=True, blank=True)
+    duration = models.CharField(max_length=60, help_text="duration of the experience, for example '5 hours'",
+                                blank=True, null=True)
