@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from accounts import views as accounts_views
-from products import views as products_views
+from destinations import views as destinations_views
 from attractions import views as attractions_views
 
 # HOME & ACCOUNTS
@@ -29,8 +29,8 @@ urlpatterns += [path('ckeditor/', include('ckeditor_uploader.urls')),]
 
 # DESTINATIONS
 urlpatterns += [
-    path('destinations/<str:lang>/', products_views.DestinationListView.as_view(), name='destination-list'),
-    path('destinations/<str:lang>/<slug:slug>/', products_views.DestinationDetailView.as_view(), name="destination-detail"),
+    path('destinations/<str:lang>/', destinations_views.DestinationListView.as_view(), name='destination-list'),
+    path('destinations/<str:lang>/<slug:slug>/', destinations_views.DestinationDetailView.as_view(), name="destination-detail"),
 ]
 
 # ATTRACTIONS

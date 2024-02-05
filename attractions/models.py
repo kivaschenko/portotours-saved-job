@@ -6,7 +6,8 @@ from django.utils.safestring import mark_safe
 
 from ckeditor.fields import RichTextField
 
-from products.models import Language, ParentDestination
+from products.models import Language
+from destinations.models import ParentDestination
 
 logger = logging.getLogger(__name__)
 
