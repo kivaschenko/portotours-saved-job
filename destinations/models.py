@@ -64,12 +64,22 @@ class Destination(models.Model):
     introduction_text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
     short_introduction_text = models.CharField(max_length=255, null=True, blank=True,
                                                help_text="short text for recommendation cards, max 255 characters")
+    all_about_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     when_to_visit_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     when_to_visit_text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
     getting_around_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     getting_around_text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
     travel_tips_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     travel_tips_text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
+
+    top_attractions_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    top_attractions_subtitle = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+
+    be_interested_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    be_interested_subtitle = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+
+    faq_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    faq_subtitle = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
 
     objects = models.Manager()
     active = DestinationActiveManager()
