@@ -172,12 +172,12 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "default",
         },
-        "log_to_file": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "formatter": "simple",
-            "filename": os.environ.get('LOGGING_FILE'),
-        },
+        # "log_to_file": {
+        #     "level": "INFO",
+        #     "class": "logging.FileHandler",
+        #     "formatter": "simple",
+        #     "filename": os.environ.get('LOGGING_FILE'),
+        # },
     },
     "loggers": {
         "products": {
