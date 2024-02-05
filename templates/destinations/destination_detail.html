@@ -102,7 +102,7 @@
 <section class="all-about">
     <div class="container">
         <h2 class="all-about-title">
-            All About {{ object.name }}
+           {{ object.all_about_title }} {{ object.name }}
         </h2>
         <div class="all-about-cards-wrapper">
             <div class="all-about-card">
@@ -149,10 +149,10 @@
 <section class="top-attractions">
     <div class="container">
         <h2 class="top-attractions-title">
-            Top Lisbon Attractions
+            {{ object.top_attractions_title }}
         </h2>
         <p class="top-attractions-subtitle body-text-b2">
-            Explore Lisbon's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing
+            {{ object.top_attractions_subtitle }}
         </p>
         <div class="swiper-attractions">
             <!-- Additional required wrapper -->
@@ -197,10 +197,10 @@
 <section class="also-interested">
     <div class="container">
         <h2 class="also-interested-title">
-            You May Also Be Interested to Visit from Lisbon
+            {{ object.be_interested_title }}
         </h2>
         <p class="also-interested-subtitle body-text-b2">
-            Explore nearby spots from Lisbon, choosing captivating destinations that guarantee unforgettable experiences and cultural abundance.
+            {{ object.be_interested_subtitle }}
         </p>
         <div class="also-interested-cards-wrapper">
             <div class="also-interested-card">
@@ -245,10 +245,10 @@
 <section class="faq">
     <div class="container">
         <h2 class="faq-title">
-            frequently asked questions
+            {{ object.faq_title }}
         </h2>
         <p class="faq-subtitle">
-            Get clear and useful information for the most common queries about OneDayTours in Lisbon
+            {{ object.faq_subtitle }}
         </p>
         {% if current_faqs %}
             {% for record in current_faqs %}
