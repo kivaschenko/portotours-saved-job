@@ -181,7 +181,10 @@ LOGGING = {
     },
     "loggers": {
         "products": {
-            "handlers": ["log_to_stdout", "log_to_file"],
+            "handlers": [
+                "log_to_stdout",
+                # "log_to_file"
+            ],
             "level": "INFO",
             "propagate": True,
         },
