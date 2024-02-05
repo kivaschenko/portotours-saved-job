@@ -6,6 +6,54 @@
     <meta name="keywords" content="{{ object.page_keywords }}">
 {% endblock head %}
 {% block content %}
+
+    <section class="attraction-hero">
+        <div class="container">
+            <h2 class="attraction-hero-title">
+                {{ object.introduction_title }}
+                <!-- Lisbon Oceanarium: The Biggest in Europe -->
+            </h2>
+            <p class="attraction-hero-text body-text-b3">
+                {{ object.display_introduction_text_above_slider }}
+                <!-- The Oceanarium in Lisbon, built in 1998, is one of the largest in the world, displaying more than 25 thousand marine life species. This place is perfect for an exciting family visit, and will certainly appeal not only to children but also to all adults who are not indifferent to the beauty and uniqueness of the underwater world. Lisbon Oceanarium is unique because it contains the inhabitants of all oceans without exception in one place. There is also a second building connected to the main one by a transparent gallery. The place is open not only to conduct excursions here but also to carry out serious scientific research on underwater flora and fauna.
+                On the ground floor, there are 25 aquariums where you can view marine inhabitants individually. And in the center of the second floor, there is a huge tank about seven meters deep. Even though the representatives of different climatic zones are separated by a transparent partition, it is almost imperceptible, which emphasizes the idea of the unity of the waters of the World Ocean. This floor is also occupied by four thematic aquariums - in each of them is recreated the flora and fauna of one of the oceans. The second building is educational, as it hosts exhibitions, events, and excursions dedicated to the protection and safety of species. -->
+            </p>
+            <div class="attraction-hero-slider">
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                    <!-- <img src="{% static 'images/attraction-hero-img1.png' %}" alt="" class="attraction-image"> -->
+                    {% if object.parent_attraction.slider_image_1 %}
+                        <img src="{{ object.parent_attraction.slider_image_1.url }}" alt="Image for slider 1">
+                    {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                    <img src="{% static 'images/attraction-hero-img2.png' %}" alt="" class="attraction-image">
+                    
+                    </div>
+                    <div class="swiper-slide">
+                    <img src="{% static 'images/attraction-hero-img3.png' %}" alt="" class="attraction-image">
+                    
+                    </div>
+                    <div class="swiper-slide">
+                    <img src="{% static 'images/attraction-hero-img2.png' %}" alt="" class="attraction-image">
+                    </div>
+                    
+                </div>
+        
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            <p class="attraction-hero-text body-text-b3">
+                {{ object.display_introduction_text_below_slider|safe }}
+                <!-- The huge sunfish is the main attraction of the Oceanarium since its maintenance requires strict conditions. Also in the Lisbon Oceanarium lives a giant Pacific octopus weighing about 250 kg and with a tentacle span of 9 meters.
+                The collection includes endangered species such as seahorses, octopuses, manta rays, and mobulas. The entire population is strictly protected by a research team that cares about the health and living conditions of the inhabitants. In the outdoor pools, you can meet vices and parrots, penguins, and otters.
+                The main focus of the activities held here are organized excursions, but the base also regularly hosts master classes, exhibitions, concerts, and shows. The main purpose of most exhibitions is scientific and social activities, within which one can learn about endangered species of animals and the impact of human activities on the ecology of the seas. Some events are purely entertaining. In addition, it is possible to organize events upon individual request. -->
+            </p>
+        </div>
+    </section>
+
     <!-- Slider block -->
     <div>
         <!-- Header -->
@@ -87,6 +135,28 @@
         // Define current language according object.language
         const currentLanguage = `{{ current_language }}`  // from response extra_context
 
+    </script>
+    <script>
+        const swiperAttractionHero = new Swiper(".attraction-hero-slider", {
+      slidesPerView: 3,
+      speed: 1000,   
+      spaceBetween: 24,
+      breakpoints: {
+          200: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+          },
+          767: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+          }
+      },
+      // Navigation arrows
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
     </script>
     <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
 {% endblock %}
