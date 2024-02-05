@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
     'attractions.apps.AttractionsConfig',
+    'destinations.apps.DestinationsConfig',
 ]
 
 MIDDLEWARE = [
