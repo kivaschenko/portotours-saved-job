@@ -4,11 +4,11 @@ from django.contrib.gis.geos import fromstr
 from django.db import models
 from django.contrib.gis.db import models as gis_models
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
 from geopy.geocoders import Nominatim
-
-from destinations.models import Destination
+from ckeditor.fields import RichTextField
 
 geolocator = Nominatim(timeout=5, user_agent="portotours")
 
@@ -114,17 +114,89 @@ class Language(models.Model):
 # -----------
 # Experience
 
+class ExperienceActiveManager(models.Manager):
+    def get_queryset(self):
+        return super(ExperienceActiveManager, self).get_queryset().filter(is_active=True)
+
+
 class Experience(models.Model):
-    short_name = models.CharField(max_length=60, unique=True,
-                                  help_text="Short name for the experience, max 60 characters")
+    # Business logic part
+    destinations = models.ManyToManyField('destinations.Destination',
+                                          help_text="may be bind to multiple destinations")
+    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
+    meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
+                                      on_delete=models.SET_NULL, null=True, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    is_active = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # SEO part
+    slug = models.SlugField(max_length=60, unique=True, db_index=True, editable=True, blank=True,
+                            help_text="max 60 characters, exactly url tail that is unique")
+    page_title = models.CharField(max_length=120, help_text="seo title for header in search list, max 120 characters",
+                                  null=True, blank=True)
+    page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters",
+                                        null=True, blank=True)
+    keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
+    # Content part
+    name = models.CharField(max_length=60, unique=True,
+                            help_text="Short name for the experience, max 60 characters")
+    title_for_booking_form = models.CharField(max_length=120, help_text="Title above book form, max 120 characters",
+                                              null=True, blank=True)
     long_name = models.CharField(max_length=255, help_text="Long name for the experience, max 255 characters",
                                  blank=True, null=True)
     short_description = models.CharField(max_length=255,
                                          help_text="Short description for the Short Name, max 255 characters",
                                          blank=True, null=True)
-    destinations = models.ManyToManyField(Destination, help_text="may be bind to multiple destinations")
-    languages = models.ManyToManyField(Language, help_text="may be few languages for this experience")
-    meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
-                                      on_delete=models.SET_NULL, null=True, blank=True)
-    duration = models.CharField(max_length=60, help_text="duration of the experience, for example '5 hours'",
-                                blank=True, null=True)
+    full_description = RichTextField(max_length=6000,
+                                     help_text="Full description for the Experience, max 6000 characters",
+                                     null=True, blank=True)
+    languages = RichTextField(help_text="list of available languages during experience trip", null=True, blank=True)
+    duration = RichTextField(max_length=60, help_text="duration of the experience, for example '5 hours'",
+                             blank=True, null=True)
+    accessibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    possibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    # Recommendations block
+    recommendations_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    recommendations_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    recommendations_slogan = models.CharField(max_length=120, help_text="max 120 characters, belong SEE MORE button",
+                                              null=True, blank=True)
+
+    objects = models.Manager()
+    active = ExperienceActiveManager()
+
+    class Meta:
+        db_table = 'experiences'
+        ordering = ('name',)
+        unique_together = ('name', 'slug')
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Experience, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('products:experience-detail', kwargs={'lang': self.language.code.lower(),
+                                                             'slug': self.slug})
+
+    @property
+    def localized_url(self):
+        return f"/experienceVjs/{self.language.code.lower()}/{self.slug}/"
+
+    def display_full_description(self):
+        return mark_safe(self.full_description)
+
+    def display_languages(self):
+        return mark_safe(self.languages)
+
+    def display_duration(self):
+        return mark_safe(self.duration)
+
+    def display_accessibility(self):
+        return mark_safe(self.accessibility)
+
+    def display_possibility(self):
+        return mark_safe(self.possibility)
