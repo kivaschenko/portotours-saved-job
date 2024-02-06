@@ -6,6 +6,7 @@ from django.contrib.gis.db import models as gis_models
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
+from django.conf import settings
 
 from geopy.geocoders import Nominatim
 from ckeditor.fields import RichTextField
@@ -13,6 +14,9 @@ from ckeditor.fields import RichTextField
 geolocator = Nominatim(timeout=5, user_agent="portotours")
 
 logger = logging.getLogger(__name__)
+
+# Assign current user model
+Customer = settings.AUTH_USER_MODEL
 
 
 # ---------
@@ -150,6 +154,8 @@ class Experience(models.Model):
     meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
                                       on_delete=models.SET_NULL, null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    price_currency = models.CharField(max_length=3, null=True, blank=True, default='eur')
+    price_changed_timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
 
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -223,3 +229,62 @@ class Experience(models.Model):
 
     def display_possibility(self):
         return mark_safe(self.possibility)
+
+
+class Product(models.Model):
+    """Product - is a digital product that sells access to a specific service (Experience)
+    for numbers of adults or children at a specified total price on a specified date
+    and time of providing this service at a specified meeting place."""
+    strip_product_stmt = "[{id}] {experience_name} - {date} {time} {adults} adults {children} children"
+    # Business logic
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+    parent_experience_id = models.IntegerField(null=True, blank=True)
+    experience = models.ForeignKey(Experience, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.CharField(max_length=120, null=True, blank=True)
+    start_datetime = models.DateTimeField(auto_now_add=False,
+                                          auto_now=False)  # TODO: check this case by timezone restriction
+    end_datetime = models.DateTimeField(auto_now_add=False, auto_now=False, null=True,
+                                        blank=True)  # TODO: check this case by timezone restriction
+    adults_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    adults_count = models.IntegerField(null=True, blank=True)
+
+    child_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    child_count = models.IntegerField(null=True, blank=True)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    # Stripe data
+    stripe_product_id = models.CharField(max_length=220, null=True, blank=True)
+    stripe_price = models.IntegerField(null=True, blank=True)  # 100 * experience.price
+
+    def __str__(self):
+        return str(self.name)
+
+    def __repr__(self):
+        return (f"<Product(id={self.id} parent_experience_id={self.parent_experience_id} "
+                f"start_datetime={self.start_datetime}...)>")
+
+    def save(self, *args, **kwargs):
+        self.total_price = self.adults_price * self.adults_count + self.child_price * self.child_count
+        if not self.stripe_product_id:
+            self.stripe_product_id = self.strip_product_stmt.format(
+                id=self.experience.parent_experience.id,
+                experience_name=self.experience.parent_experience.parent_name,
+                date=self.date_of_start,
+                time=self.time_of_start,
+                adults=self.adults_count,
+                children=self.child_count
+            )
+        if not self.stripe_price:
+            self.stripe_price = int(self.total_price * 100)
+        super(Product, self).save()
+
+    @property
+    def date_of_start(self):
+        if not self.start_datetime:
+            return ''
+        return self.start_datetime.strftime('%m/%d/%Y')
+
+    @property
+    def time_of_start(self):
+        if not self.start_datetime:
+            return ''
+        return self.start_datetime.time().strftime('%H:%M')

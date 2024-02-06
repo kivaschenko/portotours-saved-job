@@ -113,3 +113,11 @@ class ExperienceAdmin(admin.ModelAdmin):
     exclude = ["updated_at"]
     list_display = ['name', 'slug', 'language', 'price', 'is_active', 'updated_at']
     list_filter = ['name', 'slug', 'language', 'price', 'is_active', 'updated_at']
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = [
+        'stripe_product_id',
+        'total_price',
+    ]
