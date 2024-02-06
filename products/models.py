@@ -160,7 +160,7 @@ class Experience(models.Model):
                                   null=True, blank=True)
     page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters",
                                         null=True, blank=True)
-    keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
+    page_keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
     # Content part
     name = models.CharField(max_length=60, unique=True,
                             help_text="Short name for the experience, max 60 characters")
