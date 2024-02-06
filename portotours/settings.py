@@ -233,10 +233,23 @@ CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'Full',
+        'toolbar': 'Custom',
         'height': 300,
         'width': 800,
-    },
+        
+        'toolbar_Custom': [
+            {'name': 'styles', 'items': ['Styles', 'Format']},
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'source', 'items': ['Source']},
+        ],
+        
+    }
 }
 
 # DigitalOcean Spaces

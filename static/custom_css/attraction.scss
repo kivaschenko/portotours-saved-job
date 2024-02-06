@@ -3,17 +3,24 @@
         padding-top: 60px;
         padding-bottom: 50px;
         text-align: center;
+        p {
+            text-align: left;
+            margin-bottom: 16px;
+            font-family: 'LatoRegular';
+            font-size: 16px;
+            line-height: 26px;
+        }
+        p:nth-child(3) {
+            
+            font-family: 'LatoRegular';
+            font-size: 16px;
+            line-height: 26px;
+        }
     }
     &-title {
         margin-bottom: 40px;
     }
-    .attraction-hero-text {
-        text-align: left;
-        margin-bottom: 32px;
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
+    
     .attraction-hero-slider {
         overflow: hidden;
         position: relative;
@@ -22,6 +29,7 @@
         width: calc(100% + 60px);
         margin-left: -30px;
         margin-bottom: 32px;
+        padding-top: 14px;
         .swiper-slide {
             img {
                 display: block;
@@ -99,8 +107,11 @@
             .attraction-info-card-title {
                 margin-bottom: 10px;
             }
-            .attraction-info-card-text {
+            p:not(.attraction-info-card-title) {
                 margin-bottom: 0;
+                font-family: 'LatoRegular';
+                font-size: 16px;
+                line-height: 26px;
                 span {
                     font-family: 'LatoSemiBold';
                 }

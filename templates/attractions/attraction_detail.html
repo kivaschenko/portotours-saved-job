@@ -11,32 +11,43 @@
         <div class="container">
             <h2 class="attraction-hero-title">
                 {{ object.introduction_title }}
-                <!-- Lisbon Oceanarium: The Biggest in Europe -->
+               
             </h2>
-            <p class="attraction-hero-text body-text-b3">
-                {{ object.display_introduction_text_above_slider }}
-                <!-- The Oceanarium in Lisbon, built in 1998, is one of the largest in the world, displaying more than 25 thousand marine life species. This place is perfect for an exciting family visit, and will certainly appeal not only to children but also to all adults who are not indifferent to the beauty and uniqueness of the underwater world. Lisbon Oceanarium is unique because it contains the inhabitants of all oceans without exception in one place. There is also a second building connected to the main one by a transparent gallery. The place is open not only to conduct excursions here but also to carry out serious scientific research on underwater flora and fauna.
-                On the ground floor, there are 25 aquariums where you can view marine inhabitants individually. And in the center of the second floor, there is a huge tank about seven meters deep. Even though the representatives of different climatic zones are separated by a transparent partition, it is almost imperceptible, which emphasizes the idea of the unity of the waters of the World Ocean. This floor is also occupied by four thematic aquariums - in each of them is recreated the flora and fauna of one of the oceans. The second building is educational, as it hosts exhibitions, events, and excursions dedicated to the protection and safety of species. -->
-            </p>
+
+            {{ object.display_introduction_text_above_slider }}
+            
             <div class="attraction-hero-slider">
                 <div class="swiper-wrapper">
                     <!-- Slides -->
                     <div class="swiper-slide">
-                    <!-- <img src="{% static 'images/attraction-hero-img1.png' %}" alt="" class="attraction-image"> -->
                     {% if object.parent_attraction.slider_image_1 %}
                         <img src="{{ object.parent_attraction.slider_image_1.url }}" alt="Image for slider 1">
                     {% endif %}
                     </div>
                     <div class="swiper-slide">
-                    <img src="{% static 'images/attraction-hero-img2.png' %}" alt="" class="attraction-image">
-                    
+                    {% if object.parent_attraction.slider_image_2 %}
+                        <img src="{{ object.parent_attraction.slider_image_2.url }}" alt="Image for slider 1">
+                    {% endif %}
                     </div>
                     <div class="swiper-slide">
-                    <img src="{% static 'images/attraction-hero-img3.png' %}" alt="" class="attraction-image">
-                    
+                    {% if object.parent_attraction.slider_image_3 %}
+                        <img src="{{ object.parent_attraction.slider_image_3.url }}" alt="Image for slider 1">
+                    {% endif %}
                     </div>
                     <div class="swiper-slide">
-                    <img src="{% static 'images/attraction-hero-img2.png' %}" alt="" class="attraction-image">
+                        {% if object.parent_attraction.slider_image_4 %}
+                            <img src="{{ object.parent_attraction.slider_image_4.url }}" alt="Image for slider 1">
+                        {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_5 %}
+                            <img src="{{ object.parent_attraction.slider_image_5.url }}" alt="Image for slider 1">
+                        {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_6 %}
+                            <img src="{{ object.parent_attraction.slider_image_6.url }}" alt="Image for slider 1">
+                        {% endif %}
                     </div>
                     
                 </div>
@@ -45,64 +56,136 @@
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
             </div>
-            <p class="attraction-hero-text body-text-b3">
-                {{ object.display_introduction_text_below_slider|safe }}
-                <!-- The huge sunfish is the main attraction of the Oceanarium since its maintenance requires strict conditions. Also in the Lisbon Oceanarium lives a giant Pacific octopus weighing about 250 kg and with a tentacle span of 9 meters.
-                The collection includes endangered species such as seahorses, octopuses, manta rays, and mobulas. The entire population is strictly protected by a research team that cares about the health and living conditions of the inhabitants. In the outdoor pools, you can meet vices and parrots, penguins, and otters.
-                The main focus of the activities held here are organized excursions, but the base also regularly hosts master classes, exhibitions, concerts, and shows. The main purpose of most exhibitions is scientific and social activities, within which one can learn about endangered species of animals and the impact of human activities on the ecology of the seas. Some events are purely entertaining. In addition, it is possible to organize events upon individual request. -->
-            </p>
+            
+            {{ object.display_introduction_text_below_slider }}
+            
         </div>
     </section>
 
-    <!-- Slider block -->
-    <div>
-        <!-- Header -->
-        <h2>{{ object.introduction_title }}</h2>
-        <!-- Text above -->
-        <div>{{ object.display_introduction_text_above_slider }}</div>
-        <!-- Slider here -->
-        {% if object.parent_attraction.slider_image_1 %}
-            <img src="{{ object.parent_attraction.slider_image_1.url }}" alt="Image for slider 1">
-        {% endif %}
-        <!-- repeat images by index 2,3,4,5,6 -->
-        <!-- text below -->
-        <div>{{ object.display_introduction_text_below_slider }}</div>
-    </div>
-    <!-- Info block -->
-    <h2>{{ object.info_title }}</h2>
-    <p>{{ object.info_subtitle }}</p>
-    <h5>Time of work</h5>
-    {{ object.display_time_of_work }}
-    <h5>Address</h5>
-    {{ object.display_address }}
-    <h5>Price</h5>
-    {{ object.display_price }}
-    <h5>Accessebility</h5>
-    {{ object.display_accessibility }}
-    <h5>Possibility</h5>
-    {{ object.display_possibility }}
-    <hr>
-    <!-- Recomendations block -->
-    <h3>{{ object.recommendations_title }}</h3>
-    <p>{{ object.recommendations_subtitle }}</p>
-    <h2>{{ object.recommendations_slogan }} --> SEE MORE button here</h2>
+    <section class="attraction-info-cards">
+        <div class="container">
+            <h2 class="attraction-info-cards-title">
+                {{ object.info_title }}
+            </h2>
+            <p class="body-text-b3 attraction-info-cards-subtitle">
+                {{ object.info_subtitle }}
+            </p>
+            <div class="attraction-info-cards-wrapper">
+                <div class="attraction-info-card">
+                    <img src="{% static 'images/attraction-info-card-img1.svg' %}" alt="" class="attraction-info-card-img">
+                    <p class="body-text-b2 attraction-info-card-title">
+                        Time of work 
+                    </p>
+
+                    {{ object.display_time_of_work|safe }}
+                   
+                </div>
+                <div class="attraction-info-card">
+                    <img src="{% static 'images/attraction-info-card-img2.svg' %}" alt="" class="attraction-info-card-img">
+                    <p class="body-text-b2 attraction-info-card-title">
+                        Address
+                    </p>
+                    
+                        {{ object.display_address }}
+                        
+                </div>
+                <div class="attraction-info-card">
+                    <img src="{% static 'images/attraction-info-card-img3.svg' %}" alt="" class="attraction-info-card-img">
+                    <p class="body-text-b2 attraction-info-card-title">
+                        Price
+                    </p>
+                    
+                        {{ object.display_price }}
+                   
+                </div>
+                <div class="attraction-info-card">
+                    <img src="{% static 'images/attraction-info-card-img4.svg' %}" alt="" class="attraction-info-card-img">
+                    <p class="body-text-b2 attraction-info-card-title">
+                        Accessibility
+                    </p>
+                    
+                        {{ object.display_accessibility }}
+                    
+                </div>
+                <div class="attraction-info-card">
+                    <img src="{% static 'images/attraction-info-card-img5.svg' %}" alt="" class="attraction-info-card-img">
+                    <p class="body-text-b2 attraction-info-card-title">
+                        Possibility
+                    </p>
+                   
+                        {{ object.display_possibility }}
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="also-interested">
+        <div class="container">
+            <h2 class="also-interested-title">
+                {{ object.recommendations_title }}
+            </h2>
+            <p class="also-interested-subtitle body-text-b2">
+                {{ object.recommendations_subtitle }}
+            </p>
+            <div class="also-interested-cards-wrapper">
+                <div class="also-interested-card">
+                    <img src="{% static 'images/also-interested-img1.png' %}" alt="" class="also-interested-img">
+                    <p class="body-text-b2 also-interested-card-title">
+                        Cascais
+                    </p>
+                    <p class="body-text-b3 also-interested-card-text">
+                        Explore Cascais, a perfect mixture of natural and architectural beauty, located near Lisbon. Investigate its breathtaking landscapes and historical wonders with comprehensive OneDayTours. 
+                    </p>
+                </div>
+                <div class="also-interested-card">
+                    <img src="{% static 'images/also-interested-img2.png' %}" alt="" class="also-interested-img">
+                    <p class="body-text-b2 also-interested-card-title">
+                        Oporto
+                    </p>
+                    <p class="body-text-b3 also-interested-card-text">
+                        Choose an amazing journey with a OneDayTours to Oporto, Portugal. Explore the vibrant history of the city, perfectly fit into the colorful landscapes, and experience the warm hospitality of Portugal.
+                    </p>
+                </div>
+                <div class="also-interested-card">
+                    <img src="{% static 'images/also-interested-img3.png' %}" alt="" class="also-interested-img">
+                    <p class="body-text-b2 also-interested-card-title">
+                        Sintra
+                    </p>
+                    <p class="body-text-b3 also-interested-card-text">
+                        Get a chance to immerse in the real Wonderland with a OneDayTours to a fairytale Sintra. The place is filled with history and a mystical aura, heightened by the scenic landscape of nature.
+                    </p>
+                </div>
+            </div>
+            <div class="also-interested-more-info-wrapper">
+                <h5 class="also-interested-more-info-title">
+                    {{ object.recommendations_slogan }}
+                </h5>
+                <a href="" class="btn-type-2 also-interested-info-link">
+                    see more 
+                </a>
+            </div>
+        </div>
+    </section>
+
+    
     <section class="faq">
         <div class="container">
             <h2 class="faq-title">
-                frequently asked questions
+                {{ object.faq_attraction.faq_title }}
             </h2>
             <p class="faq-subtitle">
-                Get clear and useful information for the most common queries about OneDayTours in Lisbon
+                {{ object.faq_subtitle }}
             </p>
             {% if current_faqs %}
                 {% for record in current_faqs %}
-                    <div class="faq-block">
-                        <p class="faq-question">{{ record.question }}</p>
-                        <div>{{ record.display_answer }}</div>
-                    </div>
+                <div class="faq-block">
+                    <p class="faq-question">{{ record.question }}</p>
+                    <div>{{ record.display_answer }}</div>
+                </div>
                 {% endfor %}
             {% else %}
-                <p>No FAQ yet written...</p>
+            <p>No FAQ yet written...</p>
             {% endif %}
         </div>
     </section>

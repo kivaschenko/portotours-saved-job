@@ -159,9 +159,12 @@ h5 {
   margin-bottom: 32px;
   text-align: center; }
 
-.what-to-see .what-to-see-text {
-  margin: 0; }
-  .what-to-see .what-to-see-text + .what-to-see-text {
+.what-to-see p:not(:first-child) {
+  margin: 0;
+  font-family: 'LatoRegular';
+  font-size: 16px;
+  line-height: 26px; }
+  .what-to-see p:not(:first-child) + p {
     margin-top: 16px; }
 
 .experience .container {
@@ -248,8 +251,15 @@ h5 {
     text-align: left; }
     .all-about .all-about-cards-wrapper .all-about-card .card-text-content-wrapper .card-title {
       margin-bottom: 20px; }
-    .all-about .all-about-cards-wrapper .all-about-card .card-text-content-wrapper .card-text {
-      margin-bottom: 0; }
+    .all-about .all-about-cards-wrapper .all-about-card .card-text-content-wrapper p {
+      margin-bottom: 0;
+      font-family: 'LatoRegular';
+      font-size: 16px;
+      line-height: 26px; }
+      .all-about .all-about-cards-wrapper .all-about-card .card-text-content-wrapper p + p {
+        margin-top: 16px; }
+      .all-about .all-about-cards-wrapper .all-about-card .card-text-content-wrapper p strong {
+        font-family: 'LatoSemiBold'; }
     .all-about .all-about-cards-wrapper .all-about-card .card-text-content-wrapper .body-text-b3-sb {
       margin-bottom: 10px; }
       .all-about .all-about-cards-wrapper .all-about-card .card-text-content-wrapper .body-text-b3-sb:not(:first-child) {
@@ -370,19 +380,19 @@ h5 {
   margin-top: 0;
   margin-bottom: 16px; }
 
-.faq ul.faq-answer-list {
+.faq ul {
   list-style: none;
   padding-left: 24px;
   margin: 0; }
-  .faq ul.faq-answer-list li {
+  .faq ul li {
     position: relative;
     margin-bottom: 0;
     font-family: 'LatoRegular';
     font-size: 16px;
     line-height: 26px; }
-    .faq ul.faq-answer-list li + li {
+    .faq ul li + li {
       margin-top: 8px; }
-    .faq ul.faq-answer-list li::before {
+    .faq ul li::before {
       content: "";
       position: absolute;
       width: 10px;
@@ -393,33 +403,37 @@ h5 {
       top: 50%;
       transform: translateY(-50%); }
 
-.faq ol.faq-answer-list {
+.faq ol {
   margin: 0;
   padding-left: 18px; }
-  .faq ol.faq-answer-list li {
+  .faq ol li {
     position: relative;
     margin-bottom: 0;
     font-family: 'LatoRegular';
     font-size: 16px;
     line-height: 26px; }
-    .faq ol.faq-answer-list li a:hover {
+    .faq ol li a:hover {
       color: var(--text-color-third); }
-    .faq ol.faq-answer-list li + li {
+    .faq ol li + li {
       margin-top: 8px; }
 
 .attraction-hero .container {
   padding-top: 60px;
   padding-bottom: 50px;
   text-align: center; }
+  .attraction-hero .container p {
+    text-align: left;
+    margin-bottom: 16px;
+    font-family: 'LatoRegular';
+    font-size: 16px;
+    line-height: 26px; }
+  .attraction-hero .container p:nth-child(3) {
+    font-family: 'LatoRegular';
+    font-size: 16px;
+    line-height: 26px; }
 
 .attraction-hero-title {
   margin-bottom: 40px; }
-
-.attraction-hero .attraction-hero-text {
-  text-align: left;
-  margin-bottom: 32px; }
-  .attraction-hero .attraction-hero-text:last-child {
-    margin-bottom: 0; }
 
 .attraction-hero .attraction-hero-slider {
   overflow: hidden;
@@ -428,7 +442,8 @@ h5 {
   padding-left: 30px;
   width: calc(100% + 60px);
   margin-left: -30px;
-  margin-bottom: 32px; }
+  margin-bottom: 32px;
+  padding-top: 14px; }
   .attraction-hero .attraction-hero-slider .swiper-slide img {
     display: block;
     width: 100%; }
@@ -490,9 +505,12 @@ h5 {
       margin: 0 auto 24px; }
     .attraction-info-cards .attraction-info-cards-wrapper .attraction-info-card .attraction-info-card-title {
       margin-bottom: 10px; }
-    .attraction-info-cards .attraction-info-cards-wrapper .attraction-info-card .attraction-info-card-text {
-      margin-bottom: 0; }
-      .attraction-info-cards .attraction-info-cards-wrapper .attraction-info-card .attraction-info-card-text span {
+    .attraction-info-cards .attraction-info-cards-wrapper .attraction-info-card p:not(.attraction-info-card-title) {
+      margin-bottom: 0;
+      font-family: 'LatoRegular';
+      font-size: 16px;
+      line-height: 26px; }
+      .attraction-info-cards .attraction-info-cards-wrapper .attraction-info-card p:not(.attraction-info-card-title) span {
         font-family: 'LatoSemiBold'; }
 
 .header .container {
