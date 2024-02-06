@@ -119,3 +119,168 @@
         }
     }
 }
+
+.attraction-list-hero {
+    .container {
+        padding-top: 130px;
+        padding-bottom: 53px;
+        background-image: url(../images/destination-list-hero-img.png);
+        border-radius: 26px;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-top: 40px;
+        border-radius: 26px;
+        overflow: hidden;
+        margin-bottom: 60px;
+        .attraction-list-hero-title {
+            color: var(--text-color-second);
+            display: block;
+            text-align: center;
+            margin-bottom: 0;
+            font-size: 62px;
+            line-height: 56px;
+            padding: 0 100px;
+            font-family: 'LatoSemiBold';
+             span {
+                margin-left: 24px;
+                margin-right: 24px;
+                font-size: 44px;
+                line-height: 56px;
+                font-family: 'LatoSemiBold';
+                margin-top: 60px;
+                display: inline-block;
+             }
+             img {
+                align-self: flex-end;
+             }
+        }
+        
+    }
+}
+
+.attraction-list {
+    .container {
+        .title-filter-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            .attraction-list-title {
+                font-size: 48px;
+                line-height: normal;
+                font-family: 'LatoMedium';
+                color: #0F0F10;
+            }
+            .filter-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .attraction-filter-title {
+                    margin-right: 24px;
+                    font-size: 18px;
+                    line-height: 28px;
+                    font-family: 'LatoRegular';
+                    color: #0F0F10;
+                    margin-bottom: 0;
+                }
+                select {
+                    padding: 9px 50px 9px 16px;
+                    border-radius: 6px;
+                    border: 1px solid #D9D9D9;
+                    color: #0F0F10;
+                    font-size: 16px;
+                    line-height: 26px;
+                    font-family: 'LatoRegular';
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    background: transparent;
+                    background-image: url(../images/language-arrow.png);
+                    background-position-x: calc(100% - 16px);
+                    background-position-y: 50%;
+                    background-repeat: no-repeat;
+                    
+                }
+            }
+        }
+        .attractions {
+            padding-left: 0;
+            list-style: none;
+            margin: 0;
+            margin-bottom: 156px;
+            .attraction-list-item {
+                display: flex;
+                align-items: stretch;
+                border-radius: 26px;
+                overflow: hidden;
+                border: 1px solid #D9D9D9;
+                + .attraction-list-item {
+                    margin-top: 24px;
+                }
+                .list-item-img-wrapper {
+                    width: 320px;
+                    border-radius: 26px;
+                    overflow: hidden;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                .attraction-list-content-wrapper {
+                    width: calc(100% - 320px);
+                    padding: 32px;
+                    border-radius: 0 26px 26px 0;
+                    h5 {
+                        margin-bottom: 20px;
+                        color: #0F0F10;
+                    }
+                    .attraction-type-list-wrapper {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 14px;
+                        .attraction-type-title {
+                            color: #0F0F10;
+                            margin-bottom: 0;
+                            margin-right: 16px;
+                        }
+                        .main-info-list {
+                            display: flex;
+                            align-items: center;
+                            padding-left: 0;
+                            list-style: none;
+                            li {
+                                max-width: 24px;
+                                img {
+                                    width: 100%;
+                                }
+                                + li {
+                                    margin-left: 16px;
+                                }
+                            }
+                        }
+                    }
+                    > p {
+                        font-family: 'LatoRegular';
+                        font-size: 18px;
+                        line-height: 28px;
+                        margin-bottom: 48px;
+                        color: #0F0F10;
+                    }
+                    .attraction-link-btn {
+                        display: flex;
+                        align-items: center;
+                        color: var(--text-color-third);
+                        text-transform: uppercase;
+                        font-family: 'LatoMedium';
+                        font-size: 18px;
+                        line-height: normal;
+                        text-decoration: none;
+                        img {
+                            margin-left: 14px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

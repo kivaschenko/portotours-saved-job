@@ -58,11 +58,17 @@
 h1 {
   font-size: 92px;
   line-height: 110px;
-  font-family: 'LatoBold'; }
+  font-family: 'LatoBold';
+  margin-bottom: 0; }
 
 h2 {
   font-size: 44px;
   line-height: 56px;
+  font-family: 'LatoSemiBold'; }
+
+h4 {
+  font-size: 32px;
+  line-height: 42px;
   font-family: 'LatoSemiBold'; }
 
 h5 {
@@ -417,6 +423,104 @@ h5 {
     .faq ol li + li {
       margin-top: 8px; }
 
+.destination-list-hero .container {
+  background-image: url(../images/destination-list-hero-img.png);
+  border-radius: 26px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: 145px;
+  padding-bottom: 145px;
+  margin-top: 40px; }
+  .destination-list-hero .container .destination-list-hero-title {
+    color: var(--text-color-second);
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 0; }
+    .destination-list-hero .container .destination-list-hero-title span {
+      margin-left: 24px;
+      margin-right: 24px;
+      font-size: 44px;
+      line-height: 56px;
+      font-family: 'LatoSemiBold'; }
+    .destination-list-hero .container .destination-list-hero-title img {
+      align-self: flex-end; }
+
+.destinations-list .container {
+  margin-top: 40px; }
+  .destinations-list .container .destinations {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 0;
+    list-style: none;
+    width: 100%;
+    margin-bottom: 156px; }
+    .destinations-list .container .destinations .destinations-list-item {
+      display: flex;
+      align-items: center;
+      border-radius: 26px;
+      overflow: hidden; }
+      .destinations-list .container .destinations .destinations-list-item + .destinations-list-item {
+        margin-top: 24px; }
+      .destinations-list .container .destinations .destinations-list-item .list-item-img-wrapper {
+        width: 540px; }
+        .destinations-list .container .destinations .destinations-list-item .list-item-img-wrapper img {
+          width: 100%; }
+      .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper {
+        padding: 40px 35px 40px 45px;
+        width: calc(100% - 540px);
+        border: 1px solid #D9D9D9;
+        background: #FFF;
+        border-radius: 0 26px 26px 0; }
+        .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper h4 {
+          margin-bottom: 24px; }
+        .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper .main-info-list {
+          padding-left: 0;
+          margin: 0;
+          list-style: none;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          margin-bottom: 16px; }
+          .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper .main-info-list li {
+            font-family: 'LatoRegular';
+            font-size: 16px;
+            line-height: 26px;
+            color: #0F0F10;
+            position: relative; }
+            .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper .main-info-list li + li {
+              margin-left: 30px; }
+              .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper .main-info-list li + li::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: -18px;
+                transform: translateY(-50%);
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: #373737; }
+        .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper p {
+          font-family: 'LatoRegular';
+          font-size: 18px;
+          line-height: 28px;
+          margin-bottom: 48px;
+          color: #0F0F10; }
+        .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper .destination-link-btn {
+          display: flex;
+          align-items: center;
+          color: var(--text-color-third);
+          text-transform: uppercase;
+          font-family: 'LatoMedium';
+          font-size: 18px;
+          line-height: normal;
+          text-decoration: none; }
+          .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper .destination-link-btn img {
+            margin-left: 14px; }
+
 .attraction-hero .container {
   padding-top: 60px;
   padding-bottom: 50px;
@@ -512,6 +616,139 @@ h5 {
       line-height: 26px; }
       .attraction-info-cards .attraction-info-cards-wrapper .attraction-info-card p:not(.attraction-info-card-title) span {
         font-family: 'LatoSemiBold'; }
+
+.attraction-list-hero .container {
+  padding-top: 130px;
+  padding-bottom: 53px;
+  background-image: url(../images/destination-list-hero-img.png);
+  border-radius: 26px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: 40px;
+  border-radius: 26px;
+  overflow: hidden;
+  margin-bottom: 60px; }
+  .attraction-list-hero .container .attraction-list-hero-title {
+    color: var(--text-color-second);
+    display: block;
+    text-align: center;
+    margin-bottom: 0;
+    font-size: 62px;
+    line-height: 56px;
+    padding: 0 100px;
+    font-family: 'LatoSemiBold'; }
+    .attraction-list-hero .container .attraction-list-hero-title span {
+      margin-left: 24px;
+      margin-right: 24px;
+      font-size: 44px;
+      line-height: 56px;
+      font-family: 'LatoSemiBold';
+      margin-top: 60px;
+      display: inline-block; }
+    .attraction-list-hero .container .attraction-list-hero-title img {
+      align-self: flex-end; }
+
+.attraction-list .container .title-filter-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px; }
+  .attraction-list .container .title-filter-wrapper .attraction-list-title {
+    font-size: 48px;
+    line-height: normal;
+    font-family: 'LatoMedium';
+    color: #0F0F10; }
+  .attraction-list .container .title-filter-wrapper .filter-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; }
+    .attraction-list .container .title-filter-wrapper .filter-wrapper .attraction-filter-title {
+      margin-right: 24px;
+      font-size: 18px;
+      line-height: 28px;
+      font-family: 'LatoRegular';
+      color: #0F0F10;
+      margin-bottom: 0; }
+    .attraction-list .container .title-filter-wrapper .filter-wrapper select {
+      padding: 9px 50px 9px 16px;
+      border-radius: 6px;
+      border: 1px solid #D9D9D9;
+      color: #0F0F10;
+      font-size: 16px;
+      line-height: 26px;
+      font-family: 'LatoRegular';
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: transparent;
+      background-image: url(../images/language-arrow.png);
+      background-position-x: calc(100% - 16px);
+      background-position-y: 50%;
+      background-repeat: no-repeat; }
+
+.attraction-list .container .attractions {
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+  margin-bottom: 156px; }
+  .attraction-list .container .attractions .attraction-list-item {
+    display: flex;
+    align-items: stretch;
+    border-radius: 26px;
+    overflow: hidden;
+    border: 1px solid #D9D9D9; }
+    .attraction-list .container .attractions .attraction-list-item + .attraction-list-item {
+      margin-top: 24px; }
+    .attraction-list .container .attractions .attraction-list-item .list-item-img-wrapper {
+      width: 320px;
+      border-radius: 26px;
+      overflow: hidden; }
+      .attraction-list .container .attractions .attraction-list-item .list-item-img-wrapper img {
+        width: 100%;
+        height: 100%; }
+    .attraction-list .container .attractions .attraction-list-item .attraction-list-content-wrapper {
+      width: calc(100% - 320px);
+      padding: 32px;
+      border-radius: 0 26px 26px 0; }
+      .attraction-list .container .attractions .attraction-list-item .attraction-list-content-wrapper h5 {
+        margin-bottom: 20px;
+        color: #0F0F10; }
+      .attraction-list .container .attractions .attraction-list-item .attraction-list-content-wrapper .attraction-type-list-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: 14px; }
+        .attraction-list .container .attractions .attraction-list-item .attraction-list-content-wrapper .attraction-type-list-wrapper .attraction-type-title {
+          color: #0F0F10;
+          margin-bottom: 0;
+          margin-right: 16px; }
+        .attraction-list .container .attractions .attraction-list-item .attraction-list-content-wrapper .attraction-type-list-wrapper .main-info-list {
+          display: flex;
+          align-items: center;
+          padding-left: 0;
+          list-style: none; }
+          .attraction-list .container .attractions .attraction-list-item .attraction-list-content-wrapper .attraction-type-list-wrapper .main-info-list li {
+            max-width: 24px; }
+            .attraction-list .container .attractions .attraction-list-item .attraction-list-content-wrapper .attraction-type-list-wrapper .main-info-list li img {
+              width: 100%; }
+            .attraction-list .container .attractions .attraction-list-item .attraction-list-content-wrapper .attraction-type-list-wrapper .main-info-list li + li {
+              margin-left: 16px; }
+      .attraction-list .container .attractions .attraction-list-item .attraction-list-content-wrapper > p {
+        font-family: 'LatoRegular';
+        font-size: 18px;
+        line-height: 28px;
+        margin-bottom: 48px;
+        color: #0F0F10; }
+      .attraction-list .container .attractions .attraction-list-item .attraction-list-content-wrapper .attraction-link-btn {
+        display: flex;
+        align-items: center;
+        color: var(--text-color-third);
+        text-transform: uppercase;
+        font-family: 'LatoMedium';
+        font-size: 18px;
+        line-height: normal;
+        text-decoration: none; }
+        .attraction-list .container .attractions .attraction-list-item .attraction-list-content-wrapper .attraction-link-btn img {
+          margin-left: 14px; }
 
 .header .container {
   padding-top: 22px;
