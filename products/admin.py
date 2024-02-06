@@ -2,6 +2,9 @@ from django.contrib import admin
 from django.contrib.gis.admin import GISModelAdmin
 from django.contrib.gis.forms.widgets import OSMWidget
 from django.core.exceptions import ValidationError
+from django.forms import ModelForm
+
+from ckeditor.widgets import CKEditorWidget
 
 from products.models import *  # noqa
 
@@ -80,3 +83,27 @@ class LanguageAdmin(admin.ModelAdmin):
     fields = ['name', 'code', 'is_active']
     list_display = ['name', 'code', 'is_active']
     list_filter = ['name', 'code', 'is_active']
+
+
+# ----------
+# Experience
+
+class ExperienceAdminForm(ModelForm):
+    class Meta:
+        model = Experience
+        fields = '__all__'
+        widgets = {
+            'full_description': CKEditorWidget(),
+            'languages': CKEditorWidget(),
+            'duration': CKEditorWidget(),
+            'accessibility': CKEditorWidget(),
+            'possession': CKEditorWidget(),
+        }
+
+
+@admin.register(Experience)
+class ExperienceAdmin(admin.ModelAdmin):
+    form = ExperienceAdminForm
+    exclude = ["updated_at"]
+    list_display = ['name', 'slug', 'language', 'price', 'is_active', 'updated_at']
+    list_filter = ['name', 'slug', 'language', 'price', 'is_active', 'updated_at']

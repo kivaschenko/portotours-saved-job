@@ -50,5 +50,5 @@ class FAQAttractionForm(ModelForm):
 @admin.register(FAQAttraction)
 class FAQAttractionAdmin(ModelAdmin):
     form = FAQAttractionForm
-    list_display = ['parent_attraction', 'language', 'question', 'is_active', 'updated_at']
-    list_filter = ['parent_attraction', 'language', 'question', 'is_active']
+    list_display = ['parent_attraction', 'language', 'question', 'priority_number', 'is_active', 'updated_at']
+    list_filter = ['parent_attraction', 'language', 'question', 'priority_number', 'is_active']

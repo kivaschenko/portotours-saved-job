@@ -1,7 +1,9 @@
 # Fixtures
 python manage.py dumpdata accounts.user --format=json --indent=4 --out accounts/fixtures/testing/users.json
-
+python manage.py dumpdata destinations.destination destinations.parentdestination --format=json --indent=4 --out=destinations/fixtures/testing/destinations.json
 python manage.py dumpdata products.language --format=json --indent=4 --out=products/fixtures/prod/languages.json
+python manage.py dumpdata products.experience --format=json --indent=4 --out=products/fixtures/testing/experinces.json
+
 
 python manage.py loaddata accounts/fixtures/testing/users.json
 
