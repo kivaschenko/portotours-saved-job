@@ -51,9 +51,12 @@
         margin-bottom: 32px;
         text-align: center;
     }
-    .what-to-see-text {
+    p:not(:first-child) {
         margin: 0;
-        + .what-to-see-text {
+        font-family: 'LatoRegular';
+        font-size: 16px;
+        line-height: 26px;
+        + p {
             margin-top: 16px;
         }
     }
@@ -161,8 +164,17 @@
                 .card-title {
                     margin-bottom: 20px;
                 }
-                .card-text {
+                p {
                     margin-bottom: 0;
+                    font-family: 'LatoRegular';
+                    font-size: 16px;
+                    line-height: 26px;
+                    + p {
+                        margin-top: 16px;
+                    }
+                    strong {
+                        font-family: 'LatoSemiBold';
+                    }
                 }
                 .body-text-b3-sb {
                     margin-bottom: 10px;
@@ -320,7 +332,7 @@
         margin-top: 0;
         margin-bottom: 16px;
     }
-    ul.faq-answer-list {
+    ul {
         list-style: none;
         padding-left: 24px;
         margin: 0;
@@ -346,7 +358,7 @@
             }
         }
     }
-    ol.faq-answer-list {
+    ol {
         margin: 0;
         padding-left: 18px;
         li {
@@ -364,6 +376,129 @@
                 margin-top: 8px;
             }
             
+        }
+    }
+}
+
+// Destination List
+
+.destination-list-hero {
+    .container {
+        background-image: url(../images/destination-list-hero-img.png);
+        border-radius: 26px;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        padding-top: 145px;
+        padding-bottom: 145px;
+        margin-top: 40px;
+        .destination-list-hero-title {
+            color: var(--text-color-second);
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            margin-bottom: 0;
+             span {
+                margin-left: 24px;
+                margin-right: 24px;
+                font-size: 44px;
+                line-height: 56px;
+                font-family: 'LatoSemiBold';
+             }
+             img {
+                align-self: flex-end;
+             }
+        }
+    }
+}
+.destinations-list {
+    .container {
+        margin-top: 40px;
+        .destinations {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding-left: 0;
+            list-style: none;
+            width: 100%;
+            margin-bottom: 156px;
+            .destinations-list-item {
+                display: flex;
+                align-items: center;
+                border-radius: 26px;
+                overflow: hidden;
+                + .destinations-list-item {
+                    margin-top: 24px;
+                }
+                .list-item-img-wrapper {
+                    width: 540px;
+                    img {
+                        width: 100%;
+                    }
+                }
+                .destination-list-content-wrapper {
+                    padding: 40px 35px 40px 45px;
+                    width: calc(100% - 540px);
+                    border: 1px solid #D9D9D9;
+                    background: #FFF;
+                    border-radius: 0 26px 26px 0;
+                    h4 {
+                        margin-bottom: 24px;
+                    }
+                    .main-info-list {
+                        padding-left: 0;
+                        margin: 0;
+                        list-style: none;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        margin-bottom: 16px;
+                        li {
+                            font-family: 'LatoRegular';
+                            font-size: 16px;
+                            line-height: 26px;
+                            color: #0F0F10;
+                            position: relative;
+                            + li {
+                                margin-left: 30px;
+                                &::after {
+                                    content: "";
+                                    position: absolute;
+                                    top: 50%;
+                                    left: -18px;
+                                    transform: translateY(-50%);
+                                    width: 6px;
+                                    height: 6px;
+                                    border-radius: 50%;
+                                    background-color: #373737;
+                                }
+                            }
+                           
+                        }
+                    }
+                    p {
+                        font-family: 'LatoRegular';
+                        font-size: 18px;
+                        line-height: 28px;
+                        margin-bottom: 48px;
+                        color: #0F0F10;
+                    }
+                    .destination-link-btn {
+                        display: flex;
+                        align-items: center;
+                        color: var(--text-color-third);
+                        text-transform: uppercase;
+                        font-family: 'LatoMedium';
+                        font-size: 18px;
+                        line-height: normal;
+                        text-decoration: none;
+                        img {
+                            margin-left: 14px;
+                        }
+                    }
+                }
+            }
         }
     }
 }

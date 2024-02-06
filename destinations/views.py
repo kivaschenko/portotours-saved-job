@@ -9,7 +9,7 @@ from products.models import Language
 
 class DestinationDetailView(DetailView):
     model = Destination
-    template_name = 'destinations/destination_detail.html'  # rename to 'destination_detail.html'
+    template_name = 'destinations/destination_detail.html'
     extra_context = {'languages': {}}
     queryset = Destination.active.all()
 

@@ -1,56 +1,74 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<section class="attraction-list-hero">
     <div class="container">
-        <h1>Attractions List</h1>
-        {% if object_list %}
-            {% for object in object_list %}
-                <div class="card mb-3" style="max-width: 90%;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="{{ object.parent_attraction.card_image.url }}" class="img-fluid rounded-start" alt="Card image for {{ object.name }}">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ object.name }}</h5>
-                                <p class="card-text">{{ object.short_introduction_text }}</p>
-                                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small>
-                                </p>
-                                <p><a href="{% url 'attraction-detail'  lang=object.language.code.lower slug=object.slug %}">
-                                    SEE MORE ...
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% endif %}
-
-        <!-- Pagination block -->
-        {% for contact in page_obj %}
-            {# Each "contact" is a Contact model object. #}
-            {{ contact.full_name|upper }}<br>
-            ...
-        {% endfor %}
-
-        <div class="pagination">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-
-                <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">next</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                {% endif %}
-            </span>
-        </div>
+        <h1 class="attraction-list-hero-title">
+            Best Portugal Attractions and Activities <span>with</span>
+            <img src="{% static 'images/main-logo.svg' %}" alt="Main logo">
+        </h1>
     </div>
+</section>
+
+
+<section class="attraction-list">
+    <div class="container">
+        <div class="title-filter-wrapper">
+            <h3 class="attraction-list-title">
+                Title name
+            </h3>
+            <div class="filter-wrapper">
+                <p class="attraction-filter-title">
+                    Sort by 
+                </p>
+                <select name="attraction filter" id="attraction_filter">
+                    <option value="Price">Price Low To High</option>
+                    <option value="Discount">Discount Low To High</option>
+                    <option value="Date">Date</option>
+                    <option value="Hot_deals">Hot deals first</option>
+                </select>
+            </div>
+        </div>
+        <ul class="attractions">
+            {% if object_list %}
+            {% for object in object_list %}
+                <li class="attraction-list-item">
+                    <div class="list-item-img-wrapper">
+                        <img src="{{ object.parent_attraction.card_image.url }}" alt="Card image for {{ object.name }}">
+                    </div>
+                    <div class="attraction-list-content-wrapper">
+                        <h5>
+                            {{ object.name }}
+                        </h5>
+                        <div class="attraction-type-list-wrapper">
+                            <p class="attraction-type-title body-text-b3">Type title:</p>
+                            <ul class="main-info-list">
+                                <li>
+                                    <img src="{% static 'images/attraction-type-icon1.svg' %}" alt="icon">
+                                </li>
+                                <li>
+                                    <img src="{% static 'images/attraction-type-icon2.svg' %}" alt="icon">
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="attraction-list-item-text">
+                            {{ object.short_introduction_text }}
+                        </p>
+                        <a href="{% url 'attraction-detail'  lang=object.language.code.lower slug=object.slug %}" class="attraction-link-btn">
+                            see more
+                            <img src="{% static 'images/experience-link-icon.svg' %}" alt="link arrow">
+                        </a>
+                    </div>
+                </li>
+                {% endfor %}
+                {% endif %}
+        </ul>
+    </div>
+</section>
+
+
+
+    
     <!-- Custom JS import -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 {% endblock %}

@@ -64,10 +64,16 @@ h1 {
     font-size: 92px;
     line-height: 110px;
     font-family: 'LatoBold';
+    margin-bottom: 0;
 }
 h2 {
     font-size: 44px;
     line-height: 56px;
+    font-family: 'LatoSemiBold';
+}
+h4 {
+    font-size: 32px;
+    line-height: 42px;
     font-family: 'LatoSemiBold';
 }
 h5 {
@@ -86,6 +92,7 @@ h5 {
     font-size: 18px;
     line-height: 28px;
 }
+
 .body-text-b3 {
     font-family: 'LatoRegular';
     font-size: 16px;

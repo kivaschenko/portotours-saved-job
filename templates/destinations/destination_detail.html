@@ -6,6 +6,8 @@
     <meta name="keywords" content="{{ object.page_keywords }}">
 {% endblock head %}
 {% block content %}
+
+
 <section class="destination-hero">
     <div class="destination-container container">
         <h1 class="destination-hero-title text-color-second">
@@ -26,9 +28,7 @@
         <p class="what-to-see-subtitle body-text-b2">
             {{ object.introduction_subtitle }}
         </p>
-        <p class="what-to-see-text body-text-b3">
-            {{ object.display_introduction_text }}
-        </p>
+        {{ object.display_introduction_text }}
         
     </div>
 </section>
@@ -102,7 +102,7 @@
 <section class="all-about">
     <div class="container">
         <h2 class="all-about-title">
-            All About {{ object.name }}
+           {{ object.all_about_title }} {{ object.name }}
         </h2>
         <div class="all-about-cards-wrapper">
             <div class="all-about-card">
@@ -113,9 +113,9 @@
                     <h5 class="card-title">
                         {{ object.when_to_visit_title }}
                     </h5>
-                    <p class="card-text body-text-b3">
+                    
                         {{ object.display_when_to_visit_text }}
-                    </p>
+                    
                 </div>
             </div>
             <div class="all-about-card">
@@ -126,9 +126,9 @@
                     <h5 class="card-title">
                         {{ object.getting_around_title }}
                     </h5>
-                    <p class="body-text-b3">
+                    
                         {{ object.display_getting_around_text }}
-                    </p>
+                    
                 </div>
             </div>
             <div class="all-about-card">
@@ -149,10 +149,10 @@
 <section class="top-attractions">
     <div class="container">
         <h2 class="top-attractions-title">
-            Top Lisbon Attractions
+            {{ object.top_attractions_title }}
         </h2>
         <p class="top-attractions-subtitle body-text-b2">
-            Explore Lisbon's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing
+            {{ object.top_attractions_subtitle }}
         </p>
         <div class="swiper-attractions">
             <!-- Additional required wrapper -->
@@ -197,10 +197,10 @@
 <section class="also-interested">
     <div class="container">
         <h2 class="also-interested-title">
-            You May Also Be Interested to Visit from Lisbon
+            {{ object.recommendations_title }}
         </h2>
         <p class="also-interested-subtitle body-text-b2">
-            Explore nearby spots from Lisbon, choosing captivating destinations that guarantee unforgettable experiences and cultural abundance.
+            {{ object.recommendations_subtitle }}
         </p>
         <div class="also-interested-cards-wrapper">
             <div class="also-interested-card">
@@ -233,7 +233,7 @@
         </div>
         <div class="also-interested-more-info-wrapper">
             <h5 class="also-interested-more-info-title">
-                Diverse your experience of Portugal, endeavoring brand-new experiences 
+                {{ object.recommendations_slogan }}
             </h5>
             <a href="" class="btn-type-2 also-interested-info-link">
                 see more 
@@ -241,14 +241,13 @@
         </div>
     </div>
 </section>
-
 <section class="faq">
     <div class="container">
         <h2 class="faq-title">
-            frequently asked questions
+            {{ object.faq_title }}
         </h2>
         <p class="faq-subtitle">
-            Get clear and useful information for the most common queries about OneDayTours in Lisbon
+            {{ object.faq_subtitle }}
         </p>
         {% if current_faqs %}
             {% for record in current_faqs %}
@@ -264,7 +263,7 @@
 </section>
 
 <script>
-    const swiper = new Swiper(".swiper-attractions", {
+    const swiperTopAttraction = new Swiper(".swiper-attractions", {
       slidesPerView: 2,
       speed: 1000,   
       spaceBetween: 24,
@@ -276,6 +275,27 @@
           767: {
               slidesPerView: 2,
               spaceBetween: 24,
+          }
+      },
+      // Navigation arrows
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+
+    const swiperAttractionHero = new Swiper(".attraction-hero-slider", {
+      slidesPerView: 3,
+      speed: 1000,   
+      spaceBetween: 24,
+      breakpoints: {
+          200: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+          },
+          767: {
+              slidesPerView: 3,
+              spaceBetween: 30,
           }
       },
       // Navigation arrows

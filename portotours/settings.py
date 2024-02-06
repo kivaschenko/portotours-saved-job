@@ -29,8 +29,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
-
+# ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']  # for dbug in CI/CD
 
 # Application definition
 
@@ -172,16 +172,19 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "default",
         },
-        "log_to_file": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "formatter": "simple",
-            "filename": os.environ.get('LOGGING_FILE'),
-        },
+        # "log_to_file": {
+        #     "level": "INFO",
+        #     "class": "logging.FileHandler",
+        #     "formatter": "simple",
+        #     "filename": os.environ.get('LOGGING_FILE'),
+        # },
     },
     "loggers": {
         "products": {
-            "handlers": ["log_to_stdout", "log_to_file"],
+            "handlers": [
+                "log_to_stdout",
+                # "log_to_file"
+            ],
             "level": "INFO",
             "propagate": True,
         },
@@ -233,10 +236,23 @@ CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'Full',
+        'toolbar': 'Custom',
         'height': 300,
         'width': 800,
-    },
+        
+        'toolbar_Custom': [
+            {'name': 'styles', 'items': ['Styles', 'Format']},
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'source', 'items': ['Source']},
+        ],
+        
+    }
 }
 
 # DigitalOcean Spaces

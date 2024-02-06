@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 from accounts import views as accounts_views
 from destinations import views as destinations_views
 from attractions import views as attractions_views
+from products import views as products_views
 
 # HOME & ACCOUNTS
 urlpatterns = [
@@ -38,6 +39,13 @@ urlpatterns += [
     path('attractions/<str:lang>/', attractions_views.AttractionListView.as_view(), name="attraction-list"),
     path('attractions/<str:lang>/<slug:slug>/', attractions_views.AttractionDetailView.as_view(), name="attraction-detail"),
 ]
+
+# EXPERIENCES
+urlpatterns += [
+    path('experiences/<str:lang>/', products_views.ExperienceListView.as_view(), name="experience-list"),
+    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(), name='experience-detail'),
+]
+
 
 # Add static file serving during development
 if settings.DEBUG:
