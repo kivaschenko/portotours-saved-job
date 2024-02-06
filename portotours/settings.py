@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'attractions.apps.AttractionsConfig',
     'destinations.apps.DestinationsConfig',
+    'purchases.apps.PurchasesConfig',
 ]
 
 MIDDLEWARE = [
@@ -271,3 +272,8 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
 # AWS_S3_CUSTOM_DOMAIN = 'https://portotoursmedia.fra1.digitaloceanspaces.com'
+
+# STRIPE credentials
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+BASE_ENDPOINT = os.environ.get('BASE_ENDPOINT', 'http://127.0.0.1:8000')
