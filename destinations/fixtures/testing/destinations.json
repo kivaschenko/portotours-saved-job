@@ -1,0 +1,47 @@
+[
+{
+    "model": "destinations.destination",
+    "pk": 1,
+    "fields": {
+        "parent_destination": 1,
+        "name": "Lisbon test destination en lang",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-02-05T09:17:46.289Z",
+        "slug": "lisbon-test-destination-en-lang",
+        "page_title": "Explore Lisbon with OneDayTours test page",
+        "page_description": "Explore Lisbon with OneDayTours test page",
+        "keywords": "Lisbon,tours,perfect trip,one day tours",
+        "main_title": "Explore Lisbon <span>with</span>",
+        "main_subtitle": "Portugal's capital, a dazzling mixture of variable cultures and traditions, rich in architecture and natural wonders.",
+        "introduction_title": "What to See in Lisbon",
+        "introduction_subtitle": "Lisbon, the capital of Portugal, is one of the most vibrant and charismatic cities in Western Europe.",
+        "introduction_text": "<p><strong>Lisbon </strong>is a perfect blend of elegant palaces, luxurious squares, majestic cathedrals, historical museums, and monuments with narrow cozy pretty streets and neat houses decorated with traditional Portuguese Azulejo tiles. You can start your walk around the city from the Ribeira market, where you can try delicacies from all over the country at once. Continue to Commerce Square and then explore the <strong>Lisbon Cathedral</strong>.<br />\r\nClimb a little higher, walk to the archaeological museum and the <strong>Carmo Convent</strong>, and from there go to the <strong>Santa Justa elevator</strong> with a panoramic view at the top.</p>\r\n\r\n<p><br />\r\nIn the center, you can take the old tram 28, get off at the very top of the <strong>Basilica of Estrela</strong>, and explore it and the cozy park next door. Then get to the <strong>Castle of St. George</strong>, and explore its towers and fortress walls, halls, and museums.</p>\r\n\r\n<p><br />\r\nThe number of sightseeing is incredible, many of them are on the UNESCO list, so a professional guide to the main places is the best solution to dive into the culture.</p>",
+        "short_introduction_text": "Portugal's capital, Lisbon, is a dynamic, open-air city that boasts stunning scenery, cobbled streets, and plenty of historical attractions and activities to enjoy on your own or with the family. There is also a rich selection of bustling nightlife,..",
+        "all_about_title": "All about",
+        "when_to_visit_title": "When to visit",
+        "when_to_visit_text": "<p>The best period to travel to Lisbon is considered to be May - October. However, in general, the weather conditions in Portugal can be called warm and sunny, and in winter it&#39;s also quite comfortable here.</p>\r\n\r\n<p><br />\r\nIn spring, the weather will delight you with comfortable temperatures of +17-24, and the city will not yet be fully filled with tourists. The peak tourist season is in June, July, and August, when the temperature may reach +28, and during this period excursion holidays can be combined with a sea holiday. In autumn, the weather is still warm and sunny, +18-25, so the trip will be much more comfortable, and hotel prices will be lower. In winter the temperature stays within +10-15, so in the daytime, it is perfect for trips around Portugal.</p>",
+        "getting_around_title": "Getting around",
+        "getting_around_text": "<p>Portugal&#39;s capital, Lisbon, is a dynamic, open-air city that boasts stunning scenery, cobbled streets, and plenty of historical attractions and activities to enjoy on your own or with the family. There is also a rich selection of bustling nightlife, outdoor activities, concerts, and tastings.</p>\r\n\r\n<p><br />\r\nExcursion programs in Lisbon mostly introduce you to the history of the country from the era of colonialism. It is worth exploring the ancient district of Alfama, the Torre de Belem, and the Royal Palace, paying special attention to the azulejos. Of course, the best option to start the adventure and get a full impression of the city is to choose well-combined one-day tours, each of which was carefully created by professional guides who know all the hidden secrets of the city.</p>",
+        "travel_tips_title": "Travel information",
+        "travel_tips_text": "<h3>You can get an unforgettable experience while traveling in Lisbon if you consider a few simple tips:</h3>\r\n\r\n<p><strong>1. How to Make the first trip to Lisbon unforgettable?</strong></p>\r\n\r\n<p>Admire the city from the observation deck. The view of Lisbon from above is impressive and enchanting. All the beauties of the city appear before the viewer: the Tagus River, ships sailing along it, the ocean, bridges, churches, and houses. If you&#39;re out of time, the best option to see all the main sights and attractions of Lisbon is to choose a one-day tour in Lisbon. And don&#39;t forget to try Portuguese wines as Portugal is famous for its vineyards. Red and white wines from the region are distinguished by high taste qualities.</p>\r\n\r\n<p><strong>2. What is a list of hidden treasures of Lisbon?</strong></p>\r\n\r\n<p>If you&#39;re interested in non-tourist places, Lisbon is extremely rich in such locations. For the first adventure, pay attention to underground Roman galleries. One more place is Reservoir Mahe d&#39;Agua Amoreiras. The reservoir, which received the title of Queen of Water, was built to collect flows from the main Lisbon aqueduct. And if you have time, visit the National Museum of Costume and Fashion. This museum displays men&#39;s, women&#39;s, and children&#39;s clothing that was considered fashionable from the 17th to the mid-20th century.</p>\r\n\r\n<p><strong>3. What dishes are the must-try in Lisbon?</strong></p>\r\n\r\n<p>What to eat in the city, located by the ocean? Of course, a variety of seafood dishes: baked octopus, sardines, shrimp, oysters, lobsters, mussels, and a variety of fish dishes. Don&rsquo;t forget about local Portuguese dish &ndash; the &ldquo;bacalhau&rdquo;, for example, Past&eacute;is de bacalhau (cod croquettes) or Bacalhau &agrave; bras (stewed cod with potatoes, onions, and eggs). This is a traditional Portuguese dish originally from Lisbon, which Senor Brush began cooking for the first time. The portions are large, so plan your strength wisely. And be sure to leave room for dessert!<br />\r\nAnd among desserts it should be pointed out that the famous Paste de Belem (or Pastel de Nata) cakes are the number one dessert in Portugal.</p>",
+        "top_attractions_title": "Top Lisbon Attractions",
+        "top_attractions_subtitle": "Explore Lisbon's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing",
+        "be_interested_title": "You May Also Be Interested to Visit from Lisbon",
+        "be_interested_subtitle": "Explore nearby spots from Lisbon, choosing captivating destinations that guarantee unforgettable experiences and cultura",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful information for the most common queries about OneDayTours in Lisbon"
+    }
+},
+{
+    "model": "destinations.parentdestination",
+    "pk": 1,
+    "fields": {
+        "parent_name": "Lisbon test parent",
+        "banner": "media/banners/destination-hero-img.png",
+        "card_image": "media/cards/8f1bf66e4af7e06a3ad0a9da7e5888e1.png",
+        "priority_number": 1,
+        "updated_at": "2024-02-05T08:00:14.936Z"
+    }
+}
+]

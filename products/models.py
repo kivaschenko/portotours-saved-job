@@ -4,9 +4,8 @@ from django.contrib.gis.geos import fromstr
 from django.db import models
 from django.contrib.gis.db import models as gis_models
 from django.urls import reverse
-from django.utils.text import slugify
 from django.utils.safestring import mark_safe
-from django.conf import settings
+from django.utils.text import slugify
 
 from geopy.geocoders import Nominatim
 from ckeditor.fields import RichTextField
@@ -112,13 +111,13 @@ class Language(models.Model):
         return f"<Language(id={self.id}, name={self.name})>"
 
 
-# ------------
-# Destinations
+# -----------
+# Experience
 
-class ParentDestination(models.Model):
-    """A parent destination brings together all destinations with multilingual content,
+class ParentExperience(models.Model):
+    """A Parent Experience brings together all experiences with multilingual content,
     but all in one location as a geographic and destination. To save the common banner,
-    card image and link between destination details page languages.
+    card image and link between the experiences details page languages.
     """
     parent_name = models.CharField(max_length=60, unique=True, db_index=True)
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
@@ -131,22 +130,27 @@ class ParentDestination(models.Model):
 
     class Meta:
         ordering = ('parent_name',)
-        verbose_name_plural = 'Parent Destinations'
+        verbose_name_plural = 'Parent Experiences'
 
 
-class DestinationActiveManager(models.Manager):
+class ExperienceActiveManager(models.Manager):
     def get_queryset(self):
-        return super(DestinationActiveManager, self).get_queryset().filter(is_active=True)
+        return super(ExperienceActiveManager, self).get_queryset().filter(is_active=True)
 
 
-class Destination(models.Model):
+class Experience(models.Model):
     # Business logic part
-    parent_destination = models.ForeignKey(ParentDestination, on_delete=models.SET_NULL,
-                                           related_name='child_destinations', null=True, blank=True,
-                                           help_text="The Parent destination brings together all destinations "
-                                                     "with multilingual content but same location and common banner.")
-    name = models.CharField(max_length=60, help_text="max 60 characters, city name usually")
+    parent_experience = models.ForeignKey(ParentExperience, on_delete=models.SET_NULL,
+                                          related_name='child_experiences', null=True, blank=True,
+                                          help_text="The Parent Experience brings together all experiences "
+                                                    "with multilingual content but same location and common banner.")
+    destinations = models.ManyToManyField('destinations.Destination',
+                                          help_text="may be bind to multiple destinations")
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
+    meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
+                                      on_delete=models.SET_NULL, null=True, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
     # SEO part
@@ -156,95 +160,66 @@ class Destination(models.Model):
                                   null=True, blank=True)
     page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters",
                                         null=True, blank=True)
-    keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
+    page_keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
     # Content part
-    main_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
-    main_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
-    introduction_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
-    introduction_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
-    introduction_text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
-    short_introduction_text = models.CharField(max_length=255, null=True, blank=True,
-                                               help_text="short text for recommendation cards, max 255 characters")
-    when_to_visit_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
-    when_to_visit_text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
-    getting_around_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
-    getting_around_text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
-    travel_tips_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
-    travel_tips_text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
+    name = models.CharField(max_length=60, unique=True,
+                            help_text="Short name for the experience, max 60 characters")
+    title_for_booking_form = models.CharField(max_length=120, help_text="Title above book form, max 120 characters",
+                                              null=True, blank=True)
+    long_name = models.CharField(max_length=255, help_text="Long name for the experience, max 255 characters",
+                                 blank=True, null=True)
+    short_description = models.CharField(max_length=255,
+                                         help_text="Short description for the Short Name, max 255 characters",
+                                         blank=True, null=True)
+    full_description = RichTextField(max_length=6000,
+                                     help_text="Full description for the Experience, max 6000 characters",
+                                     null=True, blank=True)
+    languages = RichTextField(help_text="list of available languages during experience trip", null=True, blank=True)
+    duration = RichTextField(max_length=60, help_text="duration of the experience, for example '5 hours'",
+                             blank=True, null=True)
+    accessibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    possibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    # Recommendations block
+    recommendations_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    recommendations_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    recommendations_slogan = models.CharField(max_length=120, help_text="max 120 characters, belong SEE MORE button",
+                                              null=True, blank=True)
 
     objects = models.Manager()
-    active = DestinationActiveManager()
+    active = ExperienceActiveManager()
 
     class Meta:
+        db_table = 'experiences'
         ordering = ('name',)
         unique_together = ('name', 'slug')
 
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('products:destination-detail', kwargs={'lang': self.language.code.lower(),
-                                                              'slug': self.slug})
-
-    @property
-    def localized_url(self):
-        return f"/destinations/{self.language.code.lower()}/{self.slug}/"
-
-    def display_main_title(self):
-        return mark_safe(self.main_title)
-
-    def display_introduction_title(self):
-        return mark_safe(self.introduction_title)
-
-    def display_introduction_text(self):
-        return mark_safe(self.introduction_text)
-
-    def display_when_to_visit_text(self):
-        return mark_safe(self.when_to_visit_text)
-
-    def display_getting_around_text(self):
-        return mark_safe(self.getting_around_text)
-
-    def display_travel_tips_text(self):
-        return mark_safe(self.travel_tips_text)
-
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        super(Destination, self).save(*args, **kwargs)
+        super(Experience, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('products:experience-detail', kwargs={'lang': self.language.code.lower(),
+                                                             'slug': self.slug})
 
-class FAQDestinationManager(models.Manager):
-    def get_queryset(self):
-        return super(FAQDestinationManager, self).get_queryset().filter(is_active=True)
+    @property
+    def localized_url(self):
+        return f"/experienceVjs/{self.language.code.lower()}/{self.slug}/"
 
+    def display_full_description(self):
+        return mark_safe(self.full_description)
 
-class FAQDestination(models.Model):
-    parent_destination = models.ForeignKey(ParentDestination, on_delete=models.SET_NULL,
-                                           related_name='faq_destinations', null=True, blank=True,
-                                           help_text="The Parent destination brings together all destinations "
-                                                     "with multilingual content but same location and common FAQ.")
-    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
-    question = models.CharField(max_length=255, help_text="max 255 characters")
-    answer = RichTextField(max_length=3000, help_text="max 3000 characters", null=True, blank=True)
-    priority_number = models.IntegerField(null=True, blank=True, default=0)
-    is_active = models.BooleanField(default=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    # Get only active FAQ queryset by default
-    objects = FAQDestinationManager()
+    def display_languages(self):
+        return mark_safe(self.languages)
 
-    class Meta:
-        db_table = 'faq_destination'
-        verbose_name = 'Frequently Asked Questions for Destination'
-        verbose_name_plural = 'Frequently Asked Questions for Destination'
-        ordering = ('priority_number',)
+    def display_duration(self):
+        return mark_safe(self.duration)
 
-    def __str__(self):
-        return self.question
+    def display_accessibility(self):
+        return mark_safe(self.accessibility)
 
-    def __repr__(self):
-        return (f'<FAQDestination(id={self.id} parent_destination={self.parent_destination} '
-                f'language={self.language} question={self.question}...)>')
-
-    def display_answer(self):
-        return mark_safe(self.answer)
+    def display_possibility(self):
+        return mark_safe(self.possibility)

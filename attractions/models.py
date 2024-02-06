@@ -6,7 +6,8 @@ from django.utils.safestring import mark_safe
 
 from ckeditor.fields import RichTextField
 
-from products.models import Language, ParentDestination
+from products.models import Language
+from destinations.models import ParentDestination
 
 logger = logging.getLogger(__name__)
 
@@ -82,6 +83,9 @@ class Attraction(models.Model):
     recommendations_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     recommendations_slogan = models.CharField(max_length=120, help_text="max 120 characters, belong SEE MORE button",
                                               null=True, blank=True)
+    # FAQ block
+    faq_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    faq_subtitle = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
 
     objects = models.Manager()
     active = AttractionActiveManager()

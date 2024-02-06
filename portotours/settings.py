@@ -29,8 +29,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
-
+# ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']  # for dbug in CI/CD
 
 # Application definition
 
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
     'attractions.apps.AttractionsConfig',
+    'destinations.apps.DestinationsConfig',
 ]
 
 MIDDLEWARE = [
@@ -171,16 +172,19 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "default",
         },
-        "log_to_file": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "formatter": "simple",
-            "filename": os.environ.get('LOGGING_FILE'),
-        },
+        # "log_to_file": {
+        #     "level": "INFO",
+        #     "class": "logging.FileHandler",
+        #     "formatter": "simple",
+        #     "filename": os.environ.get('LOGGING_FILE'),
+        # },
     },
     "loggers": {
         "products": {
-            "handlers": ["log_to_stdout", "log_to_file"],
+            "handlers": [
+                "log_to_stdout",
+                # "log_to_file"
+            ],
             "level": "INFO",
             "propagate": True,
         },
