@@ -87,6 +87,12 @@ class LanguageAdmin(admin.ModelAdmin):
 
 # ----------
 # Experience
+@admin.register(ParentExperience)
+class ParentExperienceAdmin(admin.ModelAdmin):
+    exclude = ['updated_at']
+    list_display = ['parent_name', 'priority_number']
+    list_filter = ['parent_name']
+
 
 class ExperienceAdminForm(ModelForm):
     class Meta:

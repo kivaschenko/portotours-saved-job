@@ -114,6 +114,25 @@ class Language(models.Model):
 # -----------
 # Experience
 
+class ParentExperience(models.Model):
+    """A Parent Experience brings together all experiences with multilingual content,
+    but all in one location as a geographic and destination. To save the common banner,
+    card image and link between the experiences details page languages.
+    """
+    parent_name = models.CharField(max_length=60, unique=True, db_index=True)
+    banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
+    card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    priority_number = models.IntegerField(null=True, blank=True, default=0)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.parent_name
+
+    class Meta:
+        ordering = ('parent_name',)
+        verbose_name_plural = 'Parent Experiences'
+
+
 class ExperienceActiveManager(models.Manager):
     def get_queryset(self):
         return super(ExperienceActiveManager, self).get_queryset().filter(is_active=True)
@@ -121,6 +140,10 @@ class ExperienceActiveManager(models.Manager):
 
 class Experience(models.Model):
     # Business logic part
+    parent_experience = models.ForeignKey(ParentExperience, on_delete=models.SET_NULL,
+                                          related_name='child_experiences', null=True, blank=True,
+                                          help_text="The Parent Experience brings together all experiences "
+                                                    "with multilingual content but same location and common banner.")
     destinations = models.ManyToManyField('destinations.Destination',
                                           help_text="may be bind to multiple destinations")
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
@@ -137,7 +160,7 @@ class Experience(models.Model):
                                   null=True, blank=True)
     page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters",
                                         null=True, blank=True)
-    keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
+    page_keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
     # Content part
     name = models.CharField(max_length=60, unique=True,
                             help_text="Short name for the experience, max 60 characters")
