@@ -299,7 +299,7 @@ h5 {
       transform: translateY(-50%); }
     .top-attractions .container .swiper-attractions .swiper-button-next:after, .top-attractions .container .swiper-attractions .swiper-rtl .swiper-button-prev:after {
       content: "";
-      background-image: url(../images/slider-icon-arrow.svg);
+      background-image: url(../icons/slider-icon-arrow.svg);
       width: 44px;
       height: 44px;
       background-size: contain;
@@ -312,7 +312,7 @@ h5 {
       transform: translateY(-50%); }
     .top-attractions .container .swiper-attractions .swiper-button-prev:after, .top-attractions .container .swiper-attractions .swiper-rtl .swiper-button-next:after {
       content: "";
-      background-image: url(../images/slider-icon-arrow.svg);
+      background-image: url(../icons/slider-icon-arrow.svg);
       width: 44px;
       height: 44px;
       background-size: contain;
@@ -565,7 +565,7 @@ h5 {
     margin: 0; }
   .attraction-hero .attraction-hero-slider .swiper-button-next:after, .attraction-hero .attraction-hero-slider .swiper-rtl .swiper-button-prev:after {
     content: "";
-    background-image: url(../images/slider-arrow-icon_v2.svg);
+    background-image: url(../icons/slider-arrow-icon_v2.svg);
     width: 60px;
     height: 60px;
     background-size: contain;
@@ -579,7 +579,7 @@ h5 {
     margin: 0; }
   .attraction-hero .attraction-hero-slider .swiper-button-prev:after, .attraction-hero .attraction-hero-slider .swiper-rtl .swiper-button-next:after {
     content: "";
-    background-image: url(../images/slider-arrow-icon_v2.svg);
+    background-image: url(../icons/slider-arrow-icon_v2.svg);
     width: 60px;
     height: 60px;
     background-size: contain;
