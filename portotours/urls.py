@@ -52,13 +52,9 @@ urlpatterns += [
 
 # PURCHASES
 urlpatterns += [
-    path('purchases/checkout/', purchases_views.checkout, name='checkout'),
-    path(
-        'purchases/checkout-payment-for-product-list/',
-        purchases_views.checkout_payment_for_product_list,
-        name='checkout-payment-for-product-list'
-    ),
-    path('checkout/', purchases_views.checkout_view, name='checkout-payment-for-test'),
+    path('checkout/', purchases_views.checkout_view, name='checkout'),
+    path('success/', purchases_views.purchase_success_view, name='success'),
+    path('stopped/', purchases_views.purchase_stopped_view, name='stopped'),
 ]
 
 # Add static file serving during development

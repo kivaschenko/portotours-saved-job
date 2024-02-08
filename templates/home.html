@@ -2,22 +2,29 @@
 
 {% block content %}
     <div class="container">
-        {% if user.is_authenticated %}
-            <h4>Hello, {{ user.first_name }} {{ user.last_name }}!</h4>
-            <p>Enjoy our service here...</p>
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button class="btn btn-outline-danger m-2" type="submit">logout</button>
-            </form>
-            <h3>Debug mode. All needing links</h3>
-            <ul>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">My Purchases</a></li>
-            <li><a href="{% url 'checkout' %}">Checkout Payment</a></li>
-            <li><a href="{% url 'checkout-payment-for-test' %}">Test Checkout</a></li>
-            </ul>
-        {% else %}
-            <a class="btn btn-outline-primary" href="{% url 'login' %}">Login or Signup</a>
-        {% endif %}
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                {% if user.is_authenticated %}
+                    <h4>Hello, {{ user.first_name }} {{ user.last_name }}!</h4>
+                    <p>Enjoy our service here...</p>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-danger m-2" type="submit">logout</button>
+                    </form>
+                    <h3>Debug mode. All needing links</h3>
+                    <ul>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">My Purchases</a></li>
+                        <li><a href="{% url 'checkout' %}">Checkout Payment</a></li>
+                    </ul>
+                {% else %}
+                    <a class="btn btn-outline-primary" href="{% url 'login' %}">Login or Signup</a>
+                {% endif %}
+
+            </div>
+            <div class="col-lg-6 col-md-6">
+                {% include 'purchases/buy-btn-form.html' %}
+            </div>
+        </div>
     </div>
 {% endblock %}
