@@ -27,29 +27,38 @@ urlpatterns = [
 ]
 
 # Django ckeditor: https://github.com/django-ckeditor/django-ckeditor
-urlpatterns += [path('ckeditor/', include('ckeditor_uploader.urls')),]
+urlpatterns += [path('ckeditor/', include('ckeditor_uploader.urls')), ]
 
 # DESTINATIONS
 urlpatterns += [
     path('destinations/<str:lang>/', destinations_views.DestinationListView.as_view(), name='destination-list'),
-    path('destinations/<str:lang>/<slug:slug>/', destinations_views.DestinationDetailView.as_view(), name="destination-detail"),
+    path('destinations/<str:lang>/<slug:slug>/', destinations_views.DestinationDetailView.as_view(),
+         name="destination-detail"),
 ]
 
 # ATTRACTIONS
 urlpatterns += [
     path('attractions/<str:lang>/', attractions_views.AttractionListView.as_view(), name="attraction-list"),
-    path('attractions/<str:lang>/<slug:slug>/', attractions_views.AttractionDetailView.as_view(), name="attraction-detail"),
+    path('attractions/<str:lang>/<slug:slug>/', attractions_views.AttractionDetailView.as_view(),
+         name="attraction-detail"),
 ]
 
 # EXPERIENCES
 urlpatterns += [
     path('experiences/<str:lang>/', products_views.ExperienceListView.as_view(), name="experience-list"),
-    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(), name='experience-detail'),
+    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(),
+         name='experience-detail'),
 ]
 
 # PURCHASES
 urlpatterns += [
     path('purchases/checkout/', purchases_views.checkout, name='checkout'),
+    path(
+        'purchases/checkout-payment-for-product-list/',
+        purchases_views.checkout_payment_for_product_list,
+        name='checkout-payment-for-product-list'
+    ),
+    path('checkout/', purchases_views.checkout_view, name='checkout-payment-for-test'),
 ]
 
 # Add static file serving during development
