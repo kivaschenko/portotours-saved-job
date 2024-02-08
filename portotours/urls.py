@@ -7,6 +7,7 @@ from accounts import views as accounts_views
 from destinations import views as destinations_views
 from attractions import views as attractions_views
 from products import views as products_views
+from purchases import views as purchases_views
 
 # HOME & ACCOUNTS
 urlpatterns = [
@@ -46,6 +47,10 @@ urlpatterns += [
     path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(), name='experience-detail'),
 ]
 
+# PURCHASES
+urlpatterns += [
+    path('purchases/checkout/', purchases_views.checkout, name='checkout'),
+]
 
 # Add static file serving during development
 if settings.DEBUG:

@@ -1,5 +1,7 @@
 import json
 import logging
+from decimal import Decimal
+
 from django.contrib.gis.geos import fromstr
 from django.db import models
 from django.contrib.gis.db import models as gis_models
@@ -240,17 +242,18 @@ class Product(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     parent_experience_id = models.IntegerField(null=True, blank=True)
     experience = models.ForeignKey(Experience, on_delete=models.SET_NULL, null=True, blank=True)
-    name = models.CharField(max_length=120, null=True, blank=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
     start_datetime = models.DateTimeField(auto_now_add=False,
                                           auto_now=False)  # TODO: check this case by timezone restriction
     end_datetime = models.DateTimeField(auto_now_add=False, auto_now=False, null=True,
                                         blank=True)  # TODO: check this case by timezone restriction
-    adults_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    adults_count = models.IntegerField(null=True, blank=True)
-
-    child_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    child_count = models.IntegerField(null=True, blank=True)
+    adults_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=Decimal('0'))
+    adults_count = models.IntegerField(null=True, blank=True, default=0)
+    child_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=Decimal('0'))
+    child_count = models.IntegerField(null=True, blank=True, default=0)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    is_paid = models.BooleanField(default=False)
+    is_expired = models.BooleanField(default=False)
     # Stripe data
     stripe_product_id = models.CharField(max_length=220, null=True, blank=True)
     stripe_price = models.IntegerField(null=True, blank=True)  # 100 * experience.price
@@ -263,16 +266,20 @@ class Product(models.Model):
                 f"start_datetime={self.start_datetime}...)>")
 
     def save(self, *args, **kwargs):
+        self.parent_experience_id = self.experience.parent_experience.id
         self.total_price = self.adults_price * self.adults_count + self.child_price * self.child_count
         if not self.stripe_product_id:
             self.stripe_product_id = self.strip_product_stmt.format(
-                id=self.experience.parent_experience.id,
-                experience_name=self.experience.parent_experience.parent_name,
+                id=self.experience.id,
+                experience_name=self.experience.name,
                 date=self.date_of_start,
                 time=self.time_of_start,
                 adults=self.adults_count,
                 children=self.child_count
             )
+        self.name = (f"[{self.experience.parent_experience.parent_name}] - {self.experience.name} "
+                     f"{self.date_of_start} {self.time_of_start} - adults: {self.adults_count} "
+                     f"children: {self.child_count}")
         if not self.stripe_price:
             self.stripe_price = int(self.total_price * 100)
         super(Product, self).save()

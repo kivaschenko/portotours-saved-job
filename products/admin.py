@@ -118,6 +118,7 @@ class ExperienceAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = [
-        'stripe_product_id',
+        'name',
         'total_price',
+        'customer',
     ]

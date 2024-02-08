@@ -1,10 +1,16 @@
 import stripe
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 from django.urls import reverse
 from django.conf import settings
+from django.views.generic import FormView
+
 from products.models import Product
 from .models import Purchase
-
+from .forms import ProductCartForm
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -65,3 +71,49 @@ def purchase_stopped_view(request):
         del request.session['purchase_id']
         return HttpResponseRedirect(product.get_absolute_url())
     return HttpResponse("Stopped")
+
+
+# Sample by stripe.Charge
+
+@login_required
+def checkout(request):
+    if request.method == 'POST':
+        form = ProductCartForm(request=request, data=request.POST)
+        if form.is_valid():
+            # Retrieve list of products
+            product_list = request.POST.getlist('my_products')
+            print(product_list)
+
+        try:
+            new_purchases = []
+            total_amount = 0
+            for product_id in product_list:
+                product = Product.objects.get(pk=product_id)
+                total_amount += product.stripe_price
+                new_purchase = Purchase.objects.create(user=request.user, product=product)
+                new_purchases.append(new_purchase)
+
+            payment_intent = stripe.PaymentIntent.create(
+                amount=total_amount,
+                currency='eur',
+                description='Purchase of products',
+                source=token,
+            )
+            # do something with response from stripe API
+            print('payment_intent', payment_intent)
+        except stripe.error.CardError as e:
+            return render(request, 'purchases/payment_error.html', {'error_message': e.error.message})
+        else:
+            return render(request, 'purchases/payment_success.html')
+    else:
+        form = ProductCartForm(user_id=request.user.id)
+
+    return render(request, 'purchases/checkout.html', {'form': form})
+
+
+def payment_success(request):
+    print('payment_success')
+    print(request.GET)
+    messages.success(request, 'You have successfully payment!')
+    return render(request, 'purchases/payment_success.html', context={'products': []})
+
