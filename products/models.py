@@ -232,6 +232,14 @@ class Experience(models.Model):
     def display_possibility(self):
         return mark_safe(self.possibility)
 
+# -------
+# Product
+
+class ProductActiveManager(models.Manager):
+    def get_queryset(self):
+        queryset = super(ProductActiveManager, self).get_queryset()
+        return queryset.filter(is_paid=False, is_expired=False)
+
 
 class Product(models.Model):
     """Product - is a digital product that sells access to a specific service (Experience)
@@ -257,6 +265,9 @@ class Product(models.Model):
     # Stripe data
     stripe_product_id = models.CharField(max_length=220, null=True, blank=True)
     stripe_price = models.IntegerField(null=True, blank=True)  # 100 * experience.price
+
+    objects = models.Manager()
+    active = ProductActiveManager()
 
     def __str__(self):
         return str(self.name)
