@@ -2,11 +2,21 @@
 
 {% block content %}
     <div class="container">
-        <div class="card" style="max-width: 32rem;">
-            <div class="card-title"><h4>Test attractive card</h4></div>
-            <div class="card-body">
-                <p>Some description here...</p>
-            </div>
-        </div>
+        {% if user.is_authenticated %}
+            <h4>Hello, {{ user.first_name }} {{ user.last_name }}!</h4>
+            <p>Enjoy our service here...</p>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button class="btn btn-outline-danger m-2" type="submit">logout</button>
+            </form>
+            <h3>Debug mode. All needing links</h3>
+            <ul>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">My Purchases</a></li>
+            <li><a href="{% url 'checkout' %}">Checkout Payment</a></li>
+            </ul>
+        {% else %}
+            <a class="btn btn-outline-primary" href="{% url 'login' %}">Login or Signup</a>
+        {% endif %}
     </div>
 {% endblock %}
