@@ -27,7 +27,7 @@ urlpatterns = [
 ]
 
 # Django ckeditor: https://github.com/django-ckeditor/django-ckeditor
-urlpatterns += [path('ckeditor/', include('ckeditor_uploader.urls')), ]
+urlpatterns += [path('ckeditor/', include('ckeditor_uploader.urls')),]
 
 # DESTINATIONS
 urlpatterns += [
@@ -60,6 +60,8 @@ urlpatterns += [
 # Add static file serving during development
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# Add static URL mapping for serving static files from DigitalOcean Spaces
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # Serve media files during development.
 # if settings.DEBUG:
