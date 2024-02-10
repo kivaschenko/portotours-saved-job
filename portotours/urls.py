@@ -49,6 +49,5 @@ urlpatterns += [
 # Add static URL mapping for serving static files from DigitalOcean Spaces
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-# Serve media files during development.
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Add static URL mapping for serving media files from DigitalOcean Spaces
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
