@@ -31,7 +31,7 @@ jobs:
       - name: Run tests
         run: python3 manage.py test
 
-  build_and_push_docker_image:
+  build_and_deploy:
     runs-on: ubuntu-22.04
 
     steps:
@@ -46,14 +46,8 @@ jobs:
           docker build -t kivaschenko/portotours:latest .
           docker push kivaschenko/portotours:latest
 
-  deploy_to_digitalocean:
-    runs-on: ubuntu-22.04
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: SSH into Digital Ocean Droplet
+      - name: SSH into Digital Ocean Droplet and deploy
+        if: success()
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DROPLET_IP }}
