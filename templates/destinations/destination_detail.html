@@ -12,7 +12,7 @@
     <div class="destination-container container">
         <div class="destination-banner">
             
-        <img src="{{ object.parent_destination.banner.url }}" alt="{{ object.parent_destination.banner.name }}"
+        <img src="{% if object.parent_destination.banner %}{{ object.parent_destination.banner.url }}{% else %}{% endif %}" alt="{{ object.parent_destination.banner.name }}"
              style="z-index: 1; position: relative; top: 0;">
         </div>
         <h1 class="destination-hero-title text-color-second" style="z-index: 2;">
