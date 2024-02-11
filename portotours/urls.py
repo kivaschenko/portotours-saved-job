@@ -7,6 +7,7 @@ from accounts import views as accounts_views
 from destinations import views as destinations_views
 from attractions import views as attractions_views
 from products import views as products_views
+from purchases import views as purchases_views
 
 # HOME & ACCOUNTS
 urlpatterns = [
@@ -31,26 +32,36 @@ urlpatterns += [path('ckeditor/', include('ckeditor_uploader.urls')),]
 # DESTINATIONS
 urlpatterns += [
     path('destinations/<str:lang>/', destinations_views.DestinationListView.as_view(), name='destination-list'),
-    path('destinations/<str:lang>/<slug:slug>/', destinations_views.DestinationDetailView.as_view(), name="destination-detail"),
+    path('destinations/<str:lang>/<slug:slug>/', destinations_views.DestinationDetailView.as_view(),
+         name="destination-detail"),
 ]
 
 # ATTRACTIONS
 urlpatterns += [
     path('attractions/<str:lang>/', attractions_views.AttractionListView.as_view(), name="attraction-list"),
-    path('attractions/<str:lang>/<slug:slug>/', attractions_views.AttractionDetailView.as_view(), name="attraction-detail"),
+    path('attractions/<str:lang>/<slug:slug>/', attractions_views.AttractionDetailView.as_view(),
+         name="attraction-detail"),
 ]
 
 # EXPERIENCES
 urlpatterns += [
     path('experiences/<str:lang>/', products_views.ExperienceListView.as_view(), name="experience-list"),
-    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(), name='experience-detail'),
+    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(),
+         name='experience-detail'),
 ]
 
+# PURCHASES
+urlpatterns += [
+    path('checkout/', purchases_views.checkout_view, name='checkout'),
+    path('success/', purchases_views.purchase_success_view, name='success'),
+    path('stopped/', purchases_views.purchase_stopped_view, name='stopped'),
+]
 
 # Add static file serving during development
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# Add static URL mapping for serving static files from DigitalOcean Spaces
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-# Serve media files during development.
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Add static URL mapping for serving media files from DigitalOcean Spaces
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

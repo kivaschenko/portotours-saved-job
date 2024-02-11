@@ -1,48 +1,51 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<section class="destination-list-hero">
-    <div class="container">
-        <h1 class="destination-list-hero-title">
-            Destinations <span>with</span>
-            <img src="{% static 'icons/main-logo.svg' %}" alt="Destination logo">
-        </h1>
-    </div>
-</section>
+    <section class="destination-list-hero">
+        <div class="container">
+            <h1 class="destination-list-hero-title">
+                Destinations <span>with</span>
+                <img src="{% static 'icons/main-logo.svg' %}" alt="Destination logo">
+            </h1>
+        </div>
+    </section>
 
-<section class="destinations-list">
-    <div class="container">
-        <ul class="destinations">
-            {% if object_list %}
-            {% for object in object_list %}
-                <li class="destinations-list-item">
-                    <div class="list-item-img-wrapper">
-                        <img src="{{ object.parent_destination.card_image.url }}" alt="Card image for {{ object.name }}">
-                    </div>
-                    <div class="destination-list-content-wrapper">
-                        <h4>
-                            {{ object.name }}
-                        </h4>
-                        <ul class="main-info-list">
-                            <li>40 minutes </li>
-                            <li>Small group</li>
-                            <li>Small group</li>
-                            <li>Small group</li>
-                        </ul>
-                        <p class="destination-list-item-text">
-                            {{ object.short_introduction_text }}
-                        </p>
-                        <a href="{% url 'destination-detail'  lang=object.language.code.lower slug=object.slug %}" class="destination-link-btn">
-                            see more
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="link arrow">
-                        </a>
-                    </div>
-                </li>
-            {% endfor %}
-            {% endif %}
-        </ul>
-    </div>
-</section>
+    <section class="destinations-list">
+        <div class="container">
+            <ul class="destinations">
+                {% if object_list %}
+                    {% for object in object_list %}
+                        <li class="destinations-list-item">
+                            <div class="list-item-img-wrapper">
+                                <img src="{% if object.parent_destination.card_image %}
+                                    {{ object.parent_destination.card_image.url }}
+                                    {% else %}{% endif %}" alt="Card image for {{ object.name }}">
+                            </div>
+                            <div class="destination-list-content-wrapper">
+                                <h4>
+                                    {{ object.name }}
+                                </h4>
+                                <ul class="main-info-list">
+                                    <li>40 minutes</li>
+                                    <li>Small group</li>
+                                    <li>Small group</li>
+                                    <li>Small group</li>
+                                </ul>
+                                <p class="destination-list-item-text">
+                                    {{ object.short_introduction_text }}
+                                </p>
+                                <a href="{% url 'destination-detail'  lang=object.language.code.lower slug=object.slug %}"
+                                   class="destination-link-btn">
+                                    see more
+                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="link arrow">
+                                </a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </section>
 
 
     <!-- Custom JS import -->

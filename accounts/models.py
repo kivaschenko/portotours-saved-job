@@ -55,3 +55,9 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+    def __repr__(self):
+        return f"<User(id={self.id} email={self.email} first_name={self.first_name} last_name={self.last_name}...)>"
