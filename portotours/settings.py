@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'storages',
+    'schedule',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
