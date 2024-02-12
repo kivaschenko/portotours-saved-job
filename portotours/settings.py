@@ -24,13 +24,14 @@ load_dotenv(dotenv_path)
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = '2d18496423377c985535dbcb64e6b9df474f7238fc124315221bbdfb3de7a764'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 # ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']  # for dbug in CI/CD
+BASE_ENDPOINT = os.environ.get('BASE_ENDPOINT', 'http://127.0.0.1:8000')
 
 # Application definition
 
@@ -87,7 +88,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'portotours.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -125,7 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -136,7 +135,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -166,18 +164,18 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "default",
         },
-        # "log_to_file": {
-        #     "level": "INFO",
-        #     "class": "logging.FileHandler",
-        #     "formatter": "simple",
-        #     "filename": os.environ.get('LOGGING_FILE'),
-        # },
+        "log_to_file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "formatter": "simple",
+            "filename": os.environ.get('LOGGING_FILE'),
+        },
     },
     "loggers": {
         "products": {
             "handlers": [
                 "log_to_stdout",
-                # "log_to_file"
+                "log_to_file"
             ],
             "level": "INFO",
             "propagate": True,
@@ -199,7 +197,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder',
 )
-
 
 SASS_PROCESSOR_INCLUDE_DIRS = [
     os.path.join(BASE_DIR, 'static/custom_css'),
@@ -224,7 +221,6 @@ if DEBUG is True:
     else:
         print("The current operating system is not macOS.")
 
-
 # CKEDITOR
 CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
 CKEDITOR_UPLOAD_PATH = "uploads/"
@@ -233,7 +229,7 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'Custom',
         'height': 300,
         'width': 800,
-        
+
         'toolbar_Custom': [
             {'name': 'styles', 'items': ['Styles', 'Format']},
             {'name': 'basicstyles',
@@ -245,40 +241,42 @@ CKEDITOR_CONFIGS = {
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             {'name': 'source', 'items': ['Source']},
         ],
-        
+
     }
 }
 
-# DigitalOcean Spaces
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
+# STATICFILES_DIRS = (BASE_DIR / 'static',)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3.S3Storage",
     },
     "staticfiles": {
-        "BACKEND": 'storages.backends.s3boto3.S3Boto3Storage',
+        "BACKEND": 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        # "BACKEND": 'storages.backends.s3boto3.S3Boto3Storage',
     }
 }
 
+# DigitalOcean Spaces
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
-AWS_DEFAULT_ACL = 'public-read'
+# AWS_DEFAULT_ACL = 'public-read'
 AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',  # cache static files for 24 hours
-}
-AWS_LOCATION = 'static'
+# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',  # cache static files for 24 hours
+# }
+# AWS_LOCATION = 'static'
 
 # STRIPE credentials
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
-BASE_ENDPOINT = os.environ.get('BASE_ENDPOINT', 'http://127.0.0.1:8000')
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (BASE_DIR / 'static',)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
