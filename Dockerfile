@@ -23,8 +23,10 @@ RUN pip install  --no-cache-dir -r requirements.txt
 # Copy the Django project files
 COPY . /app/
 # Create logfile
-# RUN mkdir -p /path/to/log && touch /path/to/log/file.log   # it will extended later
+#RUN mkdir -p /path/to/log && touch /path/to/log/file.log   # it will extended later
 
+# Use production.py module for deploy settings
+RUN export DJANGO_SETTINGS_MODULE=portotours.production
 
 # Collect static files and migrate database
 RUN python manage.py collectstatic --noinput
