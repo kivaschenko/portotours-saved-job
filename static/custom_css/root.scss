@@ -87,6 +87,11 @@ h5 {
     padding-left: 0;
     padding-right: 0;
 }
+.body-text-b1 {
+    font-family: 'LatoRegular';
+    font-size: 20px;
+    line-height: 30px;
+}
 .body-text-b2 {
     font-family: 'LatoSemiBold';
     font-size: 18px;
@@ -107,8 +112,27 @@ h5 {
     font-family: 'LatoRegular';
     font-size: 14px;
     line-height: 22px;
+    
 }
 
+.btn-type-1 {
+    border-radius: 38px;
+    background: var(--text-color-third);
+    color: white;
+    border: none;
+    width: fit-content;
+    padding: 18px 0;
+    text-transform: uppercase;
+    font-family: 'LatoSemiBold';
+    font-size: 18px;
+    line-height: normal;
+    text-decoration: none;
+    
+}
+.btn-type-1:hover {
+    background: #DA4303;
+    color: white;
+}
 .btn-type-2 {
     border-radius: 40px;
     border: 1.5px solid var(--text-color-third);
@@ -125,4 +149,31 @@ h5 {
 .btn-type-2:hover {
     background: #FFF6F2;
     color: #DA4303;
+}
+.btn-type-3 {
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(20px);
+    padding: 12px 30px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-family: 'LatoSemiBold';
+    font-size: 18px;
+    line-height: normal;
+    text-decoration: none;
+    cursor: pointer;
+    img {
+        margin-left: 16px;
+    }
+    &:hover {
+        border-radius: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        background: rgba(255, 255, 255, 0.40);
+        backdrop-filter: blur(20px);
+        color: white;
+    }
 }

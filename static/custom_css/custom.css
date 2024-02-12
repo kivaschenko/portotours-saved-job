@@ -82,6 +82,11 @@ h5 {
   padding-left: 0;
   padding-right: 0; }
 
+.body-text-b1 {
+  font-family: 'LatoRegular';
+  font-size: 20px;
+  line-height: 30px; }
+
 .body-text-b2 {
   font-family: 'LatoSemiBold';
   font-size: 18px;
@@ -102,6 +107,23 @@ h5 {
   font-size: 14px;
   line-height: 22px; }
 
+.btn-type-1 {
+  border-radius: 38px;
+  background: var(--text-color-third);
+  color: white;
+  border: none;
+  width: fit-content;
+  padding: 18px 0;
+  text-transform: uppercase;
+  font-family: 'LatoSemiBold';
+  font-size: 18px;
+  line-height: normal;
+  text-decoration: none; }
+
+.btn-type-1:hover {
+  background: #DA4303;
+  color: white; }
+
 .btn-type-2 {
   border-radius: 40px;
   border: 1.5px solid var(--text-color-third);
@@ -118,6 +140,31 @@ h5 {
 .btn-type-2:hover {
   background: #FFF6F2;
   color: #DA4303; }
+
+.btn-type-3 {
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  padding: 12px 30px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-family: 'LatoSemiBold';
+  font-size: 18px;
+  line-height: normal;
+  text-decoration: none;
+  cursor: pointer; }
+  .btn-type-3 img {
+    margin-left: 16px; }
+  .btn-type-3:hover {
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(20px);
+    color: white; }
 
 .destination-hero {
   background-image: url(../images/destination-hero-img.png);
@@ -521,6 +568,592 @@ h5 {
           .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper .destination-link-btn img {
             margin-left: 14px; }
 
+.home-hero {
+  background-image: url(../images/homepage-hero-bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; }
+  .home-hero .container {
+    padding-top: 70px;
+    padding-bottom: 330px;
+    text-align: center;
+    position: relative; }
+    .home-hero .container .hero-title {
+      color: white;
+      font-family: "LatoSemiBold";
+      font-size: 44px;
+      line-height: 56px; }
+      .home-hero .container .hero-title span {
+        display: block;
+        margin-top: 16px;
+        margin-bottom: 32px;
+        font-family: "LatoBold";
+        font-size: 92px;
+        line-height: 110px; }
+      .home-hero .container .hero-title img {
+        width: 260px; }
+    .home-hero .container .experience-list-hero-calendar {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 26px 26px 0 0;
+      background-color: white;
+      padding: 37px 55px; }
+      .home-hero .container .experience-list-hero-calendar form {
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+        .home-hero .container .experience-list-hero-calendar form .place-wrapper {
+          width: 360px;
+          position: relative;
+          margin-right: 40px; }
+          .home-hero .container .experience-list-hero-calendar form .place-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 24px;
+            width: 24px;
+            height: 24px;
+            background-image: url(../icons/send-icon.svg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 2; }
+          .home-hero .container .experience-list-hero-calendar form .place-wrapper label {
+            position: absolute;
+            background-color: white;
+            padding: 3px 5px;
+            color: #0f0f10;
+            font-family: "LatoMedium";
+            font-size: 16px;
+            line-height: normal;
+            text-transform: capitalize;
+            top: -13px;
+            left: 24px;
+            z-index: 3; }
+          .home-hero .container .experience-list-hero-calendar form .place-wrapper select {
+            border-radius: 42px;
+            border: 1px solid #d9d9d9;
+            width: 100%;
+            padding: 18px 24px 18px 60px;
+            font-family: "LatoRegular";
+            font-size: 16px;
+            line-height: normal;
+            position: relative;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: transparent;
+            background-image: url(../images/language-arrow.png);
+            background-position-x: calc(100% - 16px);
+            background-position-y: 50%;
+            background-repeat: no-repeat; }
+            .home-hero .container .experience-list-hero-calendar form .place-wrapper select:invalid {
+              color: #6d6d6d; }
+        .home-hero .container .experience-list-hero-calendar form .date-wrapper {
+          width: 230px;
+          position: relative;
+          margin-right: 40px; }
+          .home-hero .container .experience-list-hero-calendar form .date-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 24px;
+            width: 24px;
+            height: 24px;
+            background-image: url(../icons/calendar-icon.svg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 2; }
+          .home-hero .container .experience-list-hero-calendar form .date-wrapper label {
+            position: absolute;
+            background-color: white;
+            padding: 3px 5px;
+            color: #0f0f10;
+            font-family: "LatoMedium";
+            font-size: 16px;
+            line-height: normal;
+            text-transform: capitalize;
+            top: -13px;
+            left: 24px;
+            z-index: 3; }
+          .home-hero .container .experience-list-hero-calendar form .date-wrapper input {
+            border-radius: 42px;
+            border: 1px solid #d9d9d9;
+            width: 100%;
+            padding: 18px 24px 18px 60px;
+            font-family: "LatoRegular";
+            font-size: 16px;
+            line-height: normal;
+            position: relative; }
+            .home-hero .container .experience-list-hero-calendar form .date-wrapper input::placeholder {
+              color: #6d6d6d; }
+        .home-hero .container .experience-list-hero-calendar form .form-btn {
+          width: 240px;
+          display: flex;
+          align-items: center;
+          justify-content: center; }
+          .home-hero .container .experience-list-hero-calendar form .form-btn img {
+            margin-right: 14px; }
+
+.why .container {
+  padding-top: 100px;
+  padding-bottom: 46px;
+  text-align: center; }
+  .why .container .why-title {
+    margin-bottom: 20px; }
+  .why .container .why-subtitle {
+    margin-bottom: 60px; }
+  .why .container .why-cards-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; }
+    .why .container .why-cards-wrapper .why-card {
+      width: calc((100% - 48px) / 3);
+      display: flex;
+      align-items: center;
+      padding: 34px;
+      border-radius: 20px;
+      background: #f8f8f8;
+      margin-bottom: 24px; }
+      .why .container .why-cards-wrapper .why-card img {
+        width: 72px;
+        margin-right: 14px; }
+      .why .container .why-cards-wrapper .why-card .why-text {
+        font-family: "LatoRegular";
+        font-size: 20px;
+        line-height: normal;
+        text-transform: capitalize;
+        margin: 0; }
+
+.best-tours .container {
+  padding-top: 70px;
+  padding-bottom: 46px; }
+  .best-tours .container .title-btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 60px; }
+    .best-tours .container .title-btn-wrapper .best-tours-title {
+      color: #0f0f10;
+      margin-bottom: 0;
+      text-transform: capitalize; }
+    .best-tours .container .title-btn-wrapper .btn-type-1 {
+      width: 275px; }
+  .best-tours .container .best-tours-cards-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; }
+    .best-tours .container .best-tours-cards-wrapper .best-tours-card {
+      width: calc((100% - 24px) / 2);
+      display: flex;
+      align-items: center;
+      border-radius: 26px;
+      border: 1px solid #d9d9d9;
+      background: #fff;
+      margin-bottom: 24px; }
+      .best-tours .container .best-tours-cards-wrapper .best-tours-card .img-wrapper {
+        width: 320px; }
+        .best-tours .container .best-tours-cards-wrapper .best-tours-card .img-wrapper img {
+          display: block;
+          width: 100%;
+          height: 100%; }
+      .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper {
+        width: calc(100% - 320px);
+        padding: 24px 40px 24px 24px; }
+        .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper {
+          display: flex;
+          align-items: center;
+          margin-bottom: 12px; }
+          .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px; }
+        .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .best-tours-card-title {
+          margin-bottom: 8px;
+          text-transform: capitalize; }
+        .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .tour-info-wrapper .tour-info-list {
+          padding-left: 0;
+          list-style: none;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          margin-bottom: 14px; }
+          .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .tour-info-wrapper .tour-info-list li {
+            font-family: "LatoRegular";
+            font-size: 16px;
+            line-height: 26px; }
+            .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .tour-info-wrapper .tour-info-list li + li {
+              margin-left: 24px;
+              position: relative; }
+              .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .tour-info-wrapper .tour-info-list li + li::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: -15px;
+                transform: translateY(-50%);
+                width: 6px;
+                height: 6px;
+                background-color: var(--text-color-third);
+                border-radius: 50%; }
+        .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .tour-price {
+          font-family: "LatoMedium";
+          font-size: 26px;
+          line-height: 36px;
+          color: #0f0f10; }
+          .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .tour-price span {
+            font-family: "LatoRegular";
+            font-size: 16px;
+            line-height: 26px;
+            margin-left: 10px;
+            color: #6d6d6d; }
+
+.refund-banner {
+  background-color: #f3faf5;
+  margin-top: 70px;
+  margin-bottom: 70px; }
+  .refund-banner .container {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .refund-banner .container .img-wrapper {
+      width: 120px;
+      margin-right: 60px; }
+      .refund-banner .container .img-wrapper img {
+        width: 100%; }
+    .refund-banner .container .banner-content .banner-title {
+      font-family: "LatoBold";
+      font-size: 40px;
+      line-height: 48px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 8px; }
+    .refund-banner .container .banner-content .banner-subtitle {
+      font-family: "LatoRegular";
+      font-size: 20px;
+      line-height: 30px;
+      margin-bottom: 0; }
+
+.tour-type .container {
+  padding-top: 70px;
+  padding-bottom: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+  .tour-type .container .tour-type-card {
+    width: calc((100% - 24px) / 2);
+    min-height: 360px;
+    position: relative; }
+    .tour-type .container .tour-type-card img {
+      width: 100%;
+      height: 100%; }
+    .tour-type .container .tour-type-card .tour-type-title-btn-wrapper {
+      position: absolute;
+      bottom: 28px;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      width: 100%; }
+      .tour-type .container .tour-type-card .tour-type-title-btn-wrapper .tour-type-title {
+        color: white;
+        margin-bottom: 0; }
+
+.homepage-top-destinations .container {
+  padding-top: 70px;
+  padding-bottom: 46px; }
+  .homepage-top-destinations .container .title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 60px; }
+    .homepage-top-destinations .container .title-wrapper .top-destinations-title {
+      margin-bottom: 0;
+      color: #0f0f10; }
+    .homepage-top-destinations .container .title-wrapper .btn-type-1 {
+      padding: 18px 80px; }
+  .homepage-top-destinations .container .top-destinations-cards-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; }
+    .homepage-top-destinations .container .top-destinations-cards-wrapper .top-destinations-col {
+      display: flex;
+      flex-direction: column;
+      width: calc((100% - 48px) / 3); }
+      .homepage-top-destinations .container .top-destinations-cards-wrapper .top-destinations-col .top-destinations-card {
+        width: 100%;
+        height: 280px;
+        margin-bottom: 24px;
+        position: relative; }
+        .homepage-top-destinations .container .top-destinations-cards-wrapper .top-destinations-col .top-destinations-card img {
+          width: 100%;
+          height: 100%; }
+        .homepage-top-destinations .container .top-destinations-cards-wrapper .top-destinations-col .top-destinations-card .top-destination-card-title {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-family: "LatoBold";
+          font-size: 40px;
+          letter-spacing: 3.2px;
+          text-transform: uppercase;
+          color: white;
+          line-height: normal; }
+        .homepage-top-destinations .container .top-destinations-cards-wrapper .top-destinations-col .top-destinations-card + .top-destinations-card {
+          height: 440px; }
+      .homepage-top-destinations .container .top-destinations-cards-wrapper .top-destinations-col--reverse {
+        flex-direction: column-reverse; }
+
+.top-attractions-slider-section .container {
+  padding-top: 70px;
+  padding-bottom: 70px;
+  text-align: center;
+  max-width: 100%; }
+  .top-attractions-slider-section .container .top-attractions-title {
+    margin-bottom: 20px; }
+  .top-attractions-slider-section .container .top-attractions-subtitle {
+    margin-bottom: 40px; }
+  .top-attractions-slider-section .container .top-attractions-slider {
+    position: relative;
+    overflow: hidden; }
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-slide .img-wrapper {
+      width: 100%;
+      position: relative;
+      margin-bottom: 24px; }
+      .top-attractions-slider-section .container .top-attractions-slider .swiper-slide .img-wrapper > img {
+        width: 100%; }
+      .top-attractions-slider-section .container .top-attractions-slider .swiper-slide .img-wrapper ul {
+        position: absolute;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-left: 0;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        margin: 0; }
+        .top-attractions-slider-section .container .top-attractions-slider .swiper-slide .img-wrapper ul li {
+          display: flex;
+          align-items: center;
+          border-radius: 34px;
+          background: rgba(251, 251, 251, 0.75);
+          backdrop-filter: blur(25px);
+          padding: 8px 10px;
+          font-family: "LatoRegular";
+          font-size: 14px;
+          line-height: 22px;
+          color: #0f0f10; }
+          .top-attractions-slider-section .container .top-attractions-slider .swiper-slide .img-wrapper ul li + li {
+            margin-left: 8px; }
+          .top-attractions-slider-section .container .top-attractions-slider .swiper-slide .img-wrapper ul li img {
+            margin-right: 6px; }
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-slide .slide-title {
+      margin-bottom: 14px; }
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-slide .slide-text {
+      font-family: "LatoRegular";
+      font-size: 18px;
+      line-height: 28px;
+      margin-bottom: 24px; }
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-slide .slide-link-btn {
+      display: block;
+      padding: 19px 80px;
+      text-align: center;
+      margin: 0 auto; }
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-button-next,
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-rtl .swiper-button-prev {
+      right: 15%;
+      width: 44px;
+      height: 44px;
+      top: 40%;
+      transform: translateY(-50%); }
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-button-next:after,
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-rtl .swiper-button-prev:after {
+      content: "";
+      background-image: url(../icons/slider-icon-arrow.svg);
+      width: 44px;
+      height: 44px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat; }
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-button-prev,
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-rtl .swiper-button-next {
+      left: 15%;
+      width: 44px;
+      height: 44px;
+      top: 40%;
+      transform: translateY(-50%); }
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-button-prev:after,
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-rtl .swiper-button-next:after {
+      content: "";
+      background-image: url(../icons/slider-icon-arrow.svg);
+      width: 44px;
+      height: 44px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: scaleX(-1); }
+    .top-attractions-slider-section .container .top-attractions-slider .swiper-wrapper {
+      z-index: 20; }
+
+.testimonials-slider .container {
+  padding-top: 70px;
+  padding-bottom: 70px;
+  text-align: center; }
+  .testimonials-slider .container .testimonials-title {
+    text-transform: capitalize;
+    margin-bottom: 20px; }
+  .testimonials-slider .container .testimonials-subtitle {
+    margin-bottom: 32px; }
+  .testimonials-slider .container .testimonials-slider {
+    overflow: hidden;
+    position: relative;
+    width: calc(100% + 44px);
+    margin-left: -22px;
+    padding-right: 22px;
+    padding-left: 22px;
+    padding-bottom: 50px; }
+  .testimonials-slider .container .swiper-slide .swiper-text {
+    padding: 28px 30px 50px;
+    border-radius: 26px;
+    border: 1px solid #d9d9d9;
+    background: #fff;
+    text-align: left;
+    margin-bottom: 35px;
+    position: relative;
+    min-height: 200px; }
+    .testimonials-slider .container .swiper-slide .swiper-text::after {
+      content: "";
+      width: 18px;
+      height: 19px;
+      background-image: url(../icons/testimonials-text-icon.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      position: absolute;
+      bottom: 0;
+      left: 20px; }
+  .testimonials-slider .container .swiper-slide .author-wrapper {
+    display: flex;
+    align-items: center; }
+    .testimonials-slider .container .swiper-slide .author-wrapper img {
+      max-width: 60px;
+      margin-right: 20px; }
+    .testimonials-slider .container .swiper-slide .author-wrapper .name {
+      font-family: "LatoMedium";
+      font-size: 18px;
+      line-height: 28px;
+      margin: 0; }
+  .testimonials-slider .container .swiper-button-next,
+  .testimonials-slider .container .swiper-rtl .swiper-button-prev {
+    right: 0;
+    width: 44px;
+    top: 100px;
+    height: 44px;
+    transform: translateY(-50%);
+    margin: 0; }
+  .testimonials-slider .container .swiper-button-next:after,
+  .testimonials-slider .container .swiper-rtl .swiper-button-prev:after {
+    content: "";
+    background-image: url(../icons/slider-icon-arrow.svg);
+    width: 44px;
+    height: 44px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat; }
+  .testimonials-slider .container .swiper-button-prev,
+  .testimonials-slider .container .swiper-rtl .swiper-button-next {
+    left: 0;
+    top: 100px;
+    width: 44px;
+    height: 44px;
+    transform: translateY(-50%);
+    margin: 0; }
+  .testimonials-slider .container .swiper-button-prev:after,
+  .testimonials-slider .container .swiper-rtl .swiper-button-next:after {
+    content: "";
+    background-image: url(../icons/slider-icon-arrow.svg);
+    width: 44px;
+    height: 44px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scaleX(-1); }
+  .testimonials-slider .container .swiper-horizontal > .swiper-pagination-bullets,
+  .testimonials-slider .container .swiper-pagination-bullets.swiper-pagination-horizontal,
+  .testimonials-slider .container .swiper-pagination-custom,
+  .testimonials-slider .container .swiper-pagination-fraction {
+    bottom: -5px; }
+  .testimonials-slider .container .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+  .testimonials-slider .container .swiper-pagination-horizontal.swiper-pagination-bullets
+.swiper-pagination-bullet {
+    background: var(--text-color-third);
+    width: 14px;
+    height: 14px; }
+
+.offers-banner .container {
+  background-image: url(../images/offers-bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding-top: 80px;
+  padding-bottom: 95px;
+  text-align: center;
+  border-radius: 26px;
+  overflow: hidden;
+  margin-bottom: 140px; }
+  .offers-banner .container .offers-banner-title {
+    font-family: "LatoSemiBold";
+    font-size: 38px;
+    line-height: 56px;
+    color: white;
+    margin-bottom: 16px;
+    letter-spacing: 0.76px;
+    text-transform: uppercase; }
+  .offers-banner .container .offers-banner-subtitle {
+    font-family: "LatoRegular";
+    font-size: 34px;
+    line-height: normal;
+    color: white;
+    margin-bottom: 32px; }
+  .offers-banner .container form {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .offers-banner .container form .email-input {
+      border-radius: 47px;
+      border: 1px solid #d9d9d9;
+      background: #fff;
+      padding: 20px 24px;
+      font-family: "LatoRegular";
+      font-size: 16px;
+      line-height: normal;
+      color: #0f0f10;
+      margin-right: 24px;
+      width: 320px; }
+      .offers-banner .container form .email-input::placeholder {
+        color: #6d6d6d; }
+    .offers-banner .container form .form-submit-btn {
+      border-radius: 40px;
+      background: #F0500B;
+      padding: 19px 80px;
+      font-family: "LatoSemiBold";
+      font-size: 18px;
+      color: white;
+      border: none;
+      line-height: normal;
+      text-transform: uppercase; }
+      .offers-banner .container form .form-submit-btn:hover {
+        background: #DA4303; }
+
 .attraction-hero .container {
   padding-top: 60px;
   padding-bottom: 50px;
@@ -749,6 +1382,266 @@ h5 {
         text-decoration: none; }
         .attraction-list .container .attractions .attraction-list-item .attraction-list-content-wrapper .attraction-link-btn img {
           margin-left: 14px; }
+
+.experience-list-hero .container {
+  padding-top: 96px;
+  padding-bottom: 194px;
+  background-image: url(../images/experience-hero.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  border-radius: 26px;
+  overflow: hidden;
+  margin-top: 40px;
+  position: relative; }
+  .experience-list-hero .container .experience-list-hero-title {
+    color: var(--text-color-second);
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 32px; }
+    .experience-list-hero .container .experience-list-hero-title img {
+      align-self: flex-end;
+      margin-bottom: -18px;
+      margin-left: 18px; }
+  .experience-list-hero .container .experience-list-hero-calendar {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 26px 26px 0 0;
+    background-color: white;
+    padding: 37px 55px; }
+    .experience-list-hero .container .experience-list-hero-calendar form {
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+      .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper {
+        width: 360px;
+        position: relative;
+        margin-right: 40px; }
+        .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper::before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 24px;
+          width: 24px;
+          height: 24px;
+          background-image: url(../icons/send-icon.svg);
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+          z-index: 2; }
+        .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper label {
+          position: absolute;
+          background-color: white;
+          padding: 3px 5px;
+          color: #0F0F10;
+          font-family: 'LatoMedium';
+          font-size: 16px;
+          line-height: normal;
+          text-transform: capitalize;
+          top: -13px;
+          left: 24px;
+          z-index: 3; }
+        .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper select {
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          width: 100%;
+          padding: 18px 24px 18px 60px;
+          font-family: 'LatoRegular';
+          font-size: 16px;
+          line-height: normal;
+          position: relative;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          background: transparent;
+          background-image: url(../images/language-arrow.png);
+          background-position-x: calc(100% - 16px);
+          background-position-y: 50%;
+          background-repeat: no-repeat; }
+          .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper select:invalid {
+            color: #6D6D6D; }
+      .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper {
+        width: 230px;
+        position: relative;
+        margin-right: 40px; }
+        .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper::before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 24px;
+          width: 24px;
+          height: 24px;
+          background-image: url(../icons/calendar-icon.svg);
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+          z-index: 2; }
+        .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper label {
+          position: absolute;
+          background-color: white;
+          padding: 3px 5px;
+          color: #0F0F10;
+          font-family: 'LatoMedium';
+          font-size: 16px;
+          line-height: normal;
+          text-transform: capitalize;
+          top: -13px;
+          left: 24px;
+          z-index: 3; }
+        .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper input {
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          width: 100%;
+          padding: 18px 24px 18px 60px;
+          font-family: 'LatoRegular';
+          font-size: 16px;
+          line-height: normal;
+          position: relative; }
+          .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper input::placeholder {
+            color: #6D6D6D; }
+      .experience-list-hero .container .experience-list-hero-calendar form .form-btn {
+        width: 240px;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+        .experience-list-hero .container .experience-list-hero-calendar form .form-btn img {
+          margin-right: 14px; }
+
+.experience-list .container {
+  margin-top: 60px; }
+  .experience-list .container .title-filter-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px; }
+    .experience-list .container .title-filter-wrapper .experience-list-title {
+      font-size: 48px;
+      line-height: normal;
+      font-family: 'LatoMedium';
+      color: #0F0F10; }
+    .experience-list .container .title-filter-wrapper .filter-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; }
+      .experience-list .container .title-filter-wrapper .filter-wrapper .experience-filter-title {
+        margin-right: 24px;
+        font-size: 18px;
+        line-height: 28px;
+        font-family: 'LatoRegular';
+        color: #0F0F10;
+        margin-bottom: 0; }
+      .experience-list .container .title-filter-wrapper .filter-wrapper select {
+        padding: 9px 50px 9px 16px;
+        border-radius: 6px;
+        border: 1px solid #D9D9D9;
+        color: #0F0F10;
+        font-size: 16px;
+        line-height: 26px;
+        font-family: 'LatoRegular';
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        background-image: url(../images/language-arrow.png);
+        background-position-x: calc(100% - 16px);
+        background-position-y: 50%;
+        background-repeat: no-repeat; }
+  .experience-list .container .experiences {
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+    margin-bottom: 200px; }
+    .experience-list .container .experiences .experience-list-item {
+      display: flex;
+      align-items: stretch;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid #D9D9D9; }
+      .experience-list .container .experiences .experience-list-item + .experience-list-item {
+        margin-top: 24px; }
+      .experience-list .container .experiences .experience-list-item .list-item-img-wrapper {
+        width: 450px;
+        border-radius: 26px;
+        overflow: hidden;
+        position: relative; }
+        .experience-list .container .experiences .experience-list-item .list-item-img-wrapper .img-label {
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-color: white;
+          border-radius: 0 0 25px 0;
+          padding: 8px 24px 12px 18px;
+          color: var(--text-color-third);
+          font-family: 'LatoMedium';
+          font-size: 18px;
+          line-height: 28px;
+          text-transform: capitalize; }
+        .experience-list .container .experiences .experience-list-item .list-item-img-wrapper img {
+          width: 100%;
+          height: 100%; }
+      .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper {
+        width: calc(100% - 450px);
+        padding: 32px 32px 28px 32px;
+        border-radius: 0 26px 26px 0; }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper h5 {
+          margin-bottom: 24px;
+          color: #0F0F10; }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper {
+          display: flex;
+          align-items: center;
+          margin-bottom: 14px; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list {
+            display: flex;
+            align-items: center;
+            padding-left: 0;
+            list-style: none; }
+            .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li {
+              font-family: 'LatoRegular';
+              font-size: 14px;
+              line-height: 22px;
+              color: #006A1E;
+              padding: 5px 10px;
+              background-color: #F3FAF5;
+              border-radius: 30px; }
+              .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li + li {
+                margin-left: 16px; }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper > p {
+          font-family: 'LatoRegular';
+          font-size: 18px;
+          line-height: 28px;
+          margin-bottom: 14px;
+          color: #0F0F10; }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper {
+          display: flex;
+          align-items: center; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper .old-price {
+            text-decoration: line-through;
+            color: #6D6D6D;
+            font-family: 'LatoMedium';
+            font-size: 26px;
+            line-height: 42px;
+            margin-right: 16px; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper .new-price {
+            color: #0F0F10;
+            font-family: 'LatoSemiBold';
+            font-size: 40px;
+            line-height: 48px; }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-link-btn {
+          display: flex;
+          align-items: center;
+          width: 265px;
+          justify-content: center;
+          text-transform: uppercase;
+          font-family: 'LatoMedium';
+          font-size: 18px;
+          line-height: normal;
+          text-decoration: none; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-link-btn img {
+            margin-left: 14px; }
 
 .header .container {
   padding-top: 22px;
