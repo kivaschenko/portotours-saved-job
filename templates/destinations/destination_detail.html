@@ -10,10 +10,14 @@
 
 <section class="destination-hero">
     <div class="destination-container container">
-        <h1 class="destination-hero-title text-color-second">
-            {{ object.display_main_title }}
+        <div class="destination-banner">
             
-            <img src="{% static 'icons/main-logo.svg' %}" alt="">
+        <img src="{% if object.parent_destination.banner %}{{ object.parent_destination.banner.url }}{% else %}{% endif %}" alt="{{ object.parent_destination.banner.name }}"
+             style="z-index: 1; position: relative; top: 0;">
+        </div>
+        <h1 class="destination-hero-title text-color-second" style="z-index: 2;">
+            {{ object.display_main_title }}
+            <img src="{% static 'icons/main-logo.svg' %}" alt="" style="z-index: 2;">
         </h1>
         <p class="destination-hero-subtitle body-text-b2">
             {{ object.main_subtitle }}
