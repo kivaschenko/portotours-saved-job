@@ -8,44 +8,112 @@
                 <img src="{% static 'icons/main-logo.svg' %}" alt="Destination logo">
             </h1>
             <div class="experience-list-hero-calendar">
-
+                <form action="">
+                    <div class="place-wrapper">
+                        <label for="place">
+                            Where to?
+                        </label>
+                        <select required name="place" id="place" class="place">
+                            <option disabled selected hidden value="">Choose place</option>
+                            <option value="Porto">
+                                Porto
+                            </option>
+                            <option value="Lisbon">
+                                Lisbon
+                            </option>
+                        </select>
+                    </div>
+                    <div class="date-wrapper">
+                        <label for="date">
+                            When?
+                        </label>
+                        <input type="date" name="date" id="date">
+                    </div>
+                    <button type="button" class="form-btn btn-type-1">
+                        <img src="{% static 'icons/search.svg' %}" alt="">
+                        Search
+                    </button>
+                </form>
             </div>
         </div>
     </section>
-
-
-    <div class="container">
-        <!-- TODO add translate block for header -->
-        <h1>experiences List</h1>
-        {% if object_list %}
-            {% for object in object_list %}
-                <div class="card mb-3" style="max-width: 90%;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="{% if object.parent_experience.card_image %}
-                                            {{ object.parent_experience.card_image.url }}{% else %}{% endif %}"
-                                 class="img-fluid rounded-start" alt="Card image for {{ object.name }}">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ object.name }}</h5>
-                                <p class="card-text">{{ object.short_introduction_text }}</p>
-                                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small>
-                                </p>
-                                <p>
-                                    <a href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
-                                        SEE MORE ...
-                                    </a>
-                            </div>
-                        </div>
-                    </div>
+    <section class="experience-list">
+        <div class="container">
+            <div class="title-filter-wrapper">
+                <h3 class="experience-list-title">
+                    Title name
+                </h3>
+                <div class="filter-wrapper">
+                    <p class="experience-filter-title">
+                        Sort by 
+                    </p>
+                    <select name="experience filter" id="experience_filter">
+                        <option value="Price">Price Low To High</option>
+                        <option value="Discount">Discount Low To High</option>
+                        <option value="Date">Date</option>
+                        <option value="Hot_deals">Hot deals first</option>
+                    </select>
                 </div>
-            {% endfor %}
-        {% endif %}
+            </div>
+            <ul class="experiences">
+                {% if object_list %}
+                    {% for object in object_list %}
+                    <li class="experience-list-item">
+                        <div class="list-item-img-wrapper">
+                            
+                            <span class="img-label">
+                                OneDayTours Exclusive
+                            </span>
+                            <img src="{% if object.parent_experience.card_image %}
+                            {{ object.parent_experience.card_image.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
+                        </div>
+                        <div class="experience-list-content-wrapper">
+                            <h5>
+                                {{ object.name }}
+                            </h5>
+                            <div class="experience-type-list-wrapper">
+                                
+                                <ul class="main-info-list">
+                                    <li>
+                                        Duration: 6h 
+                                    </li>
+                                    <li>
+                                        Free Cancellation
+                                    </li>
+                                    <li>
+                                        Private Tour
+                                    </li>
+                                    <li>
+                                        Skip-The-Line
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="experience-list-item-text">
+                                {{ object.short_introduction_text }}
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu.
+                            </p>
+                            <div class="price-wrapper">
+                                <p class="old-price">
+                                    € 20
+                                </p>
+                                <p class="new-price">
+                                    € 20
+                                </p>
+                            </div>
+                            <a href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}" class="experience-link-btn btn-type-1">
+                                Book now
+                            </a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        
+    </section>
 
-        <!-- Pagination block -->
+    
 
-    </div>
     <!-- Custom JS import -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 {% endblock %}
