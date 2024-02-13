@@ -127,7 +127,7 @@ class ParentExperience(models.Model):
     card image and link between the experiences details page languages.
     """
     parent_name = models.CharField(max_length=160, unique=True, db_index=True)
-    slug = models.SlugField(unique=True, db_index=True, editable=False, max_length=200, blank=True)
+    slug = models.SlugField(unique=True, db_index=True, editable=True, max_length=200, blank=True)
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
     priority_number = models.IntegerField(null=True, blank=True, default=0)
@@ -143,7 +143,8 @@ class ParentExperience(models.Model):
         verbose_name_plural = 'Parent Experiences'
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.parent_name)
+        if not self.slug:
+            self.slug = slugify(self.parent_name)
         super().save(*args, **kwargs)
 
 

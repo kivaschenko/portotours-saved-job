@@ -23,7 +23,7 @@ class Command(BaseCommand):
             print("Install it...")
 
         print("Create Experience Calendar ...")
-        cal = Calendar(name="Experience Calendar")
+        cal = Calendar(name="Experience Calendar", slug="experience-calendar")
         cal.save()
         print("The Experience Calendar is created.")
         print("Do we need to install the most common rules?")
@@ -33,7 +33,7 @@ class Command(BaseCommand):
             print("Need to install the basic rules")
             rule = Rule(frequency="YEARLY", name="Yearly", description="will recur once every Year")
             rule.save()
-            print("YEARLY recurrence created")
+            print("Yearly recurrence created")
             rule = Rule(frequency="MONTHLY", name="Monthly", description="will recur once every Month")
             rule.save()
             print("Monthly recurrence created")

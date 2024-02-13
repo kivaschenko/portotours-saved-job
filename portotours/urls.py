@@ -50,6 +50,12 @@ urlpatterns += [
          name='experience-detail'),
 ]
 
+# Calendar, Events
+urlpatterns += [
+    path('calendar/experiences/<str:parent_experience_slug>/', products_views.get_calendar_experience_events,
+         name='calendar_experience_events')
+]
+
 # PURCHASES
 urlpatterns += [
     path('checkout/', purchases_views.checkout_view, name='checkout'),
