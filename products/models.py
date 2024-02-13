@@ -12,6 +12,7 @@ from django.conf import settings
 
 from geopy.geocoders import Nominatim
 from ckeditor.fields import RichTextField
+from schedule.models import Event
 
 geolocator = Nominatim(timeout=5, user_agent="portotours")
 
@@ -125,11 +126,14 @@ class ParentExperience(models.Model):
     but all in one location as a geographic and destination. To save the common banner,
     card image and link between the experiences details page languages.
     """
-    parent_name = models.CharField(max_length=60, unique=True, db_index=True)
+    parent_name = models.CharField(max_length=160, unique=True, db_index=True)
+    slug = models.SlugField(unique=True, db_index=True, editable=False, max_length=200, blank=True)
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
     priority_number = models.IntegerField(null=True, blank=True, default=0)
     updated_at = models.DateTimeField(auto_now=True)
+    # associate this Experience with Calendar Event
+    event = models.OneToOneField(Event, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.parent_name
@@ -138,6 +142,10 @@ class ParentExperience(models.Model):
         ordering = ('parent_name',)
         verbose_name_plural = 'Parent Experiences'
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.parent_name)
+        super().save(*args, **kwargs)
+
 
 class ExperienceActiveManager(models.Manager):
     def get_queryset(self):
@@ -145,6 +153,10 @@ class ExperienceActiveManager(models.Manager):
 
 
 class Experience(models.Model):
+    """This model is both a content store and an abstraction.
+    Content used for the information page of the site and abstraction as a description of the data
+    for a certain event on some dates.
+    So we know that this experience can happen and theoretically it can be sold on certain dates."""
     # Business logic part
     parent_experience = models.ForeignKey(ParentExperience, on_delete=models.SET_NULL,
                                           related_name='child_experiences', null=True, blank=True,
@@ -215,7 +227,7 @@ class Experience(models.Model):
 
     @property
     def localized_url(self):
-        return f"/experienceVjs/{self.language.code.lower()}/{self.slug}/"
+        return f"/experiences/{self.language.code.lower()}/{self.slug}/"
 
     def display_full_description(self):
         return mark_safe(self.full_description)
@@ -231,6 +243,7 @@ class Experience(models.Model):
 
     def display_possibility(self):
         return mark_safe(self.possibility)
+
 
 # -------
 # Product
