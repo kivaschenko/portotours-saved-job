@@ -46,7 +46,7 @@ urlpatterns += [
 # EXPERIENCES
 urlpatterns += [
     path('experiences/<str:lang>/', products_views.ExperienceListView.as_view(), name="experience-list"),
-    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(),
+    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailWithBookingFormView.as_view(),
          name='experience-detail'),
 ]
 

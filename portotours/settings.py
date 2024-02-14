@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'storages',
     'schedule',
+    'crispy_forms',
+    'crispy_bootstrap5',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -284,3 +286,7 @@ STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 
 # PROJECT BUSINESS LOGIC
 BOOKING_MINUTES = 30
+
+# CRISPY FORMS
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
