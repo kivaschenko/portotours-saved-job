@@ -22,7 +22,7 @@ BASE_ENDPOINT = settings.BASE_ENDPOINT
 def checkout_view(request):
     if not request.method == "POST":
         return HttpResponseBadRequest()
-    # get active products
+    # get active products TODO: override this urgently!
     products = Product.active.filter(customer=request.user)
     line_items = []
     total_amount = 0

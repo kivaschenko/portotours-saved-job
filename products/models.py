@@ -1,6 +1,7 @@
 import json
 import logging
 from decimal import Decimal
+from datetime import datetime, timedelta
 
 from django.contrib.gis.geos import fromstr
 from django.db import models
@@ -12,7 +13,7 @@ from django.conf import settings
 
 from geopy.geocoders import Nominatim
 from ckeditor.fields import RichTextField
-from schedule.models import Event
+from schedule.models import Event, Occurrence
 
 geolocator = Nominatim(timeout=5, user_agent="portotours")
 
@@ -130,7 +131,30 @@ class ParentExperience(models.Model):
     slug = models.SlugField(unique=True, db_index=True, editable=True, max_length=200, blank=True)
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
-    priority_number = models.IntegerField(null=True, blank=True, default=0)
+    priority_number = models.IntegerField(null=True, blank=True, default=0,
+                                          help_text="Priority number using for ordering in recommendation queue")
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    child_discount = models.PositiveSmallIntegerField(null=True, blank=True, default=33,
+                                                      help_text="Child discount in % from price for child products")
+    use_child_discount = models.BooleanField(default=True,
+                                             help_text="If the children's discount percentage is included and "
+                                                       "the percentage is specified, then when saving, "
+                                                       "it automatically recalculates the children's price depending "
+                                                       "on the main price f the amount of the discount in percent")
+    child_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    currency = models.CharField(max_length=3, null=True, blank=True, default='eur')
+    price_changed_timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    use_auto_increase_old_price = models.BooleanField(default=False, 
+                                                      help_text="If true, the old price is automatically increased")
+    increase_percentage_old_price = models.IntegerField(null=True, blank=True, default=33,
+                                                        help_text="The percentage to increase old price automatically.")
+    old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
+                                    help_text="For marketing purposes, this old price will be higher than the new one.")
+    meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
+                                      on_delete=models.SET_NULL, null=True, blank=True)
+    max_participants = models.IntegerField(null=True, blank=True, default=8, help_text="Maximum number of participants")
+    is_private = models.BooleanField(default=False, help_text="If this experience is private then to sale whole number "
+                                                              "of participants as one purchase will be")
     updated_at = models.DateTimeField(auto_now=True)
     # associate this Experience with Calendar Event
     event = models.OneToOneField(Event, on_delete=models.SET_NULL, null=True, blank=True)
@@ -145,6 +169,10 @@ class ParentExperience(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.parent_name)
+        if self.use_auto_increase_old_price:
+            self.old_price = self.price * Decimal(round(float(self.increase_percentage_old_price / 100 + 1), 2))
+        if self.use_child_discount:
+            self.child_price = self.price * Decimal(round(float(1 - self.child_discount / 100), 2))
         super().save(*args, **kwargs)
 
 
@@ -166,12 +194,6 @@ class Experience(models.Model):
     destinations = models.ManyToManyField('destinations.Destination',
                                           help_text="may be bind to multiple destinations")
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
-    meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
-                                      on_delete=models.SET_NULL, null=True, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    price_currency = models.CharField(max_length=3, null=True, blank=True, default='eur')
-    price_changed_timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
-
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
     # SEO part
@@ -252,19 +274,20 @@ class Experience(models.Model):
 class ProductActiveManager(models.Manager):
     def get_queryset(self):
         queryset = super(ProductActiveManager, self).get_queryset()
-        return queryset.filter(is_paid=False, is_expired=False)
+        status_list = ['Pending', 'Processing', 'Payment']
+        return queryset.filter(status__in=status_list)
 
 
 class Product(models.Model):
     """Product - is a digital product that sells access to a specific service (Experience)
     for numbers of adults or children at a specified total price on a specified date
     and time of providing this service at a specified meeting place."""
-    strip_product_stmt = "[{id}] {experience_name} - {date} {time} {adults} adults {children} children"
     # Business logic
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
-    parent_experience_id = models.IntegerField(null=True, blank=True)
-    experience = models.ForeignKey(Experience, on_delete=models.SET_NULL, null=True, blank=True)
-    name = models.CharField(max_length=255, null=True, blank=True)
+    session = models.ForeignKey('sessions.Session', on_delete=models.SET_NULL, null=True)  # ID for anonymous user
+    parent_experience = models.ForeignKey(ParentExperience, on_delete=models.SET_NULL, null=True)
+    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True)
+    occurrence = models.ForeignKey(Occurrence, on_delete=models.SET_NULL, null=True, blank=True)
     start_datetime = models.DateTimeField(auto_now_add=False,
                                           auto_now=False)  # TODO: check this case by timezone restriction
     end_datetime = models.DateTimeField(auto_now_add=False, auto_now=False, null=True,
@@ -274,8 +297,17 @@ class Product(models.Model):
     child_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=Decimal('0'))
     child_count = models.IntegerField(null=True, blank=True, default=0)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    is_paid = models.BooleanField(default=False)
-    is_expired = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+    expired_time = models.DateTimeField()
+    status = models.CharField(max_length=30, null=True, blank=True, default='Pending',
+                              choices=[
+                                  ('Pending', 'Pending'),
+                                  ('Cancelled', 'Cancelled'),
+                                  ('Expired', 'Expired'),
+                                  ('Processing', 'Processing'),
+                                  ('Payment', 'Payment'),
+                                  ('Completed', 'Completed'),
+                              ])
     # Stripe data
     stripe_product_id = models.CharField(max_length=220, null=True, blank=True)
     stripe_price = models.IntegerField(null=True, blank=True)  # 100 * experience.price
@@ -284,29 +316,22 @@ class Product(models.Model):
     active = ProductActiveManager()
 
     def __str__(self):
-        return str(self.name)
+        return (f"{self.parent_experience.parent_name} | {self.date_of_start}  {self.time_of_start} | "
+                f"{self.total_price} {self.parent_experience.price_currency}")
 
     def __repr__(self):
         return (f"<Product(id={self.id} parent_experience_id={self.parent_experience_id} "
                 f"start_datetime={self.start_datetime}...)>")
 
     def save(self, *args, **kwargs):
-        self.parent_experience_id = self.experience.parent_experience.id
+        # recount each time during save because might be different numer of participants
         self.total_price = self.adults_price * self.adults_count + self.child_price * self.child_count
-        if not self.stripe_product_id:
-            self.stripe_product_id = self.strip_product_stmt.format(
-                id=self.experience.id,
-                experience_name=self.experience.name,
-                date=self.date_of_start,
-                time=self.time_of_start,
-                adults=self.adults_count,
-                children=self.child_count
-            )
-        self.name = (f"[{self.experience.parent_experience.parent_name}] - {self.experience.name} "
-                     f"{self.date_of_start} {self.time_of_start} - adults: {self.adults_count} "
-                     f"children: {self.child_count}")
-        if not self.stripe_price:
-            self.stripe_price = int(self.total_price * 100)
+        self.stripe_product_id = (f"[{self.parent_experience.id}] {self.parent_experience.parent_name} | "
+                                  f"start at: {self.start_datetime} language: {self.language}"
+                                  f"participants: {self.adults_count} adults {self.child_count} children")
+        self.stripe_price = int(self.total_price * 100)
+        if not self.expired_at:
+            self.expired_at = datetime.utcnow() + timedelta(minutes=settings.BOOKING_MINUTES)  # by default 30 minutes
         super(Product, self).save()
 
     @property

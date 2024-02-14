@@ -90,8 +90,9 @@ class LanguageAdmin(admin.ModelAdmin):
 @admin.register(ParentExperience)
 class ParentExperienceAdmin(admin.ModelAdmin):
     exclude = ['updated_at', 'slug']
-    list_display = ['parent_name', 'id', 'slug', 'priority_number']
-    list_filter = ['parent_name']
+    list_display = ['parent_name', 'id', 'slug', 'currency', 'price', 'child_price', 'old_price',
+                    'max_participants', 'is_private', 'priority_number']
+    list_filter = ['parent_name', 'price', 'max_participants', 'is_private']
 
 
 class ExperienceAdminForm(ModelForm):
@@ -111,14 +112,19 @@ class ExperienceAdminForm(ModelForm):
 class ExperienceAdmin(admin.ModelAdmin):
     form = ExperienceAdminForm
     exclude = ["updated_at"]
-    list_display = ['name', 'slug', 'language', 'price', 'is_active', 'updated_at']
-    list_filter = ['name', 'slug', 'language', 'price', 'is_active', 'updated_at']
+    list_display = ['id', 'name', 'slug', 'language', 'is_active', 'updated_at']
+    list_filter = ['name', 'slug', 'language', 'is_active', 'updated_at']
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = [
-        'name',
+        'parent_experience',
+        'language',
+        'start_datetime',
+        'status',
+        'adults_count',
+        'child_count',
         'total_price',
         'customer',
     ]
