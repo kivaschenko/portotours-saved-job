@@ -1,3 +1,8 @@
+from datetime import datetime, timedelta
+
+from django.http import JsonResponse, HttpResponse
+from pytz import UTC
+
 from django.views.generic import DetailView, ListView
 
 from products.models import *  # noqa
@@ -40,3 +45,13 @@ class ExperienceDetailView(DetailView):
                 self.extra_content['languages'].update({lang: url})
         # TODO: add UserReview list about this Experience
         return obj
+
+
+def get_calendar_experience_events(request, parent_experience_slug):
+    parent_experience = ParentExperience.objects.get(slug=parent_experience_slug)
+    # start = datetime.utcnow().date()
+    # end = start + timedelta(days=30)
+    # occurrences = parent_experience.event.get_occurrences(start=start, end=end)
+    occurrences = parent_experience.event.occurrences_after(max_occurrences=100)
+    context = {'occurrences': occurrences}
+    return HttpResponse(json.dumps(context), content_type='application/json')

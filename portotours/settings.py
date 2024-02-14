@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'storages',
+    'schedule',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -280,3 +281,6 @@ AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
 # STRIPE credentials
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+
+# PROJECT BUSINESS LOGIC
+BOOKING_MINUTES = 30
