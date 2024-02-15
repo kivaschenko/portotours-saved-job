@@ -1,4 +1,7 @@
 from datetime import datetime, timedelta
+from django.shortcuts import render
+from .forms import DateSelectionForm
+
 
 import pytz
 from django.http import JsonResponse, HttpResponse
@@ -86,7 +89,7 @@ class ExperienceDetailWithFormView(DetailView, FormView):
         # TODO: add UserReview list about this Experience
         occurrences_generator = obj.parent_experience.event.occurrences_after(max_occurrences=100)
         occurrences = [occ.start.strftime('%Y-%m-%d') for occ in occurrences_generator]
-        self.extra_context['occurrences'] = occurrences
+        self.extra_context['occurrences'] = mark_safe(occurrences)
         print('extra_content:', self.extra_context)
         return obj
 

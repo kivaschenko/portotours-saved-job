@@ -5,15 +5,38 @@
     <title>{{ object.page_title }}</title>
     <meta name="description" content="{{ object.page_description }}">
     <meta name="keywords" content="{{ object.page_keywords }}">
-    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
-    <script src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
-    <!-- Datepicker JS -->
-    <link href="{% static 'vendors/css/bootstrap-datetimepicker.min.css' %}" media="all" rel="stylesheet">
-    <link href="{% static 'vendors/css/datepicker-widget.css' %}" media="all" rel="stylesheet">
-    <script src="{% static 'vendors/js/moment-with-locales.min.js' %}"></script>
-    <script src="{% static 'vendors/js/bootstrap-datetimepicker.min.js' %}"></script>
-    <script src="{% static 'vendors/js/datepicker-widget.js' %}"></script>
+    <!-- Include jQuery and jQuery UI for datepicker -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize datepicker
+            $(".datepicker").datepicker({
+                // Add any additional options here
+                dateFormat: 'yy-mm-dd',
+                // Highlight specific dates
+                beforeShowDay: function (date) {
+                    const highlightDates = {{ occurrences|safe }};
+                    const stringDate = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                    return [highlightDates.includes(stringDate), 'highlighted-date'];
+                }
+            });
+        });
+    </script>
+    <style>
+        .ui-state-default, .ui-widget-content .ui-state-default {
+            border: 1px solid #c5c5c5;
+            background: #F0500B;
+            font-weight: bold;
+            color: #454545;
+        }
+
+        .highlighted-date {
+            background-color: #F0500B; /* Define your desired background color */
+            font-weight: bold;
+        }
+    </style>
 {% endblock head %}
 {% block content %}
 
@@ -46,6 +69,12 @@
         <p>{{ object.recommendations_subtitle }}</p>
         <h2>{{ object.recommendations_slogan }}</h2>
     </div>
+    <style>
+        .highlighted-date {
+            background-color: #F0500B;
+            font-weight: bold;
+        }
+    </style>
     <script>
         const swiperTopAttraction = new Swiper(".swiper-attractions", {
             slidesPerView: 2,
