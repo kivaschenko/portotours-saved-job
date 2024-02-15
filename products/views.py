@@ -1,7 +1,5 @@
 from datetime import datetime, timedelta
 from django.shortcuts import render
-from .forms import DateSelectionForm
-
 
 import pytz
 from django.http import JsonResponse, HttpResponse
