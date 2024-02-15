@@ -1,39 +1,53 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% load static %}
 {% block head %}
     <title>{{ object.page_title }}</title>
     <meta name="description" content="{{ object.page_description }}">
     <meta name="keywords" content="{{ object.page_keywords }}">
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <!-- Datepicker JS -->
+    <link href="{% static 'vendors/css/bootstrap-datetimepicker.min.css' %}" media="all" rel="stylesheet">
+    <link href="{% static 'vendors/css/datepicker-widget.css' %}" media="all" rel="stylesheet">
+    <script src="{% static 'vendors/js/moment-with-locales.min.js' %}"></script>
+    <script src="{% static 'vendors/js/bootstrap-datetimepicker.min.js' %}"></script>
+    <script src="{% static 'vendors/js/datepicker-widget.js' %}"></script>
 {% endblock head %}
 {% block content %}
 
     <section class="experience-hero">
-        
     </section>
-
-
-
     <div class="container">
-    
-    <p>Short name: {{ object.name }}</p>
-    <p>Long name: {{ object.long_name }}</p>
-    <p>Short description: {{ object.short_description }}</p>
-    <p>Full description:</p>
-    {{ object.display_full_description }}
-    <p>Languages</p>
-    {{ object.display_languages }}
-    <p>Duration</p>
-    {{ object.display_duration }}
-    <p>Accessibility</p>
-    {{ object.display_accessibility }}
-    <p>Possibility</p>
-    {{ object.display_possibility }}
-    <h3>{{ object.recommendations_title }}</h3>
-    <p>{{ object.recommendations_subtitle }}</p>
-    <h2>{{ object.recommendations_slogan }}</h2>
+        <title>Event Form</title>
+        <div class="container">
+            <form method="post">
+                {% csrf_token %}
+                {% crispy form %}
+                <button type="submit" class="btn btn-primary">BOOK</button>
+            </form>
+        </div>
+
+        <p>Short name: {{ object.name }}</p>
+        <p>Long name: {{ object.long_name }}</p>
+        <p>Short description: {{ object.short_description }}</p>
+        <p>Full description:</p>
+        {{ object.display_full_description }}
+        <p>Languages</p>
+        {{ object.display_languages }}
+        <p>Duration</p>
+        {{ object.display_duration }}
+        <p>Accessibility</p>
+        {{ object.display_accessibility }}
+        <p>Possibility</p>
+        {{ object.display_possibility }}
+        <h3>{{ object.recommendations_title }}</h3>
+        <p>{{ object.recommendations_subtitle }}</p>
+        <h2>{{ object.recommendations_slogan }}</h2>
     </div>
     <script>
-        const swiper = new Swiper(".swiper-attractions", {
+        const swiperTopAttraction = new Swiper(".swiper-attractions", {
             slidesPerView: 2,
             speed: 1000,
             spaceBetween: 24,
@@ -45,6 +59,27 @@
                 767: {
                     slidesPerView: 2,
                     spaceBetween: 24,
+                }
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+
+        const swiperAttractionHero = new Swiper(".attraction-hero-slider", {
+            slidesPerView: 3,
+            speed: 1000,
+            spaceBetween: 24,
+            breakpoints: {
+                200: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                767: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
                 }
             },
             // Navigation arrows

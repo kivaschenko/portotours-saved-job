@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'schedule',
     'crispy_forms',
     'crispy_bootstrap5',
+    'bootstrap_datepicker_plus',
     'debug_toolbar',
     # local
     'accounts.apps.AccountsConfig',

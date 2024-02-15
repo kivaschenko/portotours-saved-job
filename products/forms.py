@@ -2,6 +2,8 @@ from django import forms
 from django.forms.widgets import DateInput
 from django.utils.safestring import mark_safe
 
+from bootstrap_datepicker_plus.widgets import DatePickerInput
+
 from products.models import Language
 
 
@@ -41,12 +43,14 @@ class ColoredDateInput(DateInput):
 class FastBookingForm(forms.Form):
     adult = forms.ChoiceField(choices=((1, 1), (2, 2), (3, 3)))
     children = forms.ChoiceField(choices=((1, 1), (2, 2)))
+    date = forms.DateField(widget=DatePickerInput)
     language = forms.ModelChoiceField(queryset=Language.objects.all(),
                                       widget=forms.Select(attrs={'class': 'form'}),
                                       initial=Language.objects.get(code='EN'))
 
-    def __init__(self, occurrences, *args, **kwargs):
-        super(FastBookingForm, self).__init__(*args, **kwargs)
-        self.fields['date'] = forms.DateField(widget=ColoredDateInput(occurrences=occurrences, attrs={'class': 'form'}),
-                                              input_formats='yyyy-mm-dd', required=True, label='When')
-
+    # def __init__(self, occurrences, *args, **kwargs):
+    #     super(FastBookingForm, self).__init__(*args, **kwargs)
+    #     self.fields['date'] = forms.DateField(
+    #         widget=ColoredDateInput(occurrences=occurrences,),
+    #         input_formats='yyyy-mm-dd', required=True, label='When'
+    #     )

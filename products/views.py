@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 import pytz
 from django.http import JsonResponse, HttpResponse
+from django.urls import reverse_lazy
 from pytz import UTC
 
 from django.views.generic import DetailView, ListView, FormView
@@ -28,14 +29,71 @@ class ExperienceListView(ListView):
         return filtered
 
 
-class ExperienceDetailView(DetailView):
+class ExperienceDetailWithFormView(DetailView, FormView):
     model = Experience
     template_name = 'experiences/experience_detail.html'
     extra_content = {'languages': {}}
     queryset = Experience.active.all()
+    form_class = FastBookingForm
+    success_url = reverse_lazy('home')
+
+    # def get_form_kwargs(self):
+    #     kwargs = super().get_form_kwargs()
+    #
+    #     # Retrieve or generate the occurrences list here
+    #     obj = self.get_object()
+    #     # TODO: add this param max_occurrences to settings.py
+    #     occurrences_generator = obj.parent_experience.event.occurrences_after(max_occurrences=100)
+    #     occurrences = [occ.start.strftime('%Y-%m-%d') for occ in occurrences_generator]
+    #     # Pass the occurrences list to the form's initialization
+    #     kwargs['occurrences'] = occurrences
+    #     return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.extra_content['current_language'] = self.object.language.code.lower()
+        # find all other languages
+        brothers = self.object.parent_experience.child_experiences.all()
+        # create local urls
+        if len(brothers) > 0:
+            for brother in brothers:
+                lang = brother.language.code.lower()
+                url = brother.localized_url
+                self.extra_content['languages'].update({lang: url})
+        # TODO: add UserReview list about this Experience
+        occurrences_generator = self.object.parent_experience.event.occurrences_after(max_occurrences=100)
+        occurrences = [occ.start.strftime('%Y-%m-%d') for occ in occurrences_generator]
+        self.extra_content['occurrences'] = occurrences
+        print('extra_content:', self.extra_content)
+        context.setdefault("view", self)
+        if self.extra_context is not None:
+            context.update(self.extra_context)
+        if "form" not in context:
+            context["form"] = self.get_form()
+        return context
+
+    # def get_context_data(self, **kwargs):
+    #     """Insert the single object into the context dict."""
+    #     context = {}
+    #     if self.object:
+    #         context["object"] = self.object
+    #         context_object_name = self.get_context_object_name(self.object)
+    #         if context_object_name:
+    #             context[context_object_name] = self.object
+    #     context.update(kwargs)
+    #     """Insert the form into the context dict."""
+    #     if "form" not in kwargs:
+    #         kwargs["form"] = self.get_form()
+    #     return super().get_context_data(**context)
+    #
+    # def get_context_data(self, **kwargs):
+    #     kwargs.setdefault("view", self)
+    #     if self.extra_context is not None:
+    #         kwargs.update(self.extra_context)
+    #     return kwargs
 
     def get_object(self, queryset=None):
-        obj = super(ExperienceDetailView, self).get_object(queryset=queryset)
+        obj = super(ExperienceDetailWithFormView, self).get_object(queryset=queryset)
         self.extra_content['current_language'] = obj.language.code.lower()
         # find all other languages
         brothers = obj.parent_experience.child_experiences.all()
@@ -46,7 +104,31 @@ class ExperienceDetailView(DetailView):
                 url = brother.localized_url
                 self.extra_content['languages'].update({lang: url})
         # TODO: add UserReview list about this Experience
+        occurrences_generator = obj.parent_experience.event.occurrences_after(max_occurrences=100)
+        occurrences = [occ.start.strftime('%Y-%m-%d') for occ in occurrences_generator]
+        self.extra_content['occurrences'] = occurrences
+        print('extra_content:', self.extra_content)
         return obj
+
+    def form_valid(self, form):
+        # Handle form submission
+        # For example, save the form data
+        form.save()
+        return super().form_valid(form)
+
+    def post(self, request, *args, **kwargs):
+        # Override post method to handle POST requests
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
 
 def get_calendar_experience_events(request, parent_experience_slug):
@@ -57,38 +139,3 @@ def get_calendar_experience_events(request, parent_experience_slug):
     occurrences = parent_experience.event.occurrences_after(max_occurrences=100)
     context = {'occurrences': occurrences}
     return HttpResponse(json.dumps(context), content_type='application/json')
-
-
-class ExperienceDetailWithBookingFormView(DetailView, FormView):
-    model = Experience
-    template_name = 'experiences/experience_detail_test_booking.html'
-    extra_content = {'languages': {}}
-    queryset = Experience.active.all()
-    form_class = FastBookingForm
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-
-        # Retrieve or generate the occurrences list here
-        obj = self.get_object()
-        # TODO: add this param max_occurrences to settings.py
-        occurrences_generator = obj.parent_experience.event.occurrences_after(max_occurrences=100)
-        occurrences = [occ.start.strftime('%Y-%m-%d') for occ in occurrences_generator]
-        # Pass the occurrences list to the form's initialization
-        kwargs['occurrences'] = occurrences
-        return kwargs
-
-    def get_object(self, queryset=None):
-        obj = super(ExperienceDetailWithBookingFormView, self).get_object(queryset=queryset)
-        self.extra_content['current_language'] = obj.language.code.lower()
-        # find all other languages
-        brothers = obj.parent_experience.child_experiences.all()
-        # create local urls
-        if len(brothers) > 0:
-            for brother in brothers:
-                lang = brother.language.code.lower()
-                url = brother.localized_url
-                self.extra_content['languages'].update({lang: url})
-        # TODO: add UserReview list about this Experience
-        return obj
-
