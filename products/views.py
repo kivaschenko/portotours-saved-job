@@ -32,7 +32,7 @@ class ExperienceListView(ListView):
 class ExperienceDetailWithFormView(DetailView, FormView):
     model = Experience
     template_name = 'experiences/experience_detail.html'
-    extra_content = {'languages': {}}
+    extra_context = {'languages': {}}
     queryset = Experience.active.all()
     form_class = FastBookingForm
     success_url = reverse_lazy('home')
@@ -51,7 +51,7 @@ class ExperienceDetailWithFormView(DetailView, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        self.extra_content['current_language'] = self.object.language.code.lower()
+        self.extra_context['current_language'] = self.object.language.code.lower()
         # find all other languages
         brothers = self.object.parent_experience.child_experiences.all()
         # create local urls
@@ -59,12 +59,12 @@ class ExperienceDetailWithFormView(DetailView, FormView):
             for brother in brothers:
                 lang = brother.language.code.lower()
                 url = brother.localized_url
-                self.extra_content['languages'].update({lang: url})
+                self.extra_context['languages'].update({lang: url})
         # TODO: add UserReview list about this Experience
         occurrences_generator = self.object.parent_experience.event.occurrences_after(max_occurrences=100)
         occurrences = [occ.start.strftime('%Y-%m-%d') for occ in occurrences_generator]
-        self.extra_content['occurrences'] = occurrences
-        print('extra_content:', self.extra_content)
+        self.extra_context['occurrences'] = occurrences
+        print('extra_content:', self.extra_context)
         context.setdefault("view", self)
         if self.extra_context is not None:
             context.update(self.extra_context)
@@ -72,29 +72,9 @@ class ExperienceDetailWithFormView(DetailView, FormView):
             context["form"] = self.get_form()
         return context
 
-    # def get_context_data(self, **kwargs):
-    #     """Insert the single object into the context dict."""
-    #     context = {}
-    #     if self.object:
-    #         context["object"] = self.object
-    #         context_object_name = self.get_context_object_name(self.object)
-    #         if context_object_name:
-    #             context[context_object_name] = self.object
-    #     context.update(kwargs)
-    #     """Insert the form into the context dict."""
-    #     if "form" not in kwargs:
-    #         kwargs["form"] = self.get_form()
-    #     return super().get_context_data(**context)
-    #
-    # def get_context_data(self, **kwargs):
-    #     kwargs.setdefault("view", self)
-    #     if self.extra_context is not None:
-    #         kwargs.update(self.extra_context)
-    #     return kwargs
-
     def get_object(self, queryset=None):
         obj = super(ExperienceDetailWithFormView, self).get_object(queryset=queryset)
-        self.extra_content['current_language'] = obj.language.code.lower()
+        self.extra_context['current_language'] = obj.language.code.lower()
         # find all other languages
         brothers = obj.parent_experience.child_experiences.all()
         # create local urls
@@ -102,12 +82,12 @@ class ExperienceDetailWithFormView(DetailView, FormView):
             for brother in brothers:
                 lang = brother.language.code.lower()
                 url = brother.localized_url
-                self.extra_content['languages'].update({lang: url})
+                self.extra_context['languages'].update({lang: url})
         # TODO: add UserReview list about this Experience
         occurrences_generator = obj.parent_experience.event.occurrences_after(max_occurrences=100)
         occurrences = [occ.start.strftime('%Y-%m-%d') for occ in occurrences_generator]
-        self.extra_content['occurrences'] = occurrences
-        print('extra_content:', self.extra_content)
+        self.extra_context['occurrences'] = occurrences
+        print('extra_content:', self.extra_context)
         return obj
 
     def form_valid(self, form):
