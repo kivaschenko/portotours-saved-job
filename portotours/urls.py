@@ -24,10 +24,11 @@ urlpatterns = [
     # accounts/password_reset/done/ [name='password_reset_done']
     # accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
     # accounts/reset/done/ [name='password_reset_complete']
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 # Django ckeditor: https://github.com/django-ckeditor/django-ckeditor
-urlpatterns += [path('ckeditor/', include('ckeditor_uploader.urls')),]
+urlpatterns += [path('ckeditor/', include('ckeditor_uploader.urls')), ]
 
 # DESTINATIONS
 urlpatterns += [
@@ -46,7 +47,7 @@ urlpatterns += [
 # EXPERIENCES
 urlpatterns += [
     path('experiences/<str:lang>/', products_views.ExperienceListView.as_view(), name="experience-list"),
-    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailWithBookingFormView.as_view(),
+    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceFormDetailView.as_view(),
          name='experience-detail'),
 ]
 
