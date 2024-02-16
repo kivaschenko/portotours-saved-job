@@ -1,51 +1,58 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-
-    <div class="cart-milestones">
-        <p>There are some implementation for milestones of order and payment process...</p>
-    </div>
-    <h1>Review Your Basket</h1>
-    <div class="some-alert-about-duration-booking">
-        <p>There is some alert about duration of orders pending...</p>
-    </div>
-    <div class="row">
-        <div class="col-lg-8 col-md-8">
-            <table class="table table-hover">
-                {% if object_list %}
-                    {% for object in object_list %}
-                        <tr>
-                            <th>{{ object.parent_experience.parent_name }}</th>
-                        </tr>
-                        <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Type of tours</th>
-                            <th>Language</th>
-                        </tr>
-                        <th>Adult & Price</th>
-                        <th>Children & Price</th>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{{ object.date_of_start }}</td>
-                            <td>{{ object.time_of_start }}</td>
-                            <td>{% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}</td>
-                            <td>{{ object.language }}</td>
-                            <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
-                            <td>{{ object.child_count }} x {{ object.child_price }} EUR <span style="margin-left: 2rem;"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></a></span></td>
-                        </tr>
-                        </tbody>
-                    {% endfor %}
-                {% endif %}
-            </table>
+    <div class="container">
+        <div class="cart-milestones">
+            <p>There are some implementation for milestones of order and payment process...</p>
         </div>
-        <div class="col-lg-4 col-md-4">
-            <div class="some-total-lines">
-                <p>There are some total prices line of each order...</p>
-                <table class="table table-borderless">
-                    <tbody>
+        <h2>Review Your Basket</h2>
+        <div class="some-alert-about-duration-booking">
+            <p>There is some alert about duration of orders pending...</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-9">
+                <table class="table table-hover">
+                    {% if object_list %}
+                        {% for object in object_list %}
+                            <thead>
+                            <tr>
+                                <th colspan="6" scope="row">{{ object.parent_experience.parent_name }}</th>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Type of tours</th>
+                                <th>Language</th>
+                                <th>Adult & Price</th>
+                                <th>Children & Price</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ object.date_of_start }}</td>
+                                <td>{{ object.time_of_start }}</td>
+                                <td>{% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}</td>
+                                <td>{{ object.language }}</td>
+                                <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
+                                <td>
+                                    {{ object.child_count }} x {{ object.child_price }} EUR
+                                    <span style="margin-left: 2rem;">
+                        <a href="#">Delete icon trash can</a>
+                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+
+
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="some-total-lines">
+                    <p>There are some total prices line of each order...</p>
+                    <table class="table table-borderless">
+                        <tbody>
                         {% if object_list %}
                             {% for object in object_list %}
                                 <tr>
@@ -58,17 +65,18 @@
                                 <th>here total price, coming soon... EUR</th>
                             </tr>
                         {% endif %}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-primary">CHECKOUT</button>
+                <h5>Some needed header</h5>
+                <ul>
+                    <li>some policy point checkbox</li>
+                    <li>some policy point checkbox</li>
+                    <li>some policy point checkbox</li>
+                    <li>some policy point checkbox</li>
+                </ul>
             </div>
-            <button class="btn btn-primary">CHECKOUT</button>
-            <h5>Some needed header</h5>
-            <ul>
-                <li>some policy point checkbox</li>
-                <li>some policy point checkbox</li>
-                <li>some policy point checkbox</li>
-                <li>some policy point checkbox</li>
-            </ul>
         </div>
     </div>
 {% endblock %}

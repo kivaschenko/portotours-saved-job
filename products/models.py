@@ -144,7 +144,7 @@ class ParentExperience(models.Model):
     child_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     currency = models.CharField(max_length=3, null=True, blank=True, default='eur')
     price_changed_timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
-    use_auto_increase_old_price = models.BooleanField(default=False, 
+    use_auto_increase_old_price = models.BooleanField(default=False,
                                                       help_text="If true, the old price is automatically increased")
     increase_percentage_old_price = models.IntegerField(null=True, blank=True, default=33,
                                                         help_text="The percentage to increase old price automatically.")
@@ -277,9 +277,10 @@ class ProductActiveManager(models.Manager):
         status_list = ['Pending', 'Processing', 'Payment']
         return queryset.filter(status__in=status_list)
 
+
 class ProductPendingManager(models.Manager):
     def get_queryset(self):
-        queryset = super(ProductActiveManager, self).get_queryset()
+        queryset = super(ProductPendingManager, self).get_queryset()
         return queryset.filter(status='Pending')
 
 

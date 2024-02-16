@@ -40,7 +40,7 @@ class ExperienceDetailWithFormView(DetailView, FormView):
     extra_context = {'languages': {}}
     queryset = Experience.active.all()
     form_class = FastBookingForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('my-cart')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -79,7 +79,6 @@ class ExperienceDetailWithFormView(DetailView, FormView):
         occurrences_generator = obj.parent_experience.event.occurrences_after(max_occurrences=100)
         occurrences = [occ.start.strftime('%Y-%m-%d') for occ in occurrences_generator]
         self.extra_context['occurrences'] = mark_safe(occurrences)
-        print('extra_content:', self.extra_context)
         return obj
 
     def form_valid(self, form):
@@ -152,7 +151,7 @@ def get_calendar_experience_events(request, parent_experience_slug):
 
 # Products
 
-class ProductCustomerListView(ListView):
+class ProductCartView(ListView):
     """View for listing all products for current user (session) only."""
     model = Product
     template_name = 'purchases/my_cart.html'
