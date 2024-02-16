@@ -1,8 +1,12 @@
 from datetime import datetime, timedelta
+
+from django.contrib.auth.models import AnonymousUser
+from django.contrib.sessions.models import Session
+from django.contrib import messages
 from django.shortcuts import render
 
 import pytz
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from pytz import UTC
 
@@ -38,18 +42,6 @@ class ExperienceDetailWithFormView(DetailView, FormView):
     form_class = FastBookingForm
     success_url = reverse_lazy('home')
 
-    # def get_form_kwargs(self):
-    #     kwargs = super().get_form_kwargs()
-    #
-    #     # Retrieve or generate the occurrences list here
-    #     obj = self.get_object()
-    #     # TODO: add this param max_occurrences to settings.py
-    #     occurrences_generator = obj.parent_experience.event.occurrences_after(max_occurrences=100)
-    #     occurrences = [occ.start.strftime('%Y-%m-%d') for occ in occurrences_generator]
-    #     # Pass the occurrences list to the form's initialization
-    #     kwargs['occurrences'] = occurrences
-    #     return kwargs
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.extra_context['current_language'] = self.object.language.code.lower()
@@ -65,7 +57,6 @@ class ExperienceDetailWithFormView(DetailView, FormView):
         occurrences_generator = self.object.parent_experience.event.occurrences_after(max_occurrences=100)
         occurrences = [occ.start.strftime('%Y-%m-%d') for occ in occurrences_generator]
         self.extra_context['occurrences'] = occurrences
-        print('extra_content:', self.extra_context)
         context.setdefault("view", self)
         if self.extra_context is not None:
             context.update(self.extra_context)
@@ -92,16 +83,34 @@ class ExperienceDetailWithFormView(DetailView, FormView):
         return obj
 
     def form_valid(self, form):
-        # Handle form submission
-        # For example, save the form data
-        form.save()
-        return super().form_valid(form)
+        # add event handler here
+        messages.success(self.request, 'Your experience has been reserved for 30 minutes. If you do not pay within this time, the reserve will be canceled..')
+        return HttpResponseRedirect(self.get_success_url())
 
     def post(self, request, *args, **kwargs):
         # Override post method to handle POST requests
+        if isinstance(request.user, AnonymousUser):
+            user_id = 0
+        elif isinstance(request.user, settings.AUTH_USER_MODEL):
+            user_id = request.user.id
         self.object = self.get_object()
         form = self.get_form()
         if form.is_valid():
+            data = form.cleaned_data
+            # create new Product
+            new_product = Product(
+                customer_id=self.kwargs['customer'],
+                session=self.kwargs['session'],
+                parent_experience=self.object.parent_experience,
+                language=data['language'],
+                start_datetime=data['date'],
+                adults_price=self.object.parent_experience.price,
+                adults_count=int(data['adult']),
+                child_price=self.object.parent_experience.child_price,
+                child_count=int(data['children']),
+            )
+            new_product.save()
+
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
@@ -110,6 +119,25 @@ class ExperienceDetailWithFormView(DetailView, FormView):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
+
+    def setup(self, request, *args, **kwargs):
+        """Initialize attributes shared by all view methods."""
+        if hasattr(self, "get") and not hasattr(self, "head"):
+            self.head = self.get
+        self.request = request
+        self.args = args
+        self.kwargs = kwargs
+        if self.request.user.is_authenticated:
+            kwargs.update({'customer': self.request.user})
+        else:
+            kwargs['customer'] = None
+            # If the user is not authenticated, get the current session
+            if not self.request.session.exists(
+                    self.request.session.session_key):
+                self.request.session.create()
+            kwargs.update({'session': Session.objects.get(
+                session_key=self.request.session.session_key)})
+        return kwargs
 
 
 def get_calendar_experience_events(request, parent_experience_slug):
@@ -120,3 +148,14 @@ def get_calendar_experience_events(request, parent_experience_slug):
     occurrences = parent_experience.event.occurrences_after(max_occurrences=100)
     context = {'occurrences': occurrences}
     return HttpResponse(json.dumps(context), content_type='application/json')
+
+
+# Products
+
+class ProductCustomerListView(ListView):
+    """View for listing all products for current user (session) only."""
+    model = Product
+    template_name = 'purchases/my_cart.html'
+    queryset = Product.pending.all()
+
+
