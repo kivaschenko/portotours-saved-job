@@ -144,7 +144,7 @@ class ParentExperience(models.Model):
     child_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     currency = models.CharField(max_length=3, null=True, blank=True, default='eur')
     price_changed_timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
-    use_auto_increase_old_price = models.BooleanField(default=False, 
+    use_auto_increase_old_price = models.BooleanField(default=False,
                                                       help_text="If true, the old price is automatically increased")
     increase_percentage_old_price = models.IntegerField(null=True, blank=True, default=33,
                                                         help_text="The percentage to increase old price automatically.")
@@ -278,6 +278,12 @@ class ProductActiveManager(models.Manager):
         return queryset.filter(status__in=status_list)
 
 
+class ProductPendingManager(models.Manager):
+    def get_queryset(self):
+        queryset = super(ProductPendingManager, self).get_queryset()
+        return queryset.filter(status='Pending')
+
+
 class Product(models.Model):
     """Product - is a digital product that sells access to a specific service (Experience)
     for numbers of adults or children at a specified total price on a specified date
@@ -314,10 +320,11 @@ class Product(models.Model):
 
     objects = models.Manager()
     active = ProductActiveManager()
+    pending = ProductPendingManager()
 
     def __str__(self):
         return (f"{self.parent_experience.parent_name} | {self.date_of_start}  {self.time_of_start} | "
-                f"{self.total_price} {self.parent_experience.price_currency}")
+                f"{self.total_price} {self.parent_experience.currency}")
 
     def __repr__(self):
         return (f"<Product(id={self.id} parent_experience_id={self.parent_experience_id} "
@@ -330,8 +337,8 @@ class Product(models.Model):
                                   f"start at: {self.start_datetime} language: {self.language}"
                                   f"participants: {self.adults_count} adults {self.child_count} children")
         self.stripe_price = int(self.total_price * 100)
-        if not self.expired_at:
-            self.expired_at = datetime.utcnow() + timedelta(minutes=settings.BOOKING_MINUTES)  # by default 30 minutes
+        if not self.expired_time:
+            self.expired_time = datetime.utcnow() + timedelta(minutes=settings.BOOKING_MINUTES)  # by default 30 minutes
         super(Product, self).save()
 
     @property
