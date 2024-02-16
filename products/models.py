@@ -277,6 +277,11 @@ class ProductActiveManager(models.Manager):
         status_list = ['Pending', 'Processing', 'Payment']
         return queryset.filter(status__in=status_list)
 
+class ProductPendingManager(models.Manager):
+    def get_queryset(self):
+        queryset = super(ProductActiveManager, self).get_queryset()
+        return queryset.filter(status='Pending')
+
 
 class Product(models.Model):
     """Product - is a digital product that sells access to a specific service (Experience)
@@ -314,10 +319,11 @@ class Product(models.Model):
 
     objects = models.Manager()
     active = ProductActiveManager()
+    pending = ProductPendingManager()
 
     def __str__(self):
         return (f"{self.parent_experience.parent_name} | {self.date_of_start}  {self.time_of_start} | "
-                f"{self.total_price} {self.parent_experience.price_currency}")
+                f"{self.total_price} {self.parent_experience.currency}")
 
     def __repr__(self):
         return (f"<Product(id={self.id} parent_experience_id={self.parent_experience_id} "
@@ -330,8 +336,8 @@ class Product(models.Model):
                                   f"start at: {self.start_datetime} language: {self.language}"
                                   f"participants: {self.adults_count} adults {self.child_count} children")
         self.stripe_price = int(self.total_price * 100)
-        if not self.expired_at:
-            self.expired_at = datetime.utcnow() + timedelta(minutes=settings.BOOKING_MINUTES)  # by default 30 minutes
+        if not self.expired_time:
+            self.expired_time = datetime.utcnow() + timedelta(minutes=settings.BOOKING_MINUTES)  # by default 30 minutes
         super(Product, self).save()
 
     @property
