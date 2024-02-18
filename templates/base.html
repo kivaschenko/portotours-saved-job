@@ -7,16 +7,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block head %}
-    <title>Test Project title - </title>
+        <title>Test Project title - </title>
     {% endblock head %}
     <!-- Bootstrap 5 Custom CSS -->
-    <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css" />
+    <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css"/>
     <!-- Icons -->
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
     <!-- Favicons -->
     <link rel="icon" href="{% static 'icons/Favicon_32x32.svg' %}">
     <!-- Swiper Slider -->
-    <link rel="stylesheet" href="{% static 'custom_css/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'custom_css/swiper-bundle.min.css' %}"/>
     <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -25,16 +25,16 @@
         <!-- Navbar -->
         {% include 'include/navbar.html' %}
         <!-- End Navbar -->
-        <!-- Messages -->
-        {% include 'include/messages.html' %}
-        <!-- End Messages-->
     {% endblock %}
 </header>
 <main>
-    
-        {% block content %}
-        {% endblock content %}
-   
+
+    {% block content %}
+        <!-- Messages -->
+        {% include 'include/messages.html' %}
+        <!-- End Messages-->
+    {% endblock content %}
+
 </main>
 <footer class="mt-auto footer">
     <div class="container">
@@ -97,7 +97,7 @@
 
         <div class="footer-bottom-block">
             <p>&copy; 2021 Company, Inc. All rights reserved.</p>
-            
+
         </div>
     </div>
 </footer>

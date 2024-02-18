@@ -24,30 +24,33 @@ urlpatterns = [
     # accounts/password_reset/done/ [name='password_reset_done']
     # accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
     # accounts/reset/done/ [name='password_reset_complete']
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 # Django ckeditor: https://github.com/django-ckeditor/django-ckeditor
-urlpatterns += [path('ckeditor/', include('ckeditor_uploader.urls')),]
+urlpatterns += [path('ckeditor/', include('ckeditor_uploader.urls')), ]
 
 # DESTINATIONS
 urlpatterns += [
     path('destinations/<str:lang>/', destinations_views.DestinationListView.as_view(), name='destination-list'),
-    path('destinations/<str:lang>/<slug:slug>/', destinations_views.DestinationDetailView.as_view(),
-         name="destination-detail"),
+    path('destinations/<str:lang>/<slug:slug>/', destinations_views.DestinationDetailView.as_view(), name="destination-detail"),
 ]
 
 # ATTRACTIONS
 urlpatterns += [
     path('attractions/<str:lang>/', attractions_views.AttractionListView.as_view(), name="attraction-list"),
-    path('attractions/<str:lang>/<slug:slug>/', attractions_views.AttractionDetailView.as_view(),
-         name="attraction-detail"),
+    path('attractions/<str:lang>/<slug:slug>/', attractions_views.AttractionDetailView.as_view(), name="attraction-detail"),
 ]
 
 # EXPERIENCES
 urlpatterns += [
     path('experiences/<str:lang>/', products_views.ExperienceListView.as_view(), name="experience-list"),
-    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(),
-         name='experience-detail'),
+    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailWithFormView.as_view(), name='experience-detail'),
+]
+
+# Calendar, Events
+urlpatterns += [
+    path('calendar/experiences/<str:parent_experience_slug>/', products_views.get_calendar_experience_events, name='calendar_experience_events')
 ]
 
 # PURCHASES
@@ -55,6 +58,7 @@ urlpatterns += [
     path('checkout/', purchases_views.checkout_view, name='checkout'),
     path('success/', purchases_views.purchase_success_view, name='success'),
     path('stopped/', purchases_views.purchase_stopped_view, name='stopped'),
+    path('my-cart/', products_views.ProductCartView.as_view(), name='my-cart'),
 ]
 
 # Add static file serving during development

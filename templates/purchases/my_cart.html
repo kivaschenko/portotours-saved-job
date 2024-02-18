@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="cart-milestones">
+            <p>There are some implementation for milestones of order and payment process...</p>
+        </div>
+        <h2>Review Your Basket</h2>
+        <div class="some-alert-about-duration-booking">
+            <p>There is some alert about duration of orders pending...</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-9">
+                <table class="table table-hover">
+                    {% if object_list %}
+                        {% for object in object_list %}
+                            <thead>
+                            <tr>
+                                <th colspan="6" scope="row">{{ object.parent_experience.parent_name }}</th>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Type of tours</th>
+                                <th>Language</th>
+                                <th>Adult & Price</th>
+                                <th>Children & Price</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ object.date_of_start }}</td>
+                                <td>{{ object.time_of_start }}</td>
+                                <td>{% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}</td>
+                                <td>{{ object.language }}</td>
+                                <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
+                                <td>
+                                    {{ object.child_count }} x {{ object.child_price }} EUR
+                                    <span style="margin-left: 2rem;">
+                        <a href="#">Delete icon trash can</a>
+                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+
+
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="some-total-lines">
+                    <p>There are some total prices line of each order...</p>
+                    <table class="table table-borderless">
+                        <tbody>
+                        {% if object_list %}
+                            {% for object in object_list %}
+                                <tr>
+                                    <td><small>{{ object.parent_experience.parent_name }}</small></td>
+                                    <td>{{ object.total_price }} EUR</td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <th>Total</th>
+                                <th>here total price, coming soon... EUR</th>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-primary">CHECKOUT</button>
+                <h5>Some needed header</h5>
+                <ul>
+                    <li>some policy point checkbox</li>
+                    <li>some policy point checkbox</li>
+                    <li>some policy point checkbox</li>
+                    <li>some policy point checkbox</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

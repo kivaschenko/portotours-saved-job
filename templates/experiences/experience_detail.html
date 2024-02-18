@@ -1,39 +1,106 @@
 {% extends "base.html" %}
+{% load crispy_forms_field %}
 {% load static %}
 {% block head %}
     <title>{{ object.page_title }}</title>
     <meta name="description" content="{{ object.page_description }}">
     <meta name="keywords" content="{{ object.page_keywords }}">
+    <!-- Include jQuery and jQuery UI for datepicker -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize datepicker
+            $(".datepicker").datepicker({
+                // Add any additional options here
+                dateFormat: 'yy-mm-dd',
+                // Highlight specific dates
+                beforeShowDay: function (date) {
+                    const highlightDates = {{ occurrences|safe }};
+                    const stringDate = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                    return [highlightDates.includes(stringDate), 'highlighted-date'];
+                }
+            });
+        });
+    </script>
+    <style>
+        .ui-state-default, .ui-widget-content .ui-state-default {
+            border: 1px solid #c5c5c5;
+            background: #F0500B;
+            font-weight: bold;
+            color: #454545;
+        }
+
+        .highlighted-date {
+            background-color: #F0500B; /* Define your desired background color */
+            font-weight: bold;
+        }
+    </style>
 {% endblock head %}
 {% block content %}
 
     <section class="experience-hero">
-        
     </section>
-
-
-
     <div class="container">
-    
-    <p>Short name: {{ object.name }}</p>
-    <p>Long name: {{ object.long_name }}</p>
-    <p>Short description: {{ object.short_description }}</p>
-    <p>Full description:</p>
-    {{ object.display_full_description }}
-    <p>Languages</p>
-    {{ object.display_languages }}
-    <p>Duration</p>
-    {{ object.display_duration }}
-    <p>Accessibility</p>
-    {{ object.display_accessibility }}
-    <p>Possibility</p>
-    {{ object.display_possibility }}
-    <h3>{{ object.recommendations_title }}</h3>
-    <p>{{ object.recommendations_subtitle }}</p>
-    <h2>{{ object.recommendations_slogan }}</h2>
+        <!-- FastBookingForm block -->
+        <form class="row gx-3 gy-2 align-items-center" method="post" action="">
+            {% csrf_token %}
+            <div id="div_id_adult" class="col-sm-2">
+                <label for="id_adult" class="form-label requiredField">
+                    Adult<span class="asteriskField">*</span>
+                </label>
+                {{ form.adult }}
+            </div>
+            <div id="div_id_children" class="col-sm-2">
+                <label for="id_children" class="form-label requiredField">
+                    Children<span class="asteriskField">*</span>
+                </label>
+                {{ form.children }}
+            </div>
+            <div id="div_id_date" class="col-sm-4">
+                <label for="id_date" class="form-label requiredField">
+                    When?<span class="asteriskField">*</span>
+                </label>
+                {{ form.date }}
+            </div>
+            <div id="div_id_language" class="col-sm-2">
+                <label for="id_language" class="form-label requiredField">
+                    Language<span class="asteriskField">*</span>
+                </label>
+                {{ form.language }}
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">BOOK</button>
+            </div>
+        </form>
+        <!-- /FastBookingForm block -->
+
+        <p>Short name: {{ object.name }}</p>
+        <p>Long name: {{ object.long_name }}</p>
+        <p>Short description: {{ object.short_description }}</p>
+        <p>Full description:</p>
+        {{ object.display_full_description }}
+        <p>Languages</p>
+        {{ object.display_languages }}
+        <p>Duration</p>
+        {{ object.display_duration }}
+        <p>Accessibility</p>
+        {{ object.display_accessibility }}
+        <p>Possibility</p>
+        {{ object.display_possibility }}
+        <h3>{{ object.recommendations_title }}</h3>
+        <p>{{ object.recommendations_subtitle }}</p>
+        <h2>{{ object.recommendations_slogan }}</h2>
     </div>
+    <style>
+        .highlighted-date {
+            background-color: #F0500B;
+            font-weight: bold;
+        }
+    </style>
     <script>
-        const swiper = new Swiper(".swiper-attractions", {
+        const swiperTopAttraction = new Swiper(".swiper-attractions", {
             slidesPerView: 2,
             speed: 1000,
             spaceBetween: 24,
@@ -45,6 +112,27 @@
                 767: {
                     slidesPerView: 2,
                     spaceBetween: 24,
+                }
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+
+        const swiperAttractionHero = new Swiper(".attraction-hero-slider", {
+            slidesPerView: 3,
+            speed: 1000,
+            spaceBetween: 24,
+            breakpoints: {
+                200: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                767: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
                 }
             },
             // Navigation arrows
