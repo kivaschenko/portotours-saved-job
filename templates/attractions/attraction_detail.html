@@ -7,60 +7,60 @@
 {% endblock head %}
 {% block content %}
 
-    <section class="attraction-hero">
-        <div class="container">
-            <h2 class="attraction-hero-title">
-                {{ object.introduction_title }}
-               
-            </h2>
+<section class="attraction-hero">
+    <div class="container">
+        <h2 class="attraction-hero-title">
+            {{ object.introduction_title }}
+            
+        </h2>
 
-            {{ object.display_introduction_text_above_slider }}
-            
-            <div class="attraction-hero-slider">
-                <div class="swiper-wrapper">
-                    <!-- Slides -->
-                    <div class="swiper-slide">
-                    {% if object.parent_attraction.slider_image_1 %}
-                        <img src="{{ object.parent_attraction.slider_image_1.url }}" alt="Image for slider 1">
-                    {% endif %}
-                    </div>
-                    <div class="swiper-slide">
-                    {% if object.parent_attraction.slider_image_2 %}
-                        <img src="{{ object.parent_attraction.slider_image_2.url }}" alt="Image for slider 1">
-                    {% endif %}
-                    </div>
-                    <div class="swiper-slide">
-                    {% if object.parent_attraction.slider_image_3 %}
-                        <img src="{{ object.parent_attraction.slider_image_3.url }}" alt="Image for slider 1">
-                    {% endif %}
-                    </div>
-                    <div class="swiper-slide">
-                        {% if object.parent_attraction.slider_image_4 %}
-                            <img src="{{ object.parent_attraction.slider_image_4.url }}" alt="Image for slider 1">
-                        {% endif %}
-                    </div>
-                    <div class="swiper-slide">
-                        {% if object.parent_attraction.slider_image_5 %}
-                            <img src="{{ object.parent_attraction.slider_image_5.url }}" alt="Image for slider 1">
-                        {% endif %}
-                    </div>
-                    <div class="swiper-slide">
-                        {% if object.parent_attraction.slider_image_6 %}
-                            <img src="{{ object.parent_attraction.slider_image_6.url }}" alt="Image for slider 1">
-                        {% endif %}
-                    </div>
-                    
-                </div>
+        {{ object.display_introduction_text_above_slider }}
         
-                <!-- If we need navigation buttons -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+        <div class="attraction-hero-slider">
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+                {% if object.parent_attraction.slider_image_1 %}
+                    <img src="{{ object.parent_attraction.slider_image_1.url }}" alt="Image for slider 1">
+                {% endif %}
+                </div>
+                <div class="swiper-slide">
+                {% if object.parent_attraction.slider_image_2 %}
+                    <img src="{{ object.parent_attraction.slider_image_2.url }}" alt="Image for slider 1">
+                {% endif %}
+                </div>
+                <div class="swiper-slide">
+                {% if object.parent_attraction.slider_image_3 %}
+                    <img src="{{ object.parent_attraction.slider_image_3.url }}" alt="Image for slider 1">
+                {% endif %}
+                </div>
+                <div class="swiper-slide">
+                    {% if object.parent_attraction.slider_image_4 %}
+                        <img src="{{ object.parent_attraction.slider_image_4.url }}" alt="Image for slider 1">
+                    {% endif %}
+                </div>
+                <div class="swiper-slide">
+                    {% if object.parent_attraction.slider_image_5 %}
+                        <img src="{{ object.parent_attraction.slider_image_5.url }}" alt="Image for slider 1">
+                    {% endif %}
+                </div>
+                <div class="swiper-slide">
+                    {% if object.parent_attraction.slider_image_6 %}
+                        <img src="{{ object.parent_attraction.slider_image_6.url }}" alt="Image for slider 1">
+                    {% endif %}
+                </div>
+                
             </div>
-            
-            {{ object.display_introduction_text_below_slider }}
-            
+            <div class="swiper-pagination"></div>
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
-    </section>
+        
+        {{ object.display_introduction_text_below_slider }}
+        
+    </div>
+</section>
 
     <section class="attraction-info-cards">
         <div class="container">
@@ -128,35 +128,42 @@
             <p class="also-interested-subtitle body-text-b2">
                 {{ object.recommendations_subtitle }}
             </p>
-            <div class="also-interested-cards-wrapper">
-                <div class="also-interested-card">
-                    <img src="{% static 'images/also-interested-img1.png' %}" alt="" class="also-interested-img">
-                    <p class="body-text-b2 also-interested-card-title">
-                        Cascais
-                    </p>
-                    <p class="body-text-b3 also-interested-card-text">
-                        Explore Cascais, a perfect mixture of natural and architectural beauty, located near Lisbon. Investigate its breathtaking landscapes and historical wonders with comprehensive OneDayTours. 
-                    </p>
+            <div class="swiper-also-interested">
+                <div class="swiper-wrapper also-interested-cards-wrapper">
+                    <div class="also-interested-card swiper-slide">
+                        <img src="{% static 'images/also-interested-img1.png' %}" alt="" class="also-interested-img">
+                        <p class="body-text-b2 also-interested-card-title">
+                            Cascais
+                        </p>
+                        <p class="body-text-b3 also-interested-card-text">
+                            Explore Cascais, a perfect mixture of natural and architectural beauty, located near Lisbon. Investigate its breathtaking landscapes and historical wonders with comprehensive OneDayTours. 
+                        </p>
+                    </div>
+                    <div class="also-interested-card swiper-slide">
+                        <img src="{% static 'images/also-interested-img2.png' %}" alt="" class="also-interested-img">
+                        <p class="body-text-b2 also-interested-card-title">
+                            Oporto
+                        </p>
+                        <p class="body-text-b3 also-interested-card-text">
+                            Choose an amazing journey with a OneDayTours to Oporto, Portugal. Explore the vibrant history of the city, perfectly fit into the colorful landscapes, and experience the warm hospitality of Portugal.
+                        </p>
+                    </div>
+                    <div class="also-interested-card swiper-slide">
+                        <img src="{% static 'images/also-interested-img3.png' %}" alt="" class="also-interested-img">
+                        <p class="body-text-b2 also-interested-card-title">
+                            Sintra
+                        </p>
+                        <p class="body-text-b3 also-interested-card-text">
+                            Get a chance to immerse in the real Wonderland with a OneDayTours to a fairytale Sintra. The place is filled with history and a mystical aura, heightened by the scenic landscape of nature.
+                        </p>
+                    </div>
+                  
+                  
                 </div>
-                <div class="also-interested-card">
-                    <img src="{% static 'images/also-interested-img2.png' %}" alt="" class="also-interested-img">
-                    <p class="body-text-b2 also-interested-card-title">
-                        Oporto
-                    </p>
-                    <p class="body-text-b3 also-interested-card-text">
-                        Choose an amazing journey with a OneDayTours to Oporto, Portugal. Explore the vibrant history of the city, perfectly fit into the colorful landscapes, and experience the warm hospitality of Portugal.
-                    </p>
-                </div>
-                <div class="also-interested-card">
-                    <img src="{% static 'images/also-interested-img3.png' %}" alt="" class="also-interested-img">
-                    <p class="body-text-b2 also-interested-card-title">
-                        Sintra
-                    </p>
-                    <p class="body-text-b3 also-interested-card-text">
-                        Get a chance to immerse in the real Wonderland with a OneDayTours to a fairytale Sintra. The place is filled with history and a mystical aura, heightened by the scenic landscape of nature.
-                    </p>
-                </div>
+                <div class="swiper-pagination"></div>
+                
             </div>
+            
             <div class="also-interested-more-info-wrapper">
                 <h5 class="also-interested-more-info-title">
                     {{ object.recommendations_slogan }}
@@ -226,8 +233,14 @@
       spaceBetween: 24,
       breakpoints: {
           200: {
-              slidesPerView: 1,
-              spaceBetween: 20,
+                slidesPerView: 1,
+                spaceBetween: 14,
+                slidesPerView: 1.4,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+                centeredSlides: true,
+                loop:true,
           },
           767: {
               slidesPerView: 3,
@@ -240,6 +253,22 @@
         prevEl: ".swiper-button-prev",
       },
     });
+    </script>
+    <script>
+        console.log(window.innerWidth)
+        if (window.innerWidth < 768) {
+            
+            const swiperAlsoInterested = new Swiper(".swiper-also-interested", {
+            slidesPerView: 1.4,
+            speed: 1000,   
+            spaceBetween: 14,
+            centeredSlides: true,
+            loop:true,
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            });
+        }
     </script>
     <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
 {% endblock %}

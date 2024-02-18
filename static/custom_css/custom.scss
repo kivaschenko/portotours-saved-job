@@ -1,5 +1,6 @@
 // Import Bootstrap source files
-@import "../bootstrap/scss/bootstrap.css";
+@import "../bootstrap/scss/bootstrap.scss";
+@import '../bootstrap/scss/mixins';
 @import "./root.scss";
 @import "./destinations.scss";
 @import "./homepage.scss";
@@ -7,6 +8,7 @@
 @import "./experience.scss";
 @import "./header.scss";
 @import "./footer.scss";
+
 // Your custom styles here
 body {
     

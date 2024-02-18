@@ -65,37 +65,65 @@ h1 {
     line-height: 110px;
     font-family: 'LatoBold';
     margin-bottom: 0;
+    @include media-breakpoint-down(md) {
+
+    }
 }
 h2 {
     font-size: 44px;
     line-height: 56px;
     font-family: 'LatoSemiBold';
+    @include media-breakpoint-down(md) {
+        font-size: 26px;
+        line-height: 36px;     
+    }
 }
 h4 {
     font-size: 32px;
     line-height: 42px;
     font-family: 'LatoSemiBold';
+    @include media-breakpoint-down(md) {
+        font-size: 18px;
+        line-height: 28px;     
+    }
 }
 h5 {
     font-size: 26px;
     line-height: 36px;
     font-family: 'LatoMedium';
+    @include media-breakpoint-down(md) {
+        font-size: 18px;
+        line-height: 28px;     
+    }
 }
 .container {
     max-width: 1312px;
     margin: 0 auto;
     padding-left: 0;
     padding-right: 0;
+    @include media-breakpoint-down(md) {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
 }
 .body-text-b1 {
     font-family: 'LatoRegular';
     font-size: 20px;
     line-height: 30px;
+    @include media-breakpoint-down(md) {
+        font-size: 16px;
+        line-height: 24px;
+    }
 }
 .body-text-b2 {
     font-family: 'LatoSemiBold';
     font-size: 18px;
     line-height: 28px;
+    @include media-breakpoint-down(md) {
+        font-family: 'LatoRegular';
+        font-size: 14px;
+        line-height: 22px;
+    }
 }
 
 .body-text-b3 {
@@ -145,6 +173,11 @@ h5 {
     text-align: center;
     display: block;
     text-decoration: none;
+    @include media-breakpoint-down(md) {
+        width: 100%;
+        font-size: 18px;
+        line-height: normal;
+    }
 }
 .btn-type-2:hover {
     background: #FFF6F2;
