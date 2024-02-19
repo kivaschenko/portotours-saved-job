@@ -1,7 +1,6 @@
 from django.views.generic import DetailView, ListView
 
 from blogs.models import Blog
-from destinations.models import Destination
 from products.models import Language
 
 
@@ -23,7 +22,6 @@ class BlogDetailView(DetailView):
                 url = brother.localized_url
                 self.extra_context['languages'].update({lang: url})
         return obj
-
 
 
 class BlogListView(ListView):

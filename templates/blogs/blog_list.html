@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        {% if object_list %}
+            {% for object in object_list %}
+                <div class="card" style="width: 18rem;">
+                    <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
+                              {% else %}{% endif %}" class="card-img-top" alt="Card image for blog {{ object.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ object.title }}</h5>
+                        <p class="card-text">{{ object.short_description }}</p>
+                        <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Custom JS import -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+{% endblock content %}

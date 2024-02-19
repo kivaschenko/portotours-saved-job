@@ -8,6 +8,7 @@ from destinations import views as destinations_views
 from attractions import views as attractions_views
 from products import views as products_views
 from purchases import views as purchases_views
+from blogs import views as blogs_views
 
 # HOME & ACCOUNTS
 urlpatterns = [
@@ -59,6 +60,12 @@ urlpatterns += [
     path('success/', purchases_views.purchase_success_view, name='success'),
     path('stopped/', purchases_views.purchase_stopped_view, name='stopped'),
     path('my-cart/<str:lang>/', products_views.ProductCartView.as_view(), name='my-cart'),
+]
+
+# BLOGS
+urlpatterns += [
+    path('blogs/<str:lang>/', blogs_views.BlogListView.as_view(), name='blog-list'),
+    path('blogs/<str:lang>/<slug:slug>/', blogs_views.BlogDetailView.as_view(), name='blog-detail'),
 ]
 
 # Add static file serving during development

@@ -17,9 +17,11 @@
 <p>Categories</p>
 <p>
     {% if object.categories.all %}
-        {% category in object.categories.all %}
+        {% for category in object.categories.all %}
         <button type="button" class="btn btn-light">{{ category }}</button>
         {% endfor %}
+        {% else %}
+        No categories yet...
     {% endif %}
 </p>
 <h2>Exactly content below...</h2>
