@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.sessions.models import Session
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 import pytz
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
@@ -22,14 +22,14 @@ from products.models import *  # noqa
 class ExperienceListView(ListView):
     model = Experience
     template_name = 'experiences/experience_list.html'
-    extra_content = {}
+    extra_context = {}
     queryset = Experience.active.all()
     paginate_by = 10  # TODO: add pagination handling into template
 
     def get_queryset(self):
         queryset = super(ExperienceListView, self).get_queryset()
         current_language = Language.objects.get(code=self.kwargs['lang'].upper())
-        self.extra_content['current_language'] = current_language.code.lower()
+        self.extra_context['current_language'] = current_language.code.lower()
         filtered = queryset.filter(language=current_language)
         return filtered
 
@@ -40,7 +40,7 @@ class ExperienceDetailWithFormView(DetailView, FormView):
     extra_context = {'languages': {}}
     queryset = Experience.active.all()
     form_class = FastBookingForm
-    success_url = reverse_lazy('my-cart')
+    success_url = reverse_lazy('my-cart', kwargs={'lang': 'en'})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -151,10 +151,25 @@ def get_calendar_experience_events(request, parent_experience_slug):
 
 # Products
 
-class ProductCartView(ListView):
+
+class SessionKeyRequiredMixin:
+    def dispatch(self, request, *args, **kwargs):
+        session_key = request.session.session_key
+        if session_key is None:
+            # Redirect user to login page or any other page as you see fit
+            return redirect(reverse_lazy('login'))
+        else:
+            # Here, you can perform additional checks if needed, like checking if the session key exists in your models
+            if not Product.objects.filter(session=session_key).exists():
+                return redirect(reverse_lazy('login'))
+            else:
+                self.queryset = Product.pending.filter(session=session_key)
+            return super(SessionKeyRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class ProductCartView(SessionKeyRequiredMixin, ListView):
     """View for listing all products for current user (session) only."""
     model = Product
-    template_name = 'purchases/my_cart.html'
+    template_name = 'products/my_cart.html'
     queryset = Product.pending.all()
-
-
+    extra_context = {'current_language': 'en'}
