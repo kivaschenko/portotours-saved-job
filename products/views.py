@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.sessions.models import Session
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 import pytz
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
@@ -151,10 +151,24 @@ def get_calendar_experience_events(request, parent_experience_slug):
 
 # Products
 
-class ProductCartView(ListView):
+
+class SessionKeyRequiredMixin:
+    def dispatch(self, request, *args, **kwargs):
+        session_key = request.session.session_key
+        if session_key is None:
+            # Redirect user to login page or any other page as you see fit
+            return redirect(reverse_lazy('login'))
+        else:
+            # Here, you can perform additional checks if needed, like checking if the session key exists in your models
+            if not Product.objects.filter(session=session_key).exists():
+                return redirect(reverse_lazy('login'))
+            else:
+                self.queryset = Product.pending.filter(session=session_key)
+            return super(SessionKeyRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class ProductCartView(SessionKeyRequiredMixin, ListView):
     """View for listing all products for current user (session) only."""
     model = Product
-    template_name = 'purchases/my_cart.html'
+    template_name = 'products/my_cart.html'
     queryset = Product.pending.all()
-
-
