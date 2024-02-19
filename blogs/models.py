@@ -61,6 +61,7 @@ class Blog(models.Model):
     keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
     # content part
     title = models.CharField(max_length=160, help_text="160 characters, max")
+    short_description = models.TextField(max_length=300, help_text="300 characters, max", null=True, blank=True)
     content = RichTextField(max_length=30000, blank=True, null=True, help_text="30000 characters, max")
     categories = models.ManyToManyField(Category)
     views = models.IntegerField(default=0)
