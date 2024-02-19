@@ -2,21 +2,58 @@
 {% load static %}
 {% block content %}
     <div class="container">
-        {% if object_list %}
-            {% for object in object_list %}
-                <div class="card" style="width: 18rem;">
-                    <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
-                              {% else %}{% endif %}" class="card-img-top" alt="Card image for blog {{ object.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ object.title }}</h5>
-                        <p class="card-text">{{ object.short_description }}</p>
-                        <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
+        <!-- Add buttons for each category -->
+        <div>
+            <h5>Categories:</h5>
+            {% if categories %}
+                {% for category in categories %}
+                    <button type="button" class="btn btn-light filter-category" data-category="{{ category.id }}">{{ category.name }}</button>
+                {% endfor %}
+            {% endif %}
+        </div>
 
+        <!-- Container for filtered blog posts -->
+        <div id="filtered-posts-container">
+            <!-- Filtered blog posts will be displayed here -->
+            <div class="row d-flex-lg d-flex-md">
+                {% if object_list %}
+                    {% for object in object_list %}
+                        <div class="card" style="width: 18rem;">
+                            <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
+                              {% else %}{% endif %}" class="card-img-top" alt="Card image for blog {{ object.title }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ object.title }}</h5>
+                                <p class="card-text">{{ object.short_description }}</p>
+                                <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
     <!-- Custom JS import -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.filter-category').on('click', function () {
+                let categoryId = $(this).data('category');
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url "blog-list" lang='en' %}',
+                    data: {
+                        category_id: categoryId,
+                    },
+                    success: function (response) {
+                        // Remove the 'active' class from all buttons
+                        $('.filter-category').removeClass('active');
+                        // Add the 'active' class to the clicked button
+                        $(this).addClass('active');
+                    }
+                });
+            });
+        });
+    </script>
+
 {% endblock content %}
