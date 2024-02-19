@@ -58,7 +58,7 @@ urlpatterns += [
     path('checkout/', purchases_views.checkout_view, name='checkout'),
     path('success/', purchases_views.purchase_success_view, name='success'),
     path('stopped/', purchases_views.purchase_stopped_view, name='stopped'),
-    path('my-cart/', products_views.ProductCartView.as_view(), name='my-cart'),
+    path('my-cart/<str:lang>/', products_views.ProductCartView.as_view(), name='my-cart'),
 ]
 
 # Add static file serving during development

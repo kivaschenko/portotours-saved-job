@@ -22,14 +22,14 @@ from products.models import *  # noqa
 class ExperienceListView(ListView):
     model = Experience
     template_name = 'experiences/experience_list.html'
-    extra_content = {}
+   extra_context = {}
     queryset = Experience.active.all()
     paginate_by = 10  # TODO: add pagination handling into template
 
     def get_queryset(self):
         queryset = super(ExperienceListView, self).get_queryset()
         current_language = Language.objects.get(code=self.kwargs['lang'].upper())
-        self.extra_content['current_language'] = current_language.code.lower()
+        self.extra_context['current_language'] = current_language.code.lower()
         filtered = queryset.filter(language=current_language)
         return filtered
 
@@ -40,7 +40,7 @@ class ExperienceDetailWithFormView(DetailView, FormView):
     extra_context = {'languages': {}}
     queryset = Experience.active.all()
     form_class = FastBookingForm
-    success_url = reverse_lazy('my-cart')
+    success_url = reverse_lazy('my-cart', kwargs={'lang': 'en'})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -172,3 +172,4 @@ class ProductCartView(SessionKeyRequiredMixin, ListView):
     model = Product
     template_name = 'products/my_cart.html'
     queryset = Product.pending.all()
+    extra_context = {'current_language': 'en'}
