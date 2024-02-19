@@ -1,0 +1,113 @@
+.blog-hero {
+    .container {
+        background-image: url(../images/experience-hero.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 114px;
+        padding-bottom: 114px;
+    }
+    .blog-hero-title {
+        color: var(--text-color-second);
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+    .blog-hero-subtitle {
+        color: var(--text-color-second);
+        text-transform: capitalize;
+        font-size: 32px;
+        line-height: 42px;
+        font-family: "LatoSemiBold";
+        margin: 0;
+    }
+}
+
+.blog-list {
+    .container {
+        margin-top: 40px;
+    }
+    .blog-categories-wrapper {
+        .blog-categories-title {
+            margin-bottom: 24px;
+            font-size: 22px;
+            line-height: normal;
+            font-family: "LatoSemiBold";
+        }
+        .categories-list {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+            align-items: center;
+            flex-wrap: wrap;
+            .categories-list-item {
+                border-radius: 6px;
+                background: #FFF1EB;
+                padding: 4px 10px;
+                margin-bottom: 12px;
+                font-size: 16px;
+                line-height: 26px;
+                font-family: "LatoRegular";
+                &.active {
+                    background: #F0500B;
+                    color: var(--text-color-second);
+                }
+                &:not(:last-child) {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+    .blog-cards-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .blog-card {
+            width: calc((100% - 48px)/3);
+            border-radius: 26px;
+            overflow: hidden;
+            border: 1px solid #D9D9D9;
+            background: #FFF;
+            margin-bottom: 40px;
+            .img-wrapper {
+                border-radius: 26px;
+                overflow: hidden;
+                width: 100%;
+                max-height: 400px;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .card-content-wrapper {
+                padding: 20px;
+                .card-date {
+                    font-size: 14px;
+                    line-height: 22px;
+                    color: #6D6D6D;
+                    margin-top: 0;
+                    margin-bottom: 10px;
+                    font-family: "LatoRegular";
+                }
+                .card-title {
+                    margin-bottom: 24px;
+                }
+                .card-link {
+                    display: flex;
+                    align-items: center;
+                    color: var(--text-color-third);
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    font-size: 18px;
+                    line-height: normal;
+                    font-family: "LatoSemiBold";
+                    img {
+                        margin-left: 16px;
+                    }
+                }
+            }
+        }
+    }
+}
