@@ -22,7 +22,7 @@ from products.models import *  # noqa
 class ExperienceListView(ListView):
     model = Experience
     template_name = 'experiences/experience_list.html'
-   extra_context = {}
+    extra_context = {}
     queryset = Experience.active.all()
     paginate_by = 10  # TODO: add pagination handling into template
 
