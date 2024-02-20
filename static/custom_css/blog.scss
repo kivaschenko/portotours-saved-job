@@ -42,17 +42,22 @@
             align-items: center;
             flex-wrap: wrap;
             .categories-list-item {
-                border-radius: 6px;
-                background: #FFF1EB;
-                padding: 4px 10px;
+                
                 margin-bottom: 12px;
-                font-size: 16px;
-                line-height: 26px;
-                font-family: "LatoRegular";
-                &.active {
-                    background: #F0500B;
-                    color: var(--text-color-second);
-                }
+                
+                 .btn {
+                    border-radius: 6px;
+                    background: #FFF1EB;
+                    padding: 4px 10px;
+                    font-size: 16px;
+                    line-height: 26px;
+                    font-family: "LatoRegular";
+                    &:focus {
+                        box-shadow: none;
+                        color: white;
+                        background-color: var(--text-color-third);
+                    }
+                 }
                 &:not(:last-child) {
                     margin-right: 10px;
                 }
@@ -61,7 +66,7 @@
     }
     .blog-cards-wrapper {
         display: flex;
-        align-items: center;
+        align-items: stretch;
         justify-content: space-between;
         flex-wrap: wrap;
         .blog-card {
@@ -71,6 +76,7 @@
             border: 1px solid #D9D9D9;
             background: #FFF;
             margin-bottom: 40px;
+            position: relative;
             .img-wrapper {
                 border-radius: 26px;
                 overflow: hidden;
@@ -79,6 +85,7 @@
                 img {
                     width: 100%;
                     height: 100%;
+                    max-height: 400px;
                 }
             }
             .card-content-wrapper {
@@ -92,9 +99,12 @@
                     font-family: "LatoRegular";
                 }
                 .card-title {
-                    margin-bottom: 24px;
+                    margin-bottom: 72px;
                 }
                 .card-link {
+                    position: absolute;
+                    bottom: 24px;
+                    left: 20px;
                     display: flex;
                     align-items: center;
                     color: var(--text-color-third);

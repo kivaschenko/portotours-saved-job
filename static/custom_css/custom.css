@@ -10306,22 +10306,24 @@ h5, .h5 {
   align-items: center;
   flex-wrap: wrap; }
   .blog-list .blog-categories-wrapper .categories-list .categories-list-item {
-    border-radius: 6px;
-    background: #FFF1EB;
-    padding: 4px 10px;
-    margin-bottom: 12px;
-    font-size: 16px;
-    line-height: 26px;
-    font-family: "LatoRegular"; }
-    .blog-list .blog-categories-wrapper .categories-list .categories-list-item.active {
-      background: #F0500B;
-      color: var(--text-color-second); }
+    margin-bottom: 12px; }
+    .blog-list .blog-categories-wrapper .categories-list .categories-list-item .btn {
+      border-radius: 6px;
+      background: #FFF1EB;
+      padding: 4px 10px;
+      font-size: 16px;
+      line-height: 26px;
+      font-family: "LatoRegular"; }
+      .blog-list .blog-categories-wrapper .categories-list .categories-list-item .btn:focus {
+        box-shadow: none;
+        color: white;
+        background-color: var(--text-color-third); }
     .blog-list .blog-categories-wrapper .categories-list .categories-list-item:not(:last-child) {
       margin-right: 10px; }
 
 .blog-list .blog-cards-wrapper {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   flex-wrap: wrap; }
   .blog-list .blog-cards-wrapper .blog-card {
@@ -10330,7 +10332,8 @@ h5, .h5 {
     overflow: hidden;
     border: 1px solid #D9D9D9;
     background: #FFF;
-    margin-bottom: 40px; }
+    margin-bottom: 40px;
+    position: relative; }
     .blog-list .blog-cards-wrapper .blog-card .img-wrapper {
       border-radius: 26px;
       overflow: hidden;
@@ -10338,7 +10341,8 @@ h5, .h5 {
       max-height: 400px; }
       .blog-list .blog-cards-wrapper .blog-card .img-wrapper img {
         width: 100%;
-        height: 100%; }
+        height: 100%;
+        max-height: 400px; }
     .blog-list .blog-cards-wrapper .blog-card .card-content-wrapper {
       padding: 20px; }
       .blog-list .blog-cards-wrapper .blog-card .card-content-wrapper .card-date {
@@ -10349,8 +10353,11 @@ h5, .h5 {
         margin-bottom: 10px;
         font-family: "LatoRegular"; }
       .blog-list .blog-cards-wrapper .blog-card .card-content-wrapper .card-title {
-        margin-bottom: 24px; }
+        margin-bottom: 72px; }
       .blog-list .blog-cards-wrapper .blog-card .card-content-wrapper .card-link {
+        position: absolute;
+        bottom: 24px;
+        left: 20px;
         display: flex;
         align-items: center;
         color: var(--text-color-third);
