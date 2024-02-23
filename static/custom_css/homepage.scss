@@ -1003,6 +1003,11 @@
 }
 
 .offers-banner {
+  &.blog {
+    .container {
+      margin-top: 160px;
+    }
+  }
   .container {
     background-image: url(../images/offers-bg.png);
     background-size: cover;
