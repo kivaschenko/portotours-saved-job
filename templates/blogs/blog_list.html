@@ -39,7 +39,7 @@
                         </div>
                         <div class="card-content-wrapper">
                             <p class="card-date">
-                                MM/DD/YYYY
+                                {{ object.date_published|date }}
                             </p>
                             <h5 class="card-title">
                                 {{ object.title }}
@@ -66,6 +66,23 @@
                     {% endfor %}
             {% endif %} -->
         </div>
+    </div>
+</section>
+
+<section class="offers-banner">
+    <div class="container">
+        <h2 class="offers-banner-title">
+            Special Offers
+        </h2>
+        <p class="offers-banner-subtitle">
+            Get exclusive benefits and premium discounts with our subscription plan
+        </p>
+        <form action="" class="offers-banner-form">
+            <input type="email" class="email-input" name="email" id="subscription-email" placeholder="Enter Email Address">
+            <button type="submit" class="form-submit-btn">
+                Subscribe
+            </button>
+        </form>
     </div>
 </section>
 
