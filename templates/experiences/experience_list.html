@@ -101,10 +101,10 @@
                             </p>
                             <div class="price-wrapper">
                                 <p class="old-price">
-                                    € 20
+                                    € {{ object.parent_experience.old_price }}
                                 </p>
                                 <p class="new-price">
-                                    € 20
+                                    € {{ object.parent_experience.price }}
                                 </p>
                             </div>
                             <a href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}" class="experience-link-btn btn-type-1">
