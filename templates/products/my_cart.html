@@ -8,6 +8,7 @@
         <h2>Review Your Basket</h2>
         <div class="some-alert-about-duration-booking">
             <p>There is some alert about duration of orders pending...</p>
+            <p><strong>Current Session Key:</strong> {{ request.session.session_key }}</p>
         </div>
         <div class="row">
             <div class="col-lg-9 col-md-9">
@@ -16,7 +17,7 @@
                         {% for object in object_list %}
                             <thead>
                             <tr>
-                                <th colspan="6" scope="row">{{ object.parent_experience.parent_name }}</th>
+                                <th colspan="6" scope="row"><h3>{{ object.parent_experience.parent_name }}</h3></th colspan="6" scope="row">
                             </tr>
                             <tr>
                                 <th>Date</th>

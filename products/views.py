@@ -1,20 +1,16 @@
-from datetime import datetime, timedelta
-
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.sessions.models import Session
 from django.contrib import messages
-from django.shortcuts import render, redirect
-
-import pytz
+from django.conf import settings
+from django.shortcuts import redirect
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
-from pytz import UTC
-
 from django.views.generic import DetailView, ListView, FormView
 
 from products.forms import FastBookingForm
 from products.models import *  # noqa
+
+Customer = settings.AUTH_USER_MODEL
 
 
 # ----------
@@ -35,7 +31,7 @@ class ExperienceListView(ListView):
         return filtered
 
 
-class ExperienceDetailWithFormView(DetailView, FormView):
+class ExperienceDetailWithFormView(FormView, DetailView):
     model = Experience
     template_name = 'experiences/experience_detail.html'
     extra_context = {'languages': {}}
@@ -88,18 +84,13 @@ class ExperienceDetailWithFormView(DetailView, FormView):
         return HttpResponseRedirect(self.get_success_url())
 
     def post(self, request, *args, **kwargs):
-        # Override post method to handle POST requests
-        if isinstance(request.user, AnonymousUser):
-            user_id = 0
-        elif isinstance(request.user, settings.AUTH_USER_MODEL):
-            user_id = request.user.id
         self.object = self.get_object()
         form = self.get_form()
         if form.is_valid():
             data = form.cleaned_data
             # create new Product
             new_product = Product(
-                customer_id=self.kwargs['customer'],
+                customer=self.kwargs['customer'],
                 session=self.kwargs['session'],
                 parent_experience=self.object.parent_experience,
                 language=data['language'],
@@ -153,22 +144,25 @@ def get_calendar_experience_events(request, parent_experience_slug):
 # Products
 
 
-class SessionKeyRequiredMixin:
+class UserIsAuthentiacedOrSessionKeyRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
+        user = request.user
         session_key = request.session.session_key
-        if session_key is None:
+        self.queryset = Product.objects.none()
+        if session_key is None and not user.is_authenticated:
             # Redirect user to login page or any other page as you see fit
             return redirect(reverse_lazy('login'))
-        else:
+        elif user.is_authenticated:
+            if Product.objects.filter(customer=user).exists():
+                self.queryset = Product.pending.filter(customer=user)
+        elif session_key:
             # Here, you can perform additional checks if needed, like checking if the session key exists in your models
-            if not Product.objects.filter(session=session_key).exists():
-                return redirect(reverse_lazy('login'))
-            else:
+            if Product.objects.filter(session=session_key).exists():
                 self.queryset = Product.pending.filter(session=session_key)
-            return super(SessionKeyRequiredMixin, self).dispatch(request, *args, **kwargs)
+        return super(UserIsAuthentiacedOrSessionKeyRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
-class ProductCartView(SessionKeyRequiredMixin, ListView):
+class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
     """View for listing all products for current user (session) only."""
     model = Product
     template_name = 'products/my_cart.html'
@@ -182,6 +176,6 @@ class ProductCartView(SessionKeyRequiredMixin, ListView):
             product = Product.objects.get(pk=product_id)
             product.status = 'Cancelled'
             product.save()
-            return JsonResponse({'success': True})
+            return HttpResponseRedirect(reverse_lazy('my-cart', kwargs={'lang': 'en'}))
         else:
             return JsonResponse({'success': False, 'error': 'Product ID not provided'})
