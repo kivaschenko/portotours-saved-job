@@ -61,6 +61,18 @@ def checkout_view(request):
             line_items=line_items,
             mode='payment',
             # ui_mode='embedded',
+            billing_address_collection='required',
+            invoice_creation={
+                "enabled": True,
+                "invoice_data": {
+                    "description": "Invoice for Product X",
+                    "metadata": {"order": "order-xyz"},
+                    "account_tax_ids": ["DE123456789"],
+                    "custom_fields": [{"name": "Purchase Order", "value": "PO-XYZ"}],
+                    "rendering_options": {"amount_tax_display": "include_inclusive_tax"},
+                    "footer": "B2B Inc.",
+                },
+            },
             ui_mode='hosted',
             success_url=success_url,
             cancel_url=cancel_url
