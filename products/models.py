@@ -290,7 +290,7 @@ class Product(models.Model):
     and time of providing this service at a specified meeting place."""
     # Business logic
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
-    session = models.ForeignKey('sessions.Session', on_delete=models.SET_NULL, null=True)  # ID for anonymous user
+    session_key = models.CharField(max_length=40, null=True, blank=True)  # ID for anonymous user
     parent_experience = models.ForeignKey(ParentExperience, on_delete=models.SET_NULL, null=True)
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True)
     occurrence = models.ForeignKey(Occurrence, on_delete=models.SET_NULL, null=True, blank=True)
@@ -352,3 +352,7 @@ class Product(models.Model):
         if not self.start_datetime:
             return ''
         return self.start_datetime.time().strftime('%H:%M')
+
+    @property
+    def full_name(self):
+        return f'{self.parent_experience.parent_name}'

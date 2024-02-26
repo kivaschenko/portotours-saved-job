@@ -1,19 +1,22 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <div class="row">
-        <div class="col col-lg-2"></div>
-        <div class="col-md-auto">
-            <div class="card" style="margin-top: 100px; position: relative; width: 90%;">
-                <div class="card-body">
-                    <h5 class="card-title">Registration Form</h5>
-                    <form method="post" action="{% url 'signup' %}">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <input class="btn btn-primary" type="submit" value="Register">
-                    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-2"></div>
+            <div class="col-md-auto">
+                <div class="card" style="margin-top: 40px; margin-bottom: 40px; position: relative; width: 90%;">
+                    <div class="card-body">
+                        <h5 class="card-title">Registration Form</h5>
+                        <form method="post" action="{% url 'signup' %}">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <input class="btn btn-primary" type="submit" value="Register">
+                        </form>
+                    </div>
                 </div>
             </div>
+            <div class="col col-lg-2"></div>
         </div>
-        <div class="col col-lg-2"></div>
     </div>
 {% endblock %}

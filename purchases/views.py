@@ -23,7 +23,9 @@ def checkout_view(request):
     if not request.method == "POST":
         return HttpResponseBadRequest()
     # get active products TODO: override this urgently!
-    products = Product.active.filter(customer=request.user)
+    product_ids = request.POST.getlist('product_ids')
+    product_ids = [int(id) for id in product_ids[0].strip().split(',')]
+    products = Product.active.filter(id__in=product_ids)
     line_items = []
     total_amount = 0
     for product in products:
@@ -32,7 +34,7 @@ def checkout_view(request):
             'price_data': {
                 'currency': 'eur',
                 'product_data': {
-                    'name': product.name,
+                    'name': product.stripe_product_id,
                 },
                 'unit_amount': product.stripe_price,
             },
@@ -42,10 +44,8 @@ def checkout_view(request):
     purchase = Purchase.objects.create(user=request.user, stripe_price=total_amount)
     purchase.products.set(products)
     request.session['purchase_id'] = purchase.id
-    success_path = reverse("success")
-    if not success_path.startswith("/"):
-        success_path = f"/{success_path}"
-    cancel_path = reverse("stopped")
+    success_path = reverse("success").lstrip('/')
+    cancel_path = reverse("stopped").lstrip('/')
 
     success_url = f"{BASE_ENDPOINT}{success_path}"
     cancel_url = f"{BASE_ENDPOINT}{cancel_path}"

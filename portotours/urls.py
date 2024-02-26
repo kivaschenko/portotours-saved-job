@@ -25,6 +25,7 @@ urlpatterns = [
     # accounts/password_reset/done/ [name='password_reset_done']
     # accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
     # accounts/reset/done/ [name='password_reset_complete']
+    path("accounts/profile/<int:pk>/", accounts_views.ProfileView.as_view(), name="profile"),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
 
