@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 
 from .forms import CustomSignupForm
+from accounts.models import User
 
 
 # HOME
@@ -38,3 +39,8 @@ class RegistrationView(FormView):
 
 class LogoutView(LoginRequiredMixin, TemplateView):
     pass
+
+
+class ProfileView(LoginRequiredMixin, DetailView):
+    template_name = 'profile/profile_detail.html'
+    model = User

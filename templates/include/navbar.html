@@ -12,10 +12,22 @@
             </div>
         </div>
         <div class="header-right-col">
+            <!- User menu -->
+            <div class="user-profile" style="margin-right: 2rem;">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' user.id %}">
+                        <img src="{% static 'icons/person.svg' %}" alt="user icon">
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}">
+                        <img src="{% static 'icons/person.svg' %}" alt="user icon">
+                    </a>
+                {% endif %}
+            </div>
             <div class="cart-wrapper body-text-b3">
                 <a href="{% url 'my-cart' lang='en' %}">
-                <img src="{% static 'icons/cart-icon.svg' %}" alt="">
-                Cart
+                    <img src="{% static 'icons/cart-icon.svg' %}" alt="">
+                    Cart
                 </a>
             </div>
             <div class="language-switcher">
@@ -56,7 +68,7 @@
                 </p>
             </div>
         </div>
-        
+
     </div>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -92,17 +104,17 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
-                        data-bs-toggle="dropdown" href="#">Out Of Lisbon Things To Do</a>
+                           data-bs-toggle="dropdown" href="#">Out Of Lisbon Things To Do</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Lorem</a></li>
-                            <li><a class="dropdown-item" href="#">Lorem ipsum</a></li>                            
+                            <li><a class="dropdown-item" href="#">Lorem ipsum</a></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle body-text-b3" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
-                           Porto Things To Do
+                            Porto Things To Do
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Test destination page</a></li>
@@ -113,7 +125,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle body-text-b3" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
-                           Out Of Porto Things To Do
+                            Out Of Porto Things To Do
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Test destination page</a></li>
@@ -127,7 +139,7 @@
     </nav>
     <script>
         let languageBtn = document.querySelector('.default-language');
-            languageBtn.addEventListener('click', () => {
+        languageBtn.addEventListener('click', () => {
             languageBtn.classList.toggle('opened')
         });
     </script>

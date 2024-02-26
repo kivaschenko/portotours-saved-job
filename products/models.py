@@ -352,3 +352,7 @@ class Product(models.Model):
         if not self.start_datetime:
             return ''
         return self.start_datetime.time().strftime('%H:%M')
+
+    @property
+    def full_name(self):
+        return f'{self.parent_experience.parent_name}'

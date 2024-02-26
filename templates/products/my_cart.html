@@ -12,7 +12,7 @@
         </div>
         <div class="row">
             <div class="col-lg-9 col-md-9">
-                <table class="table table-hover">
+                <table class="table table-borderless">
                     {% if object_list %}
                         {% for object in object_list %}
                             <thead>
@@ -21,11 +21,13 @@
                             </tr>
                             <tr>
                                 <th>Date</th>
-                                <th>Time</th>
-                                <th>Type of tours</th>
+                                <th>Time UTC</th>
+                                <th>Type</th>
                                 <th>Language</th>
                                 <th>Adult & Price</th>
                                 <th>Children & Price</th>
+                                <th>Expired time UTC</th>
+                                <th>Cancellation</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -36,6 +38,7 @@
                                 <td>{{ object.language }}</td>
                                 <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
                                 <td>{{ object.child_count }} x {{ object.child_price }} EUR</td>
+                                <td>{{ object.expired_time }}</td>
                                 <td>
                                     <form action="" method="post"> <!-- Form for cancelling -->
                                         {% csrf_token %}

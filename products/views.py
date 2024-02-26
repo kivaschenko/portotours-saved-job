@@ -77,7 +77,6 @@ class ExperienceDetailWithFormView(FormView, DetailView):
 
     def form_valid(self, form):
         # add event handler here
-        messages.success(self.request, 'Your experience has been reserved for 30 minutes. If you do not pay within this time, the reserve will be canceled..')
         return HttpResponseRedirect(self.get_success_url())
 
     def post(self, request, *args, **kwargs):
@@ -98,7 +97,6 @@ class ExperienceDetailWithFormView(FormView, DetailView):
                 child_count=int(data['children']),
             )
             new_product.save()
-
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
