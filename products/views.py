@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.db.models import Sum
 from django.shortcuts import redirect
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -162,6 +163,14 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
     template_name = 'products/my_cart.html'
     queryset = Product.pending.all()
     extra_context = {'current_language': 'en'}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Calculate the sum of total prices
+        total_price_sum = self.queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum']
+        # Add the sum to the context
+        context['total_price_sum'] = total_price_sum
+        return context
 
     def post(self, request, *args, **kwargs):
         # Handle POST request for cancelling products

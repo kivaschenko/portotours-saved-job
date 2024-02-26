@@ -120,6 +120,7 @@ class ExperienceAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     list_display = [
         'parent_experience',
+        'id',
         'language',
         'start_datetime',
         'status',
