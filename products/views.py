@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.sessions.models import Session
 from django.contrib import messages
@@ -173,3 +174,14 @@ class ProductCartView(SessionKeyRequiredMixin, ListView):
     template_name = 'products/my_cart.html'
     queryset = Product.pending.all()
     extra_context = {'current_language': 'en'}
+
+    def post(self, request, *args, **kwargs):
+        # Handle POST request for cancelling products
+        if 'cancel_product_id' in request.POST:
+            product_id = request.POST.get('cancel_product_id')
+            product = Product.objects.get(pk=product_id)
+            product.status = 'Cancelled'
+            product.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': 'Product ID not provided'})

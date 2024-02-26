@@ -34,11 +34,13 @@
                                 <td>{% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}</td>
                                 <td>{{ object.language }}</td>
                                 <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
+                                <td>{{ object.child_count }} x {{ object.child_price }} EUR</td>
                                 <td>
-                                    {{ object.child_count }} x {{ object.child_price }} EUR
-                                    <span style="margin-left: 2rem;">
-                        <a href="#">Delete icon trash can</a>
-                    </span>
+                                    <form action="" method="post"> <!-- Form for cancelling -->
+                                        {% csrf_token %}
+                                        <input type="hidden" name="cancel_product_id" value="{{ object.id }}">
+                                        <button type="submit" class="btn btn-danger">Cancel</button> <!-- Button to cancel -->
+                                    </form>
                                 </td>
                             </tr>
                             </tbody>
