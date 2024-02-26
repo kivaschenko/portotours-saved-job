@@ -1,22 +1,58 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+
+<section class="blog-hero">
     <div class="container">
-        <!-- Add buttons for each category -->
-        <div>
-            <h5>Categories:</h5>
+        <h1 class="blog-hero-title">
+            Title
+        </h1>
+        <p class="blog-hero-subtitle">
+            Title
+        </p>
+    </div>
+</section>
+<section class="blog-list">
+    <div class="container">
+        <div class="blog-categories-wrapper">
+            <h3 class="blog-categories-title">
+                Categories
+            </h3>
             {% if categories %}
+            <ul class="categories-list">
                 {% for category in categories %}
-                    <button type="button" class="btn btn-light filter-category" data-category="{{ category.id }}">{{ category.name }}</button>
+                <li class="categories-list-item">
+                    <button type="button" class="btn filter-category" data-category="{{ category.id }}">{{ category.name }}</button>
+                </li>
+                    {% endfor %}
+            </ul>
+            {% endif %}
+            
+        </div>
+        <div class="blog-cards-wrapper">
+            {% if object_list %}
+                {% for object in object_list %}
+                    <div class="blog-card">
+                        <div class="img-wrapper">
+                            <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
+                            {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
+                        </div>
+                        <div class="card-content-wrapper">
+                            <p class="card-date">
+                                {{ object.date_published|date }}
+                            </p>
+                            <h5 class="card-title">
+                                {{ object.title }}
+                            </h5>
+                            <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}" class="card-link">
+                                read article
+                                <img src="{% static 'icons/experience-link-icon.svg' %}" alt="link arrow">
+                            </a>
+                        </div>
+                    </div>
                 {% endfor %}
             {% endif %}
-        </div>
-
-        <!-- Container for filtered blog posts -->
-        <div id="filtered-posts-container">
-            <!-- Filtered blog posts will be displayed here -->
-            <div class="row d-flex-lg d-flex-md">
-                {% if object_list %}
+            <!-- {% if object_list %}
                     {% for object in object_list %}
                         <div class="card" style="width: 18rem;">
                             <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
@@ -28,10 +64,30 @@
                             </div>
                         </div>
                     {% endfor %}
-                {% endif %}
-            </div>
+            {% endif %} -->
         </div>
     </div>
+</section>
+
+<section class="offers-banner">
+    <div class="container">
+        <h2 class="offers-banner-title">
+            Special Offers
+        </h2>
+        <p class="offers-banner-subtitle">
+            Get exclusive benefits and premium discounts with our subscription plan
+        </p>
+        <form action="" class="offers-banner-form">
+            <input type="email" class="email-input" name="email" id="subscription-email" placeholder="Enter Email Address">
+            <button type="submit" class="form-submit-btn">
+                Subscribe
+            </button>
+        </form>
+    </div>
+</section>
+
+
+    
     <!-- Custom JS import -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
     <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>

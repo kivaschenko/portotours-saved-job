@@ -269,8 +269,9 @@ CKEDITOR_CONFIGS = {
                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']},
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
-            {'name': 'source', 'items': ['Source']},
+            {'name': 'source', 'items': ['Source']},            
         ],
+        
 
     }
 }
