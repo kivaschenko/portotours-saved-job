@@ -127,7 +127,7 @@ class ProductAdmin(admin.ModelAdmin):
         'child_count',
         'total_price',
         'customer',
-        'session',
+        'session_key',
         'created_at',
         'expired_time'
     ]

@@ -1,7 +1,4 @@
-from django.contrib.auth.models import AnonymousUser
-from django.contrib.sessions.models import Session
 from django.contrib import messages
-from django.conf import settings
 from django.shortcuts import redirect
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -91,7 +88,7 @@ class ExperienceDetailWithFormView(FormView, DetailView):
             # create new Product
             new_product = Product(
                 customer=self.kwargs['customer'],
-                session=self.kwargs['session'],
+                session_key=self.kwargs['session_key'],
                 parent_experience=self.object.parent_experience,
                 language=data['language'],
                 start_datetime=data['date'],
@@ -120,14 +117,13 @@ class ExperienceDetailWithFormView(FormView, DetailView):
         self.kwargs = kwargs
         if self.request.user.is_authenticated:
             kwargs.update({'customer': self.request.user})
+            kwargs.update({'session_key': self.request.session.session_key})
         else:
             kwargs['customer'] = None
             # If the user is not authenticated, get the current session
-            if not self.request.session.exists(
-                    self.request.session.session_key):
+            if not self.request.session.exists(self.request.session.session_key):
                 self.request.session.create()
-            kwargs.update({'session': Session.objects.get(
-                session_key=self.request.session.session_key)})
+            kwargs.update({'session_key': self.request.session.session_key})
         return kwargs
 
 
@@ -157,8 +153,8 @@ class UserIsAuthentiacedOrSessionKeyRequiredMixin:
                 self.queryset = Product.pending.filter(customer=user)
         elif session_key:
             # Here, you can perform additional checks if needed, like checking if the session key exists in your models
-            if Product.objects.filter(session=session_key).exists():
-                self.queryset = Product.pending.filter(session=session_key)
+            if Product.objects.filter(session_key=session_key).exists():
+                self.queryset = Product.pending.filter(session_key=session_key)
         return super(UserIsAuthentiacedOrSessionKeyRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
@@ -176,6 +172,6 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
             product = Product.objects.get(pk=product_id)
             product.status = 'Cancelled'
             product.save()
-            return HttpResponseRedirect(reverse_lazy('my-cart', kwargs={'lang': 'en'}))
         else:
-            return JsonResponse({'success': False, 'error': 'Product ID not provided'})
+            logger.error(f'Cancellation. Product not found.')
+        return HttpResponseRedirect(reverse_lazy('my-cart', kwargs={'lang': 'en'}))
