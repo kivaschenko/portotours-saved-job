@@ -3,14 +3,12 @@ import json
 
 from django.http import JsonResponse
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 
 import stripe
-from django.views.generic import TemplateView
 
 from products.models import Product
 from .models import Purchase
@@ -21,22 +19,6 @@ logger = logging.getLogger(__name__)
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 BASE_ENDPOINT = settings.BASE_ENDPOINT
-
-
-def checkout(request):
-    if not request.method == 'POST':
-        return HttpResponseBadRequest()
-
-    product_ids = request.POST.getlist('product_ids')
-    product_ids = [int(pk) for pk in product_ids[0].strip().split(',')]
-
-    context = {'product_ids': product_ids}
-
-    stripe_public_key = settings.STRIPE_PUBLIC_KEY
-
-    context.update({'stripe_public_key': stripe_public_key})
-
-    return render(request, template_name='purchases/embedded_stripe_form.html', context=context)
 
 
 @csrf_exempt
@@ -85,7 +67,6 @@ def checkout_view(request):
         return JsonResponse({'clientSecret': checkout_session.client_secret})
     except json.JSONDecodeError as exp:
         return HttpResponseBadRequest('Invalid JSON data')
-
 
 
 @csrf_exempt

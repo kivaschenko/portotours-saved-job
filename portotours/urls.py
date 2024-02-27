@@ -57,7 +57,6 @@ urlpatterns += [
 
 # PURCHASES
 urlpatterns += [
-    path('checkout/', purchases_views.checkout, name='billing-details'),
     path('create-checkout-session/', purchases_views.checkout_view, name='checkout-session'),
     path('success/', purchases_views.purchase_success_view, name='success'),
     path('stopped/', purchases_views.purchase_stopped_view, name='stopped'),
