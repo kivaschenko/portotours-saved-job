@@ -1,31 +1,53 @@
-import stripe
-from django.http import HttpResponse, JsonResponse
+import logging
 import json
-from django.contrib import messages
+
+from django.http import JsonResponse
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+
+import stripe
 
 from products.models import Product
 from .models import Purchase
-from .forms import ProductCartForm
-from .services import handle_successful_payment
+from service_layer.services import handle_successful_payment
+
+logger = logging.getLogger(__name__)
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 BASE_ENDPOINT = settings.BASE_ENDPOINT
 
 
+def billing_details(request):
+    if not request.method == 'POST':
+        return HttpResponseBadRequest()
+    
+    product_ids = request.POST.getlist('product_ids')
+    product_ids = [int(pk) for pk in product_ids[0].strip().split(',')]
+
+    context = {'product_ids': product_ids}
+
+    stripe_public_key = settings.STRIPE_PUBLIC_KEY
+
+    context.update({'stripe_public_key': stripe_public_key})
+
+    return render(request, template_name='purchases/embedded_stripe_form.html', context=context)
+
+    
+
 @login_required(login_url='accounts/login/')
 def checkout_view(request):
     if not request.method == "POST":
         return HttpResponseBadRequest()
-    # get active products TODO: override this urgently!
+
     product_ids = request.POST.getlist('product_ids')
-    product_ids = [int(id) for id in product_ids[0].strip().split(',')]
+    product_ids = [int(pk) for pk in product_ids[0].strip().split(',')]
     products = Product.active.filter(id__in=product_ids)
+    
     line_items = []
     total_amount = 0
     for product in products:
@@ -41,55 +63,33 @@ def checkout_view(request):
             'quantity': 1,
         }
         line_items.append(item)
+        
     purchase = Purchase.objects.create(user=request.user, stripe_price=total_amount)
     purchase.products.set(products)
     request.session['purchase_id'] = purchase.id
+    
     success_path = reverse("success").lstrip('/')
     cancel_path = reverse("stopped").lstrip('/')
-
     success_url = f"{BASE_ENDPOINT}{success_path}"
     cancel_url = f"{BASE_ENDPOINT}{cancel_path}"
 
     try:
-        # intent = stripe.PaymentIntent.create(
-        #     amount=purchase.stripe_price,
-        #     currency='eur',
-        #     description=f'Purchase of products: Purchase.id:{purchase.id}',
-        # )
-        # print('intent', intent)
         checkout_session = stripe.checkout.Session.create(
             line_items=line_items,
             mode='payment',
-            # ui_mode='embedded',
+            ui_mode='inline',  # Change UI mode to inline
             billing_address_collection='required',
-            invoice_creation={
-                "enabled": True,
-                "invoice_data": {
-                    "description": "Invoice for Product X",
-                    "metadata": {"order": "order-xyz"},
-                    # "account_tax_ids": ["DE123456789"],
-                    "custom_fields": [{"name": "Purchase Order", "value": "PO-XYZ"}],
-                    "rendering_options": {"amount_tax_display": "include_inclusive_tax"},
-                    "footer": "B2B Inc.",
-                },
-            },
-            ui_mode='hosted',
             success_url=success_url,
             cancel_url=cancel_url
         )
         purchase.stripe_checkout_session_id = checkout_session.id
         purchase.save()
-        return HttpResponseRedirect(checkout_session.url)
+        return JsonResponse({'sessionId': checkout_session.id})  # Send session ID back to frontend
     except stripe.error.CardError as e:
         print('payment_intent', e)
 
-    # context = {
-    #     'client_secret': session.client_secret,
-    #     'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY,
-    # }
-    # return JsonResponse(context)
 
-
+@csrf_exempt
 def stripe_webhook(request):
     payload = request.body
     event = None
@@ -98,15 +98,36 @@ def stripe_webhook(request):
         event = stripe.Event.construct_from(
             json.loads(payload), stripe.api_key
         )
+        logger.info(f"Received event: {event}.\n")
     except ValueError as e:
         # Invalid payload
         return HttpResponse(status=400)
 
     # Handle the event
-    if event.type == 'checkout.session.completed':
+    if event.type == 'checkout.session.completed':  # 'charge.succeeded'
         # Payment was successful
         handle_successful_payment(event)
-
+    elif event['type'] == 'checkout.session.expired':
+      session = event['data']['object']
+    elif event['type'] == 'payment_intent.amount_capturable_updated':
+      payment_intent = event['data']['object']
+    elif event['type'] == 'payment_intent.canceled':
+      payment_intent = event['data']['object']
+    elif event['type'] == 'payment_intent.created':
+      payment_intent = event['data']['object']
+    elif event['type'] == 'payment_intent.partially_funded':
+      payment_intent = event['data']['object']
+    elif event['type'] == 'payment_intent.payment_failed':
+      payment_intent = event['data']['object']
+    elif event['type'] == 'payment_intent.processing':
+      payment_intent = event['data']['object']
+    elif event['type'] == 'payment_intent.requires_action':
+      payment_intent = event['data']['object']
+    elif event['type'] == 'payment_intent.succeeded':
+      payment_intent = event['data']['object']
+    # ... handle other event types
+    else:
+        logger.info('Unhandled event type {}'.format(event['type']))
     return HttpResponse(status=200)
 
 

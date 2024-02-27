@@ -57,9 +57,11 @@ urlpatterns += [
 
 # PURCHASES
 urlpatterns += [
-    path('checkout/', purchases_views.checkout_view, name='checkout'),
+    path('billing-details/', purchases_views.billing_details(), name='billing-details'),
+    path('create-checkout-session/', purchases_views.checkout_view, name='checkout-session'),
     path('success/', purchases_views.purchase_success_view, name='success'),
     path('stopped/', purchases_views.purchase_stopped_view, name='stopped'),
+    path('stripe-webhook/', purchases_views.stripe_webhook, name='stripe-webhook'),
     path('my-cart/<str:lang>/', products_views.ProductCartView.as_view(), name='my-cart'),
 ]
 

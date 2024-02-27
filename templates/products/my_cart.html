@@ -90,7 +90,7 @@
                         </tbody>
                     </table>
                 </div>
-                <form action="{% url 'checkout' %}" method="post" name="product_list">
+                <form action="{% url 'billing-details' %}" method="post" name="product_list">
                     {% csrf_token %}
                     <input type="hidden" name="product_ids"
                            value="{% for object in object_list %}{{ object.id }}{% if not forloop.last %},{% endif %}{% endfor %}">
