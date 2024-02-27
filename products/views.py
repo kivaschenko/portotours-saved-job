@@ -1,7 +1,6 @@
-from django.contrib import messages
 from django.db.models import Sum
 from django.shortcuts import redirect
-from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, FormView
 
@@ -166,10 +165,13 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        product_ids = [product.pk for product in self.queryset.all()]
+        context['product_ids'] = product_ids
         # Calculate the sum of total prices
         total_price_sum = self.queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum']
         # Add the sum to the context
         context['total_price_sum'] = total_price_sum
+        context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         return context
 
     def post(self, request, *args, **kwargs):

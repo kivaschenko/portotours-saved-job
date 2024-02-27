@@ -1,5 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Stripe Checkout</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        /* Add your custom styles here */
+        section {
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            height: 112px;
+            border-radius: 6px;
+            justify-content: space-between;
+        }
+
+        p {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: -0.154px;
+            color: #242d60;
+            height: 100%;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        #checkout {
+            width: 100vw;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+{% endblock head %}
 {% block content %}
     <div class="container">
         <div class="cart-milestones">
@@ -55,8 +94,8 @@
                                                     {% csrf_token %}
                                                     <input type="hidden" name="cancel_product_id" value="{{ object.id }}">
                                                     <button type="submit" class="btn btn-outline-danger">
-                                                        <img src="{% static 'icons/trash.svg' %}"
-                                                             Cancel
+                                                        <img src="{% static 'icons/trash.svg' %}" alt="">
+                                                        Cancel
                                                     </button> <!-- Button to cancel -->
                                                 </form>
                                             </td>
@@ -90,13 +129,7 @@
                         </tbody>
                     </table>
                 </div>
-                <form action="{% url 'checkout' %}" method="post" name="product_list">
-                    {% csrf_token %}
-                    <input type="hidden" name="product_ids"
-                           value="{% for object in object_list %}{{ object.id }}{% if not forloop.last %},{% endif %}{% endfor %}">
-                    <button class="btn btn-primary" type="submit">CHECKOUT</button>
-                </form>
-
+                <button id="checkout-button" class="btn btn-primary" type="submit">CHECKOUT</button>
                 <hr>
                 <h5>Some needed header</h5>
                 <ul>
@@ -107,8 +140,41 @@
                 </ul>
             </div>
         </div>
+
+        <h2>Hide this until step 2 begun...</h2>
+        <div id="checkout">
+            <!-- Payment form will be inserted here -->
+        </div>
     </div>
 
     <!-- Custom JS import -->
+    <script>
+        const stripe = Stripe('{{ stripe_public_key }}');
+
+        // Create a Checkout Session as soon as the page loads
+        async function initialize() {
+            const response = await fetch("/create-checkout-session/", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({product_ids: {{ product_ids }}}), // Pass productIds to the backend
+            });
+
+            console.log(response);
+            const {clientSecret} = await response.json();
+
+            const checkout = await stripe.initEmbeddedCheckout({
+                clientSecret,
+            });
+
+            // Mount Checkout
+            checkout.mount('#checkout');
+        }
+
+        initialize(); // Call initialize function when the page loads
+
+    </script>
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 {% endblock %}
