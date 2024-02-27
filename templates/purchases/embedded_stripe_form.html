@@ -11,16 +11,14 @@
 {% endblock head %}
 
 {% block content %}
-    <h1>Checkout</h1>
+    <div class="container">
+        <h1>Checkout</h1>
 
-    <div id="payment-form">
-        <!-- Payment form will be inserted here -->
+        <div id="checkout">
+            <!-- Payment form will be inserted here -->
+        </div>
+
     </div>
-
-    <form id="checkout-form">
-        {% csrf_token %}
-        <button id="checkout-button">Checkout</button>
-    </form>
 
 
     <script>
@@ -34,8 +32,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': getCookie('csrftoken') // Include CSRF token from cookie
-                        // 'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
+                        'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
                     },
                     body: JSON.stringify({
                         product_ids: ['{{ product_id }}'] // Pass the product IDs
@@ -59,23 +56,6 @@
                         console.error('Error:', error);
                     });
             });
-
-            function getCookie(name) {
-                let cookieValue = null;
-                if (document.cookie && document.cookie !== '') {
-                    const cookies = document.cookie.split(';');
-                    for (let i = 0; i < cookies.length; i++) {
-                        let cookie = cookies[i].trim();
-                        // Does this cookie string begin with the name we want?
-                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
-                        }
-                    }
-                }
-                console.log('cookieValue = ', cookieValue);
-                return cookieValue;
-            }
         });
     </script>
 
