@@ -264,6 +264,8 @@
 
 .attraction-list {
     .container {
+        position: relative;
+        padding-bottom: 156px;
         .title-filter-wrapper {
             display: flex;
             align-items: center;
@@ -324,7 +326,7 @@
             padding-left: 0;
             list-style: none;
             margin: 0;
-            margin-bottom: 156px;
+            
             @include media-breakpoint-down(md) {
                 margin-bottom: 144px;
             }
