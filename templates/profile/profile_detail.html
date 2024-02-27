@@ -1,93 +1,99 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <div class="row" style="margin-top: 5rem;">
-        <div class="col-lg-6 col-md-6">
-            <div class="card">
-                <div class="text-center card-body">
-                    <img src="{% if object.avatar %}{{ object.avatar.url }}{% else %} {% endif %}"
-                         alt="{{ object.user.first_name }} {{ object.user.last_name }}"
-                         class="img-fluid rounded-circle mb-2" width="128" height="128">
-                    <div class="card-header">
-                        <div class="mb-0 card-title h5">{{ object.user.username }}</div>
-                    </div>
-                    <div class="mb-0 card-title h5">{{ object.full_name }}</div>
-                    <div class="text-muted mb-2">{{ object.company }}</div>
-                    <div>
-                        <button type="button" class="me-1 btn btn-primary btn-sm">Follow</button>
-                        <button type="button" class="btn btn-primary btn-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                            </svg>
-                            Message
-                        </button>
-                    </div>
+    <div class="container">
+    <div id="profileBlock" style="margin-bottom: 40px;">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <h3>Tabs menu</h3> 
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">My billing address</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-danger m-2" type="submit">logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-9 col-md-9">
+                <div id="profileInfo">
+                    <h3>Profile Info</h3>
+                    <table class="table table-responsive">
+                        <tbody>
+                        <tr>
+                            <th scope="row">First name</th>
+                            <td>{{ object.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Last name</th>
+                            <td>{{ object.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td>{{ object.email }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <a href="#" class="btn btn-outline-warning">Update</a>
                 </div>
-                <hr class="my-0">
-                <div class="card-body">
-                    <div class="card-title h5">Interests</div>
-                    {% if object.user.interests %}
-                        {% for category in object.user.interests.set %}
-                            <span class="me-2 my-1 badge bg-primary">{{ category }}</span>
-                        {% endfor %}
-                    {% endif %}
+                <div id="billingAddress">
+                    <h3>Billing Address</h3>
+                    <table class="table table-responsive">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Country</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Address</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Zip code</th>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="#" class="btn btn-outline-warning">Update</a>
                 </div>
-                <hr class="my-0">
-                <div class="card-body">
-                    <div class="card-title h5">Profile info</div>
-                    <h6 class="card-subtitle mb-2 text-muted">Website:</h6>
-                    <p>{{ object.website }}</p>
-                    <h6 class="card-subtitle mb-2 text-muted">Phone:</h6>
-                    <p>{{ object.phone }}</p>
-                    <h6 class="card-subtitle mb-2 text-muted">Description:</h6>
-                    {% if object.description %}
-                        <p>{{ object.description }}</p>
-                    {% else %}
-                        <p>{% lorem %}</p>
-                    {% endif %}
-                    <hr class="my-2">
-                    {% if user.pk == object.user.pk %}
-                        <a href="{% url 'update-profile' user.pk %}" class="btn btn-primary btn-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-pencil" viewBox="0 0 16 16">
-                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
-                            </svg>
-                            Update my Profile
-                        </a>
-                        <a href="{% url 'create-address' %}" class="btn btn-primary btn-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-house-add" viewBox="0 0 16 16">
-                                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h4a.5.5 0 1 0 0-1h-4a.5.5 0 0 1-.5-.5V7.207l5-5 6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
-                                <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 1 0 1 0v-1h1a.5.5 0 1 0 0-1h-1v-1a.5.5 0 0 0-.5-.5"/>
-                            </svg>
-                            Create new address
-                        </a>
-                        <hr class="my-2">
-                        <h5 class="card-title">
-                            My addresses
-                        </h5>
-                        <p><small>The address allows you to search for offers within a certain radius from it.</small>
-                        </p>
-                        <div class="list-group">
-                            {% for address in object.user.addresses.all %}
-                                <a href="{% url 'address-detail' address.pk %}" class="list-group-item list-group-item-">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-house-add" viewBox="0 0 16 16">
-                                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h4a.5.5 0 1 0 0-1h-4a.5.5 0 0 1-.5-.5V7.207l5-5 6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
-                                        <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 1 0 1 0v-1h1a.5.5 0 1 0 0-1h-1v-1a.5.5 0 0 0-.5-.5"/>
-                                    </svg>
-                                    {{ address.address_name }}</a>
+                <div id="myOrders">
+                    <h3>My orders</h3>
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Booking Date</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Start Date & Time</th>
+                                <th scope="col">Total price</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% if object.product_set.all %}
+                            {% for product in object.product_set.all %}
+                            <tr>
+                                <td>{{ product.created_at|date }}</td>
+                                <td>{{ product.full_name }}</td>
+                                <td>{{ product.date_of_start }} | {{ product.time_of_start }}</td>
+                                <td>{{ product.total_price }}</td>
+                                <td>{{ product.status }}</td>
+                            </tr>
                             {% endfor %}
-                        </div>
-                    {% endif %}
+                        {% endif %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6">
-            <h3>Profile offers</h3>
-            {% include 'include/offer_table.html' %}
-        </div>
+    </div>
     </div>
 {% endblock %}
