@@ -41,7 +41,343 @@
 {% block content %}
 
     <section class="experience-hero">
+        <div class="container">
+            <div class="experience-hero-title-wrapper">
+                <h2 class="experience-hero-title">
+                    tour Experience name
+                </h2>
+                <div class="expreriece-hero-price-btn-wrapper">
+                    <div class="price-wrapper">
+                        <p class="price-title">
+                            From
+                        </p>
+                        <p class="price-amount">
+                            € 20
+                        </p>
+                    </div>
+                    <a href="#" class="experience-hero-btn btn-type-1">
+                        check availability
+                    </a>
+                </div>
+            </div>
+            <div class="experience-hero-info">
+                <p class="experience-hero-info-text">
+                    <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
+                    free cancilation policy
+                </p>
+                <p class="experience-hero-info-text">
+                    <img src="{% static 'icons/experience-info-icon2.svg' %}" alt="">
+                    2480 happy clients
+                </p>
+            </div>
+            <div class="experience-hero-swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                  <!-- Slides -->
+                  <div class="swiper-slide">
+                    <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                  </div>
+                  
+                </div>
+      
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
     </section>
+    <section class="why">
+        <div class="container">
+            <h2 class="why-title">
+                Why book a full day experience to Sintra with One Day Tours?
+            </h2>
+            <p class="why-subtitle body-text-b1">
+                Create the best of your experience by visiting Portugal with our exclusive tours
+            </p>
+            <div class="why-cards-wrapper">
+                <div class="why-card">
+                    <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        100+ Experiences in Portugal
+                    </p>
+                </div>
+                <div class="why-card">
+                    <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        Free cancellation
+                    </p>
+                </div>
+                <div class="why-card">
+                    <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        Guided by local experts
+                    </p>
+                </div>
+                
+                
+                
+                
+            </div>
+        </div>
+    </section>
+    <section class="experience-info">
+        <div class="container">
+            <h2 class="experience-info-title">
+                Experience name
+            </h2>
+            <p class="experience-info-subtitle">
+                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu.
+            </p>
+            <div class="experience-info-inner-wrapper">
+                <div class="left-col">
+                    <div class="experience-cards">
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon1.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Type of tours
+                                </p>
+                                <p class="card-text">
+                                    Private
+                                </p>
+                            </div>
+                        </div>
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon2.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Duration
+                                </p>
+                                <p class="card-text">
+                                    5 hours
+                                </p>
+                            </div>
+                        </div>
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon3.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Accessibility
+                                </p>
+                                <p class="card-text">
+                                    Ramps and lifts are available
+                                </p>
+                            </div>
+                        </div>
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon4.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Possibility
+                                </p>
+                                <p class="card-text">
+                                    Not allowed
+                                </p>
+                            </div>
+                        </div>
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon5.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Languages
+                                </p>
+                                <p class="card-text">
+                                    English, Spanish, Portuguese, French
+                                </p>
+                            </div>
+                        </div>
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon6.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Starting location
+                                </p>
+                                <p class="card-text">
+                                    2118 Thornridge Cir. Syracuse, Connecticut 35624
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="experience-description">
+                        <h5 class="description-title">
+                            Full description
+                        </h5>
+                        <p>
+                            Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                        </p>
+                    </div>
+                    <div class="experience-timeline">
+                        <div class="experience-timeline-inner">
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                        </div>
+                        <a href="" class="timeline-btn-open btn-type-2">
+                            See all
+                        </a>
+                    </div>
+                </div>
+                <div class="aside-form">
+                    <div class="booking-form-wrapper">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
     <div class="container">
         <!-- FastBookingForm block -->
         <form class="row gx-3 gy-2 align-items-center" method="post" action="">
@@ -100,48 +436,38 @@
         }
     </style>
     <script>
-        const swiperTopAttraction = new Swiper(".swiper-attractions", {
-            slidesPerView: 2,
-            speed: 1000,
-            spaceBetween: 24,
-            breakpoints: {
-                200: {
-                    slidesPerView: 1,
-                    spaceBetween: 20,
-                },
-                767: {
-                    slidesPerView: 2,
-                    spaceBetween: 24,
-                }
+    
+        const swiperTopAttraction = new Swiper(".experience-hero-swiper", {
+        slidesPerView: 2,
+        speed: 1000,   
+        spaceBetween: 24,
+        breakpoints: {
+            200: {
+                spaceBetween: 14,
+                slidesPerView: 1.4,
+                centeredSlides: true,
+                loop:true,
             },
-            // Navigation arrows
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
+            767: {
+                slidesPerView: 1.2,
+                spaceBetween: 24,
+                centeredSlides: true,
+                loop:true,
+            }
+        },
+        // Navigation arrows
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        
         });
-
-        const swiperAttractionHero = new Swiper(".attraction-hero-slider", {
-            slidesPerView: 3,
-            speed: 1000,
-            spaceBetween: 24,
-            breakpoints: {
-                200: {
-                    slidesPerView: 1,
-                    spaceBetween: 20,
-                },
-                767: {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
-                }
-            },
-            // Navigation arrows
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-        });
-    </script>
+    
+    
+</script>
     <script>
         // Define all window.location.pathname according language value
         const languages = {{ languages|safe }};  // from response extra_context

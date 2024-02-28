@@ -208,7 +208,7 @@
     padding-bottom: 156px;
     position: relative;
     @include media-breakpoint-down(md) {
-        margin-top: 40px;
+      margin-top: 40px;
     }
     .title-filter-wrapper {
       display: flex;
@@ -225,9 +225,9 @@
         font-family: "LatoMedium";
         color: #0f0f10;
         @include media-breakpoint-down(md) {
-            margin-bottom: 16px;
-            font-size: 26px;
-            line-height: 36px;
+          margin-bottom: 16px;
+          font-size: 26px;
+          line-height: 36px;
         }
       }
       .filter-wrapper {
@@ -241,7 +241,6 @@
           font-family: "LatoRegular";
           color: #0f0f10;
           margin-bottom: 0;
-         
         }
         select {
           padding: 9px 50px 9px 16px;
@@ -265,7 +264,7 @@
       padding-left: 0;
       list-style: none;
       margin: 0;
-      
+
       @include media-breakpoint-down(md) {
         margin-bottom: 145px;
       }
@@ -276,7 +275,7 @@
         overflow: hidden;
         border: 1px solid #d9d9d9;
         @include media-breakpoint-down(md) {
-            flex-direction: column;
+          flex-direction: column;
         }
         + .experience-list-item {
           margin-top: 24px;
@@ -323,7 +322,7 @@
             margin-bottom: 24px;
             color: #0f0f10;
             @include media-breakpoint-down(md) {
-                margin-bottom: 12px;
+              margin-bottom: 12px;
             }
           }
           .experience-type-list-wrapper {
@@ -331,8 +330,8 @@
             align-items: center;
             margin-bottom: 14px;
             @include media-breakpoint-down(md) {
-                flex-wrap: wrap;
-                margin-bottom: 4px;
+              flex-wrap: wrap;
+              margin-bottom: 4px;
             }
             .main-info-list {
               display: flex;
@@ -351,8 +350,8 @@
                 background-color: #f3faf5;
                 border-radius: 30px;
                 @include media-breakpoint-down(md) {
-                    margin-bottom: 8px;
-                    margin-right: 4px;
+                  margin-bottom: 8px;
+                  margin-right: 4px;
                 }
                 + li {
                   margin-left: 16px;
@@ -370,15 +369,15 @@
             margin-bottom: 14px;
             color: #0f0f10;
             @include media-breakpoint-down(md) {
-                font-size: 14px;
-                line-height: 22px;
+              font-size: 14px;
+              line-height: 22px;
             }
           }
           .price-wrapper {
             display: flex;
             align-items: center;
             @include media-breakpoint-down(md) {
-                justify-content: center;
+              justify-content: center;
             }
             .old-price {
               text-decoration: line-through;
@@ -415,13 +414,134 @@
             line-height: normal;
             text-decoration: none;
             @include media-breakpoint-down(md) {
-                margin: 0 auto;
+              margin: 0 auto;
             }
             img {
               margin-left: 14px;
             }
           }
         }
+      }
+    }
+  }
+}
+
+.experience-hero {
+  .container {
+    padding-top: 62px;
+    padding-bottom: 0px;
+    .experience-hero-title-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      .experience-hero-title {
+        color: #000;
+        margin-top: 0;
+        margin-bottom: 0;
+        text-transform: capitalize;
+      }
+      .expreriece-hero-price-btn-wrapper {
+        display: flex;
+        align-items: center;
+        .price-wrapper {
+          display: flex;
+          align-items: center;
+          margin-right: 32px;
+          .price-title {
+            font-family: "LatoRegular";
+            font-size: 18px;
+            line-height: 28px;
+            margin-bottom: 0;
+            margin-right: 18px;
+            color: #6d6d6d;
+          }
+          .price-amount {
+            font-family: "LatoSemiBold";
+            font-size: 44px;
+            line-height: 56px;
+            color: #0f0f10;
+            margin-bottom: 0;
+          }
+        }
+        .experience-hero-btn {
+          width: 340px;
+          text-align: center;
+        }
+      }
+    }
+    .experience-hero-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+      .experience-hero-info-text {
+        display: flex;
+        align-items: center;
+        font-family: "LatoRegular";
+        font-size: 16px;
+        line-height: 26px;
+        color: #378f02;
+        text-transform: capitalize;
+        margin-bottom: 0;
+        + .experience-hero-info-text {
+          margin-left: 34px;
+        }
+        img {
+          margin-right: 14px;
+          display: block;
+        }
+      }
+    }
+    .experience-hero-swiper {
+      overflow: hidden;
+      position: relative;
+      padding-bottom: 50px;
+      
+      .swiper-button-next,
+      .swiper-rtl .swiper-button-prev {
+        right: 0;
+        width: 60px;
+        height: 60px;
+        transform: translateY(-50%);
+        margin: 0;
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
+      }
+      .swiper-button-next:after,
+      .swiper-rtl .swiper-button-prev:after {
+        content: "";
+        background-image: url(../icons/slider-arrow-icon_v2.svg);
+        width: 60px;
+        height: 60px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      .swiper-button-prev,
+      .swiper-rtl .swiper-button-next {
+        left: 0;
+        width: 60px;
+        height: 60px;
+        transform: translateY(-50%);
+        margin: 0;
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
+      }
+      .swiper-button-prev:after,
+      .swiper-rtl .swiper-button-next:after {
+        content: "";
+        background-image: url(../icons/slider-arrow-icon_v2.svg);
+        width: 60px;
+        height: 60px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        transform: scaleX(-1);
+      }
+      .swiper-pagination-bullet {
+        background-color: var(--text-color-third);
       }
     }
   }

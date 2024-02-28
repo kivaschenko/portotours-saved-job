@@ -10324,6 +10324,108 @@ h5, .h5 {
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-link-btn img {
             margin-left: 14px; }
 
+.experience-hero .container {
+  padding-top: 62px;
+  padding-bottom: 0px; }
+  .experience-hero .container .experience-hero-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px; }
+    .experience-hero .container .experience-hero-title-wrapper .experience-hero-title {
+      color: #000;
+      margin-top: 0;
+      margin-bottom: 0;
+      text-transform: capitalize; }
+    .experience-hero .container .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper {
+      display: flex;
+      align-items: center; }
+      .experience-hero .container .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .price-wrapper {
+        display: flex;
+        align-items: center;
+        margin-right: 32px; }
+        .experience-hero .container .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .price-wrapper .price-title {
+          font-family: "LatoRegular";
+          font-size: 18px;
+          line-height: 28px;
+          margin-bottom: 0;
+          margin-right: 18px;
+          color: #6d6d6d; }
+        .experience-hero .container .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .price-wrapper .price-amount {
+          font-family: "LatoSemiBold";
+          font-size: 44px;
+          line-height: 56px;
+          color: #0f0f10;
+          margin-bottom: 0; }
+      .experience-hero .container .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .experience-hero-btn {
+        width: 340px;
+        text-align: center; }
+  .experience-hero .container .experience-hero-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px; }
+    .experience-hero .container .experience-hero-info .experience-hero-info-text {
+      display: flex;
+      align-items: center;
+      font-family: "LatoRegular";
+      font-size: 16px;
+      line-height: 26px;
+      color: #378f02;
+      text-transform: capitalize;
+      margin-bottom: 0; }
+      .experience-hero .container .experience-hero-info .experience-hero-info-text + .experience-hero-info-text {
+        margin-left: 34px; }
+      .experience-hero .container .experience-hero-info .experience-hero-info-text img {
+        margin-right: 14px;
+        display: block; }
+  .experience-hero .container .experience-hero-swiper {
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 50px; }
+    .experience-hero .container .experience-hero-swiper .swiper-button-next,
+    .experience-hero .container .experience-hero-swiper .swiper-rtl .swiper-button-prev {
+      right: 0;
+      width: 60px;
+      height: 60px;
+      transform: translateY(-50%);
+      margin: 0; }
+      @media (max-width: 767.98px) {
+        .experience-hero .container .experience-hero-swiper .swiper-button-next,
+        .experience-hero .container .experience-hero-swiper .swiper-rtl .swiper-button-prev {
+          display: none; } }
+    .experience-hero .container .experience-hero-swiper .swiper-button-next:after,
+    .experience-hero .container .experience-hero-swiper .swiper-rtl .swiper-button-prev:after {
+      content: "";
+      background-image: url(../icons/slider-arrow-icon_v2.svg);
+      width: 60px;
+      height: 60px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat; }
+    .experience-hero .container .experience-hero-swiper .swiper-button-prev,
+    .experience-hero .container .experience-hero-swiper .swiper-rtl .swiper-button-next {
+      left: 0;
+      width: 60px;
+      height: 60px;
+      transform: translateY(-50%);
+      margin: 0; }
+      @media (max-width: 767.98px) {
+        .experience-hero .container .experience-hero-swiper .swiper-button-prev,
+        .experience-hero .container .experience-hero-swiper .swiper-rtl .swiper-button-next {
+          display: none; } }
+    .experience-hero .container .experience-hero-swiper .swiper-button-prev:after,
+    .experience-hero .container .experience-hero-swiper .swiper-rtl .swiper-button-next:after {
+      content: "";
+      background-image: url(../icons/slider-arrow-icon_v2.svg);
+      width: 60px;
+      height: 60px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: scaleX(-1); }
+    .experience-hero .container .experience-hero-swiper .swiper-pagination-bullet {
+      background-color: var(--text-color-third); }
+
 .blog-hero .container {
   background-image: url(../images/experience-hero.png);
   background-size: cover;
