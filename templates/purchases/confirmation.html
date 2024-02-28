@@ -7,6 +7,15 @@
 {% endblock head %}
 {% block content %}
     <div class="container">
+        <!-- Breadcrumbs -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'my-cart' lang='en' %}">Step 1</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'payment-form' lang='en' %}">Step 2</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Step 3</li>
+            </ol>
+        </nav>
+
         <div class="cart-milestones">
             <h2>3 Step: Confirmation</h2>
             <p><small>There are some implementation for milestones of order and payment process...</small></p>
