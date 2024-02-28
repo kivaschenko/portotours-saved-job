@@ -167,14 +167,20 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         product_ids = [product.pk for product in self.queryset.all()]
         context['product_ids'] = product_ids
-        # Calculate the sum of total prices
-        total_price_sum = self.queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum']
-        context['total_price_sum'] = total_price_sum
-        # Calculate the sum of old prices
-        old_price_sum = self.queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum']
-        # Add the sum to the context
-        context['old_price_sum'] = old_price_sum
-        context['discounted_price_sum'] = round(old_price_sum - total_price_sum, 2)
+        context['total_price_sum'] = 0
+        context['old_price_sum'] = 0
+        context['discounted_price_sum'] = 0
+        try:
+            # Calculate the sum of total prices
+            total_price_sum = self.queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum']
+            # Calculate the sum of old prices
+            old_price_sum = self.queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum']
+            # Add the sum to the context
+            context['total_price_sum'] = total_price_sum
+            context['old_price_sum'] = old_price_sum
+            context['discounted_price_sum'] = round(old_price_sum - total_price_sum, 2)
+        except:
+            pass
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         return context
 
