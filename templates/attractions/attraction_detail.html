@@ -184,8 +184,8 @@
             <p class="faq-subtitle">
                 {{ object.faq_subtitle }}
             </p>
-            {% if current_faqs %}
-                {% for record in current_faqs %}
+            {% if object.faqattraction_set.all %}
+                {% for record in object.faqattraction_set.all %}
                 <div class="faq-block">
                     <p class="faq-question">{{ record.question }}</p>
                     <div>{{ record.display_answer }}</div>
