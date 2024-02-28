@@ -90,7 +90,7 @@ class LanguageAdmin(admin.ModelAdmin):
 @admin.register(ParentExperience)
 class ParentExperienceAdmin(admin.ModelAdmin):
     exclude = ['updated_at', 'slug']
-    list_display = ['parent_name', 'id', 'slug', 'currency', 'price', 'child_price', 'old_price',
+    list_display = ['parent_name', 'id', 'slug', 'currency', 'price', 'old_price', 'child_price', 'child_old_price',
                     'max_participants', 'is_private', 'priority_number']
     list_filter = ['parent_name', 'price', 'max_participants', 'is_private']
 
@@ -127,6 +127,7 @@ class ProductAdmin(admin.ModelAdmin):
         'adults_count',
         'child_count',
         'total_price',
+        'old_total_price',
         'customer',
         'session_key',
         'created_at',

@@ -1,4 +1,4 @@
-from django.db.models import Sum
+from django.db.models import Sum, F
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -169,8 +169,12 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
         context['product_ids'] = product_ids
         # Calculate the sum of total prices
         total_price_sum = self.queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum']
-        # Add the sum to the context
         context['total_price_sum'] = total_price_sum
+        # Calculate the sum of old prices
+        old_price_sum = self.queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum']
+        # Add the sum to the context
+        context['old_price_sum'] = old_price_sum
+        context['discounted_price_sum'] = round(old_price_sum - total_price_sum, 2)
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         return context
 

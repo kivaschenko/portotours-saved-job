@@ -58,11 +58,10 @@ urlpatterns += [
 # PRODUCTS & PURCHASES
 urlpatterns += [
     path('create-checkout-session/', purchases_views.checkout_view, name='checkout-session'),
-    path('success/', purchases_views.purchase_success_view, name='success'),
-    path('stopped/', purchases_views.purchase_stopped_view, name='stopped'),
     path('stripe-webhook/', purchases_views.stripe_webhook, name='stripe-webhook'),
     path('my-cart/<str:lang>/', products_views.ProductCartView.as_view(), name='my-cart'),
     path('products/<int:pk>/cancel/', products_views.CancelProductView.as_view(), name='cancel-product'),
+    path('payment-form/<str:lang>/', purchases_views.BillingDetailView.as_view(), name='payment-form'),
 ]
 
 # BLOGS
