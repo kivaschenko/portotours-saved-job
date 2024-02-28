@@ -4,10 +4,10 @@ import stripe
 
 from django.http import JsonResponse
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 
 from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
@@ -68,15 +68,15 @@ def checkout_view(request):
         purchase.products.set(products)
         request.session['purchase_id'] = purchase.id
 
-        success_path = reverse("success").lstrip('/')
-        success_url = f"{BASE_ENDPOINT}{success_path}"
+        confirmation_path = reverse_lazy("confirmation", kwargs={'lang': 'en'}).lstrip('/')
+        confirmation_url = f"{BASE_ENDPOINT}{confirmation_path}" + "?session_id={CHECKOUT_SESSION_ID}"
 
         checkout_session = stripe.checkout.Session.create(
             line_items=line_items,
             mode='payment',
             ui_mode='embedded',
             billing_address_collection='required',
-            return_url=success_url,
+            return_url=confirmation_url,
         )
         purchase.stripe_checkout_session_id = checkout_session.id
         purchase.save()
@@ -127,23 +127,11 @@ def stripe_webhook(request):
     return HttpResponse(status=200)
 
 
-def purchase_success_view(request):
-    purchase_id = request.session.get("purchase_id")
-    if purchase_id:
-        purchase = Purchase.objects.get(id=purchase_id)
-        purchase.completed = True
-        purchase.save()
-        del request.session['purchase_id']
-        return HttpResponseRedirect(reverse('home'))
-    return HttpResponse(f"Finished {purchase_id}")
+class ConfirmationView(TemplateView):
+    template_name = 'purchases/confirmation.html'
 
 
-def purchase_stopped_view(request):
-    purchase_id = request.session.get("purchase_id")
-    if purchase_id:
-        purchase = Purchase.objects.get(id=purchase_id)
-        products = purchase.products
-        print(products)
-        del request.session['purchase_id']
-        return HttpResponseRedirect(reverse("home"))
-    return HttpResponse("Stopped")
+def session_status(request):
+  session = stripe.checkout.Session.retrieve(request.GET.get('session_id'))
+
+  return JsonResponse(status=session.status, customer_email=session.customer_details.email)
