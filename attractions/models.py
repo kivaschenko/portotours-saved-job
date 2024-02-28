@@ -141,10 +141,9 @@ class FAQAttractionManager(models.Manager):
 
 
 class FAQAttraction(models.Model):
-    parent_attraction = models.ForeignKey(ParentAttraction, on_delete=models.SET_NULL,
-                                          related_name='faq_attractions', null=True, blank=True,
-                                          help_text="The Parent Attraction brings together all attractions "
-                                                    "with multilingual content but same location and common FAQ.")
+    attraction = models.ForeignKey(Attraction, on_delete=models.SET_NULL, null=True, blank=True,
+                                   help_text="The Parent Attraction brings together all attractions "
+                                             "with multilingual content but same location and common FAQ.")
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     question = models.CharField(max_length=255, help_text="max 255 characters")
     answer = RichTextField(max_length=3000, help_text="max 3000 characters", null=True, blank=True)
@@ -164,7 +163,7 @@ class FAQAttraction(models.Model):
         return self.question
 
     def __repr__(self):
-        return (f'<FAQAttraction(id={self.id} parent_attraction={self.parent_attraction} '
+        return (f'<FAQAttraction(id={self.id} parent_attraction={self.attraction} '
                 f'language={self.language} question={self.question}...)>')
 
     def display_answer(self):

@@ -97,8 +97,7 @@ class Destination(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('destinations:destination-detail', kwargs={'lang': self.language.code.lower(),
-                                                                            'slug': self.slug})
+        return reverse('destinations:destination-detail', kwargs={'lang': self.language.code.lower(), 'slug': self.slug})
 
     @property
     def localized_url(self):
@@ -134,10 +133,9 @@ class FAQDestinationManager(models.Manager):
 
 
 class FAQDestination(models.Model):
-    parent_destination = models.ForeignKey(ParentDestination, on_delete=models.SET_NULL,
-                                           related_name='faq_destinations', null=True, blank=True,
-                                           help_text="The Parent destination brings together all destinations "
-                                                     "with multilingual content but same location and common FAQ.")
+    destination = models.ForeignKey(Destination, on_delete=models.SET_NULL, null=True, blank=True,
+                                    help_text="The Parent destination brings together all destinations "
+                                              "with multilingual content but same location and common FAQ.")
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     question = models.CharField(max_length=255, help_text="max 255 characters")
     answer = RichTextField(max_length=3000, help_text="max 3000 characters", null=True, blank=True)
@@ -157,7 +155,7 @@ class FAQDestination(models.Model):
         return self.question
 
     def __repr__(self):
-        return (f'<FAQDestination(id={self.id} parent_destination={self.parent_destination} '
+        return (f'<FAQDestination(id={self.id} destination={self.destination} '
                 f'language={self.language} question={self.question}...)>')
 
     def display_answer(self):
