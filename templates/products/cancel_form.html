@@ -1,0 +1,21 @@
+<!-- custom_delete.html -->
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h2>Confirm deletion</h2>
+        <p>Are you sure you want to cancel this item?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("cancel-btn").onclick = function () {
+            history.go(-1); // Go back one page in history
+        };
+    </script>
+{% endblock %}
