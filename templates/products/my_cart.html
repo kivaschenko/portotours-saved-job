@@ -79,26 +79,28 @@
                                                 <td>{{ object.expired_time }}</td>
                                             </tr>
                                             </tbody>
+
                                             <thead>
-                                            <th>Language</th>
-                                            <th>Adult & Price</th>
-                                            <th>Children & Price</th>
-                                            <th>Cancellation</th>
+                                            <tr>
+                                                <th>Language</th>
+                                                <th>Adult & Price</th>
+                                                <th>Children & Price</th>
+                                                <th>Cancellation</th>
+                                            </tr>
                                             </thead>
+
                                             <tbody>
-                                            <td>{{ object.language }}</td>
-                                            <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
-                                            <td>{{ object.child_count }} x {{ object.child_price }} EUR</td>
-                                            <td>
-                                                <form action="" method="post"> <!-- Form for cancelling -->
-                                                    {% csrf_token %}
-                                                    <input type="hidden" name="cancel_product_id" value="{{ object.id }}">
-                                                    <button type="submit" class="btn btn-outline-danger">
+                                            <tr>
+                                                <td>{{ object.language }}</td>
+                                                <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
+                                                <td>{{ object.child_count }} x {{ object.child_price }} EUR</td>
+                                                <td>
+                                                    <a href="{% url 'cancel-product' object.pk %}" class="btn btn-outline-danger">
                                                         <img src="{% static 'icons/trash.svg' %}" alt="">
                                                         Cancel
-                                                    </button> <!-- Button to cancel -->
-                                                </form>
-                                            </td>
+                                                    </a> <!-- Button to cancel -->
+                                                </td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
