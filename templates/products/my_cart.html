@@ -76,20 +76,19 @@
             </div>
             <div class="col-lg-3 col-md-3">
                 <div class="some-total-lines">
-                    <p>There are some total prices line of each order...</p>
                     <table class="table table-borderless">
                         <tbody>
                             <tr>
-                                <th>Total by old prices</th>
-                                <td>{{ old_price_sum }} EUR</td>
+                                <th>Total by old prices:</th>
+                                <td>{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %} EUR</td>
                             </tr>
                             <tr>
-                                <th>Discount sum</th>
-                                <td>{{ discounted_price_sum }} EUR</td>
+                                <th>Discount sum:</th>
+                                <td>{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %} EUR</td>
                             </tr>
                             <tr>
                                 <th>Total</th>
-                                <th>{{ total_price_sum }} EUR</th>
+                                <th>{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %} EUR</th>
                             </tr>
                         </tbody>
                     </table>
