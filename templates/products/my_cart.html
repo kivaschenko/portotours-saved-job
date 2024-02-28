@@ -3,52 +3,15 @@
 {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Stripe Checkout</title>
-    <script src="https://js.stripe.com/v3/"></script>
-    <style>
-        /* Add your custom styles here */
-        section {
-            background: #ffffff;
-            display: flex;
-            flex-direction: column;
-            width: 400px;
-            height: 112px;
-            border-radius: 6px;
-            justify-content: space-between;
-        }
-
-        p {
-            font-style: normal;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 20px;
-            letter-spacing: -0.154px;
-            color: #242d60;
-            height: 100%;
-            width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-
-        #checkout {
-            width: 100vw;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
+    <title>My Cart | first step</title>
 {% endblock head %}
 {% block content %}
     <div class="container">
         <div class="cart-milestones">
-            <p>There are some implementation for milestones of order and payment process...</p>
+            <h2>1 Step: Basket</h2>
+            <p><small>There are some implementation for milestones of order and payment process...</small></p>
         </div>
-        <h2>Review Your Basket</h2>
-        <div class="some-alert-about-duration-booking">
-            <p>There is some alert about duration of orders pending...</p>
-            <p><strong>Current Session Key:</strong> {{ request.session.session_key }}</p>
-        </div>
+
         <div class="row">
             <div class="col-lg-9 col-md-9">
                 {% if object_list %}
@@ -94,11 +57,11 @@
                                                 <td>{{ object.language }}</td>
                                                 <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
                                                 <td>{{ object.child_count }} x {{ object.child_price }} EUR</td>
-                                                <td>
+                                                <td><!-- Button to cancel -->
                                                     <a href="{% url 'cancel-product' object.pk %}" class="btn btn-outline-danger">
                                                         <img src="{% static 'icons/trash.svg' %}" alt="">
                                                         Cancel
-                                                    </a> <!-- Button to cancel -->
+                                                    </a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -116,22 +79,22 @@
                     <p>There are some total prices line of each order...</p>
                     <table class="table table-borderless">
                         <tbody>
-                        {% if object_list %}
-                            {% for object in object_list %}
-                                <tr>
-                                    <td><small>{{ object.parent_experience.parent_name }}</small></td>
-                                    <td>{{ object.total_price }} EUR</td>
-                                </tr>
-                            {% endfor %}
+                            <tr>
+                                <th>Total by old prices</th>
+                                <td>{{ old_price_sum }} EUR</td>
+                            </tr>
+                            <tr>
+                                <th>Discount sum</th>
+                                <td>{{ discounted_price_sum }} EUR</td>
+                            </tr>
                             <tr>
                                 <th>Total</th>
                                 <th>{{ total_price_sum }} EUR</th>
                             </tr>
-                        {% endif %}
                         </tbody>
                     </table>
                 </div>
-                <button id="checkout-button" class="btn btn-primary" type="submit">CHECKOUT</button>
+                <a id="checkout-button" class="btn btn-primary" href="{% url 'payment-form' lang='en' %}">CHECKOUT</a>
                 <hr>
                 <h5>Some needed header</h5>
                 <ul>
@@ -143,40 +106,6 @@
             </div>
         </div>
 
-        <h2>Hide this until step 2 begun...</h2>
-        <div id="checkout">
-            <!-- Payment form will be inserted here -->
-        </div>
-    </div>
-
-    <!-- Custom JS import -->
-    <script>
-        const stripe = Stripe('{{ stripe_public_key }}');
-
-        // Create a Checkout Session as soon as the page loads
-        async function initialize() {
-            const response = await fetch("/create-checkout-session/", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({product_ids: {{ product_ids }}}), // Pass productIds to the backend
-            });
-
-            console.log(response);
-            const {clientSecret} = await response.json();
-
-            const checkout = await stripe.initEmbeddedCheckout({
-                clientSecret,
-            });
-
-            // Mount Checkout
-            checkout.mount('#checkout');
-        }
-
-        initialize(); // Call initialize function when the page loads
-
-    </script>
-    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+        <!-- For language selector -->
+        <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 {% endblock %}

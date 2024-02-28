@@ -1,16 +1,16 @@
 import logging
 import json
+import stripe
 
 from django.http import JsonResponse
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-
-import stripe
+from django.views.generic import ListView, TemplateView
 
 from products.models import Product
+from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
 from .models import Purchase
 from service_layer.services import handle_successful_payment
 
@@ -19,6 +19,22 @@ logger = logging.getLogger(__name__)
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 BASE_ENDPOINT = settings.BASE_ENDPOINT
+
+
+class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
+    """View for listing all products for current user (session) only."""
+    model = Product
+    template_name = 'purchases/embedded_stripe_payment.html'
+    queryset = Product.pending.all()
+    extra_context = {'current_language': 'en'}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        product_ids = [product.pk for product in self.queryset.all()]
+        context['product_ids'] = product_ids
+        context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
+        return context
+
 
 
 @csrf_exempt
@@ -52,15 +68,15 @@ def checkout_view(request):
         purchase.products.set(products)
         request.session['purchase_id'] = purchase.id
 
-        success_path = reverse("success").lstrip('/')
-        success_url = f"{BASE_ENDPOINT}{success_path}"
+        confirmation_path = reverse_lazy("confirmation", kwargs={'lang': 'en'}).lstrip('/')
+        confirmation_url = f"{BASE_ENDPOINT}{confirmation_path}" + "?session_id={CHECKOUT_SESSION_ID}"
 
         checkout_session = stripe.checkout.Session.create(
             line_items=line_items,
             mode='payment',
-            ui_mode='embedded',  # Change UI mode to inline
+            ui_mode='embedded',
             billing_address_collection='required',
-            return_url=success_url,
+            return_url=confirmation_url,
         )
         purchase.stripe_checkout_session_id = checkout_session.id
         purchase.save()
@@ -111,23 +127,11 @@ def stripe_webhook(request):
     return HttpResponse(status=200)
 
 
-def purchase_success_view(request):
-    purchase_id = request.session.get("purchase_id")
-    if purchase_id:
-        purchase = Purchase.objects.get(id=purchase_id)
-        purchase.completed = True
-        purchase.save()
-        del request.session['purchase_id']
-        return HttpResponseRedirect(reverse('home'))
-    return HttpResponse(f"Finished {purchase_id}")
+class ConfirmationView(TemplateView):
+    template_name = 'purchases/confirmation.html'
 
 
-def purchase_stopped_view(request):
-    purchase_id = request.session.get("purchase_id")
-    if purchase_id:
-        purchase = Purchase.objects.get(id=purchase_id)
-        products = purchase.products
-        print(products)
-        del request.session['purchase_id']
-        return HttpResponseRedirect(reverse("home"))
-    return HttpResponse("Stopped")
+def session_status(request):
+  session = stripe.checkout.Session.retrieve(request.GET.get('session_id'))
+
+  return JsonResponse(status=session.status, customer_email=session.customer_details.email)

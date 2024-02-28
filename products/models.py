@@ -149,7 +149,9 @@ class ParentExperience(models.Model):
     increase_percentage_old_price = models.IntegerField(null=True, blank=True, default=33,
                                                         help_text="The percentage to increase old price automatically.")
     old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
-                                    help_text="For marketing purposes, this old price will be higher than the new one.")
+                                    help_text="For marketing purposes, this adult old price will be higher than the new one.")
+    child_old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
+                                    help_text="For marketing purposes, this child old price will be higher than the new one.")
     meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
                                       on_delete=models.SET_NULL, null=True, blank=True)
     max_participants = models.IntegerField(null=True, blank=True, default=8, help_text="Maximum number of participants")
@@ -173,6 +175,7 @@ class ParentExperience(models.Model):
             self.old_price = self.price * Decimal(round(float(self.increase_percentage_old_price / 100 + 1), 2))
         if self.use_child_discount:
             self.child_price = self.price * Decimal(round(float(1 - self.child_discount / 100), 2))
+            self.child_old_price = self.child_price * Decimal(round(float(self.increase_percentage_old_price / 100 + 1), 2))
         super().save(*args, **kwargs)
 
 
@@ -303,6 +306,7 @@ class Product(models.Model):
     child_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=Decimal('0'))
     child_count = models.IntegerField(null=True, blank=True, default=0)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    old_total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=Decimal('0'))
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
     expired_time = models.DateTimeField()
     status = models.CharField(max_length=30, null=True, blank=True, default='Pending',
@@ -330,16 +334,25 @@ class Product(models.Model):
         return (f"<Product(id={self.id} parent_experience_id={self.parent_experience_id} "
                 f"start_datetime={self.start_datetime}...)>")
 
+    class Meta:
+        ordering = ('-created_at', '-total_price')
+
     def save(self, *args, **kwargs):
         # recount each time during save because might be different numer of participants
-        self.total_price = self.adults_price * self.adults_count + self.child_price * self.child_count
-        self.stripe_product_id = (f"[{self.parent_experience.id}] {self.parent_experience.parent_name} | "
-                                  f"start at: {self.start_datetime} language: {self.language}"
-                                  f"participants: {self.adults_count} adults {self.child_count} children")
+        self.total_price = self._count_new_total_price()
+        self.old_total_price = self._count_old_total_price()
+        self.stripe_product_id = (f"{self.parent_experience.parent_name.upper()} start: {self.start_datetime} language: {self.language} "
+                                  f"participants: {self.adults_count} adults & {self.child_count} children. Product ID={self.id}")
         self.stripe_price = int(self.total_price * 100)
         if not self.expired_time:
             self.expired_time = datetime.utcnow() + timedelta(minutes=settings.BOOKING_MINUTES)  # by default 30 minutes
         super(Product, self).save()
+
+    def _count_old_total_price(self):
+        return self.parent_experience.old_price * self.adults_count + self.parent_experience.child_old_price * self.child_count
+
+    def _count_new_total_price(self):
+        return self.adults_price * self.adults_count + self.child_price * self.child_count
 
     @property
     def date_of_start(self):
