@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart | first step</title>
+{% endblock head %}
 {% block content %}
     <div class="container">
         <div class="cart-milestones">
-            <p>There are some implementation for milestones of order and payment process...</p>
+            <h2>1 Step: Basket</h2>
+            <p><small>There are some implementation for milestones of order and payment process...</small></p>
         </div>
-        <h2>Review Your Basket</h2>
-        <div class="some-alert-about-duration-booking">
-            <p>There is some alert about duration of orders pending...</p>
-            <p><strong>Current Session Key:</strong> {{ request.session.session_key }}</p>
-        </div>
+
         <div class="row">
             <div class="col-lg-9 col-md-9">
                 {% if object_list %}
@@ -40,26 +42,28 @@
                                                 <td>{{ object.expired_time }}</td>
                                             </tr>
                                             </tbody>
+
                                             <thead>
-                                            <th>Language</th>
-                                            <th>Adult & Price</th>
-                                            <th>Children & Price</th>
-                                            <th>Cancellation</th>
+                                            <tr>
+                                                <th>Language</th>
+                                                <th>Adult & Price</th>
+                                                <th>Children & Price</th>
+                                                <th>Cancellation</th>
+                                            </tr>
                                             </thead>
+
                                             <tbody>
-                                            <td>{{ object.language }}</td>
-                                            <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
-                                            <td>{{ object.child_count }} x {{ object.child_price }} EUR</td>
-                                            <td>
-                                                <form action="" method="post"> <!-- Form for cancelling -->
-                                                    {% csrf_token %}
-                                                    <input type="hidden" name="cancel_product_id" value="{{ object.id }}">
-                                                    <button type="submit" class="btn btn-outline-danger">
-                                                        <img src="{% static 'icons/trash.svg' %}"
-                                                             Cancel
-                                                    </button> <!-- Button to cancel -->
-                                                </form>
-                                            </td>
+                                            <tr>
+                                                <td>{{ object.language }}</td>
+                                                <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
+                                                <td>{{ object.child_count }} x {{ object.child_price }} EUR</td>
+                                                <td><!-- Button to cancel -->
+                                                    <a href="{% url 'cancel-product' object.pk %}" class="btn btn-outline-danger">
+                                                        <img src="{% static 'icons/trash.svg' %}" alt="">
+                                                        Cancel
+                                                    </a>
+                                                </td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -72,31 +76,24 @@
             </div>
             <div class="col-lg-3 col-md-3">
                 <div class="some-total-lines">
-                    <p>There are some total prices line of each order...</p>
                     <table class="table table-borderless">
                         <tbody>
-                        {% if object_list %}
-                            {% for object in object_list %}
-                                <tr>
-                                    <td><small>{{ object.parent_experience.parent_name }}</small></td>
-                                    <td>{{ object.total_price }} EUR</td>
-                                </tr>
-                            {% endfor %}
+                            <tr>
+                                <th>Total by old prices:</th>
+                                <td>{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %} EUR</td>
+                            </tr>
+                            <tr>
+                                <th>Discount sum:</th>
+                                <td>{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %} EUR</td>
+                            </tr>
                             <tr>
                                 <th>Total</th>
-                                <th>{{ total_price_sum }} EUR</th>
+                                <th>{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %} EUR</th>
                             </tr>
-                        {% endif %}
                         </tbody>
                     </table>
                 </div>
-                <form action="{% url 'checkout' %}" method="post" name="product_list">
-                    {% csrf_token %}
-                    <input type="hidden" name="product_ids"
-                           value="{% for object in object_list %}{{ object.id }}{% if not forloop.last %},{% endif %}{% endfor %}">
-                    <button class="btn btn-primary" type="submit">CHECKOUT</button>
-                </form>
-
+                <a id="checkout-button" class="btn btn-primary" href="{% url 'payment-form' lang='en' %}">CHECKOUT</a>
                 <hr>
                 <h5>Some needed header</h5>
                 <ul>
@@ -107,8 +104,7 @@
                 </ul>
             </div>
         </div>
-    </div>
 
-    <!-- Custom JS import -->
-    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+        <!-- For language selector -->
+        <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 {% endblock %}

@@ -3,11 +3,12 @@ from django.forms import ModelForm
 
 from ckeditor.widgets import CKEditorWidget
 
-from destinations.models import *  # noqa
+from destinations.models import Destination, FAQDestination, ParentDestination
 
 
-@admin.register(ParentDestination)
-class ParentDestinationAdmin(admin.ModelAdmin):
+class FAQDestinationInline(admin.TabularInline):
+    model = FAQDestination
+    extra = 1
     exclude = ['updated_at']
     list_display = ['parent_name', 'priority_number']
     list_filter = ['parent_name']
@@ -16,7 +17,7 @@ class ParentDestinationAdmin(admin.ModelAdmin):
 class DestinationAdminForm(ModelForm):
     class Meta:
         model = Destination
-        fields = '__all__'
+        exclude = ['updated_at']
         widgets = {
             'introduction_text': CKEditorWidget(),
             'when_to_visit_text': CKEditorWidget(),
@@ -31,20 +32,23 @@ class DestinationAdmin(admin.ModelAdmin):
     exclude = ['updated_at']
     list_display = ['name', 'slug', 'language', 'parent_destination', 'is_active', 'updated_at']
     list_filter = ['name', 'language', 'slug', 'parent_destination', 'page_title', 'is_active']
+    inlines = [FAQDestinationInline]
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        for formset in formsets:
+            formset.save()
 
 
-class FAQDestinationAdminForm(ModelForm):
-    class Meta:
-        model = FAQDestination
-        fields = '__all__'
-        widgets = {
-            'answer': CKEditorWidget(),
-        }
+@admin.register(ParentDestination)
+class ParentDestinationAdmin(admin.ModelAdmin):
+    exclude = ['updated_at']
+    list_display = ['parent_name', 'priority_number']
+    list_filter = ['parent_name']
 
 
 @admin.register(FAQDestination)
 class FAQDestinationAdmin(admin.ModelAdmin):
-    form = FAQDestinationAdminForm
     exclude = ['updated_at']
-    list_display = ['parent_destination', 'language', 'question', 'priority_number', 'is_active', 'updated_at']
-    list_filter = ['parent_destination', 'language', 'question', 'priority_number', 'is_active']
+    list_display = ['question', 'destination', 'language', 'question', 'priority_number', 'is_active', 'updated_at']
+    list_filter = ['question', 'destination', 'language', 'priority_number', 'is_active']

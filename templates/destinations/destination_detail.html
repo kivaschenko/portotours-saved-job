@@ -8,325 +8,337 @@
 {% block content %}
 
 
-<section class="destination-hero">
-    <div class="destination-banner">
-        <img src="{% if object.parent_destination.banner %}{{ object.parent_destination.banner.url }}{% else %}{% endif %}" alt="{{ object.parent_destination.banner.name }}">
-    </div>
-    <div class="destination-container container">
-        
-        <h1 class="destination-hero-title text-color-second" style="z-index: 2;">
-            {{ object.display_main_title }}
-            <img src="{% static 'icons/main-logo.svg' %}" alt="" style="z-index: 2;">
-        </h1>
-        <p class="destination-hero-subtitle body-text-b2">
-            {{ object.main_subtitle }}
-        </p>
-    </div>
-</section>
-<section class="what-to-see">
-    <div class="container">
-        <h2 class="what-to-see-title">
-            {{ object.display_introduction_title }}
-        </h2>
-        <p class="what-to-see-subtitle body-text-b2">
-            {{ object.introduction_subtitle }}
-        </p>
-        {{ object.display_introduction_text }}
-        
-    </div>
-</section>
-<section class="experience">
-    <div class="container">
-        <h2 class="experience-title">
-            Discover Lisbon
-        </h2>
-        <p class="experience-subtitle body-text-b1">
-            Explore the diversity of Lisbon through new experiences of culture, cuisine and historical treasures
-        </p>
-        <div class="experience-cards-wrapper">
-            <div class="experience-card">
-                <img src="{% static 'images/experience-card-img1.png' %}" alt="card image" class="experience-card-img">
-                <p class="experience-card-title body-text-b3">
-                    Sintra and Cascais: OneDayTours from Lisbon
-                </p>
-                <p class="experience-card-text body-text-b4">
-                    Discover the historical and natural wonders of Sintra and Cascais with an adventurous OneDayTours from Lisbon. Pena Palace in Sintra is a real Wonderland, filled with historical heritage and magic. Then, explore the coastal beauty of Cascais with stunning Boca do Inferno cliffs. 
-                </p>
-                <a href="#" class="experience-card-link">
-                    book now
-                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                </a>
-            </div>
-            <div class="experience-card">
-                <img src="{% static 'images/experience-card-img2.png' %}" alt="card image" class="experience-card-img">
-                <p class="experience-card-title body-text-b3">
-                    Lisbon: OneDayTours with Wine and Cuisine Tasting
-                </p>
-                <p class="experience-card-text body-text-b4">
-                    Enjoy an exciting journey to Lisbon on a OneDayTours through the historical part, blended with delightful wine and cuisine experiences. Feel the vibrant atmosphere of the city, tasting local cuisine with sensitive Fado accompaniment. An unforgettable day of discovery and gastronomic pleasures is guaranteed.
-                </p>
-                <a href="#" class="experience-card-link">
-                    book now
-                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                </a>
-            </div>
-            <div class="experience-card">
-                <img src="{% static 'images/experience-card-img3.png' %}" alt="card image" class="experience-card-img">
-                <p class="experience-card-title body-text-b3">
-                    OneDayTours to Fátima, Óbidos, Batalha, Nazaré from Lisbon
-                </p>
-                <p class="experience-card-text body-text-b4">
-                    Explore a historical OneDayTours from Lisbon to the cultural gems of Fátima, Óbidos, Batalha, and Nazaré. The trip is filled with spiritual vibes together with blushed natural beauty and the rich history of medieval cities. Experience of a seamless blend of exploration, inspiration, and amazement of history and picturesque wonders is guaranteed. 
-                </p>
-                <a href="#" class="experience-card-link">
-                    book now
-                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                </a>
-            </div>
-            <div class="experience-card">
-                <img src="{% static 'images/experience-card-img4.png' %}" alt="card image" class="experience-card-img">
-                <p class="experience-card-title body-text-b3">
-                    OneDayTours to Magical Sintra with Regaleira and Pena Palace from Lisbon
-                </p>
-                <p class="experience-card-text body-text-b4">
-                    Investigate colorful Portugal with charming OneDayTours from Lisbon to Sintra, where the magical landscapes of Quinta da Regaleira organically mix with the iconic Pena Palace. Together with professional guidance, investigate all the mysteries of Sintra's architecture and breathtaking landscapes.
-                </p>
-                <a href="#" class="experience-card-link">
-                    book now
-                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                </a>
-            </div>
+    <section class="destination-hero">
+        <div class="destination-banner">
+            <img src="{% if object.parent_destination.banner %}{{ object.parent_destination.banner.url }}{% else %}{% endif %}"
+                 alt="{{ object.parent_destination.banner.name }}">
         </div>
-        <a href="#" class="experience-link-more btn-type-2">
-            see more experience
-        </a>
-    </div>
-</section>
-<section class="all-about">
-    <div class="container">
-        <h2 class="all-about-title">
-           {{ object.all_about_title }} {{ object.name }}
-        </h2>
-        <div class="all-about-cards-wrapper">
-            <div class="all-about-card">
-                <div class="card-img-wrapper">
-                    <img src="{% static 'images/about-img1.png' %}" alt="all about image">
-                </div>
-                <div class="card-text-content-wrapper">
-                    <h5 class="card-title">
-                        {{ object.when_to_visit_title }}
-                    </h5>
-                    
-                        {{ object.display_when_to_visit_text }}
-                    
-                </div>
-            </div>
-            <div class="all-about-card">
-                <div class="card-img-wrapper">
-                    <img src="{% static 'images/about-img2.png' %}" alt="all about image">
-                </div>
-                <div class="card-text-content-wrapper">
-                    <h5 class="card-title">
-                        {{ object.getting_around_title }}
-                    </h5>
-                    
-                        {{ object.display_getting_around_text }}
-                    
-                </div>
-            </div>
-            <div class="all-about-card">
-                <div class="card-img-wrapper">
-                    <img src="{% static 'images/about-img3.png' %}" alt="all about image">
-                </div>
-                <div class="card-text-content-wrapper">
-                    <h5 class="card-title">
-                        {{ object.travel_tips_title }}
-                    </h5>
-                    {{ object.display_travel_tips_text }}
-                    
-                </div>
-            </div>
+        <div class="destination-container container">
+
+            <h1 class="destination-hero-title text-color-second" style="z-index: 2;">
+                {{ object.display_main_title }}
+                <img src="{% static 'icons/main-logo.svg' %}" alt="" style="z-index: 2;">
+            </h1>
+            <p class="destination-hero-subtitle body-text-b2">
+                {{ object.main_subtitle }}
+            </p>
         </div>
-    </div>
-</section>
-<section class="top-attractions">
-    <div class="container">
-        <h2 class="top-attractions-title">
-            {{ object.top_attractions_title }}
-        </h2>
-        <p class="top-attractions-subtitle body-text-b2">
-            {{ object.top_attractions_subtitle }}
-        </p>
-        <div class="swiper-attractions">
-            <!-- Additional required wrapper -->
-            <div class="swiper-wrapper">
-              <!-- Slides -->
-              <div class="swiper-slide">
-                <img src="{% static 'images/attraction-img1.png' %}" alt="" class="attraction-image">
-                <h5>
-                    Saint George Castle (São Jorge Castle)
-                </h5>
-              </div>
-              <div class="swiper-slide">
-                <img src="{% static 'images/attraction-img2.png' %}" alt="" class="attraction-image">
-                <h5>
-                    Commerce Square (Praça do Comércio)
-                </h5>
-              </div>
-              <div class="swiper-slide">
-                <img src="{% static 'images/attraction-img3.png' %}" alt="" class="attraction-image">
-                <h5>
-                    Lisbon Cathedral (Sé de Lisboa)
-                </h5>
-              </div>
-              <div class="swiper-slide">
-                <img src="{% static 'images/attraction-img2.png' %}" alt="" class="attraction-image">
-                <h5>
-                    Commerce Square (Praça do Comércio)
-                </h5>
-              </div>
-              
-            </div>
-  
-            <!-- If we need navigation buttons -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-pagination"></div>
+    </section>
+    <section class="what-to-see">
+        <div class="container">
+            <h2 class="what-to-see-title">
+                {{ object.display_introduction_title }}
+            </h2>
+            <p class="what-to-see-subtitle body-text-b2">
+                {{ object.introduction_subtitle }}
+            </p>
+            {{ object.display_introduction_text }}
+
         </div>
-        <a href="" class="btn-type-2 top-attractions-link">
-            see more attractions
-        </a>
-    </div>
-</section>
-<section class="also-interested">
-    <div class="container">
-        <h2 class="also-interested-title">
-            {{ object.recommendations_title }}
-        </h2>
-        <p class="also-interested-subtitle body-text-b2">
-            {{ object.recommendations_subtitle }}
-        </p>
-        <div class="swiper-also-interested">
-            <div class="swiper-wrapper also-interested-cards-wrapper">
-                <div class="also-interested-card swiper-slide">
-                    <img src="{% static 'images/also-interested-img1.png' %}" alt="" class="also-interested-img">
-                    <p class="body-text-b2 also-interested-card-title">
-                        Cascais
+    </section>
+    <section class="experience">
+        <div class="container">
+            <h2 class="experience-title">
+                Discover Lisbon
+            </h2>
+            <p class="experience-subtitle body-text-b1">
+                Explore the diversity of Lisbon through new experiences of culture, cuisine and historical treasures
+            </p>
+            <div class="experience-cards-wrapper">
+                <div class="experience-card">
+                    <img src="{% static 'images/experience-card-img1.png' %}" alt="card image" class="experience-card-img">
+                    <p class="experience-card-title body-text-b3">
+                        Sintra and Cascais: OneDayTours from Lisbon
                     </p>
-                    <p class="body-text-b3 also-interested-card-text">
-                        Explore Cascais, a perfect mixture of natural and architectural beauty, located near Lisbon. Investigate its breathtaking landscapes and historical wonders with comprehensive OneDayTours. 
+                    <p class="experience-card-text body-text-b4">
+                        Discover the historical and natural wonders of Sintra and Cascais with an adventurous OneDayTours from Lisbon. Pena Palace in Sintra is
+                        a real Wonderland, filled with historical heritage and magic. Then, explore the coastal beauty of Cascais with stunning Boca do Inferno
+                        cliffs.
                     </p>
+                    <a href="#" class="experience-card-link">
+                        book now
+                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                    </a>
                 </div>
-                <div class="also-interested-card swiper-slide">
-                    <img src="{% static 'images/also-interested-img2.png' %}" alt="" class="also-interested-img">
-                    <p class="body-text-b2 also-interested-card-title">
-                        Oporto
+                <div class="experience-card">
+                    <img src="{% static 'images/experience-card-img2.png' %}" alt="card image" class="experience-card-img">
+                    <p class="experience-card-title body-text-b3">
+                        Lisbon: OneDayTours with Wine and Cuisine Tasting
                     </p>
-                    <p class="body-text-b3 also-interested-card-text">
-                        Choose an amazing journey with a OneDayTours to Oporto, Portugal. Explore the vibrant history of the city, perfectly fit into the colorful landscapes, and experience the warm hospitality of Portugal.
+                    <p class="experience-card-text body-text-b4">
+                        Enjoy an exciting journey to Lisbon on a OneDayTours through the historical part, blended with delightful wine and cuisine experiences.
+                        Feel the vibrant atmosphere of the city, tasting local cuisine with sensitive Fado accompaniment. An unforgettable day of discovery and
+                        gastronomic pleasures is guaranteed.
                     </p>
+                    <a href="#" class="experience-card-link">
+                        book now
+                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                    </a>
                 </div>
-                <div class="also-interested-card swiper-slide">
-                    <img src="{% static 'images/also-interested-img3.png' %}" alt="" class="also-interested-img">
-                    <p class="body-text-b2 also-interested-card-title">
-                        Sintra
+                <div class="experience-card">
+                    <img src="{% static 'images/experience-card-img3.png' %}" alt="card image" class="experience-card-img">
+                    <p class="experience-card-title body-text-b3">
+                        OneDayTours to Fátima, Óbidos, Batalha, Nazaré from Lisbon
                     </p>
-                    <p class="body-text-b3 also-interested-card-text">
-                        Get a chance to immerse in the real Wonderland with a OneDayTours to a fairytale Sintra. The place is filled with history and a mystical aura, heightened by the scenic landscape of nature.
+                    <p class="experience-card-text body-text-b4">
+                        Explore a historical OneDayTours from Lisbon to the cultural gems of Fátima, Óbidos, Batalha, and Nazaré. The trip is filled with
+                        spiritual vibes together with blushed natural beauty and the rich history of medieval cities. Experience of a seamless blend of
+                        exploration, inspiration, and amazement of history and picturesque wonders is guaranteed. 
                     </p>
+                    <a href="#" class="experience-card-link">
+                        book now
+                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                    </a>
                 </div>
-              
-              
+                <div class="experience-card">
+                    <img src="{% static 'images/experience-card-img4.png' %}" alt="card image" class="experience-card-img">
+                    <p class="experience-card-title body-text-b3">
+                        OneDayTours to Magical Sintra with Regaleira and Pena Palace from Lisbon
+                    </p>
+                    <p class="experience-card-text body-text-b4">
+                        Investigate colorful Portugal with charming OneDayTours from Lisbon to Sintra, where the magical landscapes of Quinta da Regaleira
+                        organically mix with the iconic Pena Palace. Together with professional guidance, investigate all the mysteries of Sintra's architecture
+                        and breathtaking landscapes.
+                    </p>
+                    <a href="#" class="experience-card-link">
+                        book now
+                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                    </a>
+                </div>
             </div>
-            <div class="swiper-pagination"></div>
-            
-        </div>
-        
-        <div class="also-interested-more-info-wrapper">
-            <h5 class="also-interested-more-info-title">
-                {{ object.recommendations_slogan }}
-            </h5>
-            <a href="" class="btn-type-2 also-interested-info-link">
-                see more 
+            <a href="#" class="experience-link-more btn-type-2">
+                see more experience
             </a>
         </div>
-    </div>
-</section>
-<section class="faq">
-    <div class="container">
-        <h2 class="faq-title">
-            {{ object.faq_title }}
-        </h2>
-        <p class="faq-subtitle">
-            {{ object.faq_subtitle }}
-        </p>
-        {% if current_faqs %}
-            {% for record in current_faqs %}
-            <div class="faq-block">
-                <p class="faq-question">{{ record.question }}</p>
-                <div>{{ record.display_answer }}</div>
-            </div>
-            {% endfor %}
-        {% else %}
-        <p>No FAQ yet written...</p>
-        {% endif %}
-    </div>
-</section>
+    </section>
+    <section class="all-about">
+        <div class="container">
+            <h2 class="all-about-title">
+                {{ object.all_about_title }} {{ object.name }}
+            </h2>
+            <div class="all-about-cards-wrapper">
+                <div class="all-about-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'images/about-img1.png' %}" alt="all about image">
+                    </div>
+                    <div class="card-text-content-wrapper">
+                        <h5 class="card-title">
+                            {{ object.when_to_visit_title }}
+                        </h5>
 
-<script>
-    
+                        {{ object.display_when_to_visit_text }}
+
+                    </div>
+                </div>
+                <div class="all-about-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'images/about-img2.png' %}" alt="all about image">
+                    </div>
+                    <div class="card-text-content-wrapper">
+                        <h5 class="card-title">
+                            {{ object.getting_around_title }}
+                        </h5>
+
+                        {{ object.display_getting_around_text }}
+
+                    </div>
+                </div>
+                <div class="all-about-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'images/about-img3.png' %}" alt="all about image">
+                    </div>
+                    <div class="card-text-content-wrapper">
+                        <h5 class="card-title">
+                            {{ object.travel_tips_title }}
+                        </h5>
+                        {{ object.display_travel_tips_text }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="top-attractions">
+        <div class="container">
+            <h2 class="top-attractions-title">
+                {{ object.top_attractions_title }}
+            </h2>
+            <p class="top-attractions-subtitle body-text-b2">
+                {{ object.top_attractions_subtitle }}
+            </p>
+            <div class="swiper-attractions">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                        <img src="{% static 'images/attraction-img1.png' %}" alt="" class="attraction-image">
+                        <h5>
+                            Saint George Castle (São Jorge Castle)
+                        </h5>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="{% static 'images/attraction-img2.png' %}" alt="" class="attraction-image">
+                        <h5>
+                            Commerce Square (Praça do Comércio)
+                        </h5>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="{% static 'images/attraction-img3.png' %}" alt="" class="attraction-image">
+                        <h5>
+                            Lisbon Cathedral (Sé de Lisboa)
+                        </h5>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="{% static 'images/attraction-img2.png' %}" alt="" class="attraction-image">
+                        <h5>
+                            Commerce Square (Praça do Comércio)
+                        </h5>
+                    </div>
+
+                </div>
+
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <a href="" class="btn-type-2 top-attractions-link">
+                see more attractions
+            </a>
+        </div>
+    </section>
+    <section class="also-interested">
+        <div class="container">
+            <h2 class="also-interested-title">
+                {{ object.recommendations_title }}
+            </h2>
+            <p class="also-interested-subtitle body-text-b2">
+                {{ object.recommendations_subtitle }}
+            </p>
+            <div class="swiper-also-interested">
+                <div class="swiper-wrapper also-interested-cards-wrapper">
+                    <div class="also-interested-card swiper-slide">
+                        <img src="{% static 'images/also-interested-img1.png' %}" alt="" class="also-interested-img">
+                        <p class="body-text-b2 also-interested-card-title">
+                            Cascais
+                        </p>
+                        <p class="body-text-b3 also-interested-card-text">
+                            Explore Cascais, a perfect mixture of natural and architectural beauty, located near Lisbon. Investigate its breathtaking landscapes
+                            and historical wonders with comprehensive OneDayTours.
+                        </p>
+                    </div>
+                    <div class="also-interested-card swiper-slide">
+                        <img src="{% static 'images/also-interested-img2.png' %}" alt="" class="also-interested-img">
+                        <p class="body-text-b2 also-interested-card-title">
+                            Oporto
+                        </p>
+                        <p class="body-text-b3 also-interested-card-text">
+                            Choose an amazing journey with a OneDayTours to Oporto, Portugal. Explore the vibrant history of the city, perfectly fit into the
+                            colorful landscapes, and experience the warm hospitality of Portugal.
+                        </p>
+                    </div>
+                    <div class="also-interested-card swiper-slide">
+                        <img src="{% static 'images/also-interested-img3.png' %}" alt="" class="also-interested-img">
+                        <p class="body-text-b2 also-interested-card-title">
+                            Sintra
+                        </p>
+                        <p class="body-text-b3 also-interested-card-text">
+                            Get a chance to immerse in the real Wonderland with a OneDayTours to a fairytale Sintra. The place is filled with history and a
+                            mystical aura, heightened by the scenic landscape of nature.
+                        </p>
+                    </div>
+
+
+                </div>
+                <div class="swiper-pagination"></div>
+
+            </div>
+
+            <div class="also-interested-more-info-wrapper">
+                <h5 class="also-interested-more-info-title">
+                    {{ object.recommendations_slogan }}
+                </h5>
+                <a href="" class="btn-type-2 also-interested-info-link">
+                    see more
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="faq">
+        <div class="container">
+            <h2 class="faq-title">
+                {{ object.faq_title }}
+            </h2>
+            <p class="faq-subtitle">
+                {{ object.faq_subtitle }}
+            </p>
+            {% if object.faqdestination_set.all %}
+                {% for record in object.faqdestination_set.all %}
+                    <div class="faq-block">
+                        <p class="faq-question">{{ record.question }}</p>
+                        <div>{{ record.display_answer }}</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No FAQ yet written...</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <script>
+
         const swiperTopAttraction = new Swiper(".swiper-attractions", {
-        slidesPerView: 2,
-        speed: 1000,   
-        spaceBetween: 24,
-        breakpoints: {
-            200: {
-                slidesPerView: 1,
-                spaceBetween: 14,
+            slidesPerView: 2,
+            speed: 1000,
+            spaceBetween: 24,
+            breakpoints: {
+                200: {
+                    slidesPerView: 1,
+                    spaceBetween: 14,
+                    slidesPerView: 1.4,
+                    pagination: {
+                        el: '.swiper-pagination',
+                    },
+                    centeredSlides: true,
+                    loop: true,
+                },
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 24,
+                }
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+
+        });
+
+
+    </script>
+    <script>
+        console.log(window.innerWidth)
+        if (window.innerWidth < 768) {
+
+            const swiperAlsoInterested = new Swiper(".swiper-also-interested", {
                 slidesPerView: 1.4,
+                speed: 1000,
+                spaceBetween: 14,
+                centeredSlides: true,
+                loop: true,
                 pagination: {
                     el: '.swiper-pagination',
                 },
-                centeredSlides: true,
-                loop:true,
-            },
-            767: {
-                slidesPerView: 2,
-                spaceBetween: 24,
-            }
-        },
-        // Navigation arrows
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        
-        });
-    
-    
-</script>
-<script>
-    console.log(window.innerWidth)
-    if (window.innerWidth < 768) {
-        
-        const swiperAlsoInterested = new Swiper(".swiper-also-interested", {
-        slidesPerView: 1.4,
-        speed: 1000,   
-        spaceBetween: 14,
-        centeredSlides: true,
-        loop:true,
-        pagination: {
-            el: '.swiper-pagination',
-        },
-        });
-    }
-</script>
+            });
+        }
+    </script>
     <script>
-    // Define all window.location.pathname according language value
-    const languages = {{ languages|safe }};  // from response extra_context
-    // Define current language according object.language 
-    const currentLanguage = `{{ current_language }}`  // from response extra_context
+        // Define all window.location.pathname according language value
+        const languages = {{ languages|safe }};  // from response extra_context
+        // Define current language according object.language 
+        const currentLanguage = `{{ current_language }}`  // from response extra_context
 
-</script>
+    </script>
     <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
 {% endblock %}

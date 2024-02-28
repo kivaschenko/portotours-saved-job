@@ -1,9 +1,8 @@
-from django.contrib import messages
-from django.db.models import Sum
+from django.db.models import Sum, F
 from django.shortcuts import redirect
-from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView, FormView
+from django.views.generic import DetailView, ListView, FormView, DeleteView
 
 from products.forms import FastBookingForm
 from products.models import *  # noqa
@@ -166,14 +165,28 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Calculate the sum of total prices
-        total_price_sum = self.queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum']
-        # Add the sum to the context
-        context['total_price_sum'] = total_price_sum
+        product_ids = [product.pk for product in self.queryset.all()]
+        context['product_ids'] = product_ids
+        context['total_price_sum'] = 0
+        context['old_price_sum'] = 0
+        context['discounted_price_sum'] = 0
+        try:
+            # Calculate the sum of total prices
+            total_price_sum = self.queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum']
+            # Calculate the sum of old prices
+            old_price_sum = self.queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum']
+            # Add the sum to the context
+            context['total_price_sum'] = total_price_sum
+            context['old_price_sum'] = old_price_sum
+            context['discounted_price_sum'] = round(old_price_sum - total_price_sum, 2)
+        except:
+            pass
+        context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         return context
 
     def post(self, request, *args, **kwargs):
-        # Handle POST request for cancelling products
+        """This logic for cancellation on the fly in cart without confirm page.
+            In hold mode if template button does not exist."""
         if 'cancel_product_id' in request.POST:
             product_id = request.POST.get('cancel_product_id')
             product = Product.objects.get(pk=product_id)
@@ -182,3 +195,17 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
         else:
             logger.error(f'Cancellation. Product not found.')
         return HttpResponseRedirect(reverse_lazy('my-cart', kwargs={'lang': 'en'}))
+
+
+class CancelProductView(DeleteView):
+    model = Product
+    template_name = 'products/cancel_form.html'
+    success_url = reverse_lazy('my-cart', kwargs={'lang': 'en'})
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        # Here you can perform any logic you want before changing the status
+        self.object.status = 'Cancelled'
+        self.object.save()
+        # Instead of calling delete() on the object, change its status
+        return HttpResponseRedirect(self.get_success_url())
