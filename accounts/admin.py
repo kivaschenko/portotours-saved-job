@@ -40,17 +40,17 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    read_only = [
-        'shipping_address_city',
-        'shipping_address_country',
-        'shipping_address_line1',
-        'shipping_address_line2',
-        'shipping_address_postal_code',
-        'shipping_address_state',
-        'shipping_address_email',
-        'shipping_phone',
-        'shipping_name',
-    ]
+    # read_only = [
+    #     'shipping_address_city',
+    #     'shipping_address_country',
+    #     'shipping_address_line1',
+    #     'shipping_address_line2',
+    #     'shipping_address_postal_code',
+    #     'shipping_address_state',
+    #     'shipping_address_email',
+    #     'shipping_phone',
+    #     'shipping_name',
+    # ]
     list_display = (
         'user',
         'stripe_customer_id',

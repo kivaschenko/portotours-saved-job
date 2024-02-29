@@ -85,7 +85,6 @@ class Profile(models.Model):
     shipping_address_line2 = models.CharField(max_length=160, blank=True, null=True)
     shipping_address_postal_code = models.CharField(max_length=10, blank=True, null=True)
     shipping_address_state = models.CharField(max_length=60, blank=True, null=True)
-    shipping_address_email = models.EmailField(unique=True, blank=True, null=True)
     shipping_phone = models.CharField(max_length=20, blank=True, null=True)
     shipping_name = models.CharField(max_length=160, blank=True, null=True)
 

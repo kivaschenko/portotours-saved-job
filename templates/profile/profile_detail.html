@@ -30,16 +30,16 @@
                     <table class="table table-responsive">
                         <tbody>
                         <tr>
-                            <th scope="row">First name</th>
-                            <td>{{ object.first_name }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Last name</th>
-                            <td>{{ object.last_name }}</td>
+                            <th>Card name</th>
+                            <td>{{ object.profile.name }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Email</th>
-                            <td>{{ object.email }}</td>
+                            <td>{{ object.profile.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{ object.profile.phone }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -50,17 +50,69 @@
                     <table class="table table-responsive">
                         <tbody>
                             <tr>
+                                <th scope="col">City</th>
+                                <td>{{ object.profile.address_city }}</td>
+                            </tr>
+                            <tr>
                                 <th scope="row">Country</th>
-                                <td></td>
+                                <td>{{ object.profile.address_country }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Address</th>
-                                <td></td>
+                                <th scope="row">Address Line 1</th>
+                                <td>{{ object.profile.address_line1 }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Zip code</th>
-                                <td></td>
+                                <th scope="row">Address Line 2</th>
+                                <td>{{ object.profile.address_line2 }}</td>
                             </tr>
+                            <tr>
+                                <th scope="row">Postal code</th>
+                                <td>{{ object.profile.address_postal_code }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">State</th>
+                                <td>{{ object.profile.address_state }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="#" class="btn btn-outline-warning">Update</a>
+                </div>
+                <div id="shippingAddress">
+                    <h3>Shipping Address</h3>
+                    <table class="table table-responsive">
+                        <tbody>
+                        <tr>
+                            <th scope="col">City</th>
+                            <td>{{ object.profile.shipping_address_city }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Country</th>
+                            <td>{{ object.profile.shipping_address_country }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Address Line 1</th>
+                            <td>{{ object.profile.shipping_address_line1 }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Address Line 2</th>
+                            <td>{{ object.profile.shipping_address_line2 }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Postal code</th>
+                            <td>{{ object.profile.shipping_address_postal_code }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">State</th>
+                            <td>{{ object.profile.shipping_address_state }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">State</th>
+                            <td>{{ object.profile.shipping_phone}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">State</th>
+                            <td>{{ object.profile.shipping_name }}</td>
+                        </tr>
                         </tbody>
                     </table>
                     <a href="#" class="btn btn-outline-warning">Update</a>
