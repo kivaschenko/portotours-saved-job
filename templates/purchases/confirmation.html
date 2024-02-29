@@ -30,24 +30,7 @@
     </div>
 
     <!-- Custom JS import -->
-    <script>
-        initialize();
 
-        async function initialize() {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            const sessionId = urlParams.get('session_id');
-            const response = await fetch(`/session-status?session_id=${sessionId}`);
-            const session = await response.json();
-
-            if (session.status == 'open') {
-                window.replace({% url 'payment-form' lang='en' %})
-            } else if (session.status == 'complete') {
-                document.getElementById('success').classList.remove('hidden');
-                document.getElementById('customer-email').textContent = session.customer_email
-            }
-        }
-    </script>
 
     <!-- For language selector -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>

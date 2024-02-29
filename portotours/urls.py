@@ -63,7 +63,7 @@ urlpatterns += [
     path('products/<int:pk>/cancel/', products_views.CancelProductView.as_view(), name='cancel-product'),
     path('payment-form/<str:lang>/', purchases_views.BillingDetailView.as_view(), name='payment-form'),
     path('confirmation/<str:lang>/', purchases_views.ConfirmationView.as_view(), name='confirmation'),
-    path('session-status', purchases_views.session_status, name='session-status'),
+    path('session-status/', purchases_views.session_status, name='session-status'),
 ]
 
 # BLOGS

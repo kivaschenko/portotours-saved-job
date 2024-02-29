@@ -183,6 +183,9 @@ CACHES = {
     },
 }
 
+# Logging
+LOGGING_FILE = os.environ.get('LOGGING_FILE', 'portotours.log')
+
 # Logger
 LOGGING = {
     "version": 1,
@@ -201,11 +204,11 @@ LOGGING = {
             "level": "INFO",
             "class": "logging.FileHandler",
             "formatter": "simple",
-            "filename": os.environ.get('LOGGING_FILE'),
+            "filename": LOGGING_FILE,
         },
     },
     "loggers": {
-        "products": {
+        "django": {
             "handlers": [
                 "log_to_stdout",
                 "log_to_file"
@@ -213,11 +216,20 @@ LOGGING = {
             "level": "INFO",
             "propagate": True,
         },
+        "products": {
+            "handlers": [
+                "log_to_stdout",
+                "log_to_file"
+            ],
+            "level": "INFO",
+            "propagate": False,
+        },
         # 'django.db.backends': {
         #     'level': 'DEBUG',
         # }
     }
 }
+
 
 AUTH_USER_MODEL = 'accounts.User'
 LOGOUT_REDIRECT_URL = "home"

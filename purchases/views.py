@@ -132,6 +132,7 @@ class ConfirmationView(TemplateView):
 
 
 def session_status(request):
-  session = stripe.checkout.Session.retrieve(request.GET.get('session_id'))
+    print('request', request)
+    session = stripe.checkout.Session.retrieve(request.GET.get('session_id'))
 
-  return JsonResponse(status=session.status, customer_email=session.customer_details.email)
+    return JsonResponse(status=session.status, customer_email=session.customer_details.email)
