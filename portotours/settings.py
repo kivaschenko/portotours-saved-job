@@ -183,6 +183,9 @@ CACHES = {
     },
 }
 
+# Logging
+LOGGING_FILE = os.environ.get('LOGGING_FILE', 'portotours.log')
+
 # Logger
 LOGGING = {
     "version": 1,
@@ -201,11 +204,11 @@ LOGGING = {
             "level": "INFO",
             "class": "logging.FileHandler",
             "formatter": "simple",
-            "filename": os.environ.get('LOGGING_FILE'),
+            "filename": LOGGING_FILE,
         },
     },
     "loggers": {
-        "products": {
+        "django": {
             "handlers": [
                 "log_to_stdout",
                 "log_to_file"
@@ -213,11 +216,20 @@ LOGGING = {
             "level": "INFO",
             "propagate": True,
         },
+        "products": {
+            "handlers": [
+                "log_to_stdout",
+                "log_to_file"
+            ],
+            "level": "INFO",
+            "propagate": False,
+        },
         # 'django.db.backends': {
         #     'level': 'DEBUG',
         # }
     }
 }
+
 
 AUTH_USER_MODEL = 'accounts.User'
 LOGOUT_REDIRECT_URL = "home"
@@ -321,3 +333,34 @@ BOOKING_MINUTES = 30
 # CRISPY FORMS
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# EMAIL
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_HOST = 'localhost'
+    EMAIL_PORT = 25
+    DEFAULT_FROM_EMAIL = 'OneDayTours<<info@onedaytours.com>>'
+else:
+    # Set the email backend to SMTP
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+    # SMTP server address
+    EMAIL_HOST = 'your_smtp_server_address'
+
+    # SMTP server port (usually 587 for TLS, 465 for SSL)
+    EMAIL_PORT = 587
+
+    # Whether to use TLS (True for most SMTP servers)
+    EMAIL_USE_TLS = True
+
+    # SMTP username and password (if authentication is required by your SMTP server)
+    EMAIL_HOST_USER = 'your_smtp_username'
+    EMAIL_HOST_PASSWORD = 'your_smtp_password'
+
+    # Default email address to use for various automated messages from Django
+    DEFAULT_FROM_EMAIL = 'your_email@example.com'
+
+    # Additional settings for error reporting emails (optional)
+    ADMINS = [('Admin Name', 'admin@example.com')]
+    MANAGERS = ADMINS
+    SERVER_EMAIL = DEFAULT_FROM_EMAIL

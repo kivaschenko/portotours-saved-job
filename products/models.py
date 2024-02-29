@@ -342,7 +342,7 @@ class Product(models.Model):
         self.total_price = self._count_new_total_price()
         self.old_total_price = self._count_old_total_price()
         self.stripe_product_id = (f"{self.parent_experience.parent_name.upper()} start: {self.start_datetime} language: {self.language} "
-                                  f"participants: {self.adults_count} adults & {self.child_count} children. Product ID={self.id}")
+                                  f"participants: {self.adults_count} adults & {self.child_count} children.")
         self.stripe_price = int(self.total_price * 100)
         if not self.expired_time:
             self.expired_time = datetime.utcnow() + timedelta(minutes=settings.BOOKING_MINUTES)  # by default 30 minutes

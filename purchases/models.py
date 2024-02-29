@@ -12,3 +12,14 @@ class Purchase(models.Model):
     completed = models.BooleanField(default=False)
     stripe_price = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
+    stripe_payment_status = models.CharField(max_length=10, null=True, blank=True)
+    stripe_amount_total = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ('-timestamp',)
+
+    def __str__(self):
+        return f'{self.stripe_checkout_session_id}'
+
+    def __repr__(self):
+        return f'<Purchase: {self.id} | {self.stripe_checkout_session_id}>'
