@@ -13,7 +13,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 BASE_ENDPOINT = settings.BASE_ENDPOINT
 
 
-def handle_successful_payment(event):
+def handle_completed_session(event):
     try:
         # Update purchase status
         session = event.data.object
@@ -33,10 +33,8 @@ def handle_successful_payment(event):
         logger.error(f"Exception while handling payment: {e}")
 
 
-def handle_customer_created(event):
+def handle_customer_created(customer):
     try:
-        customer = event.data.object
-        print('New customer created', customer)
         email = customer.email
         # Check if user exists based on the received data
         if not User.objects.filter(username=email).exists():
@@ -57,19 +55,18 @@ def handle_customer_created(event):
         # extract data
         data = dict(
             stripe_customer_id=customer.id,
-            name=customer.name,
-            email=customer.email,
-            phone=customer.phone,
-            address_city=customer.address.city,
-            address_country=customer.address.country,
-            address_line1=customer.address.line1,
-            address_line2=customer.address.line2,
-            address_postal_code=customer.address.postal_code,
-            address_state=customer.address.state,
+            name=customer['name'],
+            email=customer['email'],
+            phone=customer['phone'],
+            address_city=customer['address']['city'],
+            address_country=customer['address']['country'],
+            address_line1=customer['address']['line1'],
+            address_line2=customer['address']['line2'],
+            address_postal_code=customer['address']['postal_code'],
+            address_state=customer['address']['state'],
         )
-        profile, created = Profile(user=new_user, email=email)
+        profile, created = Profile(user=new_user, email=email, **data)
         profile.save()
-        print(f'Created Profile {profile}')
     except Exception as e:
         logger.error(f"Exception while handling customer: {e}")
 
