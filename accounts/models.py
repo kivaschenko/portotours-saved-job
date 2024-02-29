@@ -1,3 +1,6 @@
+import random
+import string
+
 from django.apps import apps
 from django.contrib.auth.hashers import make_password
 from django.db import models
@@ -41,6 +44,20 @@ class CustomUserManager(UserManager):
 
         return self._create_user(email, password, **extra_fields)
 
+    def create_user_without_password(self, email, **extra_fields):
+        """
+        Create and save a user without a password.
+        """
+        password = self.make_random_password()  # Generate a random password
+        return self._create_user(email, password, **extra_fields), password
+
+    def make_random_password(self, length=10):
+        """
+        Generate a random password.
+        """
+        characters = string.ascii_letters + string.digits
+        return ''.join(random.choice(characters) for _ in range(length))
+
 
 class User(AbstractUser):
     email = models.EmailField(_("email address"), unique=True,
@@ -66,7 +83,7 @@ class User(AbstractUser):
 
 # PROFILE
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile", null=True, blank=True)
     stripe_customer_id = models.CharField(max_length=220, blank=True, null=True)
     name = models.CharField(_("name"), max_length=120, blank=True, null=True, help_text="Card name")
     email = models.EmailField(unique=True, blank=True, null=True)

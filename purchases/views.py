@@ -12,7 +12,7 @@ from django.views.generic import ListView, TemplateView
 from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
 from .models import Purchase
-from service_layer.services import handle_successful_payment
+from service_layer.services import handle_successful_payment, handle_customer_created
 
 logger = logging.getLogger(__name__)
 
@@ -94,6 +94,7 @@ def stripe_webhook(request):
         event = stripe.Event.construct_from(
             json.loads(payload), stripe.api_key
         )
+        print('Got event', event)
         logger.info(f"Received event: {event}.\n")
     except ValueError as e:
         # Invalid payload
@@ -103,25 +104,10 @@ def stripe_webhook(request):
     if event.type == 'checkout.session.completed':  # 'charge.succeeded'
         # Payment was successful
         handle_successful_payment(event)
-    elif event['type'] == 'checkout.session.expired':
+    elif event.type == 'checkout.session.expired':
         session = event['data']['object']
-    elif event['type'] == 'payment_intent.amount_capturable_updated':
-        payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.canceled':
-        payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.created':
-        payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.partially_funded':
-        payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.payment_failed':
-        payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.processing':
-        payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.requires_action':
-        payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.succeeded':
-        payment_intent = event['data']['object']
-    # ... handle other event types
+    elif event.type == 'customer.created':
+        handle_customer_created(event)
     else:
         logger.info('Unhandled event type {}'.format(event['type']))
     return HttpResponse(status=200)
