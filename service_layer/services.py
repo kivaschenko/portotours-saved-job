@@ -13,13 +13,13 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 BASE_ENDPOINT = settings.BASE_ENDPOINT
 
 
-def handle_completed_session(event):
+def handle_completed_session(session):
     try:
         # Update purchase status
-        session = event.data.object
         purchase = Purchase.objects.get(stripe_checkout_session_id=session.id)
         purchase.completed = True
         purchase.stripe_payment_intent_id = session.payment_intent
+        purchase.stripe_customer_id = session.customer
         purchase.save()
         logger.info(f"Completed payment for {purchase}\n")
 
