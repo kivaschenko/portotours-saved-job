@@ -9,72 +9,631 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Initialize datepicker
-            $(".datepicker").datepicker({
-                // Add any additional options here
-                dateFormat: 'yy-mm-dd',
-                // Highlight specific dates
-                beforeShowDay: function (date) {
-                    const highlightDates = {{ occurrences|safe }};
-                    const stringDate = jQuery.datepicker.formatDate('yy-mm-dd', date);
-                    return [highlightDates.includes(stringDate), 'highlighted-date'];
-                }
-            });
-        });
-    </script>
-    <style>
-        .ui-state-default, .ui-widget-content .ui-state-default {
-            border: 1px solid #c5c5c5;
-            background: #F0500B;
-            font-weight: bold;
-            color: #454545;
-        }
-
-        .highlighted-date {
-            background-color: #F0500B; /* Define your desired background color */
-            font-weight: bold;
-        }
-    </style>
+    
 {% endblock head %}
 {% block content %}
 
     <section class="experience-hero">
+        <div class="container">
+            <div class="experience-hero-title-wrapper">
+                <h2 class="experience-hero-title">
+                    {{ object.long_name }}
+                </h2>
+                <div class="expreriece-hero-price-btn-wrapper">
+                    <div class="price-wrapper">
+                        <p class="price-title">
+                            From
+                        </p>
+                        <p class="price-amount">
+                            € 20
+                        </p>
+                    </div>
+                    <a href="#" class="experience-hero-btn btn-type-1">
+                        check availability
+                    </a>
+                </div>
+            </div>
+            <div class="experience-hero-info">
+                <p class="experience-hero-info-text">
+                    <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
+                    free cancilation policy
+                </p>
+                <p class="experience-hero-info-text">
+                    <img src="{% static 'icons/experience-info-icon2.svg' %}" alt="">
+                    2480 happy clients
+                </p>
+            </div>
+            <div class="experience-hero-swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                  <!-- Slides -->
+                  <div class="swiper-slide">
+                    <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                  </div>
+                  
+                </div>
+      
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
     </section>
+    <section class="why">
+        <div class="container">
+            <h2 class="why-title">
+                Why book with OneDayTours?
+            </h2>
+            <p class="why-subtitle body-text-b1">
+                Create the best of your experience by visiting Portugal with our exclusive tours
+            </p>
+            <div class="why-cards-wrapper">
+                <div class="swiper-wrapper">
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
+                        <p class="why-text">
+                            100+ Experiences in Portugal
+                        </p>
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
+                        <p class="why-text">
+                            Guided by local experts
+                        </p>
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
+                        <p class="why-text">
+                            Best price guarantee
+                        </p>
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
+                        <p class="why-text">
+                            No hidden fees
+                        </p>
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
+                        <p class="why-text">
+                            Free cancellation
+                        </p>
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
+                        <p class="why-text">
+                            Safe and secure website
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="experience-info">
+        <div class="container">
+            <h2 class="experience-info-title">
+                Experience name
+            </h2>
+            <p class="experience-info-subtitle">
+                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu.
+            </p>
+            <div class="experience-info-inner-wrapper">
+                <div class="left-col">
+                    <div class="experience-cards">
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon1.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Type of tours
+                                </p>
+                                <p class="card-text">
+                                    Private
+                                </p>
+                            </div>
+                        </div>
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon2.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Duration
+                                </p>
+                                <p class="card-text">
+                                    {{ object.display_duration }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon3.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Accessibility
+                                </p>
+                                <p class="card-text">
+                                    {{ object.display_accessibility }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon4.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Possibility
+                                </p>
+                                <p class="card-text">
+                                    {{ object.display_possibility }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon5.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Languages
+                                </p>
+                                <p class="card-text">
+                                    {{ object.display_languages }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon6.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Starting location
+                                </p>
+                                <p class="card-text">
+                                    2118 Thornridge Cir. Syracuse, Connecticut 35624
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="experience-description">
+                        <h5 class="description-title">
+                            Full description
+                        </h5>
+                        <p>
+                            {{ object.display_full_description }}
+                        </p>
+                    </div>
+                    <div class="experience-timeline">
+                        <h5 class="experience-timeline-title">
+                            Title
+                        </h5>
+                        <div class="experience-timeline-inner">
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                            <div class="timeline-block">
+                                <div class="time-title-wrapper">
+                                    <p class="time">
+                                        11:00 AM
+                                    </p>
+                                    <p class="timeline-title">
+                                        Name Stop 
+                                    </p>
+                                </div>
+                                <p>
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                        </div>
+                        <btn class="timeline-btn-open btn-type-2">
+                            See all
+                        </btn>
+                    </div>
+                    <div class="experience-info-block">
+                        
+                            <h5>
+                                Includes
+                            </h5>
+                            <ul>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                            </ul>
+                        
+                    </div>
+                    <div class="experience-info-block">
+                        
+                            <h5>
+                                Traveler tips
+                            </h5>
+                            <ul>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                            </ul>
+                        
+                    </div>
+                    <div class="experience-info-block">
+                        
+                            <h5>
+                                What to bring
+                            </h5>
+                            <ul>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                                <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</li>
+                            </ul>
+                        
+                    </div>
+                </div>
+                <div class="aside-form">
+                    <div class="booking-form-wrapper">
+                        <img src="{% static 'images/booking-form-banner.svg' %}" alt="form banner">
+                        <p class="body-text-b3">Choose Date</p>
+                        <form id="bookingForm">
+                            <div class="calendar">
+                              <div class="month-controls">
+                                <button id="prevMonth" type="button">
+                                    <img src="{% static 'icons/calendar-month-arrow.svg' %}" alt="">
+                                    <img class="icon-disabled" src="{% static 'icons/calendar-month-arrow-disabled.svg' %}" alt="">
+                                </button>
+                                <span id="currentMonth"></span>
+                                <button id="nextMonth" type="button">
+                                    <img src="{% static 'icons/calendar-month-arrow.svg' %}" alt="">
+                                </button>
+                              </div>
+                              <div class="day-labels">
+                                <span>Sun</span>
+                                <span>Mon</span>
+                                <span>Tue</span>
+                                <span>Wed</span>
+                                <span>Thu</span>
+                                <span>Fri</span>
+                                <span>Sat</span>
+                              </div>
+                              <div class="calendar-grid" id="calendarGrid"></div>
+                            </div>
+                                <p class="body-text-b3 time-selection-title">Choose time</p>
+                            <div class="time-selection">
+                              <div class="input-wrapper">
+                                <input type="radio" id="time1" name="time" value="9:00">
+                                <label for="time1">9:00</label>
+                              </div>
+                              <div class="input-wrapper">
+                                <input type="radio" id="time2" name="time" value="12:00">
+                                <label for="time2">12:00</label>
+                              </div>
+                              <div class="input-wrapper">
+                                <input type="radio" id="time3" name="time" value="15:00">
+                                <label for="time3">15:00</label>
+                              </div>
+                              <div class="input-wrapper">
+                                <input type="radio" id="time4" name="time" value="18:00">
+                                <label for="time4">18:00</label>
+                              </div>
+                              
+                            </div>
+                          
+                            <div class="ticket-selection">
+                              <p class="body-text-b3 ticket-selection-title">People</p>
+                              <div class="ticket-type">
+                                <p class="ticket-type-title">Adults</p>
+                                <button class="decrement" type="button">
+                                    <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">    
+                                </button>
+                                <input type="text" class="ticket-count" value="0" readonly>
+                                <button class="increment" type="button">
+                                    <img src="{% static 'icons/increment-icon.svg' %}" alt="increment"> 
+                                </button>
+                                <p class="total-price">$0</p>
+                              </div>
+                              <div class="ticket-type">
+                                <p class="ticket-type-title">Children</p>
+                                <button class="decrement" type="button">
+                                    <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement"> 
+                                </button>
+                                <input type="text" class="ticket-count" value="0" readonly>
+                                <button class="increment" type="button">
+                                    <img src="{% static 'icons/increment-icon.svg' %}" alt="increment"> 
+                                </button>
+                                <p class="total-price">$0</p>
+                              </div>
+                            </div>
+                            <p class="body-text-b3 language-selection-title">Choose language</p>
+                            <div class="language-selection">
+                                <div class="input-wrapper">
+                                    <input type="radio" id="lang1" name="language" value="Portugal">
+                                    <label for="lang1">
+                                        <img src="{% static 'icons/pt-flag.svg' %}" alt="pt flag">
+                                    </label>
+                                </div>
+                                <div class="input-wrapper">
+                                    <input type="radio" id="lang2" name="language" value="French">
+                                    <label for="lang2">
+                                        <img src="{% static 'icons/fr-flag.svg' %}" alt="fr flag">
+                                    </label>
+                                </div>
+                                <div class="input-wrapper">
+                                    <input type="radio" id="lang3" name="language" value="Spanish">
+                                    <label for="lang3">
+                                        <img src="{% static 'icons/es-flag.svg' %}" alt="es flag">
+                                    </label>
+                                </div>
+                                <div class="input-wrapper">
+                                    <input type="radio" id="lang4" name="language" value="English">
+                                    <label for="lang4">
+                                        <img src="{% static 'icons/fr-flag.svg' %}" alt="en flag">
+                                    </label>
+                                </div>
+                            </div>
+                          
+                            <button type="submit" class="btn-type-1" id="submitBtn">add to cart</button>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="also-interested">
+        <div class="container">
+            <h2 class="also-interested-title">
+                {{ object.recommendations_title }}
+            </h2>
+            <p class="also-interested-subtitle body-text-b2">
+                {{ object.recommendations_subtitle }}
+            </p>
+            <div class="swiper-also-interested">
+                <div class="swiper-wrapper also-interested-cards-wrapper">
+                    <div class="also-interested-card swiper-slide">
+                        <img src="{% static 'images/also-interested-img1.png' %}" alt="" class="also-interested-img">
+                        <p class="body-text-b2 also-interested-card-title">
+                            Cascais
+                        </p>
+                        <p class="body-text-b3 also-interested-card-text">
+                            Explore Cascais, a perfect mixture of natural and architectural beauty, located near Lisbon. Investigate its breathtaking landscapes
+                            and historical wonders with comprehensive OneDayTours.
+                        </p>
+                    </div>
+                    <div class="also-interested-card swiper-slide">
+                        <img src="{% static 'images/also-interested-img2.png' %}" alt="" class="also-interested-img">
+                        <p class="body-text-b2 also-interested-card-title">
+                            Oporto
+                        </p>
+                        <p class="body-text-b3 also-interested-card-text">
+                            Choose an amazing journey with a OneDayTours to Oporto, Portugal. Explore the vibrant history of the city, perfectly fit into the
+                            colorful landscapes, and experience the warm hospitality of Portugal.
+                        </p>
+                    </div>
+                    <div class="also-interested-card swiper-slide">
+                        <img src="{% static 'images/also-interested-img3.png' %}" alt="" class="also-interested-img">
+                        <p class="body-text-b2 also-interested-card-title">
+                            Sintra
+                        </p>
+                        <p class="body-text-b3 also-interested-card-text">
+                            Get a chance to immerse in the real Wonderland with a OneDayTours to a fairytale Sintra. The place is filled with history and a
+                            mystical aura, heightened by the scenic landscape of nature.
+                        </p>
+                    </div>
+
+
+                </div>
+                <div class="swiper-pagination"></div>
+
+            </div>
+
+            <div class="also-interested-more-info-wrapper">
+                <h5 class="also-interested-more-info-title">
+                    {{ object.recommendations_slogan }}
+                </h5>
+                <a href="" class="btn-type-2 also-interested-info-link">
+                    see more
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials-slider-section">
+        <div class="container">
+            <h2 class="testimonials-title">
+                testimonials
+            </h2>
+            <p class="testimonials-subtitle body-text-b1">
+                Read the reviews of our clients about their experience with our service
+            </p>
+            <div class="testimonials-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <p class="swiper-text">
+                            Awesome! I wanted to make a trip to Lisbon not only fun but also educational for my kids. Here I found everything I needed. Wanna
+                            highlight great communication and customer service. I'll come back, thank you guys:)
+                        </p>
+                        <div class="author-wrapper">
+                            <img src="{% static 'images/testimonials-img1.png' %}" alt="">
+                            <p class="name">Katherine Jennerwein</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <p class="swiper-text">
+                            Highly recommended! I truly enjoyed this service. The guides are professional and funny. The support team is flexible and
+                            understanding. I had a small issue, and it was solved in a blink of an eye. Wish you growth and thankful clients!:)
+                        </p>
+                        <div class="author-wrapper">
+                            <img src="{% static 'images/testimonials-img2.png' %}" alt="">
+                            <p class="name">Olivia Carroll</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <p class="swiper-text">
+                            Great service! OneDayTours team created a perfect vacation for me and my family. We've ordered a few tours and got full experience
+                            of the most amazing spots of Portugal. 100% recommend!
+                        </p>
+                        <div class="author-wrapper">
+                            <img src="{% static 'images/testimonials-img3.png' %}" alt="">
+                            <p class="name">Andy Walker</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </section>
+    
+   
     <div class="container">
-        <!-- FastBookingForm block -->
-        <form class="row gx-3 gy-2 align-items-center" method="post" action="">
-            {% csrf_token %}
-            <div id="div_id_adult" class="col-sm-2">
-                <label for="id_adult" class="form-label requiredField">
-                    Adult<span class="asteriskField">*</span>
-                </label>
-                {{ form.adult }}
-            </div>
-            <div id="div_id_children" class="col-sm-2">
-                <label for="id_children" class="form-label requiredField">
-                    Children<span class="asteriskField">*</span>
-                </label>
-                {{ form.children }}
-            </div>
-            <div id="div_id_date" class="col-sm-4">
-                <label for="id_date" class="form-label requiredField">
-                    When?<span class="asteriskField">*</span>
-                </label>
-                {{ form.date }}
-            </div>
-            <div id="div_id_language" class="col-sm-2">
-                <label for="id_language" class="form-label requiredField">
-                    Language<span class="asteriskField">*</span>
-                </label>
-                {{ form.language }}
-            </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary">BOOK</button>
-            </div>
-        </form>
-        <!-- /FastBookingForm block -->
 
         <p>Short name: {{ object.name }}</p>
         <p>Long name: {{ object.long_name }}</p>
@@ -93,46 +652,263 @@
         <p>{{ object.recommendations_subtitle }}</p>
         <h2>{{ object.recommendations_slogan }}</h2>
     </div>
-    <style>
-        .highlighted-date {
-            background-color: #F0500B;
-            font-weight: bold;
-        }
-    </style>
+   
+    
     <script>
-        const swiperTopAttraction = new Swiper(".swiper-attractions", {
-            slidesPerView: 2,
-            speed: 1000,
-            spaceBetween: 24,
-            breakpoints: {
-                200: {
-                    slidesPerView: 1,
-                    spaceBetween: 20,
-                },
-                767: {
-                    slidesPerView: 2,
-                    spaceBetween: 24,
-                }
-            },
-            // Navigation arrows
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-        });
+        let openFullBtn = document.querySelector('.timeline-btn-open');
+        let experienceTimelineWrapper = document.querySelector('.experience-timeline-inner');
 
-        const swiperAttractionHero = new Swiper(".attraction-hero-slider", {
-            slidesPerView: 3,
-            speed: 1000,
+        openFullBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+            experienceTimelineWrapper.classList.toggle('opened')
+            if(experienceTimelineWrapper.classList.contains('opened')) {
+                openFullBtn.innerHTML = 'Show Less'
+            } else {
+                openFullBtn.innerHTML = 'See all'
+            }
+
+        })
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const prevMonthBtn = document.getElementById('prevMonth');
+            const nextMonthBtn = document.getElementById('nextMonth');
+            const currentMonthDisplay = document.getElementById('currentMonth');
+            const calendarGrid = document.getElementById('calendarGrid');
+            const ticketCounts = document.querySelectorAll('.ticket-count');
+            const totalPriceDisplays = document.querySelectorAll('.total-price');
+            const submitBtn = document.getElementById('submitBtn');
+            let selectedDate = null;
+            let currentDate = new Date();
+            
+            renderCalendar(currentDate);
+
+            prevMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar(currentDate);
+            });
+
+            nextMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar(currentDate);
+            });
+
+            calendarGrid.addEventListener('click', function(event) {
+                if (event.target.classList.contains('inactive')) return;
+                const selectedDay = event.target.dataset.date;
+                selectedDate = new Date(selectedDay);
+                updateSelectedDate(selectedDate);
+            });
+
+            function renderCalendar(date) {
+                calendarGrid.innerHTML = '';
+                currentMonthDisplay.textContent = getMonthYearString(date);
+
+                const today = new Date();
+                if (date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
+                    prevMonthBtn.disabled = true;
+                } else {
+                    prevMonthBtn.disabled = false;
+                }
+
+                const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+                const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                const startingDay = firstDayOfMonth.getDay();
+                const totalDays = lastDayOfMonth.getDate();
+
+
+                for (let i = 0; i < startingDay; i++) {
+                const prevMonthDay = new Date(date.getFullYear(), date.getMonth(), -startingDay + i + 1);
+                createCalendarDay(prevMonthDay, true);
+                }
+
+                for (let i = 1; i <= totalDays; i++) {
+                const currentDay = new Date(date.getFullYear(), date.getMonth(), i);
+                createCalendarDay(currentDay);
+                }
+
+                const tourPrice = 100;
+                calendarGrid.querySelectorAll('.calendar-day').forEach(day => {
+                    const priceElement = document.createElement('span');
+                    priceElement.textContent = `$${tourPrice}`;
+                    day.appendChild(priceElement);
+                });
+            }
+
+            function createCalendarDay(date, inactive = false) {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('calendar-day');
+                if (inactive) {
+                    dayElement.classList.add('inactive');
+                } else {
+                    // Создаем дату без учета часового пояса
+                    const isoDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
+                    dayElement.dataset.date = isoDate;
+                }
+                dayElement.textContent = date.getDate();
+                calendarGrid.appendChild(dayElement);
+            }
+
+            function getMonthYearString(date) {
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                const month = monthNames[date.getMonth()];
+                const year = date.getFullYear();
+                return `${month} ${year}`;
+            }
+
+            calendarGrid.addEventListener('click', function(event) {
+                if (event.target.classList.contains('inactive')) return;
+                const selectedDay = event.target.dataset.date;
+                selectedDate = new Date(selectedDay);
+                updateSelectedDate(selectedDate);
+            });
+
+
+            // Функция обработки клика по дате
+            function handleDateClick(event) {
+                const clickedDateElement = event.target;
+                const clickedDate = clickedDateElement.dataset.date;
+                if (clickedDate) {
+                    // Удаляем класс у всех дат календаря
+                    calendarGrid.querySelectorAll('.calendar-day').forEach(day => {
+                        day.classList.remove('selected-date');
+                    });
+                    // Подсвечиваем выбранную дату
+                    clickedDateElement.classList.add('selected-date');
+                }
+            }
+
+            // Добавляем обработчик клика к календарю
+            calendarGrid.addEventListener('click', handleDateClick);
+
+            // Определение сегодняшней даты
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const todayString = `${year}-${month}-${day}T00:00:00.000Z`;
+
+            // Находим ячейку календаря для сегодняшней даты
+            const todayCell = calendarGrid.querySelector(`[data-date="${todayString}"]`);
+           
+
+            // Если нашли ячейку, делаем ее активной
+            if (todayCell) {
+                todayCell.classList.add('selected-date');
+                selectedDate = todayCell;
+            }
+
+            // Функция обновления выбранной даты
+            function updateSelectedDate(date) {
+                const formattedDate = date.toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric' });
+                console.log('Выбрана дата:', formattedDate);
+
+                // Дополнительные действия при выборе даты, например, обновление цены тура
+                // Под каждой датой в календаре должна быть указана цена тура ($100)
+                const tourPrice = 100;
+                const priceElement = document.createElement('span');
+                priceElement.textContent = `€${tourPrice}`;
+                event.target.appendChild(priceElement);
+            }
+
+            function updateSelectedDate(date) {
+                const formattedDate = date.toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric' });
+                ticketCounts.forEach(count => count.value = 0);
+                totalPriceDisplays.forEach(display => display.textContent = '$0');
+                submitBtn.textContent = `add to cart`;
+                selectedDate = date;
+            }
+
+            document.querySelectorAll('.increment').forEach(button => {
+                button.addEventListener('click', function() {
+                const ticketCount = this.previousElementSibling;
+                const priceDisplay = this.nextElementSibling.nextElementSibling;
+                let count = parseInt(ticketCount.value);
+                count++;
+                ticketCount.value = count;
+                updateTotalPrice();
+                });
+            });
+
+            document.querySelectorAll('.decrement').forEach(button => {
+                button.addEventListener('click', function() {
+                const ticketCount = this.nextElementSibling;
+                const priceDisplay = this.nextElementSibling.nextElementSibling;
+                let count = parseInt(ticketCount.value);
+                if (count > 0) {
+                    count--;
+                    ticketCount.value = count;
+                    updateTotalPrice();
+                }
+                });
+            });
+
+            function updateTotalPrice() {
+                let totalAdultTickets = 0;
+                let totalChildTickets = 0;
+
+                ticketCounts.forEach((count, index) => {
+                    const ticketType = index % 2 === 0 ? 'adult' : 'child';
+                    const ticketPrice = ticketType === 'adult' ? 100 : 50; // Цена для взрослых $100, для детей $50
+                    const ticketTotalPrice = parseInt(count.value) * ticketPrice;
+
+                    if (ticketType === 'adult') {
+                        totalAdultTickets += ticketTotalPrice;
+                    } else {
+                        totalChildTickets += ticketTotalPrice;
+                    }
+                });
+
+                totalPriceDisplays[0].textContent = `$${totalAdultTickets}`;
+                totalPriceDisplays[1].textContent = `$${totalChildTickets}`;
+
+                const totalPrice = totalAdultTickets + totalChildTickets;
+                submitBtn.textContent = `${totalPrice} add to cart`;
+            }
+
+            submitBtn.addEventListener('click', function() {
+                const totalPrice = parseInt(totalPriceDisplays[0].textContent.replace('$', ''));
+                // Handle form submission here
+            });
+            });
+
+    </script>
+
+    <script>
+        
+        if (window.innerWidth < 768) {
+            const swiperAlsoInterested = new Swiper(".swiper-also-interested", {
+                slidesPerView: 1.4,
+                speed: 1000,
+                spaceBetween: 14,
+                centeredSlides: true,
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            });
+        }
+
+        const swiperTestimonials = new Swiper(".testimonials-slider", {
+            speed: 5000,
             spaceBetween: 24,
+            loop: true,
+            slidesPerView: 3,
+            autoplay: {
+                delay: 2000,
+            },
+            centeredSlides: true,
             breakpoints: {
                 200: {
                     slidesPerView: 1,
-                    spaceBetween: 20,
+                    spaceBetween: 10,
+
                 },
                 767: {
                     slidesPerView: 3,
-                    spaceBetween: 30,
+                    spaceBetween: 24,
+
                 }
             },
             // Navigation arrows
@@ -140,8 +916,69 @@
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
             },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+
+        const swiperTopAttraction = new Swiper(".experience-hero-swiper", {
+        slidesPerView: 2,
+        speed: 1000,   
+        spaceBetween: 24,
+        breakpoints: {
+            200: {
+                spaceBetween: 14,
+                slidesPerView: 1.4,
+                centeredSlides: true,
+                loop:true,
+            },
+            767: {
+                slidesPerView: 1.2,
+                spaceBetween: 24,
+                centeredSlides: true,
+                loop:true,
+            }
+        },
+        // Navigation arrows
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        
+        });
+
+        const swiperWhy = new Swiper(".why-cards-wrapper", {
+        slidesPerView: 2,
+        speed: 10000,  
+        spaceBetween: 24,
+        autoplay: {
+            delay: 100,
+                
+        },
+        loop: true,
+        breakpoints: {
+            200: {
+                spaceBetween: 14,
+                slidesPerView: 1.4,
+                centeredSlides: true,
+                loop:true,
+            },
+            767: {
+                slidesPerView: 3,
+                spaceBetween: 44,
+                
+                
+            }
+        },
+        
+        
         });
     </script>
+
     <script>
         // Define all window.location.pathname according language value
         const languages = {{ languages|safe }};  // from response extra_context
@@ -149,5 +986,6 @@
         const currentLanguage = `{{ current_language }}`  // from response extra_context
 
     </script>
+
     <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
 {% endblock %}

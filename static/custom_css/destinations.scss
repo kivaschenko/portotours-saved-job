@@ -6,13 +6,13 @@
                 top: 0;
                 left: 0;
                 width: 100%;
+                img {
+                    height: 100%;
+                    width: 100%;
+                }
                 @include media-breakpoint-down(md) {
                     height: 240px;
                     
-                    img {
-                        height: 100%;
-                        width: 100%;
-                    }
                 }
             }
         }
@@ -721,6 +721,8 @@
 .destinations-list {
     .container {
         margin-top: 40px;
+        position: relative;
+        padding-bottom: 156px;
         @include media-breakpoint-down(md) {
             margin-top: 30px;
         }
@@ -732,7 +734,7 @@
             padding-left: 0;
             list-style: none;
             width: 100%;
-            margin-bottom: 144px;
+            
             @include media-breakpoint-down(md) {
                 flex-direction: column;
             }
