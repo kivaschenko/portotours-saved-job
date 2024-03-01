@@ -44,6 +44,7 @@ def handle_customer_created(customer):
                 first_name, last_name = None, None
             # Create a new user
             new_user, new_password = User.objects.create_user_without_password(email, first_name=first_name, last_name=last_name)
+            logger.info(f"New user: {new_user}\n")
             # Send password to the user by email
             send_mail(
                 'Your New Password',
@@ -56,7 +57,6 @@ def handle_customer_created(customer):
         data = dict(
             stripe_customer_id=customer.id,
             name=customer['name'],
-            email=customer['email'],
             phone=customer['phone'],
             address_city=customer['address']['city'],
             address_country=customer['address']['country'],
@@ -65,8 +65,9 @@ def handle_customer_created(customer):
             address_postal_code=customer['address']['postal_code'],
             address_state=customer['address']['state'],
         )
-        profile, created = Profile(user=new_user, email=email, **data)
+        profile = Profile(user=new_user, email=email, **data)
         profile.save()
+        logger.info(f'Profile created with id: {profile.id}')
     except Exception as e:
         logger.error(f"Exception while handling customer: {e}")
 

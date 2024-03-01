@@ -112,19 +112,20 @@ def stripe_webhook(request):
     # Handle the event
     if event.type == 'checkout.session.completed':
         session = event['data']['object']
+        logger.info(f"Completed session: {session.id}")
         handle_completed_session(session)
     if event.type == 'checkout.session.expired':
         session = event['data']['object']
-        print(f'Session expired: {session}')  # TODO: add handler expired session
+        logger.info(f"Expired session: {session.id}")
     if event.type == 'payment_intent.created':
         payment_intent = event['data']['object']
-        print(f'Payment intent: {payment_intent}')  # TODO: add handler
+        logger.info(f"Payment intent created: {payment_intent.id}")
     if event.type == 'payment_intent.succeeded':
         payment_intent = event['data']['object']
-        print(f'Payment intent: {payment_intent}')  # TODO: add handler
+        logger.info(f"Payment intent succeeded: {payment_intent.id}")
     if event.type == 'customer.created':
         customer = event['data']['object']
-        print(f'Inside webhook, customer: {customer}')
+        logger.info(f"Customer created: {customer.id}")
         handle_customer_created(customer)
     else:
         logger.info('Unhandled event type {}'.format(event['type']))
