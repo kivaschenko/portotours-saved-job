@@ -440,10 +440,12 @@
         margin-top: 0;
         margin-bottom: 0;
         text-transform: capitalize;
+        width: 730px;
       }
       .expreriece-hero-price-btn-wrapper {
         display: flex;
         align-items: center;
+        width: calc(100% - 730px - 50px);
         .price-wrapper {
           display: flex;
           align-items: center;
@@ -542,6 +544,528 @@
       }
       .swiper-pagination-bullet {
         background-color: var(--text-color-third);
+      }
+    }
+  }
+}
+
+.experience-info {
+  .container {
+    padding-top: 70px;
+    padding-bottom: 140px;
+    .experience-info-title {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .experience-info-subtitle {
+      font-family: "LatoRegular";
+      font-size: 20px;
+      line-height: 30px;
+      margin-bottom: 60px;
+      text-align: center;
+    }
+    .experience-info-inner-wrapper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+      .left-col {
+        width: calc((100% - 445px - 88px));
+        .experience-cards {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          margin-bottom: 16px;
+          .experience-card {
+            width: calc((100% - 66px)/3);
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            margin-bottom: 24px;
+            .img-wrapper {
+              width: 24px;
+              height: 24px;
+              margin-right: 16px;
+                img {
+                  width: 100%;
+                }
+            }
+            .card-content {
+              width: calc(100% - 24px - 16px);
+              .card-title {
+                font-family: "LatoSemiBold";
+                font-size: 16px;
+                line-height: 26px;
+                margin-bottom: 4px;
+              }
+              .card-text {
+                font-family: "LatoRegular";
+                font-size: 14px;
+                line-height: 22px;
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+        .experience-description {
+          margin-bottom: 40px;
+          .description-title {
+            margin-bottom: 24px;
+          }
+          p {
+            font-family: "LatoRegular";
+            font-size: 16px;
+            line-height: 26px;
+            margin-bottom: 0;
+          }
+        }
+        .experience-timeline {
+          margin-bottom: 60px;
+          .experience-timeline-title {
+            margin-bottom: 24px;
+          }
+          .experience-timeline-inner {
+            position: relative;
+            max-height: 600px;
+            overflow-y: hidden;
+            
+            &::after {
+              position: absolute;
+              content: "";
+              width: 100%;
+              height: 100px;
+              bottom: 0;
+              left: 0;
+              background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.90) 32.52%, #FFF 100%);
+            }
+            &.opened {
+              max-height: 100%;
+              &::after {
+                content: none;
+              }
+            }
+            .timeline-block {
+              position: relative;
+              padding-bottom: 24px;
+              
+              padding-left: 32px;
+              &::after {
+                content: "";
+                position: absolute;
+                width: 2px;
+                height: 100%;
+                top: 0;
+                background-color: var(--text-color-third);
+                left: 5px;
+                
+              }
+              &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                border: 2px solid var(--text-color-third);
+                background-color: white;
+                z-index: 2;
+              }
+              &:last-child {
+                &::after {
+                  content: none;
+                }
+                
+              }
+              p {
+                font-family: "LatoRegular";
+                font-size: 14px;
+                line-height: 22px;
+                margin-bottom: 0;
+              }
+              .time-title-wrapper {
+                display: flex;
+                align-items: center;
+                margin-bottom: 8px;
+                .time {
+                  font-family: "LatoSemiBold";
+                  font-size: 18px;
+                  line-height: 28px;
+                  text-transform: capitalize;
+                  margin-bottom: 0;
+                  margin-right: 26px;
+                  position: relative;
+                  &::after {
+                    position: absolute;
+                    content: "";
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    background-color: var(--text-color-third);
+                    right: -16px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                  }
+                }
+                .timeline-title {
+                  font-family: "LatoSemiBold";
+                  font-size: 18px;
+                  line-height: 28px;
+                  text-transform: capitalize;
+                  margin-bottom: 0;
+                }
+              }
+            }
+          }
+          .timeline-btn-open {
+            margin: 8px auto 0;
+            width: 240px;
+            cursor: pointer;
+          }
+        }
+        .experience-info-block {
+          padding: 32px;
+          border-radius: 26px;
+          border: 1px solid #D9D9D9;
+          background: #FFF;
+          + .experience-info-block {
+            margin-top: 16px;
+          }
+          h5 {
+            margin-bottom: 14px;
+            color: #000;
+          }
+          ul {
+            padding-left: 0;
+            list-style: none;
+            margin: 0;
+            li {
+              padding-left: 24px;
+              font-family: "LatoRegular";
+              font-size: 16px;
+              line-height: 26px;
+              margin-bottom: 0;
+              position: relative;
+              + li {
+                margin-top: 8px;
+              }
+              &::before {
+                content: "";
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color: var(--text-color-third);
+                border-radius: 50%;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+              }
+            }
+          }
+        }
+      }
+      .aside-form {
+        width: 445px;
+        position: relative;
+        position: sticky;
+        left: 0;
+        top: 20px;
+        .booking-form-wrapper {
+          position: relative;
+          border-radius: 26px;
+          background: #F8F8F8;
+          padding: 20px 40px;
+          > img {
+            position: absolute;
+            right: -30px;
+            top: -20px;
+          }
+          .form-title {
+            margin-bottom: 12px;
+            text-align: center;
+          }
+          .body-text-b3 {
+            text-align: left;
+            margin-bottom: 12px;
+            text-transform: capitalize;
+            font-family: "LatoSemiBold";
+          }
+          #bookingForm {
+            .calendar {
+              text-align: center;
+              margin-bottom: 16px;
+              border-radius: 16px;
+              background: #FFF;
+              padding: 10px 20px;
+              
+              .month-controls {
+                display: flex;
+                align-items: flex-end;
+                margin: 0 auto 6px;
+                justify-content: center;
+                #currentMonth {
+                  font-family: "LatoSemiBold";
+                  font-size: 18px;
+                  line-height: 28px;
+                  margin-bottom: 0;
+                }
+                button {
+                  border: none;
+                  overflow: none;
+                  background: none;
+                  width: 24px;
+                  height: 24px;
+                  padding: 0;
+                  img {
+                    width: 100%;
+                    display: block;
+                    &.icon-disabled {
+                      display: none;
+                    }
+                  }
+                  &:disabled {
+                    img {
+                      display: none;
+                      &.icon-disabled {
+                        display: block;
+                      }
+                    }
+                  }
+                  &#prevMonth {
+                    transform: rotate(180deg);
+                    margin-right: 16px;
+                    &:disabled {
+                      transform: none;
+                    }
+                  }
+                  &#nextMonth {
+                    
+                    margin-left: 16px;
+                  }
+                }
+              }
+              .day-labels {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                gap: 5px;
+                margin-bottom: 8px;
+                span {
+                  font-family: "LatoRegular";
+                  font-size: 14px;
+                  line-height: 22px;
+                  color: #6D6D6D;
+                  text-align: center;
+                }
+              }
+              .calendar-grid {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                
+
+                .calendar-day {
+                  color: #0F0F10;
+                  font-family: "LatoRegular";
+                  font-size: 16px;
+                  line-height: normal;
+                  cursor: pointer;
+                  width: 46px;
+                  height: 46px;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  &.inactive {
+                    color: #D9D9D9;
+                    span {
+                      color: #D9D9D9;
+                    }
+                  }
+                  &.selected-date {
+                    border-radius: 6px;
+                    background: #F0500B;
+                    color: white;
+                    span {
+                      color: white;
+                    }
+                  }
+                  span {
+                    font-family: "LatoRegular";
+                    display: block;
+                    font-size: 12px;
+                    line-height: normal;
+                    margin-top: 2px;
+                    color: #6D6D6D; /* Цвет текста для цены тура */
+                    pointer-events: none;
+                  }
+                } 
+              }
+            }
+            .time-selection-title {
+                margin-bottom: 12px;
+            }
+            .time-selection {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              margin-bottom: 16px;
+              .input-wrapper {
+                width: 25%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                label {
+                  font-family: "LatoRegular";
+                  font-size: 16px;
+                  line-height: 26px;
+                  margin-bottom: 0;
+                  padding-left: 36px;
+                  position: relative;
+                  cursor: pointer;
+                  &::before {
+                    content: "";
+                    position: absolute;
+                    width: 24px;
+                    height: 24px;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background-image: url(../icons/custom-radiobtn-default.svg);
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: center;
+                    
+                  }
+                }
+                input {
+                  opacity: 0;
+                  display: none;
+                  &:checked {
+                    + label {
+                      &::before {
+                        background-image: url(../icons/custom-radiobtn-active.svg);
+                      }
+                      
+                    }
+                  }
+                }
+
+              }
+            }
+            .ticket-selection {
+              margin-bottom: 16px;
+              .ticket-selection-title {
+                margin-bottom: 12px;
+              }
+              .ticket-type {
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                + .ticket-type {
+                  margin-top: 10px;
+                }
+                .ticket-type-title {
+                  color: #6D6D6D;
+                  font-family: "LatoRegular";
+                  font-size: 16px;
+                  line-height: 26px;
+                  margin-right: 40px;
+                  margin-bottom: 0;
+                  width: 60px;
+                }
+                button {
+                  border: none;
+                  outline: none;
+                  width: 18px;
+                  height: 18px;
+                  background: none;
+                  padding: 0;
+                  img {
+                    display: block;
+                  }
+                }
+                input {
+                  background: none;
+                  border: none;
+                  outline: none;
+                  width: 20px;
+                  margin: 0 6px;
+                  text-align: center;
+                }
+                .total-price {
+                  margin-bottom: 0;
+                  margin-left: 40px;
+                  font-family: "LatoSemiBold";
+                  font-size: 18px;
+                  line-height: 28px;
+                  color: #0F0F10;
+                }
+              }
+            }
+            .language-selection-title {
+              margin-bottom: 12px;
+            }
+            .language-selection {
+              margin-bottom: 24px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              .input-wrapper {
+                width: 25%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                label {
+                  font-family: "LatoRegular";
+                  font-size: 16px;
+                  line-height: 26px;
+                  margin-bottom: 0;
+                  padding-left: 36px;
+                  position: relative;
+                  cursor: pointer;
+                  img {
+                    width: 36px;
+                    height: 24px;
+                    display: block;
+                  }
+                  &::before {
+                    content: "";
+                    position: absolute;
+                    width: 24px;
+                    height: 24px;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background-image: url(../icons/custom-radiobtn-default.svg);
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: center;
+                    
+                  }
+                }
+                input {
+                  opacity: 0;
+                  display: none;
+                  &:checked {
+                    + label {
+                      &::before {
+                        background-image: url(../icons/custom-radiobtn-active.svg);
+                      }
+                      
+                    }
+                  }
+                }
+
+              }
+            }
+            #submitBtn {
+              width: 100%;
+              display: block;
+              margin: 0 auto;
+            }
+          }
+        }
       }
     }
   }
