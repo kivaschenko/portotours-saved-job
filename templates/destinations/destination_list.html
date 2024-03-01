@@ -44,6 +44,21 @@
                     {% endfor %}
                 {% endif %}
             </ul>
+            <div class="pagination-block">
+                <button class="pagination-btn prev disabled">
+                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                    <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+                </button>
+                <ul class="pagination-list">
+                    <li class="pagination-list-item active">1</li>
+                    <li class="pagination-list-item">2</li>
+                    <li class="pagination-list-item">3</li>
+                </ul>
+                <button class="pagination-btn next">
+                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                    <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+                </button>
+            </div>
         </div>
     </section>
 
