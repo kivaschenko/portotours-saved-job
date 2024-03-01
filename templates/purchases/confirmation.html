@@ -7,6 +7,15 @@
 {% endblock head %}
 {% block content %}
     <div class="container">
+        <!-- Breadcrumbs -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'my-cart' lang='en' %}">Step 1</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'payment-form' lang='en' %}">Step 2</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Step 3</li>
+            </ol>
+        </nav>
+
         <div class="cart-milestones">
             <h2>3 Step: Confirmation</h2>
             <p><small>There are some implementation for milestones of order and payment process...</small></p>
@@ -21,24 +30,7 @@
     </div>
 
     <!-- Custom JS import -->
-    <script>
-        initialize();
 
-        async function initialize() {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            const sessionId = urlParams.get('session_id');
-            const response = await fetch(`/session-status?session_id=${sessionId}`);
-            const session = await response.json();
-
-            if (session.status == 'open') {
-                window.replace({% url 'payment-form' lang='en' %})
-            } else if (session.status == 'complete') {
-                document.getElementById('success').classList.remove('hidden');
-                document.getElementById('customer-email').textContent = session.customer_email
-            }
-        }
-    </script>
 
     <!-- For language selector -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>

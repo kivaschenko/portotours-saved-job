@@ -7,6 +7,15 @@
 {% endblock head %}
 {% block content %}
     <div class="container">
+        <!-- Breadcrumbs -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Step 1</li>
+                <li class="breadcrumb-item active" aria-current="page">Step 2</li>
+                <li class="breadcrumb-item active" aria-current="page">Step 3</li>
+            </ol>
+        </nav>
+
         <div class="cart-milestones">
             <h2>1 Step: Basket</h2>
             <p><small>There are some implementation for milestones of order and payment process...</small></p>
@@ -78,18 +87,18 @@
                 <div class="some-total-lines">
                     <table class="table table-borderless">
                         <tbody>
-                            <tr>
-                                <th>Total by old prices:</th>
-                                <td>{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %} EUR</td>
-                            </tr>
-                            <tr>
-                                <th>Discount sum:</th>
-                                <td>{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %} EUR</td>
-                            </tr>
-                            <tr>
-                                <th>Total</th>
-                                <th>{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %} EUR</th>
-                            </tr>
+                        <tr>
+                            <th>Total by old prices:</th>
+                            <td>{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %} EUR</td>
+                        </tr>
+                        <tr>
+                            <th>Discount sum:</th>
+                            <td>{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %} EUR</td>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <th>{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %} EUR</th>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

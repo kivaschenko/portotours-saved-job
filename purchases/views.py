@@ -12,7 +12,7 @@ from django.views.generic import ListView, TemplateView
 from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
 from .models import Purchase
-from service_layer.services import handle_successful_payment
+from service_layer.services import handle_completed_session, handle_customer_created
 
 logger = logging.getLogger(__name__)
 
@@ -41,12 +41,22 @@ class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
 def checkout_view(request):
     if not request.method == "POST":
         return HttpResponseBadRequest()
-
+    user = request.user
     try:
         data = json.loads(request.body.decode('utf-8'))
         product_ids = data.get('product_ids', [])
         product_ids = [int(pk) for pk in product_ids]
         products = Product.active.filter(id__in=product_ids)
+
+        confirmation_path = reverse_lazy("confirmation", kwargs={'lang': 'en'}).lstrip('/')
+        confirmation_url = f"{BASE_ENDPOINT}{confirmation_path}" + "?session_id={CHECKOUT_SESSION_ID}"
+
+        session_data = dict(
+            mode='payment',
+            ui_mode='embedded',
+            billing_address_collection='required',
+            return_url=confirmation_url,
+        )
 
         line_items = []
         total_amount = 0
@@ -64,22 +74,21 @@ def checkout_view(request):
             }
             line_items.append(item)
 
-        purchase = Purchase.objects.create(user=request.user, stripe_price=total_amount)
+        session_data.update({'line_items': line_items})
+
+        if user.is_authenticated:
+            purchase = Purchase.objects.create(user=user, stripe_price=total_amount)
+            session_data.update({"customer_creation": "if_required"})
+        else:
+            purchase = Purchase.objects.create(stripe_price=total_amount)
+            session_data.update({"customer_creation": "always"})
         purchase.products.set(products)
-        request.session['purchase_id'] = purchase.id
 
-        confirmation_path = reverse_lazy("confirmation", kwargs={'lang': 'en'}).lstrip('/')
-        confirmation_url = f"{BASE_ENDPOINT}{confirmation_path}" + "?session_id={CHECKOUT_SESSION_ID}"
+        checkout_session = stripe.checkout.Session.create(**session_data)
 
-        checkout_session = stripe.checkout.Session.create(
-            line_items=line_items,
-            mode='payment',
-            ui_mode='embedded',
-            billing_address_collection='required',
-            return_url=confirmation_url,
-        )
         purchase.stripe_checkout_session_id = checkout_session.id
         purchase.save()
+
         return JsonResponse({'clientSecret': checkout_session.client_secret})
     except json.JSONDecodeError as exp:
         return HttpResponseBadRequest('Invalid JSON data')
@@ -94,34 +103,28 @@ def stripe_webhook(request):
         event = stripe.Event.construct_from(
             json.loads(payload), stripe.api_key
         )
+        print('Got event', event)
         logger.info(f"Received event: {event}.\n")
     except ValueError as e:
         # Invalid payload
         return HttpResponse(status=400)
 
     # Handle the event
-    if event.type == 'checkout.session.completed':  # 'charge.succeeded'
-        # Payment was successful
-        handle_successful_payment(event)
-    elif event['type'] == 'checkout.session.expired':
+    if event.type == 'checkout.session.completed':
         session = event['data']['object']
-    elif event['type'] == 'payment_intent.amount_capturable_updated':
+        handle_completed_session(session)
+    if event.type == 'checkout.session.expired':
+        session = event['data']['object']
+        print(f'Session expired: {session}')  # TODO: add handler expired session
+    if event.type == 'payment_intent.created':
         payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.canceled':
+        print(f'Payment intent: {payment_intent}')  # TODO: add handler
+    if event.type == 'payment_intent.succeeded':
         payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.created':
-        payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.partially_funded':
-        payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.payment_failed':
-        payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.processing':
-        payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.requires_action':
-        payment_intent = event['data']['object']
-    elif event['type'] == 'payment_intent.succeeded':
-        payment_intent = event['data']['object']
-    # ... handle other event types
+        print(f'Payment intent: {payment_intent}')  # TODO: add handler
+    if event.type == 'customer.created':
+        customer = event['data']['object']
+        handle_customer_created(customer)
     else:
         logger.info('Unhandled event type {}'.format(event['type']))
     return HttpResponse(status=200)
@@ -130,8 +133,3 @@ def stripe_webhook(request):
 class ConfirmationView(TemplateView):
     template_name = 'purchases/confirmation.html'
 
-
-def session_status(request):
-  session = stripe.checkout.Session.retrieve(request.GET.get('session_id'))
-
-  return JsonResponse(status=session.status, customer_email=session.customer_details.email)
