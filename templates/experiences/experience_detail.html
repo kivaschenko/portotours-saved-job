@@ -634,38 +634,6 @@
     
    
     <div class="container">
-        <!-- FastBookingForm block -->
-        <form class="row gx-3 gy-2 align-items-center" method="post" action="">
-            {% csrf_token %}
-            <div id="div_id_adult" class="col-sm-2">
-                <label for="id_adult" class="form-label requiredField">
-                    Adult<span class="asteriskField">*</span>
-                </label>
-                {{ form.adult }}
-            </div>
-            <div id="div_id_children" class="col-sm-2">
-                <label for="id_children" class="form-label requiredField">
-                    Children<span class="asteriskField">*</span>
-                </label>
-                {{ form.children }}
-            </div>
-            <div id="div_id_date" class="col-sm-4">
-                <label for="id_date" class="form-label requiredField">
-                    When?<span class="asteriskField">*</span>
-                </label>
-                {{ form.date }}
-            </div>
-            <div id="div_id_language" class="col-sm-2">
-                <label for="id_language" class="form-label requiredField">
-                    Language<span class="asteriskField">*</span>
-                </label>
-                {{ form.language }}
-            </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary">BOOK</button>
-            </div>
-        </form>
-        <!-- /FastBookingForm block -->
 
         <p>Short name: {{ object.name }}</p>
         <p>Long name: {{ object.long_name }}</p>
