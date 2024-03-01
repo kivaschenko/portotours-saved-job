@@ -224,6 +224,22 @@ LOGGING = {
             "level": "INFO",
             "propagate": False,
         },
+        "purchases": {
+            "handlers": [
+                "log_to_stdout",
+                "log_to_file"
+            ],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "accounts": {
+            "handlers": [
+                "log_to_stdout",
+                "log_to_file"
+            ],
+            "level": "INFO",
+            "propagate": False,
+        },
         # 'django.db.backends': {
         #     'level': 'DEBUG',
         # }
