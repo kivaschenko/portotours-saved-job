@@ -84,7 +84,7 @@ class User(AbstractUser):
 # PROFILE
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile", null=True, blank=True)
-    stripe_customer_id = models.CharField(max_length=220, blank=True, null=True)
+    stripe_customer_id = models.CharField(max_length=60, unique=True, blank=True, null=True)
     name = models.CharField(_("name"), max_length=120, blank=True, null=True, help_text="Card name")
     email = models.EmailField(unique=True, blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)

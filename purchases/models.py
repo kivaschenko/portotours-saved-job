@@ -1,7 +1,17 @@
+from datetime import datetime, timedelta
+
 from django.db import models
 from django.conf import settings
 
 from products.models import Product
+
+
+class PurchaseLast24HoursManager(models.Manager):
+    def get_queryset(self):
+        queryset = super(PurchaseLast24HoursManager, self).get_queryset()
+        now = datetime.now()
+        deep_now = now - timedelta(hours=24)
+        return queryset.filter(timestamp__gte=deep_now)
 
 
 class Purchase(models.Model):
@@ -13,6 +23,9 @@ class Purchase(models.Model):
     stripe_price = models.IntegerField(default=0)
     completed = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    objects = models.Manager()
+    last24hours_manager = PurchaseLast24HoursManager()
 
     class Meta:
         ordering = ('-timestamp',)
