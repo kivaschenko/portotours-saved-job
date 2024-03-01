@@ -103,7 +103,7 @@ def stripe_webhook(request):
         event = stripe.Event.construct_from(
             json.loads(payload), stripe.api_key
         )
-        logger.info(f"Received event: {event}.\n")
+        logger.info(f"Received event: {event.id}.\n")
     except ValueError as e:
         # Invalid payload
         return HttpResponse(status=400)

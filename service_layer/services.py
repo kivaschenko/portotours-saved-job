@@ -39,53 +39,24 @@ def update_purchase_by_stripe_session(session_id: str, payment_intent_id: str, c
 def set_real_user_in_purchase(session_id: str, customer_id: str):
     purchases = Purchase.last24hours_manager.filter(stripe_checkout_session_id=session_id, user_id__in=[None, 0, 1])
     if purchases:
-        profile = Profile.objects.get(stripe_customer_id=customer_id)
-        for purchase in purchases:
-            if purchase.user_id == 1:  # no real user, admin assigned
-                purchase.user = profile.user
-                purchase.save()
+        try:
+            profile = Profile.objects.get(stripe_customer_id=customer_id)
+            for purchase in purchases:
+                if purchase.user_id == 1:  # no real user, admin assigned
+                    purchase.user = profile.user
+                    purchase.save()
+                    # Update user in products
+                    products = purchase.products.all()
+                    for product in products:
+                        product.user = purchase.user
+                        product.save()
+                        logger.info(f"Updated user for {product}\n")
+
+        except Exception as e:
+            logger.error(f"Exception while handling purchase: {e}")
 
 
 # Profile services
-
-def handle_customer_created(customer):
-    try:
-        email = customer.email
-        # Check if user exists based on the received data
-        if not User.objects.filter(username=email).exists():
-            if customer.name:
-                first_name, last_name = get_first_last_name(customer.name)
-            else:
-                first_name, last_name = None, None
-            # Create a new user
-            new_user, new_password = User.objects.create_user_without_password(email, first_name=first_name, last_name=last_name)
-            logger.info(f"New user: {new_user}\n")
-            # Send password to the user by email
-            send_mail(
-                'Your New Password',
-                f'Your new password is: {new_password}',
-                settings.EMAIL_HOST_USER,
-                [new_user.email],
-                fail_silently=False,
-            )
-        # extract data
-        data = dict(
-            stripe_customer_id=customer.id,
-            name=customer['name'],
-            phone=customer['phone'],
-            address_city=customer['address']['city'],
-            address_country=customer['address']['country'],
-            address_line1=customer['address']['line1'],
-            address_line2=customer['address']['line2'],
-            address_postal_code=customer['address']['postal_code'],
-            address_state=customer['address']['state'],
-        )
-        profile = Profile(user=new_user, email=email, **data)
-        profile.save()
-        logger.info(f'Profile created with id: {profile.id}')
-    except Exception as e:
-        logger.error(f"Exception while handling customer: {e}")
-
 
 def get_first_last_name(customer_name):
     first_name = last_name = ''
@@ -102,9 +73,8 @@ def get_first_last_name(customer_name):
 
 
 def create_profile_and_generate_password(stripe_customer_id: str = None, name: str = None, email: str = None, phone: str = None,
-                                         address_city: str = None, address_country: str = None,
-                                         address_line1: str = None, address_line2: str = None,
-                                         address_postal_code: str = None, address_state: str = None) -> str:
+                                         address_city: str = None, address_country: str = None, address_line1: str = None, address_line2: str = None,
+                                         address_postal_code: str = None, address_state: str = None, **kwargs) -> str:
     if email is None:
         return ''
     try:
