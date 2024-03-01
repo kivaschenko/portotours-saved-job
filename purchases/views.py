@@ -124,7 +124,7 @@ def stripe_webhook(request):
         print(f'Payment intent: {payment_intent}')  # TODO: add handler
     if event.type == 'customer.created':
         customer = event['data']['object']
-        print(f'Inside webhook, customer:', {customer})
+        print(f'Inside webhook, customer: {customer}')
         handle_customer_created(customer)
     else:
         logger.info('Unhandled event type {}'.format(event['type']))
