@@ -27,16 +27,10 @@ def update_purchase_customer(event: events.StripeSessionCompleted):
 def create_new_profile(event: events.StripeCustomerCreated):
     # Convert the dataclass instance to a dictionary
     event_dict = event.__dict__
-
     # handle event data
-    new_password = services.create_profile_and_generate_password(**event_dict)
-
-    # pass new password as attribute to next step to send by email
-    event.password = new_password
+    services.create_profile_and_generate_password(**event_dict)
 
 
-def send_new_password(event: events.StripeCustomerCreated):
-    services.send_new_password_by_email(event.email, event.password)
 
 
 # Main handlers dict
@@ -48,6 +42,5 @@ HANDLERS = {
     ],
     events.StripeCustomerCreated: [
         create_new_profile,
-        send_new_password,
     ]
 }
