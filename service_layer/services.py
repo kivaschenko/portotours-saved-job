@@ -1,5 +1,6 @@
 import logging
 import stripe
+import time
 
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -36,11 +37,25 @@ def update_purchase_by_stripe_session(session_id: str, payment_intent_id: str, c
         logger.error(f"Exception while handling payment: {e}")
 
 
-def set_real_user_in_purchase(session_id: str, customer_id: str):
+def set_real_user_in_purchase(session_id: str, customer_id: str, max_attempts=3, retry_delay=5):
+    attempt = 0
+
+    while attempt < max_attempts:
+        try:
+            profile = Profile.objects.get(stripe_customer_id=customer_id)
+            break  # If profile is successfully fetched, exit the loop
+        except Profile.DoesNotExist:
+            attempt += 1
+            if attempt >= max_attempts:
+                logger.error("Max attempts reached. Could not fetch profile.")
+                return
+
+            logger.warning(f"Profile not found. Retrying in {retry_delay} seconds...")
+            time.sleep(retry_delay)
+
     purchases = Purchase.last24hours_manager.filter(stripe_checkout_session_id=session_id, user_id__in=[None, 0, 1])
     if purchases:
         try:
-            profile = Profile.objects.get(stripe_customer_id=customer_id)
             for purchase in purchases:
                 if purchase.user_id == 1:  # no real user, admin assigned
                     purchase.user = profile.user
@@ -48,7 +63,7 @@ def set_real_user_in_purchase(session_id: str, customer_id: str):
                     # Update user in products
                     products = purchase.products.all()
                     for product in products:
-                        product.user = purchase.user
+                        product.customer = purchase.user
                         product.save()
                         logger.info(f"Updated user for {product}\n")
 
@@ -74,9 +89,9 @@ def get_first_last_name(customer_name):
 
 def create_profile_and_generate_password(stripe_customer_id: str = None, name: str = None, email: str = None, phone: str = None,
                                          address_city: str = None, address_country: str = None, address_line1: str = None, address_line2: str = None,
-                                         address_postal_code: str = None, address_state: str = None, **kwargs) -> str:
+                                         address_postal_code: str = None, address_state: str = None, **kwargs) -> None:
     if email is None:
-        return ''
+        return
     try:
         if not User.objects.filter(username=email).exists():
             if name is not None:
@@ -93,7 +108,7 @@ def create_profile_and_generate_password(stripe_customer_id: str = None, name: s
                               address_state=address_state)
             profile.save()
             logger.info(f'Profile created with id: {profile.id}')
-            return new_password
+            send_new_password_by_email(profile.email, new_password, profile.name)
 
     except Exception as e:
         logger.error(f"Exception while handling customer: {e}")
@@ -103,7 +118,6 @@ def send_new_password_by_email(email: str, password: str, name: str = '',
                                subject: str = 'Your New Password',
                                template_name: str = 'email_templates/new_password_email.html',
                                from_email: str = 'One Day Tours <info@onedaytours.com>'):
-
     # Render the HTML template with the provided context
     html_message = render_to_string(template_name, {'password': password, 'name': name})
 

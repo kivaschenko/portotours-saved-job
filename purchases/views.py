@@ -141,3 +141,25 @@ def stripe_webhook(request):
 
 class ConfirmationView(TemplateView):
     template_name = 'purchases/confirmation.html'
+
+    def setup(self, request, *args, **kwargs):
+        super(ConfirmationView, self).setup(request, *args, **kwargs)
+        if session_id := request.GET.get('session_id'):
+            self.kwargs['session_id'] = session_id
+
+    def get_context_data(self, **kwargs):
+        kwargs = super().get_context_data(**kwargs)
+        session_id = self.kwargs.get('session_id')  # Retrieve session_id from kwargs
+        if session_id:
+            # Check session status
+            session = stripe.checkout.Session.retrieve(session_id)
+            customer_email = session['customer_details']['email']
+            kwargs['customer_email'] = customer_email
+            if session.status == 'complete':
+                # Get Purchase instance
+                purchase = Purchase.last24hours_manager.get(stripe_checkout_session_id=session.id)
+                object_list = purchase.products.all()
+                kwargs.update({'purchase': purchase, 'status': 'complete', 'object_list': object_list})
+            elif session.status == 'open':
+                kwargs['status'] = 'open'
+        return kwargs

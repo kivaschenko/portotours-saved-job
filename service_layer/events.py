@@ -42,4 +42,3 @@ class StripeCustomerCreated(Event):
     address_line2: str
     address_postal_code: str
     address_state: str
-    password: str = ""
