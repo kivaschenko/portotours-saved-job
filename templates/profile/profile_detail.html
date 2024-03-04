@@ -19,7 +19,7 @@
                         <li class="nav-item">
                             <form method="post" action="{% url 'logout' %}">
                                 {% csrf_token %}
-                                <button class="btn btn-outline-danger m-2" type="submit">logout</button>
+                                <button class="btn btn-danger m-2" type="submit">logout</button>
                             </form>
                         </li>
                     </ul>
@@ -74,7 +74,7 @@
                             </tr>
                             </tbody>
                         </table>
-                        <a href="#" class="btn btn-outline-warning">Update</a>
+                        <a href="{% url 'address-update' %}" class="btn btn-warning">Update</a>
                     </div>
                     <div id="shippingAddress">
                         <h3>Shipping Address</h3>
@@ -114,7 +114,7 @@
                             </tr>
                             </tbody>
                         </table>
-                        <a href="#" class="btn btn-outline-warning">Update</a>
+                        <a href="{% url 'shipping-address-update' %}" class="btn btn-warning">Update</a>
                     </div>
                     <div id="myOrders">
                         <h3>My orders</h3>
@@ -141,7 +141,7 @@
                                         <td>{{ product.total_price }}</td>
                                         <td>{{ product.status }}</td>
                                         <td>
-                                            {% if product.status == 'Payment' %}<a href="#" class="btn btn-outline-success">Get PDF file</a>
+                                            {% if product.status == 'Payment' %}<a href="#" class="btn btn-success">Get PDF file</a>
                                             {% else %}Not allowed
                                             {% endif %}
                                         </td>
