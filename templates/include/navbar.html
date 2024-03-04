@@ -15,7 +15,7 @@
             <!- User menu -->
             <div class="user-profile" style="margin-right: 2rem;">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'profile' user.id %}">
+                    <a href="{% url 'profile' %}">
                         <img src="{% static 'icons/person.svg' %}" alt="user icon">
                     </a>
                 {% else %}

@@ -97,7 +97,7 @@ class Profile(models.Model):
     address_state = models.CharField(max_length=160, blank=True, null=True)
     # shipping address
     shipping_address_city = models.CharField(max_length=160, blank=True, null=True)
-    shipping_address_country = models.CharField(max_length=2, blank=True, null=True)
+    shipping_address_country = models.CharField(max_length=220, blank=True, null=True)
     shipping_address_line1 = models.CharField(max_length=160, blank=True, null=True)
     shipping_address_line2 = models.CharField(max_length=160, blank=True, null=True)
     shipping_address_postal_code = models.CharField(max_length=10, blank=True, null=True)

@@ -2,12 +2,18 @@ import logging
 import json
 import stripe
 
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Table, TableStyle
+from reportlab.lib import colors
+
 from django.http import JsonResponse
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.urls import reverse_lazy
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, TemplateView
+from django.contrib.auth.decorators import login_required
 
 from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
@@ -54,7 +60,7 @@ def checkout_view(request):
         session_data = dict(
             mode='payment',
             ui_mode='embedded',
-            billing_address_collection='required',
+            billing_address_collection='auto',
             return_url=confirmation_url,
         )
 
@@ -77,11 +83,13 @@ def checkout_view(request):
         session_data.update({'line_items': line_items})
 
         if user.is_authenticated:
-            purchase = Purchase.objects.create(user=user, stripe_price=total_amount)
-            session_data.update({"customer_creation": "if_required"})
+            purchase = Purchase.objects.create(user=user, stripe_price=total_amount, stripe_customer_id=user.profile.stripe_customer_id)
+            session_data.update({'customer': user.profile.stripe_customer_id})
         else:
             purchase = Purchase.objects.create(stripe_price=total_amount)
+            # if new anonymous user, then create a new Stripe customer with billing address
             session_data.update({"customer_creation": "always"})
+            session_data.update({"billing_address_collection": 'required'})
         purchase.products.set(products)
 
         checkout_session = stripe.checkout.Session.create(**session_data)
@@ -163,3 +171,45 @@ class ConfirmationView(TemplateView):
             elif session.status == 'open':
                 kwargs['status'] = 'open'
         return kwargs
+
+
+@login_required
+def generate_purchase_pdf(request, purchase_id):
+    # Retrieve the purchase object
+    purchase = Purchase.objects.get(pk=purchase_id)
+
+    # Create a response object
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="purchase_{purchase_id}.pdf"'
+
+    # Create a canvas object
+    c = canvas.Canvas(response, pagesize=letter)
+
+    # Set up the initial position for drawing
+    y_position = 750
+
+    # Add logo image
+    logo_path = 'static/images/attraction-img1.png'
+    c.drawImage(logo_path, 100, 750, width=100, height=100)
+
+    # Draw the product table
+    data = [['Product Name', 'Adult', 'Children', 'Date | Time', 'Price']]
+    for product in purchase.products.all():
+        data.append([product.parent_experience, f"{product.adults_count} x {product.adults_price} EUR", f"{product.child_count} x {product.child_price}", f"{product.date_of_start} | {product.time_of_start}", f"{product.total_price} EUR"])
+
+    table = Table(data)
+    table.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                               ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                               ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                               ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                               ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                               ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+                               ('GRID', (0, 0), (-1, -1), 1, colors.black)]))
+    table.wrapOn(c, 100, 600)
+    table.drawOn(c, 100, 600)
+
+    c.showPage()
+    c.save()
+
+    return response
+
