@@ -2,12 +2,18 @@ import logging
 import json
 import stripe
 
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Table, TableStyle
+from reportlab.lib import colors
+
 from django.http import JsonResponse
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.urls import reverse_lazy
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, TemplateView
+from django.contrib.auth.decorators import login_required
 
 from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
@@ -165,3 +171,45 @@ class ConfirmationView(TemplateView):
             elif session.status == 'open':
                 kwargs['status'] = 'open'
         return kwargs
+
+
+@login_required
+def generate_purchase_pdf(request, purchase_id):
+    # Retrieve the purchase object
+    purchase = Purchase.objects.get(pk=purchase_id)
+
+    # Create a response object
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="purchase_{purchase_id}.pdf"'
+
+    # Create a canvas object
+    c = canvas.Canvas(response, pagesize=letter)
+
+    # Set up the initial position for drawing
+    y_position = 750
+
+    # Add logo image
+    logo_path = 'static/images/attraction-img1.png'
+    c.drawImage(logo_path, 100, 750, width=100, height=100)
+
+    # Draw the product table
+    data = [['Product Name', 'Adult', 'Children', 'Date | Time', 'Price']]
+    for product in purchase.products.all():
+        data.append([product.parent_experience, f"{product.adults_count} x {product.adults_price} EUR", f"{product.child_count} x {product.child_price}", f"{product.date_of_start} | {product.time_of_start}", f"{product.total_price} EUR"])
+
+    table = Table(data)
+    table.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                               ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                               ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                               ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                               ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                               ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+                               ('GRID', (0, 0), (-1, -1), 1, colors.black)]))
+    table.wrapOn(c, 100, 600)
+    table.drawOn(c, 100, 600)
+
+    c.showPage()
+    c.save()
+
+    return response
+
