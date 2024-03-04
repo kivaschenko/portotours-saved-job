@@ -54,7 +54,7 @@ def checkout_view(request):
         session_data = dict(
             mode='payment',
             ui_mode='embedded',
-            billing_address_collection='required',
+            billing_address_collection='auto',
             return_url=confirmation_url,
         )
 
@@ -77,11 +77,13 @@ def checkout_view(request):
         session_data.update({'line_items': line_items})
 
         if user.is_authenticated:
-            purchase = Purchase.objects.create(user=user, stripe_price=total_amount)
-            session_data.update({"customer_creation": "if_required"})
+            purchase = Purchase.objects.create(user=user, stripe_price=total_amount, stripe_customer_id=user.profile.stripe_customer_id)
+            session_data.update({'customer': user.profile.stripe_customer_id})
         else:
             purchase = Purchase.objects.create(stripe_price=total_amount)
+            # if new anonymous user, then create a new Stripe customer with billing address
             session_data.update({"customer_creation": "always"})
+            session_data.update({"billing_address_collection": 'required'})
         purchase.products.set(products)
 
         checkout_session = stripe.checkout.Session.create(**session_data)
