@@ -31,10 +31,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']  # for dbug in CI/CD
-if DEBUG:
-    BASE_ENDPOINT = 'http://127.0.0.1:8000'
-else:
-    BASE_ENDPOINT = os.environ.get('BASE_ENDPOINT', 'http://127.0.0.1:8000')
+BASE_ENDPOINT = os.environ.get('BASE_ENDPOINT')
 
 # Django debug toolbar
 # See https://django-debug-toolbar.readthedocs.io/en/latest/index.html
@@ -217,6 +214,22 @@ LOGGING = {
             "propagate": True,
         },
         "products": {
+            "handlers": [
+                "log_to_stdout",
+                "log_to_file"
+            ],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "purchases": {
+            "handlers": [
+                "log_to_stdout",
+                "log_to_file"
+            ],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "accounts": {
             "handlers": [
                 "log_to_stdout",
                 "log_to_file"

@@ -21,16 +21,87 @@
             <p><small>There are some implementation for milestones of order and payment process...</small></p>
         </div>
         <section id="success" class="hidden">
+            <h3>Confirmation</h3>
+            <p>Your booking is confirmed. Please check the details below.</p>
+
+            <p><small>Edit this design as you need...</small></p>
+
+            {% if purchase %}
+
+                {% if object_list %}
+                    {% for object in object_list %}
+                        <div class="card mb-3" style="max-width: 100%;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{ object.parent_experience.card_image.url }}" class="img-fluid rounded-start"
+                                         alt="card image preview for {{ object.parent_experience }}">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ object.parent_experience.parent_name }}</h5>
+                                        <table class="table table-borderless">
+                                            <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Time UTC</th>
+                                                <th>Type</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>{{ object.date_of_start }}</td>
+                                                <td>{{ object.time_of_start }}</td>
+                                                <td>{% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}</td>
+                                            </tr>
+                                            </tbody>
+
+                                            <thead>
+                                            <tr>
+                                                <th>Language</th>
+                                                <th>Adult & Price</th>
+                                                <th>Children & Price</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+                                                <td>{{ object.language }}</td>
+                                                <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
+                                                <td>{{ object.child_count }} x {{ object.child_price }} EUR</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+
             <p>
-                We appreciate your business! A confirmation email will be sent to <span id="customer-email"></span>.
+                We appreciate your business! A confirmation email will be sent to <span id="customer-email" class="d-inline p-2 bg-dark text-white"></span>.
 
                 If you have any questions, please email <a href="mailto:orders@example.com">orders@example.com</a>.
             </p>
+        <div>
+            <a href="{% url 'generate-pdf' purchase.id %}" class="btn btn-success">Download PDF</a>
+        </div>
         </section>
     </div>
 
     <!-- Custom JS import -->
+    <script>
+        const sessionStatus = `{{ status }}`;
+        const customerEmail = `{{ customer_email }}`;
 
+        if (sessionStatus === 'open') {
+            window.replace("{% url 'payment-form' lang='en' %}")
+        } else if (sessionStatus === 'complete') {
+            document.getElementById('success').classList.remove('hidden');
+            document.getElementById('customer-email').textContent = customerEmail;
+        }
+    </script>
 
     <!-- For language selector -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load crispy_forms_field %}
+{% load static %}
+{% block head %}
+    <title>{{ object.page_title }}</title>
+    <meta name="description" content="{{ object.page_description }}">
+    <meta name="keywords" content="{{ object.page_keywords }}">
+    <!-- Include jQuery and jQuery UI for datepicker -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize datepicker
+            $(".datepicker").datepicker({
+                // Add any additional options here
+                dateFormat: 'yy-mm-dd',
+                // Highlight specific dates
+                beforeShowDay: function (date) {
+                    const highlightDates = {{ occurrences|safe }};
+                    const stringDate = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                    return [highlightDates.includes(stringDate), 'highlighted-date'];
+                }
+            });
+        });
+    </script>
+    <style>
+        .ui-state-default, .ui-widget-content .ui-state-default {
+            border: 1px solid #c5c5c5;
+            background: #F0500B;
+            font-weight: bold;
+            color: #454545;
+        }
+
+        .highlighted-date {
+            background-color: #F0500B; /* Define your desired background color */
+            font-weight: bold;
+        }
+    </style>
+{% endblock head %}
+{% block content %}
+
+   
+    <div class="container">
+        <!-- FastBookingForm block -->
+        <form class="row gx-3 gy-2 align-items-center" method="post" action="">
+            {% csrf_token %}
+            <div id="div_id_adult" class="col-sm-2">
+                <label for="id_adult" class="form-label requiredField">
+                    Adult<span class="asteriskField">*</span>
+                </label>
+                {{ form.adult }}
+            </div>
+            <div id="div_id_children" class="col-sm-2">
+                <label for="id_children" class="form-label requiredField">
+                    Children<span class="asteriskField">*</span>
+                </label>
+                {{ form.children }}
+            </div>
+            <div id="div_id_date" class="col-sm-4">
+                <label for="id_date" class="form-label requiredField">
+                    When?<span class="asteriskField">*</span>
+                </label>
+                {{ form.date }}
+            </div>
+            <div id="div_id_language" class="col-sm-2">
+                <label for="id_language" class="form-label requiredField">
+                    Language<span class="asteriskField">*</span>
+                </label>
+                {{ form.language }}
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">BOOK</button>
+            </div>
+        </form>
+        <!-- /FastBookingForm block -->
+
+    <script>
+        // Define all window.location.pathname according language value
+        const languages = {{ languages|safe }};  // from response extra_context
+        // Define current language according object.language
+        const currentLanguage = `{{ current_language }}`  // from response extra_context
+
+    </script>
+
+    <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
+{% endblock %}

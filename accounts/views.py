@@ -1,11 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, UpdateView, DetailView
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 
-from .forms import CustomSignupForm
-from accounts.models import User
+from .forms import CustomSignupForm, AddressForm, ShippingAddressForm
+from accounts.models import User, Profile
 
 
 # HOME
@@ -44,3 +44,27 @@ class LogoutView(LoginRequiredMixin, TemplateView):
 class ProfileView(LoginRequiredMixin, DetailView):
     template_name = 'profile/profile_detail.html'
     model = User
+    
+    def get_object(self, queryset=None):
+        # Get the user from the request
+        return self.request.user
+
+
+class AddressUpdateView(UpdateView):
+    model = Profile
+    form_class = AddressForm
+    template_name = 'profile/address_form.html'
+    success_url = reverse_lazy('profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+
+class ShippingAddressUpdateView(UpdateView):
+    model = Profile
+    form_class = ShippingAddressForm
+    template_name = 'profile/shipping_address_form.html'
+    success_url = reverse_lazy('profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile

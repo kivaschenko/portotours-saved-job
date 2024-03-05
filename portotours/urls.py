@@ -25,7 +25,9 @@ urlpatterns = [
     # accounts/password_reset/done/ [name='password_reset_done']
     # accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
     # accounts/reset/done/ [name='password_reset_complete']
-    path("accounts/profile/<int:pk>/", accounts_views.ProfileView.as_view(), name="profile"),
+    path("accounts/profile/", accounts_views.ProfileView.as_view(), name="profile"),
+    path("accounts/profile/update-address/", accounts_views.AddressUpdateView.as_view(), name="address-update"),
+    path("accounts/profile/upate-shipping-address/", accounts_views.ShippingAddressUpdateView.as_view(), name="shipping-address-update"),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
 
@@ -48,6 +50,7 @@ urlpatterns += [
 urlpatterns += [
     path('experiences/<str:lang>/', products_views.ExperienceListView.as_view(), name="experience-list"),
     path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailWithFormView.as_view(), name='experience-detail'),
+    path('experience-booking-debug/<str:lang>/<slug:slug>/', products_views.ExperienceDebugBookingView.as_view(), name='experience-debug-booking'),
 ]
 
 # Calendar, Events
@@ -63,6 +66,7 @@ urlpatterns += [
     path('products/<int:pk>/cancel/', products_views.CancelProductView.as_view(), name='cancel-product'),
     path('payment-form/<str:lang>/', purchases_views.BillingDetailView.as_view(), name='payment-form'),
     path('confirmation/<str:lang>/', purchases_views.ConfirmationView.as_view(), name='confirmation'),
+    path('purchase/get-pdf/<int:purchase_id>/', purchases_views.generate_purchase_pdf, name='generate-pdf'),
 ]
 
 # BLOGS

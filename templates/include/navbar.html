@@ -15,7 +15,7 @@
             <!- User menu -->
             <div class="user-profile" style="margin-right: 2rem;">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'profile' user.id %}">
+                    <a href="{% url 'profile' %}">
                         <img src="{% static 'icons/person.svg' %}" alt="user icon">
                     </a>
                 {% else %}
@@ -132,6 +132,11 @@
                             <li><a class="dropdown-item" href="#">Another action</a></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link body-text-b3" aria-current="page" href="{% url 'experience-debug-booking' lang='en' slug='explore-main-portos-attractions-in-one-day' %}">
+                            [Debug Fast Booking form]
+                        </a>
                     </li>
                 </ul>
             </div>
