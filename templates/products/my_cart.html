@@ -6,114 +6,146 @@
     <title>My Cart | first step</title>
 {% endblock head %}
 {% block content %}
-    <div class="container">
-        <!-- Breadcrumbs -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">Step 1</li>
-                <li class="breadcrumb-item active" aria-current="page">Step 2</li>
-                <li class="breadcrumb-item active" aria-current="page">Step 3</li>
-            </ol>
-        </nav>
-
-        <div class="cart-milestones">
-            <h2>1 Step: Basket</h2>
-            <p><small>There are some implementation for milestones of order and payment process...</small></p>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-9 col-md-9">
-                {% if object_list %}
-                    {% for object in object_list %}
-                        <div class="card mb-3" style="max-width: 100%;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="{{ object.parent_experience.card_image.url }}" class="img-fluid rounded-start"
-                                         alt="card image preview for {{ object.parent_experience }}">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ object.parent_experience.parent_name }}</h5>
-                                        <table class="table table-borderless">
-                                            <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Time UTC</th>
-                                                <th>Type</th>
-                                                <th>Expired time UTC</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>{{ object.date_of_start }}</td>
-                                                <td>{{ object.time_of_start }}</td>
-                                                <td>{% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}</td>
-                                                <td>{{ object.expired_time }}</td>
-                                            </tr>
-                                            </tbody>
-
-                                            <thead>
-                                            <tr>
-                                                <th>Language</th>
-                                                <th>Adult & Price</th>
-                                                <th>Children & Price</th>
-                                                <th>Cancellation</th>
-                                            </tr>
-                                            </thead>
-
-                                            <tbody>
-                                            <tr>
-                                                <td>{{ object.language }}</td>
-                                                <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
-                                                <td>{{ object.child_count }} x {{ object.child_price }} EUR</td>
-                                                <td><!-- Button to cancel -->
-                                                    <a href="{% url 'cancel-product' object.pk %}" class="btn btn-outline-danger">
-                                                        <img src="{% static 'icons/trash.svg' %}" alt="">
-                                                        Cancel
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+    <div class="cart">
+        <div class="container">
+            <div class="cart-steps-wrapper">
+                <ul class="cart-steps">
+                    <li class="cart-step-item finished">
+                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        <p class="step-text body-text-b4">
+                            1 Step
+                        </p>
+                        <p class="body-text-b3 step-title">
+                            Basket
+                        </p>
+                    </li>
+                    <li class="cart-step-item active">
+                        <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        <p class="step-text body-text-b4">
+                            2 Step
+                        </p>
+                        <p class="body-text-b3 step-title">
+                            Billing details
+                        </p>
+                    </li>
+                    <li class="cart-step-item">
+                        <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        <p class="step-text body-text-b4">
+                            3 Step
+                        </p>
+                        <p class="body-text-b3 step-title">
+                            Confirmation
+                        </p>
+                    </li>
+                </ul>
+            </div>
+    
+            <div class="cart-milestones">
+                <h2>1 Step: Basket</h2>
+                <p><small>There are some implementation for milestones of order and payment process...</small></p>
+            </div>
+    
+            <div class="row">
+                <div class="col-lg-9 col-md-9">
+                    {% if object_list %}
+                        {% for object in object_list %}
+                            <div class="card mb-3" style="max-width: 100%;">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="{{ object.parent_experience.card_image.url }}" class="img-fluid rounded-start"
+                                             alt="card image preview for {{ object.parent_experience }}">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ object.parent_experience.parent_name }}</h5>
+                                            <table class="table table-borderless">
+                                                <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Time UTC</th>
+                                                    <th>Type</th>
+                                                    <th>Expired time UTC</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>{{ object.date_of_start }}</td>
+                                                    <td>{{ object.time_of_start }}</td>
+                                                    <td>{% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}</td>
+                                                    <td>{{ object.expired_time }}</td>
+                                                </tr>
+                                                </tbody>
+    
+                                                <thead>
+                                                <tr>
+                                                    <th>Language</th>
+                                                    <th>Adult & Price</th>
+                                                    <th>Children & Price</th>
+                                                    <th>Cancellation</th>
+                                                </tr>
+                                                </thead>
+    
+                                                <tbody>
+                                                <tr>
+                                                    <td>{{ object.language }}</td>
+                                                    <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
+                                                    <td>{{ object.child_count }} x {{ object.child_price }} EUR</td>
+                                                    <td><!-- Button to cancel -->
+                                                        <a href="{% url 'cancel-product' object.pk %}" class="btn btn-outline-danger">
+                                                            <img src="{% static 'icons/trash.svg' %}" alt="">
+                                                            Cancel
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-
-            </div>
-            <div class="col-lg-3 col-md-3">
-                <div class="some-total-lines">
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                            <th>Total by old prices:</th>
-                            <td>{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %} EUR</td>
-                        </tr>
-                        <tr>
-                            <th>Discount sum:</th>
-                            <td>{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %} EUR</td>
-                        </tr>
-                        <tr>
-                            <th>Total</th>
-                            <th>{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %} EUR</th>
-                        </tr>
-                        </tbody>
-                    </table>
+                        {% endfor %}
+                    {% endif %}
+    
                 </div>
-                <a id="checkout-button" class="btn btn-primary" href="{% url 'payment-form' lang='en' %}">CHECKOUT</a>
-                <hr>
-                <h5>Some needed header</h5>
-                <ul>
-                    <li>some policy point checkbox</li>
-                    <li>some policy point checkbox</li>
-                    <li>some policy point checkbox</li>
-                    <li>some policy point checkbox</li>
-                </ul>
+                <div class="col-lg-3 col-md-3">
+                    <div class="some-total-lines">
+                        <table class="table table-borderless">
+                            <tbody>
+                            <tr>
+                                <th>Total by old prices:</th>
+                                <td>{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %} EUR</td>
+                            </tr>
+                            <tr>
+                                <th>Discount sum:</th>
+                                <td>{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %} EUR</td>
+                            </tr>
+                            <tr>
+                                <th>Total</th>
+                                <th>{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %} EUR</th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a id="checkout-button" class="btn btn-primary" href="{% url 'payment-form' lang='en' %}">CHECKOUT</a>
+                    <hr>
+                    <h5>Some needed header</h5>
+                    <ul>
+                        <li>some policy point checkbox</li>
+                        <li>some policy point checkbox</li>
+                        <li>some policy point checkbox</li>
+                        <li>some policy point checkbox</li>
+                    </ul>
+                </div>
             </div>
         </div>
-
+        
+       
+    </div>
         <!-- For language selector -->
         <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 {% endblock %}

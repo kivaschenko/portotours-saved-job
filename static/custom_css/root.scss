@@ -210,3 +210,9 @@ h5 {
         color: white;
     }
 }
+
+html.off-scroll,
+html.off-scroll body {
+  overflow: hidden;
+  touch-action: none;
+}

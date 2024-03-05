@@ -1,0 +1,82 @@
+.cart {
+    .container {
+        padding-top: 32px;
+        padding-bottom: 160px;
+    }
+    .cart-steps-wrapper {
+        max-width: 870px;
+        margin: 0 auto 40px;
+        .cart-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: 0;
+            list-style: none;
+            .cart-step-item {
+                text-align: center;
+                width: 100px;
+                position: relative;
+                &:not(:first-child) {
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        width: 320px;
+                        height: 2px;
+                        background-color: #FFF1EB;
+                        top: 25px;
+                        right: 80px;
+                    }
+                }
+                img {
+                    display: block;
+                    width: 52px;
+                    height: 52px;
+                    margin: 0 auto 13px;
+                    &.active {
+                        display: none;
+                    }
+                    &.finished {
+                        display: none;
+                    }
+                }
+                .step-text {
+                    color: #6D6D6D;
+                    margin-bottom: 2px;
+                }
+                .step-title {
+                    color: #0F0F10;
+                    margin-bottom: 0;
+                    text-transform: capitalize;
+                }
+                &.active {
+                    &::before {
+                        background-color: #F0500B;
+                    }
+                    img {
+                        &.active {
+                            display: block;
+                        }
+                        &.disabled {
+                            display: none;
+                        }
+                    }
+                }
+                &.finished {
+                    
+                    img {
+                        &.active {
+                            display: none;
+                        }
+                        &.disabled {
+                            display: none;
+                        }
+                        &.finished {
+                            display: block;
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+}

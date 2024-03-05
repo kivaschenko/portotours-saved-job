@@ -12,7 +12,19 @@
     
 {% endblock head %}
 {% block content %}
-
+    <div class="mobile-form-btn-wrapper">
+        <div class="container">
+            <p class="mobile-form-btn-title">
+                From  
+                <span>
+                    € 20
+                </span>
+            </p>
+            <a href="#" class="btn-type-1 mobile-form-btn">
+                check availability
+            </a>
+        </div>
+    </div>
     <section class="experience-hero">
         <div class="container">
             <div class="experience-hero-title-wrapper">
@@ -72,10 +84,10 @@
             </div>
         </div>
     </section>
-    <section class="why">
+    <section class="why experience-page why-slider">
         <div class="container">
             <h2 class="why-title">
-                Why book with OneDayTours?
+                Why book a full day experience to Sintra and Cabo da Roca with One Day Tours?
             </h2>
             <p class="why-subtitle body-text-b1">
                 Create the best of your experience by visiting Portugal with our exclusive tours
@@ -84,39 +96,75 @@
                 <div class="swiper-wrapper">
                     <div class="why-card swiper-slide">
                         <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            100+ Experiences in Portugal
-                        </p>
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                100+ Experiences in Portugal
+                            </p>
+                            <p class="why-subtext">
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                            </p>
+                        </div>
+                        
                     </div>
                     <div class="why-card swiper-slide">
                         <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            Guided by local experts
-                        </p>
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Guided by local experts
+                            </p>
+                            <p class="why-subtext">
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                            </p>
+                        </div>
+                        
                     </div>
                     <div class="why-card swiper-slide">
                         <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            Best price guarantee
-                        </p>
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Best price guarantee
+                            </p>
+                            <p class="why-subtext">
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                            </p>
+                        </div>
+                       
                     </div>
                     <div class="why-card swiper-slide">
                         <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            No hidden fees
-                        </p>
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                No hidden fees
+                            </p>
+                            <p class="why-subtext">
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                            </p>
+                        </div>
+                        
                     </div>
                     <div class="why-card swiper-slide">
                         <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            Free cancellation
-                        </p>
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Free cancellation
+                            </p>
+                            <p class="why-subtext">
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                            </p>
+                        </div>
+                        
                     </div>
                     <div class="why-card swiper-slide">
                         <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            Safe and secure website
-                        </p>
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Safe and secure website
+                            </p>
+                            <p class="why-subtext">
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                            </p>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -421,6 +469,7 @@
                 <div class="aside-form">
                     <div class="booking-form-wrapper">
                         <img src="{% static 'images/booking-form-banner.svg' %}" alt="form banner">
+                        <img src="{% static 'icons/icon-back.svg' %}" alt="go back" class="btn-back">
                         <p class="body-text-b3">Choose Date</p>
                         <form id="bookingForm">
                             <div class="calendar">
@@ -905,6 +954,23 @@
             });
             });
 
+
+            // open mobile form
+            let openMobileBookingFormBtn = document.querySelector('.mobile-form-btn')
+            let bookingForm = document.querySelector('.aside-form');
+            let htmlElement = document.documentElement;
+            let goBackBtn = document.querySelector('.btn-back');
+
+            openMobileBookingFormBtn.addEventListener('click', (e) => {
+                e.preventDefault()
+                bookingForm.classList.add('open-mobile');
+                htmlElement.classList.add('off-scroll');
+            });
+            goBackBtn.addEventListener('click', () => {
+                bookingForm.classList.remove('open-mobile');
+                htmlElement.classList.remove('off-scroll');
+            })
+
     </script>
 
     <script>
@@ -995,7 +1061,7 @@
         breakpoints: {
             200: {
                 spaceBetween: 14,
-                slidesPerView: 1.4,
+                slidesPerView: 1,
                 centeredSlides: true,
                 loop:true,
             },
