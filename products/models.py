@@ -13,7 +13,7 @@ from django.conf import settings
 
 from geopy.geocoders import Nominatim
 from ckeditor.fields import RichTextField
-from schedule.models import Event, Occurrence
+from schedule.models import Calendar, Event, Occurrence
 
 geolocator = Nominatim(timeout=5, user_agent="portotours")
 
@@ -151,7 +151,7 @@ class ParentExperience(models.Model):
     old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
                                     help_text="For marketing purposes, this adult old price will be higher than the new one.")
     child_old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
-                                    help_text="For marketing purposes, this child old price will be higher than the new one.")
+                                          help_text="For marketing purposes, this child old price will be higher than the new one.")
     meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
                                       on_delete=models.SET_NULL, null=True, blank=True)
     max_participants = models.IntegerField(null=True, blank=True, default=8, help_text="Maximum number of participants")
@@ -269,6 +269,24 @@ class Experience(models.Model):
 
     def display_possibility(self):
         return mark_safe(self.possibility)
+
+
+class ExperienceEvent(Event):
+    """This class inherits from Schedule Event and adds fields to define a unique price for a specific date and time. It also determines the specific
+    maximum number of participants, if it differs from that specified in the Parent Experience, also determines the remaining free seats and
+    how many seats have been sold.
+    """
+    max_participants = models.IntegerField(null=True, blank=True, help_text="Maximum number of participants, if 0 then inherit from Parent Experience.")
+    booked_participants = models.IntegerField(null=True, blank=True, help_text="Already booked places.")
+    remaining_participants = models.IntegerField(null=True, blank=True, help_text="Remaining participants.")
+    special_price = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2,
+                                        help_text="Special price if different from Parent Experience.")
+    child_special_price = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2,
+                                              help_text="Special child price if different from Parent Experience.")
+
+    class Meta:
+        verbose_name = "Experience Event"
+        verbose_name_plural = "Experience Event"
 
 
 # -------
