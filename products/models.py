@@ -158,8 +158,6 @@ class ParentExperience(models.Model):
     is_private = models.BooleanField(default=False, help_text="If this experience is private then to sale whole number "
                                                               "of participants as one purchase will be")
     updated_at = models.DateTimeField(auto_now=True)
-    # associate this Experience with Calendar Event
-    event = models.OneToOneField(Event, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.parent_name
