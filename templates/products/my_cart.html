@@ -131,11 +131,45 @@
                     {% endif %}
                 </div>
                 <div class="cart-order-info-col">
-
+                    <div class="order-info-wrapper">
+                        <p class="price">
+                            Neque porro quisquam
+                            <span>
+                                €50
+                            </span>
+                        </p>
+                        <p class="price">
+                            Знижка
+                            <span>
+                                €50
+                            </span>
+                        </p>
+                        <p class="total-price">
+                            Total
+                            <span>
+                                €50
+                            </span>
+                        </p>
+                        <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
+                            Button
+                        </a>
+                    </div>
+                    <div class="purchase-includes">
+                        <h4 class="purchase-includes-title">
+                            Your purchase includes:
+                        </h4>
+                        <ul>
+                            <li>Free cancellation policy</li>
+                            <li>24/7 customer support</li>
+                            <li>Best price on the market</li>
+                            <li>Qualified guides ( best guides/ top guides / Top-rated guides)</li>
+                            <li>Tours developed by local experts</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
     
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-lg-9 col-md-9">
                     {% if object_list %}
                         {% for object in object_list %}
@@ -180,7 +214,7 @@
                                                     <td>{{ object.language }}</td>
                                                     <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
                                                     <td>{{ object.child_count }} x {{ object.child_price }} EUR</td>
-                                                    <td><!-- Button to cancel -->
+                                                    <td>
                                                         <a href="{% url 'cancel-product' object.pk %}" class="btn btn-outline-danger">
                                                             <img src="{% static 'icons/trash.svg' %}" alt="">
                                                             Cancel
@@ -226,7 +260,7 @@
                         <li>some policy point checkbox</li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
         </div>
         
        

@@ -11518,7 +11518,7 @@ html.off-scroll body {
   color: #007728;
   margin-bottom: 0;
   font-size: 18px;
-  font-family: "LatoReglar";
+  font-family: "LatoRegular";
   line-height: 28px;
   display: flex;
   align-items: center;
@@ -11606,7 +11606,62 @@ html.off-scroll body {
               .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .hover-block .hover-block-btns-list .hover-block-item + .hover-block-item {
                 margin-top: 44px; }
   .cart .cart-cards-info .cart-order-info-col {
-    width: 310px; }
+    width: 310px;
+    margin-top: 24px; }
+    .cart .cart-cards-info .cart-order-info-col .order-info-wrapper {
+      width: 100%; }
+      .cart .cart-cards-info .cart-order-info-col .order-info-wrapper .price {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: "LatoRegular";
+        font-size: 14px;
+        line-height: 22px;
+        margin-bottom: 16px; }
+      .cart .cart-cards-info .cart-order-info-col .order-info-wrapper .total-price {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: "LatoMedium";
+        font-size: 26px;
+        line-height: 36px;
+        margin-bottom: 24px; }
+      .cart .cart-cards-info .cart-order-info-col .order-info-wrapper .order-btn {
+        width: 100%;
+        display: block;
+        text-align: center; }
+    .cart .cart-cards-info .cart-order-info-col .purchase-includes {
+      text-align: center;
+      margin-top: 60px; }
+      .cart .cart-cards-info .cart-order-info-col .purchase-includes .purchase-includes-title {
+        font-family: "LatoSemiBold";
+        font-size: 18px;
+        line-height: 28px;
+        margin-bottom: 20px; }
+      .cart .cart-cards-info .cart-order-info-col .purchase-includes ul {
+        padding-left: 0;
+        list-style: none;
+        text-align: left; }
+        .cart .cart-cards-info .cart-order-info-col .purchase-includes ul li {
+          font-family: "LatoRegular";
+          font-size: 16px;
+          line-height: 26px;
+          padding-left: 38px;
+          position: relative; }
+          .cart .cart-cards-info .cart-order-info-col .purchase-includes ul li + li {
+            margin-top: 16px; }
+          .cart .cart-cards-info .cart-order-info-col .purchase-includes ul li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background-image: url(../icons/purchase-icon.svg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center; }
 
 .btn-primary {
   background-color: #F0500B;
