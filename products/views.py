@@ -47,10 +47,6 @@ class ExperienceDetailWithFormView(FormView, DetailView):
                 lang = brother.language.code.lower()
                 url = brother.localized_url
                 self.extra_context['languages'].update({lang: url})
-        # TODO: add UserReview list about this Experience
-        occurrences_generator = self.object.parent_experience.event.occurrences_after(max_occurrences=100)
-        occurrences = [occ.start.strftime('%Y-%m-%d') for occ in occurrences_generator]
-        self.extra_context['occurrences'] = occurrences
         context.setdefault("view", self)
         if self.extra_context is not None:
             context.update(self.extra_context)
@@ -69,10 +65,6 @@ class ExperienceDetailWithFormView(FormView, DetailView):
                 lang = brother.language.code.lower()
                 url = brother.localized_url
                 self.extra_context['languages'].update({lang: url})
-        # TODO: add UserReview list about this Experience
-        occurrences_generator = obj.parent_experience.event.occurrences_after(max_occurrences=100)
-        occurrences = [occ.start.strftime('%Y-%m-%d') for occ in occurrences_generator]
-        self.extra_context['occurrences'] = mark_safe(occurrences)
         return obj
 
     def form_valid(self, form):
