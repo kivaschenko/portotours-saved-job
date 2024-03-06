@@ -1,6 +1,8 @@
 from django import forms
 
-from products.models import Language
+from schedule.models import Calendar
+
+from products.models import Language, ExperienceEvent
 
 
 class FastBookingForm(forms.Form):
@@ -29,3 +31,13 @@ class FastBookingForm(forms.Form):
     language = forms.ModelChoiceField(queryset=Language.objects.all(),
                                       widget=forms.Select(attrs={'class': 'form'}),
                                       initial=Language.objects.get(code='EN'))
+
+
+class ExperienceEventForm(forms.ModelForm):
+    class Meta:
+        model = ExperienceEvent
+        fields = '__all__'
+
+
+ExperienceEventFormSet = forms.inlineformset_factory(Calendar, ExperienceEvent, form=ExperienceEventForm
+                                                     )
