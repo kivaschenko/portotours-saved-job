@@ -51,7 +51,7 @@
                 Create the best of your experience by visiting Portugal with our exclusive tours
             </p>
             <div class="why-cards-wrapper">
-                <div class="swiper-wrapper">
+                
                     <div class="why-card swiper-slide">
                         <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
                         <p class="why-text">
@@ -88,7 +88,7 @@
                             Safe and secure website
                         </p>
                     </div>
-                </div>
+            
             </div>
         </div>
     </section>
@@ -500,7 +500,7 @@
         </div>
     </section>
 
-    <section class="testimonials-slider">
+    <section class="testimonials-slider-section">
         <div class="container">
             <h2 class="testimonials-title">
                 testimonials
@@ -598,34 +598,11 @@
                 clickable: true,
             },
         });
+
+        
     </script>
     <script>
-        const swiperWhy = new Swiper(".why-cards-wrapper", {
-        slidesPerView: 2,
-        speed: 10000,  
-        spaceBetween: 24,
-        autoplay: {
-            delay: 100,
-                
-        },
-        loop: true,
-        breakpoints: {
-            200: {
-                spaceBetween: 14,
-                slidesPerView: 1.4,
-                centeredSlides: true,
-                loop:true,
-            },
-            767: {
-                slidesPerView: 3,
-                spaceBetween: 44,
-                
-                
-            }
-        },
         
-        
-        });
         
         const swiperTestimonials = new Swiper(".testimonials-slider", {
             speed: 1000,
