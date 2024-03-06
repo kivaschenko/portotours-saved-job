@@ -5,8 +5,21 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 
 from ckeditor.widgets import CKEditorWidget
+from schedule.models import Calendar, CalendarRelation, Event, EventRelation, Occurrence, Rule
+from schedule.admin import EventAdmin, EventRelationAdmin, CalendarAdmin, CalendarRelationAdmin, RuleAdmin
 
 from products.models import *  # noqa
+from products.forms import ExperienceEventFormSet
+
+
+# Hide exceeded models from django-scheduler
+
+
+admin.site.unregister(Calendar)
+admin.site.unregister(CalendarRelation)
+admin.site.unregister(Event)
+admin.site.unregister(EventRelation)
+admin.site.unregister(Occurrence)
 
 
 # ------------
@@ -133,3 +146,13 @@ class ProductAdmin(admin.ModelAdmin):
         'created_at',
         'expired_time'
     ]
+
+
+class ExperienceEventInline(admin.TabularInline):
+    model = ExperienceEvent
+    formset = ExperienceEventFormSet
+
+
+@admin.register(Calendar)
+class CalendarAdmin(admin.ModelAdmin):
+    inlines = [ExperienceEventInline]
