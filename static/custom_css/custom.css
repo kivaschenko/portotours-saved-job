@@ -11499,6 +11499,115 @@ html.off-scroll body {
       .cart .cart-steps-wrapper .cart-steps .cart-step-item.finished img.finished {
         display: block; }
 
+.cart .cart-title-wrapper .cart-title {
+  color: #0F0F10;
+  margin-top: 0;
+  margin-bottom: 28px;
+  font-family: "LatoBold";
+  font-size: 40px;
+  line-height: 48px;
+  text-transform: capitalize;
+  text-align: center; }
+
+.cart .cart-title-wrapper .cart-title-info {
+  width: 100%;
+  border-radius: 10px;
+  background: #F3FAF5;
+  padding: 18px 0;
+  text-align: center;
+  color: #007728;
+  margin-bottom: 0;
+  font-size: 18px;
+  font-family: "LatoReglar";
+  line-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .cart .cart-title-wrapper .cart-title-info img {
+    display: block;
+    margin-right: 14px; }
+
+.cart .cart-cards-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 24px; }
+  .cart .cart-cards-info .cart-card-col {
+    width: calc(100% - 24px - 310px); }
+    .cart .cart-cards-info .cart-card-col .cart-card {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      border-radius: 16px;
+      width: calc(100% + 40px);
+      margin-left: -40px; }
+      .cart .cart-cards-info .cart-card-col .cart-card:hover {
+        background-color: #F8F8F8; }
+        .cart .cart-cards-info .cart-card-col .cart-card:hover .card-content-wrapper .hover-block {
+          display: block; }
+      .cart .cart-cards-info .cart-card-col .cart-card .img-wrapper {
+        width: 300px;
+        border-radius: 16px;
+        overflow: hidden; }
+        .cart .cart-cards-info .cart-card-col .cart-card .img-wrapper img {
+          display: block;
+          width: 100%; }
+      .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper {
+        width: calc(100% - 300px - 32px);
+        position: relative; }
+        .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .card-title {
+          color: #0F0F10;
+          font-family: "LatoSemiBold";
+          font-size: 18px;
+          line-height: 28px;
+          margin-bottom: 16px; }
+        .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .card-content-inner-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: start; }
+          .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .card-content-inner-wrapper .card-col + .card-col {
+            padding-left: 32px;
+            margin-left: 32px;
+            border-left: 1px solid #D9D9D9; }
+          .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .card-content-inner-wrapper .card-col .card-col-title {
+            color: #6D6D6D;
+            font-family: "LatoRegular";
+            font-size: 16px;
+            line-height: 26px;
+            margin-bottom: 10px; }
+          .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .card-content-inner-wrapper .card-col .card-col-text {
+            color: #0F0F10;
+            font-family: "LatoRegular";
+            font-size: 16px;
+            line-height: 26px;
+            margin-bottom: 20px; }
+            .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .card-content-inner-wrapper .card-col .card-col-text:last-child {
+              margin-bottom: 0; }
+        .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .hover-block {
+          position: absolute;
+          right: 42px;
+          top: 50%;
+          transform: translateY(-50%);
+          display: none; }
+          .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .hover-block .hover-block-btns-list {
+            display: flex;
+            flex-direction: column;
+            padding-left: 0;
+            list-style: none;
+            margin: 0; }
+            .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .hover-block .hover-block-btns-list .hover-block-item {
+              width: 24px;
+              height: 24px;
+              cursor: pointer; }
+              .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .hover-block .hover-block-btns-list .hover-block-item img {
+                width: 100%; }
+              .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .hover-block .hover-block-btns-list .hover-block-item + .hover-block-item {
+                margin-top: 44px; }
+  .cart .cart-cards-info .cart-order-info-col {
+    width: 310px; }
+
 .btn-primary {
   background-color: #F0500B;
   border-color: #F0500B; }

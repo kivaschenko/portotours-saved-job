@@ -44,10 +44,95 @@
                     </li>
                 </ul>
             </div>
-    
-            <div class="cart-milestones">
-                <h2>1 Step: Basket</h2>
-                <p><small>There are some implementation for milestones of order and payment process...</small></p>
+            <div class="cart-title-wrapper">
+                <h2 class="cart-title">
+                    Review your basket
+                </h2>
+                <p class="cart-title-info">
+                    <img src="{% static 'icons/cart-info-icon.svg' %}" alt="">
+                    We've reserved a place in the experience for you. Please make payment within 30 minutes to keep it. 
+                </p>
+            </div>
+
+            <div class="cart-cards-info">
+                <div class="cart-card-col">
+                    {% if object_list %}
+                        {% for object in object_list %}
+                            <div class="cart-card">
+                                <div class="img-wrapper">
+                                    <img src="{{ object.parent_experience.card_image.url }}" class="card-img"
+                                                    alt="card image preview for {{ object.parent_experience }}">
+                                </div>
+                                <div class="card-content-wrapper">
+                                    <p class="card-title">
+                                        {{ object.parent_experience.parent_name }}   
+                                    </p>
+                                    <div class="card-content-inner-wrapper">
+                                        <div class="card-col">
+                                            <p class="card-col-title">
+                                                Date
+                                            </p>
+                                            <p class="card-col-text">
+                                                {{ object.date_of_start }}
+                                            </p>
+                                            <p class="card-col-title">
+                                                Language
+                                            </p>
+                                            <p class="card-col-text">
+                                                {{ object.language }}
+                                            </p>
+                                        </div>
+                                        <div class="card-col">
+                                            <p class="card-col-title">
+                                                Time
+                                            </p>
+                                            <p class="card-col-text">
+                                                {{ object.time_of_start }}
+                                            </p>
+                                            <p class="card-col-title">
+                                                Adult&Price
+                                            </p>
+                                            <p class="card-col-text">
+                                                {{ object.adults_count }} x €{{ object.adults_price }}
+                                            </p>
+                                        </div>
+                                        <div class="card-col">
+                                            <p class="card-col-title">
+                                                Type of tours
+                                            </p>
+                                            <p class="card-col-text">
+                                                {% if object.parent_experience.is_private %}Private{% else %}Group{% endif %} 
+                                            </p>
+                                            <p class="card-col-title">
+                                                Children&Price
+                                            </p>
+                                            <p class="card-col-text">
+                                                {{ object.child_count }} x €{{ object.child_price }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="hover-block">
+                                        <ul class="hover-block-btns-list">
+                                            <li class="hover-block-item">
+                                                <img src="{% static 'icons/cart-edit-icon.svg' %}" alt="edit">
+                                            </li>
+                                            <li class="hover-block-item">
+                                                <a href="{% url 'cancel-product' object.pk %}">
+                                                    <img src="{% static 'icons/cart-remove-icon.svg' %}" alt="remove">
+                                                </a>
+                                                
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="cart-order-info-col">
+
+                </div>
             </div>
     
             <div class="row">

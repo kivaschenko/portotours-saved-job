@@ -40,23 +40,55 @@
     </style>
 {% endblock head %}
 {% block content %}
-    <div class="container">
-        <!-- Breadcrumbs -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'my-cart' lang='en' %}">Step 1</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Step 2</li>
-                <li class="breadcrumb-item active" aria-current="page">Step 3</li>
-            </ol>
-        </nav>
-        <div class="cart-milestones">
-            <h2>2 Step: Billing Details</h2>
-            <p><small>There are some implementation for milestones of order and payment process...</small></p>
-        </div>
-        <div id="checkout">
-            <!-- Payment form will be inserted here -->
+    <div class="cart">
+        <div class="container">
+            <div class="cart-steps-wrapper">
+                <ul class="cart-steps">
+                    <li class="cart-step-item finished">
+                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        <p class="step-text body-text-b4">
+                            1 Step
+                        </p>
+                        <p class="body-text-b3 step-title">
+                            Basket
+                        </p>
+                    </li>
+                    <li class="cart-step-item active">
+                        <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        <p class="step-text body-text-b4">
+                            2 Step
+                        </p>
+                        <p class="body-text-b3 step-title">
+                            Billing details
+                        </p>
+                    </li>
+                    <li class="cart-step-item">
+                        <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        <p class="step-text body-text-b4">
+                            3 Step
+                        </p>
+                        <p class="body-text-b3 step-title">
+                            Confirmation
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="cart-milestones">
+                <h2>2 Step: Billing Details</h2>
+                <p><small>There are some implementation for milestones of order and payment process...</small></p>
+            </div>
+            <div id="checkout">
+                <!-- Payment form will be inserted here -->
+            </div>
         </div>
     </div>
+    
 
     <!-- Custom JS import -->
     <script>
