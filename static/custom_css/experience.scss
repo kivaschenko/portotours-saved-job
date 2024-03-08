@@ -430,22 +430,36 @@
   .container {
     padding-top: 62px;
     padding-bottom: 0px;
+    @include media-breakpoint-down(md) {
+      padding-top: 24px;
+    }
     .experience-hero-title-wrapper {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 24px;
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+        margin-bottom: 16px;
+      }
       .experience-hero-title {
         color: #000;
         margin-top: 0;
         margin-bottom: 0;
         text-transform: capitalize;
         width: 730px;
+        @include media-breakpoint-down(md) {
+          width: 100%;
+          text-align: center;
+        }
       }
       .expreriece-hero-price-btn-wrapper {
         display: flex;
         align-items: center;
         width: calc(100% - 730px - 50px);
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
         .price-wrapper {
           display: flex;
           align-items: center;
@@ -476,6 +490,9 @@
       display: flex;
       align-items: center;
       margin-bottom: 24px;
+      @include media-breakpoint-down(md) {
+        margin-bottom: 16px;
+      }
       .experience-hero-info-text {
         display: flex;
         align-items: center;
@@ -485,12 +502,22 @@
         color: #378f02;
         text-transform: capitalize;
         margin-bottom: 0;
+        @include media-breakpoint-down(md) {
+          font-size: 14px;
+          line-height: 22px;
+        }
         + .experience-hero-info-text {
           margin-left: 34px;
+          @include media-breakpoint-down(md) {
+            margin-left: 21px;
+          }
         }
         img {
           margin-right: 14px;
           display: block;
+          @include media-breakpoint-down(md) {
+            margin-right: 10px;
+          }
         }
       }
     }
@@ -498,7 +525,21 @@
       overflow: hidden;
       position: relative;
       padding-bottom: 50px;
-      
+      @include media-breakpoint-down(md) {
+        padding-bottom: 40px;
+        width: calc(100% + 32px);
+        margin-left: -16px;
+      }
+      .swiper-slide {
+        @include media-breakpoint-down(md) {
+          height: 250px;
+          border-radius: 26px;
+          overflow: hidden;
+          img {
+            height: 100%;
+          }
+        }
+      }
       .swiper-button-next,
       .swiper-rtl .swiper-button-prev {
         right: 0;
@@ -542,8 +583,15 @@
         background-repeat: no-repeat;
         transform: scaleX(-1);
       }
+      .swiper-pagination {
+        bottom: 0;
+      }
       .swiper-pagination-bullet {
         background-color: var(--text-color-third);
+        @include media-breakpoint-down(md) {
+          width: 14px;
+          height: 14px;
+        }
       }
     }
   }
@@ -553,9 +601,16 @@
   .container {
     padding-top: 70px;
     padding-bottom: 140px;
+    @include media-breakpoint-down(md) {
+      padding-top: 0px;
+      padding-bottom: 60px;
+    }
     .experience-info-title {
       text-align: center;
       margin-bottom: 16px;
+      @include media-breakpoint-down(md) {
+        
+      }
     }
     .experience-info-subtitle {
       font-family: "LatoRegular";
@@ -563,73 +618,122 @@
       line-height: 30px;
       margin-bottom: 60px;
       text-align: center;
+      @include media-breakpoint-down(md) {
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 24px;
+      }
     }
     .experience-info-inner-wrapper {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       position: relative;
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+      }
       .left-col {
         width: calc((100% - 445px - 88px));
+        @include media-breakpoint-down(md) {
+          width: 100%;
+        }
         .experience-cards {
           display: flex;
           align-items: center;
           justify-content: space-between;
           flex-wrap: wrap;
           margin-bottom: 16px;
+          @include media-breakpoint-down(md) {
+            flex-direction: column;
+          }
           .experience-card {
             width: calc((100% - 66px)/3);
             display: flex;
             align-items: flex-start;
             justify-content: flex-start;
             margin-bottom: 24px;
+            @include media-breakpoint-down(md) {
+              width: 100%;
+              margin-bottom: 14px;
+            }
             .img-wrapper {
               width: 24px;
               height: 24px;
               margin-right: 16px;
+              @include media-breakpoint-down(md) {
+                margin-right: 12px;
+              }
                 img {
                   width: 100%;
                 }
             }
             .card-content {
               width: calc(100% - 24px - 16px);
+              @include media-breakpoint-down(md) {
+                width: calc(100% - 24px - 12px);
+              }
               .card-title {
                 font-family: "LatoSemiBold";
                 font-size: 16px;
                 line-height: 26px;
                 margin-bottom: 4px;
+                @include media-breakpoint-down(md) {
+                  line-height: 24px;
+                }
               }
-              .card-text {
+              .card-text,p {
                 font-family: "LatoRegular";
                 font-size: 14px;
                 line-height: 22px;
                 margin-bottom: 0;
+                @include media-breakpoint-down(md) {
+                  font-size: 16px;
+                  line-height: 24px;
+                }
               }
             }
           }
         }
         .experience-description {
           margin-bottom: 40px;
+          @include media-breakpoint-down(md) {
+            margin-bottom: 32px;
+          }
           .description-title {
             margin-bottom: 24px;
+            @include media-breakpoint-down(md) {
+              margin-bottom: 14px;
+            }
           }
           p {
             font-family: "LatoRegular";
             font-size: 16px;
             line-height: 26px;
             margin-bottom: 0;
+            @include media-breakpoint-down(md) {
+              font-size: 14px;
+              line-height: 22px;
+            }
           }
         }
         .experience-timeline {
           margin-bottom: 60px;
+          @include media-breakpoint-down(md) {
+            margin-bottom: 32px;
+          }
           .experience-timeline-title {
             margin-bottom: 24px;
+            @include media-breakpoint-down(md) {
+              margin-bottom: 12px;
+            }
           }
           .experience-timeline-inner {
             position: relative;
             max-height: 600px;
             overflow-y: hidden;
-            
+            @include media-breakpoint-down(md) {
+              max-height: 400px;
+            }
             &::after {
               position: absolute;
               content: "";
@@ -637,7 +741,11 @@
               height: 100px;
               bottom: 0;
               left: 0;
+              z-index: 2;
               background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.90) 32.52%, #FFF 100%);
+              @include media-breakpoint-down(md) {
+                height: 50px;
+              }
             }
             &.opened {
               max-height: 100%;
@@ -648,8 +756,11 @@
             .timeline-block {
               position: relative;
               padding-bottom: 24px;
-              
               padding-left: 32px;
+              @include media-breakpoint-down(md) {
+                padding-left: 18px;
+                padding-bottom: 12px;
+              }
               &::after {
                 content: "";
                 position: absolute;
@@ -683,11 +794,15 @@
                 font-size: 14px;
                 line-height: 22px;
                 margin-bottom: 0;
+                
               }
               .time-title-wrapper {
                 display: flex;
                 align-items: center;
                 margin-bottom: 8px;
+                @include media-breakpoint-down(md) {
+                  margin-bottom: 4px;
+                }
                 .time {
                   font-family: "LatoSemiBold";
                   font-size: 18px;
@@ -696,6 +811,10 @@
                   margin-bottom: 0;
                   margin-right: 26px;
                   position: relative;
+                  @include media-breakpoint-down(md) {
+                    font-size: 14px;
+                    line-height: 22px;
+                  }
                   &::after {
                     position: absolute;
                     content: "";
@@ -714,6 +833,10 @@
                   line-height: 28px;
                   text-transform: capitalize;
                   margin-bottom: 0;
+                  @include media-breakpoint-down(md) {
+                    font-size: 14px;
+                    line-height: 22px;
+                  }
                 }
               }
             }
@@ -729,8 +852,16 @@
           border-radius: 26px;
           border: 1px solid #D9D9D9;
           background: #FFF;
+          @include media-breakpoint-down(md) {
+            padding: 0;
+            border-radius: 0;
+            border: none;
+          }
           + .experience-info-block {
             margin-top: 16px;
+            @include media-breakpoint-down(md) {
+              margin-top: 24px;
+            }
           }
           h5 {
             margin-bottom: 14px;
@@ -747,6 +878,11 @@
               line-height: 26px;
               margin-bottom: 0;
               position: relative;
+              @include media-breakpoint-down(md) {
+                padding-left: 20px;
+                font-size: 14px;
+                line-height: 22px;
+              }
               + li {
                 margin-top: 8px;
               }
@@ -760,6 +896,10 @@
                 left: 0;
                 top: 50%;
                 transform: translateY(-50%);
+                @include media-breakpoint-down(md) {
+                  top: 7px;
+                  transform: none;
+                }
               }
             }
           }
@@ -771,15 +911,50 @@
         position: sticky;
         left: 0;
         top: 20px;
+        
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
+        &.open-mobile {
+          @include media-breakpoint-down(md) {
+            display: block;
+            position: fixed;
+            z-index: 22;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+          }
+        }
         .booking-form-wrapper {
           position: relative;
           border-radius: 26px;
           background: #F8F8F8;
           padding: 20px 40px;
+          @include media-breakpoint-down(md) {
+            height: 100vh;
+            padding: 20px 16px;
+            border-radius: 0;
+            overflow: scroll;
+          }
           > img {
             position: absolute;
             right: -30px;
             top: -20px;
+            &.btn-back {
+              display: none;
+            }
+            @include media-breakpoint-down(md) {
+              display: none;
+              &.btn-back {
+                display: block;
+                position: relative;
+                right: inherit;
+                top: inherit;
+                margin-bottom: 24px;
+                
+              }
+            }
           }
           .form-title {
             margin-bottom: 12px;
@@ -1066,6 +1241,39 @@
             }
           }
         }
+      }
+    }
+  }
+}
+.mobile-form-btn-wrapper {
+  display: none;
+  @include media-breakpoint-down(md) {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #FFF1EB;
+    width: 100%;
+    z-index: 20;
+    .container {
+      padding: 18px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .mobile-form-btn-title {
+        font-size: 18px;
+        line-height: normal;
+        font-family: "LatoRegular";
+        margin: 0;
+        span {
+          font-family: "LatoBold";
+          margin-left: 5px;
+          line-height: normal;
+        }
+      }
+      .mobile-form-btn {
+        width: 250px;
+        text-align: center;
       }
     }
   }
