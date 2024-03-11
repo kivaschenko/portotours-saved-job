@@ -157,6 +157,7 @@ class ParentExperience(models.Model):
     max_participants = models.IntegerField(null=True, blank=True, default=8, help_text="Maximum number of participants")
     is_private = models.BooleanField(default=False, help_text="If this experience is private then to sale whole number "
                                                               "of participants as one purchase will be")
+    allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

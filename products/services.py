@@ -57,10 +57,14 @@ def create_event_for_parent_experience(start_datetime: Union[str, datetime], end
 # New booking logic
 
 def get_actual_events_for_experience(parent_experience_id: int) -> dict:
+    result = {}
+    if not ParentExperience.objects.filter(id=parent_experience_id).exists():
+        return result
+    parent_experience = ParentExperience.objects.get(id=parent_experience_id)
+    result['languages'] = list(parent_experience.allowed_languages.values_list('code', 'name'))
     actual_events_dict = {}
     now = datetime.utcnow()
     try:
-        parent_experience = ParentExperience.objects.get(id=parent_experience_id)
         calendar = Calendar.objects.get_calendars_for_object(parent_experience).first()
         actual_events = calendar.events.filter(start__gte=now)
 
@@ -70,9 +74,13 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
                     'time': event.experienceevent.start_time,
                     'adult_price': str(event.experienceevent.special_price),
                     'child_price': str(event.experienceevent.child_special_price),
+                    'max_participants': event.experienceevent.max_participants,
+                    'booked_participants': event.experienceevent.booked_participants,
                     'remaining_participants': event.experienceevent.remaining_participants,
                 }
+            result['events'] = actual_events_dict
     except EventRelation.DoesNotExist:
         logger.error(f'No events found for ParentExperience id={parent_experience_id}')
-    return actual_events_dict
+    finally:
+        return result
     
