@@ -205,14 +205,8 @@ class CancelProductView(DeleteView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-@csrf_exempt
-def get_actual_experience_events(request):
-    if not request.method == 'POST':
-        return HttpResponseBadRequest('Required post request.')
+def get_actual_experience_events(request, parent_experience_id):
     try:
-        data = json.loads(request.body.decode('utf-8'))
-        parent_experience_id = int(data['parent_experience_id'])
-
         result = get_actual_events_for_experience(parent_experience_id)
         return JsonResponse({'result': result})
     except json.decoder.JSONDecodeError as exp:
