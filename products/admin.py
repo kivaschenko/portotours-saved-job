@@ -20,6 +20,7 @@ admin.site.unregister(CalendarRelation)
 admin.site.unregister(Event)
 admin.site.unregister(EventRelation)
 admin.site.unregister(Occurrence)
+admin.site.unregister(Rule)
 
 
 # ------------
@@ -150,9 +151,35 @@ class ProductAdmin(admin.ModelAdmin):
 
 class ExperienceEventInline(admin.TabularInline):
     model = ExperienceEvent
+    exclude = [
+        'title',
+        'description',
+        'booked_participants',
+        'remaining_participants',
+        'color_event',
+        'creator',
+    ]
     formset = ExperienceEventFormSet
+
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            if not instance.creator:
+                instance.creator = request.user
+            instance.save()
+        formset.save_m2m()
 
 
 @admin.register(Calendar)
-class CalendarAdmin(admin.ModelAdmin):
+class ExperienceCalendarAdmin(admin.ModelAdmin):
+    exclude = ['name', 'slug',]
     inlines = [ExperienceEventInline]
+
+
+@admin.register(ExperienceEvent)
+class ExperienceEventAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'max_participants', 'booked_participants',
+                    'remaining_participants', 'special_price', 'child_special_price']
+    # readonly_fields = ['title', 'max_participants', 'booked_participants', 'remaining_participants']
+    search_fields = ['title', 'description',]
+    list_filter = ['start', 'calendar']

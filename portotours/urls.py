@@ -74,6 +74,12 @@ urlpatterns += [
     path('blogs/<str:lang>/<slug:slug>/', blogs_views.BlogDetailView.as_view(), name='blog-detail'),
 ]
 
+# Scheduler urls
+urlpatterns += [
+    path("", include('schedule.urls'))
+]
+
+
 # Add static file serving during development
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

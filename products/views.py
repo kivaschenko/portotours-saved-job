@@ -171,8 +171,8 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
             context['total_price_sum'] = total_price_sum
             context['old_price_sum'] = old_price_sum
             context['discounted_price_sum'] = round(old_price_sum - total_price_sum, 2)
-        except:
-            pass
+        except Exception as e:
+            logger.error(f'Error while calculating total_price_sum: {e}')
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         return context
 

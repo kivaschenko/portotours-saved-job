@@ -284,7 +284,21 @@ class ExperienceEvent(Event):
 
     class Meta:
         verbose_name = "Experience Event"
-        verbose_name_plural = "Experience Event"
+        verbose_name_plural = "Experience Events"
+
+    def __str__(self):
+        return "{}: {} - {}".format(
+            self.title,
+            self.start.strftime("%d/%m/%Y %H:%M"),
+            self.end.strftime("%d/%m/%Y %H:%M"),
+        )
+
+    def save(self, *args, **kwargs):
+        self.title = "{0}: {1} - {2}".format(self.calendar, self.start.strftime("%d/%m/%Y %H:%M"), self.end.strftime("%d/%m/%Y %H:%M"))
+        self.color_event = "#f0500b"
+        if not self.creator_id:
+            self.creator_id = 1
+        super().save(*args, **kwargs)
 
 
 # -------
