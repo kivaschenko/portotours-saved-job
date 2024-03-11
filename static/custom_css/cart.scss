@@ -1,7 +1,7 @@
 .cart {
     .container {
         padding-top: 32px;
-        padding-bottom: 160px;
+        padding-bottom: 50px;
         @include media-breakpoint-down(md) {
             padding-top: 10px;
             padding-bottom: 60px;
@@ -542,6 +542,32 @@
                     }
                 }
             }
+        }
+    }
+}
+
+//emty cart styles 
+
+.empty-cart-wrapper {
+    .container {
+        padding-top: 0px;
+        padding-bottom: 60px;
+        text-align: center;
+        .empty-cart-title {
+            margin-bottom: 24px;
+            font-family: "LatoBold";
+            font-size: 40px;
+            line-height: 48px;
+            text-transform: capitalize;
+        }
+        .empty-cart-img {
+            display: block;
+            margin: 0 auto 24px;
+        }
+        .empty-cart-btn {
+            width: 240px;
+            margin: 0 auto;
+            display: block;
         }
     }
 }
