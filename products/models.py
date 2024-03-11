@@ -157,6 +157,7 @@ class ParentExperience(models.Model):
     max_participants = models.IntegerField(null=True, blank=True, default=8, help_text="Maximum number of participants")
     is_private = models.BooleanField(default=False, help_text="If this experience is private then to sale whole number "
                                                               "of participants as one purchase will be")
+    allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -284,8 +285,30 @@ class ExperienceEvent(Event):
 
     class Meta:
         verbose_name = "Experience Event"
-        verbose_name_plural = "Experience Event"
+        verbose_name_plural = "Experience Events"
 
+    def __str__(self):
+        return "{}: {} - {}".format(
+            self.title,
+            self.start.strftime("%d/%m/%Y %H:%M"),
+            self.end.strftime("%d/%m/%Y %H:%M"),
+        )
+
+    def save(self, *args, **kwargs):
+        self.title = "{0}: {1} - {2}".format(self.calendar, self.start.strftime("%d/%m/%Y %H:%M"), self.end.strftime("%d/%m/%Y %H:%M"))
+        self.color_event = "#f0500b"
+        if not self.creator_id:
+            self.creator_id = 1
+        super().save(*args, **kwargs)
+
+    @property
+    def start_date(self):
+        return self.start.strftime("%Y-%m-%d")
+
+    @property
+    def start_time(self):
+        return self.start.strftime("%H:%M")
+    
 
 # -------
 # Product

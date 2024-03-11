@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.gis.admin import GISModelAdmin
 from django.contrib.gis.forms.widgets import OSMWidget
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm
+from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxSelectMultiple
 
 from ckeditor.widgets import CKEditorWidget
 from schedule.models import Calendar, CalendarRelation, Event, EventRelation, Occurrence, Rule
@@ -10,7 +10,6 @@ from schedule.admin import EventAdmin, EventRelationAdmin, CalendarAdmin, Calend
 
 from products.models import *  # noqa
 from products.forms import ExperienceEventFormSet
-
 
 # Hide exceeded models from django-scheduler
 
@@ -20,6 +19,7 @@ admin.site.unregister(CalendarRelation)
 admin.site.unregister(Event)
 admin.site.unregister(EventRelation)
 admin.site.unregister(Occurrence)
+admin.site.unregister(Rule)
 
 
 # ------------
@@ -100,8 +100,26 @@ class LanguageAdmin(admin.ModelAdmin):
 
 # ----------
 # Experience
+
+
+class CheckboxSelectMultipleField(ModelMultipleChoiceField):
+    def __init__(self, queryset, *args, **kwargs):
+        super().__init__(queryset, *args, **kwargs)
+        self.widget = CheckboxSelectMultiple()
+
+
+class LanguageModelForm(ModelForm):
+    allowed_languages = CheckboxSelectMultipleField(queryset=Language.objects.all())
+
+    class Meta:
+        model = ParentExperience
+        exclude = ['parent_name', 'id', 'slug', 'currency', 'price', 'old_price', 'child_price', 'child_old_price',
+                   'max_participants', 'is_private', 'priority_number']
+
+
 @admin.register(ParentExperience)
 class ParentExperienceAdmin(admin.ModelAdmin):
+    form = LanguageModelForm
     exclude = ['updated_at', 'slug']
     list_display = ['parent_name', 'id', 'slug', 'currency', 'price', 'old_price', 'child_price', 'child_old_price',
                     'max_participants', 'is_private', 'priority_number']
@@ -150,9 +168,35 @@ class ProductAdmin(admin.ModelAdmin):
 
 class ExperienceEventInline(admin.TabularInline):
     model = ExperienceEvent
+    exclude = [
+        'title',
+        'description',
+        'booked_participants',
+        'remaining_participants',
+        'color_event',
+        'creator',
+    ]
     formset = ExperienceEventFormSet
+
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            if not instance.creator:
+                instance.creator = request.user
+            instance.save()
+        formset.save_m2m()
 
 
 @admin.register(Calendar)
-class CalendarAdmin(admin.ModelAdmin):
+class ExperienceCalendarAdmin(admin.ModelAdmin):
+    exclude = ['name', 'slug', ]
     inlines = [ExperienceEventInline]
+
+
+@admin.register(ExperienceEvent)
+class ExperienceEventAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'max_participants', 'booked_participants',
+                    'remaining_participants', 'special_price', 'child_special_price']
+    # readonly_fields = ['title', 'max_participants', 'booked_participants', 'remaining_participants']
+    search_fields = ['title', 'description', ]
+    list_filter = ['start', 'calendar']

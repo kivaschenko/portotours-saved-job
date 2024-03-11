@@ -3,9 +3,9 @@ import logging
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from schedule.models import Calendar
+from schedule.models import Calendar, EventRelation
 
-from .models import ParentExperience
+from .models import ParentExperience, ExperienceEvent
 
 
 logger = logging.getLogger(__name__)
@@ -21,3 +21,26 @@ def create_calendar(sender, instance, created, **kwargs):
         calendar_name = f"{instance.parent_name} Calendar"
         calendar = Calendar.objects.get_or_create_calendar_for_object(instance, distinction='experience', name=calendar_name)
         logger.info(f"Created calendar: {calendar_name}")
+
+
+@receiver(post_save, sender=ExperienceEvent)
+def fill_empty_prices_and_set_relation(sender, instance, created, **kwargs):
+    if created:
+        # Get ParentExperience obj
+        relation = instance.calendar.calendarrelation_set.first()
+        parent_experience_obj = relation.content_object
+        if not instance.max_participants:
+            instance.max_participants = parent_experience_obj.max_participants
+        if not instance.booked_participants:
+            instance.booked_participants = 0
+            instance.remaining_participants = parent_experience_obj.max_participants
+        else:
+            instance.remaining_participants = instance.max_participants - instance.booked_participants
+        if not instance.special_price:
+            instance.special_price = parent_experience_obj.price
+        if not instance.child_special_price:
+            instance.child_special_price = parent_experience_obj.child_price
+        instance.save()
+
+        # Set event relation
+        EventRelation.objects.create(event=instance, content_object=parent_experience_obj, distinction='experience event')

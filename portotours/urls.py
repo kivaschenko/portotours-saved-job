@@ -50,7 +50,7 @@ urlpatterns += [
 urlpatterns += [
     path('experiences/<str:lang>/', products_views.ExperienceListView.as_view(), name="experience-list"),
     path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailWithFormView.as_view(), name='experience-detail'),
-    path('experience-booking-debug/<str:lang>/<slug:slug>/', products_views.ExperienceDebugBookingView.as_view(), name='experience-debug-booking'),
+    path('experience/events/<int:parent_experience_id>/', products_views.get_actual_experience_events, name='actual-experience-events'),
 ]
 
 # Calendar, Events
@@ -74,6 +74,12 @@ urlpatterns += [
     path('blogs/<str:lang>/', blogs_views.BlogListView.as_view(), name='blog-list'),
     path('blogs/<str:lang>/<slug:slug>/', blogs_views.BlogDetailView.as_view(), name='blog-detail'),
 ]
+
+# Scheduler urls
+urlpatterns += [
+    path("", include('schedule.urls'))
+]
+
 
 # Add static file serving during development
 if settings.DEBUG:
