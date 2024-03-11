@@ -44,6 +44,7 @@
                     </li>
                 </ul>
             </div>
+            {% if object_list %}
             <div class="cart-title-wrapper">
                 <h2 class="cart-title">
                     Review your basket
@@ -53,10 +54,9 @@
                     We've reserved a place in the experience for you. Please make payment within 30 minutes to keep it. 
                 </p>
             </div>
-
             <div class="cart-cards-info">
                 <div class="cart-card-col">
-                    {% if object_list %}
+                    
                         {% for object in object_list %}
                             <div class="cart-card">
                                 <div class="img-wrapper">
@@ -128,7 +128,7 @@
                                 
                             </div>
                         {% endfor %}
-                    {% endif %}
+                    
                 </div>
                 <div class="cart-order-info-col">
                     <div class="order-info-wrapper">
@@ -167,7 +167,85 @@
                         </ul>
                     </div>
                 </div>
+                <div class="purchase-includes purchase-includes-mobile">
+                    <h4 class="purchase-includes-title">
+                        Your purchase includes:
+                    </h4>
+                    <ul>
+                        <li>Free cancellation policy</li>
+                        <li>24/7 customer support</li>
+                        <li>Best price on the market</li>
+                        <li>Qualified guides ( best guides/ top guides / Top-rated guides)</li>
+                        <li>Tours developed by local experts</li>
+                    </ul>
+                </div>
             </div>
+            {% else %}
+            <div class="empty-cart-wrapper">
+                <div class="container">
+                    <h2 class="empty-cart-title">
+                        your basket is empty
+                    </h2>
+                    <img src="{% static 'images/empty-cart-icon.svg' %}" alt="" class="empty-cart-img">
+                    <a href="" class="btn-type-1 empty-cart-btn">посмотреть туры</a>
+
+                    <section class="also-interested">
+                        <div class="container">
+                            <h2 class="also-interested-title">
+                                {{ object.recommendations_title }}
+                            </h2>
+                            <p class="also-interested-subtitle body-text-b2">
+                                {{ object.recommendations_subtitle }}
+                            </p>
+                            <div class="swiper-also-interested">
+                                <div class="swiper-wrapper also-interested-cards-wrapper">
+                                    <div class="also-interested-card swiper-slide">
+                                        <img src="{% static 'images/also-interested-img1.png' %}" alt="" class="also-interested-img">
+                                        <p class="body-text-b2 also-interested-card-title">
+                                            Cascais
+                                        </p>
+                                        <p class="body-text-b3 also-interested-card-text">
+                                            Explore Cascais, a perfect mixture of natural and architectural beauty, located near Lisbon. Investigate its breathtaking landscapes and historical wonders with comprehensive OneDayTours. 
+                                        </p>
+                                    </div>
+                                    <div class="also-interested-card swiper-slide">
+                                        <img src="{% static 'images/also-interested-img2.png' %}" alt="" class="also-interested-img">
+                                        <p class="body-text-b2 also-interested-card-title">
+                                            Oporto
+                                        </p>
+                                        <p class="body-text-b3 also-interested-card-text">
+                                            Choose an amazing journey with a OneDayTours to Oporto, Portugal. Explore the vibrant history of the city, perfectly fit into the colorful landscapes, and experience the warm hospitality of Portugal.
+                                        </p>
+                                    </div>
+                                    <div class="also-interested-card swiper-slide">
+                                        <img src="{% static 'images/also-interested-img3.png' %}" alt="" class="also-interested-img">
+                                        <p class="body-text-b2 also-interested-card-title">
+                                            Sintra
+                                        </p>
+                                        <p class="body-text-b3 also-interested-card-text">
+                                            Get a chance to immerse in the real Wonderland with a OneDayTours to a fairytale Sintra. The place is filled with history and a mystical aura, heightened by the scenic landscape of nature.
+                                        </p>
+                                    </div>
+                                  
+                                  
+                                </div>
+                                <div class="swiper-pagination"></div>
+                                
+                            </div>
+                            
+                            <div class="also-interested-more-info-wrapper">
+                                <h5 class="also-interested-more-info-title">
+                                    {{ object.recommendations_slogan }}
+                                </h5>
+                                <a href="" class="btn-type-2 also-interested-info-link">
+                                    see more 
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            {% endif %}
     
             <!-- <div class="row">
                 <div class="col-lg-9 col-md-9">
