@@ -300,6 +300,14 @@ class ExperienceEvent(Event):
             self.creator_id = 1
         super().save(*args, **kwargs)
 
+    @property
+    def start_date(self):
+        return self.start.strftime("%Y-%m-%d")
+
+    @property
+    def start_time(self):
+        return self.start.strftime("%H:%M")
+    
 
 # -------
 # Product

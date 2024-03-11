@@ -1,11 +1,13 @@
 from django.db.models import Sum, F
 from django.shortcuts import redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, ListView, FormView, DeleteView
 
 from products.forms import FastBookingForm
 from products.models import *  # noqa
+from products.services import get_actual_events_for_experience
 
 Customer = settings.AUTH_USER_MODEL
 
@@ -201,3 +203,18 @@ class CancelProductView(DeleteView):
         self.object.save()
         # Instead of calling delete() on the object, change its status
         return HttpResponseRedirect(self.get_success_url())
+
+
+@csrf_exempt
+def get_actual_experience_events(request):
+    if not request.method == 'POST':
+        return HttpResponseBadRequest('Required post request.')
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        parent_experience_id = int(data['parent_experience_id'])
+
+        result = get_actual_events_for_experience(parent_experience_id)
+        return JsonResponse({'result': result})
+    except json.decoder.JSONDecodeError as exp:
+        return HttpResponseBadRequest('Invalid JSON data')
+
