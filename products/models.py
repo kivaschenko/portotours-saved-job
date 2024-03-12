@@ -308,6 +308,11 @@ class ExperienceEvent(Event):
     @property
     def start_time(self):
         return self.start.strftime("%H:%M")
+
+    def update_booking_data(self, booked_number, *args, **kwargs):
+        self.booked_participants += booked_number
+        self.remaining_participants = self.max_participants - self.booked_participants
+        self.save(*args, **kwargs)
     
 
 # -------
@@ -336,10 +341,8 @@ class Product(models.Model):
     parent_experience = models.ForeignKey(ParentExperience, on_delete=models.SET_NULL, null=True)
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True)
     occurrence = models.ForeignKey(Occurrence, on_delete=models.SET_NULL, null=True, blank=True)
-    start_datetime = models.DateTimeField(auto_now_add=False,
-                                          auto_now=False)  # TODO: check this case by timezone restriction
-    end_datetime = models.DateTimeField(auto_now_add=False, auto_now=False, null=True,
-                                        blank=True)  # TODO: check this case by timezone restriction
+    start_datetime = models.DateTimeField(auto_now_add=False, auto_now=False)
+    end_datetime = models.DateTimeField(auto_now_add=False, auto_now=False, null=True, blank=True)
     adults_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=Decimal('0'))
     adults_count = models.IntegerField(null=True, blank=True, default=0)
     child_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=Decimal('0'))

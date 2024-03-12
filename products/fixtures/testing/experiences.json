@@ -1,0 +1,138 @@
+[
+{
+    "model": "products.meetingpoint",
+    "pk": 1,
+    "fields": {
+        "name": "Lisbon Cathedral",
+        "slug": "test-meeting-point",
+        "country": "Portugal",
+        "region": null,
+        "city": "Lisbon",
+        "address": "Sé Catedral de Lisboa, Largo da Sé, Sé, Alfama, Santa Maria Maior, Lisboa, 1100-501, Portugal",
+        "auto_location": true,
+        "latitude": "38.709839",
+        "longitude": "-9.132801",
+        "update_coords_by_geom": false,
+        "auto_update_address_name": true,
+        "geom": "SRID=4326;POINT (-9.132800994350987 38.70983925)",
+        "location_raw": "{\"place_id\": 287105418, \"licence\": \"Data \\u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright\", \"osm_type\": \"way\", \"osm_id\": 96319699, \"lat\": \"38.70983925\", \"lon\": \"-9.132800994350987\", \"class\": \"amenity\", \"type\": \"place_of_worship\", \"place_rank\": 30, \"importance\": 0.40684965102716997, \"addresstype\": \"amenity\", \"name\": \"S\\u00e9 Catedral de Lisboa\", \"display_name\": \"S\\u00e9 Catedral de Lisboa, Largo da S\\u00e9, S\\u00e9, Alfama, Santa Maria Maior, Lisboa, 1100-501, Portugal\", \"boundingbox\": [\"38.7096292\", \"38.7100390\", \"-9.1332902\", \"-9.1323298\"]}"
+    }
+},
+{
+    "model": "products.parentexperience",
+    "pk": 1,
+    "fields": {
+        "parent_name": "Check food in Lisbon for one day tour",
+        "slug": "check-food-in-lisbon-for-one-day-tour",
+        "banner": "media/banners/destination-hero-img.png",
+        "card_image": "media/cards/nick-karvounis-Cf0NnZ0C1bA-unsplash.png",
+        "priority_number": 3,
+        "price": "59.99",
+        "child_discount": 33,
+        "use_child_discount": true,
+        "child_price": "40.19",
+        "currency": "eur",
+        "price_changed_timestamp": "2024-02-14T13:36:54Z",
+        "use_auto_increase_old_price": true,
+        "increase_percentage_old_price": 33,
+        "old_price": "79.79",
+        "child_old_price": "53.46",
+        "meeting_point": 1,
+        "max_participants": 8,
+        "is_private": false,
+        "updated_at": "2024-03-11T17:41:48.710Z",
+        "allowed_languages": [
+            1,
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "products.experience",
+    "pk": 1,
+    "fields": {
+        "parent_experience": 1,
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:11:30.288Z",
+        "slug": "lisbon-test-experience-eng",
+        "page_title": "Lisbon test experience eng",
+        "page_description": "Lisbon test experience eng",
+        "page_keywords": "Lisbon,experience,food,trip,attractions",
+        "name": "Lisbon test experience eng",
+        "title_for_booking_form": "Lisbon test experience eng",
+        "long_name": "Lisbon test experience long name for this test experience",
+        "short_description": "some short description about Lisbon experience test tour",
+        "full_description": "<p><strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n\r\n<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of &quot;de Finibus Bonorum et Malorum&quot; (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, &quot;Lorem ipsum dolor sit amet..&quot;, comes from a line in section 1.10.32.</p>\r\n\r\n<p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from &quot;de Finibus Bonorum et Malorum&quot; by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>",
+        "languages": "<p>English</p>\r\n\r\n<p>Portugal</p>\r\n\r\n<p>Spain</p>",
+        "duration": "<p>5 hours</p>",
+        "accessibility": "<p>ramp</p>\r\n\r\n<p>special bus</p>",
+        "possibility": "<p>some posibility list here...</p>",
+        "recommendations_title": "You May Also Be Interested to Visit from Lisbon",
+        "recommendations_subtitle": "Explore nearby spots from Lisbon, choosing captivating destinations that guarantee unforgettable experiences and cultural abundance.",
+        "recommendations_slogan": "Diverse your Lisbon experience with top attractions for cultural involvement",
+        "destinations": [
+            1
+        ]
+    }
+},
+{
+    "model": "products.experience",
+    "pk": 2,
+    "fields": {
+        "parent_experience": 1,
+        "language": 2,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:12:08.110Z",
+        "slug": "lisbon-test-experience-spain-lang",
+        "page_title": null,
+        "page_description": "",
+        "page_keywords": "",
+        "name": "Lisbon test experience spain lang",
+        "title_for_booking_form": null,
+        "long_name": null,
+        "short_description": null,
+        "full_description": "",
+        "languages": "",
+        "duration": "",
+        "accessibility": "",
+        "possibility": "",
+        "recommendations_title": null,
+        "recommendations_subtitle": null,
+        "recommendations_slogan": null,
+        "destinations": [
+            1
+        ]
+    }
+},
+{
+    "model": "products.experience",
+    "pk": 3,
+    "fields": {
+        "parent_experience": 1,
+        "language": 3,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:11:46.537Z",
+        "slug": "lisbon-test-experience-french-lang",
+        "page_title": null,
+        "page_description": "",
+        "page_keywords": "",
+        "name": "Lisbon test experience French lang",
+        "title_for_booking_form": null,
+        "long_name": null,
+        "short_description": null,
+        "full_description": "",
+        "languages": "",
+        "duration": "",
+        "accessibility": "",
+        "possibility": "",
+        "recommendations_title": null,
+        "recommendations_subtitle": null,
+        "recommendations_slogan": null,
+        "destinations": [
+            1
+        ]
+    }
+}
+]

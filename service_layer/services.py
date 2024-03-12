@@ -124,3 +124,15 @@ def send_new_password_by_email(email: str, password: str, name: str = '',
     # Send the email
     send_mail(subject=subject, message='', html_message=html_message,
               from_email=from_email, recipient_list=[email], fail_silently=False)
+
+
+# Product services
+
+def create_new_product():
+    pass
+
+def update_event_for_product(event_id: str):
+    pass
+
+def create_occurence_for_product(event_id: int):
+    pass

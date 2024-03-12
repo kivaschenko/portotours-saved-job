@@ -61,7 +61,8 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
     if not ParentExperience.objects.filter(id=parent_experience_id).exists():
         return result
     parent_experience = ParentExperience.objects.get(id=parent_experience_id)
-    result['languages'] = list(parent_experience.allowed_languages.values_list('code', 'name'))
+    languages = list(parent_experience.allowed_languages.values_list('code', 'name'))
+    result['languages'] = {item[0]: item[1] for item in languages}
     actual_events_dict = {}
     now = datetime.utcnow()
     try:
@@ -77,10 +78,13 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
                     'max_participants': event.experienceevent.max_participants,
                     'booked_participants': event.experienceevent.booked_participants,
                     'remaining_participants': event.experienceevent.remaining_participants,
+                    'experience_event_id': event.experienceevent.id,
                 }
             result['events'] = actual_events_dict
     except EventRelation.DoesNotExist:
         logger.error(f'No events found for ParentExperience id={parent_experience_id}')
     finally:
         return result
-    
+
+
+
