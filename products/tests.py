@@ -34,9 +34,6 @@ class TestCreateProductView(TestCase):
         # Create necessary objects for testing
         calendar = Calendar.objects.first()
         
-        tomorrow = timezone.localdate() + timezone.timedelta(days=1)
-        expected_start_datetime = timezone.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 13, 51, 35, 517278)
-        
         tomorrow = datetime.utcnow() + timedelta(days=1)
         end_date = tomorrow + timedelta(hours=1)
         exp_event = ExperienceEvent.objects.create(
@@ -78,3 +75,76 @@ class TestCreateProductView(TestCase):
         # Test GET request
         response = self.client.get(reverse('create-product'))
         self.assertEqual(response.status_code, 405)
+
+    def test_get_event_booking_data(self):
+        # Create necessary objects for testing
+        calendar = Calendar.objects.first()
+
+        tomorrow = datetime.utcnow() + timedelta(days=1)
+        end_date = tomorrow + timedelta(hours=1)
+        event = ExperienceEvent.objects.create(
+            title='Test Event',
+            start=tomorrow,
+            end=end_date,
+            special_price=Decimal('89.99'),
+            child_special_price=Decimal('44.99'),
+            calendar=calendar,
+        )
+
+        # Test GET request
+        response = self.client.get(reverse('experience-event-data', args=[event.id]))
+
+        self.assertEqual(response.status_code, 200)
+
+        expected_data = {'result': {str(event.id): {'date': event.start_date, 'time': event.start_time, 'adult_price': 89.99, 'child_price': 44.99,
+                                                    'max_participants': 8, 'booked_participants': 0, 'remaining_participants': 8,
+                                                    'experience_event_id': event.id}}}
+
+        self.assertEqual(response.json(), expected_data)
+
+    def test_all_actual_events(self):
+        # Create necessary objects for testing
+        calendar = Calendar.objects.first()
+
+        yesterday = datetime.utcnow() - timedelta(days=1)
+        end_yesterday = yesterday + timedelta(hours=1)
+        tomorrow = datetime.utcnow() + timedelta(days=1)
+        end_date = tomorrow + timedelta(hours=1)
+
+        yesterday_event = ExperienceEvent.objects.create(
+            title='Test Yesterday Event',
+            start=yesterday,
+            end=end_yesterday,
+            special_price=Decimal('49.99'),
+            child_special_price=Decimal('24.99'),
+            calendar=calendar,
+        )
+
+        event = ExperienceEvent.objects.create(
+            title='Test Event',
+            start=tomorrow,
+            end=end_date,
+            special_price=Decimal('89.99'),
+            child_special_price=Decimal('44.99'),
+            calendar=calendar,
+        )
+
+        event_2 = ExperienceEvent.objects.create(
+            title='Test Event 2',
+            start=tomorrow,
+            end=end_date,
+            special_price=Decimal('67.99'),
+            child_special_price=Decimal('33.99'),
+            calendar=calendar,
+        )
+
+        # Test GET request
+        response = self.client.get(reverse('actual-experience-events', args=[1]))
+
+        self.assertEqual(response.status_code, 200)
+        
+        res_data = response.json()
+        result = res_data['result']
+        
+        self.assertEqual(result['languages'], {'EN': 'English', 'ES': 'Español', 'FR': 'Français'})
+        self.assertEqual(len(result['events']), 2)
