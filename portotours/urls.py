@@ -50,7 +50,8 @@ urlpatterns += [
 urlpatterns += [
     path('experiences/<str:lang>/', products_views.ExperienceListView.as_view(), name="experience-list"),
     path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(), name='experience-detail'),
-    path('experience/events/<int:parent_experience_id>/', products_views.get_actual_experience_events, name='actual-experience-events'),
+    path('actual-experience-events/<int:parent_experience_id>/', products_views.get_actual_experience_events, name='actual-experience-events'),
+    path('experience-event-data/<int:event_id>/', products_views.get_event_booking_data, name='experience-event-data'),
 ]
 
 # Calendar, Events
