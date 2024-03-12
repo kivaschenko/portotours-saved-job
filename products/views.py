@@ -1,13 +1,14 @@
-from django.db.models import Sum, F
+from django.db.models import Sum
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import DetailView, ListView, FormView, DeleteView
+from django.views.generic import DetailView, ListView, DeleteView
 
-from products.forms import FastBookingForm
+from schedule.models import Occurrence
+
 from products.models import *  # noqa
-from products.services import get_actual_events_for_experience
+from products.product_services import get_actual_events_for_experience
 
 Customer = settings.AUTH_USER_MODEL
 
@@ -30,12 +31,11 @@ class ExperienceListView(ListView):
         return filtered
 
 
-class ExperienceDetailWithFormView(FormView, DetailView):
+class ExperienceDetailView(DetailView):
     model = Experience
     template_name = 'experiences/experience_detail.html'
     extra_context = {'languages': {}}
     queryset = Experience.active.all()
-    form_class = FastBookingForm
     success_url = reverse_lazy('my-cart', kwargs={'lang': 'en'})
 
     def get_context_data(self, **kwargs):
@@ -52,12 +52,10 @@ class ExperienceDetailWithFormView(FormView, DetailView):
         context.setdefault("view", self)
         if self.extra_context is not None:
             context.update(self.extra_context)
-        if "form" not in context:
-            context["form"] = self.get_form()
         return context
 
     def get_object(self, queryset=None):
-        obj = super(ExperienceDetailWithFormView, self).get_object(queryset=queryset)
+        obj = super(ExperienceDetailView, self).get_object(queryset=queryset)
         self.extra_context['current_language'] = obj.language.code.lower()
         # find all other languages
         brothers = obj.parent_experience.child_experiences.all()
@@ -69,53 +67,22 @@ class ExperienceDetailWithFormView(FormView, DetailView):
                 self.extra_context['languages'].update({lang: url})
         return obj
 
-    def form_valid(self, form):
-        # add event handler here
-        return HttpResponseRedirect(self.get_success_url())
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form()
-        if form.is_valid():
-            data = form.cleaned_data
-            # create new Product
-            new_product = Product(
-                customer=self.kwargs['customer'],
-                session_key=self.kwargs['session_key'],
-                parent_experience=self.object.parent_experience,
-                language=data['language'],
-                start_datetime=data['date'],
-                adults_price=self.object.parent_experience.price,
-                adults_count=int(data['adult']),
-                child_price=self.object.parent_experience.child_price,
-                child_count=int(data['children']),
-            )
-            new_product.save()
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
-
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
     def setup(self, request, *args, **kwargs):
-        """Initialize attributes shared by all view methods."""
-        if hasattr(self, "get") and not hasattr(self, "head"):
-            self.head = self.get
-        self.request = request
-        self.args = args
-        self.kwargs = kwargs
-        if self.request.user.is_authenticated:
-            kwargs.update({'customer': self.request.user})
-            kwargs.update({'session_key': self.request.session.session_key})
+        if request.user.is_authenticated:
+            self.extra_context.update({'customer_id': request.user.id})
+            self.extra_context.update({'session_key': request.session.session_key})
         else:
-            kwargs['customer'] = None
+            self.extra_context['customer'] = None
             # If the user is not authenticated, get the current session
-            if not self.request.session.exists(self.request.session.session_key):
-                self.request.session.create()
-            kwargs.update({'session_key': self.request.session.session_key})
+            if not request.session.exists(request.session.session_key):
+                request.session.create()
+            self.extra_context.update({'session_key': request.session.session_key})
+        kwargs = super(ExperienceDetailView, self).setup(request, *args, **kwargs)
         return kwargs
 
 
@@ -212,3 +179,59 @@ def get_actual_experience_events(request, parent_experience_id):
     except json.decoder.JSONDecodeError as exp:
         return HttpResponseBadRequest('Invalid JSON data')
 
+
+def create_product(request):
+    if request.method == 'POST':
+        adults = request.POST.get('adults')
+        children = request.POST.get('children')
+        language_code = request.POST.get('language')
+        customer_id = request.POST.get('customer_id')
+        session_key = request.POST.get('session_key')
+        event_id = request.POST.get('event_id')
+        parent_experience_id = request.POST.get('parent_experience_id')
+
+        # Get ExperienceEvent obj
+        exp_event = ExperienceEvent.objects.get(id=event_id)
+
+        # Get language
+        language = Language.objects.get(code=language_code)
+
+        # Create a new product using the received data
+        new_product = Product(
+            customer_id=customer_id,
+            session_key=session_key,
+            parent_experience_id=parent_experience_id,
+            language=language,
+            start_datetime=exp_event.start,
+            end_datetime=exp_event.end,
+            adults_price=exp_event.expirienceevent.special_price,
+            adults_count=adults,
+            child_price=exp_event.expirienceevent.child_special_price,
+            child_count=children,
+        )
+        new_product.save()
+
+        # Update ExperienceEvent data
+        total_booked = adults + children
+        exp_event.update_booking_data(booked_number=total_booked)
+
+        # Create Occurrence for Product
+        occurrence = Occurrence(
+            event=exp_event,
+            title=exp_event.title,
+            description=f"This occurrence has been created for the product: {new_product.id}.",
+            start=exp_event.start,
+            end=exp_event.end,
+            original_start=exp_event.start,
+            original_end=exp_event.end
+        )
+        occurrence.save()
+
+        new_product.occurrence = occurrence
+        new_product.save()
+
+        # Return a JSON response indicating success
+        return JsonResponse({'message': 'Product created successfully'}, status=201)
+
+    # If the request method is not POST, return an error response
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)

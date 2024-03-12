@@ -49,7 +49,7 @@ urlpatterns += [
 # EXPERIENCES
 urlpatterns += [
     path('experiences/<str:lang>/', products_views.ExperienceListView.as_view(), name="experience-list"),
-    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailWithFormView.as_view(), name='experience-detail'),
+    path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(), name='experience-detail'),
     path('experience/events/<int:parent_experience_id>/', products_views.get_actual_experience_events, name='actual-experience-events'),
 ]
 
@@ -67,6 +67,7 @@ urlpatterns += [
     path('payment-form/<str:lang>/', purchases_views.BillingDetailView.as_view(), name='payment-form'),
     path('confirmation/<str:lang>/', purchases_views.ConfirmationView.as_view(), name='confirmation'),
     path('purchase/get-pdf/<int:purchase_id>/', purchases_views.generate_purchase_pdf, name='generate-pdf'),
+    path('create-product/', products_views.create_product, name='create-product'),
 ]
 
 # BLOGS

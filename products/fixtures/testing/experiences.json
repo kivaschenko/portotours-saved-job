@@ -1,0 +1,588 @@
+[
+{
+    "model": "products.meetingpoint",
+    "pk": 1,
+    "fields": {
+        "name": "Lisbon Cathedral",
+        "slug": "test-meeting-point",
+        "country": "Portugal",
+        "region": null,
+        "city": "Lisbon",
+        "address": "Sé Catedral de Lisboa, Largo da Sé, Sé, Alfama, Santa Maria Maior, Lisboa, 1100-501, Portugal",
+        "auto_location": true,
+        "latitude": "38.709839",
+        "longitude": "-9.132801",
+        "update_coords_by_geom": false,
+        "auto_update_address_name": true,
+        "geom": "SRID=4326;POINT (-9.132800994350987 38.70983925)",
+        "location_raw": "{\"place_id\": 287105418, \"licence\": \"Data \\u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright\", \"osm_type\": \"way\", \"osm_id\": 96319699, \"lat\": \"38.70983925\", \"lon\": \"-9.132800994350987\", \"class\": \"amenity\", \"type\": \"place_of_worship\", \"place_rank\": 30, \"importance\": 0.40684965102716997, \"addresstype\": \"amenity\", \"name\": \"S\\u00e9 Catedral de Lisboa\", \"display_name\": \"S\\u00e9 Catedral de Lisboa, Largo da S\\u00e9, S\\u00e9, Alfama, Santa Maria Maior, Lisboa, 1100-501, Portugal\", \"boundingbox\": [\"38.7096292\", \"38.7100390\", \"-9.1332902\", \"-9.1323298\"]}"
+    }
+},
+{
+    "model": "products.meetingpoint",
+    "pk": 3,
+    "fields": {
+        "name": "The Jeronimos Monastery",
+        "slug": "the-jeronimos-monastery",
+        "country": "Portugal",
+        "region": null,
+        "city": null,
+        "address": "Praça do Império, Belém, Lisboa, 1400-209, Portugal",
+        "auto_location": false,
+        "latitude": "38.697372",
+        "longitude": "-9.205771",
+        "update_coords_by_geom": true,
+        "auto_update_address_name": true,
+        "geom": "SRID=4326;POINT (-9.205770547292433 38.69737214696182)",
+        "location_raw": "{\"place_id\": 287991596, \"licence\": \"Data \\u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright\", \"osm_type\": \"way\", \"osm_id\": 974618750, \"lat\": \"38.697757749999994\", \"lon\": \"-9.206623946812348\", \"class\": \"boundary\", \"type\": \"protected_area\", \"place_rank\": 25, \"importance\": 0.4508544612941967, \"addresstype\": \"protected_area\", \"name\": \"Mosteiro dos Jer\\u00f4nimos\", \"display_name\": \"Mosteiro dos Jer\\u00f4nimos, S\\u00e3o Francisco Xavier, Bel\\u00e9m, Lisboa, Portugal\", \"boundingbox\": [\"38.6970306\", \"38.6984854\", \"-9.2082845\", \"-9.2048670\"]}"
+    }
+},
+{
+    "model": "products.meetingpoint",
+    "pk": 4,
+    "fields": {
+        "name": "The Padrão dos Descobrimentos (Monument to the Discoveries)",
+        "slug": "the-padrao-dos-descobrimentos-monument-to-the-discoveries",
+        "country": "Portugal",
+        "region": null,
+        "city": "Lisboa",
+        "address": "Padrão dos Descobrimentos, Rosa dos Ventos, Belém, Lisboa, 1400-032, Portugal",
+        "auto_location": false,
+        "latitude": "38.693605",
+        "longitude": "-9.205700",
+        "update_coords_by_geom": false,
+        "auto_update_address_name": true,
+        "geom": "SRID=4326;POINT (-9.205691234509802 38.69357735458472)",
+        "location_raw": "{\"place_id\": 287465956, \"licence\": \"Data \\u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright\", \"osm_type\": \"way\", \"osm_id\": 152327819, \"lat\": \"38.693605399999996\", \"lon\": \"-9.205700217662642\", \"class\": \"tourism\", \"type\": \"attraction\", \"place_rank\": 30, \"importance\": 0.3680231944676411, \"addresstype\": \"tourism\", \"name\": \"Padr\\u00e3o dos Descobrimentos\", \"display_name\": \"Padr\\u00e3o dos Descobrimentos, Rosa dos Ventos, Bel\\u00e9m, Lisboa, 1400-032, Portugal\", \"boundingbox\": [\"38.6933898\", \"38.6937904\", \"-9.2058560\", \"-9.2055844\"]}"
+    }
+},
+{
+    "model": "products.meetingpoint",
+    "pk": 5,
+    "fields": {
+        "name": "Lisbon's Monument to the Discoveries",
+        "slug": "lisbons-monument-to-the-discoveries",
+        "country": "Portugal",
+        "region": null,
+        "city": null,
+        "address": "Padrão dos Descobrimentos, Rosa dos Ventos, Belém, Lisboa, 1400-032, Portugal",
+        "auto_location": true,
+        "latitude": "38.693605",
+        "longitude": "-9.205700",
+        "update_coords_by_geom": false,
+        "auto_update_address_name": true,
+        "geom": "SRID=4326;POINT (-9.205700217662642 38.693605399999996)",
+        "location_raw": "{\"place_id\": 287465956, \"licence\": \"Data \\u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright\", \"osm_type\": \"way\", \"osm_id\": 152327819, \"lat\": \"38.693605399999996\", \"lon\": \"-9.205700217662642\", \"class\": \"tourism\", \"type\": \"attraction\", \"place_rank\": 30, \"importance\": 0.3680231944676411, \"addresstype\": \"tourism\", \"name\": \"Padr\\u00e3o dos Descobrimentos\", \"display_name\": \"Padr\\u00e3o dos Descobrimentos, Rosa dos Ventos, Bel\\u00e9m, Lisboa, 1400-032, Portugal\", \"boundingbox\": [\"38.6933898\", \"38.6937904\", \"-9.2058560\", \"-9.2055844\"]}"
+    }
+},
+{
+    "model": "products.meetingpoint",
+    "pk": 6,
+    "fields": {
+        "name": "Vasco da Gama Bridge",
+        "slug": "vasco-da-gama-bridge",
+        "country": "Portugal",
+        "region": null,
+        "city": null,
+        "address": "Ponte Vasco da Gama, Samouco, Alcochete, Setúbal, 2980-228, Portugal",
+        "auto_location": false,
+        "latitude": "38.759946",
+        "longitude": "-9.039904",
+        "update_coords_by_geom": false,
+        "auto_update_address_name": true,
+        "geom": "SRID=4326;POINT (-9.0399039 38.759945699999996)",
+        "location_raw": "{\"place_id\": 257550992, \"licence\": \"Data \\u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright\", \"osm_type\": \"way\", \"osm_id\": 29104538, \"lat\": \"38.7599457\", \"lon\": \"-9.0399039\", \"class\": \"highway\", \"type\": \"motorway\", \"place_rank\": 26, \"importance\": 0.40169971887069733, \"addresstype\": \"road\", \"name\": \"Ponte Vasco da Gama\", \"display_name\": \"Ponte Vasco da Gama, Samouco, Alcochete, Set\\u00fabal, 2980-228, Portugal\", \"boundingbox\": [\"38.7279184\", \"38.7853674\", \"-9.0833346\", \"-8.9911747\"]}"
+    }
+},
+{
+    "model": "products.meetingpoint",
+    "pk": 7,
+    "fields": {
+        "name": "Museu Nacional de Arqueologia",
+        "slug": "museu-nacional-de-arqueologia",
+        "country": "Portugal",
+        "region": null,
+        "city": null,
+        "address": "Mosteiro dos Jerónimos, Praça do Império, Belém, Lisboa, 1400-209, Portugal",
+        "auto_location": false,
+        "latitude": "38.697341",
+        "longitude": "-9.207064",
+        "update_coords_by_geom": true,
+        "auto_update_address_name": true,
+        "geom": "SRID=4326;POINT (-9.207063679482529 38.69734078517915)",
+        "location_raw": null
+    }
+},
+{
+    "model": "products.meetingpoint",
+    "pk": 8,
+    "fields": {
+        "name": "Ponte 25 de Abril in Portuguese",
+        "slug": "ponte-25-de-abril-in-portuguese",
+        "country": "Portugal",
+        "region": null,
+        "city": null,
+        "address": "Ponte 25 de Abril, Rua Professor Vieira Natividade, Quinta do Cabrinha, Alcântara, Lisboa, 1300-546, Portugal",
+        "auto_location": false,
+        "latitude": "38.698911",
+        "longitude": "-9.179112",
+        "update_coords_by_geom": true,
+        "auto_update_address_name": true,
+        "geom": "SRID=4326;POINT (-9.179112303472351 38.69891101030395)",
+        "location_raw": "{\"place_id\": 287168490, \"licence\": \"Data \\u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright\", \"osm_type\": \"way\", \"osm_id\": 104624990, \"lat\": \"38.6962188\", \"lon\": \"-9.1908982\", \"class\": \"highway\", \"type\": \"pedestrian\", \"place_rank\": 26, \"importance\": 0.10000999999999993, \"addresstype\": \"road\", \"name\": \"Passeio Carlos do Carmo\", \"display_name\": \"Passeio Carlos do Carmo, Bel\\u00e9m, Lisboa, 1300-344, Portugal\", \"boundingbox\": [\"38.6950697\", \"38.6971445\", \"-9.1971174\", \"-9.1855506\"]}"
+    }
+},
+{
+    "model": "products.meetingpoint",
+    "pk": 10,
+    "fields": {
+        "name": "Alameda Edgar Cardoso",
+        "slug": "parque-eduardo-vii-next-to-portugal-flag",
+        "country": "Portugal",
+        "region": null,
+        "city": null,
+        "address": "Alameda Edgar Cardoso, São Sebastião da Pedreira, Avenidas Novas, Lisboa, 1070-050, Portugal",
+        "auto_location": false,
+        "latitude": "38.727463",
+        "longitude": "-9.155379",
+        "update_coords_by_geom": true,
+        "auto_update_address_name": false,
+        "geom": "SRID=4326;POINT (-9.155379214622622 38.72746272977258)",
+        "location_raw": "{\"place_id\": 289050916, \"licence\": \"Data \\u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright\", \"osm_type\": \"way\", \"osm_id\": 1024716611, \"lat\": \"38.7268285\", \"lon\": \"-9.1542406\", \"class\": \"highway\", \"type\": \"residential\", \"place_rank\": 26, \"importance\": 0.10000999999999993, \"addresstype\": \"road\", \"name\": \"Alameda Edgar Cardoso\", \"display_name\": \"Alameda Edgar Cardoso, S\\u00e3o Sebasti\\u00e3o da Pedreira, Avenidas Novas, Lisboa, 1070-050, Portugal\", \"boundingbox\": [\"38.7267929\", \"38.7268685\", \"-9.1543087\", \"-9.1541612\"]}"
+    }
+},
+{
+    "model": "products.meetingpoint",
+    "pk": 11,
+    "fields": {
+        "name": "City Hall Porto",
+        "slug": "city-hall-porto",
+        "country": "Portugal",
+        "region": null,
+        "city": null,
+        "address": "Câmara Municipal do Porto, 4000-407, Rua do Clube dos Fenianos, Picaria, Centro Histórico, Cedofeita, Santo Ildefonso, Sé, Miragaia, São Nicolau e Vitória, Porto, 4000-172, Portugal",
+        "auto_location": true,
+        "latitude": "41.150093",
+        "longitude": "-8.610667",
+        "update_coords_by_geom": false,
+        "auto_update_address_name": true,
+        "geom": "SRID=4326;POINT (-8.610667209860884 41.1500931)",
+        "location_raw": "{\"place_id\": 287949523, \"licence\": \"Data \\u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright\", \"osm_type\": \"relation\", \"osm_id\": 3012085, \"lat\": \"41.1500931\", \"lon\": \"-8.610667209860884\", \"class\": \"amenity\", \"type\": \"townhall\", \"place_rank\": 30, \"importance\": 0.3380411950818732, \"addresstype\": \"amenity\", \"name\": \"C\\u00e2mara Municipal do Porto\", \"display_name\": \"C\\u00e2mara Municipal do Porto, 4000-407, Rua do Clube dos Fenianos, Picaria, Centro Hist\\u00f3rico, Cedofeita, Santo Ildefonso, S\\u00e9, Miragaia, S\\u00e3o Nicolau e Vit\\u00f3ria, Porto, 4000-172, Portugal\", \"boundingbox\": [\"41.1498065\", \"41.1503187\", \"-8.6110815\", \"-8.6103289\"]}"
+    }
+},
+{
+    "model": "products.meetingpoint",
+    "pk": 13,
+    "fields": {
+        "name": "Martim Moniz Square",
+        "slug": "martim-moniz-square",
+        "country": "Portugal",
+        "region": null,
+        "city": null,
+        "address": "Strada provinciale del Turchino, Fado, Mele, Genova, Liguria, 16158, Italia",
+        "auto_location": true,
+        "latitude": "44.473560",
+        "longitude": "8.734405",
+        "update_coords_by_geom": false,
+        "auto_update_address_name": true,
+        "geom": "SRID=4326;POINT (8.734405 44.4735601)",
+        "location_raw": "{\"place_id\": 96443246, \"licence\": \"Data \\u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright\", \"osm_type\": \"node\", \"osm_id\": 303432632, \"lat\": \"44.4735601\", \"lon\": \"8.734405\", \"class\": \"place\", \"type\": \"hamlet\", \"place_rank\": 20, \"importance\": 0.25727750335362226, \"addresstype\": \"hamlet\", \"name\": \"Fado\", \"display_name\": \"Fado, Mele, Genova, Liguria, 16158, Italia\", \"boundingbox\": [\"44.4535601\", \"44.4935601\", \"8.7144050\", \"8.7544050\"]}"
+    }
+},
+{
+    "model": "products.experienceevent",
+    "pk": 16,
+    "fields": {
+        "max_participants": 5,
+        "booked_participants": 0,
+        "remaining_participants": 5,
+        "special_price": "67.99",
+        "child_special_price": "33.99"
+    }
+},
+{
+    "model": "products.experienceevent",
+    "pk": 17,
+    "fields": {
+        "max_participants": 8,
+        "booked_participants": 1,
+        "remaining_participants": 7,
+        "special_price": "45.99",
+        "child_special_price": "30.81"
+    }
+},
+{
+    "model": "products.experienceevent",
+    "pk": 18,
+    "fields": {
+        "max_participants": 8,
+        "booked_participants": 2,
+        "remaining_participants": 6,
+        "special_price": "45.99",
+        "child_special_price": "30.81"
+    }
+},
+{
+    "model": "products.experienceevent",
+    "pk": 19,
+    "fields": {
+        "max_participants": 8,
+        "booked_participants": 0,
+        "remaining_participants": 8,
+        "special_price": "45.99",
+        "child_special_price": "30.81"
+    }
+},
+{
+    "model": "products.parentexperience",
+    "pk": 1,
+    "fields": {
+        "parent_name": "Check food in Lisbon for one day tour",
+        "slug": "check-food-in-lisbon-for-one-day-tour",
+        "banner": "media/banners/destination-hero-img.png",
+        "card_image": "media/cards/nick-karvounis-Cf0NnZ0C1bA-unsplash.png",
+        "priority_number": 3,
+        "price": "59.99",
+        "child_discount": 33,
+        "use_child_discount": true,
+        "child_price": "40.19",
+        "currency": "eur",
+        "price_changed_timestamp": "2024-02-14T13:36:54Z",
+        "use_auto_increase_old_price": true,
+        "increase_percentage_old_price": 33,
+        "old_price": "79.79",
+        "child_old_price": "53.46",
+        "meeting_point": 5,
+        "max_participants": 8,
+        "is_private": false,
+        "updated_at": "2024-03-11T17:41:48.710Z",
+        "allowed_languages": [
+            1,
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "products.parentexperience",
+    "pk": 2,
+    "fields": {
+        "parent_name": "Explore main Porto`s attractions in one day",
+        "slug": "explore-main-portos-attractions-in-one-day",
+        "banner": "media/banners/city-hall-porto-portugal-shutterstock_728833783.jpg",
+        "card_image": "media/cards/Panoramic-view-of-Old-Porto-Oporto-city-and-Ribeira-over-Douro-river-from-Vila-Nova-.jpg",
+        "priority_number": 0,
+        "price": "39.99",
+        "child_discount": 33,
+        "use_child_discount": true,
+        "child_price": "26.79",
+        "currency": "eur",
+        "price_changed_timestamp": "2024-02-26T12:09:43Z",
+        "use_auto_increase_old_price": true,
+        "increase_percentage_old_price": 33,
+        "old_price": "53.19",
+        "child_old_price": "35.64",
+        "meeting_point": 11,
+        "max_participants": 10,
+        "is_private": true,
+        "updated_at": "2024-03-11T17:44:00.415Z",
+        "allowed_languages": [
+            1,
+            2,
+            3,
+            4
+        ]
+    }
+},
+{
+    "model": "products.parentexperience",
+    "pk": 3,
+    "fields": {
+        "parent_name": "Porto food cort and ocean view",
+        "slug": "porto-food-cort-and-ocean-view",
+        "banner": "media/banners/nick-karvounis-Cf0NnZ0C1bA-unsplash.png",
+        "card_image": "media/cards/nick-karvounis-Cf0NnZ0C1bA-unsplash.png",
+        "priority_number": 0,
+        "price": "119.99",
+        "child_discount": 33,
+        "use_child_discount": true,
+        "child_price": "80.39",
+        "currency": "eur",
+        "price_changed_timestamp": null,
+        "use_auto_increase_old_price": true,
+        "increase_percentage_old_price": 33,
+        "old_price": "159.59",
+        "child_old_price": "106.92",
+        "meeting_point": null,
+        "max_participants": 8,
+        "is_private": true,
+        "updated_at": "2024-03-11T20:12:53.435Z",
+        "allowed_languages": [
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "products.parentexperience",
+    "pk": 4,
+    "fields": {
+        "parent_name": "Sunset, Fado and Tapas Walking Tour",
+        "slug": "sunset-fado-and-tapas-walking-tour",
+        "banner": "media/banners/city-hall-porto-portugal-shutterstock_728833783.jpg",
+        "card_image": "media/cards/experience-card-img2.png",
+        "priority_number": 4,
+        "price": "45.99",
+        "child_discount": 33,
+        "use_child_discount": true,
+        "child_price": "30.81",
+        "currency": "eur",
+        "price_changed_timestamp": "2024-03-11T12:29:31Z",
+        "use_auto_increase_old_price": true,
+        "increase_percentage_old_price": 33,
+        "old_price": "61.17",
+        "child_old_price": "40.98",
+        "meeting_point": 13,
+        "max_participants": 8,
+        "is_private": false,
+        "updated_at": "2024-03-11T17:43:24.768Z",
+        "allowed_languages": [
+            1,
+            2,
+            4
+        ]
+    }
+},
+{
+    "model": "products.experience",
+    "pk": 1,
+    "fields": {
+        "parent_experience": 1,
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:11:30.288Z",
+        "slug": "lisbon-test-experience-eng",
+        "page_title": "Lisbon test experience eng",
+        "page_description": "Lisbon test experience eng",
+        "page_keywords": "Lisbon,experience,food,trip,attractions",
+        "name": "Lisbon test experience eng",
+        "title_for_booking_form": "Lisbon test experience eng",
+        "long_name": "Lisbon test experience long name for this test experience",
+        "short_description": "some short description about Lisbon experience test tour",
+        "full_description": "<p><strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n\r\n<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of &quot;de Finibus Bonorum et Malorum&quot; (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, &quot;Lorem ipsum dolor sit amet..&quot;, comes from a line in section 1.10.32.</p>\r\n\r\n<p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from &quot;de Finibus Bonorum et Malorum&quot; by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>",
+        "languages": "<p>English</p>\r\n\r\n<p>Portugal</p>\r\n\r\n<p>Spain</p>",
+        "duration": "<p>5 hours</p>",
+        "accessibility": "<p>ramp</p>\r\n\r\n<p>special bus</p>",
+        "possibility": "<p>some posibility list here...</p>",
+        "recommendations_title": "You May Also Be Interested to Visit from Lisbon",
+        "recommendations_subtitle": "Explore nearby spots from Lisbon, choosing captivating destinations that guarantee unforgettable experiences and cultural abundance.",
+        "recommendations_slogan": "Diverse your Lisbon experience with top attractions for cultural involvement",
+        "destinations": [
+            1
+        ]
+    }
+},
+{
+    "model": "products.experience",
+    "pk": 2,
+    "fields": {
+        "parent_experience": 1,
+        "language": 2,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:12:08.110Z",
+        "slug": "lisbon-test-experience-spain-lang",
+        "page_title": null,
+        "page_description": "",
+        "page_keywords": "",
+        "name": "Lisbon test experience spain lang",
+        "title_for_booking_form": null,
+        "long_name": null,
+        "short_description": null,
+        "full_description": "",
+        "languages": "",
+        "duration": "",
+        "accessibility": "",
+        "possibility": "",
+        "recommendations_title": null,
+        "recommendations_subtitle": null,
+        "recommendations_slogan": null,
+        "destinations": [
+            1
+        ]
+    }
+},
+{
+    "model": "products.experience",
+    "pk": 3,
+    "fields": {
+        "parent_experience": 1,
+        "language": 3,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:11:46.537Z",
+        "slug": "lisbon-test-experience-french-lang",
+        "page_title": null,
+        "page_description": "",
+        "page_keywords": "",
+        "name": "Lisbon test experience French lang",
+        "title_for_booking_form": null,
+        "long_name": null,
+        "short_description": null,
+        "full_description": "",
+        "languages": "",
+        "duration": "",
+        "accessibility": "",
+        "possibility": "",
+        "recommendations_title": null,
+        "recommendations_subtitle": null,
+        "recommendations_slogan": null,
+        "destinations": [
+            1
+        ]
+    }
+},
+{
+    "model": "products.experience",
+    "pk": 4,
+    "fields": {
+        "parent_experience": 2,
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:11:14.212Z",
+        "slug": "explore-main-portos-attractions-in-one-day",
+        "page_title": null,
+        "page_description": "",
+        "page_keywords": "",
+        "name": "Explore main Porto`s attractions in one day",
+        "title_for_booking_form": "Explore main Porto`s attractions in one day",
+        "long_name": "Explore main Porto`s attractions in one day",
+        "short_description": "some description about Porto tour",
+        "full_description": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of &quot;de Finibus Bonorum et Malorum&quot; (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, &quot;Lorem ipsum dolor sit amet..&quot;, comes from a line in section 1.10.32.</p>\r\n\r\n<p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from &quot;de Finibus Bonorum et Malorum&quot; by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>",
+        "languages": "<ul>\r\n\t<li>English</li>\r\n\t<li>French</li>\r\n</ul>",
+        "duration": "<p>6 hours</p>",
+        "accessibility": "",
+        "possibility": "",
+        "recommendations_title": "Explore Porto  in one day tour",
+        "recommendations_subtitle": "subtitle for recommendations",
+        "recommendations_slogan": "Explore Porto  in one day tour!",
+        "destinations": [
+            2
+        ]
+    }
+},
+{
+    "model": "products.experience",
+    "pk": 5,
+    "fields": {
+        "parent_experience": 4,
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-03-11T14:35:30.029Z",
+        "slug": "sunset-fado-and-tapas-walking-tour",
+        "page_title": "Sunset, Fado and Tapas Walking Tour",
+        "page_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent. Maecenas volutpat blandit aliquam etiam erat. Gravida arcu ac tortor dignissim convallis. Aenean sed adipiscing diam donec. Enim praesent elementum facilisis leo vel fringilla est. Tempor nec feugiat nisl pretium fusce id. Congue nisi vitae suscipit tellus. Sed id semper risus in hendrerit gravida rutrum quisque non. Proin libero nunc consequat interdum varius sit. Quis eleifend quam adipiscing vitae proin sagittis nisl. Pulvinar ele",
+        "page_keywords": "",
+        "name": "Sunset, Fado and Tapas Walking Tour",
+        "title_for_booking_form": "Sunset, Fado and Tapas Walking Tour",
+        "long_name": "Sunset, Fado and Tapas Walking Tour long name english lang",
+        "short_description": "short description text here",
+        "full_description": "<p>Condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur. Ac ut consequat semper viverra nam libero justo laoreet. Turpis egestas pretium aenean pharetra magna. Est placerat in egestas erat imperdiet sed euismod nisi. Aliquet nec ullamcorper sit amet risus nullam eget felis eget. Egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate sapien. Nisl tincidunt eget nullam non nisi est sit amet facilisis. Congue nisi vitae suscipit tellus mauris a diam. Mi proin sed libero enim sed. Placerat orci nulla pellentesque dignissim enim. At lectus urna duis convallis convallis tellus id. Porttitor massa id neque aliquam vestibulum morbi blandit. Accumsan tortor posuere ac ut consequat. Odio facilisis mauris sit amet massa vitae tortor condimentum.</p>\r\n\r\n<p>Consequat nisl vel pretium lectus quam id leo. Consequat semper viverra nam libero. Sit amet risus nullam eget felis eget nunc lobortis. Massa massa ultricies mi quis hendrerit dolor magna eget est. Lorem donec massa sapien faucibus et molestie ac feugiat sed. Senectus et netus et malesuada fames ac turpis egestas. Ac feugiat sed lectus vestibulum mattis ullamcorper velit. Fringilla urna porttitor rhoncus dolor purus non enim. Faucibus purus in massa tempor nec feugiat nisl pretium fusce. Pharetra diam sit amet nisl suscipit adipiscing bibendum est. Sit amet volutpat consequat mauris.</p>\r\n\r\n<p>Vitae et leo duis ut diam quam. Scelerisque in dictum non consectetur a erat nam. Blandit cursus risus at ultrices mi tempus imperdiet nulla. Elit at imperdiet dui accumsan sit amet nulla facilisi morbi. Consequat interdum varius sit amet mattis vulputate enim nulla aliquet. Neque convallis a cras semper. Accumsan sit amet nulla facilisi morbi. In ornare quam viverra orci sagittis eu volutpat odio facilisis. Cum sociis natoque penatibus et magnis. Facilisis volutpat est velit egestas dui id ornare arcu. Hendrerit gravida rutrum quisque non tellus orci ac auctor. Non diam phasellus vestibulum lorem. Tortor posuere ac ut consequat semper viverra nam. In hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit. A erat nam at lectus urna duis convallis convallis. Sed sed risus pretium quam vulputate dignissim suspendisse. Eget nunc lobortis mattis aliquam faucibus purus in. Elit duis tristique sollicitudin nibh sit amet commodo nulla facilisi.</p>",
+        "languages": "<ul>\r\n\t<li>English</li>\r\n\t<li>French</li>\r\n</ul>",
+        "duration": "",
+        "accessibility": "",
+        "possibility": "",
+        "recommendations_title": "Explore Porto  in one day tour",
+        "recommendations_subtitle": "Explore nearby spots from Lisbon, choosing captivating destinations that guarantee unforgettable experiences and cultural abundance.",
+        "recommendations_slogan": "Explore Porto  in one day tour!",
+        "destinations": [
+            1
+        ]
+    }
+},
+{
+    "model": "schedule.event",
+    "pk": 16,
+    "fields": {
+        "start": "2024-03-19T06:00:00Z",
+        "end": "2024-03-19T18:00:00Z",
+        "title": "Sunset, Fado and Tapas Walking Tour Calendar: 19/03/2024 06:00 - 19/03/2024 18:00",
+        "description": "",
+        "creator": 1,
+        "created_on": "2024-03-11T12:51:03.160Z",
+        "updated_on": "2024-03-11T16:52:58.312Z",
+        "rule": null,
+        "end_recurring_period": null,
+        "calendar": 5,
+        "color_event": "#f0500b"
+    }
+},
+{
+    "model": "schedule.event",
+    "pk": 17,
+    "fields": {
+        "start": "2024-03-20T09:00:00Z",
+        "end": "2024-03-20T18:00:00Z",
+        "title": "Sunset, Fado and Tapas Walking Tour Calendar: 20/03/2024 09:00 - 20/03/2024 18:00",
+        "description": "",
+        "creator": 1,
+        "created_on": "2024-03-11T14:30:29.144Z",
+        "updated_on": "2024-03-11T16:52:43.828Z",
+        "rule": null,
+        "end_recurring_period": null,
+        "calendar": 5,
+        "color_event": "#f0500b"
+    }
+},
+{
+    "model": "schedule.event",
+    "pk": 18,
+    "fields": {
+        "start": "2024-03-20T10:00:00Z",
+        "end": "2024-03-20T19:00:00Z",
+        "title": "Sunset, Fado and Tapas Walking Tour Calendar: 20/03/2024 10:00 - 20/03/2024 19:00",
+        "description": "",
+        "creator": 1,
+        "created_on": "2024-03-11T14:30:29.467Z",
+        "updated_on": "2024-03-11T16:50:22.333Z",
+        "rule": null,
+        "end_recurring_period": null,
+        "calendar": 5,
+        "color_event": "#f0500b"
+    }
+},
+{
+    "model": "schedule.event",
+    "pk": 19,
+    "fields": {
+        "start": "2024-03-22T09:00:00Z",
+        "end": "2024-03-22T18:00:00Z",
+        "title": "Sunset, Fado and Tapas Walking Tour Calendar: 22/03/2024 09:00 - 22/03/2024 18:00",
+        "description": "",
+        "creator": 1,
+        "created_on": "2024-03-11T14:30:29.747Z",
+        "updated_on": "2024-03-11T16:50:34.872Z",
+        "rule": null,
+        "end_recurring_period": null,
+        "calendar": 5,
+        "color_event": "#f0500b"
+    }
+},
+{
+    "model": "schedule.calendar",
+    "pk": 5,
+    "fields": {
+        "name": "Sunset, Fado and Tapas Walking Tour Calendar",
+        "slug": "sunset-fado-and-tapas-walking-tour-calendar"
+    }
+},
+{
+    "model": "schedule.calendarrelation",
+    "pk": 3,
+    "fields": {
+        "calendar": 5,
+        "content_type": 20,
+        "object_id": 4,
+        "distinction": "experience",
+        "inheritable": true
+    }
+}
+]

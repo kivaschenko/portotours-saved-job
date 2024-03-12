@@ -132,8 +132,8 @@ DATABASES = {
     },
     "other": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": "other",
-        "USER": "geodjango",
+        "NAME": "postgres",
+        "USER": "admin",
     },
 }
 
