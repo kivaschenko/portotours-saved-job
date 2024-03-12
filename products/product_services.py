@@ -71,10 +71,11 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
 
         if len(actual_events) > 0:
             for event in actual_events:
-                actual_events_dict[event.experienceevent.start_date] = {
+                actual_events_dict[event.experienceevent.id] = {
+                    'date': event.experienceevent.start_date,
                     'time': event.experienceevent.start_time,
-                    'adult_price': str(event.experienceevent.special_price),
-                    'child_price': str(event.experienceevent.child_special_price),
+                    'adult_price': float(event.experienceevent.special_price),
+                    'child_price': float(event.experienceevent.child_special_price),
                     'max_participants': event.experienceevent.max_participants,
                     'booked_participants': event.experienceevent.booked_participants,
                     'remaining_participants': event.experienceevent.remaining_participants,
@@ -85,6 +86,3 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
         logger.error(f'No events found for ParentExperience id={parent_experience_id}')
     finally:
         return result
-
-
-
