@@ -46,17 +46,12 @@ urlpatterns += [
     path('attractions/<str:lang>/<slug:slug>/', attractions_views.AttractionDetailView.as_view(), name="attraction-detail"),
 ]
 
-# EXPERIENCES
+# EXPERIENCES, Calendar, Events
 urlpatterns += [
     path('experiences/<str:lang>/', products_views.ExperienceListView.as_view(), name="experience-list"),
     path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(), name='experience-detail'),
     path('actual-experience-events/<int:parent_experience_id>/', products_views.get_actual_experience_events, name='actual-experience-events'),
     path('experience-event-data/<int:event_id>/', products_views.get_event_booking_data, name='experience-event-data'),
-]
-
-# Calendar, Events
-urlpatterns += [
-    path('calendar/experiences/<str:parent_experience_slug>/', products_views.get_calendar_experience_events, name='calendar_experience_events')
 ]
 
 # PRODUCTS & PURCHASES

@@ -86,18 +86,7 @@ class ExperienceDetailView(DetailView):
         return kwargs
 
 
-def get_calendar_experience_events(request, parent_experience_slug):
-    parent_experience = ParentExperience.objects.get(slug=parent_experience_slug)
-    # start = datetime.utcnow().date()
-    # end = start + timedelta(days=30)
-    # occurrences = parent_experience.event.get_occurrences(start=start, end=end)
-    occurrences = parent_experience.event.occurrences_after(max_occurrences=100)
-    context = {'occurrences': occurrences}
-    return HttpResponse(json.dumps(context), content_type='application/json')
-
-
 # Products
-
 
 class UserIsAuthentiacedOrSessionKeyRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
@@ -175,6 +164,7 @@ class CancelProductView(DeleteView):
 def get_actual_experience_events(request, parent_experience_id):
     try:
         result = get_actual_events_for_experience(parent_experience_id)
+        print({'result': result})
         return JsonResponse({'result': result}, status=200)
     except json.decoder.JSONDecodeError as exp:
         return HttpResponseBadRequest('Invalid JSON data')

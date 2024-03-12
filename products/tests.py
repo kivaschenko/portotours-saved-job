@@ -101,3 +101,50 @@ class TestCreateProductView(TestCase):
                                                     'experience_event_id': event.id}}}
 
         self.assertEqual(response.json(), expected_data)
+
+    def test_all_actual_events(self):
+        # Create necessary objects for testing
+        calendar = Calendar.objects.first()
+
+        yesterday = datetime.utcnow() - timedelta(days=1)
+        end_yesterday = yesterday + timedelta(hours=1)
+        tomorrow = datetime.utcnow() + timedelta(days=1)
+        end_date = tomorrow + timedelta(hours=1)
+
+        yesterday_event = ExperienceEvent.objects.create(
+            title='Test Yesterday Event',
+            start=yesterday,
+            end=end_yesterday,
+            special_price=Decimal('49.99'),
+            child_special_price=Decimal('24.99'),
+            calendar=calendar,
+        )
+
+        event = ExperienceEvent.objects.create(
+            title='Test Event',
+            start=tomorrow,
+            end=end_date,
+            special_price=Decimal('89.99'),
+            child_special_price=Decimal('44.99'),
+            calendar=calendar,
+        )
+
+        event_2 = ExperienceEvent.objects.create(
+            title='Test Event 2',
+            start=tomorrow,
+            end=end_date,
+            special_price=Decimal('67.99'),
+            child_special_price=Decimal('33.99'),
+            calendar=calendar,
+        )
+
+        # Test GET request
+        response = self.client.get(reverse('actual-experience-events', args=[1]))
+
+        self.assertEqual(response.status_code, 200)
+        
+        res_data = response.json()
+        result = res_data['result']
+        
+        self.assertEqual(result['languages'], {'EN': 'English', 'ES': 'Español', 'FR': 'Français'})
+        self.assertEqual(len(result['events']), 2)
