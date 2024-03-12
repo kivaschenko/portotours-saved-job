@@ -182,13 +182,13 @@ def get_actual_experience_events(request, parent_experience_id):
 
 def create_product(request):
     if request.method == 'POST':
-        adults = request.POST.get('adults')
-        children = request.POST.get('children')
+        adults = int(request.POST.get('adults'))
+        children = int(request.POST.get('children'))
         language_code = request.POST.get('language')
-        customer_id = request.POST.get('customer_id')
+        customer_id = int(request.POST.get('customer_id'))
         session_key = request.POST.get('session_key')
-        event_id = request.POST.get('event_id')
-        parent_experience_id = request.POST.get('parent_experience_id')
+        event_id = int(request.POST.get('event_id'))
+        parent_experience_id = int(request.POST.get('parent_experience_id'))
 
         # Get ExperienceEvent obj
         exp_event = ExperienceEvent.objects.get(id=event_id)
@@ -204,9 +204,9 @@ def create_product(request):
             language=language,
             start_datetime=exp_event.start,
             end_datetime=exp_event.end,
-            adults_price=exp_event.expirienceevent.special_price,
+            adults_price=exp_event.special_price,
             adults_count=adults,
-            child_price=exp_event.expirienceevent.child_special_price,
+            child_price=exp_event.child_special_price,
             child_count=children,
         )
         new_product.save()
