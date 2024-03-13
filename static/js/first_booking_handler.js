@@ -78,11 +78,76 @@ function handleEventData(data) {
 
         // Example: Log the updated model object
         console.log('Updated model:', model);
+
         // In calendar form show only allowed languages
         view.showOnlyAllowedLanguages();
+
+        // Show calendar
+        renderCalendar(currentDate);
     } else {
         console.error('Received data format is invalid');
     }
+}
+
+function renderCalendar(date) {
+    calendarGrid.innerHTML = '';
+    currentMonthDisplay.textContent = getMonthYearString(date);
+
+    const today = new Date();
+    if (date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
+        prevMonthBtn.disabled = true;
+    } else {
+        prevMonthBtn.disabled = false;
+    }
+
+    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+    const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const startingDay = firstDayOfMonth.getDay();
+    const totalDays = lastDayOfMonth.getDate();
+
+
+    for (let i = 0; i < startingDay; i++) {
+        const prevMonthDay = new Date(date.getFullYear(), date.getMonth(), -startingDay + i + 1);
+        createCalendarDay(prevMonthDay, true);
+    }
+
+    for (let i = 1; i <= totalDays; i++) {
+        const currentDay = new Date(date.getFullYear(), date.getMonth(), i);
+        createCalendarDay(currentDay);
+    }
+
+    const tourPrice = 100;
+    calendarGrid.querySelectorAll('.calendar-day').forEach(day => {
+        const priceElement = document.createElement('span');
+        priceElement.textContent = `$${tourPrice}`;
+        day.appendChild(priceElement);
+    });
+};
+
+function createCalendarDay(date, inactive = false) {
+    const dayElement = document.createElement('div');
+    dayElement.classList.add('calendar-day');
+    if (inactive) {
+        dayElement.classList.add('inactive');
+    } else {
+        // Create a key for the date in ISO format
+        const isoDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
+        // Filter events for the current date
+        const eventsForDate = model.events.filter(event => event.date === isoDate.split('T')[0]);
+        // If there are events for the current date, add them to the day element
+        if (eventsForDate.length > 0) {
+            eventsForDate.forEach(event => {
+                // Create a span element to display the price
+                const priceElement = document.createElement('span');
+                priceElement.textContent = `$${event.adult_price}`;
+                // Append the price element to the day element
+                dayElement.appendChild(priceElement);
+            });
+        }
+        dayElement.dataset.date = isoDate.split('T')[0];
+    }
+    dayElement.textContent = date.getDate();
+    calendarGrid.appendChild(dayElement);
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -101,8 +166,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     let selectedDate = null;
     let currentDate = new Date();
 
-    // Show calendar
-    renderCalendar(currentDate);
 
     prevMonthBtn.addEventListener('click', function () {
         currentDate.setMonth(currentDate.getMonth() - 1);
@@ -121,40 +184,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         updateSelectedDate(selectedDate);
     });
 
-    function renderCalendar(date) {
-        calendarGrid.innerHTML = '';
-        currentMonthDisplay.textContent = getMonthYearString(date);
-
-        const today = new Date();
-        if (date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
-            prevMonthBtn.disabled = true;
-        } else {
-            prevMonthBtn.disabled = false;
-        }
-
-        const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-        const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-        const startingDay = firstDayOfMonth.getDay();
-        const totalDays = lastDayOfMonth.getDate();
-
-
-        for (let i = 0; i < startingDay; i++) {
-            const prevMonthDay = new Date(date.getFullYear(), date.getMonth(), -startingDay + i + 1);
-            createCalendarDay(prevMonthDay, true);
-        }
-
-        for (let i = 1; i <= totalDays; i++) {
-            const currentDay = new Date(date.getFullYear(), date.getMonth(), i);
-            createCalendarDay(currentDay);
-        }
-
-        const tourPrice = 100;
-        calendarGrid.querySelectorAll('.calendar-day').forEach(day => {
-            const priceElement = document.createElement('span');
-            priceElement.textContent = `$${tourPrice}`;
-            day.appendChild(priceElement);
-        });
-    }
 
     // function createCalendarDay(date, inactive = false) {
     //     const dayElement = document.createElement('div');
@@ -170,31 +199,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     //     dayElement.textContent = date.getDate();
     //     calendarGrid.appendChild(dayElement);
     // }
-    function createCalendarDay(date, inactive = false) {
-        const dayElement = document.createElement('div');
-        dayElement.classList.add('calendar-day');
-        if (inactive) {
-            dayElement.classList.add('inactive');
-        } else {
-            // Create a key for the date in ISO format
-            const isoDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
-            // Filter events for the current date
-            const eventsForDate = model.events.filter(event => event.date === isoDate.split('T')[0]);
-            // If there are events for the current date, add them to the day element
-            if (eventsForDate.length > 0) {
-                eventsForDate.forEach(event => {
-                    // Create a span element to display the price
-                    const priceElement = document.createElement('span');
-                    priceElement.textContent = `$${event.adult_price}`;
-                    // Append the price element to the day element
-                    dayElement.appendChild(priceElement);
-                });
-            }
-            dayElement.dataset.date = isoDate.split('T')[0];
-        }
-        dayElement.textContent = date.getDate();
-        calendarGrid.appendChild(dayElement);
-    }
 
 
     function getMonthYearString(date) {
