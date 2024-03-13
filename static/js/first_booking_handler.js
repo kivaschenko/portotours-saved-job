@@ -85,8 +85,11 @@ function handleEventData(data) {
     }
 }
 
+document.addEventListener('DOMContentLoaded', async function () {
+    // Fetch event data and wait for it to complete
+    await fetchEventData(parentExperienceId);
 
-document.addEventListener('DOMContentLoaded', function () {
+    // Once event data is fetched, proceed with other tasks
     const prevMonthBtn = document.getElementById('prevMonth');
     const nextMonthBtn = document.getElementById('nextMonth');
     const currentMonthDisplay = document.getElementById('currentMonth');
@@ -97,8 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let selectedDate = null;
     let currentDate = new Date();
-    // Get data about all actual events
-    fetchEventData(parentExperienceId);
+
     // Show calendar
     renderCalendar(currentDate);
 
@@ -154,20 +156,46 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // function createCalendarDay(date, inactive = false) {
+    //     const dayElement = document.createElement('div');
+    //     dayElement.classList.add('calendar-day');
+    //     if (inactive) {
+    //         dayElement.classList.add('inactive');
+    //     } else {
+    //         // Создаем дату без учета часового пояса
+    //         const isoDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
+    //         const formattedDate = isoDate.split('T')[0];
+    //         dayElement.dataset.date = formattedDate;
+    //     }
+    //     dayElement.textContent = date.getDate();
+    //     calendarGrid.appendChild(dayElement);
+    // }
     function createCalendarDay(date, inactive = false) {
         const dayElement = document.createElement('div');
         dayElement.classList.add('calendar-day');
         if (inactive) {
             dayElement.classList.add('inactive');
         } else {
-            // Создаем дату без учета часового пояса
+            // Create a key for the date in ISO format
             const isoDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
-            const formattedDate = isoDate.split('T')[0];
-            dayElement.dataset.date = formattedDate;
+            // Filter events for the current date
+            const eventsForDate = model.events.filter(event => event.date === isoDate.split('T')[0]);
+            // If there are events for the current date, add them to the day element
+            if (eventsForDate.length > 0) {
+                eventsForDate.forEach(event => {
+                    // Create a span element to display the price
+                    const priceElement = document.createElement('span');
+                    priceElement.textContent = `$${event.adult_price}`;
+                    // Append the price element to the day element
+                    dayElement.appendChild(priceElement);
+                });
+            }
+            dayElement.dataset.date = isoDate.split('T')[0];
         }
         dayElement.textContent = date.getDate();
         calendarGrid.appendChild(dayElement);
     }
+
 
     function getMonthYearString(date) {
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
