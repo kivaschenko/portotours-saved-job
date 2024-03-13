@@ -61,8 +61,8 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
     if not ParentExperience.objects.filter(id=parent_experience_id).exists():
         return result
     parent_experience = ParentExperience.objects.get(id=parent_experience_id)
-    languages = list(parent_experience.allowed_languages.values_list('code', 'name'))
-    result['languages'] = {item[0]: item[1] for item in languages}
+    languages_queryset = parent_experience.allowed_languages.values_list('code', flat=True)
+    result['languages'] = list(languages_queryset)
     actual_events_dict = {}
     now = datetime.utcnow()
     try:

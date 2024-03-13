@@ -3,7 +3,32 @@ const model = {};  // The JSON data about all allowed events will be seeded here
 // The view object has functions that are responsible for changing the data in certain html blocks
 const view = {
     seedDataToForm: function () {
+        // Function implementation for seeding data to form, if needed
         let form = document.getElementById("bookingForm");
+    },
+    showOnlyAllowedLanguages: function () {
+        // Check if model.languages exists and is an array before proceeding
+        if (model.languages && Array.isArray(model.languages)) {
+            // Get the array of allowed language codes from model.languages
+            let allowedLanguages = model.languages;
+
+            // Iterate over the allowed language codes
+            allowedLanguages.forEach(langCode => {
+                // Construct the ID of the input element based on the language code
+                let inputId = "lang_" + langCode;
+
+                // Retrieve the corresponding input element
+                let inputElement = document.getElementById(inputId);
+
+                // Check if the input element exists and toggle its display
+                if (inputElement) {
+                    // Assuming the display property is initially set to 'none'
+                    inputElement.style.display = "block"; // Show the input element
+                }
+            });
+        } else {
+            console.error("model.languages is either undefined or not an array");
+        }
     },
 
     showTimesAndPlaces: function (date) {
@@ -53,6 +78,8 @@ function handleEventData(data) {
 
         // Example: Log the updated model object
         console.log('Updated model:', model);
+        // In calendar form show only allowed languages
+        view.showOnlyAllowedLanguages();
     } else {
         console.error('Received data format is invalid');
     }
@@ -67,11 +94,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const ticketCounts = document.querySelectorAll('.ticket-count');
     const totalPriceDisplays = document.querySelectorAll('.total-price');
     const submitBtn = document.getElementById('submitBtn');
+
     let selectedDate = null;
     let currentDate = new Date();
-
+    // Get data about all actual events
     fetchEventData(parentExperienceId);
-    
+    // Show calendar
     renderCalendar(currentDate);
 
     prevMonthBtn.addEventListener('click', function () {
@@ -134,7 +162,8 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             // Создаем дату без учета часового пояса
             const isoDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
-            dayElement.dataset.date = isoDate;
+            const formattedDate = isoDate.split('T')[0];
+            dayElement.dataset.date = formattedDate;
         }
         dayElement.textContent = date.getDate();
         calendarGrid.appendChild(dayElement);
