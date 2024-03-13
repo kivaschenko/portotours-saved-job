@@ -77,7 +77,7 @@ class ExperienceDetailView(DetailView):
             self.extra_context.update({'customer_id': request.user.id})
             self.extra_context.update({'session_key': request.session.session_key})
         else:
-            self.extra_context['customer'] = 0
+            self.extra_context['customer'] = None
             # If the user is not authenticated, get the current session
             if not request.session.exists(request.session.session_key):
                 request.session.create()

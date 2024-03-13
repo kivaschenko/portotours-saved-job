@@ -651,7 +651,11 @@
         // Define current language according object.language
         const currentLanguage = `{{ current_language }}`;  // from response extra_context
         // Define current customer None or user.id
-        // const customerId = {{ customer_id }};  // from response extra_context
+        {% if user.is_authenticated %}
+            const customerId = {{ customer_id }};  // from response extra_context
+        {% else %}
+            const customerId = null;
+        {% endif %}
         // Define session key
         const sessionKey = `{{ session_key }}`;  // from response extra_context
         // Define ParentExperience id
