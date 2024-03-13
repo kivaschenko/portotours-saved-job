@@ -1,0 +1,100 @@
+{% load static %}
+<form id="bookingForm">
+    <div class="calendar">
+        <div class="month-controls">
+            <button id="prevMonth" type="button">
+                <img src="{% static 'icons/calendar-month-arrow.svg' %}" alt="">
+                <img class="icon-disabled" src="{% static 'icons/calendar-month-arrow-disabled.svg' %}" alt="">
+            </button>
+            <span id="currentMonth"></span>
+            <button id="nextMonth" type="button">
+                <img src="{% static 'icons/calendar-month-arrow.svg' %}" alt="">
+            </button>
+        </div>
+        <div class="day-labels">
+            <span>Sun</span>
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+    <p class="body-text-b3 time-selection-title">Choose time</p>
+    <div class="time-selection">
+        <div class="input-wrapper">
+            <input type="radio" id="time1" name="time" value="9:00">
+            <label for="time1">9:00</label>
+        </div>
+        <div class="input-wrapper">
+            <input type="radio" id="time2" name="time" value="12:00">
+            <label for="time2">12:00</label>
+        </div>
+        <div class="input-wrapper">
+            <input type="radio" id="time3" name="time" value="15:00">
+            <label for="time3">15:00</label>
+        </div>
+        <div class="input-wrapper">
+            <input type="radio" id="time4" name="time" value="18:00">
+            <label for="time4">18:00</label>
+        </div>
+
+    </div>
+
+    <div class="ticket-selection">
+        <p class="body-text-b3 ticket-selection-title">People</p>
+        <div class="ticket-type">
+            <p class="ticket-type-title">Adults</p>
+            <button class="decrement" type="button">
+                <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
+            </button>
+            <input type="text" class="ticket-count" value="0" readonly>
+            <button class="increment" type="button">
+                <img src="{% static 'icons/increment-icon.svg' %}" alt="increment">
+            </button>
+            <p class="total-price">$0</p>
+        </div>
+        <div class="ticket-type">
+            <p class="ticket-type-title">Children</p>
+            <button class="decrement" type="button">
+                <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
+            </button>
+            <input type="text" class="ticket-count" value="0" readonly>
+            <button class="increment" type="button">
+                <img src="{% static 'icons/increment-icon.svg' %}" alt="increment">
+            </button>
+            <p class="total-price">$0</p>
+        </div>
+    </div>
+    <p class="body-text-b3 language-selection-title">Choose language</p>
+    <div class="language-selection">
+        <div class="input-wrapper">
+            <input type="radio" id="lang1" name="language" value="PT">
+            <label for="lang1">
+                <img src="{% static 'icons/pt-flag.svg' %}" alt="pt flag">
+            </label>
+        </div>
+        <div class="input-wrapper">
+            <input type="radio" id="lang2" name="language" value="FR">
+            <label for="lang2">
+                <img src="{% static 'icons/fr-flag.svg' %}" alt="fr flag">
+            </label>
+        </div>
+        <div class="input-wrapper">
+            <input type="radio" id="lang3" name="language" value="ES">
+            <label for="lang3">
+                <img src="{% static 'icons/es-flag.svg' %}" alt="es flag">
+            </label>
+        </div>
+        <div class="input-wrapper">
+            <input type="radio" id="lang4" name="language" value="EN">
+            <label for="lang4">
+                <img src="{% static 'icons/fr-flag.svg' %}" alt="en flag">
+            </label>
+        </div>
+    </div>
+
+    <button type="submit" class="btn-type-1" id="submitBtn">add to cart</button>
+</form>

@@ -77,7 +77,7 @@ class ExperienceDetailView(DetailView):
             self.extra_context.update({'customer_id': request.user.id})
             self.extra_context.update({'session_key': request.session.session_key})
         else:
-            self.extra_context['customer'] = None
+            self.extra_context['customer'] = 0
             # If the user is not authenticated, get the current session
             if not request.session.exists(request.session.session_key):
                 request.session.create()
@@ -157,6 +157,7 @@ class CancelProductView(DeleteView):
         # Here you can perform any logic you want before changing the status
         self.object.status = 'Cancelled'
         self.object.save()
+        # TODO: Add update for certain ExperienceEvent: change booked_participants and remaining_participants!
         # Instead of calling delete() on the object, change its status
         return HttpResponseRedirect(self.get_success_url())
 
