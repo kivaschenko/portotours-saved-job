@@ -244,3 +244,9 @@ def get_event_booking_data(request, event_id):
     }
     print('result:', actual_data_dict)
     return JsonResponse({'result': actual_data_dict}, status=200)
+
+
+class EditProductView(DetailView):
+    model = Product
+    template_name = 'products/edit_booking_form.html'
+    queryset = Product.objects.all()

@@ -1,0 +1,20 @@
+<!-- custom_delete.html -->
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <p>Here object data: </p>
+    <p>{{ object }} </p>
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("cancel-btn").onclick = function () {
+            history.go(-1); // Go back one page in history
+        };
+    </script>
+{% endblock %}
