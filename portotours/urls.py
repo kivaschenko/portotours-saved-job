@@ -64,6 +64,7 @@ urlpatterns += [
     path('confirmation/<str:lang>/', purchases_views.ConfirmationView.as_view(), name='confirmation'),
     path('purchase/get-pdf/<int:purchase_id>/', purchases_views.generate_purchase_pdf, name='generate-pdf'),
     path('create-product/', products_views.create_product, name='create-product'),
+    path('edit-booking/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
 ]
 
 # BLOGS

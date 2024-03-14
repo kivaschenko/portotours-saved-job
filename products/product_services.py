@@ -61,9 +61,9 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
     if not ParentExperience.objects.filter(id=parent_experience_id).exists():
         return result
     parent_experience = ParentExperience.objects.get(id=parent_experience_id)
-    languages = list(parent_experience.allowed_languages.values_list('code', 'name'))
-    result['languages'] = {item[0]: item[1] for item in languages}
-    actual_events_dict = {}
+    languages_queryset = parent_experience.allowed_languages.values_list('code', flat=True)
+    result['languages'] = list(languages_queryset)
+    actual_events_list = []
     now = datetime.utcnow()
     try:
         calendar = Calendar.objects.get_calendars_for_object(parent_experience).first()
@@ -71,7 +71,7 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
 
         if len(actual_events) > 0:
             for event in actual_events:
-                actual_events_dict[event.experienceevent.id] = {
+                actual_events_list.append({
                     'date': event.experienceevent.start_date,
                     'time': event.experienceevent.start_time,
                     'adult_price': float(event.experienceevent.special_price),
@@ -80,8 +80,8 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
                     'booked_participants': event.experienceevent.booked_participants,
                     'remaining_participants': event.experienceevent.remaining_participants,
                     'experience_event_id': event.experienceevent.id,
-                }
-            result['events'] = actual_events_dict
+                })
+            result['events'] = actual_events_list
     except EventRelation.DoesNotExist:
         logger.error(f'No events found for ParentExperience id={parent_experience_id}')
     finally:

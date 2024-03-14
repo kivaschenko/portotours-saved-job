@@ -157,6 +157,7 @@ class CancelProductView(DeleteView):
         # Here you can perform any logic you want before changing the status
         self.object.status = 'Cancelled'
         self.object.save()
+        # TODO: Add update for certain ExperienceEvent: change booked_participants and remaining_participants!
         # Instead of calling delete() on the object, change its status
         return HttpResponseRedirect(self.get_success_url())
 
@@ -172,6 +173,7 @@ def get_actual_experience_events(request, parent_experience_id):
 
 @csrf_exempt
 def create_product(request):
+    print(request.POST)
     if request.method == 'POST':
         adults = int(request.POST.get('adults'))
         children = int(request.POST.get('children'))
@@ -243,3 +245,9 @@ def get_event_booking_data(request, event_id):
     }
     print('result:', actual_data_dict)
     return JsonResponse({'result': actual_data_dict}, status=200)
+
+
+class EditProductView(DetailView):
+    model = Product
+    template_name = 'products/edit_booking_form.html'
+    queryset = Product.objects.all()
