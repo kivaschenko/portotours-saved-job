@@ -140,7 +140,7 @@ const controller = {
                 let count = parseInt(ticketCount.value);
                 count++;
                 ticketCount.value = count;
-                updateTotalPrice();
+                controller.updateTotalPrice(); // Update total price when incrementing
             });
         });
     },
@@ -153,33 +153,53 @@ const controller = {
                 if (count > 0) {
                     count--;
                     ticketCount.value = count;
-                    controller.updateTotalPrice();
+                    controller.updateTotalPrice(); // Update total price when decrementing
                 }
             });
         });
     },
 
+    handleTimeSelection: function () {
+        document.querySelectorAll('time-selection input[type="radio"]').forEach(input => {
+            input.addEventListener('change', function () {
+                const selectedDate = document.querySelector('.calendar-day.selected-date');
+                if (selectedDate) {
+                    controller.updateTotalPrice(selectedDate.dataset.date, this.value);
+                }
+            })
+        })
+    },
+
     updateTotalPrice: function () {
-        let totalAdultTickets = 0;
-        let totalChildTickets = 0;
+        // Find the selected date and time
+        const selectedDateElement = document.querySelector('.calendar-day.selected-date');
+        const selectedTimeInput = document.querySelector('input[name="time"]:checked');
 
-        ticketCounts.forEach((count, index) => {
-            const ticketType = index % 2 === 0 ? 'adult' : 'child';
-            const ticketPrice = ticketType === 'adult' ? 100 : 50; // Цена для взрослых $100, для детей $50
-            const ticketTotalPrice = parseInt(count.value) * ticketPrice;
+        if (selectedDateElement && selectedTimeInput) {
+            const selectedDate = selectedDateElement.dataset.date;
+            const selectedTime = selectedTimeInput.value;
 
-            if (ticketType === 'adult') {
-                totalAdultTickets += ticketTotalPrice;
+            // Find the event matching the selected date and time
+            const selectedEvent = model.events.find(event => event.date === selectedDate && event.time === selectedTime);
+
+            if (selectedEvent) {
+                const adultPrice = selectedEvent.adult_price;
+                const childPrice = selectedEvent.child_price;
+                
+                // Get ticket counts directly from HTML elements
+                const ticketCounts = document.querySelectorAll('.ticket-count');
+
+                // Calculate total prices
+                const totalAdultTickets = parseInt(ticketCounts[0].value) * adultPrice;
+                const totalChildTickets = parseInt(ticketCounts[1].value) * childPrice;
+
+                // Update submit button text
+                const totalPrice = totalAdultTickets + totalChildTickets
+                submitBtn.textContent = `${totalPrice.toFixed(2)} add to cart`;
             } else {
-                totalChildTickets += ticketTotalPrice;
+                console.error('Selected event not found.');
             }
-        });
-
-        totalPriceDisplays[0].textContent = `$${totalAdultTickets}`;
-        totalPriceDisplays[1].textContent = `$${totalChildTickets}`;
-
-        const totalPrice = totalAdultTickets + totalChildTickets;
-        submitBtn.textContent = `${totalPrice} add to cart`;
+        }
     },
     // Function to handle click on a date cell
     handleDateClick: function (event) {
@@ -265,11 +285,19 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Fetch event data and wait for it to complete
     await fetchEventData(parentExperienceId);
 
-    // Event listeners for prevMonthBtn, nextMonthBtn, etc. can be added here or in the controller
-    // Call the handleDecrementClick function to add event listeners to decrement buttons
+    // Call the handleIncrementClick and handleDecrementClick functions
+    controller.handleIncrementClick();
     controller.handleDecrementClick();
+
+    // Call handleTimeSelection function to add event listeners to time selection inputs
+    controller.handleTimeSelection();
 });
 
+
+
+
+// -----------
+// MOBILE FORM
 
 // open mobile form
 const openMobileBookingFormBtn = document.querySelector('.mobile-form-btn');
