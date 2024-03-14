@@ -1,4 +1,17 @@
-const model = {};  // The JSON data about all allowed events will be seeded here after page loading
+const model = {
+    // The JSON data about all allowed events will be seeded here after page loading
+    'languages': [],
+    'events': [],
+    'bookingData': {
+        'adults': 0,
+        'children': 0,
+        'language_code': null,
+        'customer_id': customerId, // from page scope
+        'session_key': sessionKey, // from page scope
+        'event_id': null,
+        'parent_experience_id': parentExperienceId, // from page scope
+    }
+};
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
 const view = {
@@ -124,12 +137,12 @@ const view = {
         const year = date.getFullYear();
         return `${month} ${year}`;
     },
-    
+
     // Function to update total price display
     updateTotalPriceDisplay: function (totalAdultPrice, totalChildPrice) {
         const adultTotalPriceElement = document.getElementById('adultTotalPrice');
         const childTotalPriceElement = document.getElementById('childTotalPrice');
-        
+
         if (adultTotalPriceElement && childTotalPriceElement) {
             adultTotalPriceElement.textContent = `$${totalAdultPrice.toFixed(2)}`;
             childTotalPriceElement.textContent = `$${totalChildPrice.toFixed(2)}`;
@@ -139,8 +152,33 @@ const view = {
 
 // The controller has functions that respond to events in HTML blocks, forms, buttons
 const controller = {
-    handleSubmit: function (e) {
-        // Do something with data of form
+    // Function to handle form submission
+    handleFormSubmit: function() {
+        // Get the booking data from the model
+        const bookingData = model.bookingData;
+
+        // Perform any necessary validation or preprocessing of data here
+
+        // Send the booking data to the server using fetch or another AJAX method
+        fetch('/submit-booking', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(bookingData),
+        })
+        .then(response => {
+            if (response.ok) {
+                // Handle successful response
+                console.log('Booking submitted successfully.');
+            } else {
+                // Handle error response
+                console.error('Error submitting booking:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting booking:', error);
+        });
     },
     handleIncrementClick: function () {
         document.querySelectorAll('.increment').forEach(button => {
@@ -199,12 +237,11 @@ const controller = {
                 // Get adult and child counts using IDs
                 const adultCount = parseInt(document.getElementById('adultTicketCount').value);
                 const childCount = parseInt(document.getElementById('childTicketCount').value);
-                console.log('adultCount=', adultCount, 'childCount=', childCount);
 
                 // Update total prices display
                 const totalAdultPrice = adultPrice * adultCount;
                 const totalChildPrice = childPrice * childCount;
-                
+
                 // Update the total prices directly next to the clickers
                 const adultTotalPriceElement = document.getElementById('adultTotalPrice');
                 const childTotalPriceElement = document.getElementById('childTotalPrice');
@@ -221,6 +258,16 @@ const controller = {
             }
         }
     },
+
+    resetPricesAndButton: function () {
+        // Reset adult and child total prices to $0
+        document.getElementById('adultTotalPrice').textContent = '$0';
+        document.getElementById('childTotalPrice').textContent = '$0';
+
+        // Reset submit button text
+        submitBtn.textContent = 'Add to Cart';
+    },
+
     // Function to handle click on a date cell
     handleDateClick: function (event) {
         const clickedDateElement = event.target;
@@ -231,6 +278,11 @@ const controller = {
         timeSelection.innerHTML = '';
 
         if (clickedDate) {
+            // Check if this is the second date selection
+            if (document.querySelectorAll('.calendar-day.selected-date').length === 1) {
+                controller.resetPricesAndButton(); // Reset prices and submit button text
+            }
+
             // Filter events for the clicked date
             const eventsForDate = model.events.filter(event => event.date === clickedDate);
 
@@ -267,7 +319,24 @@ const controller = {
             });
             clickedDateElement.classList.add('selected-date');
         }
-    }
+    },
+    // Function to update the model booking data
+    updateBookingData: function () {
+        model.bookingData.adults = parseInt(document.getElementById('adultCount').value);
+        model.bookingData.children = parseInt(document.getElementById('childCount').value);
+        model.bookingData.language_code = document.getElementById('languageSelect').value;
+        // Update other fields as needed
+    },
+
+    // Function to reset booking data when the date selection changes
+    resetBookingData: function () {
+        model.bookingData.adults = 0;
+        model.bookingData.children = 0;
+        model.bookingData.language_code = null;
+        model.bookingData.event_id = null;
+        // Reset other fields as needed
+    },
+    
 };
 
 // Function to fetch JSON data using AJAX
@@ -311,9 +380,20 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Call handleTimeSelection function to add event listeners to time selection inputs
     controller.handleTimeSelection();
+
+    // Add event listeners to form inputs to update booking data
+    document.getElementById('submitButton').addEventListener('click', function() {
+        // Gather form data and update the model
+        controller.updateBookingData(); // This function should be updated to gather all form data
+
+        // Call a function to handle form submission
+        controller.handleFormSubmit();
+    });
+
+    // Add event listener to the calendar to reset booking data on date selection change
+    document.getElementById('calendar').addEventListener('click', controller.resetBookingData);
+
 });
-
-
 
 
 // -----------
