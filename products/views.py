@@ -173,6 +173,7 @@ def get_actual_experience_events(request, parent_experience_id):
 
 @csrf_exempt
 def create_product(request):
+    print(request.POST)
     if request.method == 'POST':
         adults = int(request.POST.get('adults'))
         children = int(request.POST.get('children'))

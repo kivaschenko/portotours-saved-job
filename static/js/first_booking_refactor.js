@@ -125,9 +125,8 @@ const view = {
             dayElement.dataset.date = isoDate.split('T')[0];
         }
         dayElement.textContent = date.getDate();
-        calendarGrid.appendChild(dayElement);
         // Append dayElement to calendar grid
-        // calendarGrid.appendChild(dayElement);
+        calendarGrid.appendChild(dayElement);
     },
 
     // Function to get month and year string
@@ -144,8 +143,8 @@ const view = {
         const childTotalPriceElement = document.getElementById('childTotalPrice');
 
         if (adultTotalPriceElement && childTotalPriceElement) {
-            adultTotalPriceElement.textContent = `$${totalAdultPrice.toFixed(2)}`;
-            childTotalPriceElement.textContent = `$${totalChildPrice.toFixed(2)}`;
+            adultTotalPriceElement.textContent = `${totalAdultPrice.toFixed(2)}`;
+            childTotalPriceElement.textContent = `${totalChildPrice.toFixed(2)}`;
         }
     }
 };
@@ -153,32 +152,33 @@ const view = {
 // The controller has functions that respond to events in HTML blocks, forms, buttons
 const controller = {
     // Function to handle form submission
-    handleFormSubmit: function() {
+    handleFormSubmit: function () {
         // Get the booking data from the model
         const bookingData = model.bookingData;
 
+        console.log("Got bookingData to send:", bookingData);
         // Perform any necessary validation or preprocessing of data here
 
         // Send the booking data to the server using fetch or another AJAX method
-        fetch('/submit-booking', {
+        fetch('/create-product/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(bookingData),
         })
-        .then(response => {
-            if (response.ok) {
-                // Handle successful response
-                console.log('Booking submitted successfully.');
-            } else {
-                // Handle error response
-                console.error('Error submitting booking:', response.statusText);
-            }
-        })
-        .catch(error => {
-            console.error('Error submitting booking:', error);
-        });
+            .then(response => {
+                if (response.ok) {
+                    // Handle successful response
+                    console.log('Booking submitted successfully.');
+                } else {
+                    // Handle error response
+                    console.error('Error submitting booking:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting booking:', error);
+            });
     },
     handleIncrementClick: function () {
         document.querySelectorAll('.increment').forEach(button => {
@@ -246,13 +246,13 @@ const controller = {
                 const adultTotalPriceElement = document.getElementById('adultTotalPrice');
                 const childTotalPriceElement = document.getElementById('childTotalPrice');
                 if (adultTotalPriceElement && childTotalPriceElement) {
-                    adultTotalPriceElement.textContent = `$${totalAdultPrice}`;
-                    childTotalPriceElement.textContent = `$${totalChildPrice}`;
+                    adultTotalPriceElement.textContent = `${totalAdultPrice} EUR`;
+                    childTotalPriceElement.textContent = `${totalChildPrice} EUR`;
                 }
 
                 // Update submit button text
                 const totalPrice = totalAdultPrice + totalChildPrice;
-                submitBtn.textContent = `${totalPrice.toFixed(2)} add to cart`;
+                submitBtn.textContent = `${totalPrice.toFixed(2)} EUR add to cart`;
             } else {
                 console.error('Selected event not found.');
             }
@@ -320,13 +320,49 @@ const controller = {
             clickedDateElement.classList.add('selected-date');
         }
     },
+
     // Function to update the model booking data
     updateBookingData: function () {
-        model.bookingData.adults = parseInt(document.getElementById('adultCount').value);
-        model.bookingData.children = parseInt(document.getElementById('childCount').value);
-        model.bookingData.language_code = document.getElementById('languageSelect').value;
+        // Get the selected date and time
+        const selectedDateElement = document.querySelector('.calendar-day.selected-date');
+        const selectedTimeInput = document.querySelector('input[name="time"]:checked');
+
+        if (selectedDateElement && selectedTimeInput) {
+            const selectedDate = selectedDateElement.dataset.date;
+            const selectedTime = selectedTimeInput.value;
+
+            // Find the event matching the selected date and time
+            const selectedEvent = model.events.find(event => event.date === selectedDate && event.time === selectedTime);
+
+            if (selectedEvent) {
+                // Update the booking data with the selected event's ID
+                model.bookingData.event_id = selectedEvent.experience_event_id;
+            } else {
+                console.error('Selected event not found.');
+            }
+        } else {
+            console.error('Selected date or time not found.');
+        }
+
+        // Update other booking data fields as needed
+        model.bookingData.adults = parseInt(document.getElementById('adultTicketCount').value);
+        model.bookingData.children = parseInt(document.getElementById('childTicketCount').value);
+
+        // Get the selected language radio button
+        const selectedLanguage = document.querySelector('input[name="language"]:checked');
+
+        // Update the language code in the model based on the selected language
+        if (selectedLanguage) {
+            model.bookingData.language_code = selectedLanguage.value;
+        } else {
+            // If no language is selected, you may want to handle this case accordingly
+            console.error('No language selected.');
+        }
+
         // Update other fields as needed
+        console.log('inside updateBookingData all steps done:', model.bookingData);
     },
+
 
     // Function to reset booking data when the date selection changes
     resetBookingData: function () {
@@ -335,8 +371,9 @@ const controller = {
         model.bookingData.language_code = null;
         model.bookingData.event_id = null;
         // Reset other fields as needed
+        console.log('inside resetBookingData:', model.bookingData);
     },
-    
+
 };
 
 // Function to fetch JSON data using AJAX
@@ -382,7 +419,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     controller.handleTimeSelection();
 
     // Add event listeners to form inputs to update booking data
-    document.getElementById('submitButton').addEventListener('click', function() {
+    document.getElementById('submitBtn').addEventListener('click', function () {
         // Gather form data and update the model
         controller.updateBookingData(); // This function should be updated to gather all form data
 
@@ -391,7 +428,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     // Add event listener to the calendar to reset booking data on date selection change
-    document.getElementById('calendar').addEventListener('click', controller.resetBookingData);
+    document.getElementById('calendarGrid').addEventListener('click', controller.resetBookingData);
 
 });
 
