@@ -146,5 +146,5 @@ class TestCreateProductView(TestCase):
         res_data = response.json()
         result = res_data['result']
         
-        self.assertEqual(result['languages'], {'EN': 'English', 'ES': 'Español', 'FR': 'Français'})
+        self.assertEqual(result['languages'], ['EN', 'ES', 'FR'])
         self.assertEqual(len(result['events']), 2)
