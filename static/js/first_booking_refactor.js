@@ -63,29 +63,28 @@ const view = {
         calendarGrid.querySelectorAll('.calendar-day').forEach((day, index) => {
             const isoDate = calendarGrid.children[index].dataset.date; // Получаем дату из data-атрибута
             const eventsForDate = model.events.filter(event => event.date === isoDate); // Фильтруем события по дате
-        
+
             if (eventsForDate.length > 0) {
                 const minPrice = Math.min(...eventsForDate.map(event => event.adult_price)); // Находим минимальную цену
-        
+
                 // Проверяем, есть ли уже элемент цены в ячейке
                 let priceElement = day.querySelector('.calendar-price');
-                
+
                 // Если элемента цены еще нет, создаем его
                 if (!priceElement) {
                     priceElement = document.createElement('span');
                     priceElement.classList.add('calendar-price'); // Добавляем класс для цены
                     day.appendChild(priceElement); // Добавляем элемент цены к дню календаря
                 }
-                
+
                 // Обновляем содержимое элемента цены, если новая цена меньше
                 if (!priceElement.textContent || minPrice < parseFloat(priceElement.textContent.slice(1))) {
                     priceElement.textContent = `€${minPrice}`;
                 }
             }
         });
-
-        // Example: Render the calendar days
-        // this.createCalendarDays(date);
+        // Event listener to handle click on a date cell
+        calendarGrid.addEventListener('click', controller.handleDateClick);
     },
 
     // Function to create calendar day
@@ -99,7 +98,7 @@ const view = {
             const isoDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
             // Filter events for the current date
             const eventsForDate = model.events.filter(event => event.date === isoDate.split('T')[0]);
-            
+
             // If there are events for the current date, add them to the day element
             if (eventsForDate.length > 0) {
                 eventsForDate.forEach(event => {
@@ -132,6 +131,18 @@ const view = {
 const controller = {
     handleSubmit: function (e) {
         // Do something with data of form
+    },
+    handleIncrementClick: function () {
+        document.querySelectorAll('.increment').forEach(button => {
+            button.addEventListener('click', function () {
+                const ticketCount = this.previousElementSibling;
+                const priceDisplay = this.nextElementSibling.nextElementSibling;
+                let count = parseInt(ticketCount.value);
+                count++;
+                ticketCount.value = count;
+                updateTotalPrice();
+            });
+        });
     },
     handleDecrementClick: function () {
         document.querySelectorAll('.decrement').forEach(button => {
@@ -169,6 +180,53 @@ const controller = {
 
         const totalPrice = totalAdultTickets + totalChildTickets;
         submitBtn.textContent = `${totalPrice} add to cart`;
+    },
+    // Function to handle click on a date cell
+    handleDateClick: function (event) {
+        const clickedDateElement = event.target;
+        const clickedDate = clickedDateElement.dataset.date;
+
+        // Clear the time selection area
+        const timeSelection = document.querySelector('.time-selection');
+        timeSelection.innerHTML = '';
+
+        if (clickedDate) {
+            // Filter events for the clicked date
+            const eventsForDate = model.events.filter(event => event.date === clickedDate);
+
+            // If there are events for the clicked date
+            if (eventsForDate.length > 0) {
+                // Create time selection options for each event
+                eventsForDate.forEach(event => {
+                    // Create radio button for each time
+                    const timeInput = document.createElement('input');
+                    timeInput.type = 'radio';
+                    timeInput.id = event.experience_event_id;
+                    timeInput.name = 'time';
+                    timeInput.value = event.time;
+
+                    // Create label for the radio button
+                    const timeLabel = document.createElement('label');
+                    timeLabel.htmlFor = event.experience_event_id;
+                    timeLabel.textContent = event.time;
+
+                    // Append the radio button and label to the time selection area
+                    timeSelection.appendChild(timeInput);
+                    timeSelection.appendChild(timeLabel);
+                });
+            } else {
+                // If no events are available for the clicked date, display a message
+                const noEventsMessage = document.createElement('p');
+                noEventsMessage.textContent = 'No events available for this date.';
+                timeSelection.appendChild(noEventsMessage);
+            }
+
+            // Highlight the selected date
+            document.querySelectorAll('.calendar-day').forEach(day => {
+                day.classList.remove('selected-date');
+            });
+            clickedDateElement.classList.add('selected-date');
+        }
     }
 };
 
