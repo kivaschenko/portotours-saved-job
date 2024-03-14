@@ -52,19 +52,36 @@ const view = {
 
         for (let i = 0; i < startingDay; i++) {
             const prevMonthDay = new Date(date.getFullYear(), date.getMonth(), -startingDay + i + 1);
-            createCalendarDay(prevMonthDay, true);
+            this.createCalendarDay(prevMonthDay, true);
         }
 
         for (let i = 1; i <= totalDays; i++) {
             const currentDay = new Date(date.getFullYear(), date.getMonth(), i);
-            createCalendarDay(currentDay);
+            this.createCalendarDay(currentDay);
         }
 
-        const tourPrice = 100;
-        calendarGrid.querySelectorAll('.calendar-day').forEach(day => {
-            const priceElement = document.createElement('span');
-            priceElement.textContent = `$${tourPrice}`;
-            day.appendChild(priceElement);
+        calendarGrid.querySelectorAll('.calendar-day').forEach((day, index) => {
+            const isoDate = calendarGrid.children[index].dataset.date; // Получаем дату из data-атрибута
+            const eventsForDate = model.events.filter(event => event.date === isoDate); // Фильтруем события по дате
+        
+            if (eventsForDate.length > 0) {
+                const minPrice = Math.min(...eventsForDate.map(event => event.adult_price)); // Находим минимальную цену
+        
+                // Проверяем, есть ли уже элемент цены в ячейке
+                let priceElement = day.querySelector('.calendar-price');
+                
+                // Если элемента цены еще нет, создаем его
+                if (!priceElement) {
+                    priceElement = document.createElement('span');
+                    priceElement.classList.add('calendar-price'); // Добавляем класс для цены
+                    day.appendChild(priceElement); // Добавляем элемент цены к дню календаря
+                }
+                
+                // Обновляем содержимое элемента цены, если новая цена меньше
+                if (!priceElement.textContent || minPrice < parseFloat(priceElement.textContent.slice(1))) {
+                    priceElement.textContent = `€${minPrice}`;
+                }
+            }
         });
 
         // Example: Render the calendar days
@@ -78,13 +95,26 @@ const view = {
         if (inactive) {
             dayElement.classList.add('inactive');
         } else {
-            // Your logic to create calendar day element
-            // ...
-
-            // Example: Set dataset and textContent
-            // dayElement.dataset.date = formattedDate;
-            // dayElement.textContent = date.getDate();
+            // Create a key for the date in ISO format
+            const isoDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
+            // Filter events for the current date
+            const eventsForDate = model.events.filter(event => event.date === isoDate.split('T')[0]);
+            
+            // If there are events for the current date, add them to the day element
+            if (eventsForDate.length > 0) {
+                eventsForDate.forEach(event => {
+                    // Create a span element to display the price
+                    let priceElement = document.createElement('span');
+                    priceElement.textContent = `€${event.adult_price}`;
+                    // Append the price element to the day element
+                    dayElement.appendChild(priceElement);
+                    console.log(dayElement)
+                });
+            }
+            dayElement.dataset.date = isoDate.split('T')[0];
         }
+        dayElement.textContent = date.getDate();
+        calendarGrid.appendChild(dayElement);
         // Append dayElement to calendar grid
         // calendarGrid.appendChild(dayElement);
     },
