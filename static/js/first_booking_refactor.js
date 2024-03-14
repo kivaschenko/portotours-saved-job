@@ -107,7 +107,6 @@ const view = {
                     priceElement.textContent = `€${event.adult_price}`;
                     // Append the price element to the day element
                     dayElement.appendChild(priceElement);
-                    console.log(dayElement)
                 });
             }
             dayElement.dataset.date = isoDate.split('T')[0];
@@ -124,6 +123,17 @@ const view = {
         const month = monthNames[date.getMonth()];
         const year = date.getFullYear();
         return `${month} ${year}`;
+    },
+    
+    // Function to update total price display
+    updateTotalPriceDisplay: function (totalAdultPrice, totalChildPrice) {
+        const adultTotalPriceElement = document.getElementById('adultTotalPrice');
+        const childTotalPriceElement = document.getElementById('childTotalPrice');
+        
+        if (adultTotalPriceElement && childTotalPriceElement) {
+            adultTotalPriceElement.textContent = `$${totalAdultPrice.toFixed(2)}`;
+            childTotalPriceElement.textContent = `$${totalChildPrice.toFixed(2)}`;
+        }
     }
 };
 
@@ -185,16 +195,26 @@ const controller = {
             if (selectedEvent) {
                 const adultPrice = selectedEvent.adult_price;
                 const childPrice = selectedEvent.child_price;
-                
-                // Get ticket counts directly from HTML elements
-                const ticketCounts = document.querySelectorAll('.ticket-count');
 
-                // Calculate total prices
-                const totalAdultTickets = parseInt(ticketCounts[0].value) * adultPrice;
-                const totalChildTickets = parseInt(ticketCounts[1].value) * childPrice;
+                // Get adult and child counts using IDs
+                const adultCount = parseInt(document.getElementById('adultTicketCount').value);
+                const childCount = parseInt(document.getElementById('childTicketCount').value);
+                console.log('adultCount=', adultCount, 'childCount=', childCount);
+
+                // Update total prices display
+                const totalAdultPrice = adultPrice * adultCount;
+                const totalChildPrice = childPrice * childCount;
+                
+                // Update the total prices directly next to the clickers
+                const adultTotalPriceElement = document.getElementById('adultTotalPrice');
+                const childTotalPriceElement = document.getElementById('childTotalPrice');
+                if (adultTotalPriceElement && childTotalPriceElement) {
+                    adultTotalPriceElement.textContent = `$${totalAdultPrice}`;
+                    childTotalPriceElement.textContent = `$${totalChildPrice}`;
+                }
 
                 // Update submit button text
-                const totalPrice = totalAdultTickets + totalChildTickets
+                const totalPrice = totalAdultPrice + totalChildPrice;
                 submitBtn.textContent = `${totalPrice.toFixed(2)} add to cart`;
             } else {
                 console.error('Selected event not found.');

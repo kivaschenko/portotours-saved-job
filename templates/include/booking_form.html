@@ -50,24 +50,25 @@
             <button class="decrement" type="button">
                 <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
             </button>
-            <input type="text" class="ticket-count" value="0" readonly>
+            <input type="text" class="ticket-count" value="0" readonly id="adultTicketCount">
             <button class="increment" type="button">
                 <img src="{% static 'icons/increment-icon.svg' %}" alt="increment">
             </button>
-            <p class="total-price">$0</p>
+            <p class="total-price" id="adultTotalPrice">$0</p> <!-- Added ID -->
         </div>
         <div class="ticket-type">
             <p class="ticket-type-title">Children</p>
             <button class="decrement" type="button">
                 <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
             </button>
-            <input type="text" class="ticket-count" value="0" readonly>
+            <input type="text" class="ticket-count" value="0" readonly id="childTicketCount">
             <button class="increment" type="button">
                 <img src="{% static 'icons/increment-icon.svg' %}" alt="increment">
             </button>
-            <p class="total-price">$0</p>
+            <p class="total-price" id="childTotalPrice">$0</p> <!-- Added ID -->
         </div>
     </div>
+
     <p class="body-text-b3 language-selection-title">Choose language</p>
     <div class="language-selection">
         <div class="input-wrapper" id="lang_PT" style="display: none">
