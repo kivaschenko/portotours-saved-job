@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.views.generic import TemplateView, UpdateView, DetailView
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
@@ -44,7 +45,7 @@ class LogoutView(LoginRequiredMixin, TemplateView):
 class ProfileView(LoginRequiredMixin, DetailView):
     template_name = 'profile/profile_detail.html'
     model = User
-    
+
     def get_object(self, queryset=None):
         # Get the user from the request
         return self.request.user
@@ -68,3 +69,22 @@ class ShippingAddressUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user.profile
+
+
+# --------------
+# PASSWORD RESET
+
+class CustomPasswordResetView(PasswordResetView):
+    email_template_name = 'registration/password_reset_email.html'
+
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'registration/password_reset_done.html'
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'registration/password_reset_confirm.html'
+
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'registration/password_reset_complete.html'
