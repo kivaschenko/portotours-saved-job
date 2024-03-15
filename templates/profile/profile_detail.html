@@ -17,6 +17,12 @@
                             <a class="nav-link" href="#">My orders</a>
                         </li>
                         <li class="nav-item">
+                            <form method="post" action="{% url 'password_change' %}">
+                                {% csrf_token %}
+                                <button class="btn btn-warning m-2" type="submit">change password</button>
+                            </form>
+                        </li>
+                        <li class="nav-item">
                             <form method="post" action="{% url 'logout' %}">
                                 {% csrf_token %}
                                 <button class="btn btn-danger m-2" type="submit">logout</button>
