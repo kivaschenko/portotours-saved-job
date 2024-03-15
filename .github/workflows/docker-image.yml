@@ -23,7 +23,7 @@ jobs:
           sudo apt-get install -y binutils libgdal-dev
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
+      
       - name: Run tests
         run: python3 manage.py test --verbosity=2 --keepdb
 
@@ -49,14 +49,10 @@ jobs:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
-
           script: |
-#            ssh-keyscan -H ${{ secrets.DROPLET_IP }} >> ~/.ssh/known_hosts
-#            ssh -i ${{ secrets.DROPLET_SSH_PRIVATE_KEY }} ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} << 'EOF'
             docker pull kivaschenko/portotours:latest
             docker stop django-portotours || true
             docker rm django-portotours || true
             docker volume rm $(docker volume ls -q) || true
             docker rmi $(docker images -q --filter "dangling=true") || true
             docker run -d --name django-portotours -p 8000:8000 kivaschenko/portotours:latest
-#            EOF
