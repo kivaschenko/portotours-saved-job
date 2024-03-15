@@ -23,8 +23,8 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', accounts_views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', accounts_views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     # Password change
-    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='registration/password_change_form.html'), name='password_change'),
-    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'), name='password_change_done'),
+    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='registration/customized/password_change_form.html'), name='password_change'),
+    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/customized/password_change_done.html'), name='password_change_done'),
     # Profile
     path("accounts/profile/", accounts_views.ProfileView.as_view(), name="profile"),
     path("accounts/profile/update-address/", accounts_views.AddressUpdateView.as_view(), name="address-update"),

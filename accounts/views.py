@@ -75,16 +75,17 @@ class ShippingAddressUpdateView(UpdateView):
 # PASSWORD RESET
 
 class CustomPasswordResetView(PasswordResetView):
-    email_template_name = 'registration/password_reset_email.html'
+    template_name = 'registration/customized/password_reset_form.html'
+    email_template_name = 'registration/customized/password_reset_email.html'
 
 
 class CustomPasswordResetDoneView(PasswordResetDoneView):
-    template_name = 'registration/password_reset_done.html'
+    template_name = 'registration/customized/password_reset_done.html'
 
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'registration/password_reset_confirm.html'
+    template_name = 'registration/customized/password_reset_confirm.html'
 
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
-    template_name = 'registration/password_reset_complete.html'
+    template_name = 'registration/customized/password_reset_complete.html'
