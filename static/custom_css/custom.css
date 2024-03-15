@@ -10893,7 +10893,8 @@ html.off-scroll body {
               height: 46px;
               display: flex;
               flex-direction: column;
-              justify-content: center; }
+              padding-top: 5px;
+              justify-content: flex-start; }
               .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.inactive {
                 color: #D9D9D9; }
                 .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.inactive span {
@@ -10918,39 +10919,37 @@ html.off-scroll body {
         .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection {
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-start;
           flex-wrap: wrap;
           margin-bottom: 16px; }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection .input-wrapper {
-            width: 25%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection .input-wrapper label {
-              font-family: "LatoRegular";
-              font-size: 16px;
-              line-height: 26px;
-              margin-bottom: 0;
-              padding-left: 36px;
-              position: relative;
-              cursor: pointer; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection .input-wrapper label::before {
-                content: "";
-                position: absolute;
-                width: 24px;
-                height: 24px;
-                left: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                background-image: url(../icons/custom-radiobtn-default.svg);
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: center; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection .input-wrapper input {
-              opacity: 0;
-              display: none; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection .input-wrapper input:checked + label::before {
-                background-image: url(../icons/custom-radiobtn-active.svg); }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection label {
+            font-family: "LatoRegular";
+            font-size: 16px;
+            line-height: 26px;
+            margin-bottom: 0;
+            padding-left: 36px;
+            position: relative;
+            cursor: pointer;
+            margin-right: 17px; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection label:last-child {
+              margin-right: 0; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection label::before {
+              content: "";
+              position: absolute;
+              width: 24px;
+              height: 24px;
+              left: 0;
+              top: 50%;
+              transform: translateY(-50%);
+              background-image: url(../icons/custom-radiobtn-default.svg);
+              background-repeat: no-repeat;
+              background-size: cover;
+              background-position: center; }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection input {
+            opacity: 0;
+            display: none; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection input:checked + label::before {
+              background-image: url(../icons/custom-radiobtn-active.svg); }
         .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection {
           margin-bottom: 16px; }
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-selection-title {
@@ -10998,7 +10997,7 @@ html.off-scroll body {
           margin-bottom: 24px;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-start;
           flex-wrap: wrap; }
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper {
             width: 25%;
@@ -11909,6 +11908,275 @@ html.off-scroll body {
     width: 240px;
     margin: 0 auto;
     display: block; }
+
+.edit-cart-item-wrapper .container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding-top: 40px;
+  padding-bottom: 140px;
+  text-align: center; }
+  .edit-cart-item-wrapper .container .edit-cart-item-title {
+    margin-bottom: 24px;
+    text-transform: capitalize; }
+  .edit-cart-item-wrapper .container .name-tour-subtitle {
+    text-align: left;
+    color: #6D6D6D;
+    margin-bottom: 6px;
+    font-family: "LatoRegular";
+    font-size: 14px;
+    line-height: 22px; }
+  .edit-cart-item-wrapper .container .name-tour-title {
+    text-align: left;
+    color: #000;
+    margin-bottom: 24px;
+    font-family: "LatoRegular";
+    font-size: 20px;
+    line-height: 30px; }
+
+.edit-cart-item-wrapper #editBookingForm {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between; }
+  .edit-cart-item-wrapper #editBookingForm .right-col {
+    width: 365px; }
+    .edit-cart-item-wrapper #editBookingForm .right-col .calendar-selection-title {
+      text-align: left;
+      margin-bottom: 12px; }
+  .edit-cart-item-wrapper #editBookingForm .left-col {
+    width: calc(100% - 365px - 32px); }
+  .edit-cart-item-wrapper #editBookingForm .calendar {
+    text-align: center;
+    margin-bottom: 0;
+    border-radius: 16px;
+    background: #FFF;
+    padding: 20px 20px;
+    border: 1px solid #D9D9D9;
+    border-radius: 16px; }
+    .edit-cart-item-wrapper #editBookingForm .calendar .month-controls {
+      display: flex;
+      align-items: flex-end;
+      margin: 0 auto 6px;
+      justify-content: center; }
+      .edit-cart-item-wrapper #editBookingForm .calendar .month-controls #currentMonth {
+        font-family: "LatoSemiBold";
+        font-size: 18px;
+        line-height: 28px;
+        margin-bottom: 0; }
+      .edit-cart-item-wrapper #editBookingForm .calendar .month-controls button {
+        border: none;
+        overflow: none;
+        background: none;
+        width: 24px;
+        height: 24px;
+        padding: 0; }
+        .edit-cart-item-wrapper #editBookingForm .calendar .month-controls button img {
+          width: 100%;
+          display: block; }
+          .edit-cart-item-wrapper #editBookingForm .calendar .month-controls button img.icon-disabled {
+            display: none; }
+        .edit-cart-item-wrapper #editBookingForm .calendar .month-controls button:disabled img {
+          display: none; }
+          .edit-cart-item-wrapper #editBookingForm .calendar .month-controls button:disabled img.icon-disabled {
+            display: block; }
+        .edit-cart-item-wrapper #editBookingForm .calendar .month-controls button#prevMonth {
+          transform: rotate(180deg);
+          margin-right: 16px; }
+          .edit-cart-item-wrapper #editBookingForm .calendar .month-controls button#prevMonth:disabled {
+            transform: none; }
+        .edit-cart-item-wrapper #editBookingForm .calendar .month-controls button#nextMonth {
+          margin-left: 16px; }
+    .edit-cart-item-wrapper #editBookingForm .calendar .day-labels {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      margin-bottom: 8px; }
+      .edit-cart-item-wrapper #editBookingForm .calendar .day-labels span {
+        font-family: "LatoRegular";
+        font-size: 14px;
+        line-height: 22px;
+        color: #6D6D6D;
+        text-align: center; }
+    .edit-cart-item-wrapper #editBookingForm .calendar .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr); }
+      .edit-cart-item-wrapper #editBookingForm .calendar .calendar-grid .calendar-day {
+        color: #0F0F10;
+        font-family: "LatoRegular";
+        font-size: 16px;
+        line-height: normal;
+        cursor: pointer;
+        width: 46px;
+        height: 46px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; }
+        .edit-cart-item-wrapper #editBookingForm .calendar .calendar-grid .calendar-day.inactive {
+          color: #D9D9D9; }
+          .edit-cart-item-wrapper #editBookingForm .calendar .calendar-grid .calendar-day.inactive span {
+            color: #D9D9D9; }
+        .edit-cart-item-wrapper #editBookingForm .calendar .calendar-grid .calendar-day.selected-date {
+          border-radius: 6px;
+          background: #F0500B;
+          color: white; }
+          .edit-cart-item-wrapper #editBookingForm .calendar .calendar-grid .calendar-day.selected-date span {
+            color: white; }
+        .edit-cart-item-wrapper #editBookingForm .calendar .calendar-grid .calendar-day span {
+          font-family: "LatoRegular";
+          display: block;
+          font-size: 12px;
+          line-height: normal;
+          margin-top: 2px;
+          color: #6D6D6D;
+          /* Цвет текста для цены тура */
+          pointer-events: none; }
+  .edit-cart-item-wrapper #editBookingForm .time-selection-title {
+    margin-bottom: 12px;
+    text-align: left; }
+  .edit-cart-item-wrapper #editBookingForm .time-selection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 16px; }
+    .edit-cart-item-wrapper #editBookingForm .time-selection .input-wrapper {
+      width: 25%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; }
+      .edit-cart-item-wrapper #editBookingForm .time-selection .input-wrapper label {
+        font-family: "LatoRegular";
+        font-size: 16px;
+        line-height: 26px;
+        margin-bottom: 0;
+        padding-left: 36px;
+        position: relative;
+        cursor: pointer; }
+        .edit-cart-item-wrapper #editBookingForm .time-selection .input-wrapper label::before {
+          content: "";
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          background-image: url(../icons/custom-radiobtn-default.svg);
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center; }
+      .edit-cart-item-wrapper #editBookingForm .time-selection .input-wrapper input {
+        opacity: 0;
+        display: none; }
+        .edit-cart-item-wrapper #editBookingForm .time-selection .input-wrapper input:checked + label::before {
+          background-image: url(../icons/custom-radiobtn-active.svg); }
+  .edit-cart-item-wrapper #editBookingForm .ticket-selection {
+    margin-bottom: 16px; }
+    .edit-cart-item-wrapper #editBookingForm .ticket-selection .ticket-selection-title {
+      margin-bottom: 12px;
+      text-align: left; }
+    .edit-cart-item-wrapper #editBookingForm .ticket-selection .ticket-type {
+      display: flex;
+      align-items: center;
+      justify-content: start; }
+      .edit-cart-item-wrapper #editBookingForm .ticket-selection .ticket-type + .ticket-type {
+        margin-top: 10px; }
+      .edit-cart-item-wrapper #editBookingForm .ticket-selection .ticket-type .ticket-type-title {
+        color: #6D6D6D;
+        font-family: "LatoRegular";
+        font-size: 16px;
+        line-height: 26px;
+        margin-right: 40px;
+        margin-bottom: 0;
+        width: 60px; }
+      .edit-cart-item-wrapper #editBookingForm .ticket-selection .ticket-type button {
+        border: none;
+        outline: none;
+        width: 18px;
+        height: 18px;
+        background: none;
+        padding: 0; }
+        .edit-cart-item-wrapper #editBookingForm .ticket-selection .ticket-type button img {
+          display: block; }
+      .edit-cart-item-wrapper #editBookingForm .ticket-selection .ticket-type input {
+        background: none;
+        border: none;
+        outline: none;
+        width: 20px;
+        margin: 0 6px;
+        text-align: center; }
+      .edit-cart-item-wrapper #editBookingForm .ticket-selection .ticket-type .total-price {
+        margin-bottom: 0;
+        margin-left: 40px;
+        font-family: "LatoSemiBold";
+        font-size: 18px;
+        line-height: 28px;
+        color: #0F0F10; }
+  .edit-cart-item-wrapper #editBookingForm .language-selection-title {
+    margin-bottom: 12px;
+    text-align: left; }
+  .edit-cart-item-wrapper #editBookingForm .language-selection {
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; }
+    .edit-cart-item-wrapper #editBookingForm .language-selection .input-wrapper {
+      width: 25%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; }
+      .edit-cart-item-wrapper #editBookingForm .language-selection .input-wrapper label {
+        font-family: "LatoRegular";
+        font-size: 16px;
+        line-height: 26px;
+        margin-bottom: 0;
+        padding-left: 36px;
+        position: relative;
+        cursor: pointer; }
+        .edit-cart-item-wrapper #editBookingForm .language-selection .input-wrapper label img {
+          width: 36px;
+          height: 24px;
+          display: block; }
+        .edit-cart-item-wrapper #editBookingForm .language-selection .input-wrapper label::before {
+          content: "";
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          background-image: url(../icons/custom-radiobtn-default.svg);
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center; }
+      .edit-cart-item-wrapper #editBookingForm .language-selection .input-wrapper input {
+        opacity: 0;
+        display: none; }
+        .edit-cart-item-wrapper #editBookingForm .language-selection .input-wrapper input:checked + label::before {
+          background-image: url(../icons/custom-radiobtn-active.svg); }
+  .edit-cart-item-wrapper #editBookingForm .btns-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 32px; }
+    .edit-cart-item-wrapper #editBookingForm .btns-wrapper #submitBtn {
+      margin-left: 40px;
+      background-color: white;
+      font-family: "LatoSemiBold";
+      font-size: 18px;
+      line-height: normal;
+      color: #F0500B;
+      border: none;
+      text-transform: uppercase;
+      padding: 0; }
+    .edit-cart-item-wrapper #editBookingForm .btns-wrapper #cancel-btn {
+      background-color: white;
+      font-family: "LatoSemiBold";
+      font-size: 18px;
+      line-height: normal;
+      color: #6D6D6D;
+      border: none;
+      text-transform: uppercase;
+      padding: 0; }
 
 .btn-primary {
   background-color: #F0500B;

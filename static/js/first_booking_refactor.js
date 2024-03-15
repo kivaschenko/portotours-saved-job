@@ -10,7 +10,8 @@ const model = {
         'session_key': sessionKey, // from page scope
         'event_id': null,
         'parent_experience_id': parentExperienceId, // from page scope
-    }
+    },
+    'selectedDate': null
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
@@ -45,7 +46,7 @@ const view = {
         const currentMonthDisplay = document.getElementById('currentMonth');
         const prevMonthBtn = document.getElementById('prevMonth');
         const nextMonthBtn = document.getElementById('nextMonth');
-
+        const selectedDate = model.selectedDate;
         calendarGrid.innerHTML = '';
         currentMonthDisplay.textContent = this.getMonthYearString(date);
 
@@ -56,6 +57,32 @@ const view = {
         } else {
             prevMonthBtn.disabled = false;
         }
+        
+
+        prevMonthBtn.addEventListener('click', function () {
+            const prevMonth = new Date(date.getFullYear(), date.getMonth() - 1, 1);
+            view.renderCalendar(prevMonth);
+            if (selectedDate) {
+                const selectedDateElement = calendarGrid.querySelector(`[data-date="${selectedDate}"]`);
+                if (selectedDateElement) {
+                    selectedDateElement.classList.add('selected-date');
+                }
+            }
+        });
+
+        // Event listener for next month button
+        nextMonthBtn.addEventListener('click', function () {
+            const nextMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+            view.renderCalendar(nextMonth);
+            if (selectedDate) {
+                const selectedDateElement = calendarGrid.querySelector(`[data-date="${selectedDate}"]`);
+                if (selectedDateElement) {
+                    selectedDateElement.classList.add('selected-date');
+                }
+            }
+        });
+        
+       
 
         const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
         const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -77,6 +104,7 @@ const view = {
             const isoDate = calendarGrid.children[index].dataset.date; // Получаем дату из data-атрибута
             const eventsForDate = model.events.filter(event => event.date === isoDate); // Фильтруем события по дате
 
+            
             if (eventsForDate.length > 0) {
                 const minPrice = Math.min(...eventsForDate.map(event => event.adult_price)); // Находим минимальную цену
 
@@ -246,13 +274,13 @@ const controller = {
                 const adultTotalPriceElement = document.getElementById('adultTotalPrice');
                 const childTotalPriceElement = document.getElementById('childTotalPrice');
                 if (adultTotalPriceElement && childTotalPriceElement) {
-                    adultTotalPriceElement.textContent = `${totalAdultPrice} EUR`;
-                    childTotalPriceElement.textContent = `${totalChildPrice} EUR`;
+                    adultTotalPriceElement.textContent = `€${totalAdultPrice}`;
+                    childTotalPriceElement.textContent = `€${totalChildPrice} `;
                 }
 
                 // Update submit button text
                 const totalPrice = totalAdultPrice + totalChildPrice;
-                submitBtn.textContent = `${totalPrice.toFixed(2)} EUR add to cart`;
+                submitBtn.textContent = `€${totalPrice.toFixed(2)} add to cart`;
             } else {
                 console.error('Selected event not found.');
             }
@@ -261,8 +289,8 @@ const controller = {
 
     resetPricesAndButton: function () {
         // Reset adult and child total prices to $0
-        document.getElementById('adultTotalPrice').textContent = '$0';
-        document.getElementById('childTotalPrice').textContent = '$0';
+        document.getElementById('adultTotalPrice').textContent = '€0';
+        document.getElementById('childTotalPrice').textContent = '€0';
 
         // Reset submit button text
         submitBtn.textContent = 'Add to Cart';
@@ -278,6 +306,7 @@ const controller = {
         timeSelection.innerHTML = '';
 
         if (clickedDate) {
+            
             // Check if this is the second date selection
             if (document.querySelectorAll('.calendar-day.selected-date').length === 1) {
                 controller.resetPricesAndButton(); // Reset prices and submit button text
@@ -288,6 +317,25 @@ const controller = {
 
             // If there are events for the clicked date
             if (eventsForDate.length > 0) {
+                 // If there is only one event, automatically select its time slot
+            if (eventsForDate.length === 1) {
+                // Create radio button for the only available time
+                const timeInput = document.createElement('input');
+                timeInput.type = 'radio';
+                timeInput.id = eventsForDate[0].experience_event_id; // Using event ID as radio button ID
+                timeInput.name = 'time'; // Ensure the radio buttons are part of the same group
+                timeInput.value = eventsForDate[0].time; // Assign the time value
+                timeInput.checked = true; // Automatically select this time slot
+
+                // Create label for the radio button
+                const timeLabel = document.createElement('label');
+                timeLabel.htmlFor = eventsForDate[0].experience_event_id;
+                timeLabel.textContent = eventsForDate[0].time;
+
+                // Append the radio button and label to the time selection area
+                timeSelection.appendChild(timeInput);
+                timeSelection.appendChild(timeLabel);
+            } else {
                 // Create time selection options for each event
                 eventsForDate.forEach(event => {
                     // Create radio button for each time
@@ -306,6 +354,7 @@ const controller = {
                     timeSelection.appendChild(timeInput);
                     timeSelection.appendChild(timeLabel);
                 });
+            }
             } else {
                 // If no events are available for the clicked date, display a message
                 const noEventsMessage = document.createElement('p');
@@ -318,6 +367,7 @@ const controller = {
                 day.classList.remove('selected-date');
             });
             clickedDateElement.classList.add('selected-date');
+            model.selectedDate = clickedDate;
         }
     },
 
@@ -402,6 +452,7 @@ function handleEventData(data) {
         // Show calendar
         const currentDate = new Date(); // Or you can pass the date from the controller
         view.renderCalendar(currentDate);
+       
     } else {
         console.error('Received data format is invalid');
     }
@@ -429,6 +480,22 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Add event listener to the calendar to reset booking data on date selection change
     document.getElementById('calendarGrid').addEventListener('click', controller.resetBookingData);
+
+     // Get the current date
+     const currentDate = new Date();
+
+     // Simulate a click on the current date in the calendar
+     const currentDay = document.querySelector(`[data-date="${currentDate.toISOString().split('T')[0]}"]`);
+     if (currentDay) {
+         const clickEvent = new MouseEvent('click', {
+             bubbles: true,
+             cancelable: true,
+             view: window
+         });
+         currentDay.dispatchEvent(clickEvent);
+     } else {
+         console.error('Current date not found in the calendar.');
+     }
 
 });
 
