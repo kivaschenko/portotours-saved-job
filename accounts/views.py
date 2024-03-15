@@ -1,4 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.views.generic import TemplateView, UpdateView, DetailView
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
@@ -44,7 +46,7 @@ class LogoutView(LoginRequiredMixin, TemplateView):
 class ProfileView(LoginRequiredMixin, DetailView):
     template_name = 'profile/profile_detail.html'
     model = User
-    
+
     def get_object(self, queryset=None):
         # Get the user from the request
         return self.request.user
@@ -68,3 +70,32 @@ class ShippingAddressUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user.profile
+
+
+# --------------
+# PASSWORD RESET
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'registration/customized/password_reset_form.html'
+    email_template_name = 'registration/customized/password_reset_email.html'
+    success_url = reverse_lazy('password_reset_done')
+    subject_template_name = 'registration/customized/password_reset_subject.txt'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['site_name'] = settings.SITE_NAME
+        context['protocol'] = settings.PROTOCOL
+        context['domain'] = settings.DOMAIN
+        return context
+
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'registration/customized/password_reset_done.html'
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'registration/customized/password_reset_confirm.html'
+
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'registration/customized/password_reset_complete.html'

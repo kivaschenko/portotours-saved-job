@@ -14,10 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      #      - name: Set up Python
-      #        uses: actions/setup-python@v5
-      #        with:
-      #          python-version: '3.10'
       - name: Check Python version
         run: python --version
 
@@ -53,9 +49,14 @@ jobs:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
+
           script: |
+#            ssh-keyscan -H ${{ secrets.DROPLET_IP }} >> ~/.ssh/known_hosts
+#            ssh -i ${{ secrets.DROPLET_SSH_PRIVATE_KEY }} ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} << 'EOF'
             docker pull kivaschenko/portotours:latest
             docker stop django-portotours || true
             docker rm django-portotours || true
             docker volume rm $(docker volume ls -q) || true
+            docker rmi $(docker images -q --filter "dangling=true") || true
             docker run -d --name django-portotours -p 8000:8000 kivaschenko/portotours:latest
+#            EOF

@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 from accounts import views as accounts_views
 from destinations import views as destinations_views
@@ -16,15 +17,15 @@ urlpatterns = [
     path('', accounts_views.HomeView.as_view(), name='home'),
     path('accounts/signup/', accounts_views.RegistrationView.as_view(), name='signup'),
     path("accounts/", include("django.contrib.auth.urls")),
-    # built-in path's:
-    # accounts/login/ [name='login']
-    # accounts/logout/ [name='logout']
-    # accounts/password_change/ [name='password_change']
-    # accounts/password_change/done/ [name='password_change_done']
-    # accounts/password_reset/ [name='password_reset']
-    # accounts/password_reset/done/ [name='password_reset_done']
-    # accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
-    # accounts/reset/done/ [name='password_reset_complete']
+    # Password reset
+    path('password_reset/', accounts_views.CustomPasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', accounts_views.CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', accounts_views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', accounts_views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    # Password change
+    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='registration/customized/password_change_form.html'), name='password_change'),
+    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/customized/password_change_done.html'), name='password_change_done'),
+    # Profile
     path("accounts/profile/", accounts_views.ProfileView.as_view(), name="profile"),
     path("accounts/profile/update-address/", accounts_views.AddressUpdateView.as_view(), name="address-update"),
     path("accounts/profile/upate-shipping-address/", accounts_views.ShippingAddressUpdateView.as_view(), name="shipping-address-update"),
