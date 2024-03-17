@@ -217,6 +217,7 @@ const controller = {
                 count++;
                 ticketCount.value = count;
                 controller.updateTotalPrice(); // Update total price when incrementing
+                controller.performValidation();
             });
         });
     },
@@ -230,22 +231,29 @@ const controller = {
                     count--;
                     ticketCount.value = count;
                     controller.updateTotalPrice(); // Update total price when decrementing
+                    controller.performValidation();
                 }
             });
         });
     },
 
     handleTimeSelection: function () {
+        console.log("handleTimeSelection called");
         document.querySelectorAll('time-selection input[type="radio"]').forEach(input => {
+            console.log("Input element found:", input);
             input.addEventListener('change', function () {
+                console.log('Radio button changed');
+                controller.performValidation();
                 const selectedDate = document.querySelector('.calendar-day.selected-date');
                 if (selectedDate) {
                     controller.updateTotalPrice(selectedDate.dataset.date, this.value);
                 }
+                
             })
         })
     },
 
+    
     updateTotalPrice: function () {
         // Find the selected date and time
         const selectedDateElement = document.querySelector('.calendar-day.selected-date');
@@ -305,6 +313,10 @@ const controller = {
         const timeSelection = document.querySelector('.time-selection');
         timeSelection.innerHTML = '';
 
+        // Reset adult and child ticket counts when date changes
+        document.getElementById('adultTicketCount').value = 0;
+        document.getElementById('childTicketCount').value = 0;
+
         if (clickedDate) {
             
             // Check if this is the second date selection
@@ -353,8 +365,16 @@ const controller = {
                     // Append the radio button and label to the time selection area
                     timeSelection.appendChild(timeInput);
                     timeSelection.appendChild(timeLabel);
+
+                    timeInput.addEventListener('change', function () {
+                        console.log('Radio button changed');
+                        controller.performValidation(); // Call validation function when radio button changes
+                        
+                    });
                 });
+                
             }
+           
             } else {
                 // If no events are available for the clicked date, display a message
                 const noEventsMessage = document.createElement('p');
@@ -370,7 +390,42 @@ const controller = {
             model.selectedDate = clickedDate;
         }
     },
+     performValidation: function() {
+        const selectedDateElement = document.querySelector('.calendar-day.selected-date');
+        const selectedTimeInput = document.querySelector('input[name="time"]:checked');
+        const adultTicketCount = document.getElementById('adultTicketCount').value;
+        const submitBtn = document.getElementById('submitBtn');
+        const ticketSelection = document.querySelector('.ticket-selection');
+        const languageSelection = document.querySelector('.language-selection');
+        
+        // Enable ticket selection if date and time are selected
+        if (selectedDateElement && selectedTimeInput) {
+            ticketSelection.classList.remove('disabled');
+        } else {
+            ticketSelection.classList.add('disabled');
+            languageSelection.classList.add('disabled');
+            submitBtn.disabled = true;
+            return;
+        }
 
+        // Enable language selection if adult ticket count is greater than 0
+        if (parseInt(adultTicketCount) > 0) {
+            
+            languageSelection.classList.remove('disabled');
+        } else {
+            languageSelection.classList.add('disabled');
+            submitBtn.disabled = true;
+            return;
+        }
+
+        // Enable submit button if all conditions are met
+        if (document.querySelector('input[name="language"]:checked')) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+            return;
+        }
+    },
     // Function to update the model booking data
     updateBookingData: function () {
         // Get the selected date and time
@@ -462,6 +517,16 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Fetch event data and wait for it to complete
     await fetchEventData(parentExperienceId);
 
+
+     // Disable submit button, ticket selection, and language selection blocks on page load
+     const submitBtn = document.getElementById('submitBtn');
+     const ticketSelection = document.querySelector('.ticket-selection');
+     const languageSelection = document.querySelector('.language-selection');
+ 
+     submitBtn.disabled = true;
+     ticketSelection.classList.add('disabled');
+     languageSelection.classList.add('disabled');
+
     // Call the handleIncrementClick and handleDecrementClick functions
     controller.handleIncrementClick();
     controller.handleDecrementClick();
@@ -479,8 +544,26 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     // Add event listener to the calendar to reset booking data on date selection change
-    document.getElementById('calendarGrid').addEventListener('click', controller.resetBookingData);
+    document.getElementById('calendarGrid').addEventListener('click', function () {
+        // Reset booking data and perform validation when date is selected
+        controller.resetBookingData();
+        controller.performValidation();
+    });
 
+    // Add event listener to time selection inputs to perform validation when time is selected
+    
+    document.querySelectorAll('input[name="time"]').forEach(input => {
+        input.addEventListener('change', controller.performValidation);
+    });
+
+    // Add event listener to adult ticket count input to perform validation
+    
+    document.getElementById('adultTicketCount').addEventListener('input', controller.performValidation);
+
+
+    document.querySelectorAll('input[name="language"]').forEach(input => {
+        input.addEventListener('change', controller.performValidation);
+    });
      // Get the current date
      const currentDate = new Date();
 
@@ -496,6 +579,8 @@ document.addEventListener('DOMContentLoaded', async function () {
      } else {
          console.error('Current date not found in the calendar.');
      }
+
+    
 
 });
 

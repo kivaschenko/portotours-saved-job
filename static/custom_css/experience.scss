@@ -1158,6 +1158,9 @@
                   padding: 0;
                   img {
                     display: block;
+                    &.disabled {
+                      display: none;
+                    }
                   }
                 }
                 input {
@@ -1177,6 +1180,17 @@
                   color: #0F0F10;
                 }
               }
+              &.disabled {
+                pointer-events: none;
+                .ticket-type button img {
+                  &.active {
+                    display: none;
+                  }
+                  &.disabled {
+                    display: block;
+                  }
+                }
+              }
             }
             .language-selection-title {
               margin-bottom: 12px;
@@ -1187,6 +1201,16 @@
               align-items: center;
               justify-content: flex-start;
               flex-wrap: wrap;
+              &.disabled {
+                pointer-events: none;
+                .input-wrapper {
+                  label {
+                    img {
+                      filter: grayscale(1.0);
+                    }
+                  }
+                }
+              }
               .input-wrapper {
                 width: 25%;
                 display: flex;
@@ -1239,6 +1263,9 @@
               width: 100%;
               display: block;
               margin: 0 auto;
+              &:disabled {
+                background-color: #FBCAB6;
+              }
             }
           }
         }
