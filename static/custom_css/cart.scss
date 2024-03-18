@@ -571,3 +571,348 @@
         }
     }
 }
+
+// edit item from cart
+.edit-cart-item-wrapper {
+    .container {
+        max-width: 760px;
+        margin: 0 auto;
+        padding-top: 40px;
+        padding-bottom: 140px;
+        text-align: center;
+        .edit-cart-item-title {
+            margin-bottom: 24px;
+            text-transform: capitalize;
+        }
+        .name-tour-subtitle {
+            text-align: left;
+            color: #6D6D6D;
+            margin-bottom: 6px;
+            font-family: "LatoRegular";
+            font-size: 14px;
+            line-height: 22px;
+        }
+        .name-tour-title {
+            text-align: left;
+            color: #000;
+            margin-bottom: 24px;
+            font-family: "LatoRegular";
+            font-size: 20px;
+            line-height: 30px;
+        }
+    }
+    #editBookingForm {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        .right-col {
+            width: 365px;
+            .calendar-selection-title {
+                text-align: left;
+                margin-bottom: 12px;
+            }
+        }
+        .left-col {
+            width: calc(100% - 365px - 32px);
+        }
+        .calendar {
+          text-align: center;
+          margin-bottom: 0;
+          border-radius: 16px;
+          background: #FFF;
+          padding: 20px 20px;
+          border: 1px solid #D9D9D9;
+          border-radius: 16px;
+          .month-controls {
+            display: flex;
+            align-items: flex-end;
+            margin: 0 auto 6px;
+            justify-content: center;
+            #currentMonth {
+              font-family: "LatoSemiBold";
+              font-size: 18px;
+              line-height: 28px;
+              margin-bottom: 0;
+            }
+            button {
+              border: none;
+              overflow: none;
+              background: none;
+              width: 24px;
+              height: 24px;
+              padding: 0;
+              img {
+                width: 100%;
+                display: block;
+                &.icon-disabled {
+                  display: none;
+                }
+              }
+              &:disabled {
+                img {
+                  display: none;
+                  &.icon-disabled {
+                    display: block;
+                  }
+                }
+              }
+              &#prevMonth {
+                transform: rotate(180deg);
+                margin-right: 16px;
+                &:disabled {
+                  transform: none;
+                }
+              }
+              &#nextMonth {
+                
+                margin-left: 16px;
+              }
+            }
+          }
+          .day-labels {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 8px;
+            span {
+              font-family: "LatoRegular";
+              font-size: 14px;
+              line-height: 22px;
+              color: #6D6D6D;
+              text-align: center;
+            }
+          }
+          .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            
+    
+            .calendar-day {
+              color: #0F0F10;
+              font-family: "LatoRegular";
+              font-size: 16px;
+              line-height: normal;
+              cursor: pointer;
+              width: 46px;
+              height: 46px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              &.inactive {
+                color: #D9D9D9;
+                span {
+                  color: #D9D9D9;
+                }
+              }
+              &.selected-date {
+                border-radius: 6px;
+                background: #F0500B;
+                color: white;
+                span {
+                  color: white;
+                }
+              }
+              span {
+                font-family: "LatoRegular";
+                display: block;
+                font-size: 12px;
+                line-height: normal;
+                margin-top: 2px;
+                color: #6D6D6D; /* Цвет текста для цены тура */
+                pointer-events: none;
+              }
+            } 
+          }
+        }
+        .time-selection-title {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        .time-selection {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          margin-bottom: 16px;
+          .input-wrapper {
+            width: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            label {
+              font-family: "LatoRegular";
+              font-size: 16px;
+              line-height: 26px;
+              margin-bottom: 0;
+              padding-left: 36px;
+              position: relative;
+              cursor: pointer;
+              &::before {
+                content: "";
+                position: absolute;
+                width: 24px;
+                height: 24px;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                background-image: url(../icons/custom-radiobtn-default.svg);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                
+              }
+            }
+            input {
+              opacity: 0;
+              display: none;
+              &:checked {
+                + label {
+                  &::before {
+                    background-image: url(../icons/custom-radiobtn-active.svg);
+                  }
+                  
+                }
+              }
+            }
+    
+          }
+        }
+        .ticket-selection {
+          margin-bottom: 16px;
+          .ticket-selection-title {
+            margin-bottom: 12px;
+            text-align: left;
+          }
+          .ticket-type {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            + .ticket-type {
+              margin-top: 10px;
+            }
+            .ticket-type-title {
+              color: #6D6D6D;
+              font-family: "LatoRegular";
+              font-size: 16px;
+              line-height: 26px;
+              margin-right: 40px;
+              margin-bottom: 0;
+              width: 60px;
+            }
+            button {
+              border: none;
+              outline: none;
+              width: 18px;
+              height: 18px;
+              background: none;
+              padding: 0;
+              img {
+                display: block;
+              }
+            }
+            input {
+              background: none;
+              border: none;
+              outline: none;
+              width: 20px;
+              margin: 0 6px;
+              text-align: center;
+            }
+            .total-price {
+              margin-bottom: 0;
+              margin-left: 40px;
+              font-family: "LatoSemiBold";
+              font-size: 18px;
+              line-height: 28px;
+              color: #0F0F10;
+            }
+          }
+        }
+        .language-selection-title {
+          margin-bottom: 12px;
+          text-align: left;
+        }
+        .language-selection {
+          margin-bottom: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          .input-wrapper {
+            width: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            label {
+              font-family: "LatoRegular";
+              font-size: 16px;
+              line-height: 26px;
+              margin-bottom: 0;
+              padding-left: 36px;
+              position: relative;
+              cursor: pointer;
+              img {
+                width: 36px;
+                height: 24px;
+                display: block;
+              }
+              &::before {
+                content: "";
+                position: absolute;
+                width: 24px;
+                height: 24px;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                background-image: url(../icons/custom-radiobtn-default.svg);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                
+              }
+            }
+            input {
+              opacity: 0;
+              display: none;
+              &:checked {
+                + label {
+                  &::before {
+                    background-image: url(../icons/custom-radiobtn-active.svg);
+                  }
+                  
+                }
+              }
+            }
+    
+          }
+        }
+        .btns-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 32px;
+            #submitBtn {
+                margin-left: 40px;
+                background-color: white;
+                font-family: "LatoSemiBold";
+                font-size: 18px;
+                line-height: normal;
+                color: #F0500B;
+                border: none;
+                text-transform: uppercase;
+                padding: 0;
+            }
+            #cancel-btn {
+                background-color: white;
+                font-family: "LatoSemiBold";
+                font-size: 18px;
+                line-height: normal;
+                color: #6D6D6D;
+                border: none;
+                text-transform: uppercase;
+                padding: 0;
+            }
+        }
+        
+    }
+}
