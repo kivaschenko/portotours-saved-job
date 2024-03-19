@@ -284,8 +284,8 @@ const controller = {
                 const adultTotalPriceElement = document.getElementById('adultTotalPrice');
                 const childTotalPriceElement = document.getElementById('childTotalPrice');
                 if (adultTotalPriceElement && childTotalPriceElement) {
-                    adultTotalPriceElement.textContent = `€${totalAdultPrice}`;
-                    childTotalPriceElement.textContent = `€${totalChildPrice} `;
+                    adultTotalPriceElement.textContent = `${totalAdultPrice.toFixed(2)}`;
+                    childTotalPriceElement.textContent = `${totalChildPrice.toFixed(2)}`;
                 }
 
                 // Update submit button text
@@ -320,14 +320,17 @@ const controller = {
         document.getElementById('childTicketCount').value = 0;
 
         if (clickedDate) {
-            
+            const eventsForDate = model.events.filter(event => event.date === clickedDate);
+            eventsForDate.sort((a, b) => {
+                return new Date('1970/01/01 ' + a.time) - new Date('1970/01/01 ' + b.time);
+            });
+
             // Check if this is the second date selection
             if (document.querySelectorAll('.calendar-day.selected-date').length === 1) {
                 controller.resetPricesAndButton(); // Reset prices and submit button text
             }
 
-            // Filter events for the clicked date
-            const eventsForDate = model.events.filter(event => event.date === clickedDate);
+            
 
             // If there are events for the clicked date
             if (eventsForDate.length > 0) {
