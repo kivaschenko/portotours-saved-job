@@ -282,6 +282,7 @@ class ExperienceEvent(Event):
                                         help_text="Special price if different from Parent Experience.")
     child_special_price = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2,
                                               help_text="Special child price if different from Parent Experience.")
+    total_price = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2, help_text="Total price for whole private tour.")
 
     class Meta:
         verbose_name = "Experience Event"
