@@ -12,7 +12,25 @@
                     <img src="{% static 'icons/toggler-arrow-icon.svg' %}" alt="" class="toggler-arrow">
                 </div>
                 <div class="block-content">
-                    
+                    <form method="post">
+                        <div class="input-wrapper">
+                            <label for="email">Email Address</label>
+                            <input type="email" name="email" value="jenn@gmail.com">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="first_name">First name</label>
+                            <input type="text" name="first_name" value="Jenny">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="phone">Phone number</label>
+                            <input type="tel" name="phone" value="(505) 555-0125">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="last_name">Last name</label>
+                            <input type="text" name="last_name" value="Wilson">
+                        </div>
+                        <button></button>
+                    </form>
                 </div>
             </div>
             <div class="account-details-block billing-address">

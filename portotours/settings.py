@@ -377,3 +377,17 @@ else:
     ADMINS = [('Admin Name', 'admin@example.com')]
     MANAGERS = ADMINS
     SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+# This params used also in email template for reset password
+
+# Set your site name
+SITE_NAME = 'OneDayTours.com'
+
+# Set the protocol (http or https)
+if DEBUG:
+    PROTOCOL = 'http'
+else:
+    PROTOCOL = 'https'
+
+# Set your domain
+DOMAIN = os.environ.get('DOMAIN_NAME', 'localhost:8000')

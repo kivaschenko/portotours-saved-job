@@ -14,10 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      #      - name: Set up Python
-      #        uses: actions/setup-python@v5
-      #        with:
-      #          python-version: '3.10'
       - name: Check Python version
         run: python --version
 
@@ -27,7 +23,7 @@ jobs:
           sudo apt-get install -y binutils libgdal-dev
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
+      
       - name: Run tests
         run: python3 manage.py test --verbosity=2 --keepdb
 
@@ -58,4 +54,5 @@ jobs:
             docker stop django-portotours || true
             docker rm django-portotours || true
             docker volume rm $(docker volume ls -q) || true
+            docker rmi $(docker images -q --filter "dangling=true") || true
             docker run -d --name django-portotours -p 8000:8000 kivaschenko/portotours:latest
