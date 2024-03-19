@@ -180,34 +180,36 @@ const view = {
 // The controller has functions that respond to events in HTML blocks, forms, buttons
 const controller = {
     // Function to handle form submission
-    handleFormSubmit: function () {
+    handleFormSubmit: async function () {
         // Get the booking data from the model
         const bookingData = model.bookingData;
-
-        console.log("Got bookingData to send:", bookingData);
+    
+        console.log("Got jsonify bookingData to send:", JSON.stringify(bookingData));
         // Perform any necessary validation or preprocessing of data here
-
-        // Send the booking data to the server using fetch or another AJAX method
-        fetch('/create-product/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(bookingData),
-        })
-            .then(response => {
-                if (response.ok) {
-                    // Handle successful response
-                    console.log('Booking submitted successfully.');
-                } else {
-                    // Handle error response
-                    console.error('Error submitting booking:', response.statusText);
-                }
-            })
-            .catch(error => {
-                console.error('Error submitting booking:', error);
+    
+        try {
+            // Send the booking data to the server using fetch or another AJAX method
+            const response = await fetch('/create-product/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(bookingData)
             });
+            
+            // Check if response is successful
+            if (response.ok) {
+                // Handle successful response
+                console.log('Booking submitted successfully.');
+            } else {
+                // Handle error response
+                console.error('Error submitting booking:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error submitting booking:', error);
+        }
     },
+
     handleIncrementClick: function () {
         document.querySelectorAll('.increment').forEach(button => {
             button.addEventListener('click', function () {
@@ -535,7 +537,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     controller.handleTimeSelection();
 
     // Add event listeners to form inputs to update booking data
-    document.getElementById('submitBtn').addEventListener('click', function () {
+    document.getElementById('submitBtn').addEventListener('click', function (e) {
+        e.preventDefault()
         // Gather form data and update the model
         controller.updateBookingData(); // This function should be updated to gather all form data
 

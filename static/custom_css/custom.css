@@ -7892,6 +7892,68 @@ html.off-scroll body {
         line-height: normal;
         margin: 0; }
 
+.authorization {
+  position: relative; }
+  .authorization .container {
+    max-width: 425px;
+    margin: 0 auto; }
+    .authorization .container .authorization-form {
+      width: 100%;
+      margin-top: 100px;
+      margin-bottom: 80px;
+      border-radius: 16px;
+      border: 1px solid #D9D9D9;
+      background: #FFF;
+      padding: 60px 31px; }
+      .authorization .container .authorization-form h4, .authorization .container .authorization-form .h4 {
+        text-align: center;
+        margin-bottom: 45px;
+        text-transform: capitalize; }
+      .authorization .container .authorization-form #div_id_username,
+      .authorization .container .authorization-form #div_id_password {
+        position: relative; }
+        .authorization .container .authorization-form #div_id_username input,
+        .authorization .container .authorization-form #div_id_password input {
+          width: 100%;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          background: #FFF;
+          font-size: 16px;
+          line-height: normal;
+          padding: 20px 24px;
+          color: #000; }
+          .authorization .container .authorization-form #div_id_username input:focus,
+          .authorization .container .authorization-form #div_id_password input:focus {
+            outline: none;
+            box-shadow: none; }
+          .authorization .container .authorization-form #div_id_username input::placeholder,
+          .authorization .container .authorization-form #div_id_password input::placeholder {
+            color: #6D6D6D; }
+        .authorization .container .authorization-form #div_id_username label,
+        .authorization .container .authorization-form #div_id_password label {
+          position: absolute;
+          background-color: white;
+          top: -10px;
+          left: 24px;
+          padding: 0 5px;
+          color: #0F0F10;
+          font-size: 16px;
+          line-height: normal; }
+      .authorization .container .authorization-form #div_id_password {
+        margin-top: 37px;
+        margin-bottom: 14px; }
+      .authorization .container .authorization-form .lost-password-link {
+        color: #0F0F10;
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 22px;
+        display: block;
+        margin-bottom: 40px; }
+      .authorization .container .authorization-form .btn-type-1 {
+        width: 220px;
+        margin: 0 auto;
+        display: block; }
+
 .pagination-block {
   position: absolute;
   bottom: 80px;
@@ -11929,6 +11991,11 @@ html.off-scroll body {
   padding-top: 40px;
   padding-bottom: 140px;
   text-align: center; }
+  @media (max-width: 767.98px) {
+    .edit-cart-item-wrapper .container {
+      width: 100%;
+      padding-top: 16px;
+      padding-bottom: 60px; } }
   .edit-cart-item-wrapper .container .edit-cart-item-title {
     margin-bottom: 24px;
     text-transform: capitalize; }
@@ -11939,6 +12006,9 @@ html.off-scroll body {
     font-family: "LatoRegular";
     font-size: 14px;
     line-height: 22px; }
+    @media (max-width: 767.98px) {
+      .edit-cart-item-wrapper .container .name-tour-subtitle {
+        margin-bottom: 10px; } }
   .edit-cart-item-wrapper .container .name-tour-title {
     text-align: left;
     color: #000;
@@ -11946,18 +12016,35 @@ html.off-scroll body {
     font-family: "LatoRegular";
     font-size: 20px;
     line-height: 30px; }
-
+    @media (max-width: 767.98px) {
+      .edit-cart-item-wrapper .container .name-tour-title {
+        margin-bottom: 20px;
+        font-size: 16px;
+        line-height: 24px; } }
 .edit-cart-item-wrapper #editBookingForm {
   display: flex;
   align-items: flex-start;
   justify-content: space-between; }
+  @media (max-width: 767.98px) {
+    .edit-cart-item-wrapper #editBookingForm {
+      flex-direction: column; } }
   .edit-cart-item-wrapper #editBookingForm .right-col {
     width: 365px; }
+    @media (max-width: 767.98px) {
+      .edit-cart-item-wrapper #editBookingForm .right-col {
+        width: 100%;
+        margin-bottom: 12px; } }
     .edit-cart-item-wrapper #editBookingForm .right-col .calendar-selection-title {
       text-align: left;
       margin-bottom: 12px; }
+      @media (max-width: 767.98px) {
+        .edit-cart-item-wrapper #editBookingForm .right-col .calendar-selection-title {
+          margin-bottom: 8px; } }
   .edit-cart-item-wrapper #editBookingForm .left-col {
     width: calc(100% - 365px - 32px); }
+    @media (max-width: 767.98px) {
+      .edit-cart-item-wrapper #editBookingForm .left-col {
+        width: 100%; } }
   .edit-cart-item-wrapper #editBookingForm .calendar {
     text-align: center;
     margin-bottom: 0;
@@ -11966,6 +12053,9 @@ html.off-scroll body {
     padding: 20px 20px;
     border: 1px solid #D9D9D9;
     border-radius: 16px; }
+    @media (max-width: 767.98px) {
+      .edit-cart-item-wrapper #editBookingForm .calendar {
+        padding: 16px 18px; } }
     .edit-cart-item-wrapper #editBookingForm .calendar .month-controls {
       display: flex;
       align-items: flex-end;
@@ -12172,6 +12262,9 @@ html.off-scroll body {
     align-items: center;
     justify-content: flex-start;
     margin-top: 32px; }
+    @media (max-width: 767.98px) {
+      .edit-cart-item-wrapper #editBookingForm .btns-wrapper {
+        justify-content: center; } }
     .edit-cart-item-wrapper #editBookingForm .btns-wrapper #submitBtn {
       margin-left: 40px;
       background-color: white;
@@ -12192,6 +12285,40 @@ html.off-scroll body {
       text-transform: uppercase;
       padding: 0; }
 
+.account-details .container {
+  max-width: 1090px;
+  margin: 0 auto;
+  padding-top: 40px;
+  padding-bottom: 40px; }
+  .account-details .container .account-details-block {
+    border-radius: 16px;
+    border: 1px solid #D9D9D9;
+    background: #FFF;
+    padding: 32px 64px 8px 73px; }
+    .account-details .container .account-details-block + .account-details-block {
+      margin-top: 32px; }
+    .account-details .container .account-details-block .title-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px; }
+      .account-details .container .account-details-block .title-wrapper .account-details-title {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        font-size: 20px;
+        line-height: 30px;
+        color: #000;
+        font-family: "LatoRegular";
+        margin-bottom: 0; }
+        .account-details .container .account-details-block .title-wrapper .account-details-title img {
+          width: 24px;
+          height: 24px;
+          display: block;
+          margin-right: 16px; }
+      .account-details .container .account-details-block .title-wrapper > img {
+        transform: rotate(180deg); }
+
 .btn-primary {
   background-color: #F0500B;
   border-color: #F0500B; }
@@ -12204,5 +12331,3 @@ a {
 
 .nav-link {
   color: #0F0F10; }
-
-/*# sourceMappingURL=custom.css.map */

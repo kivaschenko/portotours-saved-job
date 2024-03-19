@@ -580,9 +580,15 @@
         padding-top: 40px;
         padding-bottom: 140px;
         text-align: center;
+        @include media-breakpoint-down(md) {
+            width: 100%;
+            padding-top: 16px;
+            padding-bottom: 60px;
+        }
         .edit-cart-item-title {
             margin-bottom: 24px;
             text-transform: capitalize;
+           
         }
         .name-tour-subtitle {
             text-align: left;
@@ -591,6 +597,9 @@
             font-family: "LatoRegular";
             font-size: 14px;
             line-height: 22px;
+            @include media-breakpoint-down(md) {
+                margin-bottom: 10px;
+            }
         }
         .name-tour-title {
             text-align: left;
@@ -599,21 +608,39 @@
             font-family: "LatoRegular";
             font-size: 20px;
             line-height: 30px;
+            @include media-breakpoint-down(md) {
+                margin-bottom: 20px;
+                font-size: 16px;
+                line-height: 24px;
+            }
         }
     }
     #editBookingForm {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
+        @include media-breakpoint-down(md) {
+            flex-direction: column;
+        }
         .right-col {
             width: 365px;
+            @include media-breakpoint-down(md) {
+                width: 100%;
+                margin-bottom: 12px;
+            }
             .calendar-selection-title {
                 text-align: left;
                 margin-bottom: 12px;
+                @include media-breakpoint-down(md) {
+                    margin-bottom: 8px;
+                }
             }
         }
         .left-col {
             width: calc(100% - 365px - 32px);
+            @include media-breakpoint-down(md) {
+                width: 100%;
+            }
         }
         .calendar {
           text-align: center;
@@ -623,6 +650,9 @@
           padding: 20px 20px;
           border: 1px solid #D9D9D9;
           border-radius: 16px;
+          @include media-breakpoint-down(md) {
+            padding: 16px 18px;
+          }
           .month-controls {
             display: flex;
             align-items: flex-end;
@@ -891,6 +921,9 @@
             align-items: center;
             justify-content: flex-start;
             margin-top: 32px;
+            @include media-breakpoint-down(md) {
+                justify-content: center;
+            }
             #submitBtn {
                 margin-left: 40px;
                 background-color: white;

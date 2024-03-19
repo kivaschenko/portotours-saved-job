@@ -1,24 +1,25 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col col-lg-2"></div>
-            <div class="col-md-auto">
-                        <form method="post" action="{% url 'login' %}" style="margin: 2rem;">
-                            {% csrf_token %}
-                            {{ form|crispy }}
-                            <input class="btn btn-primary" type="submit" value="Login">
-                            <input type="hidden" name="next" value="{{ next }}">
-                        </form>
-                        <p style="margin-top: 20px; position: relative;"><a href="{% url 'password_reset' %}">Lost
-                            password?</a></p>
-                        <!--
-                        <p>Don't have account?</p>
-                        <p style="margin-top: 20px; position: relative;"><a href="{% url 'signup' %}" class="btn btn-warning"> Register free a new here.</a></p>
-                        -->
-            </div>
-            <div class="col col-lg-2"></div>
+    <section class="authorization">
+        <div class="container">
+            <form method="post" action="{% url 'login' %}" class="authorization-form">
+                <h4>login</h4>
+                {% csrf_token %}
+                {{ form|crispy }}
+               
+                    <a href="{% url 'password_reset' %}" class="lost-password-link">
+                        Lost password?
+                    </a>
+               
+                <button class="btn-type-1" type="submit">Login</button>
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
+           
+            <!-- <p>Don't have account?</p>
+            <p style="margin-top: 20px; position: relative;"><a href="{% url 'signup' %}" class="btn btn-warning"> Register free a new here.</a></p> -->
+            
         </div>
-    </div>
+    </section>
+    
 {% endblock %}
