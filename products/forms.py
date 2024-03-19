@@ -16,11 +16,11 @@ class ExperienceEventForm(forms.ModelForm):
             relation = self.instance.calendar.calendarrelation_set.first()
             parent_experience_obj = relation.content_object
             if parent_experience_obj.is_private:
-                self.fields.pop('max_participants')
-                self.fields.pop('special_price')
-                self.fields.pop('child_special_price')
+                self.fields['max_participants'].disabled = True
+                self.fields['special_price'].disabled = True
+                self.fields['child_special_price'].disabled = True
             else:
-                self.fields.pop('total_price')
+                self.fields['total_price'].disabled = True
 
 
 ExperienceEventFormSet = forms.inlineformset_factory(Calendar, ExperienceEvent, form=ExperienceEventForm)
