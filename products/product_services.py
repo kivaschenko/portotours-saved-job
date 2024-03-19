@@ -67,10 +67,13 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
     now = datetime.utcnow()
     try:
         calendar = Calendar.objects.get_calendars_for_object(parent_experience).first()
-        actual_events = calendar.events.filter(start__gte=now)
+        actual_events = calendar.events.filter(start__gte=now, experienceevent__remaining_participants__gt=0)
 
         if len(actual_events) > 0:
             for event in actual_events:
+                total_price = float(0)
+                if event.experienceevent.total_price is not None:
+                    total_price = float(event.experienceevent.total_price)
                 actual_events_list.append({
                     'date': event.experienceevent.start_date,
                     'time': event.experienceevent.start_time,
@@ -80,6 +83,8 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
                     'booked_participants': event.experienceevent.booked_participants,
                     'remaining_participants': event.experienceevent.remaining_participants,
                     'experience_event_id': event.experienceevent.id,
+                    'is_private': parent_experience.is_private,
+                    'total_price': total_price,
                 })
             result['events'] = actual_events_list
     except EventRelation.DoesNotExist:
