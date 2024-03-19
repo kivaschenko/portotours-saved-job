@@ -135,19 +135,19 @@
                         <p class="price">
                             Neque porro quisquam
                             <span>
-                                €50
+                                €{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %}
                             </span>
                         </p>
                         <p class="price">
                             Знижка
                             <span>
-                                €50
+                                €{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %}
                             </span>
                         </p>
                         <p class="total-price">
                             Total
                             <span>
-                                €50
+                                €{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %}
                             </span>
                         </p>
                         <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
