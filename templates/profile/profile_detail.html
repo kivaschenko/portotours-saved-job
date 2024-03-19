@@ -1,6 +1,51 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+    <section class="account-details">
+        <div class="container">
+            <div class="account-details-block personal-info">
+                <div class="title-wrapper">
+                    <h5 class="account-details-title">
+                        <img src="{% static 'icons/personal-info-icon.svg' %}" alt="">
+                        Personal information
+                    </h5>
+                    <img src="{% static 'icons/toggler-arrow-icon.svg' %}" alt="" class="toggler-arrow">
+                </div>
+                <div class="block-content">
+                    
+                </div>
+            </div>
+            <div class="account-details-block billing-address">
+                <div class="title-wrapper">
+                    <h5 class="account-details-title">
+                        <img src="{% static 'icons/personal-info-icon.svg' %}" alt="">
+                        Billing Address
+                    </h5>
+                    <img src="{% static 'icons/toggler-arrow-icon.svg' %}" alt="" class="toggler-arrow">
+                </div>
+            </div>
+            <div class="account-details-block change-password">
+                <div class="title-wrapper">
+                    <h5 class="account-details-title">
+                        <img src="{% static 'icons/change-pass-icon.svg' %}" alt="">
+                        Change password
+                    </h5>
+                    <img src="{% static 'icons/toggler-arrow-icon.svg' %}" alt="" class="toggler-arrow">
+                </div>
+            </div>
+            <div class="account-details-block orders">
+                <div class="title-wrapper">
+                    <h5 class="account-details-title">
+                        <img src="{% static 'icons/personal-info-icon.svg' %}" alt="">
+                        Orders
+                    </h5>
+                    <img src="{% static 'icons/toggler-arrow-icon.svg' %}" alt="" class="toggler-arrow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <div class="container">
         <div id="profileBlock" style="margin-bottom: 40px;">
             <div class="row">
