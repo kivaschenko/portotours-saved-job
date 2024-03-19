@@ -1,3 +1,4 @@
+import json
 from decimal import Decimal
 
 from datetime import datetime, timedelta
@@ -45,15 +46,17 @@ class TestCreateProductView(TestCase):
             calendar=calendar,
         )
         # Test POST request
-        response = self.client.post(reverse('create-product'), {
+        data = {
             'adults': 2,
             'children': 1,
-            'language': 'EN',
+            'language_code': 'EN',
             'customer_id': 1,
             'session_key': 'session123',
             'event_id': exp_event.id,
             'parent_experience_id': 1
-        })
+        }
+        response = self.client.post(reverse('create-product'), data=json.dumps(data), content_type='application/json')
+
 
         self.assertEqual(response.status_code, 201)
 
