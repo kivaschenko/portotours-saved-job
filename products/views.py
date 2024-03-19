@@ -1,3 +1,4 @@
+import json
 from django.db.models import Sum
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
@@ -173,15 +174,20 @@ def get_actual_experience_events(request, parent_experience_id):
 
 @csrf_exempt
 def create_product(request):
-    print(request.POST)
     if request.method == 'POST':
-        adults = int(request.POST.get('adults'))
-        children = int(request.POST.get('children'))
-        language_code = request.POST.get('language')
-        customer_id = int(request.POST.get('customer_id'))
-        session_key = request.POST.get('session_key')
-        event_id = int(request.POST.get('event_id'))
-        parent_experience_id = int(request.POST.get('parent_experience_id'))
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError as e:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+
+        # Extract data from JSON
+        adults = data.get('adults')
+        children = data.get('children')
+        language_code = data.get('language_code')
+        customer_id = data.get('customer_id')
+        session_key = data.get('session_key')
+        event_id = data.get('event_id')
+        parent_experience_id = data.get('parent_experience_id')
 
         # Get ExperienceEvent obj
         exp_event = ExperienceEvent.objects.get(id=event_id)
