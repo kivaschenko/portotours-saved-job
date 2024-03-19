@@ -22,5 +22,14 @@ class ExperienceEventForm(forms.ModelForm):
             else:
                 self.fields['total_price'].disabled = True
 
+    def hidden_fields(self):
+        if self.instance.calendar:
+            relation = self.instance.calendar.calendarrelation_set.first()
+            parent_experience_obj = relation.content_object
+            if parent_experience_obj.is_private:
+                return ['max_participants', 'special_price', 'child_special_price']
+            else:
+                return ['total_price']
+
 
 ExperienceEventFormSet = forms.inlineformset_factory(Calendar, ExperienceEvent, form=ExperienceEventForm)

@@ -71,14 +71,20 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
 
         if len(actual_events) > 0:
             for event in actual_events:
+                adult_price = float(0)
+                child_price = float(0)
                 total_price = float(0)
                 if event.experienceevent.total_price is not None:
                     total_price = float(event.experienceevent.total_price)
+                if event.experienceevent.special_price is not None:
+                    adult_price = float(event.experienceevent.special_price)
+                if event.experienceevent.child_special_price is not None:
+                    child_price = float(event.experienceevent.child_special_price)
                 actual_events_list.append({
                     'date': event.experienceevent.start_date,
                     'time': event.experienceevent.start_time,
-                    'adult_price': float(event.experienceevent.special_price),
-                    'child_price': float(event.experienceevent.child_special_price),
+                    'adult_price': adult_price,
+                    'child_price': child_price,
                     'max_participants': event.experienceevent.max_participants,
                     'booked_participants': event.experienceevent.booked_participants,
                     'remaining_participants': event.experienceevent.remaining_participants,
