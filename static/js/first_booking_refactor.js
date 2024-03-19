@@ -184,30 +184,28 @@ const controller = {
         // Get the booking data from the model
         const bookingData = model.bookingData;
 
-        console.log("Got bookingData to send:", bookingData);
+        console.log("Got jsonify bookingData to send:", JSON.stringify(bookingData));
         // Perform any necessary validation or preprocessing of data here
 
         // Send the booking data to the server using fetch or another AJAX method
-        fetch('/create-product/', {
+        const response = fetch ('/create-product/', {
             method: 'POST',
+            // mode: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
+                // 'X-CSRFToken': `{{csrf_token}}`
             },
-            body: JSON.stringify(bookingData),
-        })
-            .then(response => {
-                if (response.ok) {
-                    // Handle successful response
-                    console.log('Booking submitted successfully.');
-                } else {
-                    // Handle error response
-                    console.error('Error submitting booking:', response.statusText);
-                }
-            })
-            .catch(error => {
-                console.error('Error submitting booking:', error);
-            });
+            body: JSON.stringify(bookingData)});
+        console.log('response:', response);
+        if (response.ok) {
+            // Handle successful response
+            console.log('Booking submitted successfully.');
+        } else {
+            // Handle error response
+            console.error('Error submitting booking:', response.statusText);
+        }
     },
+
     handleIncrementClick: function () {
         document.querySelectorAll('.increment').forEach(button => {
             button.addEventListener('click', function () {
