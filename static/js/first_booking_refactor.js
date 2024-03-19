@@ -180,29 +180,33 @@ const view = {
 // The controller has functions that respond to events in HTML blocks, forms, buttons
 const controller = {
     // Function to handle form submission
-    handleFormSubmit: function () {
+    handleFormSubmit: async function () {
         // Get the booking data from the model
         const bookingData = model.bookingData;
-
+    
         console.log("Got jsonify bookingData to send:", JSON.stringify(bookingData));
         // Perform any necessary validation or preprocessing of data here
-
-        // Send the booking data to the server using fetch or another AJAX method
-        const response = fetch ('/create-product/', {
-            method: 'POST',
-            // mode: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                // 'X-CSRFToken': `{{csrf_token}}`
-            },
-            body: JSON.stringify(bookingData)});
-        console.log('response:', response);
-        if (response.ok) {
-            // Handle successful response
-            console.log('Booking submitted successfully.');
-        } else {
-            // Handle error response
-            console.error('Error submitting booking:', response.statusText);
+    
+        try {
+            // Send the booking data to the server using fetch or another AJAX method
+            const response = await fetch('/create-product/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(bookingData)
+            });
+            
+            // Check if response is successful
+            if (response.ok) {
+                // Handle successful response
+                console.log('Booking submitted successfully.');
+            } else {
+                // Handle error response
+                console.error('Error submitting booking:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error submitting booking:', error);
         }
     },
 
@@ -533,7 +537,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     controller.handleTimeSelection();
 
     // Add event listeners to form inputs to update booking data
-    document.getElementById('submitBtn').addEventListener('click', function () {
+    document.getElementById('submitBtn').addEventListener('click', function (e) {
+        e.preventDefault()
         // Gather form data and update the model
         controller.updateBookingData(); // This function should be updated to gather all form data
 
