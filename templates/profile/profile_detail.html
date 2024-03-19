@@ -1,6 +1,69 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+    <section class="account-details">
+        <div class="container">
+            <div class="account-details-block personal-info">
+                <div class="title-wrapper">
+                    <h5 class="account-details-title">
+                        <img src="{% static 'icons/personal-info-icon.svg' %}" alt="">
+                        Personal information
+                    </h5>
+                    <img src="{% static 'icons/toggler-arrow-icon.svg' %}" alt="" class="toggler-arrow">
+                </div>
+                <div class="block-content">
+                    <form method="post">
+                        <div class="input-wrapper">
+                            <label for="email">Email Address</label>
+                            <input type="email" name="email" value="jenn@gmail.com">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="first_name">First name</label>
+                            <input type="text" name="first_name" value="Jenny">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="phone">Phone number</label>
+                            <input type="tel" name="phone" value="(505) 555-0125">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="last_name">Last name</label>
+                            <input type="text" name="last_name" value="Wilson">
+                        </div>
+                        <button></button>
+                    </form>
+                </div>
+            </div>
+            <div class="account-details-block billing-address">
+                <div class="title-wrapper">
+                    <h5 class="account-details-title">
+                        <img src="{% static 'icons/personal-info-icon.svg' %}" alt="">
+                        Billing Address
+                    </h5>
+                    <img src="{% static 'icons/toggler-arrow-icon.svg' %}" alt="" class="toggler-arrow">
+                </div>
+            </div>
+            <div class="account-details-block change-password">
+                <div class="title-wrapper">
+                    <h5 class="account-details-title">
+                        <img src="{% static 'icons/change-pass-icon.svg' %}" alt="">
+                        Change password
+                    </h5>
+                    <img src="{% static 'icons/toggler-arrow-icon.svg' %}" alt="" class="toggler-arrow">
+                </div>
+            </div>
+            <div class="account-details-block orders">
+                <div class="title-wrapper">
+                    <h5 class="account-details-title">
+                        <img src="{% static 'icons/personal-info-icon.svg' %}" alt="">
+                        Orders
+                    </h5>
+                    <img src="{% static 'icons/toggler-arrow-icon.svg' %}" alt="" class="toggler-arrow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <div class="container">
         <div id="profileBlock" style="margin-bottom: 40px;">
             <div class="row">
@@ -15,12 +78,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">My orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <form method="post" action="{% url 'password_change' %}">
-                                {% csrf_token %}
-                                <button class="btn btn-warning m-2" type="submit">change password</button>
-                            </form>
                         </li>
                         <li class="nav-item">
                             <form method="post" action="{% url 'logout' %}">
