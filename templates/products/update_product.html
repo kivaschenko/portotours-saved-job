@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <h3>Edit your chosen Product here:</h3>
+        {% include 'include/update_booking_form.html' %}
+    </div>
+
+
+    <script>
+        {% if user.is_authenticated %}
+            const customerId = {{ customer_id }};  // from response context
+        {% else %}
+            const customerId = null;
+        {% endif %}
+        // Define session key
+        const sessionKey = `{{ session_key }}`;  // from response context
+        // Define ParentExperience id
+        const parentExperienceId = {{ product.parent_experience_id }};  // from response context
+    </script>
+
+    <script src="{% static 'js/update_booking_handler.js' %}"></script>
+{% endblock content %}
