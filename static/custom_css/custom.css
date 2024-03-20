@@ -7749,6 +7749,49 @@ html.off-scroll body {
     width: 100%; }
     .header .navbar .navbar-nav .nav-link {
       padding: 0; }
+    .header .navbar .navbar-nav .dropdown-menu.show {
+      border-radius: 16px;
+      border: 1px solid #D9D9D9;
+      background: #FFF;
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 570px;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%); }
+      .header .navbar .navbar-nav .dropdown-menu.show li {
+        width: calc((100% - 40px)/2); }
+        .header .navbar .navbar-nav .dropdown-menu.show li .dropdown-title {
+          font-size: 16px;
+          line-height: 26px;
+          margin-bottom: 8px;
+          font-family: "LatoSemiBold";
+          text-transform: capitalize; }
+        .header .navbar .navbar-nav .dropdown-menu.show li .dropdown-item {
+          padding: 0;
+          white-space: inherit;
+          font-size: 14px;
+          line-height: 22px;
+          margin-bottom: 0;
+          font-family: "LatoRegular"; }
+          .header .navbar .navbar-nav .dropdown-menu.show li .dropdown-item:hover {
+            background-color: white; }
+          .header .navbar .navbar-nav .dropdown-menu.show li .dropdown-item + .dropdown-item {
+            margin-top: 10px; }
+        .header .navbar .navbar-nav .dropdown-menu.show li .dropdown-item-link {
+          display: flex;
+          align-items: center;
+          color: var(--text-color-third);
+          text-transform: uppercase;
+          font-family: 'LatoSemiBold';
+          font-size: 18px;
+          line-height: normal;
+          text-decoration: none;
+          margin-top: 16px; }
+          .header .navbar .navbar-nav .dropdown-menu.show li .dropdown-item-link img {
+            margin-left: 10px; }
     .header .navbar .navbar-nav .dropdown-toggle::after {
       vertical-align: top;
       margin-left: 10px;
@@ -11055,6 +11098,10 @@ html.off-scroll body {
               font-size: 18px;
               line-height: 28px;
               color: #0F0F10; }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .max-participants {
+            margin-top: 15px; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .max-participants span {
+              font-weight: 600; }
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection.disabled {
             pointer-events: none; }
             .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection.disabled .ticket-type button img.active {
@@ -12331,3 +12378,5 @@ a {
 
 .nav-link {
   color: #0F0F10; }
+
+/*# sourceMappingURL=custom.css.map */

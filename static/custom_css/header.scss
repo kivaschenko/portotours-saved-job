@@ -149,6 +149,58 @@
             .nav-link {
                 padding: 0;
             }
+            .dropdown-menu.show{
+                border-radius: 16px;
+                border: 1px solid #D9D9D9;
+                background: #FFF;
+                padding: 20px 24px;
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                width: 570px;
+                top: 40px;
+                left: 50%;
+                transform: translateX(-50%);
+                li {
+                    width: calc((100% - 40px)/2);
+                    .dropdown-title {
+                        font-size: 16px;
+                        line-height: 26px;
+                        margin-bottom: 8px;
+                        font-family: "LatoSemiBold";
+                        text-transform: capitalize;
+                    }
+                    .dropdown-item {
+                        padding: 0;
+                        white-space: inherit;
+                        font-size: 14px;
+                        line-height: 22px;
+                        margin-bottom: 0;
+                        font-family: "LatoRegular";
+                        &:hover {
+                            background-color: white;
+                        }
+                        + .dropdown-item {
+                            margin-top: 10px;
+                        }
+                    }
+                    .dropdown-item-link {
+                        display: flex;
+                        align-items: center;
+                        color: var(--text-color-third);
+                        text-transform: uppercase;
+                        font-family: 'LatoSemiBold';
+                        font-size: 18px;
+                        line-height: normal;
+                        text-decoration: none;
+                        margin-top: 16px;
+                        img {
+                            margin-left: 10px;
+                            
+                        }
+                    }
+                }
+            }
             .dropdown-toggle::after {
                 vertical-align: top;
                 margin-left: 10px;
