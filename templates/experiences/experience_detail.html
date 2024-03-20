@@ -491,9 +491,11 @@
                         <img src="{% static 'images/booking-form-banner.svg' %}" alt="form banner">
                         <img src="{% static 'icons/icon-back.svg' %}" alt="go back" class="btn-back">
                         <p class="body-text-b3">Choose Date</p>
-
+                        {% if object.parent_experience.is_private %}
+                        {% include 'include/private_booking_form.html' %}
+                        {% else %}
                         {% include 'include/booking_form.html' %}
-
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -662,7 +664,12 @@
         const parentExperienceId = {{ object.parent_experience_id }};  // from response extra_context
     </script>
 
+    {% if object.parent_experience.is_private %}
+    <script src="{% static 'js/first_booking_private_refactor.js' %}"></script>
+    {% else %}
     <script src="{% static 'js/first_booking_refactor.js' %}"></script>
+    {% endif %}
+    
 
     <script>
 
