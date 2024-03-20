@@ -190,13 +190,27 @@ class ExperienceEventInline(admin.TabularInline):
 @admin.register(Calendar)
 class ExperienceCalendarAdmin(admin.ModelAdmin):
     exclude = ['name', 'slug', ]
+    readonly_fields = ['is_private']
     inlines = [ExperienceEventInline]
+    list_display = ['name', 'is_private']
+
+    def is_private(self, obj):
+        relation = obj.calendarrelation_set.first()
+        if relation:
+            parent_experience_obj = relation.content_object
+            if parent_experience_obj.is_private:
+                return 'Private'
+            else:
+                return 'Group'
+        return None
+
+    is_private.short_description = 'Parent Experience is'
 
 
 @admin.register(ExperienceEvent)
 class ExperienceEventAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'max_participants', 'booked_participants',
-                    'remaining_participants', 'special_price', 'child_special_price']
+                    'remaining_participants', 'special_price', 'child_special_price', 'total_price']
     # readonly_fields = ['title', 'max_participants', 'booked_participants', 'remaining_participants']
     search_fields = ['title', 'description', ]
     list_filter = ['start', 'calendar']

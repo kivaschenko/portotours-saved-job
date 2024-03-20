@@ -133,7 +133,8 @@ class ParentExperience(models.Model):
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
     priority_number = models.IntegerField(null=True, blank=True, default=0,
                                           help_text="Priority number using for ordering in recommendation queue")
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0, help_text="Price for this experience: if it's private then whole total price else "
+                                                                                      "- base adult price will be.")
     child_discount = models.PositiveSmallIntegerField(null=True, blank=True, default=33,
                                                       help_text="Child discount in % from price for child products")
     use_child_discount = models.BooleanField(default=True,
@@ -149,7 +150,8 @@ class ParentExperience(models.Model):
     increase_percentage_old_price = models.IntegerField(null=True, blank=True, default=33,
                                                         help_text="The percentage to increase old price automatically.")
     old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
-                                    help_text="For marketing purposes, this adult old price will be higher than the new one.")
+                                    help_text="For marketing purposes, this adult old price will be higher than the new one. If it's private - "
+                                              "then old total price will be")
     child_old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
                                           help_text="For marketing purposes, this child old price will be higher than the new one.")
     meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
@@ -282,6 +284,7 @@ class ExperienceEvent(Event):
                                         help_text="Special price if different from Parent Experience.")
     child_special_price = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2,
                                               help_text="Special child price if different from Parent Experience.")
+    total_price = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2, help_text="Total price for whole private tour.")
 
     class Meta:
         verbose_name = "Experience Event"
@@ -381,17 +384,25 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         # recount each time during save because might be different numer of participants
-        self.total_price = self._count_new_total_price()
+        if not self.total_price:
+            self.total_price = self._count_new_total_price()
         self.old_total_price = self._count_old_total_price()
-        self.stripe_product_id = (f"{self.parent_experience.parent_name.upper()} start: {self.start_datetime} language: {self.language} "
-                                  f"participants: {self.adults_count} adults & {self.child_count} children.")
+        if self.parent_experience.is_private:
+            self.stripe_product_id = (f"{self.parent_experience.parent_name.upper()} start: {self.start_datetime} language: {self.language} "
+                                      f"type: private | max_participants: {self.parent_experience.max_participants}")
+        else:
+            self.stripe_product_id = (f"{self.parent_experience.parent_name.upper()} start: {self.start_datetime} language: {self.language} "
+                                      f"type: group | participants: {self.adults_count} adults & {self.child_count} children.")
         self.stripe_price = int(self.total_price * 100)
         if not self.expired_time:
             self.expired_time = datetime.utcnow() + timedelta(minutes=settings.BOOKING_MINUTES)  # by default 30 minutes
         super(Product, self).save()
 
     def _count_old_total_price(self):
-        return self.parent_experience.old_price * self.adults_count + self.parent_experience.child_old_price * self.child_count
+        if not self.parent_experience.is_private:
+            return self.parent_experience.old_price * self.adults_count + self.parent_experience.child_old_price * self.child_count
+        else:
+            return self.parent_experience.old_price
 
     def _count_new_total_price(self):
         return self.adults_price * self.adults_count + self.child_price * self.child_count

@@ -36,10 +36,12 @@ def fill_empty_prices_and_set_relation(sender, instance, created, **kwargs):
             instance.remaining_participants = parent_experience_obj.max_participants
         else:
             instance.remaining_participants = instance.max_participants - instance.booked_participants
-        if not instance.special_price:
+        if not instance.special_price and not parent_experience_obj.is_private:
             instance.special_price = parent_experience_obj.price
-        if not instance.child_special_price:
+        if not instance.child_special_price and not parent_experience_obj.is_private:
             instance.child_special_price = parent_experience_obj.child_price
+        if parent_experience_obj.is_private and not instance.total_price:
+            instance.total_price = parent_experience_obj.price
         instance.save()
 
         # Set event relation

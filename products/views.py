@@ -173,7 +173,7 @@ def get_actual_experience_events(request, parent_experience_id):
 
 
 @csrf_exempt
-def create_product(request):
+def create_group_product(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -257,3 +257,66 @@ class EditProductView(DetailView):
     model = Product
     template_name = 'products/edit_booking_form.html'
     queryset = Product.objects.all()
+
+
+@csrf_exempt
+def create_private_product(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+        except json.decoder.JSONDecodeError as e:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+
+        # Extract data from JSON
+        adults = data.get('adults')
+        children = data.get('children')
+        language_code = data.get('language_code')
+        customer_id = data.get('customer_id')
+        session_key = data.get('session_key')
+        event_id = data.get('event_id')
+        parent_experience_id = data.get('parent_experience_id')
+
+        # Get ExperienceEvent obj
+        exp_event = ExperienceEvent.objects.get(id=event_id)
+
+        # Get language
+        language = Language.objects.get(code=language_code)
+
+        # Create a new product using the received data
+        new_product = Product(
+            customer_id=customer_id,
+            session_key=session_key,
+            parent_experience_id=parent_experience_id,
+            language=language,
+            start_datetime=exp_event.start,
+            end_datetime=exp_event.end,
+            total_price=exp_event.total_price,
+            adults_count=adults,
+            child_count=children,
+        )
+        new_product.save()
+
+        # Update ExperienceEvent data
+        total_booked = adults + children
+        exp_event.update_booking_data(booked_number=total_booked)
+
+        # Create Occurrence for Product
+        occurrence = Occurrence(
+            event=exp_event,
+            title=exp_event.title,
+            description=f"This occurrence has been created for the product: {new_product.id}.",
+            start=exp_event.start,
+            end=exp_event.end,
+            original_start=exp_event.start,
+            original_end=exp_event.end
+        )
+        occurrence.save()
+
+        new_product.occurrence = occurrence
+        new_product.save()
+
+        # Return a JSON response indicating success
+        return JsonResponse({'message': 'Product created successfully'}, status=201)
+
+    # If the request method is not POST, return an error response
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
