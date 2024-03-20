@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, LoginView
 from django.views.generic import TemplateView, UpdateView, DetailView
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 
-from .forms import CustomSignupForm, AddressForm, ShippingAddressForm
+from .forms import CustomSignupForm, AddressForm, ShippingAddressForm, CustomLoginForm
 from accounts.models import User, Profile
 
 
@@ -41,6 +41,12 @@ class RegistrationView(FormView):
 
 class LogoutView(LoginRequiredMixin, TemplateView):
     pass
+
+
+class CustomLoginView(LoginView):
+    form = CustomLoginForm
+    template_name = 'registration/login.html'  # Specify the template name for your login page
+    success_url = reverse_lazy('home')  # Redirect URL after successful login
 
 
 class ProfileView(LoginRequiredMixin, DetailView):

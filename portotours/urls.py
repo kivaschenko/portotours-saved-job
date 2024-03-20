@@ -16,7 +16,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', accounts_views.HomeView.as_view(), name='home'),
     path('accounts/signup/', accounts_views.RegistrationView.as_view(), name='signup'),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path('login/', accounts_views.CustomLoginView.as_view(), name='login'),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    # path("accounts/", include("django.contrib.auth.urls")),
     # Password reset
     path('password_reset/', accounts_views.CustomPasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', accounts_views.CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
