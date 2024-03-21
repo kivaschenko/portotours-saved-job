@@ -68,7 +68,7 @@ urlpatterns += [
     path('purchase/get-pdf/<int:purchase_id>/', purchases_views.generate_purchase_pdf, name='generate-pdf'),
     path('create-product/', products_views.create_group_product, name='create-product'),
     path('create-private-product/', products_views.create_private_product, name='create-private-product'),
-    path('edit-booking/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
+    path('edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
 ]
 
 # BLOGS

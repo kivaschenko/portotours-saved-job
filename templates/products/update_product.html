@@ -1,10 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <div class="container">
-        <h3>Edit your chosen Product here:</h3>
-        {% include 'include/update_booking_form.html' %}
+    <div class="edit-cart-item-wrapper">
+        <div class="container">
+            <h2 class="edit-cart-item-title">
+                Edit page
+            </h2>
+            <h3 class="name-tour-title">
+                {{ object.parent_experience }}
+            </h3>
+            <div class="booking-form-wrapper">
+                {% include 'include/update_booking_form.html' %}
+            </div>
+        </div>
     </div>
+
+    <script>
+        document.getElementById("cancel-btn").onclick = function () {
+            history.go(-1); // Go back one page in history
+        };
+    </script>
+
 
 
     <script>
@@ -19,5 +35,9 @@
         const parentExperienceId = {{ product.parent_experience_id }};  // from response context
     </script>
 
-    <script src="{% static 'js/update_booking_handler.js' %}"></script>
+    {% if object.parent_experience.is_private %}
+        <script src="update_private_product.js" %}></script>
+    {% else %}
+        <script src="{% static 'js/update_product.js' %}"></script>
+    {% endif %}
 {% endblock content %}

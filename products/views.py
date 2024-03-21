@@ -255,8 +255,22 @@ def get_event_booking_data(request, event_id):
 
 class EditProductView(DetailView):
     model = Product
-    template_name = 'products/edit_booking_form.html'
+    template_name = 'products/update_product.html'
     queryset = Product.objects.all()
+    extra_context = {}
+
+    def setup(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            self.extra_context.update({'customer_id': request.user.id})
+            self.extra_context.update({'session_key': request.session.session_key})
+        else:
+            self.extra_context['customer_id'] = None
+            # If the user is not authenticated, get the current session
+            if not request.session.exists(request.session.session_key):
+                request.session.create()
+            self.extra_context.update({'session_key': request.session.session_key})
+        kwargs = super(EditProductView, self).setup(request, *args, **kwargs)
+        return kwargs
 
 
 @csrf_exempt
@@ -320,20 +334,3 @@ def create_private_product(request):
 
     # If the request method is not POST, return an error response
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
-
-
-def product_update_view(request, product_id):
-    template = 'products/product_update.html'
-    product = get_object_or_404(Product, pk=product_id)
-    context = {'product': product}
-    if request.user.is_authenticated:
-        context.update({'customer_id': request.user.id})
-        context.update({'session_key': request.session.session_key})
-    else:
-        context['customer_id'] = None
-        # If the user is not authenticated, get the current session
-        if not request.session.exists(request.session.session_key):
-            request.session.create()
-        context.update({'session_key': request.session.session_key})
-    return render(request, template_name=template, context=context)
-
