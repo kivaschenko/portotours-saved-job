@@ -61,6 +61,7 @@
             }
         }
         .user-profile {
+            display: none;
             @include media-breakpoint-down(md) {
                 display: none;
             }

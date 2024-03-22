@@ -485,6 +485,7 @@
             line-height: normal;
             text-transform: uppercase;
             text-decoration: none;
+            margin-top: 24px;
             @include media-breakpoint-down(md) {
               position: absolute;
               bottom: 16px;
