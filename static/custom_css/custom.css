@@ -7768,6 +7768,17 @@ html.off-scroll body {
       margin-right: 14px; }
     .header-right-col .contact-phone .phone-number {
       margin-bottom: 0; }
+  .header-right-col .login-btn-wrapper {
+    margin-left: 30px; }
+    @media (max-width: 767.98px) {
+      .header-right-col .login-btn-wrapper {
+        display: none; } }
+    .header-right-col .login-btn-wrapper .header-login-btn {
+      display: block;
+      padding: 8px 28px;
+      text-transform: capitalize;
+      font-size: 14px;
+      line-height: normal; }
 
 .header .navbar {
   padding-top: 16px;
@@ -7935,9 +7946,9 @@ html.off-scroll body {
         justify-content: space-between;
         width: 100%;
         position: absolute;
-        bottom: 15px;
+        bottom: 85px;
         left: 0;
-        padding: 0 16px; } }
+        padding: 0 24px; } }
     .header .navbar .language-phone-wrapper .language-switcher-mobile {
       margin-right: 40px;
       position: relative;
@@ -8011,7 +8022,21 @@ html.off-scroll body {
         margin-right: 14px; }
       .header .navbar .language-phone-wrapper .contact-phone .phone-number {
         margin-bottom: 0; }
-
+  .header .navbar .login-btn-wrapper-mobile {
+    display: none; }
+    @media (max-width: 767.98px) {
+      .header .navbar .login-btn-wrapper-mobile {
+        margin-left: 0;
+        display: block;
+        position: absolute;
+        left: 24px;
+        bottom: 24px; }
+        .header .navbar .login-btn-wrapper-mobile .header-login-btn {
+          display: block;
+          padding: 8px 28px;
+          text-transform: capitalize;
+          font-size: 14px;
+          line-height: normal; } }
 .footer {
   background-color: #0F0F10; }
   .footer .container {
@@ -10504,10 +10529,16 @@ html.off-scroll body {
           margin-bottom: 16px;
           font-size: 26px;
           line-height: 36px; } }
+    .experience-list .container .title-filter-wrapper .filters-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center; }
     .experience-list .container .title-filter-wrapper .filter-wrapper {
       display: flex;
       align-items: center;
       justify-content: space-between; }
+      .experience-list .container .title-filter-wrapper .filter-wrapper + .filter-wrapper {
+        margin-left: 40px; }
       .experience-list .container .title-filter-wrapper .filter-wrapper .experience-filter-title {
         margin-right: 24px;
         font-size: 18px;
@@ -11960,7 +11991,7 @@ html.off-scroll body {
               line-height: 24px; } }
         .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .card-content-inner-wrapper {
           display: flex;
-          align-items: center;
+          align-items: stretch;
           justify-content: start; }
           @media (max-width: 767.98px) {
             .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .card-content-inner-wrapper {

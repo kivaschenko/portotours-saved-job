@@ -50,17 +50,29 @@
                 <h3 class="experience-list-title">
                     Title name
                 </h3>
-                <div class="filter-wrapper">
-                    <p class="experience-filter-title">
-                        Sort by
-                    </p>
-                    <select name="experience filter" id="experience_filter">
-                        <option value="Price">Price Low To High</option>
-                        <option value="Discount">Discount Low To High</option>
-                        <option value="Date">Date</option>
-                        <option value="Hot_deals">Hot deals first</option>
-                    </select>
+                <div class="filters-wrapper">
+                    <div class="filter-wrapper">
+                        <p class="experience-filter-title">
+                            Sort by
+                        </p>
+                        <select name="experience filter" id="experience_filter">
+                            <option value="Price">Private</option>
+                            <option value="Discount">Group</option>
+                        </select>
+                    </div>
+                    <div class="filter-wrapper">
+                        <p class="experience-filter-title">
+                            Sort by
+                        </p>
+                        <select name="experience filter" id="experience_filter">
+                            <option value="Price">Price Low To High</option>
+                            <option value="Discount">Discount Low To High</option>
+                            <option value="Date">Date</option>
+                            <option value="Hot_deals">Hot deals first</option>
+                        </select>
+                    </div>
                 </div>
+                
             </div>
             <ul class="experiences">
                 {% if object_list %}

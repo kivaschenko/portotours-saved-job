@@ -230,10 +230,18 @@
           line-height: 36px;
         }
       }
+      .filters-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       .filter-wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        + .filter-wrapper {
+          margin-left: 40px;
+        }
         .experience-filter-title {
           margin-right: 24px;
           font-size: 18px;

@@ -228,7 +228,7 @@
                     }
                     .card-content-inner-wrapper {
                         display: flex;
-                        align-items: center;
+                        align-items: stretch;
                         justify-content: start;
                         @include media-breakpoint-down(md) {
                             justify-content: space-between;
