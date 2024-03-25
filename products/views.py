@@ -254,6 +254,22 @@ def get_event_booking_data(request, event_id):
     return JsonResponse({'result': actual_data_dict}, status=200)
 
 
+def get_private_event_booking_data(request, event_id):
+    actual_data_dict = {}
+    event = ExperienceEvent.objects.get(id=event_id)
+    actual_data_dict[event.experienceevent.id] = {
+        'date': event.experienceevent.start_date,
+        'time': event.experienceevent.start_time,
+        'total_price': float(event.experienceevent.total_price),
+        'max_participants': event.experienceevent.max_participants,
+        'booked_participants': event.experienceevent.booked_participants,
+        'remaining_participants': event.experienceevent.remaining_participants,
+        'experience_event_id': event.experienceevent.id,
+    }
+    print('result:', actual_data_dict)
+    return JsonResponse({'result': actual_data_dict}, status=200)
+
+
 class EditProductView(DetailView):
     model = Product
     template_name = 'products/update_product.html'

@@ -11,7 +11,8 @@ const model = {
         'event_id': null,
         'parent_experience_id': parentExperienceId, // from page scope
     },
-    'selectedDate': null
+    'selectedDate': null,
+    'current_event': {},
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
@@ -523,7 +524,33 @@ function handleEventData(data) {
     }
 }
 
+// Function to fetch event data for the current event_id
+async function fetchEventDataForCurrentEvent(eventId) {
+    try {
+        const response = await fetch(`/private-experience-event-data/${eventId}/`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        // Call function to handle the received data
+        handleEventDataForCurrentEvent(data.result);
+    } catch (error) {
+        console.error('Error fetching data for current event:', error);
+    }
+};
+
+// Function to handle the received event data for the current event
+function handleEventDataForCurrentEvent(data) {
+    console.log('Got data for current event:', data);
+    // Update model with the received data or perform other actions as needed
+    // For example, you can update the model's current_event property with this data
+    model.current_event = data;
+}
+
 document.addEventListener('DOMContentLoaded', async function () {
+    
+    await fetchEventDataForCurrentEvent(currentEventId);
+
     // Fetch event data and wait for it to complete
     await fetchEventData(parentExperienceId);
 
