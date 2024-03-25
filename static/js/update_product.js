@@ -13,6 +13,15 @@ const model = {
     },
     'selectedDate': null,
     'current_event': {},
+    'current_product': {
+        'adultCount': adultCount,
+        'childCount': childCount,
+        'adultPrice': adultPrice,
+        'childPrice': childPrice,
+        'startDate': startDate,
+        'startTime': startTime,
+        'totalPrice': totalPrice,
+    },
     'productId': productId,
 };
 
@@ -20,7 +29,27 @@ const model = {
 const view = {
     // Function implementation for seeding data to form, if needed
     seedDataToForm: function () {
-        let form = document.getElementById("bookingForm");
+        const productData = model.current_product;
+
+        const startTime = productData.startTime;
+        console.log('Start Time:', startTime); // Check the value of startTime
+        const input = document.querySelector('input[type="radio"][value="' + startTime + '"]');
+        console.log('Input Element:', input); // Check the input element found by the query selector
+// Enable the input if found
+        if (input) {
+            input.checked = true;
+        } else {
+            console.error('Input not found for the given start time:', startTime);
+        }
+
+
+        document.getElementById('adultTicketCount').value = productData.adultCount;
+        document.getElementById('childTicketCount').value = productData.childCount;
+        const adultTotalPrice = productData.adultCount * productData.adultPrice;
+        const childTotalPrice = productData.childCount * productData.childPrice;
+        document.getElementById('childTotalPrice').textContent = '€' + childTotalPrice.toFixed(2);
+        document.getElementById("adultTotalPrice").textContent = '€' + adultTotalPrice.toFixed(2);
+
     },
 
     // Check if model.languages exists and is an array before proceeding
@@ -175,7 +204,8 @@ const view = {
             adultTotalPriceElement.textContent = `${totalAdultPrice.toFixed(2)}`;
             childTotalPriceElement.textContent = `${totalChildPrice.toFixed(2)}`;
         }
-    }
+    },
+
 };
 
 // The controller has functions that respond to events in HTML blocks, forms, buttons
@@ -551,7 +581,7 @@ function handleEventDataForCurrentEvent(data) {
 document.addEventListener('DOMContentLoaded', async function () {
 
     await fetchEventDataForCurrentEvent(currentEventId);
-    
+
     // Fetch event data and wait for it to complete
     await fetchEventData(parentExperienceId);
 
@@ -603,10 +633,12 @@ document.addEventListener('DOMContentLoaded', async function () {
         input.addEventListener('change', controller.performValidation);
     });
     // Get the current date
-    const currentDate = new Date();
+    const [month, day, year] = model.current_product.startDate.split('/');
+    const currentDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    console.log('currentDate=', currentDate);
 
     // Simulate a click on the current date in the calendar
-    const currentDay = document.querySelector(`[data-date="${currentDate.toISOString().split('T')[0]}"]`);
+    const currentDay = document.querySelector(`[data-date="${currentDate}"]`);
     if (currentDay) {
         const clickEvent = new MouseEvent('click', {
             bubbles: true,
@@ -617,7 +649,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     } else {
         console.error('Current date not found in the calendar.');
     }
+    ;
 
+    // seed form data
+    view.seedDataToForm();
 
 });
 
