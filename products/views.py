@@ -244,6 +244,7 @@ def get_event_booking_data(request, event_id):
         'time': event.experienceevent.start_time,
         'adult_price': float(event.experienceevent.special_price),
         'child_price': float(event.experienceevent.child_special_price),
+        # 'total_price': float(event.experienceevent.total_price),
         'max_participants': event.experienceevent.max_participants,
         'booked_participants': event.experienceevent.booked_participants,
         'remaining_participants': event.experienceevent.remaining_participants,
@@ -258,6 +259,11 @@ class EditProductView(DetailView):
     template_name = 'products/update_product.html'
     queryset = Product.objects.all()
     extra_context = {}
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
     def setup(self, request, *args, **kwargs):
         if request.user.is_authenticated:

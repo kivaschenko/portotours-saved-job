@@ -21,8 +21,6 @@
         };
     </script>
 
-
-
     <script>
         {% if user.is_authenticated %}
             const customerId = {{ customer_id }};  // from response context
@@ -32,7 +30,9 @@
         // Define session key
         const sessionKey = `{{ session_key }}`;  // from response context
         // Define ParentExperience id
-        const parentExperienceId = {{ product.parent_experience_id }};  // from response context
+        const parentExperienceId = {{ object.parent_experience_id }};  // from response context
+        // Define Event id
+        const currentEventId = {{ object.occurrence.event_id }};
     </script>
 
     {% if object.parent_experience.is_private %}

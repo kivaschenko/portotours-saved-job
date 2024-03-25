@@ -11,7 +11,8 @@ const model = {
         'event_id': null,
         'parent_experience_id': parentExperienceId, // from page scope
     },
-    'selectedDate': null
+    'selectedDate': null,
+    'current_event': {},
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
@@ -81,7 +82,6 @@ const view = {
                 }
             }
         });
-
 
 
         const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -201,11 +201,11 @@ const controller = {
             if (response.ok) {
                 // Handle successful response
                 console.log('Booking submitted successfully.');
-                 // Extract the language slug from the current URL
-            const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
+                // Extract the language slug from the current URL
+                const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
 
-            // Redirect to the cart page after successful submission
-            window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
+                // Redirect to the cart page after successful submission
+                window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
             } else {
                 // Handle error response
                 console.error('Error submitting booking:', response.statusText);
@@ -336,54 +336,53 @@ const controller = {
             }
 
 
-
             // If there are events for the clicked date
             if (eventsForDate.length > 0) {
-                 // If there is only one event, automatically select its time slot
-            if (eventsForDate.length === 1) {
-                // Create radio button for the only available time
-                const timeInput = document.createElement('input');
-                timeInput.type = 'radio';
-                timeInput.id = eventsForDate[0].experience_event_id; // Using event ID as radio button ID
-                timeInput.name = 'time'; // Ensure the radio buttons are part of the same group
-                timeInput.value = eventsForDate[0].time; // Assign the time value
-                timeInput.checked = true; // Automatically select this time slot
-
-                // Create label for the radio button
-                const timeLabel = document.createElement('label');
-                timeLabel.htmlFor = eventsForDate[0].experience_event_id;
-                timeLabel.textContent = eventsForDate[0].time;
-
-                // Append the radio button and label to the time selection area
-                timeSelection.appendChild(timeInput);
-                timeSelection.appendChild(timeLabel);
-            } else {
-                // Create time selection options for each event
-                eventsForDate.forEach(event => {
-                    // Create radio button for each time
+                // If there is only one event, automatically select its time slot
+                if (eventsForDate.length === 1) {
+                    // Create radio button for the only available time
                     const timeInput = document.createElement('input');
                     timeInput.type = 'radio';
-                    timeInput.id = event.experience_event_id;
-                    timeInput.name = 'time';
-                    timeInput.value = event.time;
+                    timeInput.id = eventsForDate[0].experience_event_id; // Using event ID as radio button ID
+                    timeInput.name = 'time'; // Ensure the radio buttons are part of the same group
+                    timeInput.value = eventsForDate[0].time; // Assign the time value
+                    timeInput.checked = true; // Automatically select this time slot
 
                     // Create label for the radio button
                     const timeLabel = document.createElement('label');
-                    timeLabel.htmlFor = event.experience_event_id;
-                    timeLabel.textContent = event.time;
+                    timeLabel.htmlFor = eventsForDate[0].experience_event_id;
+                    timeLabel.textContent = eventsForDate[0].time;
 
                     // Append the radio button and label to the time selection area
                     timeSelection.appendChild(timeInput);
                     timeSelection.appendChild(timeLabel);
+                } else {
+                    // Create time selection options for each event
+                    eventsForDate.forEach(event => {
+                        // Create radio button for each time
+                        const timeInput = document.createElement('input');
+                        timeInput.type = 'radio';
+                        timeInput.id = event.experience_event_id;
+                        timeInput.name = 'time';
+                        timeInput.value = event.time;
 
-                    timeInput.addEventListener('change', function () {
-                        console.log('Radio button changed');
-                        controller.performValidation(); // Call validation function when radio button changes
+                        // Create label for the radio button
+                        const timeLabel = document.createElement('label');
+                        timeLabel.htmlFor = event.experience_event_id;
+                        timeLabel.textContent = event.time;
 
+                        // Append the radio button and label to the time selection area
+                        timeSelection.appendChild(timeInput);
+                        timeSelection.appendChild(timeLabel);
+
+                        timeInput.addEventListener('change', function () {
+                            console.log('Radio button changed');
+                            controller.performValidation(); // Call validation function when radio button changes
+
+                        });
                     });
-                });
 
-            }
+                }
 
             } else {
                 // If no events are available for the clicked date, display a message
@@ -400,7 +399,7 @@ const controller = {
             model.selectedDate = clickedDate;
         }
     },
-     performValidation: function() {
+    performValidation: function () {
         const selectedDateElement = document.querySelector('.calendar-day.selected-date');
         const selectedTimeInput = document.querySelector('input[name="time"]:checked');
         const adultTicketCount = document.getElementById('adultTicketCount').value;
@@ -521,21 +520,47 @@ function handleEventData(data) {
     } else {
         console.error('Received data format is invalid');
     }
+};
+
+// Function to fetch event data for the current event_id
+async function fetchEventDataForCurrentEvent(eventId) {
+    try {
+        const response = await fetch(`/experience-event-data/${eventId}/`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        // Call function to handle the received data
+        handleEventDataForCurrentEvent(data.result);
+    } catch (error) {
+        console.error('Error fetching data for current event:', error);
+    }
+};
+
+// Function to handle the received event data for the current event
+function handleEventDataForCurrentEvent(data) {
+    console.log('Got data for current event:', data);
+    // Update model with the received data or perform other actions as needed
+    // For example, you can update the model's current_event property with this data
+    model.current_event = data;
 }
 
+
 document.addEventListener('DOMContentLoaded', async function () {
+
+    await fetchEventDataForCurrentEvent(currentEventId);
+    
     // Fetch event data and wait for it to complete
     await fetchEventData(parentExperienceId);
 
+    // Disable submit button, ticket selection, and language selection blocks on page load
+    const submitBtn = document.getElementById('submitBtn');
+    const ticketSelection = document.querySelector('.ticket-selection');
+    const languageSelection = document.querySelector('.language-selection');
 
-     // Disable submit button, ticket selection, and language selection blocks on page load
-     const submitBtn = document.getElementById('submitBtn');
-     const ticketSelection = document.querySelector('.ticket-selection');
-     const languageSelection = document.querySelector('.language-selection');
-
-     submitBtn.disabled = true;
-     ticketSelection.classList.add('disabled');
-     languageSelection.classList.add('disabled');
+    submitBtn.disabled = true;
+    ticketSelection.classList.add('disabled');
+    languageSelection.classList.add('disabled');
 
     // Call the handleIncrementClick and handleDecrementClick functions
     controller.handleIncrementClick();
@@ -575,22 +600,21 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.querySelectorAll('input[name="language"]').forEach(input => {
         input.addEventListener('change', controller.performValidation);
     });
-     // Get the current date
-     const currentDate = new Date();
+    // Get the current date
+    const currentDate = new Date();
 
-     // Simulate a click on the current date in the calendar
-     const currentDay = document.querySelector(`[data-date="${currentDate.toISOString().split('T')[0]}"]`);
-     if (currentDay) {
-         const clickEvent = new MouseEvent('click', {
-             bubbles: true,
-             cancelable: true,
-             view: window
-         });
-         currentDay.dispatchEvent(clickEvent);
-     } else {
-         console.error('Current date not found in the calendar.');
-     }
-
+    // Simulate a click on the current date in the calendar
+    const currentDay = document.querySelector(`[data-date="${currentDate.toISOString().split('T')[0]}"]`);
+    if (currentDay) {
+        const clickEvent = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window
+        });
+        currentDay.dispatchEvent(clickEvent);
+    } else {
+        console.error('Current date not found in the calendar.');
+    }
 
 
 });
