@@ -6,20 +6,91 @@
     <title>Confirmation from Stripe Checkout</title>
 {% endblock head %}
 {% block content %}
-    <div class="container">
-        <!-- Breadcrumbs -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'my-cart' lang='en' %}">Step 1</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'payment-form' lang='en' %}">Step 2</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Step 3</li>
-            </ol>
-        </nav>
-
-        <div class="cart-milestones">
-            <h2>3 Step: Confirmation</h2>
-            <p><small>There are some implementation for milestones of order and payment process...</small></p>
+    <div class="cart">
+        <div class="container">
+            <div class="cart-steps-wrapper">
+                <ul class="cart-steps">
+                    <li class="cart-step-item finished">
+                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        <p class="step-text body-text-b4">
+                            1 Step
+                        </p>
+                        <p class="body-text-b3 step-title">
+                            Basket
+                        </p>
+                    </li>
+                    <li class="cart-step-item finished">
+                        <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        <p class="step-text body-text-b4">
+                            2 Step
+                        </p>
+                        <p class="body-text-b3 step-title">
+                            Billing details
+                        </p>
+                    </li>
+                    <li class="cart-step-item active">
+                        <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        <p class="step-text body-text-b4">
+                            3 Step
+                        </p>
+                        <p class="body-text-b3 step-title">
+                            Confirmation
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="cart-title-wrapper">
+                <h2 class="cart-title">
+                    Confirmation
+                </h2>
+                <p class="cart-subtitle">
+                    Your booking is confirmed. Please check the details below.
+                </p>
+            </div>
+            <section id="success" class="hidden confirmation-info">
+                <div class="img-wrapper">
+                    <img src="{% static 'images/best-tours-img1.png' %}" alt="confirm img">
+                </div>
+                <div class="content-wrapper">
+                    <h4 class="content-title">
+                        Experience name long-long-long  long-long-long  long-long-long    
+                    </h4>
+                    <ul class="content-list">
+                        <li>MM/DD/YYYY</li>
+                        <li>11:10 AM</li>
+                    </ul>
+                    <ul class="content-list">
+                        <li>2 Adult</li>
+                        <li>3 Children</li>
+                    </ul>
+                    <ul class="content-list">
+                        <li>Private type </li>
+                        <li>English Language</li>
+                    </ul>
+                </div>
+            </section>
+            <div class="confirmation-btns-wrapper">
+                <a href="" class="continue-shopping-btn">
+                    Continue shopping
+                </a>
+                <a href="" class="download-pdf btn-type-1">
+                    download pdf
+                </a>
+            </div>
         </div>
+    </div>
+
+
+
+
+
+    <div class="container">
+        
         <section id="success" class="hidden">
             <h3>Confirmation</h3>
             <p>Your booking is confirmed. Please check the details below.</p>
