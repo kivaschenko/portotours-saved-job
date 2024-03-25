@@ -114,7 +114,9 @@
                                     <div class="hover-block">
                                         <ul class="hover-block-btns-list">
                                             <li class="hover-block-item">
+                                                <a href="{% url 'edit-product' object.pk %}">
                                                 <img src="{% static 'icons/cart-edit-icon.svg' %}" alt="edit">
+                                                </a>
                                             </li>
                                             <li class="hover-block-item">
                                                 <a href="{% url 'cancel-product' object.pk %}">

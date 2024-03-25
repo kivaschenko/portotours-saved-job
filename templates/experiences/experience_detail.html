@@ -492,9 +492,9 @@
                         <img src="{% static 'icons/icon-back.svg' %}" alt="go back" class="btn-back">
                         <p class="body-text-b3">Choose Date</p>
                         {% if object.parent_experience.is_private %}
-                        {% include 'include/private_booking_form.html' %}
+                            {% include 'include/private_booking_form.html' %}
                         {% else %}
-                        {% include 'include/booking_form.html' %}
+                            {% include 'include/booking_form.html' %}
                         {% endif %}
                     </div>
                 </div>
@@ -665,11 +665,11 @@
     </script>
 
     {% if object.parent_experience.is_private %}
-    <script src="{% static 'js/first_booking_private_refactor.js' %}"></script>
+        <script src="{% static 'js/first_booking_private_refactor.js' %}"></script>
     {% else %}
-    <script src="{% static 'js/first_booking_refactor.js' %}"></script>
+        <script src="{% static 'js/first_booking_refactor.js' %}"></script>
     {% endif %}
-    
+
 
     <script>
 

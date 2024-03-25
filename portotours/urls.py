@@ -55,6 +55,7 @@ urlpatterns += [
     path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(), name='experience-detail'),
     path('actual-experience-events/<int:parent_experience_id>/', products_views.get_actual_experience_events, name='actual-experience-events'),
     path('experience-event-data/<int:event_id>/', products_views.get_event_booking_data, name='experience-event-data'),
+    path('private-experience-event-data/<int:event_id>/', products_views.get_private_event_booking_data, name='experience-event-data'),
 ]
 
 # PRODUCTS & PURCHASES
@@ -68,7 +69,7 @@ urlpatterns += [
     path('purchase/get-pdf/<int:purchase_id>/', purchases_views.generate_purchase_pdf, name='generate-pdf'),
     path('create-product/', products_views.create_group_product, name='create-product'),
     path('create-private-product/', products_views.create_private_product, name='create-private-product'),
-    path('edit-booking/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
+    path('edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
 ]
 
 # BLOGS

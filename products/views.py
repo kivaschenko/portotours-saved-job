@@ -1,6 +1,6 @@
 import json
 from django.db.models import Sum
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
@@ -78,7 +78,7 @@ class ExperienceDetailView(DetailView):
             self.extra_context.update({'customer_id': request.user.id})
             self.extra_context.update({'session_key': request.session.session_key})
         else:
-            self.extra_context['customer'] = None
+            self.extra_context['customer_id'] = None
             # If the user is not authenticated, get the current session
             if not request.session.exists(request.session.session_key):
                 request.session.create()
@@ -244,6 +244,23 @@ def get_event_booking_data(request, event_id):
         'time': event.experienceevent.start_time,
         'adult_price': float(event.experienceevent.special_price),
         'child_price': float(event.experienceevent.child_special_price),
+        # 'total_price': float(event.experienceevent.total_price),
+        'max_participants': event.experienceevent.max_participants,
+        'booked_participants': event.experienceevent.booked_participants,
+        'remaining_participants': event.experienceevent.remaining_participants,
+        'experience_event_id': event.experienceevent.id,
+    }
+    print('result:', actual_data_dict)
+    return JsonResponse({'result': actual_data_dict}, status=200)
+
+
+def get_private_event_booking_data(request, event_id):
+    actual_data_dict = {}
+    event = ExperienceEvent.objects.get(id=event_id)
+    actual_data_dict[event.experienceevent.id] = {
+        'date': event.experienceevent.start_date,
+        'time': event.experienceevent.start_time,
+        'total_price': float(event.experienceevent.total_price),
         'max_participants': event.experienceevent.max_participants,
         'booked_participants': event.experienceevent.booked_participants,
         'remaining_participants': event.experienceevent.remaining_participants,
@@ -255,8 +272,27 @@ def get_event_booking_data(request, event_id):
 
 class EditProductView(DetailView):
     model = Product
-    template_name = 'products/edit_booking_form.html'
+    template_name = 'products/update_product.html'
     queryset = Product.objects.all()
+    extra_context = {}
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
+    def setup(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            self.extra_context.update({'customer_id': request.user.id})
+            self.extra_context.update({'session_key': request.session.session_key})
+        else:
+            self.extra_context['customer_id'] = None
+            # If the user is not authenticated, get the current session
+            if not request.session.exists(request.session.session_key):
+                request.session.create()
+            self.extra_context.update({'session_key': request.session.session_key})
+        kwargs = super(EditProductView, self).setup(request, *args, **kwargs)
+        return kwargs
 
 
 @csrf_exempt
