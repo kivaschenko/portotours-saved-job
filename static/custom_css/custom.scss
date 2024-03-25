@@ -17,8 +17,19 @@
 
 
 // Your custom styles here
+html {
+    &.overflow {
+        overflow: hidden;
+    }
+    @include media-breakpoint-down(md) {
+        overflow-x: hidden;
+        
+    }
+}
 body {
-    
+    @include media-breakpoint-down(md) {
+        overflow-x: hidden;
+    }
 }
 
 // Override Bootstrap variables if needed
