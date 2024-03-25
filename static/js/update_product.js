@@ -13,6 +13,7 @@ const model = {
     },
     'selectedDate': null,
     'current_event': {},
+    'productId': productId,
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
@@ -189,10 +190,11 @@ const controller = {
 
         try {
             // Send the booking data to the server using fetch or another AJAX method
-            const response = await fetch('/create-product/', {
+            const response = await fetch('/update-product/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    // try to add CSRF token here
                 },
                 body: JSON.stringify(bookingData)
             });
@@ -200,7 +202,7 @@ const controller = {
             // Check if response is successful
             if (response.ok) {
                 // Handle successful response
-                console.log('Booking submitted successfully.');
+                console.log('Update Booking submitted successfully.');
                 // Extract the language slug from the current URL
                 const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
 
@@ -208,10 +210,10 @@ const controller = {
                 window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
             } else {
                 // Handle error response
-                console.error('Error submitting booking:', response.statusText);
+                console.error('Error submitting update of booking:', response.statusText);
             }
         } catch (error) {
-            console.error('Error submitting booking:', error);
+            console.error('Error submitting update of booking:', error);
         }
     },
 

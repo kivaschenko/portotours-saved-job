@@ -33,6 +33,8 @@
         const parentExperienceId = {{ object.parent_experience_id }};  // from response context
         // Define Event id
         const currentEventId = {{ object.occurrence.event_id }};
+        // Define Product id
+        const productId = {{ object.id }};
     </script>
 
     {% if object.parent_experience.is_private %}

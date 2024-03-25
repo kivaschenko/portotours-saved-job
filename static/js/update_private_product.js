@@ -13,6 +13,7 @@ const model = {
     },
     'selectedDate': null,
     'current_event': {},
+    'productId': productId,
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
