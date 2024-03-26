@@ -47,7 +47,7 @@
     </script>
 
     {% if object.parent_experience.is_private %}
-        <script src="update_private_product.js" ></script>
+        <script src="{% static 'js/update_private_product.js' %}"></script>
     {% else %}
         <script src="{% static 'js/update_product.js' %}"></script>
     {% endif %}
