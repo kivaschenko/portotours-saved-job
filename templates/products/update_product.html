@@ -42,12 +42,12 @@
         const startDate = `{{ object.date_of_start }}`;
         const startTime = `{{ object.time_of_start }}`;
         const totalPrice = {{ object.total_price }};
-        const languageProduct = {{ object.language.code }};
+        const languageProduct = `{{ object.language.code }}`;
         
     </script>
 
     {% if object.parent_experience.is_private %}
-        <script src="update_private_product.js" %}></script>
+        <script src="update_private_product.js" ></script>
     {% else %}
         <script src="{% static 'js/update_product.js' %}"></script>
     {% endif %}

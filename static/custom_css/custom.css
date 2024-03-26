@@ -12502,39 +12502,36 @@ html.off-scroll body {
   .edit-cart-item-wrapper #editBookingForm .time-selection {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     margin-bottom: 16px; }
-    .edit-cart-item-wrapper #editBookingForm .time-selection .input-wrapper {
-      width: 25%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start; }
-      .edit-cart-item-wrapper #editBookingForm .time-selection .input-wrapper label {
-        font-family: "LatoRegular";
-        font-size: 16px;
-        line-height: 26px;
-        margin-bottom: 0;
-        padding-left: 36px;
-        position: relative;
-        cursor: pointer; }
-        .edit-cart-item-wrapper #editBookingForm .time-selection .input-wrapper label::before {
-          content: "";
-          position: absolute;
-          width: 24px;
-          height: 24px;
-          left: 0;
-          top: 50%;
-          transform: translateY(-50%);
-          background-image: url(../icons/custom-radiobtn-default.svg);
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: center; }
-      .edit-cart-item-wrapper #editBookingForm .time-selection .input-wrapper input {
-        opacity: 0;
-        display: none; }
-        .edit-cart-item-wrapper #editBookingForm .time-selection .input-wrapper input:checked + label::before {
-          background-image: url(../icons/custom-radiobtn-active.svg); }
+    .edit-cart-item-wrapper #editBookingForm .time-selection label {
+      font-family: "LatoRegular";
+      font-size: 16px;
+      line-height: 26px;
+      margin-bottom: 0;
+      padding-left: 36px;
+      position: relative;
+      cursor: pointer; }
+      .edit-cart-item-wrapper #editBookingForm .time-selection label:not(:last-child) {
+        margin-right: 15px; }
+      .edit-cart-item-wrapper #editBookingForm .time-selection label::before {
+        content: "";
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background-image: url(../icons/custom-radiobtn-default.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center; }
+    .edit-cart-item-wrapper #editBookingForm .time-selection input {
+      opacity: 0;
+      display: none; }
+      .edit-cart-item-wrapper #editBookingForm .time-selection input:checked + label::before {
+        background-image: url(../icons/custom-radiobtn-active.svg); }
   .edit-cart-item-wrapper #editBookingForm .ticket-selection {
     margin-bottom: 16px; }
     .edit-cart-item-wrapper #editBookingForm .ticket-selection .ticket-selection-title {
@@ -12553,6 +12550,7 @@ html.off-scroll body {
         line-height: 26px;
         margin-right: 40px;
         margin-bottom: 0;
+        text-align: left;
         width: 60px; }
       .edit-cart-item-wrapper #editBookingForm .ticket-selection .ticket-type button {
         border: none;
@@ -12577,6 +12575,17 @@ html.off-scroll body {
         font-size: 18px;
         line-height: 28px;
         color: #0F0F10; }
+    .edit-cart-item-wrapper #editBookingForm .ticket-selection .total-price-wrapper {
+      text-align: left;
+      margin-top: 20px; }
+      .edit-cart-item-wrapper #editBookingForm .ticket-selection .total-price-wrapper .total {
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        color: var(--text-color-third);
+        font-family: "LatoSemiBold";
+        font-size: 18px;
+        line-height: 28px; }
   .edit-cart-item-wrapper #editBookingForm .language-selection-title {
     margin-bottom: 12px;
     text-align: left; }
@@ -12584,7 +12593,7 @@ html.off-scroll body {
     margin-bottom: 24px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap; }
     .edit-cart-item-wrapper #editBookingForm .language-selection .input-wrapper {
       width: 25%;
