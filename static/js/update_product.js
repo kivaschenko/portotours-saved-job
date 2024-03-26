@@ -21,6 +21,7 @@ const model = {
         'startDate': startDate,
         'startTime': startTime,
         'totalPrice': totalPrice,
+        'language': languageProduct,
     },
     'productId': productId,
 };
