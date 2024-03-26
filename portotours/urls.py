@@ -68,8 +68,9 @@ urlpatterns += [
     path('confirmation/<str:lang>/', purchases_views.ConfirmationView.as_view(), name='confirmation'),
     path('purchase/get-pdf/<int:purchase_id>/', purchases_views.generate_purchase_pdf, name='generate-pdf'),
     path('create-product/', products_views.create_group_product, name='create-product'),
-    path('upadte-product/', products_views.update_group_product, name='update-product'),
+    path('update-product/', products_views.update_group_product, name='update-product'),
     path('create-private-product/', products_views.create_private_product, name='create-private-product'),
+    path('update-private-product/', products_views.update_private_product, name='update-private'),
     path('edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
 ]
 

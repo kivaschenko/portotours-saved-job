@@ -433,3 +433,79 @@ def create_private_product(request):
 
     # If the request method is not POST, return an error response
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+
+
+@csrf_exempt
+def update_private_product(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError as e:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+
+        # Extract data from JSON
+        adults = data.get('adults')
+        children = data.get('children')
+        language_code = data.get('language_code')
+        event_id = data.get('event_id')
+        product_id = data.get('product_id')
+
+        total_booked = adults + children
+
+        # Get Product
+        product = Product.objects.get(id=product_id)
+
+        # Get ExperienceEvent obj
+        exp_event = ExperienceEvent.objects.get(id=event_id)
+
+        # Get language
+        language = Language.objects.get(code=language_code)
+
+        # Check if the same event is used for the product
+        if product.occurrence.event_id != exp_event.id:
+            # cancellation the booking for old event
+            product.occurrence.event.update_booking_data(booked_number=-total_booked)
+            # create booking for new event
+            product.start_date = exp_event.start
+            product.end_date = exp_event.end
+            product.total_price = exp_event.total_price
+            if product.language != language:
+                product.language = language
+            product.save()
+
+            # Update ExperienceEvent data for new event
+            exp_event.update_booking_data(booked_number=total_booked)
+
+            # Update Occurrence for Product
+            occurrence = product.occurrence
+            occurrence.event = exp_event,
+            occurrence.title = exp_event.title,
+            occurrence.description = f"This occurrence has been created for the product: {product.id}.",
+            occurrence.start = exp_event.start,
+            occurrence.end = exp_event.end,
+            occurrence.original_start = exp_event.start,
+            occurrence.original_end = exp_event.end
+            occurrence.save()
+
+            product.occurrence = occurrence
+            product.save()
+        else:
+            # update data for current product event
+            if product.adults_count != adults or product.child_count != children:
+                product.adults_count = adults
+                product.child_count = children
+                # cancellation the booking
+                product.occurrence.event.update_booking_data(booked_number=-total_booked)
+                # rebooking with new data
+                product.occurrence.event.update_booking_data(booked_number=total_booked)
+            if product.language != language:
+                product.language = language
+            product.save()
+            # update
+        logger.info(f"Product {product.id} was updated.")
+
+        # Return a JSON response indicating success
+        return JsonResponse({'message': 'Product updated successfully'}, status=201)
+
+    # If the request method is not POST, return an error response
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
