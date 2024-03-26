@@ -855,14 +855,9 @@
         .time-selection {
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-start;
           flex-wrap: wrap;
           margin-bottom: 16px;
-          .input-wrapper {
-            width: 25%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
             label {
               font-family: "LatoRegular";
               font-size: 16px;
@@ -871,6 +866,9 @@
               padding-left: 36px;
               position: relative;
               cursor: pointer;
+              &:not(:last-child) {
+                margin-right: 15px;
+              }
               &::before {
                 content: "";
                 position: absolute;
@@ -899,7 +897,7 @@
               }
             }
     
-          }
+          
         }
         .ticket-selection {
           margin-bottom: 16px;
@@ -921,6 +919,7 @@
               line-height: 26px;
               margin-right: 40px;
               margin-bottom: 0;
+              text-align: left;
               width: 60px;
             }
             button {
@@ -951,6 +950,19 @@
               color: #0F0F10;
             }
           }
+          .total-price-wrapper {
+            text-align: left;
+            margin-top: 20px;
+            .total {
+                display: flex;
+                align-items: center;
+                text-transform: uppercase;
+                color: var(--text-color-third);
+                font-family: "LatoSemiBold";
+                font-size: 18px;
+                line-height: 28px;
+            }
+          }
         }
         .language-selection-title {
           margin-bottom: 12px;
@@ -960,7 +972,7 @@
           margin-bottom: 24px;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-start;
           flex-wrap: wrap;
           .input-wrapper {
             width: 25%;
