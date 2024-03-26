@@ -265,7 +265,7 @@ def update_group_product(request):
         # Check if the same event is used for the product
         if product.occurrence.event_id != exp_event.id:
             # cancellation the booking for old event
-            product.occurrence.event.update_booking_data(booked_number=-total_booked)
+            product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
             # create booking for new event
             product.start_date = exp_event.start
             product.end_date = exp_event.end
@@ -297,9 +297,9 @@ def update_group_product(request):
                 product.adults_count = adults
                 product.child_count = children
                 # cancellation the booking
-                product.occurrence.event.update_booking_data(booked_number=-total_booked)
+                product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
                 # rebooking with new data
-                product.occurrence.event.update_booking_data(booked_number=total_booked)
+                product.occurrence.event.experienceevent.update_booking_data(booked_number=total_booked)
             if product.language != language:
                 product.language = language
             product.save()
@@ -464,7 +464,7 @@ def update_private_product(request):
         # Check if the same event is used for the product
         if product.occurrence.event_id != exp_event.id:
             # cancellation the booking for old event
-            product.occurrence.event.update_booking_data(booked_number=-total_booked)
+            product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
             # create booking for new event
             product.start_date = exp_event.start
             product.end_date = exp_event.end
@@ -495,9 +495,9 @@ def update_private_product(request):
                 product.adults_count = adults
                 product.child_count = children
                 # cancellation the booking
-                product.occurrence.event.update_booking_data(booked_number=-total_booked)
+                product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
                 # rebooking with new data
-                product.occurrence.event.update_booking_data(booked_number=total_booked)
+                product.occurrence.event.experienceevent.update_booking_data(booked_number=total_booked)
             if product.language != language:
                 product.language = language
             product.save()

@@ -9,7 +9,7 @@ const model = {
         'customer_id': customerId, // from page scope
         'session_key': sessionKey, // from page scope
         'event_id': null,
-        'parent_experience_id': parentExperienceId, // from page scope
+        'product_id': productId, // from page scope
     },
     'selectedDate': null,
     'current_event': {},
