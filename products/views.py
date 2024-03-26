@@ -109,41 +109,23 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
     """View for listing all products for current user (session) only."""
     model = Product
     template_name = 'products/my_cart.html'
-    queryset = Product.pending.all()
     extra_context = {'current_language': 'en'}
+
+    def get_queryset(self):
+        return Product.pending.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        product_ids = [product.pk for product in self.queryset.all()]
-        context['product_ids'] = product_ids
-        context['total_price_sum'] = 0
-        context['old_price_sum'] = 0
-        context['discounted_price_sum'] = 0
-        try:
-            # Calculate the sum of total prices
-            total_price_sum = self.queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum']  # TODO: fix this urgently!
-            # Calculate the sum of old prices
-            old_price_sum = self.queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum']
-            # Add the sum to the context
-            context['total_price_sum'] = total_price_sum
-            context['old_price_sum'] = old_price_sum
-            context['discounted_price_sum'] = round(old_price_sum - total_price_sum, 2)
-        except Exception as e:
-            logger.error(f'Error while calculating total_price_sum: {e}')
+        queryset = self.get_queryset()  # Ensure queryset is evaluated every time
+        print('queryset:', queryset)
+
+        context['product_ids'] = [product.pk for product in queryset]
+        context['total_price_sum'] = queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum'] or 0
+        context['old_price_sum'] = queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum'] or 0
+        context['discounted_price_sum'] = round(context['old_price_sum'] - context['total_price_sum'], 2)
+
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         return context
-
-    def post(self, request, *args, **kwargs):
-        """This logic for cancellation on the fly in cart without confirm page.
-            In hold mode if template button does not exist."""
-        if 'cancel_product_id' in request.POST:
-            product_id = request.POST.get('cancel_product_id')
-            product = Product.objects.get(pk=product_id)
-            product.status = 'Cancelled'
-            product.save()
-        else:
-            logger.error(f'Cancellation. Product not found.')
-        return HttpResponseRedirect(reverse_lazy('my-cart', kwargs={'lang': 'en'}))
 
 
 class CancelProductView(DeleteView):
@@ -153,10 +135,11 @@ class CancelProductView(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        # Here you can perform any logic you want before changing the status
+        # Update certain ExperienceEvent: change booked_participants and remaining_participants!
+        self.object.occurrence.event.experienceevent.update_booking_data(booked_number=-self.object.total_booked)
+        self.object.occurrence.delete()
         self.object.status = 'Cancelled'
         self.object.save()
-        # TODO: Add update for certain ExperienceEvent: change booked_participants and remaining_participants!
         # Instead of calling delete() on the object, change its status
         return HttpResponseRedirect(self.get_success_url())
 
@@ -232,7 +215,6 @@ def create_group_product(request):
 
     # If the request method is not POST, return an error response
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
-
 
 
 @csrf_exempt

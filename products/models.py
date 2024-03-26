@@ -423,3 +423,7 @@ class Product(models.Model):
     @property
     def full_name(self):
         return f'{self.parent_experience.parent_name}'
+
+    @property
+    def total_booked(self):
+        return self.adults_count + self.child_count

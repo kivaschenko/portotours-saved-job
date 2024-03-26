@@ -70,7 +70,7 @@ urlpatterns += [
     path('create-product/', products_views.create_group_product, name='create-product'),
     path('update-product/', products_views.update_group_product, name='update-product'),
     path('create-private-product/', products_views.create_private_product, name='create-private-product'),
-    path('update-private-product/', products_views.update_private_product, name='update-private'),
+    path('update-private-product/', products_views.update_private_product, name='update-private-product'),
     path('edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
 ]
 
