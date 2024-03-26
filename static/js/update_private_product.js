@@ -11,7 +11,9 @@ const model = {
         'event_id': null,
         'parent_experience_id': parentExperienceId, // from page scope
     },
-    'selectedDate': null
+    'selectedDate': null,
+    'current_event': {},
+    'productId': productId,
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
@@ -106,7 +108,7 @@ const view = {
 
             
             if (eventsForDate.length > 0) {
-                const minPrice = Math.min(...eventsForDate.map(event => event.adult_price)); // Находим минимальную цену
+                const minPrice = Math.min(...eventsForDate.map(event => event.total_price)); // Находим минимальную цену
 
                 // Проверяем, есть ли уже элемент цены в ячейке
                 let priceElement = day.querySelector('.calendar-price');
@@ -165,16 +167,7 @@ const view = {
         return `${month} ${year}`;
     },
 
-    // Function to update total price display
-    updateTotalPriceDisplay: function (totalAdultPrice, totalChildPrice) {
-        const adultTotalPriceElement = document.getElementById('adultTotalPrice');
-        const childTotalPriceElement = document.getElementById('childTotalPrice');
-
-        if (adultTotalPriceElement && childTotalPriceElement) {
-            adultTotalPriceElement.textContent = `${totalAdultPrice.toFixed(2)}`;
-            childTotalPriceElement.textContent = `${totalChildPrice.toFixed(2)}`;
-        }
-    }
+    
 };
 
 // The controller has functions that respond to events in HTML blocks, forms, buttons
@@ -189,7 +182,7 @@ const controller = {
     
         try {
             // Send the booking data to the server using fetch or another AJAX method
-            const response = await fetch('/create-product/', {
+            const response = await fetch('/create-private-product/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -201,11 +194,11 @@ const controller = {
             if (response.ok) {
                 // Handle successful response
                 console.log('Booking submitted successfully.');
-                 // Extract the language slug from the current URL
-            const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
-            
-            // Redirect to the cart page after successful submission
-            window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
+                     // Extract the language slug from the current URL
+                    const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
+                    
+                    // Redirect to the cart page after successful submission
+                    window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
             } else {
                 // Handle error response
                 console.error('Error submitting booking:', response.statusText);
@@ -219,12 +212,23 @@ const controller = {
         document.querySelectorAll('.increment').forEach(button => {
             button.addEventListener('click', function () {
                 const ticketCount = this.previousElementSibling;
-                const priceDisplay = this.nextElementSibling.nextElementSibling;
+                const maxParticipantsElement = document.querySelector('.max-participants span');
+                const maxParticipants = parseInt(document.querySelector('.max-participants span').textContent.trim()); // Получаем общее значение max-participants
+                const adultCount = parseInt(document.getElementById('adultTicketCount').value);
+                const childCount = parseInt(document.getElementById('childTicketCount').value);
+                const totalCount = adultCount + childCount;
                 let count = parseInt(ticketCount.value);
-                count++;
-                ticketCount.value = count;
-                controller.updateTotalPrice(); // Update total price when incrementing
-                controller.performValidation();
+                if (totalCount < maxParticipants ) {
+                    count++;
+                    ticketCount.value = count;
+                    controller.updateTotalPrice(); // Update total price when incrementing
+                    controller.performValidation();
+                    maxParticipantsElement.classList.add('max')
+                } else {
+                   
+                    maxParticipantsElement.classList.add('max')
+                }
+                
             });
         });
     },
@@ -232,9 +236,12 @@ const controller = {
         document.querySelectorAll('.decrement').forEach(button => {
             button.addEventListener('click', function () {
                 const ticketCount = this.nextElementSibling;
-                const priceDisplay = this.nextElementSibling.nextElementSibling;
+                const maxParticipants = parseInt(document.querySelector('.max-participants span').textContent.trim()); // Получаем общее значение max-participants
+                const adultCount = parseInt(document.getElementById('adultTicketCount').value);
+                const childCount = parseInt(document.getElementById('childTicketCount').value);
+                const totalCount = adultCount + childCount;
                 let count = parseInt(ticketCount.value);
-                if (count > 0) {
+                if (count > 0 && totalCount <= maxParticipants) {
                     count--;
                     ticketCount.value = count;
                     controller.updateTotalPrice(); // Update total price when decrementing
@@ -281,20 +288,12 @@ const controller = {
                 const adultCount = parseInt(document.getElementById('adultTicketCount').value);
                 const childCount = parseInt(document.getElementById('childTicketCount').value);
 
-                // Update total prices display
-                const totalAdultPrice = adultPrice * adultCount;
-                const totalChildPrice = childPrice * childCount;
+               
 
-                // Update the total prices directly next to the clickers
-                const adultTotalPriceElement = document.getElementById('adultTotalPrice');
-                const childTotalPriceElement = document.getElementById('childTotalPrice');
-                if (adultTotalPriceElement && childTotalPriceElement) {
-                    adultTotalPriceElement.textContent = `${totalAdultPrice.toFixed(2)}`;
-                    childTotalPriceElement.textContent = `${totalChildPrice.toFixed(2)}`;
-                }
+                
 
                 // Update submit button text
-                const totalPrice = totalAdultPrice + totalChildPrice;
+                const totalPrice = selectedEvent.total_price
                 submitBtn.textContent = `€${totalPrice.toFixed(2)} add to cart`;
             } else {
                 console.error('Selected event not found.');
@@ -303,9 +302,7 @@ const controller = {
     },
 
     resetPricesAndButton: function () {
-        // Reset adult and child total prices to $0
-        document.getElementById('adultTotalPrice').textContent = '€0';
-        document.getElementById('childTotalPrice').textContent = '€0';
+        
 
         // Reset submit button text
         submitBtn.textContent = 'Add to Cart';
@@ -340,6 +337,11 @@ const controller = {
             // If there are events for the clicked date
             if (eventsForDate.length > 0) {
                  // If there is only one event, automatically select its time slot
+                 eventsForDate.forEach(event => {
+                    const maxParticipantsElement = document.querySelector('.max-participants span');
+                    maxParticipantsElement.textContent = `${event.max_participants}`;
+                    
+                });
             if (eventsForDate.length === 1) {
                 // Create radio button for the only available time
                 const timeInput = document.createElement('input');
@@ -366,7 +368,7 @@ const controller = {
                     timeInput.id = event.experience_event_id;
                     timeInput.name = 'time';
                     timeInput.value = event.time;
-
+                    
                     // Create label for the radio button
                     const timeLabel = document.createElement('label');
                     timeLabel.htmlFor = event.experience_event_id;
@@ -523,7 +525,33 @@ function handleEventData(data) {
     }
 }
 
+// Function to fetch event data for the current event_id
+async function fetchEventDataForCurrentEvent(eventId) {
+    try {
+        const response = await fetch(`/private-experience-event-data/${eventId}/`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        // Call function to handle the received data
+        handleEventDataForCurrentEvent(data.result);
+    } catch (error) {
+        console.error('Error fetching data for current event:', error);
+    }
+};
+
+// Function to handle the received event data for the current event
+function handleEventDataForCurrentEvent(data) {
+    console.log('Got data for current event:', data);
+    // Update model with the received data or perform other actions as needed
+    // For example, you can update the model's current_event property with this data
+    model.current_event = data;
+}
+
 document.addEventListener('DOMContentLoaded', async function () {
+    
+    await fetchEventDataForCurrentEvent(currentEventId);
+
     // Fetch event data and wait for it to complete
     await fetchEventData(parentExperienceId);
 

@@ -16,7 +16,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', accounts_views.HomeView.as_view(), name='home'),
     path('accounts/signup/', accounts_views.RegistrationView.as_view(), name='signup'),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path('login/', accounts_views.CustomLoginView.as_view(), name='login'),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    # path("accounts/", include("django.contrib.auth.urls")),
     # Password reset
     path('password_reset/', accounts_views.CustomPasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', accounts_views.CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
@@ -53,6 +55,7 @@ urlpatterns += [
     path('experiences/<str:lang>/<slug:slug>/', products_views.ExperienceDetailView.as_view(), name='experience-detail'),
     path('actual-experience-events/<int:parent_experience_id>/', products_views.get_actual_experience_events, name='actual-experience-events'),
     path('experience-event-data/<int:event_id>/', products_views.get_event_booking_data, name='experience-event-data'),
+    path('private-experience-event-data/<int:event_id>/', products_views.get_private_event_booking_data, name='private-experience-event-data'),
 ]
 
 # PRODUCTS & PURCHASES
@@ -64,8 +67,10 @@ urlpatterns += [
     path('payment-form/<str:lang>/', purchases_views.BillingDetailView.as_view(), name='payment-form'),
     path('confirmation/<str:lang>/', purchases_views.ConfirmationView.as_view(), name='confirmation'),
     path('purchase/get-pdf/<int:purchase_id>/', purchases_views.generate_purchase_pdf, name='generate-pdf'),
-    path('create-product/', products_views.create_product, name='create-product'),
-    path('edit-booking/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
+    path('create-product/', products_views.create_group_product, name='create-product'),
+    path('upadte-product/', products_views.update_group_product, name='update-product'),
+    path('create-private-product/', products_views.create_private_product, name='create-private-product'),
+    path('edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
 ]
 
 # BLOGS

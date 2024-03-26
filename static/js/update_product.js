@@ -11,14 +11,45 @@ const model = {
         'event_id': null,
         'parent_experience_id': parentExperienceId, // from page scope
     },
-    'selectedDate': null
+    'selectedDate': null,
+    'current_event': {},
+    'current_product': {
+        'adultCount': adultCount,
+        'childCount': childCount,
+        'adultPrice': adultPrice,
+        'childPrice': childPrice,
+        'startDate': startDate,
+        'startTime': startTime,
+        'totalPrice': totalPrice,
+    },
+    'productId': productId,
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
 const view = {
     // Function implementation for seeding data to form, if needed
     seedDataToForm: function () {
-        let form = document.getElementById("bookingForm");
+        const productData = model.current_product;
+
+        const startTime = productData.startTime;
+        console.log('Start Time:', startTime); // Check the value of startTime
+        const input = document.querySelector('input[type="radio"][value="' + startTime + '"]');
+        console.log('Input Element:', input); // Check the input element found by the query selector
+// Enable the input if found
+        if (input) {
+            input.checked = true;
+        } else {
+            console.error('Input not found for the given start time:', startTime);
+        }
+
+
+        document.getElementById('adultTicketCount').value = productData.adultCount;
+        document.getElementById('childTicketCount').value = productData.childCount;
+        const adultTotalPrice = productData.adultCount * productData.adultPrice;
+        const childTotalPrice = productData.childCount * productData.childPrice;
+        document.getElementById('childTotalPrice').textContent = '€' + childTotalPrice.toFixed(2);
+        document.getElementById("adultTotalPrice").textContent = '€' + adultTotalPrice.toFixed(2);
+
     },
 
     // Check if model.languages exists and is an array before proceeding
@@ -57,7 +88,7 @@ const view = {
         } else {
             prevMonthBtn.disabled = false;
         }
-        
+
 
         prevMonthBtn.addEventListener('click', function () {
             const prevMonth = new Date(date.getFullYear(), date.getMonth() - 1, 1);
@@ -81,8 +112,7 @@ const view = {
                 }
             }
         });
-        
-       
+
 
         const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
         const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -104,7 +134,7 @@ const view = {
             const isoDate = calendarGrid.children[index].dataset.date; // Получаем дату из data-атрибута
             const eventsForDate = model.events.filter(event => event.date === isoDate); // Фильтруем события по дате
 
-            
+
             if (eventsForDate.length > 0) {
                 const minPrice = Math.min(...eventsForDate.map(event => event.adult_price)); // Находим минимальную цену
 
@@ -174,7 +204,8 @@ const view = {
             adultTotalPriceElement.textContent = `${totalAdultPrice.toFixed(2)}`;
             childTotalPriceElement.textContent = `${totalChildPrice.toFixed(2)}`;
         }
-    }
+    },
+
 };
 
 // The controller has functions that respond to events in HTML blocks, forms, buttons
@@ -183,35 +214,36 @@ const controller = {
     handleFormSubmit: async function () {
         // Get the booking data from the model
         const bookingData = model.bookingData;
-    
+
         console.log("Got jsonify bookingData to send:", JSON.stringify(bookingData));
         // Perform any necessary validation or preprocessing of data here
-    
+
         try {
             // Send the booking data to the server using fetch or another AJAX method
-            const response = await fetch('/create-product/', {
+            const response = await fetch('/update-product/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    // try to add CSRF token here
                 },
                 body: JSON.stringify(bookingData)
             });
-            
+
             // Check if response is successful
             if (response.ok) {
                 // Handle successful response
-                console.log('Booking submitted successfully.');
-                 // Extract the language slug from the current URL
-            const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
-            
-            // Redirect to the cart page after successful submission
-            window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
+                console.log('Update Booking submitted successfully.');
+                // Extract the language slug from the current URL
+                const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
+
+                // Redirect to the cart page after successful submission
+                window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
             } else {
                 // Handle error response
-                console.error('Error submitting booking:', response.statusText);
+                console.error('Error submitting update of booking:', response.statusText);
             }
         } catch (error) {
-            console.error('Error submitting booking:', error);
+            console.error('Error submitting update of booking:', error);
         }
     },
 
@@ -255,12 +287,12 @@ const controller = {
                 if (selectedDate) {
                     controller.updateTotalPrice(selectedDate.dataset.date, this.value);
                 }
-                
+
             })
         })
     },
 
-    
+
     updateTotalPrice: function () {
         // Find the selected date and time
         const selectedDateElement = document.querySelector('.calendar-day.selected-date');
@@ -335,56 +367,55 @@ const controller = {
                 controller.resetPricesAndButton(); // Reset prices and submit button text
             }
 
-            
 
             // If there are events for the clicked date
             if (eventsForDate.length > 0) {
-                 // If there is only one event, automatically select its time slot
-            if (eventsForDate.length === 1) {
-                // Create radio button for the only available time
-                const timeInput = document.createElement('input');
-                timeInput.type = 'radio';
-                timeInput.id = eventsForDate[0].experience_event_id; // Using event ID as radio button ID
-                timeInput.name = 'time'; // Ensure the radio buttons are part of the same group
-                timeInput.value = eventsForDate[0].time; // Assign the time value
-                timeInput.checked = true; // Automatically select this time slot
-
-                // Create label for the radio button
-                const timeLabel = document.createElement('label');
-                timeLabel.htmlFor = eventsForDate[0].experience_event_id;
-                timeLabel.textContent = eventsForDate[0].time;
-
-                // Append the radio button and label to the time selection area
-                timeSelection.appendChild(timeInput);
-                timeSelection.appendChild(timeLabel);
-            } else {
-                // Create time selection options for each event
-                eventsForDate.forEach(event => {
-                    // Create radio button for each time
+                // If there is only one event, automatically select its time slot
+                if (eventsForDate.length === 1) {
+                    // Create radio button for the only available time
                     const timeInput = document.createElement('input');
                     timeInput.type = 'radio';
-                    timeInput.id = event.experience_event_id;
-                    timeInput.name = 'time';
-                    timeInput.value = event.time;
+                    timeInput.id = eventsForDate[0].experience_event_id; // Using event ID as radio button ID
+                    timeInput.name = 'time'; // Ensure the radio buttons are part of the same group
+                    timeInput.value = eventsForDate[0].time; // Assign the time value
+                    timeInput.checked = true; // Automatically select this time slot
 
                     // Create label for the radio button
                     const timeLabel = document.createElement('label');
-                    timeLabel.htmlFor = event.experience_event_id;
-                    timeLabel.textContent = event.time;
+                    timeLabel.htmlFor = eventsForDate[0].experience_event_id;
+                    timeLabel.textContent = eventsForDate[0].time;
 
                     // Append the radio button and label to the time selection area
                     timeSelection.appendChild(timeInput);
                     timeSelection.appendChild(timeLabel);
+                } else {
+                    // Create time selection options for each event
+                    eventsForDate.forEach(event => {
+                        // Create radio button for each time
+                        const timeInput = document.createElement('input');
+                        timeInput.type = 'radio';
+                        timeInput.id = event.experience_event_id;
+                        timeInput.name = 'time';
+                        timeInput.value = event.time;
 
-                    timeInput.addEventListener('change', function () {
-                        console.log('Radio button changed');
-                        controller.performValidation(); // Call validation function when radio button changes
-                        
+                        // Create label for the radio button
+                        const timeLabel = document.createElement('label');
+                        timeLabel.htmlFor = event.experience_event_id;
+                        timeLabel.textContent = event.time;
+
+                        // Append the radio button and label to the time selection area
+                        timeSelection.appendChild(timeInput);
+                        timeSelection.appendChild(timeLabel);
+
+                        timeInput.addEventListener('change', function () {
+                            console.log('Radio button changed');
+                            controller.performValidation(); // Call validation function when radio button changes
+
+                        });
                     });
-                });
-                
-            }
-           
+
+                }
+
             } else {
                 // If no events are available for the clicked date, display a message
                 const noEventsMessage = document.createElement('p');
@@ -400,14 +431,14 @@ const controller = {
             model.selectedDate = clickedDate;
         }
     },
-     performValidation: function() {
+    performValidation: function () {
         const selectedDateElement = document.querySelector('.calendar-day.selected-date');
         const selectedTimeInput = document.querySelector('input[name="time"]:checked');
         const adultTicketCount = document.getElementById('adultTicketCount').value;
         const submitBtn = document.getElementById('submitBtn');
         const ticketSelection = document.querySelector('.ticket-selection');
         const languageSelection = document.querySelector('.language-selection');
-        
+
         // Enable ticket selection if date and time are selected
         if (selectedDateElement && selectedTimeInput) {
             ticketSelection.classList.remove('disabled');
@@ -420,7 +451,7 @@ const controller = {
 
         // Enable language selection if adult ticket count is greater than 0
         if (parseInt(adultTicketCount) > 0) {
-            
+
             languageSelection.classList.remove('disabled');
         } else {
             languageSelection.classList.add('disabled');
@@ -517,25 +548,51 @@ function handleEventData(data) {
         // Show calendar
         const currentDate = new Date(); // Or you can pass the date from the controller
         view.renderCalendar(currentDate);
-       
+
     } else {
         console.error('Received data format is invalid');
     }
+};
+
+// Function to fetch event data for the current event_id
+async function fetchEventDataForCurrentEvent(eventId) {
+    try {
+        const response = await fetch(`/experience-event-data/${eventId}/`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        // Call function to handle the received data
+        handleEventDataForCurrentEvent(data.result);
+    } catch (error) {
+        console.error('Error fetching data for current event:', error);
+    }
+};
+
+// Function to handle the received event data for the current event
+function handleEventDataForCurrentEvent(data) {
+    console.log('Got data for current event:', data);
+    // Update model with the received data or perform other actions as needed
+    // For example, you can update the model's current_event property with this data
+    model.current_event = data;
 }
 
+
 document.addEventListener('DOMContentLoaded', async function () {
+
+    await fetchEventDataForCurrentEvent(currentEventId);
+
     // Fetch event data and wait for it to complete
     await fetchEventData(parentExperienceId);
 
+    // Disable submit button, ticket selection, and language selection blocks on page load
+    const submitBtn = document.getElementById('submitBtn');
+    const ticketSelection = document.querySelector('.ticket-selection');
+    const languageSelection = document.querySelector('.language-selection');
 
-     // Disable submit button, ticket selection, and language selection blocks on page load
-     const submitBtn = document.getElementById('submitBtn');
-     const ticketSelection = document.querySelector('.ticket-selection');
-     const languageSelection = document.querySelector('.language-selection');
- 
-     submitBtn.disabled = true;
-     ticketSelection.classList.add('disabled');
-     languageSelection.classList.add('disabled');
+    submitBtn.disabled = true;
+    ticketSelection.classList.add('disabled');
+    languageSelection.classList.add('disabled');
 
     // Call the handleIncrementClick and handleDecrementClick functions
     controller.handleIncrementClick();
@@ -562,36 +619,40 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     // Add event listener to time selection inputs to perform validation when time is selected
-    
+
     document.querySelectorAll('input[name="time"]').forEach(input => {
         input.addEventListener('change', controller.performValidation);
     });
 
     // Add event listener to adult ticket count input to perform validation
-    
+
     document.getElementById('adultTicketCount').addEventListener('input', controller.performValidation);
 
 
     document.querySelectorAll('input[name="language"]').forEach(input => {
         input.addEventListener('change', controller.performValidation);
     });
-     // Get the current date
-     const currentDate = new Date();
+    // Get the current date
+    const [month, day, year] = model.current_product.startDate.split('/');
+    const currentDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    console.log('currentDate=', currentDate);
 
-     // Simulate a click on the current date in the calendar
-     const currentDay = document.querySelector(`[data-date="${currentDate.toISOString().split('T')[0]}"]`);
-     if (currentDay) {
-         const clickEvent = new MouseEvent('click', {
-             bubbles: true,
-             cancelable: true,
-             view: window
-         });
-         currentDay.dispatchEvent(clickEvent);
-     } else {
-         console.error('Current date not found in the calendar.');
-     }
+    // Simulate a click on the current date in the calendar
+    const currentDay = document.querySelector(`[data-date="${currentDate}"]`);
+    if (currentDay) {
+        const clickEvent = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window
+        });
+        currentDay.dispatchEvent(clickEvent);
+    } else {
+        console.error('Current date not found in the calendar.');
+    }
+    ;
 
-    
+    // seed form data
+    view.seedDataToForm();
 
 });
 

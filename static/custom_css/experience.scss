@@ -230,10 +230,18 @@
           line-height: 36px;
         }
       }
+      .filters-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       .filter-wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        + .filter-wrapper {
+          margin-left: 40px;
+        }
         .experience-filter-title {
           margin-right: 24px;
           font-size: 18px;
@@ -307,6 +315,7 @@
           img {
             width: 100%;
             height: 100%;
+            max-height: 385px;
           }
         }
         .experience-list-content-wrapper {
@@ -1178,6 +1187,12 @@
                   font-size: 18px;
                   line-height: 28px;
                   color: #0F0F10;
+                }
+              }
+              .max-participants {
+                margin-top: 15px;
+                span {
+                  font-weight: 600;
                 }
               }
               &.disabled {

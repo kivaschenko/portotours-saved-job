@@ -1,6 +1,6 @@
 import json
 from django.db.models import Sum
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
@@ -78,7 +78,7 @@ class ExperienceDetailView(DetailView):
             self.extra_context.update({'customer_id': request.user.id})
             self.extra_context.update({'session_key': request.session.session_key})
         else:
-            self.extra_context['customer'] = None
+            self.extra_context['customer_id'] = None
             # If the user is not authenticated, get the current session
             if not request.session.exists(request.session.session_key):
                 request.session.create()
@@ -173,7 +173,7 @@ def get_actual_experience_events(request, parent_experience_id):
 
 
 @csrf_exempt
-def create_product(request):
+def create_group_product(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -236,6 +236,83 @@ def create_product(request):
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 
+@csrf_exempt
+def update_group_product(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError as e:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+
+        # Extract data from JSON
+        adults = data.get('adults')
+        children = data.get('children')
+        language_code = data.get('language_code')
+        event_id = data.get('event_id')
+        product_id = data.get('product_id')
+
+        total_booked = adults + children
+
+        # Get Product
+        product = Product.objects.get(id=product_id)
+
+        # Get ExperienceEvent obj
+        exp_event = ExperienceEvent.objects.get(id=event_id)
+
+        # Get language
+        language = Language.objects.get(code=language_code)
+
+        # Check if the same event is used for the product
+        if product.occurrence.event_id != exp_event.id:
+            # cancellation the booking for old event
+            product.occurrence.event.update_booking_data(booked_number=-total_booked)
+            # create booking for new event
+            product.start_date = exp_event.start
+            product.end_date = exp_event.end
+            product.adults_price = exp_event.special_price
+            product.child_price = exp_event.child_special_price
+            if product.language != language:
+                product.language = language
+            product.save()
+
+            # Update ExperienceEvent data for new event
+            exp_event.update_booking_data(booked_number=total_booked)
+
+            # Update Occurrence for Product
+            occurrence = product.occurrence
+            occurrence.event = exp_event,
+            occurrence.title = exp_event.title,
+            occurrence.description = f"This occurrence has been created for the product: {product.id}.",
+            occurrence.start = exp_event.start,
+            occurrence.end = exp_event.end,
+            occurrence.original_start = exp_event.start,
+            occurrence.original_end = exp_event.end
+            occurrence.save()
+
+            product.occurrence = occurrence
+            product.save()
+        else:
+            # update data for current product event
+            if product.adults_count != adults or product.child_count != children:
+                product.adults_count = adults
+                product.child_count = children
+                # cancellation the booking
+                product.occurrence.event.update_booking_data(booked_number=-total_booked)
+                # rebooking with new data
+                product.occurrence.event.update_booking_data(booked_number=total_booked)
+            if product.language != language:
+                product.language = language
+            product.save()
+            # update
+        logger.info(f"Product {product.id} was updated.")
+
+        # Return a JSON response indicating success
+        return JsonResponse({'message': 'Product updated successfully'}, status=201)
+
+    # If the request method is not POST, return an error response
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+
+
 def get_event_booking_data(request, event_id):
     actual_data_dict = {}
     event = ExperienceEvent.objects.get(id=event_id)
@@ -244,6 +321,23 @@ def get_event_booking_data(request, event_id):
         'time': event.experienceevent.start_time,
         'adult_price': float(event.experienceevent.special_price),
         'child_price': float(event.experienceevent.child_special_price),
+        # 'total_price': float(event.experienceevent.total_price),
+        'max_participants': event.experienceevent.max_participants,
+        'booked_participants': event.experienceevent.booked_participants,
+        'remaining_participants': event.experienceevent.remaining_participants,
+        'experience_event_id': event.experienceevent.id,
+    }
+    print('result:', actual_data_dict)
+    return JsonResponse({'result': actual_data_dict}, status=200)
+
+
+def get_private_event_booking_data(request, event_id):
+    actual_data_dict = {}
+    event = ExperienceEvent.objects.get(id=event_id)
+    actual_data_dict[event.experienceevent.id] = {
+        'date': event.experienceevent.start_date,
+        'time': event.experienceevent.start_time,
+        'total_price': float(event.experienceevent.total_price),
         'max_participants': event.experienceevent.max_participants,
         'booked_participants': event.experienceevent.booked_participants,
         'remaining_participants': event.experienceevent.remaining_participants,
@@ -255,5 +349,87 @@ def get_event_booking_data(request, event_id):
 
 class EditProductView(DetailView):
     model = Product
-    template_name = 'products/edit_booking_form.html'
+    template_name = 'products/update_product.html'
     queryset = Product.objects.all()
+    extra_context = {}
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
+    def setup(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            self.extra_context.update({'customer_id': request.user.id})
+            self.extra_context.update({'session_key': request.session.session_key})
+        else:
+            self.extra_context['customer_id'] = None
+            # If the user is not authenticated, get the current session
+            if not request.session.exists(request.session.session_key):
+                request.session.create()
+            self.extra_context.update({'session_key': request.session.session_key})
+        kwargs = super(EditProductView, self).setup(request, *args, **kwargs)
+        return kwargs
+
+
+@csrf_exempt
+def create_private_product(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+        except json.decoder.JSONDecodeError as e:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+
+        # Extract data from JSON
+        adults = data.get('adults')
+        children = data.get('children')
+        language_code = data.get('language_code')
+        customer_id = data.get('customer_id')
+        session_key = data.get('session_key')
+        event_id = data.get('event_id')
+        parent_experience_id = data.get('parent_experience_id')
+
+        # Get ExperienceEvent obj
+        exp_event = ExperienceEvent.objects.get(id=event_id)
+
+        # Get language
+        language = Language.objects.get(code=language_code)
+
+        # Create a new product using the received data
+        new_product = Product(
+            customer_id=customer_id,
+            session_key=session_key,
+            parent_experience_id=parent_experience_id,
+            language=language,
+            start_datetime=exp_event.start,
+            end_datetime=exp_event.end,
+            total_price=exp_event.total_price,
+            adults_count=adults,
+            child_count=children,
+        )
+        new_product.save()
+
+        # Update ExperienceEvent data
+        total_booked = adults + children
+        exp_event.update_booking_data(booked_number=total_booked)
+
+        # Create Occurrence for Product
+        occurrence = Occurrence(
+            event=exp_event,
+            title=exp_event.title,
+            description=f"This occurrence has been created for the product: {new_product.id}.",
+            start=exp_event.start,
+            end=exp_event.end,
+            original_start=exp_event.start,
+            original_end=exp_event.end
+        )
+        occurrence.save()
+
+        new_product.occurrence = occurrence
+        new_product.save()
+
+        # Return a JSON response indicating success
+        return JsonResponse({'message': 'Product created successfully'}, status=201)
+
+    # If the request method is not POST, return an error response
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
