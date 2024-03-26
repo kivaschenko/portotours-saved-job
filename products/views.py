@@ -266,31 +266,32 @@ def update_group_product(request):
         if product.occurrence.event_id != exp_event.id:
             # cancellation the booking for old event
             product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
-            # create booking for new event
-            product.start_date = exp_event.start
-            product.end_date = exp_event.end
-            product.adults_price = exp_event.special_price
-            product.child_price = exp_event.child_special_price
-            if product.language != language:
-                product.language = language
-            product.save()
 
-            # Update ExperienceEvent data for new event
-            exp_event.update_booking_data(booked_number=total_booked)
+            # Delete Occurrence for Product
+            old_occurrence = product.occurrence
+            old_occurrence.delete()
 
-            # Update Occurrence for Product
-            occurrence = product.occurrence
-            occurrence.event = exp_event,
-            occurrence.title = exp_event.title,
-            occurrence.description = f"This occurrence has been created for the product: {product.id}.",
-            occurrence.start = exp_event.start,
-            occurrence.end = exp_event.end,
-            occurrence.original_start = exp_event.start,
-            occurrence.original_end = exp_event.end
+            # Create Occurrence for Product
+            occurrence = Occurrence(
+                event=exp_event,
+                title=exp_event.title,
+                description=f"This occurrence has been created for the product: {product.id}.",
+                start=exp_event.start,
+                end=exp_event.end,
+                original_start=exp_event.start,
+                original_end=exp_event.end
+            )
             occurrence.save()
 
             product.occurrence = occurrence
             product.save()
+            # update product for new event
+            product.update(occurrence=occurrence, start_datetime=exp_event.start, end_datetime=exp_event.end,
+                                   adults_price=exp_event.special_price, child_price=exp_event.child_special_price, language=language)
+
+            # Update ExperienceEvent data for new event
+            exp_event.update_booking_data(booked_number=total_booked)
+
         else:
             # update data for current product event
             if product.adults_count != adults or product.child_count != children:
@@ -478,7 +479,7 @@ def update_private_product(request):
 
             # Update Occurrence for Product
             occurrence = product.occurrence
-            occurrence.event = exp_event,
+            occurrence.event = exp_event.event_ptr,
             occurrence.title = exp_event.title,
             occurrence.description = f"This occurrence has been created for the product: {product.id}.",
             occurrence.start = exp_event.start,
