@@ -12575,6 +12575,11 @@ html.off-scroll body {
         font-size: 18px;
         line-height: 28px;
         color: #0F0F10; }
+    .edit-cart-item-wrapper #editBookingForm .ticket-selection .max-participants {
+      margin-top: 15px;
+      text-align: left; }
+      .edit-cart-item-wrapper #editBookingForm .ticket-selection .max-participants span {
+        font-weight: 600; }
     .edit-cart-item-wrapper #editBookingForm .ticket-selection .total-price-wrapper {
       text-align: left;
       margin-top: 20px; }

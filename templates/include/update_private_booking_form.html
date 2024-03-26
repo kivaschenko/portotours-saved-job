@@ -1,0 +1,105 @@
+{% load static %}
+<form id="editBookingForm" method="post">
+    {% csrf_token %}
+    <div class="right-col">
+        <p class="body-text-b3-sb calendar-selection-title">Choose Date</p>
+        <div class="calendar">
+            <div class="month-controls">
+                <button id="prevMonth" type="button">
+                    <img src="{% static 'icons/calendar-month-arrow.svg' %}" alt="">
+                    <img class="icon-disabled" src="{% static 'icons/calendar-month-arrow-disabled.svg' %}" alt="">
+                </button>
+                <span id="currentMonth"></span>
+                <button id="nextMonth" type="button">
+                    <img src="{% static 'icons/calendar-month-arrow.svg' %}" alt="">
+                </button>
+            </div>
+            <div class="day-labels">
+                <span>Sun</span>
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+    </div>
+
+    <div class="left-col">
+        <p class="body-text-b3-sb time-selection-title">Choose time</p>
+        <div class="time-selection">
+           
+        </div>
+
+        <div class="ticket-selection">
+            <p class="body-text-b3-sb ticket-selection-title">People</p>
+            <div class="ticket-type">
+                <p class="ticket-type-title">Adults</p>
+                <button class="decrement" type="button">
+                    <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
+                </button>
+                <input type="text" class="ticket-count" value="0" readonly id="adultTicketCount">
+                <button class="increment" type="button">
+                    <img src="{% static 'icons/increment-icon.svg' %}" alt="increment">
+                </button>
+                
+            </div>
+            <div class="ticket-type">
+                <p class="ticket-type-title">Children</p>
+                <button class="decrement" type="button">
+                    <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
+                </button>
+                <input type="text" class="ticket-count" value="0" readonly id="childTicketCount">
+                <button class="increment" type="button">
+                    <img src="{% static 'icons/increment-icon.svg' %}" alt="increment">
+                </button>
+                
+            </div>
+            <p class="max-participants">
+                Maximum number of participants for this tour: <span> </span>
+             </p>
+            <div class="total-price-wrapper">
+                <p class="total">
+                    Total Price: €<span></span>
+                </p>
+            </div>
+        </div>
+
+        <p class="body-text-b3-sb language-selection-title">Choose language</p>
+        <div class="language-selection">
+            <div class="input-wrapper" id="lang_PT" style="display: none">
+                <input type="radio" id="lang1" name="language" value="PT">
+                <label for="lang1">
+                    <img src="{% static 'icons/pt-flag.svg' %}" alt="pt flag">
+                </label>
+            </div>
+            <div class="input-wrapper" id="lang_FR" style="display: none">
+                <input type="radio" id="lang2" name="language" value="FR">
+                <label for="lang2">
+                    <img src="{% static 'icons/fr-flag.svg' %}" alt="fr flag">
+                </label>
+            </div>
+            <div class="input-wrapper" id="lang_ES" style="display: none">
+                <input type="radio" id="lang3" name="language" value="ES">
+                <label for="lang3">
+                    <img src="{% static 'icons/es-flag.svg' %}" alt="es flag">
+                </label>
+            </div>
+            <div class="input-wrapper" id="lang_EN" style="display: none">
+                <input type="radio" id="lang4" name="language" value="EN">
+                <label for="lang4">
+                    <img src="{% static 'icons/en-flag.svg' %}" alt="en flag">
+                </label>
+            </div>
+        </div>
+        <div class="btns-wrapper">
+            <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+            <button type="submit" class="btn btn-danger" id="submitBtn">Save</button>
+        </div>
+
+
+    </div>
+
+</form>
