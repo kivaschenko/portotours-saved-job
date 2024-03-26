@@ -6,8 +6,6 @@ const model = {
         'adults': 0,
         'children': 0,
         'language_code': null,
-        'customer_id': customerId, // from page scope
-        'session_key': sessionKey, // from page scope
         'event_id': null,
         'product_id': productId, // from page scope
     },
@@ -250,7 +248,7 @@ const controller = {
                 // Handle successful response
                 console.log('Update Booking submitted successfully.');
                 // Extract the language slug from the current URL
-                const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
+                const languageSlug = model.bookingData.language_code.toLowerCase();
 
                 // Redirect to the cart page after successful submission
                 window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
