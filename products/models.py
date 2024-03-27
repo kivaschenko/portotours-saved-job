@@ -385,7 +385,7 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         # recount each time during save because might be different numer of participants
-        if not self.total_price:
+        if self.adults_price and self.child_price:
             self.total_price = self._count_new_total_price()
         self.old_total_price = self._count_old_total_price()
         if self.parent_experience.is_private:
