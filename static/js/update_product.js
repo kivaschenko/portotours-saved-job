@@ -6,10 +6,8 @@ const model = {
         'adults': 0,
         'children': 0,
         'language_code': null,
-        'customer_id': customerId, // from page scope
-        'session_key': sessionKey, // from page scope
         'event_id': null,
-        'parent_experience_id': parentExperienceId, // from page scope
+        'product_id': productId, // from page scope
     },
     'selectedDate': null,
     'current_event': {},
@@ -21,6 +19,7 @@ const model = {
         'startDate': startDate,
         'startTime': startTime,
         'totalPrice': totalPrice,
+        'language': languageProduct,
     },
     'productId': productId,
 };
@@ -35,11 +34,26 @@ const view = {
         console.log('Start Time:', startTime); // Check the value of startTime
         const input = document.querySelector('input[type="radio"][value="' + startTime + '"]');
         console.log('Input Element:', input); // Check the input element found by the query selector
-// Enable the input if found
+        const startLanguage = productData.language
+        const languageInput = document.querySelector('input[type="radio"][value="' + startLanguage + '"]')
+        const totalPrice = productData.totalPrice
+        const totalPriceTextBlock = document.querySelector('.total-price-wrapper span')
+        totalPriceTextBlock.innerHTML = `${totalPrice}`
+
+
+        // Enable the input if found
         if (input) {
             input.checked = true;
         } else {
             console.error('Input not found for the given start time:', startTime);
+        }
+
+        // Enable starting language if found 
+
+        if (languageInput) {
+            languageInput.checked = true;
+        } else {
+            console.error('Input not found for the given start language:', startLanguage);
         }
 
 
@@ -234,7 +248,7 @@ const controller = {
                 // Handle successful response
                 console.log('Update Booking submitted successfully.');
                 // Extract the language slug from the current URL
-                const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
+                const languageSlug = model.bookingData.language_code.toLowerCase();
 
                 // Redirect to the cart page after successful submission
                 window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
@@ -327,7 +341,9 @@ const controller = {
 
                 // Update submit button text
                 const totalPrice = totalAdultPrice + totalChildPrice;
-                submitBtn.textContent = `€${totalPrice.toFixed(2)} add to cart`;
+                submitBtn.textContent = `Save`;
+                let totalPriceText = document.querySelector('.total-price-wrapper span')
+                totalPriceText.innerHTML = `${totalPrice}`
             } else {
                 console.error('Selected event not found.');
             }
@@ -338,9 +354,10 @@ const controller = {
         // Reset adult and child total prices to $0
         document.getElementById('adultTotalPrice').textContent = '€0';
         document.getElementById('childTotalPrice').textContent = '€0';
+        document.querySelector('.total-price-wrapper span').innerHTML = '0'
 
         // Reset submit button text
-        submitBtn.textContent = 'Add to Cart';
+        submitBtn.textContent = 'Save';
     },
 
     // Function to handle click on a date cell
@@ -656,23 +673,3 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 });
 
-
-// -----------
-// MOBILE FORM
-
-// open mobile form
-const openMobileBookingFormBtn = document.querySelector('.mobile-form-btn');
-const bookingForm = document.querySelector('.aside-form');
-const htmlElement = document.documentElement;
-const goBackBtn = document.querySelector('.btn-back');
-
-openMobileBookingFormBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    bookingForm.classList.add('open-mobile');
-    htmlElement.classList.add('off-scroll');
-});
-
-goBackBtn.addEventListener('click', () => {
-    bookingForm.classList.remove('open-mobile');
-    htmlElement.classList.remove('off-scroll');
-});
