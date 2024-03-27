@@ -18,7 +18,9 @@ admin.site.unregister(Calendar)
 admin.site.unregister(CalendarRelation)
 admin.site.unregister(Event)
 admin.site.unregister(EventRelation)
-# admin.site.unregister(Occurrence)
+admin.site.unregister(Occurrence)
+
+
 # admin.site.unregister(Rule)
 
 
@@ -123,7 +125,7 @@ class ParentExperienceAdmin(admin.ModelAdmin):
     exclude = ['updated_at', 'slug']
     list_display = ['parent_name', 'id', 'slug', 'currency', 'price', 'old_price', 'child_price', 'child_old_price',
                     'max_participants', 'is_private', 'is_exclusive', 'priority_number']
-    list_filter = ['parent_name', 'price', 'max_participants', 'is_private', 'is_exclusive',]
+    list_filter = ['parent_name', 'price', 'max_participants', 'is_private', 'is_exclusive', ]
 
 
 class ExperienceAdminForm(ModelForm):
@@ -214,3 +216,24 @@ class ExperienceEventAdmin(admin.ModelAdmin):
     # readonly_fields = ['title', 'max_participants', 'booked_participants', 'remaining_participants']
     search_fields = ['title', 'description', ]
     list_filter = ['start', 'calendar']
+
+
+@admin.register(Occurrence)
+class ExperienceOccurrenceAdmin(admin.ModelAdmin):
+    readonly_fields = ['product_id', 'customer']
+    list_display = ['id', 'product_id', 'event', 'customer', 'start',]
+    list_filter = ['start',]
+    search_fields = ['event', 'title', 'description', ]
+
+    def product_id(self, obj):
+        product = obj.product_set.first()
+        if product is not None:
+            return product.id
+        return None
+
+    def customer(self, obj):
+        product = obj.product_set.first()
+        customer = product.customer
+        if customer is not None:
+            return customer
+        return None
