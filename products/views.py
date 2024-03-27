@@ -231,7 +231,6 @@ def update_group_product(request):
         except json.JSONDecodeError as e:
             return JsonResponse({'error': 'Invalid JSON format'}, status=400)
 
-        # Data validation
         if None in (adults, children, language_code, event_id, product_id):
             return JsonResponse({'error': 'Invalid data provided'}, status=400)
 
@@ -244,9 +243,7 @@ def update_group_product(request):
 
         total_booked = adults + children
 
-        # Update logic
         if product.occurrence.event_id != exp_event.id:
-            # Update for new event
             product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
             product.occurrence.delete()
             occurrence = Occurrence.objects.create(
@@ -262,6 +259,8 @@ def update_group_product(request):
             product.occurrence = occurrence
             product.start_datetime = exp_event.start
             product.end_datetime = exp_event.end
+            product.adults_count = adults
+            product.child_count = children
             product.adults_price = exp_event.special_price
             product.child_price = exp_event.child_special_price
             product.language = language
@@ -269,7 +268,6 @@ def update_group_product(request):
 
             exp_event.update_booking_data(booked_number=total_booked)
         else:
-            # Update for current event
             if product.adults_count != adults or product.child_count != children:
                 product.adults_count = adults
                 product.child_count = children
@@ -278,7 +276,6 @@ def update_group_product(request):
             if product.language != language:
                 product.language = language
             product.save()
-
         logger.info(f"Product {product.id} was updated.")
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
 
@@ -412,74 +409,61 @@ def update_private_product(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
+            adults = data.get('adults')
+            children = data.get('children')
+            language_code = data.get('language_code')
+            event_id = data.get('event_id')
+            product_id = data.get('product_id')
         except json.JSONDecodeError as e:
             return JsonResponse({'error': 'Invalid JSON format'}, status=400)
 
-        # Extract data from JSON
-        adults = data.get('adults')
-        children = data.get('children')
-        language_code = data.get('language_code')
-        event_id = data.get('event_id')
-        product_id = data.get('product_id')
+        if None in (adults, children, language_code, event_id, product_id):
+            return JsonResponse({'error': 'Invalid data provided'}, status=400)
+
+        try:
+            product = Product.objects.get(id=product_id)
+            exp_event = ExperienceEvent.objects.get(id=event_id)
+            language = Language.objects.get(code=language_code)
+        except (Product.DoesNotExist, ExperienceEvent.DoesNotExist, Language.DoesNotExist):
+            return JsonResponse({'error': 'Invalid product, event, or language'}, status=400)
 
         total_booked = adults + children
 
-        # Get Product
-        product = Product.objects.get(id=product_id)
-
-        # Get ExperienceEvent obj
-        exp_event = ExperienceEvent.objects.get(id=event_id)
-
-        # Get language
-        language = Language.objects.get(code=language_code)
-
-        # Check if the same event is used for the product
         if product.occurrence.event_id != exp_event.id:
-            # cancellation the booking for old event
             product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
-            # create booking for new event
-            product.start_date = exp_event.start
-            product.end_date = exp_event.end
-            product.total_price = exp_event.total_price
-            if product.language != language:
-                product.language = language
-            product.save()
-
-            # Update ExperienceEvent data for new event
-            exp_event.update_booking_data(booked_number=total_booked)
-
-            # Update Occurrence for Product
-            occurrence = product.occurrence
-            occurrence.event = exp_event.event_ptr,
-            occurrence.title = exp_event.title,
-            occurrence.description = f"This occurrence has been created for the product: {product.id}.",
-            occurrence.start = exp_event.start,
-            occurrence.end = exp_event.end,
-            occurrence.original_start = exp_event.start,
-            occurrence.original_end = exp_event.end
-            occurrence.save()
+            product.occurrence.delete()
+            occurrence = Occurrence.objects.create(
+                event=exp_event,
+                title=exp_event.title,
+                description=f"This occurrence has been created for the product: {product.id}.",
+                start=exp_event.start,
+                end=exp_event.end,
+                original_start=exp_event.start,
+                original_end=exp_event.end
+            )
 
             product.occurrence = occurrence
+            product.start_datetime = exp_event.start
+            product.end_datetime = exp_event.end
+            product.adults_count = adults
+            product.child_count = children
+            product.total_price = exp_event.total_price
+            product.language = language
             product.save()
+
+            exp_event.update_booking_data(booked_number=total_booked)
         else:
-            # update data for current product event
             if product.adults_count != adults or product.child_count != children:
                 product.adults_count = adults
                 product.child_count = children
-                # cancellation the booking
                 product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
-                # rebooking with new data
                 product.occurrence.event.experienceevent.update_booking_data(booked_number=total_booked)
             if product.language != language:
                 product.language = language
             product.save()
-            # update
         logger.info(f"Product {product.id} was updated.")
-
-        # Return a JSON response indicating success
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
 
-    # If the request method is not POST, return an error response
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 

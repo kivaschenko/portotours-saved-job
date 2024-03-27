@@ -247,7 +247,6 @@ const controller = {
             if (response.ok) {
                 // Handle successful response
                 console.log('Update Booking submitted successfully.');
-                // Extract the language slug from the current URL
                 const languageSlug = model.bookingData.language_code.toLowerCase();
 
                 // Redirect to the cart page after successful submission
