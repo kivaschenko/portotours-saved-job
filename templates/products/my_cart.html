@@ -45,27 +45,27 @@
                 </ul>
             </div>
             {% if object_list %}
-            <div class="cart-title-wrapper">
-                <h2 class="cart-title">
-                    Review your basket
-                </h2>
-                <p class="cart-title-info">
-                    <img src="{% static 'icons/cart-info-icon.svg' %}" alt="">
-                    We've reserved a place in the experience for you. Please make payment within 30 minutes to keep it. 
-                </p>
-            </div>
-            <div class="cart-cards-info">
-                <div class="cart-card-col">
-                    
+                <div class="cart-title-wrapper">
+                    <h2 class="cart-title">
+                        Review your basket
+                    </h2>
+                    <p class="cart-title-info">
+                        <img src="{% static 'icons/cart-info-icon.svg' %}" alt="">
+                        We've reserved a place in the experience for you. Please make payment within 30 minutes to keep it.
+                    </p>
+                </div>
+                <div class="cart-cards-info">
+                    <div class="cart-card-col">
+
                         {% for object in object_list %}
                             <div class="cart-card">
                                 <div class="img-wrapper">
                                     <img src="{{ object.parent_experience.card_image.url }}" class="card-img"
-                                                    alt="card image preview for {{ object.parent_experience }}">
+                                         alt="card image preview for {{ object.parent_experience }}">
                                 </div>
                                 <div class="card-content-wrapper">
                                     <p class="card-title">
-                                        {{ object.parent_experience.parent_name }}   
+                                        {{ object.parent_experience.parent_name }}
                                     </p>
                                     <div class="card-content-inner-wrapper">
                                         <div class="card-col">
@@ -90,102 +90,115 @@
                                                 {{ object.time_of_start }}
                                             </p>
                                             {% if object.parent_experience.is_private %}
-                                            <p class="card-col-title">
-                                                Adult
-                                            </p>
-                                            <p class="card-col-text">
-                                                {{ object.adults_count }}
-                                            </p>
+                                                <p class="card-col-title">
+                                                    Adult
+                                                </p>
+                                                <p class="card-col-text">
+                                                    {{ object.adults_count }}
+                                                </p>
                                             {% else %}
-                                            <p class="card-col-title">
-                                                Adult&Price
-                                            </p>
-                                            <p class="card-col-text">
-                                                {{ object.adults_count }} x €{{ object.adults_price }}
-                                            </p>
-                                            {% endif %} 
+                                                <p class="card-col-title">
+                                                    Adult&Price
+                                                </p>
+                                                <p class="card-col-text">
+                                                    {{ object.adults_count }} x €{{ object.adults_price }}
+                                                </p>
+                                            {% endif %}
                                         </div>
                                         <div class="card-col">
                                             <p class="card-col-title">
                                                 Type of tours
                                             </p>
                                             <p class="card-col-text">
-                                                {% if object.parent_experience.is_private %}Private{% else %}Group{% endif %} 
+                                                {% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}
                                             </p>
                                             {% if object.parent_experience.is_private %}
-                                            <p class="card-col-title">
-                                                Children
-                                            </p>
-                                            <p class="card-col-text">
-                                                {{ object.child_count }}
-                                            </p>
+                                                <p class="card-col-title">
+                                                    Children
+                                                </p>
+                                                <p class="card-col-text">
+                                                    {{ object.child_count }}
+                                                </p>
                                             {% else %}
-                                            <p class="card-col-title">
-                                                Children&Price
-                                            </p>
-                                            <p class="card-col-text">
-                                                {{ object.child_count }} x €{{ object.child_price }}
-                                            </p>
-                                            {% endif %} 
-                                            
+                                                <p class="card-col-title">
+                                                    Children&Price
+                                                </p>
+                                                <p class="card-col-text">
+                                                    {{ object.child_count }} x €{{ object.child_price }}
+                                                </p>
+                                            {% endif %}
+
                                         </div>
                                         {% if object.parent_experience.is_private %}
-                                        <div class="card-col">
-                                            <p class="card-col-title">
-                                                Price
-                                            </p>
-                                            <p class="card-col-text">
-                                                €{{ object.total_price }}
-                                            </p>
-                                        </div>
-                                        {% endif %} 
+                                            <div class="card-col">
+                                                <p class="card-col-title">
+                                                    Price
+                                                </p>
+                                                <p class="card-col-text">
+                                                    €{{ object.total_price }}
+                                                </p>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                     <div class="hover-block">
                                         <ul class="hover-block-btns-list">
                                             <li class="hover-block-item">
                                                 <a href="{% url 'edit-product' object.pk %}">
-                                                <img src="{% static 'icons/cart-edit-icon.svg' %}" alt="edit">
+                                                    <img src="{% static 'icons/cart-edit-icon.svg' %}" alt="edit">
                                                 </a>
                                             </li>
                                             <li class="hover-block-item">
                                                 <a href="{% url 'cancel-product' object.pk %}">
                                                     <img src="{% static 'icons/cart-remove-icon.svg' %}" alt="remove">
                                                 </a>
-                                                
+
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         {% endfor %}
-                    
-                </div>
-                <div class="cart-order-info-col">
-                    <div class="order-info-wrapper">
-                        <p class="price">
-                            Neque porro quisquam
-                            <span>
+
+                    </div>
+                    <div class="cart-order-info-col">
+                        <div class="order-info-wrapper">
+                            <p class="price">
+                                Neque porro quisquam
+                                <span>
                                 €{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %}
                             </span>
-                        </p>
-                        <p class="price">
-                            Знижка
-                            <span>
+                            </p>
+                            <p class="price">
+                                Знижка
+                                <span>
                                 €{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %}
                             </span>
-                        </p>
-                        <p class="total-price">
-                            Total
-                            <span>
+                            </p>
+                            <p class="total-price">
+                                Total
+                                <span>
                                 €{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %}
                             </span>
-                        </p>
-                        <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
-                            Button
-                        </a>
+                            </p>
+                            <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
+                                Button
+                            </a>
+                        </div>
+                        <div class="purchase-includes">
+                            <h4 class="purchase-includes-title">
+                                Your purchase includes:
+                            </h4>
+                            <ul>
+                                <li>Free cancellation policy</li>
+                                <li>24/7 customer support</li>
+                                <li>Best price on the market</li>
+                                <li>Qualified guides ( best guides/ top guides / Top-rated guides)</li>
+                                <li>Tours developed by local experts</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="purchase-includes">
+                    <div class="purchase-includes purchase-includes-mobile">
                         <h4 class="purchase-includes-title">
                             Your purchase includes:
                         </h4>
@@ -198,184 +211,78 @@
                         </ul>
                     </div>
                 </div>
-                <div class="purchase-includes purchase-includes-mobile">
-                    <h4 class="purchase-includes-title">
-                        Your purchase includes:
-                    </h4>
-                    <ul>
-                        <li>Free cancellation policy</li>
-                        <li>24/7 customer support</li>
-                        <li>Best price on the market</li>
-                        <li>Qualified guides ( best guides/ top guides / Top-rated guides)</li>
-                        <li>Tours developed by local experts</li>
-                    </ul>
-                </div>
-            </div>
             {% endif %}
 
-            
-            <!-- <div class="row">
-                <div class="col-lg-9 col-md-9">
-                    {% if object_list %}
-                        {% for object in object_list %}
-                            <div class="card mb-3" style="max-width: 100%;">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img src="{{ object.parent_experience.card_image.url }}" class="img-fluid rounded-start"
-                                             alt="card image preview for {{ object.parent_experience }}">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ object.parent_experience.parent_name }}</h5>
-                                            <table class="table table-borderless">
-                                                <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Time UTC</th>
-                                                    <th>Type</th>
-                                                    <th>Expired time UTC</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>{{ object.date_of_start }}</td>
-                                                    <td>{{ object.time_of_start }}</td>
-                                                    <td>{% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}</td>
-                                                    <td>{{ object.expired_time }}</td>
-                                                </tr>
-                                                </tbody>
-    
-                                                <thead>
-                                                <tr>
-                                                    <th>Language</th>
-                                                    <th>Adult & Price</th>
-                                                    <th>Children & Price</th>
-                                                    <th>Cancellation</th>
-                                                </tr>
-                                                </thead>
-    
-                                                <tbody>
-                                                <tr>
-                                                    <td>{{ object.language }}</td>
-                                                    <td>{{ object.adults_count }} x {{ object.adults_price }} EUR</td>
-                                                    <td>{{ object.child_count }} x {{ object.child_price }} EUR</td>
-                                                    <td>
-                                                        <a href="{% url 'cancel-product' object.pk %}" class="btn btn-outline-danger">
-                                                            <img src="{% static 'icons/trash.svg' %}" alt="">
-                                                            Cancel
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
+        </div>
+        {% if object_list %}
+        {% else %}
+            <div class="empty-cart-wrapper">
+                <div class="container">
+                    <h2 class="empty-cart-title">
+                        your basket is empty
+                    </h2>
+                    <img src="{% static 'images/empty-cart-icon.svg' %}" alt="" class="empty-cart-img">
+                    <a href="{% url 'experience-list' 'en' %}" class="btn-type-1 empty-cart-btn">посмотреть туры</a>
+                </div>
+            </div>
+            <section class="also-interested">
+                <div class="container">
+                    <h2 class="also-interested-title">
+                        {{ object.recommendations_title }}
+                    </h2>
+                    <p class="also-interested-subtitle body-text-b2">
+                        {{ object.recommendations_subtitle }}
+                    </p>
+                    <div class="swiper-also-interested">
+                        <div class="swiper-wrapper also-interested-cards-wrapper">
+                            <div class="also-interested-card swiper-slide">
+                                <img src="{% static 'images/also-interested-img1.png' %}" alt="" class="also-interested-img">
+                                <p class="body-text-b2 also-interested-card-title">
+                                    Cascais
+                                </p>
+                                <p class="body-text-b3 also-interested-card-text">
+                                    Explore Cascais, a perfect mixture of natural and architectural beauty, located near Lisbon. Investigate its breathtaking
+                                    landscapes and historical wonders with comprehensive OneDayTours.
+                                </p>
                             </div>
-                        {% endfor %}
-                    {% endif %}
-    
-                </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="some-total-lines">
-                        <table class="table table-borderless">
-                            <tbody>
-                            <tr>
-                                <th>Total by old prices:</th>
-                                <td>{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %} EUR</td>
-                            </tr>
-                            <tr>
-                                <th>Discount sum:</th>
-                                <td>{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %} EUR</td>
-                            </tr>
-                            <tr>
-                                <th>Total</th>
-                                <th>{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %} EUR</th>
-                            </tr>
-                            </tbody>
-                        </table>
+                            <div class="also-interested-card swiper-slide">
+                                <img src="{% static 'images/also-interested-img2.png' %}" alt="" class="also-interested-img">
+                                <p class="body-text-b2 also-interested-card-title">
+                                    Oporto
+                                </p>
+                                <p class="body-text-b3 also-interested-card-text">
+                                    Choose an amazing journey with a OneDayTours to Oporto, Portugal. Explore the vibrant history of the city, perfectly fit
+                                    into the colorful landscapes, and experience the warm hospitality of Portugal.
+                                </p>
+                            </div>
+                            <div class="also-interested-card swiper-slide">
+                                <img src="{% static 'images/also-interested-img3.png' %}" alt="" class="also-interested-img">
+                                <p class="body-text-b2 also-interested-card-title">
+                                    Sintra
+                                </p>
+                                <p class="body-text-b3 also-interested-card-text">
+                                    Get a chance to immerse in the real Wonderland with a OneDayTours to a fairytale Sintra. The place is filled with history
+                                    and a mystical aura, heightened by the scenic landscape of nature.
+                                </p>
+                            </div>
+
+
+                        </div>
+                        <div class="swiper-pagination"></div>
+
                     </div>
-                    <a id="checkout-button" class="btn btn-primary" href="{% url 'payment-form' lang='en' %}">CHECKOUT</a>
-                    <hr>
-                    <h5>Some needed header</h5>
-                    <ul>
-                        <li>some policy point checkbox</li>
-                        <li>some policy point checkbox</li>
-                        <li>some policy point checkbox</li>
-                        <li>some policy point checkbox</li>
-                    </ul>
-                </div>
-            </div> -->
-        </div>
-        
-       
-    </div>
-    {% if object_list %}
-    {% else %}
-        <div class="empty-cart-wrapper">
-            <div class="container">
-                <h2 class="empty-cart-title">
-                    your basket is empty
-                </h2>
-                <img src="{% static 'images/empty-cart-icon.svg' %}" alt="" class="empty-cart-img">
-                <a href="" class="btn-type-1 empty-cart-btn">посмотреть туры</a>
-            </div>
-        </div>
-        <section class="also-interested">
-            <div class="container">
-                <h2 class="also-interested-title">
-                    {{ object.recommendations_title }}
-                </h2>
-                <p class="also-interested-subtitle body-text-b2">
-                    {{ object.recommendations_subtitle }}
-                </p>
-                <div class="swiper-also-interested">
-                    <div class="swiper-wrapper also-interested-cards-wrapper">
-                        <div class="also-interested-card swiper-slide">
-                            <img src="{% static 'images/also-interested-img1.png' %}" alt="" class="also-interested-img">
-                            <p class="body-text-b2 also-interested-card-title">
-                                Cascais
-                            </p>
-                            <p class="body-text-b3 also-interested-card-text">
-                                Explore Cascais, a perfect mixture of natural and architectural beauty, located near Lisbon. Investigate its breathtaking landscapes and historical wonders with comprehensive OneDayTours. 
-                            </p>
-                        </div>
-                        <div class="also-interested-card swiper-slide">
-                            <img src="{% static 'images/also-interested-img2.png' %}" alt="" class="also-interested-img">
-                            <p class="body-text-b2 also-interested-card-title">
-                                Oporto
-                            </p>
-                            <p class="body-text-b3 also-interested-card-text">
-                                Choose an amazing journey with a OneDayTours to Oporto, Portugal. Explore the vibrant history of the city, perfectly fit into the colorful landscapes, and experience the warm hospitality of Portugal.
-                            </p>
-                        </div>
-                        <div class="also-interested-card swiper-slide">
-                            <img src="{% static 'images/also-interested-img3.png' %}" alt="" class="also-interested-img">
-                            <p class="body-text-b2 also-interested-card-title">
-                                Sintra
-                            </p>
-                            <p class="body-text-b3 also-interested-card-text">
-                                Get a chance to immerse in the real Wonderland with a OneDayTours to a fairytale Sintra. The place is filled with history and a mystical aura, heightened by the scenic landscape of nature.
-                            </p>
-                        </div>
-                        
-                        
+
+                    <div class="also-interested-more-info-wrapper">
+                        <h5 class="also-interested-more-info-title">
+                            {{ object.recommendations_slogan }}
+                        </h5>
+                        <a href="" class="btn-type-2 also-interested-info-link">
+                            see more
+                        </a>
                     </div>
-                    <div class="swiper-pagination"></div>
-                    
                 </div>
-                
-                <div class="also-interested-more-info-wrapper">
-                    <h5 class="also-interested-more-info-title">
-                        {{ object.recommendations_slogan }}
-                    </h5>
-                    <a href="" class="btn-type-2 also-interested-info-link">
-                        see more 
-                    </a>
-                </div>
-            </div>
-        </section>
-    {% endif %}
+            </section>
+        {% endif %}
         <!-- For language selector -->
         <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 {% endblock %}

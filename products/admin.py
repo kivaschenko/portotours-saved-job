@@ -233,7 +233,7 @@ class ExperienceOccurrenceAdmin(admin.ModelAdmin):
 
     def customer(self, obj):
         product = obj.product_set.first()
-        customer = product.customer
-        if customer is not None:
-            return customer
+        if product:
+            if product.customer is not None:
+                return product.customer
         return None

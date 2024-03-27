@@ -3,7 +3,6 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, DeleteView
-from django.views.decorators.csrf import csrf_exempt
 from django.db import transaction
 
 from products.models import *  # noqa
@@ -20,7 +19,7 @@ class ExperienceListView(ListView):
     template_name = 'experiences/experience_list.html'
     extra_context = {}
     queryset = Experience.active.all()
-    paginate_by = 10  # TODO: add pagination handling into template
+    paginate_by = 1
 
     def get_queryset(self):
         queryset = super(ExperienceListView, self).get_queryset()
@@ -153,7 +152,7 @@ def get_actual_experience_events(request, parent_experience_id):
         return HttpResponseBadRequest('Invalid JSON data')
 
 
-@csrf_exempt
+@transaction.atomic
 def create_group_product(request):
     if request.method == 'POST':
         try:
@@ -217,7 +216,6 @@ def create_group_product(request):
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 
-@csrf_exempt
 @transaction.atomic
 def update_group_product(request):
     if request.method == 'POST':
@@ -290,7 +288,6 @@ def get_event_booking_data(request, event_id):
         'time': event.experienceevent.start_time,
         'adult_price': float(event.experienceevent.special_price),
         'child_price': float(event.experienceevent.child_special_price),
-        # 'total_price': float(event.experienceevent.total_price),
         'max_participants': event.experienceevent.max_participants,
         'booked_participants': event.experienceevent.booked_participants,
         'remaining_participants': event.experienceevent.remaining_participants,
@@ -341,7 +338,7 @@ class EditProductView(DetailView):
         return kwargs
 
 
-@csrf_exempt
+@transaction.atomic
 def create_private_product(request):
     if request.method == 'POST':
         try:
@@ -404,7 +401,7 @@ def create_private_product(request):
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 
-@csrf_exempt
+@transaction.atomic
 def update_private_product(request):
     if request.method == 'POST':
         try:

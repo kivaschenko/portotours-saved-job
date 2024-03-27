@@ -316,6 +316,8 @@ class ExperienceEvent(Event):
     def update_booking_data(self, booked_number, *args, **kwargs):
         self.booked_participants += booked_number
         self.remaining_participants = self.max_participants - self.booked_participants
+        if self.remaining_participants < 0:
+            self.remaining_participants = 0
         self.save(*args, **kwargs)
     
 
