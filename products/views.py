@@ -1,5 +1,5 @@
 from django.db.models import Sum
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, DeleteView
@@ -260,7 +260,7 @@ def update_group_product(request):
             )
             product.occurrence = occurrence
             product.save()
-            product.update(
+            product.objects.update(
                 occurrence=occurrence,
                 start_datetime=exp_event.start,
                 end_datetime=exp_event.end,
@@ -482,3 +482,21 @@ def update_private_product(request):
 
     # If the request method is not POST, return an error response
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+
+
+# 404, 500 ERRORS HANDLERS
+
+def custom_page_not_found_view(request, exception):
+    return render(request, "errors/404.html", {})
+
+
+def custom_error_view(request, exception=None):
+    return render(request, "errors/500.html", {})
+
+
+def custom_permission_denied_view(request, exception=None):
+    return render(request, "errors/403.html", {})
+
+
+def custom_bad_request_view(request, exception=None):
+    return render(request, "errors/400.html", {})

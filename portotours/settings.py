@@ -246,7 +246,6 @@ LOGGING = {
     }
 }
 
-
 AUTH_USER_MODEL = 'accounts.User'
 LOGOUT_REDIRECT_URL = "home"
 LOGIN_REDIRECT_URL = "home"
@@ -300,9 +299,8 @@ CKEDITOR_CONFIGS = {
                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']},
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
-            {'name': 'source', 'items': ['Source']},            
+            {'name': 'source', 'items': ['Source']},
         ],
-        
 
     }
 }
@@ -394,3 +392,7 @@ else:
 
 # Set your domain
 DOMAIN = os.environ.get('DOMAIN_NAME', 'localhost:8000')
+
+if DEBUG:
+    # Show detailed error pages in debug mode
+    DEBUG_PROPAGATE_EXCEPTIONS = True

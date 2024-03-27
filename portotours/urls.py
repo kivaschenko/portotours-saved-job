@@ -11,6 +11,14 @@ from products import views as products_views
 from purchases import views as purchases_views
 from blogs import views as blogs_views
 
+
+# 404, 500 ERRORS
+handler404 = 'products.views.custom_page_not_found_view'
+handler500 = 'products.views.custom_error_view'
+handler403 = 'products.views.custom_permission_denied_view'
+handler400 = 'products.views.custom_bad_request_view'
+
+
 # HOME & ACCOUNTS
 urlpatterns = [
     path('admin/', admin.site.urls),
