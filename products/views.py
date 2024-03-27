@@ -258,16 +258,15 @@ def update_group_product(request):
                 original_start=exp_event.start,
                 original_end=exp_event.end
             )
+
             product.occurrence = occurrence
+            product.start_datetime = exp_event.start
+            product.end_datetime = exp_event.end
+            product.adults_price = exp_event.special_price
+            product.child_price = exp_event.child_special_price
+            product.language = language
             product.save()
-            product.objects.update(
-                occurrence=occurrence,
-                start_datetime=exp_event.start,
-                end_datetime=exp_event.end,
-                adults_price=exp_event.special_price,
-                child_price=exp_event.child_special_price,
-                language=language
-            )
+
             exp_event.update_booking_data(booked_number=total_booked)
         else:
             # Update for current event

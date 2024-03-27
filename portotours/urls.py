@@ -39,7 +39,6 @@ urlpatterns = [
     path("accounts/profile/", accounts_views.ProfileView.as_view(), name="profile"),
     path("accounts/profile/update-address/", accounts_views.AddressUpdateView.as_view(), name="address-update"),
     path("accounts/profile/upate-shipping-address/", accounts_views.ShippingAddressUpdateView.as_view(), name="shipping-address-update"),
-    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 # Django ckeditor: https://github.com/django-ckeditor/django-ckeditor
