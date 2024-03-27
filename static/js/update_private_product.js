@@ -13,6 +13,16 @@ const model = {
     },
     'selectedDate': null,
     'current_event': {},
+    'current_product': {
+        'adultCount': adultCount,
+        'childCount': childCount,
+        'adultPrice': adultPrice,
+        'childPrice': childPrice,
+        'startDate': startDate,
+        'startTime': startTime,
+        'totalPrice': totalPrice,
+        'language': languageProduct,
+    },
     'productId': productId,
 };
 
@@ -20,7 +30,35 @@ const model = {
 const view = {
     // Function implementation for seeding data to form, if needed
     seedDataToForm: function () {
-        let form = document.getElementById("bookingForm");
+        const productData = model.current_product;
+
+        const startTime = productData.startTime;
+        console.log('Start Time:', startTime); // Check the value of startTime
+        const input = document.querySelector('input[type="radio"][value="' + startTime + '"]');
+        console.log('Input Element:', input); // Check the input element found by the query selector
+        const startLanguage = productData.language;
+        const languageInput = document.querySelector('input[type="radio"][value="' + startLanguage + '"]');
+        const totalPrice = productData.totalPrice;
+        const totalPriceTextBlock = document.querySelector('.total-price-wrapper span');
+        totalPriceTextBlock.innerHTML = `${totalPrice}`;
+
+        // Enable the input if found
+        if (input) {
+            input.checked = true;
+        } else {
+            console.error('Input not found for the given start time:', startTime);
+        }
+
+        // Enable starting language if found 
+        if (languageInput) {
+            languageInput.checked = true;
+        } else {
+            console.error('Input not found for the given start language:', startLanguage);
+        }
+
+        document.getElementById('adultTicketCount').value = productData.adultCount;
+        document.getElementById('childTicketCount').value = productData.childCount;
+        
     },
 
     // Check if model.languages exists and is an array before proceeding
@@ -182,7 +220,7 @@ const controller = {
     
         try {
             // Send the booking data to the server using fetch or another AJAX method
-            const response = await fetch('/create-private-product/', {
+            const response = await fetch('/update-private-product/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -294,7 +332,7 @@ const controller = {
 
                 // Update submit button text
                 const totalPrice = selectedEvent.total_price
-                submitBtn.textContent = `€${totalPrice.toFixed(2)} add to cart`;
+                submitBtn.textContent = `Save`;
             } else {
                 console.error('Selected event not found.');
             }
@@ -305,7 +343,7 @@ const controller = {
         
 
         // Reset submit button text
-        submitBtn.textContent = 'Add to Cart';
+        submitBtn.textContent = 'Save';
     },
 
     // Function to handle click on a date cell
@@ -604,10 +642,12 @@ document.addEventListener('DOMContentLoaded', async function () {
         input.addEventListener('change', controller.performValidation);
     });
      // Get the current date
-     const currentDate = new Date();
+    const [month, day, year] = model.current_product.startDate.split('/');
+    const currentDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    console.log('currentDate=', currentDate);
 
      // Simulate a click on the current date in the calendar
-     const currentDay = document.querySelector(`[data-date="${currentDate.toISOString().split('T')[0]}"]`);
+    const currentDay = document.querySelector(`[data-date="${currentDate}"]`);
      if (currentDay) {
          const clickEvent = new MouseEvent('click', {
              bubbles: true,
@@ -619,27 +659,11 @@ document.addEventListener('DOMContentLoaded', async function () {
          console.error('Current date not found in the calendar.');
      }
 
+     // seed form data
+    view.seedDataToForm();
     
 
 });
 
 
-// -----------
-// MOBILE FORM
 
-// open mobile form
-const openMobileBookingFormBtn = document.querySelector('.mobile-form-btn');
-const bookingForm = document.querySelector('.aside-form');
-const htmlElement = document.documentElement;
-const goBackBtn = document.querySelector('.btn-back');
-
-openMobileBookingFormBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    bookingForm.classList.add('open-mobile');
-    htmlElement.classList.add('off-scroll');
-});
-
-goBackBtn.addEventListener('click', () => {
-    bookingForm.classList.remove('open-mobile');
-    htmlElement.classList.remove('off-scroll');
-});

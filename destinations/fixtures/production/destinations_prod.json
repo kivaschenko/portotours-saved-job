@@ -1,0 +1,920 @@
+[
+{
+    "model": "destinations.parentdestination",
+    "pk": 1,
+    "fields": {
+        "parent_name": "Lisbon test parent",
+        "banner": "media/banners/destination-hero-img.png",
+        "card_image": "media/cards/nick-karvounis-Cf0NnZ0C1bA-unsplash.png",
+        "priority_number": 1,
+        "updated_at": "2024-02-12T14:01:42.467Z"
+    }
+},
+{
+    "model": "destinations.parentdestination",
+    "pk": 2,
+    "fields": {
+        "parent_name": "Porto parent",
+        "banner": "media/banners/Mask_group_3.png",
+        "card_image": "media/cards/nick-karvounis-Cf0NnZ0C1bA-unsplash_1.png",
+        "priority_number": 0,
+        "updated_at": "2024-02-26T08:52:45.055Z"
+    }
+},
+{
+    "model": "destinations.parentdestination",
+    "pk": 3,
+    "fields": {
+        "parent_name": "Sintra parent",
+        "banner": "media/banners/Mask_group_4.png",
+        "card_image": "media/cards/Mask_group_5.png",
+        "priority_number": 0,
+        "updated_at": "2024-03-04T15:10:21.336Z"
+    }
+},
+{
+    "model": "destinations.parentdestination",
+    "pk": 4,
+    "fields": {
+        "parent_name": "Obidos parent",
+        "banner": "media/banners/Mask_group_4.png",
+        "card_image": "media/cards/Mask_group_5.png",
+        "priority_number": 0,
+        "updated_at": "2024-03-05T10:07:15.167Z"
+    }
+},
+{
+    "model": "destinations.parentdestination",
+    "pk": 5,
+    "fields": {
+        "parent_name": "Evora parent",
+        "banner": "media/banners/Mask_group_4.png",
+        "card_image": "media/cards/Mask_group_5.png",
+        "priority_number": 0,
+        "updated_at": "2024-03-05T13:51:04.584Z"
+    }
+},
+{
+    "model": "destinations.parentdestination",
+    "pk": 6,
+    "fields": {
+        "parent_name": "Peniche parent",
+        "banner": "media/banners/Mask_group_4.png",
+        "card_image": "media/cards/Mask_group_5.png",
+        "priority_number": 0,
+        "updated_at": "2024-03-06T08:38:33.810Z"
+    }
+},
+{
+    "model": "destinations.parentdestination",
+    "pk": 7,
+    "fields": {
+        "parent_name": "Nazare parent",
+        "banner": "media/banners/Mask_group_4.png",
+        "card_image": "media/cards/Mask_group_5.png",
+        "priority_number": 0,
+        "updated_at": "2024-03-06T11:27:34.888Z"
+    }
+},
+{
+    "model": "destinations.parentdestination",
+    "pk": 8,
+    "fields": {
+        "parent_name": "Douro parent",
+        "banner": "media/banners/Mask_group_4.png",
+        "card_image": "media/cards/Mask_group_5.png",
+        "priority_number": 0,
+        "updated_at": "2024-03-06T15:04:28.449Z"
+    }
+},
+{
+    "model": "destinations.parentdestination",
+    "pk": 9,
+    "fields": {
+        "parent_name": "Cascais parent",
+        "banner": "media/banners/Mask_group_4.png",
+        "card_image": "media/cards/Mask_group_5.png",
+        "priority_number": 0,
+        "updated_at": "2024-03-07T13:59:32.853Z"
+    }
+},
+{
+    "model": "destinations.parentdestination",
+    "pk": 10,
+    "fields": {
+        "parent_name": "Fatima parent",
+        "banner": "media/banners/Mask_group_4.png",
+        "card_image": "media/cards/Mask_group_5.png",
+        "priority_number": 0,
+        "updated_at": "2024-03-07T14:56:23.711Z"
+    }
+},
+{
+    "model": "destinations.parentdestination",
+    "pk": 11,
+    "fields": {
+        "parent_name": "Tomar parent",
+        "banner": "media/banners/Mask_group_4.png",
+        "card_image": "media/cards/Mask_group_5.png",
+        "priority_number": 0,
+        "updated_at": "2024-03-15T11:45:12.131Z"
+    }
+},
+{
+    "model": "destinations.destination",
+    "pk": 1,
+    "fields": {
+        "parent_destination": 1,
+        "name": "Lisbon test destination en lang",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:07:29.797Z",
+        "slug": "lisbon-test-destination-en-lang",
+        "page_title": "Explore Lisbon with OneDayTours test page",
+        "page_description": "Explore Lisbon with OneDayTours test page",
+        "keywords": "Lisbon,tours,perfect trip,one day tours",
+        "main_title": "Explore Lisbon <span>with</span>",
+        "main_subtitle": "Portugal's capital, a dazzling mixture of variable cultures and traditions, rich in architecture and natural wonders.",
+        "introduction_title": "What to See in Lisbon",
+        "introduction_subtitle": "Lisbon, the capital of Portugal, is one of the most vibrant and charismatic cities in Western Europe.",
+        "introduction_text": "<p>Lisbon is a perfect blend of elegant palaces, luxurious squares, majestic cathedrals, historical museums, and monuments with narrow cozy pretty streets and neat houses decorated with traditional Portuguese Azulejo tiles. You can start your walk around the city from the Ribeira market, where you can try delicacies from all over the country at once. Continue to Commerce Square and then explore the Lisbon Cathedral.</p>\r\n\r\n<p>Climb a little higher, walk to the archaeological museum and the Carmo Convent, and from there go to the Santa Justa elevator with a panoramic view at the top.</p>\r\n\r\n<p>In the center, you can take the old tram 28, get off at the very top of the Basilica of Estrela, and explore it and the cozy park next door. Then get to the Castle of St. George, and explore its towers and fortress walls, halls, and museums.</p>\r\n\r\n<p>The number of sightseeing is incredible, many of them are on the UNESCO list, so a professional guide to the main places is the best solution to dive into the culture.</p>",
+        "short_introduction_text": "Portugal's capital, Lisbon, is a dynamic, open-air city that boasts stunning scenery, cobbled streets, and plenty of historical attractions and activities to enjoy on your own or with the family. There is also a rich selection of bustling nightlife,..",
+        "all_about_title": "All about",
+        "when_to_visit_title": "When to visit",
+        "when_to_visit_text": "<p>The best period to travel to Lisbon is considered to be May - October. However, in general, the weather conditions in Portugal can be called warm and sunny, and in winter it&#39;s also quite comfortable here.</p>\r\n\r\n<p>In spring, the weather will delight you with comfortable temperatures of +17-24, and the city will not yet be fully filled with tourists. The peak tourist season is in June, July, and August, when the temperature may reach +28, and during this period excursion holidays can be combined with a sea holiday. In autumn, the weather is still warm and sunny, +18-25, so the trip will be much more comfortable, and hotel prices will be lower. In winter the temperature stays within +10-15, so in the daytime, it is perfect for trips around Portugal.</p>",
+        "getting_around_title": "Getting around",
+        "getting_around_text": "<p>Portugal&#39;s capital, Lisbon, is a dynamic, open-air city that boasts stunning scenery, cobbled streets, and plenty of historical attractions and activities to enjoy on your own or with the family. There is also a rich selection of bustling nightlife, outdoor activities, concerts, and tastings.</p>\r\n\r\n<p>Excursion programs in Lisbon mostly introduce you to the history of the country from the era of colonialism. It is worth exploring the ancient district of Alfama, the Torre de Belem, and the Royal Palace, paying special attention to the azulejos. Of course, the best option to start the adventure and get a full impression of the city is to choose well-combined one-day tours, each of which was carefully created by professional guides who know all the hidden secrets of the city.</p>",
+        "travel_tips_title": "Travel information",
+        "travel_tips_text": "<p><strong>You can get an unforgettable experience while traveling in Lisbon if you consider a few simple tips:</strong></p>\r\n\r\n<p><strong>1. How to Make the first trip to Lisbon unforgettable?</strong></p>\r\n\r\n<p>Admire the city from the observation deck. The view of Lisbon from above is impressive and enchanting. All the beauties of the city appear before the viewer: the Tagus River, ships sailing along it, the ocean, bridges, churches, and houses. If you&#39;re out of time, the best option to see all the main sights and attractions of Lisbon is to choose a one-day tour in Lisbon. And don&#39;t forget to try Portuguese wines as Portugal is famous for its vineyards. Red and white wines from the region are distinguished by high taste qualities.</p>\r\n\r\n<p><strong>2. What is a list of hidden treasures of Lisbon?</strong></p>\r\n\r\n<p>If you&#39;re interested in non-tourist places, Lisbon is extremely rich in such locations. For the first adventure, pay attention to underground Roman galleries. One more place is Reservoir Mahe d&#39;Agua Amoreiras. The reservoir, which received the title of Queen of Water, was built to collect flows from the main Lisbon aqueduct. And if you have time, visit the National Museum of Costume and Fashion. This museum displays men&#39;s, women&#39;s, and children&#39;s clothing that was considered fashionable from the 17th to the mid-20th century.</p>\r\n\r\n<p><strong>3. What dishes are the must-try in Lisbon?</strong></p>\r\n\r\n<p>What to eat in the city, located by the ocean? Of course, a variety of seafood dishes: baked octopus, sardines, shrimp, oysters, lobsters, mussels, and a variety of fish dishes. Don&rsquo;t forget about local Portuguese dish &ndash; the &ldquo;bacalhau&rdquo;, for example, Past&eacute;is de bacalhau (cod croquettes) or Bacalhau &agrave; bras (stewed cod with potatoes, onions, and eggs). This is a traditional Portuguese dish originally from Lisbon, which Senor Brush began cooking for the first time. The portions are large, so plan your strength wisely. And be sure to leave room for dessert!<br />\r\nAnd among desserts it should be pointed out that the famous Paste de Belem (or Pastel de Nata) cakes are the number one dessert in Portugal.</p>",
+        "top_attractions_title": "Top Lisbon Attractions",
+        "top_attractions_subtitle": "Explore Lisbon's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing",
+        "be_interested_title": "You May Also Be Interested to Visit from Lisbon",
+        "be_interested_subtitle": "Explore nearby spots from Lisbon, choosing captivating destinations that guarantee unforgettable experiences and cultura",
+        "recommendations_title": "You May Also Be Interested to Visit from Lisbon",
+        "recommendations_subtitle": "Explore nearby spots from Lisbon, choosing captivating destinations that guarantee unforgettable experiences and cultural abundance.",
+        "recommendations_slogan": "Diverse your experience of Portugal, endeavoring brand-new experiences",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful information for the most common queries about OneDayTours in Lisbon"
+    }
+},
+{
+    "model": "destinations.destination",
+    "pk": 2,
+    "fields": {
+        "parent_destination": 2,
+        "name": "Porto",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-03-04T15:00:38.101Z",
+        "slug": "porto",
+        "page_title": "Explore Porto with OneDayTours",
+        "page_description": "Explore Porto with OneDayTours",
+        "keywords": "",
+        "main_title": "Explore Porto <span>with</span>",
+        "main_subtitle": "Charming Old Town with Iconic Bridges, Historic Port Wine Cellars, and Vibrant Culture.",
+        "introduction_title": "What to See in Porto",
+        "introduction_subtitle": "Porto, the second largest city of Portugal and the capital of port wine is a perfect blend of the classic look with a modern atmosphere.",
+        "introduction_text": "<p>The city of Porto is one of the largest in Portugal. It received the name Porto Calais in honor of the two Roman tribes Portus and Calais, which in ancient times lived on different banks of the Douro River. Despite the centuries-old rivalry with Lisbon, Porto is considered to be the real capital of Portugal in the north. The city is located on Pena Ventosa Hill near the Atlantic Ocean, boasting its beauty and an impressive number of attractions. The historical center of it has been preserved to this day in its original form. Since 1996, the city has been included in the UNESCO World Heritage List.&nbsp;</p>\r\n\r\n<p>In the 11th century, the Arabs were expelled from here, and Porto became a strategic point of the region. It was also the largest port, maintaining connections with England, Flanders, and the cities of the Hanseatic League. The future Henry the Navigator was born here.</p>\r\n\r\n<p>The architecture of Porto is not as rich in palaces and cathedrals as Lisbon. At the same time, Porto tourist attractions are presented by monumental Baroque buildings, tiled churches, old factories, colorful roofs on gray stone buildings, trendy bars, informal shops, hidden picturesque streets, art venues, and contemporary art museums.</p>\r\n\r\n<p>You can start your walk around the city from Avenida dos Aliados, where mansions from the late 19th and early 20th centuries have been preserved. Also here you can visit a bright example of Porto historical architecture - the Gothic Church of S&atilde;o Francisco, dating back to the 12th century. The cathedral served as a defensive structure along with the city walls. Nowadays it&#39;s open for visitors, showing the exquisite interior, bright frescoes, and stained glass windows.</p>\r\n\r\n<p>The Cl&eacute;rigos Tower is one of the symbols of Porto, and also the tallest in the country (75 m). Previously, it served as a landmark for merchant ships entering the port. Today everyone can go up to the observation deck with a beautiful view of the entire city.</p>\r\n\r\n<p>The Ribeira area with its small colorful houses on the hill is also a must-see. It&rsquo;s good to walk along the narrow winding streets in any weather, enjoying the views and trying the cuisine in local cafes. And then you can make a trip on a ship or boat along the river with the colorful embankment of Cais de Ribeira.</p>\r\n\r\n<p>Guimar&atilde;es Castle is one of the most impressive buildings not only in the area around Porto but in all of Portugal. 4 towers, several gates, and a wooden bridge have survived to this day.</p>\r\n\r\n<p>In your free time, take a stroll through the Porto Botanical Garden, the oldest in the country. It is divided into 3 parts: ponds with aquatic plants, flower beds, and greenhouses with tropical vegetation. Don&#39;t miss Porto art galleries and photography spots to make your experience of the city more complete.&nbsp;</p>\r\n\r\n<p>Among the museums, it is worth highlighting the Tram Museum, the exhibits of which are preserved in excellent condition. One more great place for family weekends: Crystal Palace Park with numerous playgrounds and areas for leisure activities. The park is decorated with all kinds of sculptures and installations made in modern and antique styles. Sports competitions, concerts, and other interesting cultural events for children and adults are regularly held here. The main entertainment for small visitors is feeding the peacocks, which stroll imposingly right across the lawns.</p>\r\n\r\n<p>Modern Porto and its surroundings are developing dynamically. Nowadays it&#39;s one of the country&#39;s largest ports, and its residents are known for their patriotism and strive to emerge from the shadows of the capital&#39;s inhabitants.</p>",
+        "short_introduction_text": "The city of Porto is one of the largest in Portugal. It received the name Porto Calais in honor of the two Roman tribes Portus and Calais, which in ancient times lived on different banks of the Douro River.",
+        "all_about_title": "All About",
+        "when_to_visit_title": "When to Visit",
+        "when_to_visit_text": "<p>The best time to visit Porto in Portugal is in spring or early autumn months, like April, May, September, or October. This time, you can enjoy pleasant weather ideal for strolling along the picturesque streets, exploring its historic landmarks, and indulging in its renowned culinary scene.</p>\r\n\r\n<p>Unlike Lisbon, Porto rarely gets very hot, and usually, it&#39;s a few degrees cooler here. The coldest months in Porto are December, January, and February, with temperatures averaging around 5&deg;C to 14&deg;C, but the city still looks amazing and you can enjoy slow walks by its historic streets and riverside views.</p>\r\n\r\n<p>On the other hand, the hottest months are July and August, when temperatures can rise from 25&deg;C to 30&deg;C with high humidity. However, with its coastal location, you might find relief from the heat with a refreshing breeze off the Atlantic Ocean. And don&#39;t forget to check the Porto weather forecast before you go out.</p>",
+        "getting_around_title": "Getting Around",
+        "getting_around_text": "<p>Porto has an efficient public transport system, which includes buses, trams, and the metro. The Andante Tour card is the perfect choice for those who don&#39;t want to spend time on the search for every type of transport. It comes in two types: 7 euros/24 hours, 15 euros/72 hours. It gives you the right to an unlimited number of trips on STCP city buses, the metro, the funicular, and the train.</p>\r\n\r\n<p>Walking is ideal for exploring the compact city center, while iconic tram line 1 offers scenic rides along the waterfront. For more comfortable travel there are taxi services that provide convenient options. In warm periods there is one more popular option - cycling.&nbsp;</p>\r\n\r\n<p>Whether by foot, public transport, Porto river cruise, or bike, navigating Porto is convenient and enjoyable, allowing visitors to immerse themselves in its rich history and vibrant culture.</p>",
+        "travel_tips_title": "Travel Information",
+        "travel_tips_text": "<p><strong>You can get an unforgettable experience while traveling in Porto if you consider a few simple Porto travel tips:</strong></p>\r\n\r\n<p><strong>1. How to make the first trip to Porto unforgettable?</strong></p>\r\n\r\n<p>Porto, Portugal&#39;s second largest city and the country&#39;s northern capital, is a unique combination of historical heritage and modern charm. A professional guide will help you make your trip unforgettable, skillfully showing the beauty of the city combined with its modern life.</p>\r\n\r\n<p>There are many attractions here, including a picturesque river, opportunities to visit the ocean, and beautiful churches, some of which are very ancient. Due to the compactness of the city, all attractions are close to each other, which makes walking around Porto especially convenient. This is a magnificent and exciting place that will forever leave a vivid impression in your hearts.</p>\r\n\r\n<p><strong>2. What is a list of hidden treasures of Porto?</strong></p>\r\n\r\n<p>Do you want to appreciate the beauty of all the outstanding sights of Porto at once? Then, pay attention to the Porto off the beaten path routes. Take a walk along the Ponte de Dom Luis I bridge. There are many bridges in the city, and this one is not the most hidden, but only a few know that it offers a wonderful view of the city. This gorgeous free &ldquo;observation deck&rdquo; is visited not only by dedicated tourists but also by professional photographers.</p>\r\n\r\n<p>An equally attractive way to appreciate the panorama of the city is to go on a helicopter ride.&nbsp;</p>\r\n\r\n<p><strong>3. What dishes are the must-try in Porto?</strong></p>\r\n\r\n<p>Porto is one of Europe&#39;s most exciting food destinations, with its hearty traditional seafood, and pork dishes such as tripas &agrave; moda do Porto, strong influences from the spices of the Age of Discovery.</p>\r\n\r\n<p>Petiscarias are Portuguese-style tapas bars that offer small snacks to accompany your drinks. Try squid, olives, cheese, octopus salad, and Portuguese sausages such as alheira.</p>\r\n\r\n<p>The most popular local cuisine in Porto is francesinha: a tower of generous slices of bread topped with ham, sausage, cheese, and sometimes a fried egg, doused in a spicy tomato sauce.</p>",
+        "top_attractions_title": "Top Porto Attractions",
+        "top_attractions_subtitle": "Explore Porto's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing",
+        "be_interested_title": "You May Also Be Interested to Visit from Porto",
+        "be_interested_subtitle": "Explore nearby spots from Porto, choosing captivating destinations that guarantee unforgettable experiences and cultura",
+        "recommendations_title": "You May Also Be Interested to Visit from Porto",
+        "recommendations_subtitle": "Explore nearby spots from Porto, choosing captivating destinations that guarantee unforgettable experiences and cultural abundance.",
+        "recommendations_slogan": "Diverse your Porto experience with top attractions for cultural involvement",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful information for the most common queries about OneDayTours in Porto"
+    }
+},
+{
+    "model": "destinations.destination",
+    "pk": 3,
+    "fields": {
+        "parent_destination": 3,
+        "name": "Sintra",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-03-04T15:10:03.696Z",
+        "slug": "sintra",
+        "page_title": "Explore Sintra with OneDayTours",
+        "page_description": "",
+        "keywords": "",
+        "main_title": "Explore Sintra <span>with</span>",
+        "main_subtitle": "Magical Place with Fairytale Palaces, Lush Gardens, and Enchanting Landscapes.",
+        "introduction_title": "What to See in Sintra",
+        "introduction_subtitle": "Sintra is an ancient Portuguese city with a magical atmosphere and rich history.",
+        "introduction_text": "<p>Sintra is located near the capital of Portugal, east of the Sierra de Sintra mountains that separate it from the Bay of Biscay, being a perfect destination for day trips from Lisbon. Sintra is known for its numerous castles, parks and gardens, green vineyards, narrow streets, rich villas, and picturesque views of the sea and mountains.</p>\r\n\r\n<p>You can start the Sintra sightseeing tour with a walk around the city center. Here is located one of the most famous attractions and its main symbol, Sintra Pena Palace. Built in the 19th century, the palace is not only a Sintra UNESCO World Heritage object but is also considered one of the Seven Wonders of Portugal. Sometimes it is even called Disneyland for adults as the building seems to have been copied from a collection of fairy tales! Thanks to the bright paintings, numerous turrets, courtyards, and elaborate romantic architecture, the building looks like a toy.</p>\r\n\r\n<p>The next must-visit spots are the Pena Gardens and the summit of Cruz Alta. Here you can simply walk, admiring the numerous statues, decorative pools, and elegant gazebos. Additionally, it is worth visiting the top of the Cruz Alta hill in the southern part of the park. Here, at an altitude of 529 meters above sea level, is the highest point of Sintra, from where Lisbon can be seen in good weather.</p>\r\n\r\n<p>A 20-minute walk from the Pena Gardens is the medieval Sintra Moorish Castle, which was founded in the 10th century. Its powerful towers, parapets, and battlements will delight any fans of history. However, even if the Middle Ages are not the focus of your interest, you will probably enjoy the breathtaking views of the surrounding area. Sintra lives its own life below, and far on the horizon are seen the waters of the Atlantic Ocean.</p>\r\n\r\n<p>Montserrat Manor is another famous object of Sintra cultural heritage and the second must-have palace in Sintra. The villa is decorated in a romantic style, attracting attention with the impeccable decoration of the interior rooms. No less charming is the luxurious park around the mansion with a lake in the middle, numerous springs, grottoes, and rare species of trees.</p>\r\n\r\n<p>There is hardly a list of attractions that does not include Sintra Quinta da Regaleira. A huge mansion with a mystical 19th-century park in the Gothic style is rightfully considered the pearl of Sintra. The gardens of Quinta da Regaleira are full of symbolism and secret meanings, references to religion, alchemy, and Freemasonry. Quinta da Regaleira is full of unexpected finds and sudden discoveries. But undoubtedly the main attraction here is the Well of Dedication (Po&ccedil;o Inici&aacute;tico).</p>\r\n\r\n<p>The Well of Dedication is a spiral staircase that goes 27 meters deep. The staircase looks like a tower screwed into the ground and, thanks to this strange shape, is shrouded in many outlandish legends.</p>\r\n\r\n<p>If you have free time in Sintra and want to see it from another angle, pay attention to the shoreline as here is located the incredibly popular Agrada beach, famous for its waves and the sports competitions that constantly take place here (including world-class ones). Among others should be mentioned large Grande Beach, the most beautiful beach in Portugal, Baby Ursa, Praia das Masanches, and Magoito. If you take the opportunity to go surfing, fishing, and other water activities in the clear water of the Atlantic Ocean and on the golden sands of local beaches, then Sintra will be a paradise for travelers. No big surprise, that this city is considered the main tourist destination of the so-called Portuguese Riviera</p>",
+        "short_introduction_text": "Sintra is located near the capital of Portugal, east of the Sierra de Sintra mountains that separate it from the Bay of Biscay, being a perfect destination for day trips from Lisbon. Sintra is known for its numerous castles, parks and gardens, green viney",
+        "all_about_title": "All About",
+        "when_to_visit_title": "When to Visit",
+        "when_to_visit_text": "<p><span style=\"color:#000000\">The optimal time to explore Sintra in Portugal is during the spring or early autumn months when it&#39;s already warm, but still not too hot. Delightful weather perfect for discovering the rich cultural heritage of Portugal, and savoring its delectable cuisine, is guaranteed.</span></p>\r\n\r\n<p><span style=\"color:#000000\">Unlike Lisbon, Sintra typically stays a bit cooler, with temperature usually a few degrees lower. The coldest months in Sintra are December, January, and February, with temperatures from 5&deg;C to 14&deg;C.&nbsp;</span></p>\r\n\r\n<p><span style=\"color:#000000\">The hottest months are July and August when temperatures can stay between 25&deg;C to 30&deg;C with high humidity a bit softened with refreshing breezes blowing in from the Atlantic Ocean. Be sure to keep an eye on the Sintra weather forecast to plan your perfect outdoor activities.</span></p>",
+        "getting_around_title": "Getting Around",
+        "getting_around_text": "<p>Sintra transportation options are variable, so anybody can choose the best one. Taxi service is available at the train station or opposite the Sintra Vila post office. The one-way fare is approximately 10 EUR to the Pena Palace or 18 EUR to the Capuchin Monastery and back. On weekends and holidays, there is a 20% surcharge.</p>\r\n\r\n<p>There is a regular bus (number 433) which runs from Portela Interface to San Pedro for 1&euro;. Bus number 434 (circular bus route), which leaves from Sintra train station, will take you to Pena Palace. The ticket price is 5 EUR for all day.</p>\r\n\r\n<p>For 12 EUR you can buy a Day Rover - a ticket valid on all Scotturb buses.</p>\r\n\r\n<p>One more option is to get a bicycle as cycling in Sintra can be quite fun and interesting. You can rent it at Caminho do Castelo.</p>\r\n\r\n<p>On weekends and holidays, there are a lot of cars in the city, and parking becomes a problem.</p>",
+        "travel_tips_title": "Travel Information",
+        "travel_tips_text": "<p>You can get an unforgettable experience while traveling in Sintra if you consider a few simple Sintra travel tips:</p>\r\n\r\n<p><strong>1. How to make the first trip to Sintra unforgettable?</strong></p>\r\n\r\n<p>Sintra is a place with a magical atmosphere, filled with fairy tales and romance, so visiting it is an unforgettable experience.</p>\r\n\r\n<p>Architectural masterpieces can be found here at every step. The splendor of ancient castles coexists with modern amenities. Sintra boasts stylish restaurants and pleasant cafes, together with comfortable old-fashioned hotels. Give yourself the pleasure of enjoying the beauty, and then relax, sitting comfortably in one of the picturesque cafes. A professional guide would show the hidden treasures of Sintra, creating an unforgettable impression, so you&#39;d like to return here again and again.</p>\r\n\r\n<p><strong>2. What is a list of Sintra hidden gems?</strong></p>\r\n\r\n<p>There is an attraction of Sintra within the territory of Montserrat, unknown for most of the tourists. These are the ruins of an ancient chapel.</p>\r\n\r\n<p>The ruins are close to the entrance gate, but away from the main path. According to legend, the chapel was destroyed by the Great Lisbon Earthquake of 1755. Over the years, the trees around grew and completely swallowed up the ruins.</p>\r\n\r\n<p>In reality, in 1855, Montserrat was bought from a Portuguese family by a wealthy English merchant, Sir Francis Cook. He was much into the artificial ruins and wanted to give it a more mystical aura. The chapel looks amazing, and nothing shows its man-made origin.</p>\r\n\r\n<p><strong>3. What dishes are the must-try in Sintra?</strong></p>\r\n\r\n<p>Sintra is a town lost in time, although it is not so far from Lisbon, the spirit of antiquity is felt everywhere, which means this is where you can try classic Portuguese dishes. Sintra local cuisine mainly consists of fish, seafood, cheese, and vegetables.</p>\r\n\r\n<p>There are a lot of fish restaurants in Sintra, probably every establishment serves seafood, and this is not surprising, there are so many local seafood delicacies!</p>\r\n\r\n<p>Traditional sweets of Sintra are the Queijadas de Sintra and Travesseiros. You will find them in any cafe (pastelaria) in the old town.</p>",
+        "top_attractions_title": "Top Sintra Attractions",
+        "top_attractions_subtitle": "Explore Sintra's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing",
+        "be_interested_title": "You May Also Be Interested to Visit from Sintra",
+        "be_interested_subtitle": "Explore nearby spots from Sintra, choosing captivating destinations that guarantee unforgettable experiences and cultura",
+        "recommendations_title": "You May Also Be Interested In Sintra",
+        "recommendations_subtitle": "Explore nearby spots from Sintra , choosing captivating destinations that guarantee unforgettable experiences and cultural abundance.",
+        "recommendations_slogan": "Diverse your Sintra  experience with top attractions for cultural involvement",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful insider tips for the most common queries about Sintra"
+    }
+},
+{
+    "model": "destinations.destination",
+    "pk": 4,
+    "fields": {
+        "parent_destination": 4,
+        "name": "Obidos",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-03-05T10:09:13.977Z",
+        "slug": "obidos",
+        "page_title": null,
+        "page_description": "",
+        "keywords": "",
+        "main_title": "Explore Óbidos With",
+        "main_subtitle": "Medieval Town with Cobblestone Streets, Colorful Houses, and Vigorous Festivals.",
+        "introduction_title": "What to See in Obidos",
+        "introduction_subtitle": "Obidos is a charming, wonderful open-air museum of white houses surrounded by a medieval castle",
+        "introduction_text": "<p>According to recent archaeological finds, people have settled in Obidos since the Late Paleolithic period. It eventually became an important trading post for the Phoenicians and later an important Roman military outpost. It&rsquo;s hard to believe, but this tiny town, with two streets and a population of no more than ten thousand inhabitants, was once an impregnable fortress. After the Islamic period, in the 12th century, started the construction of one of the most famous Obidos tourist attractions, Obidos Castle. It was built by the Arabs and reconstructed by order of Alfonso Enriquez. The harsh fortress walls that surround it were built later, and most often served as protection against attacks by corsairs. Today, the castle is one of the seven most outstanding architectural monuments in Portugal.&nbsp;</p>\r\n\r\n<p>Since King Dinis gave the city as a wedding gift to his wife Isabella, &Oacute;bidos belonged to Portuguese queens until the 19th century. Since then, Obidos historic town has been considered a city of weddings, and newlyweds are advised to visit it for good luck. Many come here and spend their honeymoon. This fact explains why so many architectural monuments, such as the Aqueduct, were built. The earthquake of 1755 and the Peninsular War in the early 19th century took their toll and led to renovations to the historic center, but &Oacute;bidos never lost its medieval urban charm.</p>\r\n\r\n<p>Nowadays the city is a popular tourist destination, famous for its medieval market and the delicious Ginjinha cherry liqueur served in every bar in the city. You can easily explore &Oacute;bidos in one day, or stay overnight and see other nearby attractions such as Lagoa de &Oacute;bidos and Buddha Garden.</p>\r\n\r\n<p>Obidos historical architecture is characterized by a huge number of ancient cathedrals with magnificent chapels. The most popular from a tourist&#39;s point of view is the Cathedral of Santa Maria. The most ancient and still active in Obidos is the Cathedral of St. James, built at the beginning of the 12th century. Not far from it is the Church of St. John the Baptist, which attracts tourists with its unusually elegant Chapel of St. Martin.</p>\r\n\r\n<p>Obidos is also home to a great religious spirit, expressed in its churches and shrines, which are emphasized by their scale and architecture. The main churches are Santa Maria and San Pedro, both of which have a royal atmosphere upon entry. The Church of the Misericordia, or the Church of Our Lady of Montserrat in Baroque style are also on the list of must-see Obidos attractions. The Chapel of S&atilde;o Martinho is an example of charming medieval and gothic mixes. Don&#39;t forget to visit the incredibly beautiful Temple of Senhor Jesus da Pedra, the perfect creation of Rodrigo Franco.</p>\r\n\r\n<p>The largest fair takes place here, where you can buy Obidos souvenirs, made in the best traditions of Portuguese craftsmen. In addition, souvenirs and even antiques can be purchased in one of the shops on Rua Direita.</p>\r\n\r\n<p>Also, on the list of Obidos things to do is the International Chocolate Festival, held annually, because several small confectionery factories are located on two streets of the town. During this culinary event, the entire city turns into one big confectionery shop, with incredible tastings of chocolate figures and fountains.</p>",
+        "short_introduction_text": "According to recent archaeological finds, people have settled in Obidos since the Late Paleolithic period. It eventually became an important trading post for the Phoenicians and later an important Roman military outpost. It’s hard to believe, but this tin",
+        "all_about_title": "All About",
+        "when_to_visit_title": "When to Visit",
+        "when_to_visit_text": "<p>Obidos can be visited around the year, but the best time depends on Obidos weather and your preferences. The spring period, April to June, is characterized by the most mild weather, with temperatures ranging from 15&deg;C to 25&deg;C, blooming flowers, and fewer crowds, ideal for exploring the town&#39;s streets and medieval charm. Summer is a peak tourist season with higher temperatures ranging from 20&deg;C to 30&deg;C, perfect for vacations because of its numerous lively events like the Medieval Festival.</p>\r\n\r\n<p>Autumn also offers pleasant weather with temperatures ranging from 15&deg;C to 25&deg;C, harvest festivals, and colorful foliage, perfect for walking around and enjoying picturesque landscapes. The winter period is much quieter, good for people who prefer standing out of the crowd, although it can be chilly, with temperatures ranging from 5&deg;C to 15&deg;C, especially in the evenings. When planning your visit to Obidos, think about your preferences, but be sure that it&#39;s amazing around the year.</p>",
+        "getting_around_title": "Getting Around",
+        "getting_around_text": "<p>Obidos is tiny and cozy, so moving around it is relatively easy. The best way to explore it is on foot. One more great option is on a bicycle. Bicycle rental prices vary but are typically around &euro;10-&euro;15 per day.</p>\r\n\r\n<p>For longer distances, there is a taxi service available within the town. Within Obidos, taxi fares are relatively affordable. The average price for short rides is around &euro;5-&euro;10 depending on the distance. Overall, walking and cycling are the most convenient and enjoyable ways to explore Obidos, but taxi service is also available. For most travelers, it takes just a few hours to walk around all the most significant places in the city.</p>\r\n\r\n<p>Prices for transportation are reasonable, making it accessible for travelers with different budgets.</p>",
+        "travel_tips_title": "Travel Information",
+        "travel_tips_text": "<p>You can get an unforgettable experience while traveling in Obidos if you consider a few simple Obidos travel tips:</p>\r\n\r\n<p><strong>1. How to make the first trip to Obidos unforgettable?</strong></p>\r\n\r\n<p>&Oacute;bidos Castle is on the list of must-see things in Portugal during a trip to the Central Region.</p>\r\n\r\n<p>You can walk by the moors, visit local restaurants, and buy the famous ginja.</p>\r\n\r\n<p>The best way to start visiting the city is through the Porta da Vila gate, richly decorated with ancient tiles.</p>\r\n\r\n<p>Then climb the fortress walls and explore the city from a bird&#39;s eye view. Afterward, take a walk along the main street Rua Direita, and buy local souvenirs as a souvenir. It leads the way to the Church of San Pedro and the Chapel of St. Martin - the main attractions. After climbing the hill there is an observation deck. Then visit the castle and walk around the courtyard.</p>\r\n\r\n<p>After a short walk along Rua da Talhada, come to the Church of St. Mary, where you can admire the works of Joseph de Obidos and examine the interior of the temple. Under the church, there is an interesting municipal museum, which is also worth a look.</p>\r\n\r\n<p><strong>2. What is a list of Obidos hidden gems?</strong></p>\r\n\r\n<p>There are some unique attractions, located off the beaten path. First of all, in Obidos, there is not a single natural reservoir, so it&rsquo;s extracted using water wells. Among Obidos must-see places should be mentioned the oldest city water supply, the aqueduct, which was built back in the 16th century, provided water to the town, and is now a picturesque backdrop for walks and photography.</p>\r\n\r\n<p>One more non-tourist place to see is Praia del Rey Beach, located just a short drive from Obidos, offering pristine sands and dramatic cliffs, ideal for a relaxing day by the sea away from the crowds.</p>\r\n\r\n<p>If you wanna see the real Portugal countryside not far from the main attraction, Aldeia da Mata Pequena is a great choice. This small village nestled in the countryside near Obidos offers a glimpse into traditional rural life. Authentic experience is guaranteed.</p>\r\n\r\n<p><strong>3. What dishes are the must-try in Obidos?</strong></p>\r\n\r\n<p>Every region in Portugal has its culinary specialties. In Obidos local cuisine a special place is occupied by a rice dish with various varieties of fish and shrimp - &ldquo;caldeirada&rdquo; according to a recipe from Lagoa de Obidos. The wines from the Oeste region are the best match for Caldeirada. And of course, at the center of the attention of all tourists is the famous cherry liqueur, Ginjinha. It can be found in all bars and restaurants of the city, and the best way to taste it is from a chocolate glass. For more variable experience be sure to try the local macarons, made from fresh fruits and with a variety of liqueurs inside - they are even tastier than in France.</p>",
+        "top_attractions_title": null,
+        "top_attractions_subtitle": null,
+        "be_interested_title": null,
+        "be_interested_subtitle": null,
+        "recommendations_title": null,
+        "recommendations_subtitle": null,
+        "recommendations_slogan": null,
+        "faq_title": null,
+        "faq_subtitle": null
+    }
+},
+{
+    "model": "destinations.destination",
+    "pk": 5,
+    "fields": {
+        "parent_destination": 5,
+        "name": "Evora",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-03-05T13:58:28.660Z",
+        "slug": "evora",
+        "page_title": null,
+        "page_description": "",
+        "keywords": "",
+        "main_title": "Explore Évora With",
+        "main_subtitle": "The Blend of Roman Ruins, Moorish Architecture, and Authentic Cuisine.",
+        "introduction_title": "What to See in Evora",
+        "introduction_subtitle": "Evora is the spiritual center of Portugal, a historical place with the vibe of antiquity and legends.",
+        "introduction_text": "<p>&Eacute;vora is one of the most beautiful cities in Portugal, founded in 1166. Walking through its ancient center, formed under the influence of the Moors and Romans, fills up with the feeling of eternity. The main attractions of Evora are tightly connected with Portuguese kings. Nowadays, &Eacute;vora is an open-air museum where you can spend an interesting day, enjoying incredible views.</p>\r\n\r\n<p>Historical sites in Evora Portugal have been considered a UNESCO World Heritage Site since 1986, as most of the attractions, among which are 20 famous churches and monasteries, are concentrated here.</p>\r\n\r\n<p>The old town of &Eacute;vora looks like a labyrinth of narrow streets and traditionally painted houses with historical and cultural monuments, perfectly fit into the landscape. The city has a rich history and tours from Lisbon to Evora are the must-have to get a deep understanding of Portugal.&nbsp;</p>\r\n\r\n<p>The central Giraldo Square looks like a typical Portuguese plaza. Today there is a fountain on the square, from which go eight main streets. The fountain is the place where water from the Silver Water Aqueduct was first received. The square has many cafes that offer beautiful views of the local landscape. This is Evora&#39;s busiest place, with a relaxed atmosphere, but the real history is far from the idyllic picture. In the Middle Ages, this square was a central point for the cruel trials of the Inquisition.</p>\r\n\r\n<p>One more must-see attraction is the 13th-century Cathedral, whose architecture combines Romanesque and Gothic styles. The highlight of the Cathedral is its treasury, which is a museum of sacred art with rare and priceless artifacts.</p>\r\n\r\n<p>As for Evora&#39;s most famous landmark, it is the Temple of Diana, built in the 2nd or 3rd century AD. It is represented by fourteen columns topped with Corinthian capitals, perfectly preserved to our days. The history of the temple is not so romantic as in the Middle Ages it was used as a gallows and later as a slaughterhouse. In the 19th century, the architectural monument was taken under protection.</p>\r\n\r\n<p>An amazing spot to visit is the 14th-century Palace of the Dukes of Cadaval with the remains of an ancient castle. The exhibition includes valuable manuscripts, ancient weapons, as well as paintings and sculptures.</p>\r\n\r\n<p>The Church of St. John the Evangelist is a 15th-century building, a great example of architecture in the Gothic style. The church was built on the site of a Moorish castle and is part of the Cadaval Palace. Here you can fully enjoy the Azulejo art used in the rich decoration.</p>\r\n\r\n<p>The Romantic church of St. Francis in the Gothic style definitely deserves attention. Previously, there was a Romanesque church, dating back to the 13th century. The unique feature of the church is an arcade.</p>\r\n\r\n<p>The top attraction for visitors here is the Bone Chapel Evora(Capela dos Ossos). It&#39;s rather small, but its gloomy interior, made of human bones, is unforgettable. The Chapel of Bones Evora was created in the 16th century with the remains of previously deceased people from the nearby cemetery.</p>\r\n\r\n<p>The building of the university, founded in the mid-16th century, is also a must-visit place. This university was rather popular among students and masters from all over Europe, but in the 18th century, it was closed and opened again only 200 years later.</p>\r\n\r\n<p>Enjoy your slow walking along the streets of Evora, where among other attractions should also be mentioned the monastery of St. Clare (15th century) with a temporary collection of the city museum. As the museum itself is under restoration, its most valuable exhibits are presented in the decorations of the monastery. Just within walking distance from this place is the city garden with a small outdoor cafe with delicious local cuisine, and the remains of Don Manuel&#39;s palace.</p>\r\n\r\n<p>&Eacute;vora is a very hospitable city with a rich history, where every walk is full of new impressions.</p>",
+        "short_introduction_text": "Évora is one of the most beautiful cities in Portugal, founded in 1166. Walking through its ancient center, formed under the influence of the Moors and Romans, fills up with the feeling of eternity. The main attractions of Evora are tightly connected with",
+        "all_about_title": "All About",
+        "when_to_visit_title": "When to Visit",
+        "when_to_visit_text": "<p>Evora weather and climate are quite typical for the rest of Portugal without significant local peculiarities. The city is filled with historical monuments, so you can come here at any time of the year. The winter temperatures can drop to around 8&deg;C, but it&#39;s good weather for discovering medieval buildings, including a Roman temple, Gothic cathedral, and a picturesque city center.</p>\r\n\r\n<p>If we talk about the summer season, it is worth noting that the temperature here at this time is quite high, unlike coastal cities, so it can reach 30&deg;C. This time there is a famous city festival, which is full of folk music. This festival takes place in June and symbolizes the onset of summer.</p>\r\n\r\n<p>In common the weather in &Eacute;vora, Portugal is typically mild, with hot summers and cool winters.&nbsp;</p>\r\n\r\n<p>Spring and autumn are characterized by warm weather with temperatures from 10 to 21&deg;C, perfect for the first acquaintance with the city without the crowds of tourists.</p>",
+        "getting_around_title": "Getting Around",
+        "getting_around_text": "<p>The most convenient way to get around the city is by taxi or personal transport. Buses as public transport are also popular in &Eacute;vora. They ensure the movement of residents between peripheral areas and the city center. There are currently 9 lines operating in different directions. The schedule of all lines can be found and checked on the official website of the transport company that provides movement in &Eacute;vora by public transport - Transportes Rodovi&aacute;rios de &Eacute;vora (TREVO). Public transport is available even at night, so no need to worry about moving around.</p>\r\n\r\n<p>As for the city center and main attractions, they are easily accessible on foot. The center is compact and walkable any time of the year, perfect for a one day visit.</p>",
+        "travel_tips_title": "Travel Information",
+        "travel_tips_text": "<p>You can get an unforgettable experience while traveling in Evora if you consider a few simple Evora travel tips:</p>\r\n\r\n<p><strong>1. How to make the first trip to Evora unforgettable?</strong></p>\r\n\r\n<p>You can make your trip to Evora a remarkable experience with a one-day visit, seeing Evora Portugal UNESCO heritage in all its beauty. &Eacute;vora is considered the spiritual center of Portugal, so the focus is on its many attractions gathered in the city center. As part of the excursion program, an experienced guide will show you the Se Cathedral, the palaces of Vasco da Gama and Monarch Manuel, the Temple of Diana, churches, and chapels.&nbsp;</p>\r\n\r\n<p>All these historical monuments are in excellent condition. The appearance of Evora is charming, it has been shaped by many cultures but remains unchanged till our times. Even during the construction of new neighborhoods, the historical heritage of the Romans, Moors, and Lusitanians is not violated. And don&#39;t limit yourself to tasting local cuisine like hundreds of thousands of other tourists, as the variety of cheese, wine, and sweets is overwhelming.</p>\r\n\r\n<p><strong>2. What is a list of Evora hidden gems?</strong></p>\r\n\r\n<p>Most of Evora attractions are located within the city center. But historical gems are not everything that may be interesting for tourists here. Among unusual attractions in the Evora area, the most notable is Anta Grande do Zambujeiro, a complex of seven six-meter-tall stones stacked on top of each other. This is the largest dolmen in Europe.</p>\r\n\r\n<p>One of the most important groups of megaliths in the Pyrenees, the Almendres Cromlech stone circle, is located 12 km from &Eacute;vora. It consists of almost a hundred round granite blocks decorated with symbolic designs. The stones are arranged in a circle, or more precisely, in an oval form. They were probably used for cult purposes by representatives of an ancient culture that once developed on the Iberian Peninsula.</p>\r\n\r\n<p>A little further to the east is the Escoural Cave, which contains rock carvings of animals created by the Cro-Magnons 15,000 years ago.</p>\r\n\r\n<p><strong>3. What dishes are the must-try in Evora?</strong></p>\r\n\r\n<p>Local wines and cheese are the core dishes in &Eacute;vora. Variable Evora wine tasting tours are widely popular here.</p>\r\n\r\n<p>The food features traditional Portuguese dishes such as Alentejo pork, a combination of pork and seafood. In addition, local cuisine is distinguished by desserts. The best restaurants in Evora offer torta de azeit&atilde;o, which is a sponge cake with a very tasty cream, making an ideal pairing for wine.</p>\r\n\r\n<p>Moreover, in all restaurants is presented A&ccedil;orda, a traditional Portuguese dish made with bread with olive oil and add-ons, such as boiled eggs, seafood, or herbs. Quite similar to it is Migas. As for seafood dishes, Sopa de Ca&ccedil;&atilde;o with fish and local herbs with spices is a must-have.</p>",
+        "top_attractions_title": "Top Evora Attractions",
+        "top_attractions_subtitle": "Explore Evora's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing",
+        "be_interested_title": "You May Also Be Interested to Visit from Evora",
+        "be_interested_subtitle": "Explore nearby spots from Evora, choosing captivating destinations that guarantee unforgettable experiences and cultura",
+        "recommendations_title": "You May Also Be Interested In Evora",
+        "recommendations_subtitle": "Explore the list of the best things to visit in Evora with the most appropriate options for all categories of tourist",
+        "recommendations_slogan": "Diverse your Evora experience with top attractions for cultural involvement",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful insider tips for the most common queries about Evora"
+    }
+},
+{
+    "model": "destinations.destination",
+    "pk": 6,
+    "fields": {
+        "parent_destination": 6,
+        "name": "Peniche",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-03-06T08:45:54.710Z",
+        "slug": "peniche",
+        "page_title": null,
+        "page_description": "",
+        "keywords": "",
+        "main_title": "Explore Peniche With",
+        "main_subtitle": "Traditional Portuguese Port with Pristine Beaches, and Popular Spot for Maritime Tourism.",
+        "introduction_title": "What to See in Peniche",
+        "introduction_subtitle": "Peniche, Portugal, is a small fishing town in the Western region, to the north of Lisbon.",
+        "introduction_text": "<p>Peniche is located on a peninsula in the Atlantic Ocean, approximately 90 km from Lisbon. According to Peniche history, the first inhabitants here were the Lusitanians, who were hiding from Julius Caesar, settled on the peninsula, and founded a town here.</p>\r\n\r\n<p>Typical tourist program mostly includes seeing amazing views of the ocean and landscapes, slow walks through the historical center, and surfing. Fortress of St. John the Baptist is a must-visit historical attraction. In 1557, King Jo&atilde;o III built defensive walls with 4 meters thickness and a fortress to protect the city from pirate attacks from Africa. During the First World War, it served as a prison, later as a political prison, and as the City Museum since 1984. It exhibits the prison environment, archeology, and shipbuilding of those times. Additionally, there is an incredible panorama of the ocean.</p>\r\n\r\n<p>The peninsula does not have many historical and cultural attractions. But Portuguese fishermen are religious, and look for a bright future in faith, and this fact explains the large number of churches in the area. The most significant temples are the Sanctuary of Our Lady of Healing and the Temple of St. Peter.</p>\r\n\r\n<p>Sanctuary of Our Lady of Healing (Santu&aacute;rio de Nossa Senhora dos Rem&eacute;dios) is a chapel in the rock, lined with unique tiles from the 18th century. It was built after a carved image of the Mother of God was found on the wall of one of the caves.</p>\r\n\r\n<p>The temple complex deserves the attention of visitors, being a favorite place of locals for walking. The protective walls and a courtyard with pine trees, located near Cabo Carvoeiro, open up picturesque views. The 30m high Cape Carvoeiro offers an overwhelming panoramic view of the ocean and cliffs. In 1790, a lighthouse (Farol do Cabo Carvoeiro) 27 meters high was built here. It&#39;s active after automation in 1988, and can be seen from a distance of 28 kilometers.</p>\r\n\r\n<p>Church of St. Peter (Igrejas de S&atilde;o Pedro) is a main city church, which stands among the narrow streets. It was built in the 16th century and is considered the largest in the area. The building contains a statue of St. Peter and paintings from his life. The main chapel in the Baroque style is covered with gilded carvings.</p>\r\n\r\n<p>One of the main associations with Peniche that comes to mind is surfing. For the past years, it has become an integral part of life here. However, the first recordings of foreign surfers date back to the mid-60s. Nowadays, Peniche is the main surfing region of Portugal and, despite its small size, the town is recognized as the real Portuguese surfing capital. In October, the ASP World Championship stage is held here.</p>\r\n\r\n<p>Peniche beaches are numerous. Supertubos Beach is famous for its high tube-shaped waves and the right wind. The crests of the waves here are so long that a kind of corridor is formed between them and the bottom of the wave.</p>\r\n\r\n<p>A place for those who dream of learning to ride. Peniche surf schools of various levels are located here. The beach has been awarded the Blue Flag for its cleanliness.</p>\r\n\r\n<p>One more popular place is the Baleal spot. It has white sand, crystal clear water, and picturesque cliffs, and in the past whale bones were often found on the beach. Residents say that old whales came here to die, so it got the name &ldquo;Baleia&rdquo;, which means &ldquo;whale&rdquo; in Portuguese.</p>\r\n\r\n<p>It&#39;s highly advisable to take a long boat ride to the island of Berlengas (Ilha das Berlengas), which is a Nature Reserve. Its clear waters create ideal conditions for divers, who will find here a natural stronghold for marine fauna and flora. The rough sea and seclusion of the island have always provided a good basis for mysterious stories about fishermen and ships that have crashed off its shores.</p>",
+        "short_introduction_text": "Peniche is located on a peninsula in the Atlantic Ocean, approximately 90 km from Lisbon. According to Peniche history, the first inhabitants here were the Lusitanians, who were hiding from Julius Caesar, settled on the peninsula, and founded a town here.",
+        "all_about_title": "All About",
+        "when_to_visit_title": "When to Visit",
+        "when_to_visit_text": "<p>Peniche weather is comfortable at any time of the year. The region is characterized by a warm mild Mediterranean climate with dry summers and wet winters.&nbsp;</p>\r\n\r\n<p>In summer temperatures range from 20&deg;C to 30&deg;C, making it the perfect time to visit for outdoor activities. In winter temperatures range from 8&deg;C to 16&deg;C, making it perfect for long walks and sightseeing tours. The most comfortable weather in Peniche is from late spring to early autumn, but it&#39;s also quite crowded here this time.</p>\r\n\r\n<p>Summer is perfect for a trip to the local islands, surfing, beach activities, and active nightlife. While it&#39;s not beach weather in winter, there are still plenty of activities to enjoy. It&#39;s highly recommended to explore historical sites like Peniche Fortress, try local seafood cuisine, and take scenic walks along the coast.</p>",
+        "getting_around_title": "Getting Around",
+        "getting_around_text": "<p>There is no public transport in Peniche to move around the city. Most tourists use taxi services or choose the walking route to explore the city. As for the variant with maximum flexibility, there is car rental service.&nbsp;</p>\r\n\r\n<p>To get to the neighboring city or the areas of Baleal or Ferrel, there is a bus. But a taxi is inexpensive and on average it costs 10 EUR to get from Peniche to Baleal.</p>\r\n\r\n<p>Bus schedules from Peniche to another locality can be found on the Internet.</p>\r\n\r\n<p>The bus system is quite comfortable for tourists as it presents an opportunity to explore Peniche and its surroundings without the need to drive or navigate unfamiliar roads. Whether you&#39;re heading to the picturesque Baleal Beach or the scenic cliffs of Cabo Carvoeiro, you may find an option.</p>",
+        "travel_tips_title": "Travel Information",
+        "travel_tips_text": "<p>You can get an unforgettable experience while traveling in Peniche if you consider a few simple Peniche travel tips:</p>\r\n\r\n<p><strong>1. How to make the first trip to Peniche unforgettable?</strong></p>\r\n\r\n<p>Peniche has a rich history. Various archaeological finds indicate that people have lived here since ancient times.</p>\r\n\r\n<p>In the last decade, Peniche has emerged as one of the main centers of European surfing. Due to its geographical location, you can ski here all year round. Every surfing enthusiast, from beginner to professional.</p>\r\n\r\n<p>As for visiting the city for the first time, you should see the S&atilde;o Jo&atilde;o Baptista Fortaleza fortress. Fishing continues to be an important industry in Peniche. Watch the ships loaded with fish enter the port - it&#39;s a magnificent sight.</p>\r\n\r\n<p>And of course, take a walk along Baleal Beach, which stretches between two seas like an island (by the way, it was once an island), which, along with Consolosan Beach in the south, is very popular among surfers.</p>\r\n\r\n<p><strong>2. What is a list of Peniche hidden gems?</strong></p>\r\n\r\n<p>To make your trip to Peniche an unforgettable experience, you can take a ferry or boat from Peniche Harbor to the Berlengas Islands, a nature reserve surrounded by crystal-clear waters. Berlengas consists of several islands, and the island of Berlenga Grande is open to visit. The ferry to Berlenga Grande is available from June to September due to rough seas, but it is also possible to hire a private boat.</p>\r\n\r\n<p>The island is great for a beach holiday and is also home to a picturesque 17th-century fortress. Various types of active recreation are available on the island, among which diving is worth highlighting.</p>\r\n\r\n<p>If you decide to spend the night on the island, there are three options for Peniche accommodation. You can stay in a hostel inside the fortress, in a campsite, but the most convenient option is to book a room at Mesa da Ilha.</p>\r\n\r\n<p><strong>3. What dishes are the must-try in Peniche?</strong></p>\r\n\r\n<p>Peniche is a coastal resort and fishing harbor, so it is not surprising that the basis of the local cuisine is fish and seafood. Peniche restaurants offer famous sardines, tender sea bass, crabs, shrimps, and shellfish. This is a paradise for fish gourmets. However, in Peniche you can easily find restaurants serving any European cuisine, so meat-eaters and vegetarians need not worry either. You can&#39;t leave the island without trying caldeirada, a dish of mixed varieties of fish and potatoes, rice with shrimp, arroz de marisco or charcoal-grilled sardines, which are always served with wines from the Western Region. For dessert, we recommend trying sweets with almonds, for example, bean cake, friend of Peniche, (&ldquo;amigo de Peniche&rdquo;) or biscuits called &ldquo;esses&rdquo;.</p>",
+        "top_attractions_title": "Top Peniche Attractions",
+        "top_attractions_subtitle": "Explore Peniche's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing",
+        "be_interested_title": "You May Also Be Interested to Visit from Peniche",
+        "be_interested_subtitle": "Explore nearby spots from Penich, choosing captivating destinations that guarantee unforgettable experiences and cultura",
+        "recommendations_title": "You May Also Be Interested In Peniche",
+        "recommendations_subtitle": "Explore the list of the best things to visit in Peniche with the most appropriate options for all categories of tourist",
+        "recommendations_slogan": "Diverse your Peniche experience with top attractions for cultural involvement",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful insider tips for the most common queries about Peniche"
+    }
+},
+{
+    "model": "destinations.destination",
+    "pk": 7,
+    "fields": {
+        "parent_destination": 7,
+        "name": "Nazare",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-03-06T11:34:42.999Z",
+        "slug": "nazare",
+        "page_title": null,
+        "page_description": "",
+        "keywords": "",
+        "main_title": "Explore Nazare With",
+        "main_subtitle": "Professional Surfing Spot with Thrilling Waves, Home for Ancient Portuguese Traditions.",
+        "introduction_title": "What to See in Nazare",
+        "introduction_subtitle": "Nazare is a small fishing village, a spot of the highest waves and professional surfing.",
+        "introduction_text": "<p>Nazare, a Portuguese town on the Atlantic coast, is famous throughout the world with 30-meter waves, seen hitting the shore in a strictly defined place, opposite the observation deck with a red lighthouse. This local storm is caused by a gigantic underwater canyon, stretching for almost 170 km and reaching a depth of 5 thousand meters in some places. Nazare is divided into two parts, connected by a path, great for walking along, enjoying local architecture and picturesque views in the background.</p>\r\n\r\n<p>The upper one is the old city, the main sightseeings are concentrated here. In the lower part, there is a beach, souvenir shops, cafes, restaurants, shops, and all the tourist infrastructure.</p>\r\n\r\n<p>The lower part of Nazar&eacute; is a labyrinth of cozy streets. If you don&rsquo;t want to walk, use the funicular, which operates from 6-00 to 23-00.</p>\r\n\r\n<p>The name of Hawaiian surfer Garrett McNamara is tightly connected with Nazare Portugal surfing. In 2011, he became famous throughout the world when he conquered the largest wave, reaching more than 30 meters. This happened on the beach of Praia do Norte, the record was fixed in the Guinness Book of Records, and the surfer received the Billabong XXL Global Awards. After this event, Nazar&eacute; became a mecca for surfers who dream about competing in this crazy adventure. It&rsquo;s impossible to convey the feelings of the people of the planet who pronounce the name of the city in the hope of conquering its waves at least once.</p>\r\n\r\n<p>There are two main beaches in Nazare to be seen: Praia da Nazar&eacute; and Praia do Norte.</p>\r\n\r\n<p>Nazare beach is a long sandy beach with close accessibility to souvenir shops and seafood restaurants. It&#39;s the perfect location for both locals and tourists to swim or enjoy water sports. Along the beach there are traditional fishing boats and a market where old ladies sell dried fish, so don&#39;t miss your opportunity to try it.</p>\r\n\r\n<p>A meeting point for surfers is Praia do Norte, located a bit further.</p>\r\n\r\n<p>Above Nazare Beach there is Sitio, an area with incredible views of the sea. It&#39;s accessible on foot, but don&#39;t miss an opportunity to go there by the Nazar&eacute; funicular. Created by Raul Mesnie du Ponsard, one of Gustave Eiffel&#39;s students, it has been operating in Nazar&eacute; since 1889. The church of Nossa Senhora da Nazar&eacute;, founded in the 14th century, is also located here. Nowadays it&#39;s used as the site of many religious events, such as the Procession in honor of Nossa Senhora da Nazar&eacute; on September 8th. Next to the church is a tiny chapel known as Ermida da Mem&oacute;ria.</p>\r\n\r\n<p>The Miradouro do Suberco observation deck is on the edge of the cliff, 110 meters above sea level, offering breathtaking views of the beach and sea below. One of the most beautiful sunsets on the Nazar&eacute; coast is here.</p>\r\n\r\n<p>The fortress of S&atilde;o Miguel Arcanjo on a rocky cliff is the best place to view the giant waves in Praia do Norte. The building was originally created by King Sebastian in the 16th century to protect Nazare from foreign invaders. Nearby Nazar&eacute; is the monastery of Saint Mary of Cos, which dates back to 1670. The interior with a golden altar, tiled walls, and stunning painted ceilings is well-kept till our times.</p>\r\n\r\n<p>Nazar&eacute;, Portugal, is a unique town, attractive for visiting at any time of the year. You can come here in winter, when Nazare has big waves, or in summer to relax on the beach. You can enjoy the soft sand on the beach, go shopping or taste local dishes, do extreme sports, or visit sightseeings.</p>",
+        "short_introduction_text": "Nazare, a Portuguese town on the Atlantic coast, is famous throughout the world with 30-meter waves, seen hitting the shore in a strictly defined place, opposite the observation deck with a red lighthouse. This local storm is caused by a gigantic underwat",
+        "all_about_title": "All About",
+        "when_to_visit_title": "When to Visit",
+        "when_to_visit_text": "<p>Nazare is a perfect choice for you, regardless of the season, if you love the ocean. But before making your visit it&#39;s highly recommended to check the Nazare weather forecast to make sure the weather is comfortable for your visit.</p>\r\n\r\n<p>The high season is considered to be from 15 of May till 15 of September. During the rest of the year, it&#39;s still popular among surfers. It should be taken into account that even in summer the Atlantic coast is quite cool as the water here does not warm up above +18 degrees. In addition, the ocean is often stormy.</p>\r\n\r\n<p>At the peak of the high season, temperatures vary from +17 to +30 degrees without rain. The most comfortable months for a trip are September and the first half of October. At this time, the temperature remains at +20-25 degrees.</p>\r\n\r\n<p>In winter the temperature ranges from +8 to +15, this is the ideal time for extreme surfing as during the cold season Nazare in Portugal has the biggest waves in the world.</p>",
+        "getting_around_title": "Getting Around",
+        "getting_around_text": "<p>Getting around Nazare, Portugal is available by walking, biking, taxi, or rented car. The town is compact, so most of the attractions are within walking distance. You can also rent a bike or car to explore further. Taxis are another option for short trips or reaching destinations outside the town center. For travelers seeking a more personalized approach, taxi service is available in Nazare. Taxi is the most comfortable and efficient option whether you&#39;re venturing to the renowned Nazare North Canyon for surfing adventures or exploring the nearby fishing villages along the coast.</p>\r\n\r\n<p>The most convenient way to reach surrounding areas and attractions, such as Alcobaca or the natural beauty of the Serra de Aire e Candeeiros National Park, are bus routes from the local bus station.</p>",
+        "travel_tips_title": "Travel Information",
+        "travel_tips_text": "<p>You can get an unforgettable experience while traveling in Nazare if you consider a few simple Nazare travel tips:</p>\r\n\r\n<p><strong>1. How to make the first trip to Nazare unforgettable?</strong></p>\r\n\r\n<p>Nazare is a town with a population of just over ten thousand people, located in the Leiria district, famous for its fishing traditions, as well as the legend of the miraculous rescue of the local king by the Virgin Mary. Nazar&eacute; has long been number one among the places visited by pilgrims from all over the world. But for many thousands of tourists, the main attraction factor, of course, is the giant wave, amazing landscapes, and a great feeling of unity with nature.</p>\r\n\r\n<p>In Nazare, it is necessary to visit Sitiu, eat in one of the restaurants, admire huge waves and surf, watch the sunset on the shores of the Atlantic Ocean, and drink port wine.</p>\r\n\r\n<p>The Portuguese countryside also offers great cuisine, beautiful natural enclaves and monuments, and a bustling and lively atmosphere.</p>\r\n\r\n<p><strong>2. What is a list of Nazare hidden gems?</strong></p>\r\n\r\n<p>While Nazar&eacute; is well-known for its stunning beaches and world-famous waves, there are also non-tourist sightseeings worth exploring, such as Praia do Norte Promenade. Away from the bustling crowds, it guarantees the breathtaking views of the coastline. You can admire the rugged cliffs and observe local fishermen going about their daily routines.</p>\r\n\r\n<p>Don&#39;t forget to visit the museum of Dr. Joaquim Manso. This small museum provides insight into Nazar&eacute;&#39;s maritime heritage and local traditions. You can learn about the town&#39;s fishing history, view traditional artifacts, and even see exhibitions featuring local artists.</p>\r\n\r\n<p>Exploring these hidden gems can offer a more intimate and authentic experience of Nazar&eacute;, allowing you to appreciate its authentic beauty.</p>\r\n\r\n<p><strong>3. What dishes are the must-try in Nazare?</strong></p>\r\n\r\n<p>The most iconic dishes served in Nazare seafood restaurants are perhaps caldeirada (fish casserole), massa de peixe (a kind of fish soup with thin noodles from rock bass or sea crucian carp), arroz de marisco (rice with seafood), accorda de marisco ( panada soup with grated bread, garlic, coriander, and seafood), arroz de tamboril (rice with monkfish). The most respected seafood in this region are clams, shrimp, spider crabs, fresh mackerel, sea bream, rock perch, and sardines, preferably grilled. All these dishes are prepared in numerous restaurants in the city, and each chef has own secrets to make them significant. Nazarenos are the most popular local confectioneries and can be tasted in many of Nazar&eacute;&#39;s pastry shops.</p>",
+        "top_attractions_title": "Top Nazare Attractions",
+        "top_attractions_subtitle": "Explore Nazare's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing",
+        "be_interested_title": "You May Also Be Interested to Visit from Nazare",
+        "be_interested_subtitle": "Explore nearby spots from Nazare, choosing captivating destinations that guarantee unforgettable experiences and cultura",
+        "recommendations_title": "You May Also Be Interested In Nazare",
+        "recommendations_subtitle": "Explore the list of the best things to visit in Nazare with the most appropriate options for all categories of tourist",
+        "recommendations_slogan": "Diverse your Nazare experience with top attractions for cultural involvement",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful insider tips for the most common queries about Nazare"
+    }
+},
+{
+    "model": "destinations.destination",
+    "pk": 8,
+    "fields": {
+        "parent_destination": 8,
+        "name": "Douro",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-03-06T15:15:32.937Z",
+        "slug": "duoro",
+        "page_title": null,
+        "page_description": "",
+        "keywords": "",
+        "main_title": "Explore Douro With",
+        "main_subtitle": "Serene River Valley with Lush Vineyards, Ancient towns, and Sunny Traditional Portuguese Villages",
+        "introduction_title": "What to See in Douro",
+        "introduction_subtitle": "Douro is an amazing region filled with history, culture, natural beauty, and great wine.",
+        "introduction_text": "<p>The Douro River, 897 kilometers long, originates in the mountains of Spain, then goes through Portugal and flows into the Atlantic Ocean in the area of Porto and Vila Nova de Gaia. Along the shore highway, there are numerous observation decks with breathtaking views at literally every turn. One of the most famous decks is located in the town of S&atilde;o Leonardo da Galafura, near Peso da Regua, providing an amazing panoramic view of all the beauty of the valley and the mountains. No matter how you come to the Douro Valley, by boat cruise or by land, positive impressions along the way with an opportunity to visit vineyards and authentic villages and take part in the process, are guaranteed.</p>\r\n\r\n<p>Douro River cruises are extremely popular as they allow you to see the valley in all its pure beauty. In 2001, the Alto Douro wine region was included in the UNESCO World Heritage List. The traditions of wine production here are unique, having deep roots, which didn&#39;t change much with the flow of time. The history of wine in Douro Valley goes back to ancient times. It&#39;s believed that wine has been produced using traditional methods, dating back to the Roman Empire, for two thousand years. What is even more surprising is that the process did not change during the Moorish conquest. Even though Muslims could not drink wine, it became a profitable business and was often used for trade and export.</p>\r\n\r\n<p>Alfonso Henriques, the first king of Portugal, and Cistercian monks from this region are believed to have made a significant contribution to the cultivation of grapes in Douro wine region. Additionally, in many places, in wineries, you can find farm olive oil, as olive trees perfectly coexist with vineyards.</p>\r\n\r\n<p>Still, at the center of attention of most visitors here is port wine. It&#39;s Portugal&#39;s main export wine, but along with it, there are many other unique wines of this region. The history of l&#39;Alto Douro is the history of port wine. Here and there, among the terraces with red-tiled roofs, are located the vineyards. In autumn they make wine, which is sent to the cellars of Vila Nova de Gaia in the spring. The names of wineries are written in huge letters on the tops and slopes of Douro hills to make the trademarks visible from a considerable distance. It&#39;s one of the most unique symbols of Douro landscape. In general, there are more than 80 traditional varieties of grapes cultivated here.</p>\r\n\r\n<p>The list of Douro sightseeings is not limited only by natural wonders. In the museum of the town of Peso da Regua is a safely kept exhibition, dedicated to the history and traditions of port wine with interactive options for visitors, such as distinguishing wines by smell.</p>\r\n\r\n<p>A great choice to observe Douro Valley landscapes is Lamego, one of the most traditional and beautiful towns in the valley. It lies at the base of a tiered granite staircase decorated with white and blue azulejo tiles. Nearly 700 steps lead to the Church of Our Lady of Remedies, a striking example of the Rococo style. Pinyan is also a great place to see traditional tiles. The building of the local station is lined with 25 panels depicting Douro Valley vineyards and picturesque surroundings.</p>\r\n\r\n<p>Douro Natural Park is located near the Spanish border. Here, relict juniper forests alternate with oak and olive groves. The valley here was turned into an archaeological park with an open-air gallery of rock paintings. Hundreds of petroglyphs from the late Paleolithic times are preserved on the coastal rocks and can be seen by visitors.</p>\r\n\r\n<p>Douro Valley offers numerous leisure options to enjoy the lush beauty of nature and get a taste of life without the fuss.</p>",
+        "short_introduction_text": "The Douro River, 897 kilometers long, originates in the mountains of Spain, then goes through Portugal and flows into the Atlantic Ocean in the area of Porto and Vila Nova de Gaia. Along the shore highway, there are numerous observation decks with breatht",
+        "all_about_title": "All About",
+        "when_to_visit_title": "When to Visit",
+        "when_to_visit_text": "<p>The weather in Douro region has its peculiarities, important for the production of wine. Several mountain ranges shelter the valley from the influence of the Atlantic Ocean and give the climate a continental character: it has dry, hot summers and somewhat colder, wet winters. The best time to visit the region is spring or late summer when the temperature usually varies from 15 to 20&ordm;C. September is good for Douro Valley wine tour from Porto. This time is also a great choice for walking or cycling as temperatures will be cooler.</p>\r\n\r\n<p>It can be cold and rainy in Porto, but the higher up the river you go, the less rain there will be and the higher the temperature will rise. The average temperature in Douro Valley is more than 6 degrees higher than Porto.</p>\r\n\r\n<p>In July and August, the temperature is usually around 30&ordm;C, it&#39;s the most hot and active tourist season. The vineyards are open year-round, so no matter what time of year you visit, you can always count on getting your unique experience of wine tasting.</p>",
+        "getting_around_title": "Getting Around",
+        "getting_around_text": "<p>Douro Valley travel is easy with a developed transportation system, offering options for different preferences and budgets. Bus routes with fares around &euro;2-&euro;5 go through major towns like Peso da R&eacute;gua, Pinh&atilde;o, and Vila Real. Taxi service for more personalized travel is also available. Consider a traditional Rabelo boat trip along Douro River for a unique experience. And of course, the best way to be flexible and explore remote areas is the car rental.&nbsp;&nbsp;</p>\r\n\r\n<p>The train runs from the central railway station along the banks of Douro River. You can immerse yourself in the atmosphere of the early 20th century if you take a ride in a vintage carriage from the town of Peso da Regua.</p>\r\n\r\n<p>For those seeking local insights and hassle-free transportation, the best options are the guided tours, such as Douro cruises from Porto. Prices vary depending on the itinerary and program.</p>\r\n\r\n<p>Additionally, there is an option to rent bikes and explore scenic routes, enjoying the valley without crowds of other tourists. Rentals are available in all towns along Douro flow.</p>",
+        "travel_tips_title": "Travel Information",
+        "travel_tips_text": "<p>You can get an unforgettable experience while traveling in the Douro if you consider a few simple Douro travel tips:</p>\r\n\r\n<p><strong>1. How to make the first trip to Douro unforgettable?</strong></p>\r\n\r\n<p>One of the main advantages of Douro Valley is its beautiful nature. Douro River flows through the valley surrounded by vineyards, which is already a unique experience. But Douro Valley is also an important historical and cultural spot with numerous ancient buildings and monasteries. Most of them, located right on the slopes, date back to the Middle Ages.&nbsp;</p>\r\n\r\n<p>In addition, Douro Valley is famous for its bridges. Ponte do Infante bridge was built in the 14th century and was used as the main bridge for travel between the north and south of Portugal. Douro Valley is not only extremely picturesque but also perfectly located for outdoor activities. You can go hiking, visit observation decks, and swim in the river. You can also rent bicycles or a car to explore the area.</p>\r\n\r\n<p><strong>2. What is a list of Douro hidden gems?</strong></p>\r\n\r\n<p>Douro Valley wine is the main spot when we talk about the main attractions. But also this region is the site of many historical events, including the Portuguese War of Independence in the early 19th century. The witnesses of rich Douro Valley history are numerous castles, fortresses, and monasteries.</p>\r\n\r\n<p>Also, the region is home to traditional villages that preserve the culture and native way of life. Here you can try local dishes and enjoy traditional music.</p>\r\n\r\n<p>This picturesque Port wine region preserves a large number of caves, some of which are archaeological sites, and some of which were used in the past to store wine.</p>\r\n\r\n<p><strong>3. What dishes are the must-try in Douro?</strong></p>\r\n\r\n<p>Douro Valley&#39;s local cuisine is a perfect mix of regional flavors and traditional dishes. Among the must-try delights is bacalhau &agrave; Gomes de S&aacute;, a stew of salted cod and veggies, tasting like a comfort food. One more popular stew is cozido &agrave; portuguesa, a hearty Portuguese dish with meat, vegetables, and aromatic spices, simmered to perfection. Posta mirandesa, a tender beef steak, served with roasted vegetables or potatoes, is another must-try dish. Caldo Verde is a veggie and cheese soup, perfect for chilly evenings.</p>\r\n\r\n<p>And don&#39;t forget about Portuguese unforgettable desserts. Treat yourself with traditional past&eacute;is de nata, delectable custard tarts with a crispy, caramelized crust, and a creamy, indulgent filling.</p>",
+        "top_attractions_title": "Top Douro Attractions",
+        "top_attractions_subtitle": "Explore Douro's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing",
+        "be_interested_title": "You May Also Be Interested to Visit from Douro",
+        "be_interested_subtitle": "Explore nearby spots from Douro, choosing captivating destinations that guarantee unforgettable experiences and cultura",
+        "recommendations_title": "You May Also Be Interested In Douro",
+        "recommendations_subtitle": "Explore the list of the best things to visit in Douro with the most appropriate options for all categories of tourist",
+        "recommendations_slogan": "Diverse your Douro experience with top attractions for cultural involvement",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful insider tips for the most common queries about Douro"
+    }
+},
+{
+    "model": "destinations.destination",
+    "pk": 9,
+    "fields": {
+        "parent_destination": 9,
+        "name": "Cascais",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-03-07T14:10:15.573Z",
+        "slug": "cascais",
+        "page_title": null,
+        "page_description": "",
+        "keywords": "",
+        "main_title": "Explore Cascais With",
+        "main_subtitle": "Coastal Gem with Pristine Beaches, Unique Architecture, and Cultural Heritage.",
+        "introduction_title": "What to See in Cascais",
+        "introduction_subtitle": "Cascais, Portugal, is an oceanfront resort town, both a seaport and a municipality within the district of Lisbon.",
+        "introduction_text": "<p>Cascais, located on the seaside, 30 km from Lisbon, is well-known from the times when prehistoric tribes lived here. It received the status of a city in the middle of the 14th century, and before that, it was considered a small fishing and agricultural village, and fishing is still an important industry here.</p>\r\n\r\n<p>Nowadays, it&#39;s a popular holiday destination for both Portuguese and foreign tourists. It has a perfect location, surrounded on three sides by the ocean, being a house for many beautiful historical sites and monuments.&nbsp;</p>\r\n\r\n<p>At the end of the 19th and beginning of the 20th centuries, Cascais became the residence of the Portuguese royal family. From that time on, the city began to develop as a tourist destination.&nbsp;</p>\r\n\r\n<p>Cascais is the perfect spot for water sports enthusiasts. There are many good sandy beaches with famous Cascais luxury hotels, especially on the Estoril coast, where there are organized regattas and international competitions. The West Coast is especially popular among fans of Cascais outdoor activities, such as kitesurfing and windsurfing due to the constant large waves, and competitions in these sports are regularly held here.</p>\r\n\r\n<p>Speaking about the best beaches of Cascais should be noted Conceicao, one of the most popular and crowded beaches near Lisbon. Praia da Rainha with the convenient bay is one of the best Cascais beaches, protected from strong winds and powerful waves. Praia da Ribeira occupies the central part of the coast of Cascais. The sandy beach and gradually increasing depth make the place very attractive to people. Guincho is the most picturesque of all the beaches in Cascais. As for Ursa, it&#39;s one of the most beautiful beaches in Portugal. It is called &ldquo;bearish&rdquo; because of its inaccessibility.</p>\r\n\r\n<p>Cascais tourist attractions are numerous. Just three kilometers west of the city lies a stunning cliff with the famous Boca do Inferno, or &quot;Devil&#39;s Mouth&quot; grotto. Its roaring waves and dramatic crashes make it a must-see for tourists, earning it the nickname &quot;The Gates of Hell.&rdquo;</p>\r\n\r\n<p>As for Cascais historical sites, the first must-have spot for a visit should be the church of the Assumption of the Virgin Mary. It&#39;s located in the city center and is considered one of the most famous churches in Cascais. The temple was built in the 16th century, and decorated with paintings of sacred subjects, created by Josefa de Obidos, a famous 17th-century Portuguese artist.</p>\r\n\r\n<p>Santa Marta lighthouse Cascais is located on the site of a former fort and the entire complex has been converted into an entertainment and cultural center, although the lighthouse is still part of the coastal signal system. The museum offers an overview of lighthouses in general and the work of a lighthouse keeper.</p>\r\n\r\n<p>On the outskirts of Praia do Abano is located Fort do Guincho, also called Fort Velas. It stretches along the southern coast of the Alcabideche district. Although the fort was included in the list of objects of public importance back in 1977, it needs renovation.</p>\r\n\r\n<p>The small fort of San Teodosio, located along the coast in Estoril, on Poza Beach, was built during the reign of King Jo&atilde;o IV.&nbsp; The fort served as a defensive line between San Julian da Barra and Cabo da Roca.</p>\r\n\r\n<p>The Cascais Citadel, used as a summer residence for the President, was built around 1488 by King John II. In its garden is located a small open-air artillery museum.</p>\r\n\r\n<p>The Palace Museum of the Counts of Castro Guimar&atilde;es is located in the ancient port city of Cascais, where fishing flourished in ancient times.&nbsp;</p>\r\n\r\n<p>Currently, it attracts tourists with its endless beaches, international events, and the pleasant warm atmosphere of a resort town.</p>",
+        "short_introduction_text": "Cascais, located on the seaside, 30 km from Lisbon, is well-known from the times when prehistoric tribes lived here. It received the status of a city in the middle of the 14th century, and before that, it was considered a small fishing and agricultural vi",
+        "all_about_title": "All About",
+        "when_to_visit_title": "When to Visit",
+        "when_to_visit_text": "<p>In Cascais, summers are warm, dry, and partly cloudy, while winters are cool, wet, and partly cloudy, with windy conditions all year round. Still, before the visit, it&#39;s recommended to check the Cascais weather forecast.</p>\r\n\r\n<p>Cascais, like the entire coast of central Portugal, has a temperate climate, great for beach rest and swimming in the ocean from May to October. The ocean water near the coast warms up to 20. The rest of the time, the water in the ocean is quite cool.</p>\r\n\r\n<p>However, most tourists come here in the high summer season, July-August, when the temperature reaches 27-28 degrees.</p>\r\n\r\n<p>The cool season lasts from November to March, with a minimum average daily temperature below 17 &deg;C. The coldest month of the year in Cascais is January, with an average temperature is 10&deg;C- 15&deg;C. This period is good for sightseeing tours without crowds of tourists.</p>",
+        "getting_around_title": "Getting Around",
+        "getting_around_text": "<p>The train station and bus stations, which are close to each other, are located in the heart of Cascais. From here it is convenient to travel to neighboring cities and explore Portugal. There is also a bus running around the city itself on a single circular route every 15 minutes. The ticket price is around 1 euro. To get around the city and be flexible it&rsquo;s convenient to use a taxi.</p>\r\n\r\n<p>Free bicycle rental is available for tourists who check in at the local Cascais beach resorts. Rental hours are from 8 a.m. to 7 p.m.</p>\r\n\r\n<p>The most convenient way to access Lisbon is by train, which goes every 20 minutes during high season and costs 2 EUR. At night there are three flights to the capital. Tickets must be purchased in advance before boarding. During the trip, they must be presented to the controller. Depending on the number of stops, the trip takes 30-40 minutes. There should be no problems with moving between cities in Portugal using public transport.</p>",
+        "travel_tips_title": "Travel Information",
+        "travel_tips_text": "<p>You can get an unforgettable experience while traveling in Cascais if you consider a few simple Cascais travel tips:</p>\r\n\r\n<p><strong>1. How to make the first trip to Cascais unforgettable?</strong></p>\r\n\r\n<p>After walking around the city, discovering its architectural sites, and trying local cuisine, don&#39;t forget to visit the impressive rock formations at Boca do Inferno, one of the most popular Cascais attractions. Tourists who come here are amazed by the power of the sea, which breaks its waves against the coastal rocks. After driving a little further along the coast, you will see the westernmost point of Europe, Cape Cabo da Roca with impressive panoramas with many excellent restaurants. Another option is a scenic coastal drive to the charming city of Sintra, a UNESCO World Heritage Site. Magnificent palaces that seem to grow out of the ground create a romantic atmosphere of a magical fairy tale, which once inspired Lord Byron and Hans Christian Andersen.</p>\r\n\r\n<p><strong>2. What is a list of Cascais hidden gems?</strong></p>\r\n\r\n<p>Cascais has an atmosphere of luxury with a fashionable marina, as well as proximity to the famous Estoril Casino, the Estoril Tennis Club, the Formula 1 race track, and several prestigious golf clubs, tennis courts, and horse riding clubs. Cascais harbor hosts many international events. It is also worth mentioning the numerous nightlife establishments of Cascais, the most popular of which are located near the coast. Lovers of dancing until dawn will like the Baluarte club, which, in addition to a colorful dance floor and variable entertainment program, can offer its guests a cozy bar with a lot of treats and signature cocktails.</p>\r\n\r\n<p><strong>3. What dishes are the must-try in Cascais?</strong></p>\r\n\r\n<p>The traditional dish in Cascais is cozido &agrave; portuguesa - a mixture of meat, sausages, and vegetables. Also, you should definitely try specialties in Cascais seafood restaurants, cod is especially excellent, and the residents of Portugal know countless ways to cook it. It is important to pair each dish with the right wine. In addition to the port, Portugal produces many different varieties of table wine. And, of course, don&rsquo;t forget about delicious cheeses. The highlight of the program is cheese produced in the mountainous regions of the country.<br />\r\nDon&#39;t forget to indulge in Portugal&#39;s famous pastries, including past&eacute;is de nata (custard tarts) and queijadas (cheese pastries). Cascais will delight with a selection of sweets, pies, and other confectionery products, which, according to legend, were first prepared by nuns in local convents.</p>",
+        "top_attractions_title": "Top Cascais Attractions",
+        "top_attractions_subtitle": "Explore Cascais's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing",
+        "be_interested_title": "You May Also Be Interested to Visit from Cascais",
+        "be_interested_subtitle": "Explore the diversity of Cascais through new experiences of culture, cuisine and historical treasures",
+        "recommendations_title": "You May Also Be Interested In Cascais",
+        "recommendations_subtitle": "Explore the list of the best things to visit in Cascais with the most appropriate options for all categories of tourist",
+        "recommendations_slogan": "Diverse your Cascais experience with top attractions for cultural involvement",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful insider tips for the most common queries about Cascais"
+    }
+},
+{
+    "model": "destinations.destination",
+    "pk": 10,
+    "fields": {
+        "parent_destination": 10,
+        "name": "Fatima",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-03-15T11:41:44.132Z",
+        "slug": "fatima",
+        "page_title": null,
+        "page_description": "",
+        "keywords": "",
+        "main_title": "Explore Fatima With",
+        "main_subtitle": "Significant Religious Pilgrimage Site, the Point of Spiritual Devotion and Cultural Value.",
+        "introduction_title": "What to See in Fatima",
+        "introduction_subtitle": "Fatima is one of the largest pilgrimage centers in the world, home to the famous  Basilica of Our Lady of the Rosary of Fatima",
+        "introduction_text": "<p>The Portuguese city of Fatima is associated with a miracle for many believers. Fatima pilgrimage started in 1917 when 3 kids said that they witnessed the Virgin Mary. Every year on the 13th, from May till October, hundreds of thousands of pilgrims come here to celebrate the anniversary of the unforgettable apparitions of the Virgin Mary, begging for her intercession for all of humanity. This event is the greatest revelation since her ascension to Heaven. The Catholic Church recognized the Fatima apparitions as the most important message of the Mother of God to the modern world, and a true miracle. The construction of the Basilica, the main pilgrimage point, started at the beginning of the last century. Here are the relics of all three kids who saw the Virgin Mary: Lucia, Jacinta, and Francisco.</p>\r\n\r\n<p>Fatima sanctuary visit is undoubtedly interesting not only for hundreds of believers but also for non-religious people. This is a large building with a huge square where believers gather at certain times which architectural value can&#39;t be denied. This sanctuary is a construction formed by the Chapel of the Apparitions in the place where the Virgin Mary appeared to the shepherds. At key points of the phenomena throughout the city can be found the statues, proving it.</p>\r\n\r\n<p>Basilica is carried out in neo-Baroque style. Its construction on the spot where the small shepherds saw the Virgin Mary began several decades after the apparitions when the place became a spot of worship and pilgrimage. It has a central tower, topped with a bronze crown, and a famous sequence of colonnades beautifully decorated with ceramic panels depicting the Stations of the Cross. The Chapel of the Apparitions was at first a small building, but today it is a small modern chapel with an image of the Virgin Mary on the site of the tree in which she appeared.</p>\r\n\r\n<p>The Basilica of the Holy Trinity is considered one of the largest in the world in terms of total internal area, more than 10 thousand square meters. THE construction began in 2004, and the opening took place 90 years after the significant event. It has 5 chapels, about 50 confessionals, and a cafe where believers can relax. The interior space is decorated with a mosaic of hand-made tiles, depicting Heavenly Jerusalem. In addition, quotes from the Bible in 23 languages are painted on the walls. The building is low so that it would not block the view of the Basilica of Fatima. There are 13 doors to get inside the Church of the Holy Trinity, according to the number of those present at the Last Supper.</p>\r\n\r\n<p>As for other attractions, the ethnographic house-museum of Aljustrel definitely deserves attention. It is located in a small village, on the very outskirts of the city of Fatima, but it&#39;s still an important object for Fatima religious tourism. Here were born the children who met the Virgin Mary for the first time in 1917. The museum is a small house with various exhibits related to the &ldquo;Miracle of Fatima&rdquo;, as well as other artifacts of those times. On the walls, you can see many paintings depicting the life of the village before and after the appearance of the Virgin Mary.</p>\r\n\r\n<p>Those tourists who are not too religious will enjoy the wax museum. The museum has two parts, thematically divided for visitors. The first one presents scenes of the appearance of the Virgin Mary to children, as for the other, it would be interesting for all categories of visitors, as it shows famous personalities of the city. Among them are Pope John Paul II, Bishop Seraphim, Father Paulo Molinari, and Father Louis Condor. A visit to this museum is a great opportunity not only to appreciate the skill and talent of the artists whose creations are presented at the exhibit but also to learn the history of the city. Here the visitors have an opportunity to witness the most significant historical events related to religious themes.</p>",
+        "short_introduction_text": "The Portuguese city of Fatima is associated with a miracle for many believers. Fatima pilgrimage started in 1917 when 3 kids said that they witnessed the Virgin Mary. Every year on the 13th, from May till October, hundreds of thousands of pilgrims come he",
+        "all_about_title": "All About",
+        "when_to_visit_title": "When to Visit",
+        "when_to_visit_text": "<p>A visit to Fatima for most people is a religious event. Most of the pilgrims come here from May to October, which is associated not only with the weather but also with several religious events on the 13th of every month.</p>\r\n\r\n<p>One of the most important moments in the celebrations is the Candlelight Procession, which takes place on May 12th. Thousands of believers with lit candles fill the area of the Sanctuary of Fatima, bringing an atmosphere of hope and harmony to this place. The farewell procession the next day, May 13th, makes an equally strong impression.</p>\r\n\r\n<p>Like almost the entire territory of Portugal, the climate in Fatima is Mediterranean. In summer it is hot and without precipitation, in winter it is not very cold, but rainy, and high humidity prevails. The average annual temperature is 21 degrees. There are 257 dry days a year.</p>\r\n\r\n<p>The maximum average air temperature in summer is 30 degrees. The minimum average temperature in winter is 13&deg;C during the day and 6&deg;C at night.</p>",
+        "getting_around_title": "Getting Around",
+        "getting_around_text": "<p>Fatima is rather small, and both pilgrims and average tourists come around it on foot. If you arrive in Santu&aacute;rio de F&aacute;tima not as a believer, but as a tourist, then up to 2 hours will be enough to explore the place and take a short photo report.&nbsp;</p>\r\n\r\n<p>To walk around and see all the most significant places of Fatime it&#39;s highly recommended to prepare the most comfortable shoes for long walks.</p>\r\n\r\n<p>The transportation options are limited, but still available. There is taxi service for longer distances or in case you want to visit the surrounding sightseeings. For most non-religious visitors who come here for a few days it can be an exciting adventure to explore the town and its outskirts on bike. Buses from the local bus station offer routes to nearby towns, making them a convenient option for backpackers.</p>",
+        "travel_tips_title": "Travel Information",
+        "travel_tips_text": "<p>You can get an unforgettable experience while traveling in Fatima if you consider a few simple Fatima travel tips:</p>\r\n\r\n<p><strong>1. How to make the first trip to Fatima unforgettable?</strong></p>\r\n\r\n<p>Fatima, the Portuguese city of wonders, is one of the three most important sites for Catholics in Europe, just behind the Vatican and the Sanctuary of Our Lady of Lourdes in France.</p>\r\n\r\n<p>Visits to Fatima can be arranged as an organized day trip from Porto or Lisbon</p>\r\n\r\n<p>It is part of Portugal&#39;s deep culture and the knowledge that the country itself would not be complete without a visit to its holiest site.</p>\r\n\r\n<p>It is worth noting that even if your visit to Fatima falls in the late evening, it is a great idea as you can see Fatima Lisbon attractions in an unusual way. At night the illumination is lit and the temples look no less beautiful. From October to April, after 20:00, a spectacular candlelight procession takes place on the square every day. There is an information stand where you can find out the schedule for the day near the chapel.</p>\r\n\r\n<p><strong>2. What is a list of Fatima hidden gems?</strong></p>\r\n\r\n<p>Fatima is not only a religious spot. Two kilometers from it are the famous underground caves, which are part of the surrounding limestone massif. They were discovered in 1971 by two hunters chasing a fox. This place can&#39;t be called the most interesting in the world, but the experience of visiting some natural wonders will be valuable. It will be possible to descend to a depth of 45 m and walk along an underground path 350 meters long, looking at the beautifully illuminated halls, waterfalls, and reservoirs.</p>\r\n\r\n<p>If you are in Fatima in the summer, the caves will be like an oasis in the heat as it is always 18&deg;C there, and there is a decent cafe where you can have a snack. In the store you can buy liquor or wine, and, of course, souvenirs.</p>\r\n\r\n<p><strong>3. What dishes are the must-try in Fatima?</strong></p>\r\n\r\n<p>The national cuisine of this part of the country is well-known throughout Europe. First of all, these are cod dishes, which in Portugal are called bacalhau. It is prepared in a variety of ways with legumes and sausages, added as a filling to pies, and you can even find pasties with cod.</p>\r\n\r\n<p>If you want to try a delicious sandwich in Portugal, try Bifanas! This sandwich is filled with juicy marinated pork, usually served on a fresh, crispy white baguette. The marinade recipe changes constantly, but common spices include white wine, pepper, and garlic, keeping the pork moist and flavorful. Many restaurants will offer a sandwich with fried potatoes. You can add different toppings to the sandwich, such as egg, lettuce, or tomato, but if you like the authentic taste, just go for pork.</p>",
+        "top_attractions_title": "Top Fatima Attractions",
+        "top_attractions_subtitle": "Explore Fatima's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing",
+        "be_interested_title": "You May Also Be Interested to Visit from Fatima",
+        "be_interested_subtitle": "Explore nearby spots from Fatima, choosing captivating destinations that guarantee unforgettable experiences and cultura",
+        "recommendations_title": "You May Also Be Interested In Fatima",
+        "recommendations_subtitle": "Explore nearby spots from Fatima, choosing captivating destinations that guarantee unforgettable experiences and cultural abundance.",
+        "recommendations_slogan": "Diverse your Fatima experience with top attractions for cultural involvement",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful insider tips for the most common queries about Fatima"
+    }
+},
+{
+    "model": "destinations.destination",
+    "pk": 11,
+    "fields": {
+        "parent_destination": 11,
+        "name": "Tomar",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-03-15T11:51:16.465Z",
+        "slug": "tomar",
+        "page_title": null,
+        "page_description": "",
+        "keywords": "",
+        "main_title": "Explore Tomar With",
+        "main_subtitle": "A Symbol of the Templar Legacy, Home to UNESCO World Heritage Site, the Impressive Convent of Christ",
+        "introduction_title": "What to See in Tomar",
+        "introduction_subtitle": "Tomar, Portugal, was founded in the 12th century by the Master of the Knights Templar, keeping their treasures till our times.",
+        "introduction_text": "<p>Tomar is located 140 km from Lisbon, on the banks of the Naban River. Its history is closely connected with Templar secrets. The Monastery of the Order of Christ, a world heritage site founded in the 12th century by the Knights Templar, is located on the hill right above Tomar. Legend says that the hill was shown to them in a mystical vision. Upon arrival in Tomar, it is impossible not to see this amazing monument surrounded by lush trees. The architecture of the monastery is characterized by a mixture of Gothic and Renaissance styles, an abundance of distinctive Templar signs in the decor, as well as elements of the Moorish style. The heart of the monastery is the round church of Sharol, built in imitation of the Church of the Holy Sepulcher and decorated with plant motifs. The interior of the church is decorated with Gothic paintings and sculptures and Manueline stone engravings.</p>\r\n\r\n<p>The monastery could become the pearl of the city, but the charm of Tomar does not end there, and the list of Portuguese medieval castles is much wider. The central part of Tomar, Rua Serpa Pinto, where you will find the best shops, is considered a historical district. The street will lead you to Pra&ccedil;a da Republica, where another important attraction is located, the Church of Sant Joan Batista. It combines two styles, Gothic and Manueline style. The church contains many elements of a maritime theme as the 15th century was the era of the emergence of Portugal as a maritime power. The walls of the temple are decorated with the famous panels &ldquo;The Last Supper&rdquo; and &ldquo;The Beheading of John the Baptist&rdquo;. In 1910, the Church of Sant Joan Batista was recognized as one of the country&#39;s national monuments.</p>\r\n\r\n<p>One more perl in the architecture of Tomar is the Church of St. Francisco, built in the 17th century. The portal of the building with graceful stone columns and arches is made in the Mannerist style with many elements in gilding with decorative paintings.&nbsp;</p>\r\n\r\n<p>Among Tomar attractions should be mentioned the Church of Santa Maria do Olival was founded in the 13th century, when Tomar was ruled by the Knights Templar. At that time, burial processions of members of the order were held here. Later the church became the resting place of the knights of the Order of Christ. Today, the unique ancient monastery, which amazes with its impressive size, is a landmark of world significance and is listed as Portugal UNESCO site. Unfortunately, the building has undergone multiple reconstructions, but in general, it&#39;s well-kept till our time. At the altar, there is a majestic statue of the Virgin Mary. What distinguishes it from other churches in the city is the presence of an interesting window above the entrance, made in the shape of a flower.</p>\r\n\r\n<p>The list of must-visit Tomar historical sites should include a visit to the Synagogue, located on Rua Dr. Joaquim Jacinto. It was built at the beginning of the 15th century and is one of the oldest in Portugal. Today the Synagogue has been converted into a museum named after the great scientist Abraham Zakutu.</p>\r\n\r\n<p>In the vicinity of the city, there is an ancient aqueduct that has also been preserved which was used for water supply to the monastery of the Order of Christ. Construction of the bridge, an object of Medieval heritage, began in the 16th century and lasted almost a hundred years. It has 180 arches and is 6,000 meters long. The aqueduct is located in a picturesque natural area, which is ideal for walking.</p>\r\n\r\n<p>Tomar tourism is not limited only to historical monuments. This city has many interesting places to visit that are definitely worth a look. Architecture, nature, and religion are presented in all their diversity, creating one amazing picture of an ancient city. Tomar will certainly leave only pleasant memories, perfectly complementing your holiday in Portugal.</p>",
+        "short_introduction_text": "Tomar is located 140 km from Lisbon, on the banks of the Naban River. Its history is closely connected with Templar secrets. The Monastery of the Order of Christ, a world heritage site founded in the 12th century by the Knights Templar, is located on the",
+        "all_about_title": "All About",
+        "when_to_visit_title": "When to Visit",
+        "when_to_visit_text": "<p>Tomar has cool, wet winters and hot, dry summers. Throughout the year, temperatures typically range from 4&deg;C to 31&deg;C and rarely fall below -1&deg;C or above 38&deg;C. The weather in Tomar is quite stable; you can trust the forecasts made for the week ahead. This will help you plan the ideal travel time.</p>\r\n\r\n<p>As for the most comfortable time for a visit, If you don&#39;t like long walks in cold weather, it&#39;s highly advisable to go on this tour from April to November. July-August is the hottest time. In addition to weather conditions, you also need to consider the opening hours of the main attractions. It&rsquo;s worth coming 2-3 hours earlier in the morning so that you can walk through the beautiful garden with orange and olive trees without crowds of tourists.</p>",
+        "getting_around_title": "Getting Around",
+        "getting_around_text": "<p>Tomar is equipped with a developed transport infrastructure. The city also has a train station, from where you can easily get to different destinations in Portugal. Bus service from the bus station has also been improved. Those who prefer comfort can rent a car.</p>\r\n\r\n<p>There are direct trains to Tomar Station from Lisbon&#39;s Gare do Oriente which take from 90 minutes to 2 hours depending on the train. Some trains may involve a change at Entroncamento. If traveling north to Coimbra or Porto, you will need to change trains at Lamarosa or Entroncamento. There are also frequent trains to Santar&eacute;m. The bus station is adjacent to Tomar railway station and there are buses to Lisbon, Leiria, Fatima, and Santar&eacute;m.</p>",
+        "travel_tips_title": "Travel Information",
+        "travel_tips_text": "<p>You can get an unforgettable experience while traveling in Tomar if you consider a few simple Tomar travel tips:</p>\r\n\r\n<p><strong>1. How to make the first trip to Tomar unforgettable?</strong></p>\r\n\r\n<p>It&rsquo;s worth going to Tomar not only to get into the spirit of history. Tomar is home to one of the most beautiful and mysterious castles in Portugal. It has existed for hundreds of years and became the last stronghold of the Templars in Europe when persecution began against them. Tomar is also famous for its Renaissance wall paintings. Perhaps, this is the only place in the country where there are examples of such a high class. All this against the backdrop of the leisurely life of the old town.</p>\r\n\r\n<p>The Tomar travel guide mentions that the Holy Grail is kept here, but there is no official evidence of this fact. The majestic monastery, built in the mid-12th century, although at first it was a castle and not a Catholic monastery, looks more like a powerful fortification. Have a walk by the moors and get your own impression of this unusual place.</p>\r\n\r\n<p><strong>2. What is a list of Tomar hidden gems?</strong></p>\r\n\r\n<p>One of the less-known, but interesting attractions of Tomar is the Match Museum located within its walls. The collection of this museum is recognized as the largest in Europe. The Match Museum is far from what Tomar is known for, as most people who come here want to see the Templar castle. Tomar resident Aquiles de Mota Lima started to collect matches in 1953. This happened during his trip to London for the coronation of Queen Elizabeth II. Now the Match Museum in Tomar keeps 43 thousand matchboxes from 122 countries.</p>\r\n\r\n<p>It is located in an old monastery of St. Francisco, close to the Tomar train and bus station. Every matchbox is unique, so the visitors would definitely have a lot of fun at the exhibition.</p>\r\n\r\n<p><strong>3. What dishes are the must-try in Tomar?</strong></p>\r\n\r\n<p>Tomar&#39;s restaurants will delight visitors with a selection of local cuisine, serving traditional dishes. A daily dish for local residents is Acorda soup, prepared on the basis of bread with a variety of ingredients added to it, such as fish, seafood, boiled eggs and fresh herbs. In each restaurant, the soup is prepared according to a special recipe. The classic version is served with bread, garlic and olive oil.</p>\r\n\r\n<p>Migas, which is considered a typical Spanish dish, is also quite widespread in Tomar. The dish is also prepared from bread, but it is customary not to pour boiling water over it, as for soup, but to fry it in a frying pan with olive oil. A variety of ingredients can also be added, including vegetables and garlic, as well as various seafood. Quite common and popular are versions with spinach and alfalfa, and some restaurants serve it in addition to grilled meat.</p>",
+        "top_attractions_title": "Top Tomar Attractions",
+        "top_attractions_subtitle": "Explore Tomar's excellent selection of attractions, from ancient historic wonders to vibrant cultural sightseeing",
+        "be_interested_title": "You May Also Be Interested to Visit from Tomar",
+        "be_interested_subtitle": "Explore nearby spots from Tomar, choosing captivating destinations that guarantee unforgettable experiences and cultura",
+        "recommendations_title": "You May Also Be Interested In Tomar",
+        "recommendations_subtitle": "Explore nearby spots from Tomar, choosing captivating destinations that guarantee unforgettable experiences and cultural abundance.",
+        "recommendations_slogan": "Diverse your Tomar experience with top attractions for cultural involvement",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful insider tips for the most common queries about Tomar"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 1,
+    "fields": {
+        "destination": 1,
+        "language": null,
+        "question": "What is a top list of must-have attractions in Lisbon?",
+        "answer": "<p>Lisbon is beautiful in its variety, where everybody can create their own list of the best spots.</p>\r\n\r\n<p>But as for the first visit, the main&nbsp; places are as follows:</p>\r\n\r\n<ul>\r\n\t<li>Alfama District</li>\r\n\t<li>S&atilde;o Jorge Castle</li>\r\n\t<li>Commerce Square</li>\r\n\t<li>Lisbon Cathedral</li>\r\n\t<li>National Pantheon</li>\r\n\t<li>Rossio Square</li>\r\n\t<li>Chiado District</li>\r\n\t<li>Lisbon Oceanarium</li>\r\n\t<li>Ajuda National Palace</li>\r\n\t<li>Lisbon Botanical Garden</li>\r\n\t<li>Amoreiras 360&ordm; Panoramic View</li>\r\n\t<li>Calouste Gulbenkian Museum</li>\r\n\t<li>Miradouro da Senhora do Monte</li>\r\n\t<li>National Coach Museum</li>\r\n</ul>",
+        "priority_number": 1,
+        "is_active": true,
+        "updated_at": "2024-02-28T11:42:54.123Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 2,
+    "fields": {
+        "destination": 1,
+        "language": null,
+        "question": "What are the top-rated tours in Lisbon?",
+        "answer": "<p>The choice of OneDayTours in Lisbon is variable, and among the available options, there is the best match for everybody. As for the best by travelers choice, the list is below:</p>\r\n\r\n<ol>\r\n\t<li><a href=\"\">Sintra and Cascais: OneDayTours from Lisbon</a></li>\r\n\t<li><a href=\"\">Lisbon: OneDayTours with Wine and Cuisine Tasting</a></li>\r\n\t<li><a href=\"\">OneDayTours to F&aacute;tima, &Oacute;bidos, Batalha, Nazar&eacute; from Lisbon</a></li>\r\n\t<li><a href=\"\">OneDayTours to Magical Sintra with Regaleira and Pena Palace from Lisbon</a></li>\r\n\t<li><a href=\"\">Porto, Nazare, and Obidos OneDayTours from Lisbon</a></li>\r\n\t<li><a href=\"\">OneDayTours from Lisbon to Arrabida with Wine and Food Tasting</a></li>\r\n\t<li><a href=\"\">Setubal from Lisbon: OneDayTours to Wine Region with Tasting</a></li>\r\n\t<li><a href=\"\">Sintra, Pena, and Moorish Castle OneDayTours from Lisbon</a></li>\r\n</ol>",
+        "priority_number": 2,
+        "is_active": true,
+        "updated_at": "2024-02-28T11:43:08.638Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 3,
+    "fields": {
+        "destination": 1,
+        "language": null,
+        "question": "What are the best experiences in Lisbon?",
+        "answer": "<p>Lisbon is unique in its variety. You can never get bored here if you choose a variable program for your leisure, trusting experienced guides who carefully created OneDayTours, among which can be chosen:</p>\r\n\r\n<ul>\r\n\t<li>Walking Tours</li>\r\n\t<li>Culinary Tours</li>\r\n\t<li>Wine Tasting</li>\r\n\t<li>Fado Shows</li>\r\n\t<li>Surfing Lessons</li>\r\n\t<li>Boat Tours(Cruises)</li>\r\n\t<li>Photo Tours</li>\r\n\t<li>Coastal(Beach Tours)</li>\r\n\t<li>Jeep/Car/Tuk-tuk Tours</li>\r\n</ul>",
+        "priority_number": 3,
+        "is_active": true,
+        "updated_at": "2024-02-28T11:43:33.658Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 4,
+    "fields": {
+        "destination": 2,
+        "language": 1,
+        "question": "Are there any regular Porto cultural festivals or must-see events?",
+        "answer": "<p>Yes, there are. First of all, it&#39;s the S&atilde;o Jo&atilde;o festival in June. The visitors have an opportunity to dive into lively street parties, enjoying fireworks in the evening. As for all the wine lovers, they can&#39;t miss Porto Wine Fest celebrating the city&#39;s wine heritage.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-04T14:56:58.258Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 5,
+    "fields": {
+        "destination": 2,
+        "language": 1,
+        "question": "How to get the best experience of Porto's wine culture?",
+        "answer": "<p>It&#39;s highly recommended to come for the first visit with an experienced guide. The guided Porto wine tours would demonstrate all the benefits of the Port wine cellars in Vila Nova de Gaia, where the visitors have a unique opportunity to visit exclusive port wine tasting in Porto.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-26T12:10:55.122Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 6,
+    "fields": {
+        "destination": 2,
+        "language": 1,
+        "question": "Are there beaches around Porto, and if so, how to get there?",
+        "answer": "<p>Yes, Porto has several beautiful beaches around. The most beautiful and famous among them are Matosinhos and Foz do Douro. It&#39;s possible to get there by public transportation or a short drive from the city center. There are also fancy Porto beach resorts to get the best beach experience in the region.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-26T12:10:37.038Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 7,
+    "fields": {
+        "destination": 3,
+        "language": 1,
+        "question": "What other destinations should be visited from Sintra?",
+        "answer": "<p>Sintra has a great location, so the visitors can easily explore other nearby destinations such as Cascais, known for its beaches and seaside promenade, and Cabo da Roca, the westernmost point of mainland Europe. Both are easily accessible by public transportation or car.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-04T15:08:10.608Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 8,
+    "fields": {
+        "destination": 3,
+        "language": 1,
+        "question": "Is it necessary to book tickets in advance for attractions in Sintra?",
+        "answer": "<p>It&#39;s advisable to book tickets in advance for popular attractions like Pena Palace to avoid long queues during peak tourist season. But in off-peak season it&#39;s not a problem, and you may purchase tickets on the day of your visit.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-04T15:10:03.702Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 9,
+    "fields": {
+        "destination": 3,
+        "language": 1,
+        "question": "Are there any hiking trails in Sintra?",
+        "answer": "<p>Yes, Sintra hiking trails are well known for their scenic views. The most popular route is the trail from the town center to the Moorish Castle, offering breathtaking views of the surrounding landscape along the way.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-04T15:08:10.612Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 10,
+    "fields": {
+        "destination": 5,
+        "language": 1,
+        "question": "What are the available accommodation options in Évora for tourists?",
+        "answer": "<p>There is a wide range of accommodation options for those tourists who come here for more than 1 day to suit different budgets and preferences. There are numerous charming boutique hotels and fancy guesthouses in historic buildings. As for the most popular and recommended locations, these are the Convento do Espinheiro and Hotel Riviera.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-05T13:58:28.669Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 11,
+    "fields": {
+        "destination": 5,
+        "language": 1,
+        "question": "What are the popular outdoor activities or recreational opportunities for tourists in Évora and nearby?",
+        "answer": "<p>The main attraction is the city&#39;s historic sites. At the same time, for tourists are also available outdoor activities such as hiking or cycling in the surrounding countryside, wine tasting tours, or horseback riding excursions.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-05T13:58:28.671Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 12,
+    "fields": {
+        "destination": 5,
+        "language": 1,
+        "question": "What are the traditional souvenirs or shopping options for tourists in Évora?",
+        "answer": "<p>There are numerous souvenir shops, where visitors can find a variety of&nbsp;Evora handicrafts and souvenirs, including traditional pottery, ceramics, and embroidered textiles. It&#39;s highly recommended to take time and visit some shops in the historic center to get unique gifts and souvenirs.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-05T13:58:28.672Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 13,
+    "fields": {
+        "destination": 6,
+        "language": 1,
+        "question": "What are the must-visit beaches in Peniche?",
+        "answer": "<p>The list of top beaches in Peniche includes Supertubos Beach, especially popular among surfing enthusiasts, scenic Baleal Beach with a cozy family-friendly atmosphere, and Consolation Beach, famous for its natural rock formations and natural hot springs.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-06T08:45:54.718Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 14,
+    "fields": {
+        "destination": 6,
+        "language": 1,
+        "question": "How to get to Berlenga Island from Peniche?",
+        "answer": "<p>Berlengas Island is easily accessible with a boat tour from Peniche harbor. There are several tour companies, which offer regular ferry services to the island, providing options for guided tours, snorkeling, and hiking.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-06T08:45:54.719Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 15,
+    "fields": {
+        "destination": 6,
+        "language": 1,
+        "question": "Is Peniche a good choice for surfing?",
+        "answer": "<p>Yes, Peniche is one of Europe&#39;s best surfing destinations. Its waves and consistent swells are perfect for both beginners and professional surfers. An iconic spot is Supertubos Beach, known for its hollow barrels and challenging breaks.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-06T08:45:54.720Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 16,
+    "fields": {
+        "destination": 7,
+        "language": 1,
+        "question": "Are there any activities in Nazaré suitable for families with kids?",
+        "answer": "<p>Yes, there are variable activities such as competitions with building sandcastles on the beach, taking a ride on the funicular to the S&iacute;tio neighborhood, or visiting the Nazar&eacute; Aquarium to learn about marine life in the region.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-06T11:34:43.006Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 17,
+    "fields": {
+        "destination": 7,
+        "language": 1,
+        "question": "What are the safety rules for beach and water activities in Nazaré?",
+        "answer": "<p>Nazar&eacute; beaches offer fantastic opportunities for swimming and water sports, but potential hazards should be the focus of attention. There are designated areas for swimming, supervised by lifeguards, areas warning flags, indicating dangerous areas with strong currents and large waves.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-06T11:34:43.008Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 18,
+    "fields": {
+        "destination": 7,
+        "language": 1,
+        "question": "Are there any scenic hiking trails to explore near Nazaré?",
+        "answer": "<p>Yes, there are numerous hiking trails with stunning landscapes surrounding Nazar&eacute;. The Serra de Aire e Candeeiros Natural Park offers picturesque walking routes, while the Pedra do Ouro coastal trail provides breathtaking views of the Atlantic Ocean and pristine beaches.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-06T11:34:43.009Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 19,
+    "fields": {
+        "destination": 8,
+        "language": 1,
+        "question": "What are some must-try experiences in Douro Valley?",
+        "answer": "<p>The main highlight of the region and a must-try experience is Douro Valley wine tasting at traditional wineries. Take a boat trip along the river, explore charming villages with vineyards, and then try regional cuisine at local restaurants.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-06T15:15:32.944Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 20,
+    "fields": {
+        "destination": 8,
+        "language": 1,
+        "question": "What are the authentic souvenirs in Douro Valley?",
+        "answer": "<p>The most popular souvenir from Douro Valley is a bottle of Port wine. But there are more options, such as locally produced olive oil, as olive gardens are quite often grown on the same slopes of the valley. All the other typical Portuguese souvenirs, such as traditional azulejo ceramic tiles, are also available.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-06T15:15:32.945Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 21,
+    "fields": {
+        "destination": 8,
+        "language": 1,
+        "question": "Are there any must-visit festivals or events in Douro Valley?",
+        "answer": "<p>Yes, Douro Valley is a place for several cultural events and festivals. Pay attention to Douro Film Harvest, Festa da Vinha e do Vinho, where you can taste exquisite wines and learn about wine making traditions and the S&atilde;o Jo&atilde;o Festival, capturing the charm of the region.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-06T15:15:32.947Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 22,
+    "fields": {
+        "destination": 9,
+        "language": 1,
+        "question": "Are there any famous surfing spots near Cascais?",
+        "answer": "<p>Yes, Cascais is a rather popular spot for surfers of all levels. There are excellent conditions for surfing nearby such beaches as Guincho Carcavelos, with consistent waves and surf schools available for beginners.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-07T14:06:56.790Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 23,
+    "fields": {
+        "destination": 9,
+        "language": 1,
+        "question": "What are the most popular Cascais nightlife options?",
+        "answer": "<p>The nightlife in Cascais is presented by a variety of bars, restaurants, and clubs for any taste. It&#39;s easy to find a picturesque restaurant and spend an evening there with cocktails overlooking the ocean, enjoy live music performances, or dance the night away in one of the many clubs in the area.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-07T14:06:56.792Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 24,
+    "fields": {
+        "destination": 9,
+        "language": 1,
+        "question": "Are there any famous markets in Cascais to get local products and souvenirs?",
+        "answer": "<p>Yes, there are several markets with fresh products and handcrafted souvenirs. In the focus of attention of most tourists should be Mercado da Vila, a market, open daily,&nbsp; offering a wide variety of goods from local artisans and vendors.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-07T14:06:56.793Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 25,
+    "fields": {
+        "destination": 10,
+        "language": 1,
+        "question": "What is the best time of the year for Fatima spiritual journey?",
+        "answer": "<p>The best time to visit Fatima is a question of personal choice. May and October are the most popular due to religious celebrations. But those who want to see the city without crowds should come here in the spring and fall seasons as this time it&#39;s warm here.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-15T11:41:44.149Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 26,
+    "fields": {
+        "destination": 10,
+        "language": 1,
+        "question": "Are there options for comfortable accommodation and dining in Fatima?",
+        "answer": "<p>Yes, while planning the Fatima pilgrimage itinerary for a few days, the tourists may choose one of the numerous types of accommodations, such as hotels, guesthouses, and pilgrim hostels for any budget. There are also numerous restaurants and cafes which serve traditional Portuguese cuisine as well as international dishes.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-15T11:41:44.150Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 27,
+    "fields": {
+        "destination": 10,
+        "language": 1,
+        "question": "What are the available activities for non-religious visitors in Fatima?",
+        "answer": "<p>Fatima is one of the top religious destinations in the World, but there are also numerous opportunities for leisure, such as hiking, and cycling in the scenic countryside. The visitors can discover local culture by visiting cultural events, and museums, or trying traditional Portuguese cuisine at local restaurants.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-15T11:41:44.151Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 28,
+    "fields": {
+        "destination": 11,
+        "language": 1,
+        "question": "What is the best way to get to Tomar from Lisbon?",
+        "answer": "<p>Train is the most convenient way to reach Tomar from Lisbon. The departure time can be seen on the timetable. The train departs regularly from Lisbon&#39;s Santa Apol&oacute;nia station and takes approximately 2 hours to reach Tomar.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-15T11:51:16.470Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 29,
+    "fields": {
+        "destination": 11,
+        "language": 1,
+        "question": "Are there any authentic cultural festivals in Portugal in Tomar?",
+        "answer": "<p>Yes, Tomar is a central place for several festivals and events throughout the year, such as the Festa dos Tabuleiros in July. This colorful and traditional festival celebrated every four years in July, includes parades and cultural performances.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-15T11:51:16.472Z"
+    }
+},
+{
+    "model": "destinations.faqdestination",
+    "pk": 30,
+    "fields": {
+        "destination": 11,
+        "language": 1,
+        "question": "Are there comfortable options for the day trips from Tomar to nearby destinations?",
+        "answer": "<p>Yes, Tomar is an excellent base to explore the sightseeings around. It&#39;s easy to go for trips to nearby towns and attractions, visit the medieval village of &Oacute;bidos, the Batalha Monastery, or the picturesque town of Fatima as they are easy-accessible by local transport.</p>",
+        "priority_number": 0,
+        "is_active": true,
+        "updated_at": "2024-03-15T11:51:16.473Z"
+    }
+}
+]
