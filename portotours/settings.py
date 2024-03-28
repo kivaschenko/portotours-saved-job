@@ -31,17 +31,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']  # for debug in CI/CD
-if DEBUG:
-    BASE_ENDPOINT = 'http://127.0.0.1:8000'
-else:
-    BASE_ENDPOINT = os.environ.get('BASE_ENDPOINT')
-
-# Django debug toolbar
-# See https://django-debug-toolbar.readthedocs.io/en/latest/index.html
-INTERNAL_IPS = [
-    "127.0.0.1",
-    "localhost",
-]
+BASE_ENDPOINT = 'http://127.0.0.1:8000'
 
 # Application definition
 
@@ -70,6 +60,7 @@ INSTALLED_APPS = [
     'destinations.apps.DestinationsConfig',
     'purchases.apps.PurchasesConfig',
     'blogs.apps.BlogsConfig',
+    'reviews.apps.ReviewsConfig',
 ]
 
 MIDDLEWARE = [
