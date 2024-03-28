@@ -43,22 +43,6 @@ INTERNAL_IPS = [
     "localhost",
 ]
 
-DEBUG_TOOLBAR_PANELS = [
-    'debug_toolbar.panels.history.HistoryPanel',
-    'debug_toolbar.panels.versions.VersionsPanel',
-    'debug_toolbar.panels.timer.TimerPanel',
-    'debug_toolbar.panels.settings.SettingsPanel',
-    'debug_toolbar.panels.headers.HeadersPanel',
-    'debug_toolbar.panels.request.RequestPanel',
-    'debug_toolbar.panels.sql.SQLPanel',
-    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-    'debug_toolbar.panels.templates.TemplatesPanel',
-    'debug_toolbar.panels.cache.CachePanel',
-    'debug_toolbar.panels.signals.SignalsPanel',
-    'debug_toolbar.panels.redirects.RedirectsPanel',
-    'debug_toolbar.panels.profiling.ProfilingPanel',
-]
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -79,7 +63,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'bootstrap_datepicker_plus',
-    'debug_toolbar',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -90,7 +73,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -246,7 +228,6 @@ LOGGING = {
     }
 }
 
-
 AUTH_USER_MODEL = 'accounts.User'
 LOGOUT_REDIRECT_URL = "home"
 LOGIN_REDIRECT_URL = "home"
@@ -300,9 +281,8 @@ CKEDITOR_CONFIGS = {
                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']},
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
-            {'name': 'source', 'items': ['Source']},            
+            {'name': 'source', 'items': ['Source']},
         ],
-        
 
     }
 }
@@ -394,3 +374,7 @@ else:
 
 # Set your domain
 DOMAIN = os.environ.get('DOMAIN_NAME', 'localhost:8000')
+
+if DEBUG:
+    # Show detailed error pages in debug mode
+    DEBUG_PROPAGATE_EXCEPTIONS = True

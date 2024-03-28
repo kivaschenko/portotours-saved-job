@@ -6,18 +6,14 @@ const model = {
         'adults': 0,
         'children': 0,
         'language_code': null,
-        'customer_id': customerId, // from page scope
-        'session_key': sessionKey, // from page scope
         'event_id': null,
-        'parent_experience_id': parentExperienceId, // from page scope
+        'product_id': productId, // from page scope
     },
     'selectedDate': null,
     'current_event': {},
     'current_product': {
         'adultCount': adultCount,
         'childCount': childCount,
-        'adultPrice': adultPrice,
-        'childPrice': childPrice,
         'startDate': startDate,
         'startTime': startTime,
         'totalPrice': totalPrice,
@@ -33,9 +29,7 @@ const view = {
         const productData = model.current_product;
 
         const startTime = productData.startTime;
-        console.log('Start Time:', startTime); // Check the value of startTime
         const input = document.querySelector('input[type="radio"][value="' + startTime + '"]');
-        console.log('Input Element:', input); // Check the input element found by the query selector
         const startLanguage = productData.language;
         const languageInput = document.querySelector('input[type="radio"][value="' + startLanguage + '"]');
         const totalPrice = productData.totalPrice;
@@ -214,16 +208,16 @@ const controller = {
     handleFormSubmit: async function () {
         // Get the booking data from the model
         const bookingData = model.bookingData;
-    
-        console.log("Got jsonify bookingData to send:", JSON.stringify(bookingData));
-        // Perform any necessary validation or preprocessing of data here
-    
+
+        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
         try {
             // Send the booking data to the server using fetch or another AJAX method
             const response = await fetch('/update-private-product/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
                 },
                 body: JSON.stringify(bookingData)
             });
@@ -232,9 +226,8 @@ const controller = {
             if (response.ok) {
                 // Handle successful response
                 console.log('Booking submitted successfully.');
-                     // Extract the language slug from the current URL
-                    const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
-                    
+                    const languageSlug = model.bookingData.language_code.toLowerCase();
+
                     // Redirect to the cart page after successful submission
                     window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
             } else {
@@ -290,11 +283,8 @@ const controller = {
     },
 
     handleTimeSelection: function () {
-        console.log("handleTimeSelection called");
         document.querySelectorAll('time-selection input[type="radio"]').forEach(input => {
-            console.log("Input element found:", input);
             input.addEventListener('change', function () {
-                console.log('Radio button changed');
                 controller.performValidation();
                 const selectedDate = document.querySelector('.calendar-day.selected-date');
                 if (selectedDate) {
@@ -417,7 +407,6 @@ const controller = {
                     timeSelection.appendChild(timeLabel);
 
                     timeInput.addEventListener('change', function () {
-                        console.log('Radio button changed');
                         controller.performValidation(); // Call validation function when radio button changes
                         
                     });
@@ -513,9 +502,6 @@ const controller = {
             // If no language is selected, you may want to handle this case accordingly
             console.error('No language selected.');
         }
-
-        // Update other fields as needed
-        console.log('inside updateBookingData all steps done:', model.bookingData);
     },
 
 
@@ -525,8 +511,6 @@ const controller = {
         model.bookingData.children = 0;
         model.bookingData.language_code = null;
         model.bookingData.event_id = null;
-        // Reset other fields as needed
-        console.log('inside resetBookingData:', model.bookingData);
     },
 
 };
@@ -548,11 +532,9 @@ async function fetchEventData(parentExperienceId) {
 
 // Function to handle the received JSON data
 function handleEventData(data) {
-    console.log('Got data from response:', data);
     if (data.hasOwnProperty('languages') && data.hasOwnProperty('events')) {
         model.languages = data.languages;
         model.events = data.events;
-        console.log('Updated model:', model);
         view.showOnlyAllowedLanguages();
         // Show calendar
         const currentDate = new Date(); // Or you can pass the date from the controller
@@ -580,9 +562,6 @@ async function fetchEventDataForCurrentEvent(eventId) {
 
 // Function to handle the received event data for the current event
 function handleEventDataForCurrentEvent(data) {
-    console.log('Got data for current event:', data);
-    // Update model with the received data or perform other actions as needed
-    // For example, you can update the model's current_event property with this data
     model.current_event = data;
 }
 
@@ -644,7 +623,6 @@ document.addEventListener('DOMContentLoaded', async function () {
      // Get the current date
     const [month, day, year] = model.current_product.startDate.split('/');
     const currentDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-    console.log('currentDate=', currentDate);
 
      // Simulate a click on the current date in the calendar
     const currentDay = document.querySelector(`[data-date="${currentDate}"]`);

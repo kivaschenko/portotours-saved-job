@@ -316,6 +316,8 @@ class ExperienceEvent(Event):
     def update_booking_data(self, booked_number, *args, **kwargs):
         self.booked_participants += booked_number
         self.remaining_participants = self.max_participants - self.booked_participants
+        if self.remaining_participants < 0:
+            self.remaining_participants = 0
         self.save(*args, **kwargs)
     
 
@@ -385,7 +387,7 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         # recount each time during save because might be different numer of participants
-        if not self.total_price:
+        if self.adults_price and self.child_price:
             self.total_price = self._count_new_total_price()
         self.old_total_price = self._count_old_total_price()
         if self.parent_experience.is_private:
@@ -423,3 +425,7 @@ class Product(models.Model):
     @property
     def full_name(self):
         return f'{self.parent_experience.parent_name}'
+
+    @property
+    def total_booked(self):
+        return self.adults_count + self.child_count

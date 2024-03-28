@@ -1,9 +1,8 @@
 from django.db.models import Sum
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, DeleteView
-from django.views.decorators.csrf import csrf_exempt
 from django.db import transaction
 
 from products.models import *  # noqa
@@ -20,7 +19,7 @@ class ExperienceListView(ListView):
     template_name = 'experiences/experience_list.html'
     extra_context = {}
     queryset = Experience.active.all()
-    paginate_by = 10  # TODO: add pagination handling into template
+    paginate_by = 1
 
     def get_queryset(self):
         queryset = super(ExperienceListView, self).get_queryset()
@@ -109,41 +108,23 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
     """View for listing all products for current user (session) only."""
     model = Product
     template_name = 'products/my_cart.html'
-    queryset = Product.pending.all()
     extra_context = {'current_language': 'en'}
+
+    def get_queryset(self):
+        return Product.pending.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        product_ids = [product.pk for product in self.queryset.all()]
-        context['product_ids'] = product_ids
-        context['total_price_sum'] = 0
-        context['old_price_sum'] = 0
-        context['discounted_price_sum'] = 0
-        try:
-            # Calculate the sum of total prices
-            total_price_sum = self.queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum']  # TODO: fix this urgently!
-            # Calculate the sum of old prices
-            old_price_sum = self.queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum']
-            # Add the sum to the context
-            context['total_price_sum'] = total_price_sum
-            context['old_price_sum'] = old_price_sum
-            context['discounted_price_sum'] = round(old_price_sum - total_price_sum, 2)
-        except Exception as e:
-            logger.error(f'Error while calculating total_price_sum: {e}')
+        queryset = self.get_queryset()  # Ensure queryset is evaluated every time
+        print('queryset:', queryset)
+
+        context['product_ids'] = [product.pk for product in queryset]
+        context['total_price_sum'] = queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum'] or 0
+        context['old_price_sum'] = queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum'] or 0
+        context['discounted_price_sum'] = round(context['old_price_sum'] - context['total_price_sum'], 2)
+
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         return context
-
-    def post(self, request, *args, **kwargs):
-        """This logic for cancellation on the fly in cart without confirm page.
-            In hold mode if template button does not exist."""
-        if 'cancel_product_id' in request.POST:
-            product_id = request.POST.get('cancel_product_id')
-            product = Product.objects.get(pk=product_id)
-            product.status = 'Cancelled'
-            product.save()
-        else:
-            logger.error(f'Cancellation. Product not found.')
-        return HttpResponseRedirect(reverse_lazy('my-cart', kwargs={'lang': 'en'}))
 
 
 class CancelProductView(DeleteView):
@@ -153,10 +134,11 @@ class CancelProductView(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        # Here you can perform any logic you want before changing the status
+        # Update certain ExperienceEvent: change booked_participants and remaining_participants!
+        self.object.occurrence.event.experienceevent.update_booking_data(booked_number=-self.object.total_booked)
+        self.object.occurrence.delete()
         self.object.status = 'Cancelled'
         self.object.save()
-        # TODO: Add update for certain ExperienceEvent: change booked_participants and remaining_participants!
         # Instead of calling delete() on the object, change its status
         return HttpResponseRedirect(self.get_success_url())
 
@@ -170,7 +152,7 @@ def get_actual_experience_events(request, parent_experience_id):
         return HttpResponseBadRequest('Invalid JSON data')
 
 
-@csrf_exempt
+@transaction.atomic
 def create_group_product(request):
     if request.method == 'POST':
         try:
@@ -234,8 +216,6 @@ def create_group_product(request):
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 
-
-@csrf_exempt
 @transaction.atomic
 def update_group_product(request):
     if request.method == 'POST':
@@ -249,7 +229,6 @@ def update_group_product(request):
         except json.JSONDecodeError as e:
             return JsonResponse({'error': 'Invalid JSON format'}, status=400)
 
-        # Data validation
         if None in (adults, children, language_code, event_id, product_id):
             return JsonResponse({'error': 'Invalid data provided'}, status=400)
 
@@ -262,9 +241,7 @@ def update_group_product(request):
 
         total_booked = adults + children
 
-        # Update logic
         if product.occurrence.event_id != exp_event.id:
-            # Update for new event
             product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
             product.occurrence.delete()
             occurrence = Occurrence.objects.create(
@@ -276,19 +253,19 @@ def update_group_product(request):
                 original_start=exp_event.start,
                 original_end=exp_event.end
             )
+
             product.occurrence = occurrence
+            product.start_datetime = exp_event.start
+            product.end_datetime = exp_event.end
+            product.adults_count = adults
+            product.child_count = children
+            product.adults_price = exp_event.special_price
+            product.child_price = exp_event.child_special_price
+            product.language = language
             product.save()
-            product.update(
-                occurrence=occurrence,
-                start_datetime=exp_event.start,
-                end_datetime=exp_event.end,
-                adults_price=exp_event.special_price,
-                child_price=exp_event.child_special_price,
-                language=language
-            )
+
             exp_event.update_booking_data(booked_number=total_booked)
         else:
-            # Update for current event
             if product.adults_count != adults or product.child_count != children:
                 product.adults_count = adults
                 product.child_count = children
@@ -297,7 +274,6 @@ def update_group_product(request):
             if product.language != language:
                 product.language = language
             product.save()
-
         logger.info(f"Product {product.id} was updated.")
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
 
@@ -312,7 +288,6 @@ def get_event_booking_data(request, event_id):
         'time': event.experienceevent.start_time,
         'adult_price': float(event.experienceevent.special_price),
         'child_price': float(event.experienceevent.child_special_price),
-        # 'total_price': float(event.experienceevent.total_price),
         'max_participants': event.experienceevent.max_participants,
         'booked_participants': event.experienceevent.booked_participants,
         'remaining_participants': event.experienceevent.remaining_participants,
@@ -363,7 +338,7 @@ class EditProductView(DetailView):
         return kwargs
 
 
-@csrf_exempt
+@transaction.atomic
 def create_private_product(request):
     if request.method == 'POST':
         try:
@@ -426,77 +401,82 @@ def create_private_product(request):
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 
-@csrf_exempt
+@transaction.atomic
 def update_private_product(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
+            adults = data.get('adults')
+            children = data.get('children')
+            language_code = data.get('language_code')
+            event_id = data.get('event_id')
+            product_id = data.get('product_id')
         except json.JSONDecodeError as e:
             return JsonResponse({'error': 'Invalid JSON format'}, status=400)
 
-        # Extract data from JSON
-        adults = data.get('adults')
-        children = data.get('children')
-        language_code = data.get('language_code')
-        event_id = data.get('event_id')
-        product_id = data.get('product_id')
+        if None in (adults, children, language_code, event_id, product_id):
+            return JsonResponse({'error': 'Invalid data provided'}, status=400)
+
+        try:
+            product = Product.objects.get(id=product_id)
+            exp_event = ExperienceEvent.objects.get(id=event_id)
+            language = Language.objects.get(code=language_code)
+        except (Product.DoesNotExist, ExperienceEvent.DoesNotExist, Language.DoesNotExist):
+            return JsonResponse({'error': 'Invalid product, event, or language'}, status=400)
 
         total_booked = adults + children
 
-        # Get Product
-        product = Product.objects.get(id=product_id)
-
-        # Get ExperienceEvent obj
-        exp_event = ExperienceEvent.objects.get(id=event_id)
-
-        # Get language
-        language = Language.objects.get(code=language_code)
-
-        # Check if the same event is used for the product
         if product.occurrence.event_id != exp_event.id:
-            # cancellation the booking for old event
             product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
-            # create booking for new event
-            product.start_date = exp_event.start
-            product.end_date = exp_event.end
-            product.total_price = exp_event.total_price
-            if product.language != language:
-                product.language = language
-            product.save()
-
-            # Update ExperienceEvent data for new event
-            exp_event.update_booking_data(booked_number=total_booked)
-
-            # Update Occurrence for Product
-            occurrence = product.occurrence
-            occurrence.event = exp_event.event_ptr,
-            occurrence.title = exp_event.title,
-            occurrence.description = f"This occurrence has been created for the product: {product.id}.",
-            occurrence.start = exp_event.start,
-            occurrence.end = exp_event.end,
-            occurrence.original_start = exp_event.start,
-            occurrence.original_end = exp_event.end
-            occurrence.save()
+            product.occurrence.delete()
+            occurrence = Occurrence.objects.create(
+                event=exp_event,
+                title=exp_event.title,
+                description=f"This occurrence has been created for the product: {product.id}.",
+                start=exp_event.start,
+                end=exp_event.end,
+                original_start=exp_event.start,
+                original_end=exp_event.end
+            )
 
             product.occurrence = occurrence
+            product.start_datetime = exp_event.start
+            product.end_datetime = exp_event.end
+            product.adults_count = adults
+            product.child_count = children
+            product.total_price = exp_event.total_price
+            product.language = language
             product.save()
+
+            exp_event.update_booking_data(booked_number=total_booked)
         else:
-            # update data for current product event
             if product.adults_count != adults or product.child_count != children:
                 product.adults_count = adults
                 product.child_count = children
-                # cancellation the booking
                 product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
-                # rebooking with new data
                 product.occurrence.event.experienceevent.update_booking_data(booked_number=total_booked)
             if product.language != language:
                 product.language = language
             product.save()
-            # update
         logger.info(f"Product {product.id} was updated.")
-
-        # Return a JSON response indicating success
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
 
-    # If the request method is not POST, return an error response
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+
+
+# 404, 500 ERRORS HANDLERS
+
+def custom_page_not_found_view(request, exception):
+    return render(request, "errors/404.html", {})
+
+
+def custom_error_view(request, exception=None):
+    return render(request, "errors/500.html", {})
+
+
+def custom_permission_denied_view(request, exception=None):
+    return render(request, "errors/403.html", {})
+
+
+def custom_bad_request_view(request, exception=None):
+    return render(request, "errors/400.html", {})

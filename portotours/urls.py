@@ -11,6 +11,14 @@ from products import views as products_views
 from purchases import views as purchases_views
 from blogs import views as blogs_views
 
+
+# 404, 500 ERRORS
+handler404 = 'products.views.custom_page_not_found_view'
+handler500 = 'products.views.custom_error_view'
+handler403 = 'products.views.custom_permission_denied_view'
+handler400 = 'products.views.custom_bad_request_view'
+
+
 # HOME & ACCOUNTS
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,7 +39,6 @@ urlpatterns = [
     path("accounts/profile/", accounts_views.ProfileView.as_view(), name="profile"),
     path("accounts/profile/update-address/", accounts_views.AddressUpdateView.as_view(), name="address-update"),
     path("accounts/profile/upate-shipping-address/", accounts_views.ShippingAddressUpdateView.as_view(), name="shipping-address-update"),
-    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 # Django ckeditor: https://github.com/django-ckeditor/django-ckeditor
@@ -70,7 +77,7 @@ urlpatterns += [
     path('create-product/', products_views.create_group_product, name='create-product'),
     path('update-product/', products_views.update_group_product, name='update-product'),
     path('create-private-product/', products_views.create_private_product, name='create-private-product'),
-    path('update-private-product/', products_views.update_private_product, name='update-private'),
+    path('update-private-product/', products_views.update_private_product, name='update-private-product'),
     path('edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
 ]
 

@@ -342,9 +342,15 @@
 
             </div>
             <div class="login-btn-wrapper login-btn-wrapper-mobile">
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="header-login-btn btn-type-2">
+                    Profile
+                </a>
+                {% else %}
                 <a href="{% url 'login' %}" class="header-login-btn btn-type-2">
                     Login
                 </a>
+                {% endif %}
             </div>
         </div>
     </nav>

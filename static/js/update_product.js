@@ -31,15 +31,12 @@ const view = {
         const productData = model.current_product;
 
         const startTime = productData.startTime;
-        console.log('Start Time:', startTime); // Check the value of startTime
         const input = document.querySelector('input[type="radio"][value="' + startTime + '"]');
-        console.log('Input Element:', input); // Check the input element found by the query selector
         const startLanguage = productData.language
         const languageInput = document.querySelector('input[type="radio"][value="' + startLanguage + '"]')
         const totalPrice = productData.totalPrice
         const totalPriceTextBlock = document.querySelector('.total-price-wrapper span')
         totalPriceTextBlock.innerHTML = `${totalPrice}`
-
 
         // Enable the input if found
         if (input) {
@@ -49,13 +46,11 @@ const view = {
         }
 
         // Enable starting language if found 
-
         if (languageInput) {
             languageInput.checked = true;
         } else {
             console.error('Input not found for the given start language:', startLanguage);
         }
-
 
         document.getElementById('adultTicketCount').value = productData.adultCount;
         document.getElementById('childTicketCount').value = productData.childCount;
@@ -63,7 +58,6 @@ const view = {
         const childTotalPrice = productData.childCount * productData.childPrice;
         document.getElementById('childTotalPrice').textContent = '€' + childTotalPrice.toFixed(2);
         document.getElementById("adultTotalPrice").textContent = '€' + adultTotalPrice.toFixed(2);
-
     },
 
     // Check if model.languages exists and is an array before proceeding
@@ -103,7 +97,6 @@ const view = {
             prevMonthBtn.disabled = false;
         }
 
-
         prevMonthBtn.addEventListener('click', function () {
             const prevMonth = new Date(date.getFullYear(), date.getMonth() - 1, 1);
             view.renderCalendar(prevMonth);
@@ -127,12 +120,10 @@ const view = {
             }
         });
 
-
         const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
         const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
         const startingDay = firstDayOfMonth.getDay();
         const totalDays = lastDayOfMonth.getDate();
-
 
         for (let i = 0; i < startingDay; i++) {
             const prevMonthDay = new Date(date.getFullYear(), date.getMonth(), -startingDay + i + 1);
@@ -145,24 +136,20 @@ const view = {
         }
 
         calendarGrid.querySelectorAll('.calendar-day').forEach((day, index) => {
-            const isoDate = calendarGrid.children[index].dataset.date; // Получаем дату из data-атрибута
-            const eventsForDate = model.events.filter(event => event.date === isoDate); // Фильтруем события по дате
-
+            const isoDate = calendarGrid.children[index].dataset.date;
+            const eventsForDate = model.events.filter(event => event.date === isoDate);
 
             if (eventsForDate.length > 0) {
-                const minPrice = Math.min(...eventsForDate.map(event => event.adult_price)); // Находим минимальную цену
+                const minPrice = Math.min(...eventsForDate.map(event => event.adult_price));
 
-                // Проверяем, есть ли уже элемент цены в ячейке
                 let priceElement = day.querySelector('.calendar-price');
 
-                // Если элемента цены еще нет, создаем его
                 if (!priceElement) {
                     priceElement = document.createElement('span');
-                    priceElement.classList.add('calendar-price'); // Добавляем класс для цены
-                    day.appendChild(priceElement); // Добавляем элемент цены к дню календаря
+                    priceElement.classList.add('calendar-price');
+                    day.appendChild(priceElement);
                 }
 
-                // Обновляем содержимое элемента цены, если новая цена меньше
                 if (!priceElement.textContent || minPrice < parseFloat(priceElement.textContent.slice(1))) {
                     priceElement.textContent = `€${minPrice}`;
                 }
@@ -229,8 +216,7 @@ const controller = {
         // Get the booking data from the model
         const bookingData = model.bookingData;
 
-        console.log("Got jsonify bookingData to send:", JSON.stringify(bookingData));
-        // Perform any necessary validation or preprocessing of data here
+        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
         try {
             // Send the booking data to the server using fetch or another AJAX method
@@ -238,7 +224,7 @@ const controller = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // try to add CSRF token here
+                    'X-CSRFToken': csrfToken,
                 },
                 body: JSON.stringify(bookingData)
             });
@@ -247,7 +233,6 @@ const controller = {
             if (response.ok) {
                 // Handle successful response
                 console.log('Update Booking submitted successfully.');
-                // Extract the language slug from the current URL
                 const languageSlug = model.bookingData.language_code.toLowerCase();
 
                 // Redirect to the cart page after successful submission
@@ -291,21 +276,16 @@ const controller = {
     },
 
     handleTimeSelection: function () {
-        console.log("handleTimeSelection called");
         document.querySelectorAll('time-selection input[type="radio"]').forEach(input => {
-            console.log("Input element found:", input);
             input.addEventListener('change', function () {
-                console.log('Radio button changed');
                 controller.performValidation();
                 const selectedDate = document.querySelector('.calendar-day.selected-date');
                 if (selectedDate) {
                     controller.updateTotalPrice(selectedDate.dataset.date, this.value);
                 }
-
             })
         })
     },
-
 
     updateTotalPrice: function () {
         // Find the selected date and time
@@ -384,7 +364,6 @@ const controller = {
                 controller.resetPricesAndButton(); // Reset prices and submit button text
             }
 
-
             // If there are events for the clicked date
             if (eventsForDate.length > 0) {
                 // If there is only one event, automatically select its time slot
@@ -425,14 +404,10 @@ const controller = {
                         timeSelection.appendChild(timeLabel);
 
                         timeInput.addEventListener('change', function () {
-                            console.log('Radio button changed');
                             controller.performValidation(); // Call validation function when radio button changes
-
                         });
                     });
-
                 }
-
             } else {
                 // If no events are available for the clicked date, display a message
                 const noEventsMessage = document.createElement('p');
@@ -468,7 +443,6 @@ const controller = {
 
         // Enable language selection if adult ticket count is greater than 0
         if (parseInt(adultTicketCount) > 0) {
-
             languageSelection.classList.remove('disabled');
         } else {
             languageSelection.classList.add('disabled');
@@ -521,11 +495,7 @@ const controller = {
             // If no language is selected, you may want to handle this case accordingly
             console.error('No language selected.');
         }
-
-        // Update other fields as needed
-        console.log('inside updateBookingData all steps done:', model.bookingData);
     },
-
 
     // Function to reset booking data when the date selection changes
     resetBookingData: function () {
@@ -533,8 +503,6 @@ const controller = {
         model.bookingData.children = 0;
         model.bookingData.language_code = null;
         model.bookingData.event_id = null;
-        // Reset other fields as needed
-        console.log('inside resetBookingData:', model.bookingData);
     },
 
 };
@@ -556,11 +524,9 @@ async function fetchEventData(parentExperienceId) {
 
 // Function to handle the received JSON data
 function handleEventData(data) {
-    console.log('Got data from response:', data);
     if (data.hasOwnProperty('languages') && data.hasOwnProperty('events')) {
         model.languages = data.languages;
         model.events = data.events;
-        console.log('Updated model:', model);
         view.showOnlyAllowedLanguages();
         // Show calendar
         const currentDate = new Date(); // Or you can pass the date from the controller
@@ -588,12 +554,8 @@ async function fetchEventDataForCurrentEvent(eventId) {
 
 // Function to handle the received event data for the current event
 function handleEventDataForCurrentEvent(data) {
-    console.log('Got data for current event:', data);
-    // Update model with the received data or perform other actions as needed
-    // For example, you can update the model's current_event property with this data
     model.current_event = data;
 }
-
 
 document.addEventListener('DOMContentLoaded', async function () {
 
@@ -652,7 +614,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Get the current date
     const [month, day, year] = model.current_product.startDate.split('/');
     const currentDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-    console.log('currentDate=', currentDate);
 
     // Simulate a click on the current date in the calendar
     const currentDay = document.querySelector(`[data-date="${currentDate}"]`);
@@ -665,11 +626,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         currentDay.dispatchEvent(clickEvent);
     } else {
         console.error('Current date not found in the calendar.');
-    }
-    ;
+    };
 
     // seed form data
     view.seedDataToForm();
-
 });
-

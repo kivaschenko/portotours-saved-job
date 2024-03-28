@@ -1,5 +1,6 @@
 {% load static %}
 <form id="bookingForm">
+    {% csrf_token %}
     <div class="calendar">
         <div class="month-controls">
             <button id="prevMonth" type="button">
@@ -23,25 +24,7 @@
         <div class="calendar-grid" id="calendarGrid"></div>
     </div>
     <p class="body-text-b3 time-selection-title">Choose time</p>
-    <div class="time-selection">
-        <!-- <div class="input-wrapper">
-            <input type="radio" id="time1" name="time" value="9:00">
-            <label for="time1">9:00</label>
-        </div>
-        <div class="input-wrapper">
-            <input type="radio" id="time2" name="time" value="12:00">
-            <label for="time2">12:00</label>
-        </div>
-        <div class="input-wrapper">
-            <input type="radio" id="time3" name="time" value="15:00">
-            <label for="time3">15:00</label>
-        </div>
-        <div class="input-wrapper">
-            <input type="radio" id="time4" name="time" value="18:00">
-            <label for="time4">18:00</label>
-        </div> -->
-
-    </div>
+    <div class="time-selection"></div>
 
     <div class="ticket-selection">
         <p class="body-text-b3 ticket-selection-title">People</p>
