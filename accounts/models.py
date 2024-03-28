@@ -92,20 +92,11 @@ class Profile(models.Model):
     phone = models.CharField(max_length=20, blank=True, null=True)
     # address
     address_city = models.CharField(max_length=160, blank=True, null=True)
-    address_country = models.CharField(max_length=2, blank=True, null=True)
+    address_country = models.CharField(max_length=2, blank=True, null=True, help_text="max 2 characters, for example: UK, DE")
     address_line1 = models.CharField(max_length=160, blank=True, null=True)
     address_line2 = models.CharField(max_length=160, blank=True, null=True)
     address_postal_code = models.CharField(max_length=10, blank=True, null=True)
     address_state = models.CharField(max_length=160, blank=True, null=True)
-    # shipping address
-    shipping_address_city = models.CharField(max_length=160, blank=True, null=True)
-    shipping_address_country = models.CharField(max_length=220, blank=True, null=True)
-    shipping_address_line1 = models.CharField(max_length=160, blank=True, null=True)
-    shipping_address_line2 = models.CharField(max_length=160, blank=True, null=True)
-    shipping_address_postal_code = models.CharField(max_length=10, blank=True, null=True)
-    shipping_address_state = models.CharField(max_length=160, blank=True, null=True)
-    shipping_phone = models.CharField(max_length=20, blank=True, null=True)
-    shipping_name = models.CharField(max_length=160, blank=True, null=True)
 
     # local
     created_at = models.DateTimeField(auto_now_add=True)
