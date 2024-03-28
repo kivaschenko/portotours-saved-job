@@ -96,6 +96,11 @@
                 <div class="col-lg-10 col-md-10">
                     <div id="profileInfo">
                         <h3>Profile Info</h3>
+                        {% if review.profile.avatar %}
+                            <img src="{{ review.profile.avatar.url }}" alt="Avatar" width="100" height="100">
+                        {% else %}
+                            <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="100" height="100">
+                        {% endif %}
                         <table class="table table-responsive">
                             <tbody>
                             <tr>
@@ -106,17 +111,18 @@
                                 <th scope="row">Email</th>
                                 <td>{{ object.profile.email }}</td>
                             </tr>
+                            <tr>
+                                <th>Phone</th>
+                                <td>{{ object.profile.phone }}</td>
+                            </tr>
                             </tbody>
                         </table>
+                        <a href="{% url 'profile-info-update' %}" class="btn btn-warning">Update</a>
                     </div>
                     <div id="billingAddress">
                         <h3>Billing Address</h3>
                         <table class="table table-responsive">
                             <tbody>
-                            <tr>
-                                <th>Phone</th>
-                                <td>{{ object.profile.phone }}</td>
-                            </tr>
                             <tr>
                                 <th scope="col">City</th>
                                 <td>{{ object.profile.address_city }}</td>
@@ -145,46 +151,7 @@
                         </table>
                         <a href="{% url 'address-update' %}" class="btn btn-warning">Update</a>
                     </div>
-                    <div id="shippingAddress">
-                        <h3>Shipping Address</h3>
-                        <table class="table table-responsive">
-                            <tbody>
-                            <tr>
-                                <th scope="col">City</th>
-                                <td>{{ object.profile.shipping_address_city }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Country</th>
-                                <td>{{ object.profile.shipping_address_country }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Address Line 1</th>
-                                <td>{{ object.profile.shipping_address_line1 }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Address Line 2</th>
-                                <td>{{ object.profile.shipping_address_line2 }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Postal code</th>
-                                <td>{{ object.profile.shipping_address_postal_code }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">State</th>
-                                <td>{{ object.profile.shipping_address_state }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">State</th>
-                                <td>{{ object.profile.shipping_phone }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">State</th>
-                                <td>{{ object.profile.shipping_name }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <a href="{% url 'shipping-address-update' %}" class="btn btn-warning">Update</a>
-                    </div>
+
                     <div id="myOrders">
                         <h3>My orders</h3>
                         <table class="table table-responsive">

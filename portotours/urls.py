@@ -10,6 +10,7 @@ from attractions import views as attractions_views
 from products import views as products_views
 from purchases import views as purchases_views
 from blogs import views as blogs_views
+from reviews import views as reviews_views
 
 
 # 404, 500 ERRORS
@@ -38,7 +39,7 @@ urlpatterns = [
     # Profile
     path("accounts/profile/", accounts_views.ProfileView.as_view(), name="profile"),
     path("accounts/profile/update-address/", accounts_views.AddressUpdateView.as_view(), name="address-update"),
-    path("accounts/profile/upate-shipping-address/", accounts_views.ShippingAddressUpdateView.as_view(), name="shipping-address-update"),
+    path("accounts/profile/update-info/", accounts_views.ProfileInfoUpdateView.as_view(), name="profile-info-update"),
 ]
 
 # Django ckeditor: https://github.com/django-ckeditor/django-ckeditor
@@ -85,6 +86,11 @@ urlpatterns += [
 urlpatterns += [
     path('blogs/<str:lang>/', blogs_views.BlogListView.as_view(), name='blog-list'),
     path('blogs/<str:lang>/<slug:slug>/', blogs_views.BlogDetailView.as_view(), name='blog-detail'),
+]
+
+# REVIEWS
+urlpatterns += [
+    path('reviews/<int:pk>/', reviews_views.ReviewDetailView.as_view(), name='review-details'),
 ]
 
 # Scheduler urls
