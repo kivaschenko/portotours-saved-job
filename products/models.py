@@ -313,13 +313,6 @@ class ExperienceEvent(Event):
     def start_time(self):
         return self.start.strftime("%H:%M")
 
-    def update_booking_data(self, booked_number, *args, **kwargs):
-        self.booked_participants += booked_number
-        self.remaining_participants = self.max_participants - self.booked_participants
-        if self.remaining_participants < 0:
-            self.remaining_participants = 0
-        self.save(*args, **kwargs)
-    
 
 # -------
 # Product
@@ -399,6 +392,8 @@ class Product(models.Model):
         self.stripe_price = int(self.total_price * 100)
         if not self.expired_time:
             self.expired_time = datetime.utcnow() + timedelta(minutes=settings.BOOKING_MINUTES)  # by default 30 minutes
+        if self.occurrence and self.occurrence.pk is None:
+            self.occurrence.save()
         super(Product, self).save()
 
     def _count_old_total_price(self):
