@@ -12,7 +12,7 @@
             <p class="mobile-form-btn-title">
                 From
                 <span>
-                    € 20
+                    € {{ object.parent_experience.price }}
                 </span>
             </p>
             <a href="#" class="btn-type-1 mobile-form-btn">
@@ -32,7 +32,7 @@
                             From
                         </p>
                         <p class="price-amount">
-                            € 20
+                            € {{ object.parent_experience.price }}
                         </p>
                     </div>
                     <a href="#goToForm" class="experience-hero-btn btn-type-1">
@@ -82,10 +82,10 @@
     <section class="why experience-page why-slider">
         <div class="container">
             <h2 class="why-title">
-                Why book a full day experience to Sintra and Cabo da Roca with One Day Tours?
+                {{ object.why_title }}
             </h2>
             <p class="why-subtitle body-text-b1">
-                Create the best of your experience by visiting Portugal with our exclusive tours
+                {{ object.why_subtitle }}
             </p>
             <div class="why-cards-wrapper">
                 <div class="swiper-wrapper">
@@ -168,10 +168,10 @@
     <section class="experience-info">
         <div class="container">
             <h2 class="experience-info-title">
-                {{ object.long_name }}
+                {{ object.info_title }}
             </h2>
             <p class="experience-info-subtitle" id="goToForm">
-                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu.
+                {{ object.info_subtitle }}
             </p>
             <div class="experience-info-inner-wrapper">
                 <div class="left-col">
@@ -185,7 +185,7 @@
                                     Type of tours
                                 </p>
                                 <p class="card-text">
-                                    Private
+                                    {% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}
                                 </p>
                             </div>
                         </div>
@@ -237,7 +237,13 @@
                                     Languages
                                 </p>
                                 <p class="card-text">
-                                    {{ object.display_languages }}
+                                    {% if object.parent_experience.allowed_languages.all %}
+                                        <ul>
+                                            {% for language in object.parent_experience.allowed_languages.all %}
+                                                <li>{{ language.name }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
                                 </p>
                             </div>
                         </div>
@@ -250,14 +256,19 @@
                                     Pick Up Location
                                 </p>
                                 <p class="card-text">
-                                    2118 Thornridge Cir. Syracuse, Connecticut 35624
+                                    {% if object.parent_experience.meeting_point.get_map_url %}
+                                        <a href="{{ object.parent_experience.meeting_point.get_map_url }}"
+                                           target="_blank">{{ object.parent_experience.meeting_point.address }}</a>
+                                    {% else %}
+                                        {{ object.parent_experience.meeting_point.address }}
+                                    {% endif %}
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div class="experience-description">
                         <h5 class="description-title">
-                            Experience description
+                            {{ object.title_description }}
                         </h5>
                         <p>
                             {{ object.display_full_description }}
@@ -485,7 +496,7 @@
                     <div class="booking-form-wrapper">
                         <img src="{% static 'images/booking-form-banner.svg' %}" alt="form banner">
                         <img src="{% static 'icons/icon-back.svg' %}" alt="go back" class="btn-back">
-                        
+
                         {% if object.parent_experience.is_private %}
                             {% include 'include/private_booking_form.html' %}
                         {% else %}
