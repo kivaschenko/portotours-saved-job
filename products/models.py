@@ -392,6 +392,8 @@ class Product(models.Model):
         self.stripe_price = int(self.total_price * 100)
         if not self.expired_time:
             self.expired_time = datetime.utcnow() + timedelta(minutes=settings.BOOKING_MINUTES)  # by default 30 minutes
+        if self.occurrence and self.occurrence.pk is None:
+            self.occurrence.save()
         super(Product, self).save()
 
     def _count_old_total_price(self):

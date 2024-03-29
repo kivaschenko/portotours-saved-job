@@ -184,7 +184,7 @@ class TestProductLogic(TestCase):
             'children': 1,
             'language_code': 'EN',
             'customer_id': 1,
-            'session_key': 'session123',
+            'session_key': 'session35813',
             'event_id': tomorrow_group_event.id,
             'parent_experience_id': self.group_parent_experience.id
         }
@@ -192,14 +192,17 @@ class TestProductLogic(TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Product.objects.count(), 1)
         product = Product.objects.first()
-        self.assertEqual(tomorrow_group_event.booked_participants, 3)
-        self.assertEqual(tomorrow_group_event.remaining_participants, 5)
+        occur_pk = product.occurrence.pk
+        updated_event = ExperienceEvent.objects.get(id=tomorrow_group_event.id)
+        self.assertEqual(updated_event.booked_participants, 3)
+        self.assertEqual(updated_event.remaining_participants, 5)
         self.assertIsInstance(product.occurrence, Occurrence)
         response = self.client.delete(reverse('cancel-product', kwargs={'pk': product.pk}))
         # Assert that the response is successful and the product is deleted
         self.assertEqual(response.status_code, 302)
         cancelled_product = Product.objects.get(pk=product.pk)
-        self.assertEqual(tomorrow_group_event.booked_participants, 0)
-        self.assertEqual(tomorrow_group_event.remaining_participants, 8)
+        cancelled_event = ExperienceEvent.objects.get(id=updated_event.id)
+        self.assertEqual(cancelled_event.booked_participants, 0)
+        self.assertEqual(cancelled_event.remaining_participants, 8)
         with self.assertRaises(Occurrence.DoesNotExist, msg=cancelled_product):
-            Occurrence.objects.get(pk=cancelled_product.occurrence.pk)
+            Occurrence.objects.get(pk=occur_pk)

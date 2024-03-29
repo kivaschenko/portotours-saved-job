@@ -140,9 +140,9 @@ class CancelProductView(DeleteView):
         update_result = update_experience_event_booking(exp_event_id, booked_number)
         if not update_result:
             return HttpResponseBadRequest('Not allowed booking number.')
-        self.object.occurrence.delete()
         self.object.status = 'Cancelled'
         self.object.save()
+        self.object.occurrence.delete()
         # Instead of calling delete() on the object, change its status
         return HttpResponseRedirect(self.get_success_url())
 
@@ -247,7 +247,7 @@ def update_group_product(request):
         total_booked = adults + children
 
         if product.occurrence.event_id != exp_event.id:
-            update_result = update_experience_event_booking(product.occurence.event_id, booked_number=-total_booked)
+            update_result = update_experience_event_booking(product.occurrence.event_id, booked_number=-total_booked)
             if not update_result:
                 return HttpResponseBadRequest('Not allowed booking number.')
             product.occurrence.delete()
@@ -278,10 +278,10 @@ def update_group_product(request):
                 product.child_count = children
             if product.language != language:
                 product.language = language
-                update_result = update_experience_event_booking(product.occurence.event_id, booked_number=-total_booked)
+                update_result = update_experience_event_booking(product.occurrence.event_id, booked_number=-total_booked)
                 if not update_result:
                     return HttpResponseBadRequest('Not allowed booking number.')
-                update_result = update_experience_event_booking(product.occurence.event_id, booked_number=total_booked)
+                update_result = update_experience_event_booking(product.occurrence.event_id, booked_number=total_booked)
                 if not update_result:
                     return HttpResponseBadRequest('Not allowed booking number.')
             product.save()
@@ -439,7 +439,7 @@ def update_private_product(request):
         total_booked = adults + children
 
         if product.occurrence.event_id != exp_event.id:
-            update_result = update_experience_event_booking(product.occurence.event_id, booked_number=-total_booked)
+            update_result = update_experience_event_booking(product.occurrence.event_id, booked_number=-total_booked)
             if not update_result:
                 return HttpResponseBadRequest('Not allowed booking number.')
             product.occurrence.delete()
@@ -469,10 +469,10 @@ def update_private_product(request):
                 product.child_count = children
             if product.language != language:
                 product.language = language
-                update_result = update_experience_event_booking(product.occurence.event_id, booked_number=-total_booked)
+                update_result = update_experience_event_booking(product.occurrence.event_id, booked_number=-total_booked)
                 if not update_result:
                     return HttpResponseBadRequest('Not allowed booking number.')
-                update_result = update_experience_event_booking(product.occurence.event_id, booked_number=total_booked)
+                update_result = update_experience_event_booking(product.occurrence.event_id, booked_number=total_booked)
                 if not update_result:
                     return HttpResponseBadRequest('Not allowed booking number.')
             product.save()
