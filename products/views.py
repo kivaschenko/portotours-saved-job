@@ -19,7 +19,7 @@ class ExperienceListView(ListView):
     template_name = 'experiences/experience_list.html'
     extra_context = {}
     queryset = Experience.active.all()
-    paginate_by = 1
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = super(ExperienceListView, self).get_queryset()

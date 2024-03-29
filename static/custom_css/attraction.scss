@@ -236,9 +236,9 @@
             }
              span {
                 margin-left: 24px;
-                margin-right: 24px;
-                font-size: 44px;
-                line-height: 56px;
+                margin-right: 0;
+                font-size: 36px;
+                line-height: 36px;
                 font-family: 'LatoSemiBold';
                 margin-top: 60px;
                 display: inline-block;
@@ -249,7 +249,7 @@
                 }
              }
              img {
-                align-self: flex-end;
+                margin-top: 10px;
                 @include media-breakpoint-down(md) {
                     max-width: 165px;
                     display: block;

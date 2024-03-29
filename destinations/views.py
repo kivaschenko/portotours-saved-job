@@ -31,7 +31,7 @@ class DestinationListView(ListView):
     model = Destination
     template_name = 'destinations/destination_list.html'
     queryset = Destination.active.all()
-    paginate_by = 2
+    paginate_by = 10
     extra_context = {}
 
     def get_queryset(self):

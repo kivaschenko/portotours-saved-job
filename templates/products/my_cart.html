@@ -107,7 +107,7 @@
                                         </div>
                                         <div class="card-col">
                                             <p class="card-col-title">
-                                                Type of tours
+                                              Experience type
                                             </p>
                                             <p class="card-col-text">
                                                 {% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}
@@ -164,13 +164,13 @@
                     <div class="cart-order-info-col">
                         <div class="order-info-wrapper">
                             <p class="price">
-                                Neque porro quisquam
+                                Price for {number} experience(s)
                                 <span>
                                 €{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %}
                             </span>
                             </p>
                             <p class="price">
-                                Знижка
+                                Your exclusive discount
                                 <span>
                                 €{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %}
                             </span>
@@ -182,7 +182,7 @@
                             </span>
                             </p>
                             <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
-                                Button
+                                Checkout
                             </a>
                         </div>
                         <div class="purchase-includes">
@@ -190,11 +190,10 @@
                                 Your purchase includes:
                             </h4>
                             <ul>
-                                <li>Free cancellation policy</li>
-                                <li>24/7 customer support</li>
-                                <li>Best price on the market</li>
-                                <li>Qualified guides ( best guides/ top guides / Top-rated guides)</li>
                                 <li>Tours developed by local experts</li>
+                                <li>Best price on the market</li>
+                                <li>Free cancellation policy</li>
+                                <li>Award-winning customer support</li>
                             </ul>
                         </div>
                     </div>
@@ -203,11 +202,12 @@
                             Your purchase includes:
                         </h4>
                         <ul>
-                            <li>Free cancellation policy</li>
-                            <li>24/7 customer support</li>
-                            <li>Best price on the market</li>
-                            <li>Qualified guides ( best guides/ top guides / Top-rated guides)</li>
                             <li>Tours developed by local experts</li>
+                            <li>Best price on the market</li>
+                            <li>Free cancellation policy</li>
+                            <li>Award-winning customer support</li>
+                           
+                            
                         </ul>
                     </div>
                 </div>
@@ -222,7 +222,7 @@
                         your basket is empty
                     </h2>
                     <img src="{% static 'images/empty-cart-icon.svg' %}" alt="" class="empty-cart-img">
-                    <a href="{% url 'experience-list' 'en' %}" class="btn-type-1 empty-cart-btn">посмотреть туры</a>
+                    <a href="{% url 'experience-list' 'en' %}" class="btn-type-1 empty-cart-btn">List of experiences</a>
                 </div>
             </div>
             <section class="also-interested">

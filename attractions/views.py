@@ -6,7 +6,7 @@ from products.models import Language
 
 class AttractionListView(ListView):
     model = Attraction
-    paginate_by = 1
+    paginate_by = 10
     queryset = Attraction.active.all()
     extra_context = {}
 
