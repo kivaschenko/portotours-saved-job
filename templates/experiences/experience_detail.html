@@ -5,11 +5,6 @@
     <title>{{ object.page_title }}</title>
     <meta name="description" content="{{ object.page_description }}">
     <meta name="keywords" content="{{ object.page_keywords }}">
-    <!-- Include jQuery and jQuery UI for datepicker -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-
 {% endblock head %}
 {% block content %}
     <div class="mobile-form-btn-wrapper">
@@ -566,68 +561,36 @@
             <p class="testimonials-subtitle body-text-b1">
                 Read the reviews of our clients about their experience with our service
             </p>
-            <div class="testimonials-slider">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <p class="swiper-text">
-                            Awesome! I wanted to make a trip to Lisbon not only fun but also educational for my kids. Here I found everything I needed. Wanna
-                            highlight great communication and customer service. I'll come back, thank you guys:)
-                        </p>
-                        <div class="author-wrapper">
-                            <img src="{% static 'images/testimonials-img1.png' %}" alt="">
-                            <p class="name">Katherine Jennerwein</p>
-                        </div>
+            {% if object.parent_experience.review_set.all %}
+                <div class="testimonials-slider">
+                    <div class="swiper-wrapper">
+                        {% for review in object.parent_experience.review_set.all %}
+                            <div class="swiper-slide">
+                                <p class="swiper-text">
+                                    {{ review.short_text }}
+                                    <a href="{% url 'review-details' review.pk %}"><small>...See more</small></a>
+                                </p>
+                                <div class="author-wrapper">
+                                    {% if review.profile.avatar %}
+                                        <img src="{{ review.profile.avatar.url }}" alt="Avatar">
+                                    {% else %}
+                                        <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar">
+                                    {% endif %}
+                                    <p class="name">{{ review.profile.name }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="swiper-slide">
-                        <p class="swiper-text">
-                            Highly recommended! I truly enjoyed this service. The guides are professional and funny. The support team is flexible and
-                            understanding. I had a small issue, and it was solved in a blink of an eye. Wish you growth and thankful clients!:)
-                        </p>
-                        <div class="author-wrapper">
-                            <img src="{% static 'images/testimonials-img2.png' %}" alt="">
-                            <p class="name">Olivia Carroll</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <p class="swiper-text">
-                            Great service! OneDayTours team created a perfect vacation for me and my family. We've ordered a few tours and got full experience
-                            of the most amazing spots of Portugal. 100% recommend!
-                        </p>
-                        <div class="author-wrapper">
-                            <img src="{% static 'images/testimonials-img3.png' %}" alt="">
-                            <p class="name">Andy Walker</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
+                    <div class="swiper-pagination"></div>
 
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            {% else %}
+                <p>No any reviews yet...</p>
+            {% endif %}
         </div>
     </section>
-
-
-    <div class="container">
-
-        <p>Short name: {{ object.name }}</p>
-        <p>Long name: {{ object.long_name }}</p>
-        <p>Short description: {{ object.short_description }}</p>
-        <p>Full description:</p>
-        {{ object.display_full_description }}
-        <p>Languages</p>
-        {{ object.display_languages }}
-        <p>Duration</p>
-        {{ object.display_duration }}
-        <p>Accessibility</p>
-        {{ object.display_accessibility }}
-        <p>Possibility</p>
-        {{ object.display_possibility }}
-        <h3>{{ object.recommendations_title }}</h3>
-        <p>{{ object.recommendations_subtitle }}</p>
-        <h2>{{ object.recommendations_slogan }}</h2>
-    </div>
-
 
     <script>
         let openFullBtn = document.querySelector('.timeline-btn-open');

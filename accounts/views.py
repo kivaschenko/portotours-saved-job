@@ -6,7 +6,8 @@ from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 
-from .forms import CustomSignupForm, AddressForm, ShippingAddressForm, CustomLoginForm
+from .forms import (CustomSignupForm, AddressForm,
+                    ProfileInfoForm, CustomLoginForm)
 from accounts.models import User, Profile
 
 
@@ -68,10 +69,10 @@ class AddressUpdateView(UpdateView):
         return self.request.user.profile
 
 
-class ShippingAddressUpdateView(UpdateView):
+class ProfileInfoUpdateView(UpdateView):
     model = Profile
-    form_class = ShippingAddressForm
-    template_name = 'profile/shipping_address_form.html'
+    form_class = ProfileInfoForm
+    template_name = 'profile/info_form.html'
     success_url = reverse_lazy('profile')
 
     def get_object(self, queryset=None):

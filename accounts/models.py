@@ -7,6 +7,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.utils.translation import gettext_lazy as _
 
+from PIL import Image
+
 
 # CUSTOM USER
 class CustomUserManager(UserManager):
@@ -90,24 +92,49 @@ class Profile(models.Model):
     phone = models.CharField(max_length=20, blank=True, null=True)
     # address
     address_city = models.CharField(max_length=160, blank=True, null=True)
-    address_country = models.CharField(max_length=2, blank=True, null=True)
+    address_country = models.CharField(max_length=2, blank=True, null=True, help_text="max 2 characters, for example: UK, DE")
     address_line1 = models.CharField(max_length=160, blank=True, null=True)
     address_line2 = models.CharField(max_length=160, blank=True, null=True)
     address_postal_code = models.CharField(max_length=10, blank=True, null=True)
     address_state = models.CharField(max_length=160, blank=True, null=True)
-    # shipping address
-    shipping_address_city = models.CharField(max_length=160, blank=True, null=True)
-    shipping_address_country = models.CharField(max_length=220, blank=True, null=True)
-    shipping_address_line1 = models.CharField(max_length=160, blank=True, null=True)
-    shipping_address_line2 = models.CharField(max_length=160, blank=True, null=True)
-    shipping_address_postal_code = models.CharField(max_length=10, blank=True, null=True)
-    shipping_address_state = models.CharField(max_length=160, blank=True, null=True)
-    shipping_phone = models.CharField(max_length=20, blank=True, null=True)
-    shipping_name = models.CharField(max_length=160, blank=True, null=True)
 
     # local
     created_at = models.DateTimeField(auto_now_add=True)
+    # media
+    avatar = models.ImageField(_("Avatar"), upload_to="avatars/", null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        # Resize avatar before saving
+        if self.avatar:
+            self.resize_avatar()
+        super().save(*args, **kwargs)
+
+    def resize_avatar(self):
+        from PIL import Image, ImageOps
+        from io import BytesIO
+        from django.core.files.uploadedfile import InMemoryUploadedFile
+        import sys
+
+        # Open the avatar image
+        img = Image.open(self.avatar)
+
+        # Define maximum avatar size
+        max_size = (300, 300)
+
+        # Resize the avatar if it exceeds the maximum size
+        if img.height > max_size[1] or img.width > max_size[0]:
+            img.thumbnail(max_size, Image.LANCZOS)  # Use Image.LANCZOS for resizing
+
+            # Create a BytesIO buffer to store the resized image
+            buffer = BytesIO()
+            img.save(buffer, format=img.format)
+
+            # Create a new InMemoryUploadedFile instance with the resized image
+            self.avatar = InMemoryUploadedFile(
+                buffer, None, f"{self.avatar.name.split('.')[0]}_resized.{img.format.lower()}", 'image/jpeg',
+                sys.getsizeof(buffer), None
+            )
+    
     class Meta:
         ordering = ['name']
 

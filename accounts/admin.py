@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
+from django.utils.html import format_html
 
 from accounts.models import User, Profile
 
@@ -33,7 +34,7 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
-    list_display = ("email", "first_name", "last_name", "is_staff")
+    list_display = ("id", "email", "first_name", "last_name", "is_staff", "profile")
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
     search_fields = ("first_name", "last_name", "email")
 
@@ -43,6 +44,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = (
         'user',
         'stripe_customer_id',
+        'display_avatar',
         'name',
         'phone',
         'address_city',
@@ -67,3 +69,11 @@ class ProfileAdmin(admin.ModelAdmin):
         'address_postal_code',
         'address_state',
     )
+
+
+    def display_avatar(self, obj):
+        if obj.avatar:
+            return format_html('<img src="{}" width="50" height="50" style="border-radius: 50%;">', obj.avatar.url)
+        else:
+            return "No Avatar"
+    display_avatar.short_description = "Avatar"

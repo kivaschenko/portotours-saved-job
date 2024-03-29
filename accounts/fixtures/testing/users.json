@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$720000$MQD7pxIBiN0GWmgQO77JCN$/9MlllUSc1rIw2vEaw9sOPjypgdRiDuGVIatsaKh4uc=",
-        "last_login": "2024-03-11T19:24:58.609Z",
+        "last_login": "2024-03-28T14:48:55.476Z",
         "is_superuser": true,
         "username": "dev@example.com",
         "first_name": "Admin",
@@ -40,7 +40,7 @@
     "pk": 3,
     "fields": {
         "password": "pbkdf2_sha256$720000$wCi7xg8kLVvQHjtoYYLxw4$z6elxDVAWW2PfrAdByAKTUv6WbrCcJ3GmE/ijY1/w7g=",
-        "last_login": "2024-02-20T13:23:29.917Z",
+        "last_login": "2024-03-14T15:42:57.540Z",
         "is_superuser": true,
         "username": "julia.zubenko@keyua.org",
         "first_name": "Julia",
@@ -49,42 +49,6 @@
         "is_active": true,
         "date_joined": "2024-02-04T16:45:12Z",
         "email": "julia.zubenko@keyua.org",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
-    "model": "accounts.user",
-    "pk": 4,
-    "fields": {
-        "password": "pbkdf2_sha256$720000$wtrbd4Qdnc8ZiPYzDLlM9O$Gg41HBpvBgw7+pDjFEeoMsZ4hbn55FAJUvlQ1+lZv1o=",
-        "last_login": null,
-        "is_superuser": false,
-        "username": "teomeo@yahoo.com",
-        "first_name": "Teo",
-        "last_name": "Meo",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2024-03-01T13:57:18.599Z",
-        "email": "teomeo@yahoo.com",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
-    "model": "accounts.user",
-    "pk": 5,
-    "fields": {
-        "password": "pbkdf2_sha256$720000$BySOR6y3gjT7eGwk9lJl2x$D28Snjk2nYUkj6pJShx+uvZ4xRFelK3vpKWovtNCl6M=",
-        "last_login": null,
-        "is_superuser": false,
-        "username": "vlad_zelensky@example.com.ua",
-        "first_name": "Vlad",
-        "last_name": "Zelensky",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2024-03-01T14:45:54.581Z",
-        "email": "vlad_zelensky@example.com.ua",
         "groups": [],
         "user_permissions": []
     }
@@ -121,78 +85,6 @@
         "is_active": true,
         "date_joined": "2024-03-01T16:18:54.749Z",
         "email": "belmondo-test@yahoo.com",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
-    "model": "accounts.user",
-    "pk": 8,
-    "fields": {
-        "password": "pbkdf2_sha256$720000$Tak26ag0mgktSv3TqDCMxX$a8leMnFNNe/jKTcMV/KmYm8JSSoV4OcvrQRay82BRs8=",
-        "last_login": null,
-        "is_superuser": false,
-        "username": "fun-group-tourists@example.com",
-        "first_name": "Huan",
-        "last_name": "Matios",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2024-03-01T20:10:52.538Z",
-        "email": "fun-group-tourists@example.com",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
-    "model": "accounts.user",
-    "pk": 9,
-    "fields": {
-        "password": "pbkdf2_sha256$720000$0HC87oSIWdGgtvnos19LJb$ivCB6rE0DzXRgh9LmsSK6Da6chs91nRJxbvqXGhiYxU=",
-        "last_login": null,
-        "is_superuser": false,
-        "username": "spain-guys-and-children@yahoo.com",
-        "first_name": "Pedro",
-        "last_name": "Sanches",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2024-03-01T20:21:50.858Z",
-        "email": "spain-guys-and-children@yahoo.com",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
-    "model": "accounts.user",
-    "pk": 10,
-    "fields": {
-        "password": "pbkdf2_sha256$720000$PCyP1610F7yd0J2cI93nwY$h6IQVAHUNMdx7kiGXi7xVX4rQi+/fVjOvhGrCZzJMHg=",
-        "last_login": null,
-        "is_superuser": false,
-        "username": "alone-traveler@gmail.com",
-        "first_name": "Grigory",
-        "last_name": "Skovoroda",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2024-03-02T11:01:31.704Z",
-        "email": "alone-traveler@gmail.com",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
-    "model": "accounts.user",
-    "pk": 11,
-    "fields": {
-        "password": "pbkdf2_sha256$720000$cjlkSpA0YzkGJUyHzbv6mY$OeghyjBYaw4lG8bcGkkSodp80TJ65oybGFsMt1tzXb8=",
-        "last_login": null,
-        "is_superuser": false,
-        "username": "tarantino-director@yahoo.com",
-        "first_name": "Quentin",
-        "last_name": "tarantino",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2024-03-02T11:09:35.065Z",
-        "email": "tarantino-director@yahoo.com",
         "groups": [],
         "user_permissions": []
     }
@@ -253,24 +145,6 @@
 },
 {
     "model": "accounts.user",
-    "pk": 15,
-    "fields": {
-        "password": "pbkdf2_sha256$720000$mcsJRQW6cJYyqea9GT3F2q$y1Ua6BTLF7GYetnu/u7k0mQCnSs6F2di1xqUj7GqOAM=",
-        "last_login": "2024-03-04T13:12:31.891Z",
-        "is_superuser": false,
-        "username": "new-customer-test@gmail.com",
-        "first_name": "Donald",
-        "last_name": "Trump",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2024-03-04T11:30:07.198Z",
-        "email": "new-customer-test@gmail.com",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
-    "model": "accounts.user",
     "pk": 17,
     "fields": {
         "password": "pbkdf2_sha256$720000$xYoD1Mcy646uwlRPkF9bPe$31ssk6dnNRIloZxyLutuc6HwyOgQH109MT8XlmJ3WjU=",
@@ -283,6 +157,96 @@
         "is_active": true,
         "date_joined": "2024-03-05T07:10:39.440Z",
         "email": "jean-reno-test@gmail.com",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 20,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$jXThYQmxNdEJKGQmqaalC9$gFfb+RD2An/gnuZ6t+xQby2eWivn0vdzcY+iDhwymdA=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "teodorathome@yahoo.com",
+        "first_name": "Teodor",
+        "last_name": "RoyalCat",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-03-19T10:40:41.009Z",
+        "email": "teodorathome@yahoo.com",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 21,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$MACW2KJI806W8KIvFLyxTO$G1JQDVMgUETSIE1T0NLimoSMKPUTtbKvTvPVP5SJPFY=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "macron-president@yahoo.com",
+        "first_name": "Emanuel",
+        "last_name": "Macrone",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-03-20T13:24:13.480Z",
+        "email": "macron-president@yahoo.com",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 23,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$P5FFgIoYEYMMCkJUps4nR8$yLXzFedM7CCj/sf9n/U30R4x8Tk5a42bW3ow3fBtE2w=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "max-home-cat@yahoo.com",
+        "first_name": "Maximus",
+        "last_name": "Cat",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-03-26T09:54:50.706Z",
+        "email": "max-home-cat@yahoo.com",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 24,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$y8mvJvT5MZ8bEKGXU0hq0Z$hR7GslrPktUaGvJBFYvB9/Hah0K8oo/S90KjAV6UUVo=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "p.koshliak@gmail.com",
+        "first_name": "Pavlo",
+        "last_name": "Koshliak",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-03-26T10:23:12.501Z",
+        "email": "p.koshliak@gmail.com",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 25,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$T6RE2CxR2swsB50WyRbF7Y$3oqxn+w+A/qz5DeMwpIRUiyal0mnE59nVN8iX9DuSCM=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "brit-cat-test@yahoo.com",
+        "first_name": "Britcat",
+        "last_name": "Londoncity",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-03-27T15:03:50.093Z",
+        "email": "brit-cat-test@yahoo.com",
         "groups": [],
         "user_permissions": []
     }
@@ -302,15 +266,8 @@
         "address_line2": "ap. 44",
         "address_postal_code": "123456",
         "address_state": "Bucharest",
-        "shipping_address_city": null,
-        "shipping_address_country": null,
-        "shipping_address_line1": null,
-        "shipping_address_line2": null,
-        "shipping_address_postal_code": null,
-        "shipping_address_state": null,
-        "shipping_phone": null,
-        "shipping_name": null,
-        "created_at": "2024-03-01T15:04:37.606Z"
+        "created_at": "2024-03-01T15:04:37.606Z",
+        "avatar": "avatars/tesla_n_resized.png"
     }
 },
 {
@@ -328,119 +285,8 @@
         "address_line2": "app 23",
         "address_postal_code": "12345",
         "address_state": null,
-        "shipping_address_city": null,
-        "shipping_address_country": null,
-        "shipping_address_line1": null,
-        "shipping_address_line2": null,
-        "shipping_address_postal_code": null,
-        "shipping_address_state": null,
-        "shipping_phone": null,
-        "shipping_name": null,
-        "created_at": "2024-03-01T16:18:55.146Z"
-    }
-},
-{
-    "model": "accounts.profile",
-    "pk": 3,
-    "fields": {
-        "user": 8,
-        "stripe_customer_id": "cus_PewIKQw5gI2h7j",
-        "name": "Huan Matios",
-        "email": "fun-group-tourists@example.com",
-        "phone": null,
-        "address_city": "Madrid",
-        "address_country": "ES",
-        "address_line1": "Revolution street 17",
-        "address_line2": "ap 56",
-        "address_postal_code": "12345",
-        "address_state": "M",
-        "shipping_address_city": null,
-        "shipping_address_country": null,
-        "shipping_address_line1": null,
-        "shipping_address_line2": null,
-        "shipping_address_postal_code": null,
-        "shipping_address_state": null,
-        "shipping_phone": null,
-        "shipping_name": null,
-        "created_at": "2024-03-01T20:10:52.910Z"
-    }
-},
-{
-    "model": "accounts.profile",
-    "pk": 4,
-    "fields": {
-        "user": 9,
-        "stripe_customer_id": "cus_PewTpNnvPNm2Cl",
-        "name": "Pedro Sanches",
-        "email": "spain-guys-and-children@yahoo.com",
-        "phone": null,
-        "address_city": "Madrid",
-        "address_country": "ES",
-        "address_line1": "Corrida street 1",
-        "address_line2": "house 11",
-        "address_postal_code": "23087",
-        "address_state": "M",
-        "shipping_address_city": null,
-        "shipping_address_country": null,
-        "shipping_address_line1": null,
-        "shipping_address_line2": null,
-        "shipping_address_postal_code": null,
-        "shipping_address_state": null,
-        "shipping_phone": null,
-        "shipping_name": null,
-        "created_at": "2024-03-01T20:21:51.220Z"
-    }
-},
-{
-    "model": "accounts.profile",
-    "pk": 5,
-    "fields": {
-        "user": 10,
-        "stripe_customer_id": "cus_PfAfHLZkA60zTI",
-        "name": "Grigory Skovoroda",
-        "email": "alone-traveler@gmail.com",
-        "phone": null,
-        "address_city": "Kaniv",
-        "address_country": "UA",
-        "address_line1": "Some beautiful street 15",
-        "address_line2": null,
-        "address_postal_code": "18123",
-        "address_state": "Черкаська область",
-        "shipping_address_city": null,
-        "shipping_address_country": null,
-        "shipping_address_line1": null,
-        "shipping_address_line2": null,
-        "shipping_address_postal_code": null,
-        "shipping_address_state": null,
-        "shipping_phone": null,
-        "shipping_name": null,
-        "created_at": "2024-03-02T11:01:32.055Z"
-    }
-},
-{
-    "model": "accounts.profile",
-    "pk": 6,
-    "fields": {
-        "user": 11,
-        "stripe_customer_id": "cus_PfAnkU8AdOvuaA",
-        "name": "Quentin D. tarantino",
-        "email": "tarantino-director@yahoo.com",
-        "phone": null,
-        "address_city": "Saloniki",
-        "address_country": "GR",
-        "address_line1": "Some beautiful street 15",
-        "address_line2": "house 11",
-        "address_postal_code": "18123",
-        "address_state": null,
-        "shipping_address_city": null,
-        "shipping_address_country": null,
-        "shipping_address_line1": null,
-        "shipping_address_line2": null,
-        "shipping_address_postal_code": null,
-        "shipping_address_state": null,
-        "shipping_phone": null,
-        "shipping_name": null,
-        "created_at": "2024-03-02T11:09:35.416Z"
+        "created_at": "2024-03-01T16:18:55.146Z",
+        "avatar": "avatars/Jean-Paul-Belmondo-image-jean-paul-belmondo-36169264-800-600_resized.jpeg"
     }
 },
 {
@@ -458,15 +304,8 @@
         "address_line2": "d 4",
         "address_postal_code": "22350",
         "address_state": null,
-        "shipping_address_city": null,
-        "shipping_address_country": null,
-        "shipping_address_line1": null,
-        "shipping_address_line2": null,
-        "shipping_address_postal_code": null,
-        "shipping_address_state": null,
-        "shipping_phone": null,
-        "shipping_name": null,
-        "created_at": "2024-03-02T11:42:36.145Z"
+        "created_at": "2024-03-02T11:42:36.145Z",
+        "avatar": "avatars/5d4d4e81c03c0e21e8f7b97b_resized.webp"
     }
 },
 {
@@ -484,15 +323,8 @@
         "address_line2": "h 45",
         "address_postal_code": "22270",
         "address_state": "some text",
-        "shipping_address_city": "shipping city text",
-        "shipping_address_country": "United States",
-        "shipping_address_line1": "text line 1",
-        "shipping_address_line2": "dkjlfngk",
-        "shipping_address_postal_code": "122345",
-        "shipping_address_state": "kdfng",
-        "shipping_phone": "+437264t947",
-        "shipping_name": "John Doe",
-        "created_at": "2024-03-02T12:03:54.296Z"
+        "created_at": "2024-03-02T12:03:54.296Z",
+        "avatar": "avatars/image-w856_resized.webp"
     }
 },
 {
@@ -510,41 +342,8 @@
         "address_line2": "house 1",
         "address_postal_code": "22300",
         "address_state": null,
-        "shipping_address_city": null,
-        "shipping_address_country": null,
-        "shipping_address_line1": null,
-        "shipping_address_line2": null,
-        "shipping_address_postal_code": null,
-        "shipping_address_state": null,
-        "shipping_phone": null,
-        "shipping_name": null,
-        "created_at": "2024-03-02T14:12:48.545Z"
-    }
-},
-{
-    "model": "accounts.profile",
-    "pk": 10,
-    "fields": {
-        "user": 15,
-        "stripe_customer_id": "cus_PfvZN1glEXiuqs",
-        "name": "Donald G. Trump",
-        "email": "new-customer-test@gmail.com",
-        "phone": null,
-        "address_city": "Smalltown",
-        "address_country": "US",
-        "address_line1": "5 Avenu",
-        "address_line2": "20 building",
-        "address_postal_code": "18000",
-        "address_state": "PA",
-        "shipping_address_city": null,
-        "shipping_address_country": null,
-        "shipping_address_line1": null,
-        "shipping_address_line2": null,
-        "shipping_address_postal_code": null,
-        "shipping_address_state": null,
-        "shipping_phone": null,
-        "shipping_name": null,
-        "created_at": "2024-03-04T11:30:07.551Z"
+        "created_at": "2024-03-02T14:12:48.545Z",
+        "avatar": "avatars/george-rable-sqjpg-f55c01acd3118bfa_resized.jpeg"
     }
 },
 {
@@ -562,15 +361,122 @@
         "address_line2": "app 1",
         "address_postal_code": "22150",
         "address_state": null,
-        "shipping_address_city": "Quintin",
-        "shipping_address_country": "France",
-        "shipping_address_line1": "5 Rue du Maréchal Leclerc",
-        "shipping_address_line2": null,
-        "shipping_address_postal_code": "22800",
-        "shipping_address_state": null,
-        "shipping_phone": null,
-        "shipping_name": "Jean Reno",
-        "created_at": "2024-03-05T07:10:39.775Z"
+        "created_at": "2024-03-05T07:10:39.775Z",
+        "avatar": ""
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 13,
+    "fields": {
+        "user": 20,
+        "stripe_customer_id": "cus_PlWCcYkngBVdKq",
+        "name": "Teodor RoyalCat",
+        "email": "teodorathome@yahoo.com",
+        "phone": null,
+        "address_city": "Cherkasy",
+        "address_country": "UA",
+        "address_line1": "Shevchenka bulvar 256",
+        "address_line2": "app 23",
+        "address_postal_code": "18000",
+        "address_state": "Черкаська область",
+        "created_at": "2024-03-19T10:40:41.288Z",
+        "avatar": ""
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 14,
+    "fields": {
+        "user": 21,
+        "stripe_customer_id": "cus_Plx1MZEtaMkMhZ",
+        "name": "Emanuel R. Macrone",
+        "email": "macron-president@yahoo.com",
+        "phone": null,
+        "address_city": "Kyiv",
+        "address_country": "UA",
+        "address_line1": "Kvitkova str 5",
+        "address_line2": "app 23",
+        "address_postal_code": "01230",
+        "address_state": "місто Київ",
+        "created_at": "2024-03-20T13:24:13.731Z",
+        "avatar": "avatars/1600346-emmanuel-macron-le-28-juin-2023_resized.jpeg"
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 16,
+    "fields": {
+        "user": 23,
+        "stripe_customer_id": "cus_Po90dlJJN1wfcF",
+        "name": "Maximus Home Cat",
+        "email": "max-home-cat@yahoo.com",
+        "phone": null,
+        "address_city": "Cherkasy",
+        "address_country": "UA",
+        "address_line1": "Cats street 15",
+        "address_line2": "home 1",
+        "address_postal_code": "18036",
+        "address_state": "Черкаська область",
+        "created_at": "2024-03-26T09:54:51.006Z",
+        "avatar": "avatars/pexels-photo-177809_resized.jpeg"
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 17,
+    "fields": {
+        "user": 24,
+        "stripe_customer_id": "cus_Po9Suf22GdV1WJ",
+        "name": "Pavlo Koshliak",
+        "email": "p.koshliak@gmail.com",
+        "phone": null,
+        "address_city": "Kharkiv",
+        "address_country": "UA",
+        "address_line1": "Moskalivska 23",
+        "address_line2": "333",
+        "address_postal_code": "61004",
+        "address_state": "місто Київ",
+        "created_at": "2024-03-26T10:23:12.869Z",
+        "avatar": ""
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 18,
+    "fields": {
+        "user": 25,
+        "stripe_customer_id": "cus_PobDUWTvaAHn20",
+        "name": "Britcat from Londoncity",
+        "email": "brit-cat-test@yahoo.com",
+        "phone": null,
+        "address_city": "London",
+        "address_country": "GB",
+        "address_line1": "Central street 1",
+        "address_line2": "house 11",
+        "address_postal_code": "SE26 6XL",
+        "address_state": null,
+        "created_at": "2024-03-27T15:03:50.381Z",
+        "avatar": "avatars/pexels-pixabay-45201_resized.jpeg"
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 19,
+    "fields": {
+        "user": 1,
+        "stripe_customer_id": "test-string",
+        "name": "Developer Admin",
+        "email": "dev@example.com",
+        "phone": "+380441235813",
+        "address_city": "Kyiv",
+        "address_country": "UA",
+        "address_line1": "Shevchenko bulvar, 123",
+        "address_line2": "app. 358",
+        "address_postal_code": "01000",
+        "address_state": null,
+        "created_at": "2024-03-28T14:37:42.574Z",
+        "avatar": "avatars/pexels-briana-sample-6847664_resized.jpeg"
     }
 }
 ]
