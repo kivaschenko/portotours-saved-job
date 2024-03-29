@@ -92,6 +92,11 @@ class MeetingPoint(models.Model):
         location = geolocator.reverse(f"{self.latitude}, {self.longitude}")
         return location.address
 
+    @property
+    def get_map_url(self):
+        if self.latitude is not None and self.longitude is not None:
+            return f"https://www.google.com/maps/search/?api=1&query={self.latitude},{self.longitude}"
+        return None
 
 # --------
 # Language
@@ -212,17 +217,17 @@ class Experience(models.Model):
     # Content part
     name = models.CharField(max_length=60, unique=True,
                             help_text="Short name for the experience, max 60 characters")
-    title_for_booking_form = models.CharField(max_length=120, help_text="Title above book form, max 120 characters",
-                                              null=True, blank=True)
-    long_name = models.CharField(max_length=255, help_text="Long name for the experience, max 255 characters",
-                                 blank=True, null=True)
-    short_description = models.CharField(max_length=255,
-                                         help_text="Short description for the Short Name, max 255 characters",
+    why_title = models.CharField(max_length=120, help_text="Title above why book slider, max 120 characters", null=True, blank=True)
+    why_subtitle = models.CharField(max_length=255, help_text="Subtitle above why book slider, max 255 characters",
+                                    null=True, blank=True)
+    info_title = models.CharField(max_length=120, help_text="Info title above info block, max 120 characters", null=True, blank=True)
+    info_subtitle = models.CharField(max_length=255, help_text="Info subtitle above info block, max 255 characters",
+                                     blank=True, null=True)
+    short_description = models.CharField(max_length=255, help_text="Short description for the preview card, max 255 characters",
                                          blank=True, null=True)
-    full_description = RichTextField(max_length=6000,
-                                     help_text="Full description for the Experience, max 6000 characters",
+    title_description = models.CharField(max_length=255, help_text="Title for full description, max 255 characters", null=True, blank=True)
+    full_description = RichTextField(max_length=6000, help_text="Full description for the Experience, max 6000 characters",
                                      null=True, blank=True)
-    languages = RichTextField(help_text="list of available languages during experience trip", null=True, blank=True)
     duration = RichTextField(max_length=60, help_text="duration of the experience, for example '5 hours'",
                              blank=True, null=True)
     accessibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
@@ -259,9 +264,6 @@ class Experience(models.Model):
 
     def display_full_description(self):
         return mark_safe(self.full_description)
-
-    def display_languages(self):
-        return mark_safe(self.languages)
 
     def display_duration(self):
         return mark_safe(self.duration)

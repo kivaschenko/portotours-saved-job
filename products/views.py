@@ -31,7 +31,7 @@ class ExperienceListView(ListView):
 
 class ExperienceDetailView(DetailView):
     model = Experience
-    template_name = 'experiences/experience_detail.html'
+    template_name = 'experiences/experience_details.html'
     extra_context = {'languages': {}}
     queryset = Experience.active.all()
     success_url = reverse_lazy('my-cart', kwargs={'lang': 'en'})
