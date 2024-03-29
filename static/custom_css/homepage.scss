@@ -8,7 +8,7 @@
   }
   .container {
     padding-top: 70px;
-    padding-bottom: 330px;
+    padding-bottom: 230px;
     text-align: center;
     position: relative;
     @include media-breakpoint-down(md) {
@@ -241,7 +241,7 @@
             text-align: left;
             .why-subtext {
               margin: 0;
-              font-size: 16px;
+              font-size: 14px;
               line-height: normal;
               color: #0F0F10;
               margin-top: 10px;

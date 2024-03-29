@@ -27,7 +27,6 @@ const view = {
     // Function implementation for seeding data to form, if needed
     seedDataToForm: function () {
         const productData = model.current_product;
-
         const startTime = productData.startTime;
         const input = document.querySelector('input[type="radio"][value="' + startTime + '"]');
         const startLanguage = productData.language;
@@ -160,6 +159,9 @@ const view = {
         });
         // Event listener to handle click on a date cell
         calendarGrid.addEventListener('click', controller.handleDateClick);
+        
+        
+        
     },
 
     // Function to create calendar day
@@ -340,14 +342,12 @@ const controller = {
     handleDateClick: function (event) {
         const clickedDateElement = event.target;
         const clickedDate = clickedDateElement.dataset.date;
-
+        
         // Clear the time selection area
         const timeSelection = document.querySelector('.time-selection');
         timeSelection.innerHTML = '';
 
-        // Reset adult and child ticket counts when date changes
-        document.getElementById('adultTicketCount').value = 0;
-        document.getElementById('childTicketCount').value = 0;
+        
 
         if (clickedDate) {
             const eventsForDate = model.events.filter(event => event.date === clickedDate);
@@ -427,6 +427,7 @@ const controller = {
             });
             clickedDateElement.classList.add('selected-date');
             model.selectedDate = clickedDate;
+            adultTicketCount = model.current_product.adultCount
         }
     },
      performValidation: function() {
@@ -622,20 +623,31 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
      // Get the current date
     const [month, day, year] = model.current_product.startDate.split('/');
-    const currentDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    
 
      // Simulate a click on the current date in the calendar
+    const [tourYear, tourMonth, tourDay] = model.current_product.startDate.split('/');
+    const tourStartDate = new Date(`${tourYear}-${tourMonth}-${tourDay}`);
+    const tourStartYear = tourStartDate.getFullYear(); // Получаем год начала тура
+    const tourStartMonth = tourStartDate.getMonth(); // Получаем номер месяца начала тура
+
+    // Рендер календаря для месяца и года начала тура
+    view.renderCalendar(new Date(tourStartYear, tourStartMonth, 1));
+
+    // Добавление класса selected-date к дате текущего тура
+    const currentDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     const currentDay = document.querySelector(`[data-date="${currentDate}"]`);
-     if (currentDay) {
-         const clickEvent = new MouseEvent('click', {
-             bubbles: true,
-             cancelable: true,
-             view: window
-         });
-         currentDay.dispatchEvent(clickEvent);
-     } else {
-         console.error('Current date not found in the calendar.');
-     }
+    if (currentDay) {
+        currentDay.classList.add('selected-date');
+        const clickEvent = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window
+        });
+        currentDay.dispatchEvent(clickEvent);
+    } else {
+        console.error('Current date not found in the calendar.');
+    }
 
      // seed form data
     view.seedDataToForm();

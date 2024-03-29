@@ -17,23 +17,15 @@
             justify-content: space-between;
         }
 
-        p {
-            font-style: normal;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 20px;
-            letter-spacing: -0.154px;
-            color: #242d60;
-            height: 100%;
-            width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-
         #checkout {
             width: 100%;
         }
-
+        .CurrencyAmount {
+            color: red;
+        }
+        .App-Overview {
+            display: none;
+        }
         .hidden {
             display: none;
         }
@@ -78,11 +70,13 @@
                     </li>
                 </ul>
             </div>
-            
-            <div class="cart-milestones">
-                <h2>2 Step: Billing Details</h2>
-                <p><small>There are some implementation for milestones of order and payment process...</small></p>
+            <div class="cart-title-wrapper">
+                <h2 class="cart-title">
+                    Billing Details
+                </h2>
+                
             </div>
+           
             <div id="checkout">
                 <!-- Payment form will be inserted here -->
             </div>

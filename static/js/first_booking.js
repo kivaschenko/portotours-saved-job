@@ -171,8 +171,8 @@ const view = {
         const childTotalPriceElement = document.getElementById('childTotalPrice');
 
         if (adultTotalPriceElement && childTotalPriceElement) {
-            adultTotalPriceElement.textContent = `${totalAdultPrice.toFixed(2)}`;
-            childTotalPriceElement.textContent = `${totalChildPrice.toFixed(2)}`;
+            adultTotalPriceElement.textContent = `€${totalAdultPrice.toFixed(2)}`;
+            childTotalPriceElement.textContent = `€${totalChildPrice.toFixed(2)}`;
         }
     }
 };
@@ -286,8 +286,8 @@ const controller = {
                 const adultTotalPriceElement = document.getElementById('adultTotalPrice');
                 const childTotalPriceElement = document.getElementById('childTotalPrice');
                 if (adultTotalPriceElement && childTotalPriceElement) {
-                    adultTotalPriceElement.textContent = `${totalAdultPrice.toFixed(2)}`;
-                    childTotalPriceElement.textContent = `${totalChildPrice.toFixed(2)}`;
+                    adultTotalPriceElement.textContent = `€${totalAdultPrice.toFixed(2)}`;
+                    childTotalPriceElement.textContent = `€${totalChildPrice.toFixed(2)}`;
                 }
 
                 // Update submit button text
