@@ -202,8 +202,8 @@ const view = {
         const childTotalPriceElement = document.getElementById('childTotalPrice');
 
         if (adultTotalPriceElement && childTotalPriceElement) {
-            adultTotalPriceElement.textContent = `${totalAdultPrice.toFixed(2)}`;
-            childTotalPriceElement.textContent = `${totalChildPrice.toFixed(2)}`;
+            adultTotalPriceElement.textContent = `€${totalAdultPrice.toFixed(2)}`;
+            childTotalPriceElement.textContent = `€${totalChildPrice.toFixed(2)}`;
         }
     },
 
@@ -315,15 +315,15 @@ const controller = {
                 const adultTotalPriceElement = document.getElementById('adultTotalPrice');
                 const childTotalPriceElement = document.getElementById('childTotalPrice');
                 if (adultTotalPriceElement && childTotalPriceElement) {
-                    adultTotalPriceElement.textContent = `${totalAdultPrice.toFixed(2)}`;
-                    childTotalPriceElement.textContent = `${totalChildPrice.toFixed(2)}`;
+                    adultTotalPriceElement.textContent = `€${totalAdultPrice.toFixed(2)}`;
+                    childTotalPriceElement.textContent = `€${totalChildPrice.toFixed(2)}`;
                 }
 
                 // Update submit button text
                 const totalPrice = totalAdultPrice + totalChildPrice;
                 submitBtn.textContent = `Save`;
                 let totalPriceText = document.querySelector('.total-price-wrapper span')
-                totalPriceText.innerHTML = `${totalPrice}`
+                totalPriceText.innerHTML = `${totalPrice.toFixed(2)}`
             } else {
                 console.error('Selected event not found.');
             }
@@ -349,9 +349,7 @@ const controller = {
         const timeSelection = document.querySelector('.time-selection');
         timeSelection.innerHTML = '';
 
-        // Reset adult and child ticket counts when date changes
-        document.getElementById('adultTicketCount').value = 0;
-        document.getElementById('childTicketCount').value = 0;
+        
 
         if (clickedDate) {
             const eventsForDate = model.events.filter(event => event.date === clickedDate);
@@ -611,22 +609,33 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.querySelectorAll('input[name="language"]').forEach(input => {
         input.addEventListener('change', controller.performValidation);
     });
-    // Get the current date
-    const [month, day, year] = model.current_product.startDate.split('/');
-    const currentDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
 
-    // Simulate a click on the current date in the calendar
-    const currentDay = document.querySelector(`[data-date="${currentDate}"]`);
-    if (currentDay) {
-        const clickEvent = new MouseEvent('click', {
-            bubbles: true,
-            cancelable: true,
-            view: window
-        });
-        currentDay.dispatchEvent(clickEvent);
-    } else {
-        console.error('Current date not found in the calendar.');
-    };
+    
+     // Simulate a click on the current date in the calendar
+     const [tourYear, tourMonth, tourDay] = model.current_product.startDate.split('/');
+     const tourStartDate = new Date(`${tourYear}-${tourMonth}-${tourDay}`);
+     const tourStartYear = tourStartDate.getFullYear(); // Получаем год начала тура
+     const tourStartMonth = tourStartDate.getMonth(); // Получаем номер месяца начала тура
+
+     const [month, day, year] = model.current_product.startDate.split('/');
+ 
+     // Рендер календаря для месяца и года начала тура
+     view.renderCalendar(new Date(tourStartYear, tourStartMonth, 1));
+ 
+     // Добавление класса selected-date к дате текущего тура
+     const currentDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+     const currentDay = document.querySelector(`[data-date="${currentDate}"]`);
+     if (currentDay) {
+         currentDay.classList.add('selected-date');
+         const clickEvent = new MouseEvent('click', {
+             bubbles: true,
+             cancelable: true,
+             view: window
+         });
+         currentDay.dispatchEvent(clickEvent);
+     } else {
+         console.error('Current date not found in the calendar.');
+     }
 
     // seed form data
     view.seedDataToForm();

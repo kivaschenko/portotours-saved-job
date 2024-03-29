@@ -7688,7 +7688,7 @@ html.off-scroll body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-right: 40px; }
+    margin-left: 38px; }
     @media (max-width: 767.98px) {
       .header-right-col .cart-wrapper {
         margin-right: 0; }
@@ -8167,6 +8167,9 @@ html.off-scroll body {
   .authorization .container {
     max-width: 425px;
     margin: 0 auto; }
+    @media (max-width: 767.98px) {
+      .authorization .container {
+        width: 100%; } }
     .authorization .container .authorization-form {
       width: 100%;
       margin-top: 100px;
@@ -8175,10 +8178,20 @@ html.off-scroll body {
       border: 1px solid #D9D9D9;
       background: #FFF;
       padding: 60px 31px; }
+      @media (max-width: 767.98px) {
+        .authorization .container .authorization-form {
+          border: none;
+          padding: 24px 0;
+          margin-bottom: 20px;
+          margin-top: 0; } }
       .authorization .container .authorization-form h4, .authorization .container .authorization-form .h4 {
         text-align: center;
         margin-bottom: 45px;
         text-transform: capitalize; }
+        @media (max-width: 767.98px) {
+          .authorization .container .authorization-form h4, .authorization .container .authorization-form .h4 {
+            font-size: 26px;
+            line-height: 36px; } }
       .authorization .container .authorization-form #div_id_username,
       .authorization .container .authorization-form #div_id_password {
         position: relative; }
@@ -8223,6 +8236,63 @@ html.off-scroll body {
         width: 220px;
         margin: 0 auto;
         display: block; }
+    .authorization .container .reset-password-form {
+      width: 100%;
+      margin-top: 100px;
+      margin-bottom: 80px;
+      border-radius: 16px;
+      border: 1px solid #D9D9D9;
+      background: #FFF;
+      padding: 60px 31px; }
+      @media (max-width: 767.98px) {
+        .authorization .container .reset-password-form {
+          border: none;
+          padding: 24px 0;
+          margin-top: 0;
+          margin-bottom: 20px; } }
+      .authorization .container .reset-password-form h4, .authorization .container .reset-password-form .h4 {
+        font-size: 26px;
+        line-height: 36px;
+        text-align: center;
+        margin-bottom: 16px;
+        text-transform: capitalize;
+        font-family: "LatoMedium"; }
+      .authorization .container .reset-password-form p {
+        font-family: "LatoRegular";
+        font-size: 16px;
+        line-height: 26px;
+        text-align: center;
+        margin-bottom: 37px; }
+      .authorization .container .reset-password-form .input-wrapper {
+        position: relative;
+        margin-bottom: 40px; }
+        .authorization .container .reset-password-form .input-wrapper input {
+          width: 100%;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          background: #FFF;
+          font-size: 16px;
+          line-height: normal;
+          padding: 20px 24px;
+          color: #000; }
+          .authorization .container .reset-password-form .input-wrapper input:focus {
+            outline: none;
+            box-shadow: none; }
+          .authorization .container .reset-password-form .input-wrapper input::placeholder {
+            color: #6D6D6D; }
+        .authorization .container .reset-password-form .input-wrapper label {
+          position: absolute;
+          background-color: white;
+          top: -10px;
+          left: 24px;
+          padding: 0 5px;
+          color: #0F0F10;
+          font-size: 16px;
+          line-height: normal; }
+      .authorization .container .reset-password-form .btn-type-1 {
+        width: 100%;
+        margin: 0 auto;
+        display: block; }
 
 .pagination-block {
   position: absolute;
@@ -8236,20 +8306,14 @@ html.off-scroll body {
     border: none;
     background: none;
     padding: 0; }
-    .pagination-block .pagination-btn.disabled img.orange {
-      display: none; }
-    .pagination-block .pagination-btn.disabled img.grey {
-      display: block; }
     .pagination-block .pagination-btn img {
       width: 100%;
       height: 100%;
       display: block; }
-      .pagination-block .pagination-btn img.grey {
-        display: none; }
-    .pagination-block .pagination-btn.prev {
+    .pagination-block .pagination-btn.prev .orange {
       transform: scaleX(-1); }
-      .pagination-block .pagination-btn.prev.disabled {
-        transform: none; }
+    .pagination-block .pagination-btn.next .grey {
+      transform: scaleX(-1); }
   .pagination-block .pagination-list {
     display: flex;
     align-items: center;
@@ -8269,6 +8333,9 @@ html.off-scroll body {
       font-size: 18px;
       line-height: 28px;
       cursor: pointer; }
+      .pagination-block .pagination-list .pagination-list-item a {
+        color: inherit;
+        text-decoration: none; }
       .pagination-block .pagination-list .pagination-list-item + .pagination-list-item {
         margin-left: 16px; }
       .pagination-block .pagination-list .pagination-list-item.active {
@@ -8837,10 +8904,14 @@ html.off-scroll body {
       padding-bottom: 67px; } }
   .destination-list-hero .container .destination-list-hero-title {
     color: var(--text-color-second);
-    display: flex;
+    display: block;
     align-items: baseline;
     justify-content: center;
-    margin-bottom: 0; }
+    margin-bottom: 0;
+    padding: 0 100px;
+    font-size: 62px;
+    line-height: 56px;
+    text-align: center; }
     @media (max-width: 767.98px) {
       .destination-list-hero .container .destination-list-hero-title {
         font-family: 'LatoSemiBold';
@@ -8850,9 +8921,11 @@ html.off-scroll body {
         text-align: center; } }
     .destination-list-hero .container .destination-list-hero-title span {
       margin-left: 24px;
-      margin-right: 24px;
-      font-size: 44px;
-      line-height: 56px;
+      margin-right: 0;
+      font-size: 36px;
+      line-height: 36px;
+      margin-top: 60px;
+      display: inline-block;
       font-family: 'LatoSemiBold'; }
       @media (max-width: 767.98px) {
         .destination-list-hero .container .destination-list-hero-title span {
@@ -8862,8 +8935,7 @@ html.off-scroll body {
           margin: 0; } }
     .destination-list-hero .container .destination-list-hero-title img {
       align-self: flex-end;
-      max-width: 165px;
-      margin-top: 16px; }
+      margin-top: 10px; }
 
 .destinations-list .container {
   margin-top: 40px;
@@ -8898,7 +8970,9 @@ html.off-scroll body {
           .destinations-list .container .destinations .destinations-list-item + .destinations-list-item {
             margin-top: 20px; } }
       .destinations-list .container .destinations .destinations-list-item .list-item-img-wrapper {
-        width: 540px; }
+        width: 540px;
+        border-radius: 26px 0 0 26px;
+        overflow: hidden; }
         @media (max-width: 767.98px) {
           .destinations-list .container .destinations .destinations-list-item .list-item-img-wrapper {
             width: 100%;
@@ -8987,7 +9061,7 @@ html.off-scroll body {
       background: none; } }
   .home-hero .container {
     padding-top: 70px;
-    padding-bottom: 330px;
+    padding-bottom: 230px;
     text-align: center;
     position: relative; }
     @media (max-width: 767.98px) {
@@ -9189,7 +9263,7 @@ html.off-scroll body {
     text-align: left; }
     .why.why-slider .container .why-cards-wrapper .why-card .why-card-inner-wrapper .why-subtext {
       margin: 0;
-      font-size: 16px;
+      font-size: 14px;
       line-height: normal;
       color: #0F0F10;
       margin-top: 10px; }
@@ -10158,9 +10232,9 @@ html.off-scroll body {
         padding: 0; } }
     .attraction-list-hero .container .attraction-list-hero-title span {
       margin-left: 24px;
-      margin-right: 24px;
-      font-size: 44px;
-      line-height: 56px;
+      margin-right: 0;
+      font-size: 36px;
+      line-height: 36px;
       font-family: 'LatoSemiBold';
       margin-top: 60px;
       display: inline-block; }
@@ -10170,7 +10244,7 @@ html.off-scroll body {
           font-size: 26px;
           line-height: 36px; } }
     .attraction-list-hero .container .attraction-list-hero-title img {
-      align-self: flex-end; }
+      margin-top: 10px; }
       @media (max-width: 767.98px) {
         .attraction-list-hero .container .attraction-list-hero-title img {
           max-width: 165px;
@@ -10342,10 +10416,13 @@ html.off-scroll body {
       margin-bottom: 40px; } }
   .experience-list-hero .container .experience-list-hero-title {
     color: var(--text-color-second);
-    display: flex;
-    align-items: baseline;
+    display: block;
+    align-items: center;
     justify-content: center;
-    margin-bottom: 32px; }
+    margin-bottom: 32px;
+    font-size: 62px;
+    line-height: 56px;
+    padding: 0 140px; }
     @media (max-width: 767.98px) {
       .experience-list-hero .container .experience-list-hero-title {
         background-image: url(../images/destination-list-hero-img-mob.png);
@@ -10359,9 +10436,22 @@ html.off-scroll body {
         display: block;
         font-family: "LatoSemiBold";
         margin-bottom: 0px; } }
+    .experience-list-hero .container .experience-list-hero-title span {
+      margin-left: 24px;
+      margin-right: 0;
+      font-size: 36px;
+      line-height: 36px;
+      font-family: 'LatoSemiBold';
+      margin-top: 60px;
+      display: inline-block; }
+      @media (max-width: 767.98px) {
+        .experience-list-hero .container .experience-list-hero-title span {
+          margin: 0;
+          font-size: 26px;
+          line-height: 36px; } }
     .experience-list-hero .container .experience-list-hero-title img {
       align-self: flex-end;
-      margin-bottom: -18px;
+      margin-bottom: -10px;
       margin-left: 18px; }
       @media (max-width: 767.98px) {
         .experience-list-hero .container .experience-list-hero-title img {
@@ -10520,7 +10610,7 @@ html.off-scroll body {
         flex-direction: column;
         margin-bottom: 20px; } }
     .experience-list .container .title-filter-wrapper .experience-list-title {
-      font-size: 48px;
+      font-size: 36px;
       line-height: normal;
       font-family: "LatoMedium";
       color: #0f0f10; }
@@ -10604,8 +10694,7 @@ html.off-scroll body {
           text-transform: capitalize; }
         .experience-list .container .experiences .experience-list-item .list-item-img-wrapper img {
           width: 100%;
-          height: 100%;
-          max-height: 385px; }
+          height: 100%; }
       .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper {
         width: calc(100% - 450px);
         padding: 32px 32px 28px 32px;
@@ -10645,6 +10734,8 @@ html.off-scroll body {
               padding: 5px 10px;
               background-color: #f3faf5;
               border-radius: 30px; }
+              .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li p {
+                display: inline; }
               @media (max-width: 767.98px) {
                 .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li {
                   margin-bottom: 8px;
@@ -11140,7 +11231,7 @@ html.off-scroll body {
         position: relative;
         border-radius: 26px;
         background: #F8F8F8;
-        padding: 20px 40px; }
+        padding: 60px 40px 20px; }
         @media (max-width: 767.98px) {
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper {
             height: 100vh;
@@ -11350,7 +11441,8 @@ html.off-scroll body {
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          flex-wrap: wrap; }
+          flex-wrap: wrap;
+          padding-top: 20px; }
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection.disabled {
             pointer-events: none; }
             .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection.disabled .input-wrapper label img {
@@ -11452,8 +11544,8 @@ html.off-scroll body {
 .blog-hero .blog-hero-subtitle {
   color: var(--text-color-second);
   text-transform: capitalize;
-  font-size: 32px;
-  line-height: 42px;
+  font-size: 20px;
+  line-height: 24px;
   font-family: "LatoSemiBold";
   margin: 0; }
   @media (max-width: 767.98px) {
@@ -11598,7 +11690,7 @@ html.off-scroll body {
   .blog-detail-hero .container .blog-detail-hero-info-wrapper {
     display: flex;
     align-items: center;
-    justify-content: space-between; }
+    justify-content: flex-start; }
     @media (max-width: 767.98px) {
       .blog-detail-hero .container .blog-detail-hero-info-wrapper {
         flex-direction: column;

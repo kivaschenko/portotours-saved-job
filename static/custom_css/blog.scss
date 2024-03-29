@@ -30,8 +30,8 @@
   .blog-hero-subtitle {
     color: var(--text-color-second);
     text-transform: capitalize;
-    font-size: 32px;
-    line-height: 42px;
+    font-size: 20px;
+    line-height: 24px;
     font-family: "LatoSemiBold";
     margin: 0;
     @include media-breakpoint-down(md) {
@@ -212,7 +212,7 @@
     .blog-detail-hero-info-wrapper {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       @include media-breakpoint-down(md) {
         flex-direction: column;
         position: absolute;

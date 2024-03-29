@@ -35,7 +35,7 @@
                             € 20
                         </p>
                     </div>
-                    <a href="#" class="experience-hero-btn btn-type-1">
+                    <a href="#goToForm" class="experience-hero-btn btn-type-1">
                         check availability
                     </a>
                 </div>
@@ -96,7 +96,7 @@
                                 100+ Experiences in Portugal
                             </p>
                             <p class="why-subtext">
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                                Explore a wide range of unique options from historical tours and outdoor adventures to culinary trips and wine tasting.
                             </p>
                         </div>
 
@@ -108,7 +108,7 @@
                                 Guided by local experts
                             </p>
                             <p class="why-subtext">
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                                Get unforgettable experiences and unique insider information from local experts through carefully created tours.
                             </p>
                         </div>
 
@@ -120,7 +120,7 @@
                                 Best price guarantee
                             </p>
                             <p class="why-subtext">
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                                Get the best price guaranteed for booking our top-quality products and services.
                             </p>
                         </div>
 
@@ -132,7 +132,7 @@
                                 No hidden fees
                             </p>
                             <p class="why-subtext">
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                                Enjoy a transparent pricing policy, paying for what you need for a smooth shopping experience.
                             </p>
                         </div>
 
@@ -144,7 +144,7 @@
                                 Free cancellation
                             </p>
                             <p class="why-subtext">
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                                Enjoy the flexibility with free cancellation, don't worry about additional costs, and feel free to adjust your plans.
                             </p>
                         </div>
 
@@ -156,7 +156,7 @@
                                 Safe and secure website
                             </p>
                             <p class="why-subtext">
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                                Be confident with our reliable and protected service as your online safety at every step is our priority.
                             </p>
                         </div>
 
@@ -168,9 +168,9 @@
     <section class="experience-info">
         <div class="container">
             <h2 class="experience-info-title">
-                Experience name
+                {{ object.long_name }}
             </h2>
-            <p class="experience-info-subtitle">
+            <p class="experience-info-subtitle" id="goToForm">
                 Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu.
             </p>
             <div class="experience-info-inner-wrapper">
@@ -257,7 +257,7 @@
                     </div>
                     <div class="experience-description">
                         <h5 class="description-title">
-                            Full description
+                            Experience description
                         </h5>
                         <p>
                             {{ object.display_full_description }}
@@ -485,7 +485,7 @@
                     <div class="booking-form-wrapper">
                         <img src="{% static 'images/booking-form-banner.svg' %}" alt="form banner">
                         <img src="{% static 'icons/icon-back.svg' %}" alt="go back" class="btn-back">
-                        <p class="body-text-b3">Choose Date</p>
+                        
                         {% if object.parent_experience.is_private %}
                             {% include 'include/private_booking_form.html' %}
                         {% else %}

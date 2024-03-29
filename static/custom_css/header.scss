@@ -70,7 +70,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            margin-right: 40px;
+            margin-left: 38px;
             @include media-breakpoint-down(md) {
                  margin-right: 0;
                 &.hide {
