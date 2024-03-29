@@ -5,7 +5,7 @@ from typing import Optional, Any, Union
 from django.contrib.contenttypes.models import ContentType
 from schedule.models import Event, EventRelation, Calendar, Rule
 
-from products.models import ParentExperience
+from products.models import ParentExperience, ExperienceEvent, Product
 
 logger = logging.getLogger(__name__)
 
@@ -97,3 +97,24 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
         logger.error(f'No events found for ParentExperience id={parent_experience_id}')
     finally:
         return result
+
+
+def update_experience_event_booking(exp_event_id: int, booked_number: int) -> bool:
+    exp_event = ExperienceEvent.objects.get(id=exp_event_id)
+    if booked_number > 0:
+        if exp_event.remaining_participants < booked_number:
+            return False
+        else:
+            exp_event.booked_participants += booked_number
+            exp_event.save()
+            exp_event.remaining_participants = exp_event.max_participants - exp_event.booked_participants
+            exp_event.save()
+    elif booked_number < 0:
+        if exp_event.booked_participants < booked_number:
+            return False
+        else:
+            exp_event.booked_participants += booked_number
+            exp_event.save()
+            exp_event.remaining_participants = exp_event.max_participants - exp_event.booked_participants
+            exp_event.save()
+    return True

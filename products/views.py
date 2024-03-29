@@ -6,7 +6,7 @@ from django.views.generic import DetailView, ListView, DeleteView
 from django.db import transaction
 
 from products.models import *  # noqa
-from products.product_services import get_actual_events_for_experience
+from products.product_services import get_actual_events_for_experience, update_experience_event_booking
 
 Customer = settings.AUTH_USER_MODEL
 
@@ -135,7 +135,11 @@ class CancelProductView(DeleteView):
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         # Update certain ExperienceEvent: change booked_participants and remaining_participants!
-        self.object.occurrence.event.experienceevent.update_booking_data(booked_number=-self.object.total_booked)
+        booked_number = - self.object.total_booked
+        exp_event_id = self.object.occurrence.event_id
+        update_result = update_experience_event_booking(exp_event_id, booked_number)
+        if not update_result:
+            return HttpResponseBadRequest('Not allowed booking number.')
         self.object.occurrence.delete()
         self.object.status = 'Cancelled'
         self.object.save()
@@ -146,7 +150,6 @@ class CancelProductView(DeleteView):
 def get_actual_experience_events(request, parent_experience_id):
     try:
         result = get_actual_events_for_experience(parent_experience_id)
-        print({'result': result})
         return JsonResponse({'result': result}, status=200)
     except json.decoder.JSONDecodeError as exp:
         return HttpResponseBadRequest('Invalid JSON data')
@@ -192,7 +195,9 @@ def create_group_product(request):
 
         # Update ExperienceEvent data
         total_booked = adults + children
-        exp_event.update_booking_data(booked_number=total_booked)
+        update_result = update_experience_event_booking(exp_event.id, booked_number=total_booked)
+        if not update_result:
+            return HttpResponseBadRequest('Not allowed booking number.')
 
         # Create Occurrence for Product
         occurrence = Occurrence(
@@ -242,7 +247,9 @@ def update_group_product(request):
         total_booked = adults + children
 
         if product.occurrence.event_id != exp_event.id:
-            product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
+            update_result = update_experience_event_booking(product.occurence.event_id, booked_number=-total_booked)
+            if not update_result:
+                return HttpResponseBadRequest('Not allowed booking number.')
             product.occurrence.delete()
             occurrence = Occurrence.objects.create(
                 event=exp_event,
@@ -253,7 +260,6 @@ def update_group_product(request):
                 original_start=exp_event.start,
                 original_end=exp_event.end
             )
-
             product.occurrence = occurrence
             product.start_datetime = exp_event.start
             product.end_datetime = exp_event.end
@@ -263,16 +269,21 @@ def update_group_product(request):
             product.child_price = exp_event.child_special_price
             product.language = language
             product.save()
-
-            exp_event.update_booking_data(booked_number=total_booked)
+            update_result = update_experience_event_booking(exp_event.id, booked_number=total_booked)
+            if not update_result:
+                return HttpResponseBadRequest('Not allowed booking number.')
         else:
             if product.adults_count != adults or product.child_count != children:
                 product.adults_count = adults
                 product.child_count = children
-                product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
-                product.occurrence.event.experienceevent.update_booking_data(booked_number=total_booked)
             if product.language != language:
                 product.language = language
+                update_result = update_experience_event_booking(product.occurence.event_id, booked_number=-total_booked)
+                if not update_result:
+                    return HttpResponseBadRequest('Not allowed booking number.')
+                update_result = update_experience_event_booking(product.occurence.event_id, booked_number=total_booked)
+                if not update_result:
+                    return HttpResponseBadRequest('Not allowed booking number.')
             product.save()
         logger.info(f"Product {product.id} was updated.")
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
@@ -293,7 +304,6 @@ def get_event_booking_data(request, event_id):
         'remaining_participants': event.experienceevent.remaining_participants,
         'experience_event_id': event.experienceevent.id,
     }
-    print('result:', actual_data_dict)
     return JsonResponse({'result': actual_data_dict}, status=200)
 
 
@@ -377,7 +387,9 @@ def create_private_product(request):
 
         # Update ExperienceEvent data
         total_booked = adults + children
-        exp_event.update_booking_data(booked_number=total_booked)
+        update_result = update_experience_event_booking(exp_event.id, booked_number=total_booked)
+        if not update_result:
+            return HttpResponseBadRequest('Not allowed booking number.')
 
         # Create Occurrence for Product
         occurrence = Occurrence(
@@ -427,7 +439,9 @@ def update_private_product(request):
         total_booked = adults + children
 
         if product.occurrence.event_id != exp_event.id:
-            product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
+            update_result = update_experience_event_booking(product.occurence.event_id, booked_number=-total_booked)
+            if not update_result:
+                return HttpResponseBadRequest('Not allowed booking number.')
             product.occurrence.delete()
             occurrence = Occurrence.objects.create(
                 event=exp_event,
@@ -438,7 +452,6 @@ def update_private_product(request):
                 original_start=exp_event.start,
                 original_end=exp_event.end
             )
-
             product.occurrence = occurrence
             product.start_datetime = exp_event.start
             product.end_datetime = exp_event.end
@@ -447,16 +460,21 @@ def update_private_product(request):
             product.total_price = exp_event.total_price
             product.language = language
             product.save()
-
-            exp_event.update_booking_data(booked_number=total_booked)
+            update_result = update_experience_event_booking(exp_event.id, booked_number=total_booked)
+            if not update_result:
+                return HttpResponseBadRequest('Not allowed booking number.')
         else:
             if product.adults_count != adults or product.child_count != children:
                 product.adults_count = adults
                 product.child_count = children
-                product.occurrence.event.experienceevent.update_booking_data(booked_number=-total_booked)
-                product.occurrence.event.experienceevent.update_booking_data(booked_number=total_booked)
             if product.language != language:
                 product.language = language
+                update_result = update_experience_event_booking(product.occurence.event_id, booked_number=-total_booked)
+                if not update_result:
+                    return HttpResponseBadRequest('Not allowed booking number.')
+                update_result = update_experience_event_booking(product.occurence.event_id, booked_number=total_booked)
+                if not update_result:
+                    return HttpResponseBadRequest('Not allowed booking number.')
             product.save()
         logger.info(f"Product {product.id} was updated.")
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
