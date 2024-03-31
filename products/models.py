@@ -167,7 +167,7 @@ class ParentExperience(models.Model):
     is_exclusive = models.BooleanField(default=False, help_text="If this experience is exclusive then competition will propose.")
     allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
     free_cancellation = models.BooleanField(default=False, help_text="Free Cancellation is allowed.", null=True)
-    happy_clients_number = models.IntegerField()
+    happy_clients_number = models.IntegerField(default=0)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
