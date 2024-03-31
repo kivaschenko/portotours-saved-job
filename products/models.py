@@ -166,6 +166,8 @@ class ParentExperience(models.Model):
                                                               "of participants as one purchase will be")
     is_exclusive = models.BooleanField(default=False, help_text="If this experience is exclusive then competition will propose.")
     allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
+    free_cancellation = models.BooleanField(default=False, help_text="Free Cancellation is allowed.", null=True)
+    happy_clients_number = models.IntegerField(default=0)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -232,9 +234,17 @@ class Experience(models.Model):
                              blank=True, null=True)
     accessibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     possibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    schedule_title = models.CharField(max_length=120, help_text='Title for the schedule block in current language, max 120 characters', null=True, blank=True)
+    includes_title = models.CharField(max_length=120, help_text="Title for Includes block in current language, max 120 characters", null=True, blank=True)
+    includes_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
+    traveler_tips_title = models.CharField(max_length=120, help_text="Title for Traveler tips block in current language, max 120 characters", null=True, blank=True)
+    traveler_tips_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
+    what_to_bring_title = models.CharField(max_length=120, help_text="Title for What to bring block in current language, max 120 characters", null=True, blank=True)
+    what_to_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
     # Recommendations block
     recommendations_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    recommended_experiences = models.ManyToManyField('Experience', related_name='recommended')
     recommendations_slogan = models.CharField(max_length=120, help_text="max 120 characters, belong SEE MORE button",
                                               null=True, blank=True)
 
@@ -273,6 +283,15 @@ class Experience(models.Model):
 
     def display_possibility(self):
         return mark_safe(self.possibility)
+
+    def display_includes_text(self):
+        return mark_safe(self.includes_text)
+
+    def display_traveler_tips_text(self):
+        return mark_safe(self.traveler_tips_text)
+
+    def display_what_to_bring_text(self):
+        return mark_safe(self.what_to_bring_text)
 
 
 class ExperienceEvent(Event):
@@ -315,6 +334,18 @@ class ExperienceEvent(Event):
     def start_time(self):
         return self.start.strftime("%H:%M")
 
+
+class ExperienceSchedule(models.Model):
+    experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name="schedule")
+    time = models.TimeField(null=True, blank=True)
+    name_stop = models.CharField(max_length=160, null=True, blank=True, help_text="Name of stop max 160 character length.")
+    description = models.TextField(max_length=320, null=True, blank=True, help_text="Description of stop max 320 characters.")
+
+    def __str__(self):
+        return f'{self.time} {self.name_stop}'
+
+    def __repr__(self):
+        return f'<ExperienceSchedule(id={self.id} time={self.time} name_stop={self.name_stop}...)>'
 
 # -------
 # Product

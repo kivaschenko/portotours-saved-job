@@ -164,7 +164,7 @@
                     <div class="cart-order-info-col">
                         <div class="order-info-wrapper">
                             <p class="price">
-                                Price for {number} experience(s)
+                                Price for {{ object_list|length }} experience(s)
                                 <span>
                                 €{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %}
                             </span>

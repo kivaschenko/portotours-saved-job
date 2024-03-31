@@ -1,10 +1,32 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.forms import ModelForm
+from django.utils.html import format_html
 
 from ckeditor.widgets import CKEditorWidget
 
-from attractions.models import ParentAttraction, Attraction, FAQAttraction
+from attractions.models import ParentAttraction, Attraction, FAQAttraction, TagAttraction
+from products.admin import CheckboxSelectMultipleField
+
+
+@admin.register(TagAttraction)
+class TagAttractionAdmin(ModelAdmin):
+    list_display = ('id', 'display_icon', 'tag_name')
+
+    def display_icon(self, obj):
+        if obj.icon_img:
+            return format_html('<img src="{}" width="30" height="30"', obj.icon_img.url)
+        else:
+            return "No Icon image"
+    display_icon.short_description = 'Icon image'
+
+
+class TagModelForm(ModelForm):
+    tags = CheckboxSelectMultipleField(queryset=TagAttraction.objects.all())
+
+    class Meta:
+        model = ParentAttraction
+        exclude = ['updated_at',]
 
 
 class FAQAttractionInline(admin.TabularInline):
@@ -17,6 +39,7 @@ class FAQAttractionInline(admin.TabularInline):
 
 @admin.register(ParentAttraction)
 class ParentAttractionAdmin(admin.ModelAdmin):
+    form = TagModelForm
     exclude = ['updated_at']
     list_display = ['parent_name', 'priority_number']
     list_filter = ['parent_name']
