@@ -234,6 +234,7 @@ class Experience(models.Model):
                              blank=True, null=True)
     accessibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     possibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    schedule_title = models.CharField(max_length=120, help_text='Title for the schedule block in current language, max 120 characters', null=True, blank=True)
     # Recommendations block
     recommendations_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
@@ -318,6 +319,18 @@ class ExperienceEvent(Event):
     def start_time(self):
         return self.start.strftime("%H:%M")
 
+
+class ExperienceSchedule(models.Model):
+    experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name="schedule")
+    time = models.TimeField(null=True, blank=True)
+    name_stop = models.CharField(max_length=160, null=True, blank=True, help_text="Name of stop max 160 character length.")
+    description = models.TextField(max_length=320, null=True, blank=True, help_text="Description of stop max 320 characters.")
+
+    def __str__(self):
+        return f'{self.time} {self.name_stop}'
+
+    def __repr__(self):
+        return f'<ExperienceSchedule(id={self.id} time={self.time} name_stop={self.name_stop}...)>'
 
 # -------
 # Product

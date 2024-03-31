@@ -24,7 +24,7 @@
         <div class="container">
             <div class="experience-hero-title-wrapper">
                 <h2 class="experience-hero-title">
-                    {{ object.long_name }}
+                    {{ object.name }}
                 </h2>
                 <div class="expreriece-hero-price-btn-wrapper">
                     <div class="price-wrapper">
@@ -32,7 +32,7 @@
                             From
                         </p>
                         <p class="price-amount">
-                            € {{ object.parent_experience.price }}
+                        €{{ object.parent_experience.price }}
                         </p>
                     </div>
                     <a href="#goToForm" class="experience-hero-btn btn-type-1">
@@ -44,7 +44,7 @@
                 {% if object.parent_experience.free_cancellation %}
                     <p class="experience-hero-info-text">
                         <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
-                        free cancilation policy
+                        free cancelation policy
                     </p>
                 {% endif %}
                 <p class="experience-hero-info-text">
@@ -278,159 +278,26 @@
                     </div>
                     <div class="experience-timeline">
                         <h5 class="experience-timeline-title">
-                            Experience schedule
+                            {{ object.schedule_title }}
                         </h5>
                         <div class="experience-timeline-inner">
+                            {% if object.schedule.all %}
+                            {% for schedule_item in object.schedule.all %}
                             <div class="timeline-block">
                                 <div class="time-title-wrapper">
                                     <p class="time">
-                                        11:00 AM
+                                        {{ schedule_item.time|time }}
                                     </p>
                                     <p class="timeline-title">
-                                        Name Stop
+                                        {{ schedule_item.name_stop }}
                                     </p>
                                 </div>
                                 <p>
-                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam
-                                    est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum
-                                    quia dolor sit amet, consectetur, adipisci velit, sed qu.
+                                    {{ schedule_item.description }}
                                 </p>
                             </div>
-                            <div class="timeline-block">
-                                <div class="time-title-wrapper">
-                                    <p class="time">
-                                        11:00 AM
-                                    </p>
-                                    <p class="timeline-title">
-                                        Name Stop
-                                    </p>
-                                </div>
-                                <p>
-                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam
-                                    est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum
-                                    quia dolor sit amet, consectetur, adipisci velit, sed qu.
-                                </p>
-                            </div>
-                            <div class="timeline-block">
-                                <div class="time-title-wrapper">
-                                    <p class="time">
-                                        11:00 AM
-                                    </p>
-                                    <p class="timeline-title">
-                                        Name Stop
-                                    </p>
-                                </div>
-                                <p>
-                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam
-                                    est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum
-                                    quia dolor sit amet, consectetur, adipisci velit, sed qu.
-                                </p>
-                            </div>
-                            <div class="timeline-block">
-                                <div class="time-title-wrapper">
-                                    <p class="time">
-                                        11:00 AM
-                                    </p>
-                                    <p class="timeline-title">
-                                        Name Stop
-                                    </p>
-                                </div>
-                                <p>
-                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam
-                                    est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum
-                                    quia dolor sit amet, consectetur, adipisci velit, sed qu.
-                                </p>
-                            </div>
-                            <div class="timeline-block">
-                                <div class="time-title-wrapper">
-                                    <p class="time">
-                                        11:00 AM
-                                    </p>
-                                    <p class="timeline-title">
-                                        Name Stop
-                                    </p>
-                                </div>
-                                <p>
-                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam
-                                    est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum
-                                    quia dolor sit amet, consectetur, adipisci velit, sed qu.
-                                </p>
-                            </div>
-                            <div class="timeline-block">
-                                <div class="time-title-wrapper">
-                                    <p class="time">
-                                        11:00 AM
-                                    </p>
-                                    <p class="timeline-title">
-                                        Name Stop
-                                    </p>
-                                </div>
-                                <p>
-                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam
-                                    est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum
-                                    quia dolor sit amet, consectetur, adipisci velit, sed qu.
-                                </p>
-                            </div>
-                            <div class="timeline-block">
-                                <div class="time-title-wrapper">
-                                    <p class="time">
-                                        11:00 AM
-                                    </p>
-                                    <p class="timeline-title">
-                                        Name Stop
-                                    </p>
-                                </div>
-                                <p>
-                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam
-                                    est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum
-                                    quia dolor sit amet, consectetur, adipisci velit, sed qu.
-                                </p>
-                            </div>
-                            <div class="timeline-block">
-                                <div class="time-title-wrapper">
-                                    <p class="time">
-                                        11:00 AM
-                                    </p>
-                                    <p class="timeline-title">
-                                        Name Stop
-                                    </p>
-                                </div>
-                                <p>
-                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam
-                                    est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum
-                                    quia dolor sit amet, consectetur, adipisci velit, sed qu.
-                                </p>
-                            </div>
-                            <div class="timeline-block">
-                                <div class="time-title-wrapper">
-                                    <p class="time">
-                                        11:00 AM
-                                    </p>
-                                    <p class="timeline-title">
-                                        Name Stop
-                                    </p>
-                                </div>
-                                <p>
-                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam
-                                    est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum
-                                    quia dolor sit amet, consectetur, adipisci velit, sed qu.
-                                </p>
-                            </div>
-                            <div class="timeline-block">
-                                <div class="time-title-wrapper">
-                                    <p class="time">
-                                        11:00 AM
-                                    </p>
-                                    <p class="timeline-title">
-                                        Name Stop
-                                    </p>
-                                </div>
-                                <p>
-                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam
-                                    est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum
-                                    quia dolor sit amet, consectetur, adipisci velit, sed qu.
-                                </p>
-                            </div>
+                            {% endfor %}
+                        {% endif %}
                         </div>
                         <btn class="timeline-btn-open btn-type-2">
                             See all

@@ -128,6 +128,12 @@ class ParentExperienceAdmin(admin.ModelAdmin):
     list_filter = ['parent_name', 'price', 'max_participants', 'is_private', 'is_exclusive', ]
 
 
+class ExperienceScheduleInline(admin.TabularInline):
+    model = ExperienceSchedule
+    extra = 1
+    list_display = ['time', 'name_stop']
+    list_filter = ['time', 'name_stop']
+
 class ExperienceAdminForm(ModelForm):
     class Meta:
         model = Experience
@@ -146,6 +152,7 @@ class ExperienceAdmin(admin.ModelAdmin):
     exclude = ["updated_at"]
     list_display = ['id', 'name', 'slug', 'language', 'is_active', 'updated_at']
     list_filter = ['name', 'slug', 'language', 'is_active', 'updated_at']
+    inlines = [ExperienceScheduleInline]
 
 
 @admin.register(Product)
