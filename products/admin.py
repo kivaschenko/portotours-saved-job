@@ -134,7 +134,6 @@ class ExperienceAdminForm(ModelForm):
         fields = '__all__'
         widgets = {
             'full_description': CKEditorWidget(),
-            'languages': CKEditorWidget(),
             'duration': CKEditorWidget(),
             'accessibility': CKEditorWidget(),
             'possession': CKEditorWidget(),
