@@ -1,286 +1,256 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head %}
-<title>{{ object.page_title }}</title>
-<meta name="description" content="{{ object.page_description }}">
-<meta name="keywords" content="{{ object.page_keywords }}">
+    <title>{{ object.page_title }}</title>
+    <meta name="description" content="{{ object.page_description }}">
+    <meta name="keywords" content="{{ object.page_keywords }}">
 {% endblock head %}
 {% block content %}
 
-<section class="blog-detail-hero">
-    <div class="container">
-        <img src="{% if object.parent_blog.banner %}{{ object.parent_blog.banner.url }}{% else %}{% endif %}" alt="{{ object.parent_blog.banner.name }}">
-        <h2 class="blog-detail-hero-title">
-            {{ object.title }} 
-        </h2>
-        <div class="blog-detail-hero-info-wrapper">
+    <section class="blog-detail-hero">
+        <div class="container">
+            <img src="{% if object.parent_blog.banner %}{{ object.parent_blog.banner.url }}{% else %}{% endif %}" alt="{{ object.parent_blog.banner.name }}">
+            <h2 class="blog-detail-hero-title">
+                {{ object.title }}
+            </h2>
+            <div class="blog-detail-hero-info-wrapper">
+                <div class="left-col">
+                    <div class="publication-info">
+                        <div class="img-wrapper">
+                            <img src="{% static 'icons/blog-calendat-icon.svg' %}" alt="">
+                        </div>
+                        <div class="content-wrapper">
+                            <p class="content-title">
+                                Publication
+                            </p>
+                            <p class="content-text">
+                                {{ object.date_published|date }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="publication-info">
+                        <div class="img-wrapper">
+                            <img src="{% static 'icons/blog-read-icon.svg' %}" alt="">
+                        </div>
+                        <div class="content-wrapper">
+                            <p class="content-title">
+                                Reading time
+                            </p>
+                            <p class="content-text">
+                                {{ object.read_time }} minutes
+                            </p>
+                        </div>
+                    </div>
+                    <div class="publication-info">
+                        <div class="img-wrapper">
+                            <img src="{% static 'icons/blog-views-icon.svg' %}" alt="">
+                        </div>
+                        <div class="content-wrapper">
+                            <p class="content-title">
+                                Number of views
+                            </p>
+                            <p class="content-text">
+                                {{ object.views }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-col">
+                    <div class="publication-author">
+                        <div class="img-wrapper">
+                            {% if object.author.profile.avatar %}
+                                <img src="{{ object.author.profile.avatar.url }}" alt="author avatar">
+                            {% endif %}
+                        </div>
+                        <div class="content-wrapper">
+                            <p class="content-title">
+                                Author
+                            </p>
+                            <p class="content-text">
+                                {{ object.author.profile.name }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="blog-content">
+        <div class="container">
             <div class="left-col">
-                <div class="publication-info">
-                    <div class="img-wrapper">
-                        <img src="{% static 'icons/blog-calendat-icon.svg' %}" alt="">
-                    </div>
-                    <div class="content-wrapper">
-                        <p class="content-title">
-                            Publication
-                        </p>
-                        <p class="content-text">
-                            {{ object.date_published|date }}
-                        </p>
-                    </div>
-                </div>
-                <div class="publication-info">
-                    <div class="img-wrapper">
-                        <img src="{% static 'icons/blog-read-icon.svg' %}" alt="">
-                    </div>
-                    <div class="content-wrapper">
-                        <p class="content-title">
-                            Reading time
-                        </p>
-                        <p class="content-text">
-                            {{ object.read_time }}
-                        </p>
-                    </div>
-                </div>
-                <!-- <div class="publication-info">
-                    <div class="img-wrapper">
-                        <img src="{% static 'icons/blog-views-icon.svg' %}" alt="">
-                    </div>
-                    <div class="content-wrapper">
-                        <p class="content-title">
-                            Number of views
-                        </p>
-                        <p class="content-text">
-                            {{ object.views }}
-                        </p>
-                    </div>
-                </div> -->
+                <p>{{ object.short_description }}</p>
+                {% if object.blocks.all %}
+                    {% for block in object.blocks.all %}
+                        <h3 id="{{ block.pk }}">{{ block.title }}</h3>
+                        {{ block.display_text }}
+                        {% if forloop.counter == midpoint %}
+                            <img src="{{ object.middle_picture.url }}" alt="Middle Picture">
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p>No Blocks of Blog written yet...</p>
+                {% endif %}
             </div>
             <div class="right-col">
-                <div class="publication-author">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/blog-author.png' %}" alt="">
-                    </div>
-                    <div class="content-wrapper">
-                        <p class="content-title">
-                            Author
-                        </p>
-                        <p class="content-text">
-                            Leslie Alexander
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="blog-content">
-    <div class="container">
-        <div class="left-col">
-            <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
-            </p>
-            <h3>
-                Neque porro quisquam est, qui dolorem ipsum quia 
-            </h3>
-            <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? 
-            </p>
-            <h3>
-                Neque porro quisquam est, qui dolorem ipsum quia 
-            </h3>
-            <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-            </p>
-            <img src="{% static 'images/blog-content-img.jpg' %}" alt="blog content img">
-            <h3>
-                Neque porro quisquam est, qui dolorem ipsum quia 
-            </h3>
-            <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-            </p>
-            <h3>
-                Neque porro quisquam est, qui dolorem ipsum quia 
-            </h3>
-            <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-            </p>
-        </div>
-        <div class="right-col">
-            <div class="categories-wrapper">
-                <h5 class="categies-title">
-                    Categories 
-                </h5>
-                {% if object.categories.all %}
-                    {% for category in object.categories.all %}
-                    <button type="button" class="btn btn-light">{{ category }}</button>
-                    {% endfor %}
+                <div class="categories-wrapper">
+                    <h5 class="categies-title">
+                        Categories
+                    </h5>
+                    {% if object.categories.all %}
+                        {% for category in object.categories.all %}
+                            <button type="button" class="btn btn-light">{{ category }}</button>
+                        {% endfor %}
                     {% else %}
-                <h5 class="categies-title">
-                    No categories yet... 
+                        <h5 class="categies-title">
+                            No categories yet...
+                        </h5>
+
+                    {% endif %}
+                </div>
+                <div class="aside-block">
+                    <h3 class="aside-block-title">
+                        Neque porro
+                    </h3>
+                    <ul class="aside-block-list">
+                        {% if object.blocks.all %}
+                            {% for block in object.blocks.all %}
+                                <li><a href="#{{ block.pk }}">{{ block.title }}</a></li>
+                            {% endfor %}
+                        {% else %}
+                            <p>No Blocks of Blog written yet...</p>
+                        {% endif %}
+                    </ul>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="also-interested">
+        <div class="container">
+            <h2 class="also-interested-title">
+                {{ object.recommendations_title }}
+            </h2>
+            <p class="also-interested-subtitle body-text-b2">
+                {{ object.recommendations_subtitle }}
+            </p>
+            <div class="swiper-also-interested">
+                <div class="swiper-wrapper also-interested-cards-wrapper">
+                    <div class="also-interested-card swiper-slide">
+                        <img src="{% static 'images/also-interested-img1.png' %}" alt="" class="also-interested-img">
+                        <p class="body-text-b2 also-interested-card-title">
+                            Cascais
+                        </p>
+                        <p class="body-text-b3 also-interested-card-text">
+                            Explore Cascais, a perfect mixture of natural and architectural beauty, located near Lisbon. Investigate its breathtaking landscapes
+                            and historical wonders with comprehensive OneDayTours.
+                        </p>
+                    </div>
+                    <div class="also-interested-card swiper-slide">
+                        <img src="{% static 'images/also-interested-img2.png' %}" alt="" class="also-interested-img">
+                        <p class="body-text-b2 also-interested-card-title">
+                            Oporto
+                        </p>
+                        <p class="body-text-b3 also-interested-card-text">
+                            Choose an amazing journey with a OneDayTours to Oporto, Portugal. Explore the vibrant history of the city, perfectly fit into the
+                            colorful landscapes, and experience the warm hospitality of Portugal.
+                        </p>
+                    </div>
+                    <div class="also-interested-card swiper-slide">
+                        <img src="{% static 'images/also-interested-img3.png' %}" alt="" class="also-interested-img">
+                        <p class="body-text-b2 also-interested-card-title">
+                            Sintra
+                        </p>
+                        <p class="body-text-b3 also-interested-card-text">
+                            Get a chance to immerse in the real Wonderland with a OneDayTours to a fairytale Sintra. The place is filled with history and a
+                            mystical aura, heightened by the scenic landscape of nature.
+                        </p>
+                    </div>
+
+
+                </div>
+                <div class="swiper-pagination"></div>
+
+            </div>
+
+            <div class="also-interested-more-info-wrapper">
+                <h5 class="also-interested-more-info-title">
+                    {{ object.recommendations_slogan }}
                 </h5>
-                
-            {% endif %}
-            </div>
-            <div class="aside-block">
-                <h3 class="aside-block-title">
-                    Neque porro
-                </h3>
-                <ul class="aside-block-list">
-                    <li>Neque porro quisquam est, qui dolorem ipsum quia </li>
-                    <li>Neque porro quisquam est, qui dolorem ipsum quia </li>
-                    <li>Neque porro quisquam est, qui dolorem ipsum quia </li>
-                    <li>Neque porro quisquam est, qui dolorem ipsum quia </li>
-                    <li>Neque porro quisquam est, qui dolorem ipsum quia </li>
-                    <li>Neque porro quisquam est, qui dolorem ipsum quia </li>
-                    
-                </ul>
+                <a href="" class="btn-type-2 also-interested-info-link">
+                    see more
+                </a>
             </div>
         </div>
-    </div>
-</section>
-<section class="also-interested">
-    <div class="container">
-        <h2 class="also-interested-title">
-            {{ object.recommendations_title }}
-        </h2>
-        <p class="also-interested-subtitle body-text-b2">
-            {{ object.recommendations_subtitle }}
-        </p>
-        <div class="swiper-also-interested">
-            <div class="swiper-wrapper also-interested-cards-wrapper">
-                <div class="also-interested-card swiper-slide">
-                    <img src="{% static 'images/also-interested-img1.png' %}" alt="" class="also-interested-img">
-                    <p class="body-text-b2 also-interested-card-title">
-                        Cascais
-                    </p>
-                    <p class="body-text-b3 also-interested-card-text">
-                        Explore Cascais, a perfect mixture of natural and architectural beauty, located near Lisbon. Investigate its breathtaking landscapes and historical wonders with comprehensive OneDayTours. 
-                    </p>
-                </div>
-                <div class="also-interested-card swiper-slide">
-                    <img src="{% static 'images/also-interested-img2.png' %}" alt="" class="also-interested-img">
-                    <p class="body-text-b2 also-interested-card-title">
-                        Oporto
-                    </p>
-                    <p class="body-text-b3 also-interested-card-text">
-                        Choose an amazing journey with a OneDayTours to Oporto, Portugal. Explore the vibrant history of the city, perfectly fit into the colorful landscapes, and experience the warm hospitality of Portugal.
-                    </p>
-                </div>
-                <div class="also-interested-card swiper-slide">
-                    <img src="{% static 'images/also-interested-img3.png' %}" alt="" class="also-interested-img">
-                    <p class="body-text-b2 also-interested-card-title">
-                        Sintra
-                    </p>
-                    <p class="body-text-b3 also-interested-card-text">
-                        Get a chance to immerse in the real Wonderland with a OneDayTours to a fairytale Sintra. The place is filled with history and a mystical aura, heightened by the scenic landscape of nature.
-                    </p>
-                </div>
-              
-              
-            </div>
-            <div class="swiper-pagination"></div>
-            
+    </section>
+    <section class="offers-banner blog">
+        <div class="container">
+            <h2 class="offers-banner-title">
+                Special Offers
+            </h2>
+            <p class="offers-banner-subtitle">
+                Get exclusive benefits and premium discounts with our subscription plan
+            </p>
+            <form action="" class="offers-banner-form">
+                <input type="email" class="email-input" name="email" id="subscription-email" placeholder="Enter Email Address">
+                <button type="submit" class="form-submit-btn">
+                    Subscribe
+                </button>
+            </form>
         </div>
-        
-        <div class="also-interested-more-info-wrapper">
-            <h5 class="also-interested-more-info-title">
-                {{ object.recommendations_slogan }}
-            </h5>
-            <a href="" class="btn-type-2 also-interested-info-link">
-                see more 
-            </a>
-        </div>
-    </div>
-</section>
-<section class="offers-banner blog">
-    <div class="container">
-        <h2 class="offers-banner-title">
-            Special Offers
-        </h2>
-        <p class="offers-banner-subtitle">
-            Get exclusive benefits and premium discounts with our subscription plan
-        </p>
-        <form action="" class="offers-banner-form">
-            <input type="email" class="email-input" name="email" id="subscription-email" placeholder="Enter Email Address">
-            <button type="submit" class="form-submit-btn">
-                Subscribe
-            </button>
-        </form>
-    </div>
-</section>
+    </section>
 
-<div class="container">
-    <img src="{% if object.parent_blog.banner %}{{ object.parent_blog.banner.url }}{% else %}{% endif %}" alt="{{ object.parent_blog.banner.name }}"
-         style="z-index: 1; position: relative; top: 0;">
-
-<h1>{{ object.title }}</h1>
-<p>Publication: {{ object.date_published|date }}</p>
-<p>Read time: {{ object.read_time }} minutes</p>
-<p>Number of views: {{ object.views }}</p>
-<p>Categories</p>
-<p>
-    {% if object.categories.all %}
-        {% for category in object.categories.all %}
-        <button type="button" class="btn btn-light">{{ category }}</button>
-        {% endfor %}
-        {% else %}
-        No categories yet...
-    {% endif %}
-</p>
-<h2>Exactly content below...</h2>
-{{ object.display_content }}
-
-</div>
-<script>
-    const swiper = new Swiper(".swiper-attractions", {
-        slidesPerView: 2,
-        speed: 1000,
-        spaceBetween: 24,
-        breakpoints: {
-            200: {
-                slidesPerView: 1,
-                spaceBetween: 20,
+    <script>
+        const swiper = new Swiper(".swiper-attractions", {
+            slidesPerView: 2,
+            speed: 1000,
+            spaceBetween: 24,
+            breakpoints: {
+                200: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 24,
+                }
             },
-            767: {
-                slidesPerView: 2,
-                spaceBetween: 24,
-            }
-        },
-        // Navigation arrows
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-    });
-</script>
-<script>
-    // Define all window.location.pathname according language value
-    const languages = {{ languages|safe }};  // from response extra_context
-    // Define current language according object.language
-    const currentLanguage = `{{ current_language }}`  // from response extra_context
-
-</script>
-<script>
-    const swiperAttractionHero = new Swiper(".attraction-hero-slider", {
-        slidesPerView: 3,
-        speed: 1000,
-        spaceBetween: 24,
-        breakpoints: {
-            200: {
-                slidesPerView: 1,
-                spaceBetween: 20,
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
             },
-            767: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-            }
-        },
-        // Navigation arrows
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-    });
-</script>
-<script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
+        });
+    </script>
+    <script>
+        // Define all window.location.pathname according language value
+        const languages = {{ languages|safe }};  // from response extra_context
+        // Define current language according object.language
+        const currentLanguage = `{{ current_language }}`  // from response extra_context
+
+    </script>
+    <script>
+        const swiperAttractionHero = new Swiper(".attraction-hero-slider", {
+            slidesPerView: 3,
+            speed: 1000,
+            spaceBetween: 24,
+            breakpoints: {
+                200: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                767: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                }
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+    <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
 {% endblock content %}

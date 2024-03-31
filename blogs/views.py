@@ -1,6 +1,7 @@
+from math import ceil
 from django.views.generic import DetailView, ListView
-from django.http import JsonResponse
-from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
 
 from blogs.models import Blog, Category
 from products.models import Language
@@ -11,6 +12,18 @@ class BlogDetailView(DetailView):
     template_name = 'blogs/blog_detail.html'
     extra_context = {'languages': {}}
     queryset = Blog.active.all()
+
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.views += 1
+        self.object.save(update_fields=['views'])
+
+        # Calculate midpoint
+        blocks_count = len(self.object.blocks.all())
+        self.midpoint = ceil(blocks_count / 2)
+
+        return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         obj = super(BlogDetailView, self).get_object(queryset=queryset)
@@ -24,6 +37,13 @@ class BlogDetailView(DetailView):
                 url = brother.localized_url
                 self.extra_context['languages'].update({lang: url})
         return obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['midpoint'] = self.midpoint
+        return context
+
+
 
 
 class BlogListView(ListView):
