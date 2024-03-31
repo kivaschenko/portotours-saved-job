@@ -235,6 +235,12 @@ class Experience(models.Model):
     accessibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     possibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     schedule_title = models.CharField(max_length=120, help_text='Title for the schedule block in current language, max 120 characters', null=True, blank=True)
+    includes_title = models.CharField(max_length=120, help_text="Title for Includes block in current language, max 120 characters", null=True, blank=True)
+    includes_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
+    traveler_tips_title = models.CharField(max_length=120, help_text="Title for Traveler tips block in current language, max 120 characters", null=True, blank=True)
+    traveler_tips_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
+    what_to_bring_title = models.CharField(max_length=120, help_text="Title for What to bring block in current language, max 120 characters", null=True, blank=True)
+    what_to_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
     # Recommendations block
     recommendations_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
@@ -277,6 +283,15 @@ class Experience(models.Model):
 
     def display_possibility(self):
         return mark_safe(self.possibility)
+
+    def display_includes_text(self):
+        return mark_safe(self.includes_text)
+
+    def display_traveler_tips_text(self):
+        return mark_safe(self.traveler_tips_text)
+
+    def display_what_to_bring_text(self):
+        return mark_safe(self.what_to_bring_text)
 
 
 class ExperienceEvent(Event):
