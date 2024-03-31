@@ -41,13 +41,15 @@
                 </div>
             </div>
             <div class="experience-hero-info">
-                <p class="experience-hero-info-text">
-                    <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
-                    free cancilation policy
-                </p>
+                {% if object.parent_experience.free_cancellation %}
+                    <p class="experience-hero-info-text">
+                        <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
+                        free cancilation policy
+                    </p>
+                {% endif %}
                 <p class="experience-hero-info-text">
                     <img src="{% static 'icons/experience-info-icon2.svg' %}" alt="">
-                    2480 happy clients
+                    {{ object.parent_experience.happy_clients_number }} happy clients
                 </p>
             </div>
             <div class="experience-hero-swiper">
@@ -516,49 +518,28 @@
                 {{ object.recommendations_subtitle }}
             </p>
             <div class="swiper-also-interested">
-                <div class="swiper-wrapper also-interested-cards-wrapper">
-                    <div class="also-interested-card swiper-slide">
-                        <img src="{% static 'images/also-interested-img1.png' %}" alt="" class="also-interested-img">
-                        <p class="body-text-b2 also-interested-card-title">
-                            Cascais
-                        </p>
-                        <p class="body-text-b3 also-interested-card-text">
-                            Explore Cascais, a perfect mixture of natural and architectural beauty, located near Lisbon. Investigate its breathtaking landscapes
-                            and historical wonders with comprehensive OneDayTours.
-                        </p>
-                    </div>
-                    <div class="also-interested-card swiper-slide">
-                        <img src="{% static 'images/also-interested-img2.png' %}" alt="" class="also-interested-img">
-                        <p class="body-text-b2 also-interested-card-title">
-                            Oporto
-                        </p>
-                        <p class="body-text-b3 also-interested-card-text">
-                            Choose an amazing journey with a OneDayTours to Oporto, Portugal. Explore the vibrant history of the city, perfectly fit into the
-                            colorful landscapes, and experience the warm hospitality of Portugal.
-                        </p>
-                    </div>
-                    <div class="also-interested-card swiper-slide">
-                        <img src="{% static 'images/also-interested-img3.png' %}" alt="" class="also-interested-img">
-                        <p class="body-text-b2 also-interested-card-title">
-                            Sintra
-                        </p>
-                        <p class="body-text-b3 also-interested-card-text">
-                            Get a chance to immerse in the real Wonderland with a OneDayTours to a fairytale Sintra. The place is filled with history and a
-                            mystical aura, heightened by the scenic landscape of nature.
-                        </p>
-                    </div>
-
-
-                </div>
+                {% if object.recommended.all %}
+                    {% for experience in object.recommended.all %}
+                        <div class="swiper-wrapper also-interested-cards-wrapper">
+                            <div class="also-interested-card swiper-slide">
+                                <img src="{{ experience.parent_experience.card_image.url }}" alt="{{ experience.name }} card image" class="also-interested-img">
+                                <p class="body-text-b2 also-interested-card-title">
+                                    {{ experience.name }}
+                                </p>
+                                <p class="body-text-b3 also-interested-card-text">
+                                    {{ experience.short_description }}
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <div class="swiper-pagination"></div>
-
             </div>
-
             <div class="also-interested-more-info-wrapper">
                 <h5 class="also-interested-more-info-title">
                     {{ object.recommendations_slogan }}
                 </h5>
-                <a href="" class="btn-type-2 also-interested-info-link">
+                <a href="{% url 'experience-list' lang='en' %}" class="btn-type-2 also-interested-info-link">
                     see more
                 </a>
             </div>

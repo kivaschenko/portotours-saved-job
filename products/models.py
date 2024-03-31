@@ -166,6 +166,8 @@ class ParentExperience(models.Model):
                                                               "of participants as one purchase will be")
     is_exclusive = models.BooleanField(default=False, help_text="If this experience is exclusive then competition will propose.")
     allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
+    free_cancellation = models.BooleanField(default=False, help_text="Free Cancellation is allowed.", null=True)
+    happy_clients_number = models.IntegerField()
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -235,6 +237,7 @@ class Experience(models.Model):
     # Recommendations block
     recommendations_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    recommended_experiences = models.ManyToManyField('Experience', related_name='recommended')
     recommendations_slogan = models.CharField(max_length=120, help_text="max 120 characters, belong SEE MORE button",
                                               null=True, blank=True)
 
