@@ -19,7 +19,7 @@ class AttractionModelTestCase(TestCase):
 
 
 # Similarly, write test cases for other models: ParentAttraction, TagAttraction, FAQAttraction
-# test_blogs.py inside your attractions app directory
+# test_attractions.py inside your attractions app directory
 
 
 class AttractionListViewTestCase(TestCase):
@@ -38,7 +38,7 @@ class AttractionListViewTestCase(TestCase):
 
 
 # Similarly, write test cases for other views: AttractionDetailView
-# test_blogs.py inside your attractions app directory
+# test_attractions.py inside your attractions app directory
 
 
 class AttractionsURLTestCase(SimpleTestCase):

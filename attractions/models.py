@@ -112,7 +112,7 @@ class Attraction(models.Model):
         unique_together = ('name', 'slug')
 
     def __str__(self):
-        return self.name
+        return f'{self.name} ({self.language})'
 
     def __repr__(self):
         return f"<Attraction(id={self.id} name={self.name} parent={self.parent_attraction} language={self.language})>"
