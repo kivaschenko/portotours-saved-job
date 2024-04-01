@@ -41,6 +41,7 @@
                                             {% for tag in object.parent_attraction.tags.all %}
                                                 <li>
                                                     <img src="{{ tag.icon_img.url }}" alt="icon for {{ tag.tag_name }}" title="{{ tag.tag_name }}">
+                                                    {{ tag.tag_name }}
                                                 </li>
                                             {% endfor %}
                                         </ul>

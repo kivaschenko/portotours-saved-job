@@ -317,6 +317,9 @@
         .cart-order-info-col {
             width: 310px;
             margin-top: 24px;
+            position: sticky;
+            right: 0;
+            top: 20px;
             
             @include media-breakpoint-down(md) {
                 width: 100%;
