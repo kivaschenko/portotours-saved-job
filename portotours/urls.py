@@ -85,7 +85,7 @@ urlpatterns += [
 # BLOGS
 urlpatterns += [
     path('blogs/<str:lang>/', blogs_views.BlogListView.as_view(), name='blog-list'),
-    # path('blogs/<str:lang>/<slug:slug>/', blogs_views.BlogDetailView.as_view(), name='blog-detail'),
+    path('blogs/<str:lang>/<slug:slug>/', blogs_views.BlogDetailView.as_view(), name='blog-detail'),
 ]
 
 # REVIEWS
