@@ -172,6 +172,7 @@
                 width: 100%;
                 border-radius: 26px;
                 overflow: hidden;
+                height: 340px;
                 @include media-breakpoint-down(md) {
                     width: 100%;
                     margin-bottom: 12px;

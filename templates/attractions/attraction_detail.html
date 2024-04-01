@@ -7,60 +7,60 @@
 {% endblock head %}
 {% block content %}
 
-<section class="attraction-hero">
-    <div class="container">
-        <h2 class="attraction-hero-title">
-            {{ object.introduction_title }}
-            
-        </h2>
+    <section class="attraction-hero">
+        <div class="container">
+            <h2 class="attraction-hero-title">
+                {{ object.introduction_title }}
 
-        {{ object.display_introduction_text_above_slider }}
-        
-        <div class="attraction-hero-slider">
-            <div class="swiper-wrapper">
-                <!-- Slides -->
-                <div class="swiper-slide">
-                {% if object.parent_attraction.slider_image_1 %}
-                    <img src="{{ object.parent_attraction.slider_image_1.url }}" alt="Image for slider 1">
-                {% endif %}
+            </h2>
+
+            {{ object.display_introduction_text_above_slider }}
+
+            <div class="attraction-hero-slider">
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_1 %}
+                            <img src="{{ object.parent_attraction.slider_image_1.url }}" alt="Image for slider 1">
+                        {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_2 %}
+                            <img src="{{ object.parent_attraction.slider_image_2.url }}" alt="Image for slider 1">
+                        {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_3 %}
+                            <img src="{{ object.parent_attraction.slider_image_3.url }}" alt="Image for slider 1">
+                        {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_4 %}
+                            <img src="{{ object.parent_attraction.slider_image_4.url }}" alt="Image for slider 1">
+                        {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_5 %}
+                            <img src="{{ object.parent_attraction.slider_image_5.url }}" alt="Image for slider 1">
+                        {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_6 %}
+                            <img src="{{ object.parent_attraction.slider_image_6.url }}" alt="Image for slider 1">
+                        {% endif %}
+                    </div>
+
                 </div>
-                <div class="swiper-slide">
-                {% if object.parent_attraction.slider_image_2 %}
-                    <img src="{{ object.parent_attraction.slider_image_2.url }}" alt="Image for slider 1">
-                {% endif %}
-                </div>
-                <div class="swiper-slide">
-                {% if object.parent_attraction.slider_image_3 %}
-                    <img src="{{ object.parent_attraction.slider_image_3.url }}" alt="Image for slider 1">
-                {% endif %}
-                </div>
-                <div class="swiper-slide">
-                    {% if object.parent_attraction.slider_image_4 %}
-                        <img src="{{ object.parent_attraction.slider_image_4.url }}" alt="Image for slider 1">
-                    {% endif %}
-                </div>
-                <div class="swiper-slide">
-                    {% if object.parent_attraction.slider_image_5 %}
-                        <img src="{{ object.parent_attraction.slider_image_5.url }}" alt="Image for slider 1">
-                    {% endif %}
-                </div>
-                <div class="swiper-slide">
-                    {% if object.parent_attraction.slider_image_6 %}
-                        <img src="{{ object.parent_attraction.slider_image_6.url }}" alt="Image for slider 1">
-                    {% endif %}
-                </div>
-                
+                <div class="swiper-pagination"></div>
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
-            <div class="swiper-pagination"></div>
-            <!-- If we need navigation buttons -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+
+            {{ object.display_introduction_text_below_slider }}
+
         </div>
-        
-        {{ object.display_introduction_text_below_slider }}
-        
-    </div>
-</section>
+    </section>
 
     <section class="attraction-info-cards">
         <div class="container">
@@ -74,55 +74,93 @@
                 <div class="attraction-info-card">
                     <img src="{% static 'icons/attraction-info-card-img1.svg' %}" alt="" class="attraction-info-card-img">
                     <p class="body-text-b2 attraction-info-card-title">
-                        Time of work 
+                        Time of work
                     </p>
 
                     {{ object.display_time_of_work|safe }}
-                   
+
                 </div>
                 <div class="attraction-info-card">
                     <img src="{% static 'icons/attraction-info-card-img2.svg' %}" alt="" class="attraction-info-card-img">
                     <p class="body-text-b2 attraction-info-card-title">
                         Address
                     </p>
-                    
-                        {{ object.display_address }}
-                        
+
+                    {{ object.display_address }}
+
                 </div>
                 <div class="attraction-info-card">
                     <img src="{% static 'icons/attraction-info-card-img3.svg' %}" alt="" class="attraction-info-card-img">
                     <p class="body-text-b2 attraction-info-card-title">
                         Price
                     </p>
-                    
-                        {{ object.display_price }}
-                   
+
+                    {{ object.display_price }}
+
                 </div>
                 <div class="attraction-info-card">
                     <img src="{% static 'icons/attraction-info-card-img4.svg' %}" alt="" class="attraction-info-card-img">
                     <p class="body-text-b2 attraction-info-card-title">
                         Accessibility
                     </p>
-                    
-                        {{ object.display_accessibility }}
-                    
+
+                    {{ object.display_accessibility }}
+
                 </div>
                 <div class="attraction-info-card">
                     <img src="{% static 'icons/attraction-info-card-img5.svg' %}" alt="" class="attraction-info-card-img">
                     <p class="body-text-b2 attraction-info-card-title">
                         Possibility
                     </p>
-                   
-                        {{ object.display_possibility }}
-                    
+
+                    {{ object.display_possibility }}
+
                 </div>
             </div>
         </div>
     </section>
-    
-    {% include 'include/also_interested.html' %}
 
-    
+    <section class="also-interested">
+        <div class="container">
+            <h2 class="also-interested-title">
+                {{ object.recommendations_title }}
+            </h2>
+            <p class="also-interested-subtitle body-text-b2">
+                {{ object.recommendations_subtitle }}
+            </p>
+            <div class="swiper-also-interested">
+                <div class="swiper-wrapper also-interested-cards-wrapper">
+                    {% if object.recommendations_experiences.all %}
+                        {% for experience in object.recommendations_experiences.all %}
+                            <div class="also-interested-card swiper-slide">
+                                <img src="{{ experience.parent_experience.card_image.url }}" alt="{{ experience.name }} card image" class="also-interested-img">
+                                <p class="body-text-b2 also-interested-card-title">
+                                    <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
+                                </p>
+                                <p class="body-text-b3 also-interested-card-text">
+                                    {{ experience.short_description }}
+                                </p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No recommended experiences found.</p>
+                    {% endif %}
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="also-interested-more-info-wrapper">
+                <h5 class="also-interested-more-info-title">
+                    {{ object.recommendations_slogan }}
+                </h5>
+                <a href="" class="btn-type-2 also-interested-info-link">
+                    see more
+                </a>
+            </div>
+        </div>
+    </section>
+
+
     <section class="faq">
         <div class="container">
             <h2 class="faq-title">
@@ -133,13 +171,13 @@
             </p>
             {% if object.faqattraction_set.all %}
                 {% for record in object.faqattraction_set.all %}
-                <div class="faq-block">
-                    <p class="faq-question">{{ record.question }}</p>
-                    <div>{{ record.display_answer }}</div>
-                </div>
+                    <div class="faq-block">
+                        <p class="faq-question">{{ record.question }}</p>
+                        <div>{{ record.display_answer }}</div>
+                    </div>
                 {% endfor %}
             {% else %}
-            <p>No FAQ yet written...</p>
+                <p>No FAQ yet written...</p>
             {% endif %}
         </div>
     </section>
@@ -175,45 +213,45 @@
     </script>
     <script>
         const swiperAttractionHero = new Swiper(".attraction-hero-slider", {
-      slidesPerView: 3,
-      speed: 1000,   
-      spaceBetween: 24,
-      breakpoints: {
-          200: {
-                slidesPerView: 1,
-                spaceBetween: 14,
-                slidesPerView: 1.4,
-                pagination: {
-                    el: '.swiper-pagination',
+            slidesPerView: 3,
+            speed: 1000,
+            spaceBetween: 24,
+            breakpoints: {
+                200: {
+                    slidesPerView: 1,
+                    spaceBetween: 14,
+                    slidesPerView: 1.4,
+                    pagination: {
+                        el: '.swiper-pagination',
+                    },
+                    centeredSlides: true,
+                    loop: true,
                 },
-                centeredSlides: true,
-                loop:true,
-          },
-          767: {
-              slidesPerView: 3,
-              spaceBetween: 30,
-          }
-      },
-      // Navigation arrows
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-    });
+                767: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                }
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
     </script>
     <script>
         console.log(window.innerWidth)
         if (window.innerWidth < 768) {
-            
+
             const swiperAlsoInterested = new Swiper(".swiper-also-interested", {
-            slidesPerView: 1.4,
-            speed: 1000,   
-            spaceBetween: 14,
-            centeredSlides: true,
-            loop:true,
-            pagination: {
-                el: '.swiper-pagination',
-            },
+                slidesPerView: 1.4,
+                speed: 1000,
+                spaceBetween: 14,
+                centeredSlides: true,
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
             });
         }
     </script>

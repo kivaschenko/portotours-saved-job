@@ -313,7 +313,7 @@
           border-radius: 26px;
           overflow: hidden;
           position: relative;
-          max-height: 420px;
+          height: 420px;
           @include media-breakpoint-down(md) {
             width: 100%;
           }

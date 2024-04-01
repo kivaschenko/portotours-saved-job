@@ -8479,7 +8479,8 @@ html.off-scroll body {
       margin-bottom: 16px;
       width: 100%;
       border-radius: 26px;
-      overflow: hidden; }
+      overflow: hidden;
+      height: 340px; }
       @media (max-width: 767.98px) {
         .experience .experience-cards-wrapper .experience-card .experience-card-img {
           width: 100%;
@@ -10698,7 +10699,7 @@ html.off-scroll body {
         border-radius: 26px;
         overflow: hidden;
         position: relative;
-        max-height: 420px; }
+        height: 420px; }
         @media (max-width: 767.98px) {
           .experience-list .container .experiences .experience-list-item .list-item-img-wrapper {
             width: 100%; } }
@@ -12908,5 +12909,3 @@ a {
 
 .nav-link {
   color: #0F0F10; }
-
-/*# sourceMappingURL=custom.css.map */
