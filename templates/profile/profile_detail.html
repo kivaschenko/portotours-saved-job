@@ -11,27 +11,36 @@
                     </h5>
                     <img src="{% static 'icons/toggler-arrow-icon.svg' %}" alt="" class="toggler-arrow">
                 </div>
-                <div class="block-content">
-                    <form method="post">
+                <div class="info-wrapper">
+                    <div class="avatar-wrapper">
+                        {% if review.profile.avatar %}
+                            <img src="{{ review.profile.avatar.url }}" alt="Avatar" width="100" height="100">
+                        {% else %}
+                            <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="100" height="100">
+                        {% endif %}
+                    </div>
+                    <div class="block-content">
                         <div class="input-wrapper">
-                            <label for="email">Email Address</label>
-                            <input type="email" name="email" value="jenn@gmail.com">
+                            <p class="label">Email Address</p>
+                            <p class="info-text">{{ object.profile.email }}</p>
                         </div>
                         <div class="input-wrapper">
-                            <label for="first_name">First name</label>
-                            <input type="text" name="first_name" value="Jenny">
+                            <p class="label">Full Name</p>
+                            <p class="info-text">{{ object.profile.name }}</p>
                         </div>
                         <div class="input-wrapper">
-                            <label for="phone">Phone number</label>
-                            <input type="tel" name="phone" value="(505) 555-0125">
+                            <p class="label">Phone Number</p>
+                            <p class="info-text">{{ object.profile.phone }}</p>
                         </div>
-                        <div class="input-wrapper">
-                            <label for="last_name">Last name</label>
-                            <input type="text" name="last_name" value="Wilson">
+                        <div class="btn-wrapper">
+                            <a class="edit-profile-btn" href="{% url 'profile-info-update' %}">Edit</a>
                         </div>
-                        <button></button>
-                    </form>
+                        
+                    
                 </div>
+                
+                </div>
+               
             </div>
             <div class="account-details-block billing-address">
                 <div class="title-wrapper">

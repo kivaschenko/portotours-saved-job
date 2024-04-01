@@ -12164,7 +12164,10 @@ html.off-scroll body {
                 margin-top: 44px; }
   .cart .cart-cards-info .cart-order-info-col {
     width: 310px;
-    margin-top: 24px; }
+    margin-top: 24px;
+    position: sticky;
+    right: 0;
+    top: 20px; }
     @media (max-width: 767.98px) {
       .cart .cart-cards-info .cart-order-info-col {
         width: 100%;
@@ -12773,14 +12776,14 @@ html.off-scroll body {
     border-radius: 16px;
     border: 1px solid #D9D9D9;
     background: #FFF;
-    padding: 32px 64px 8px 73px; }
+    padding: 32px 64px 32px 73px; }
     .account-details .container .account-details-block + .account-details-block {
       margin-top: 32px; }
     .account-details .container .account-details-block .title-wrapper {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 24px; }
+      margin-bottom: 0; }
       .account-details .container .account-details-block .title-wrapper .account-details-title {
         display: flex;
         align-items: center;
@@ -12797,6 +12800,50 @@ html.off-scroll body {
           margin-right: 16px; }
       .account-details .container .account-details-block .title-wrapper > img {
         transform: rotate(180deg); }
+    .account-details .container .account-details-block .info-wrapper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding-top: 24px; }
+      .account-details .container .account-details-block .info-wrapper .block-content {
+        width: calc(100% - 48px - 100px);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between; }
+        .account-details .container .account-details-block .info-wrapper .block-content .input-wrapper {
+          width: calc((100% - 24px)/2);
+          margin-bottom: 40px; }
+          .account-details .container .account-details-block .info-wrapper .block-content .input-wrapper .label {
+            color: #0F0F10;
+            font-family: "LatoSemiBold";
+            font-size: 16px;
+            line-height: normal;
+            margin-top: 0;
+            margin-bottom: 8px; }
+          .account-details .container .account-details-block .info-wrapper .block-content .input-wrapper .info-text {
+            color: #0F0F10;
+            font-family: "LatoRegular";
+            font-size: 16px;
+            margin-bottom: 0; }
+        .account-details .container .account-details-block .info-wrapper .block-content .btn-wrapper {
+          display: block;
+          width: 100%; }
+          .account-details .container .account-details-block .info-wrapper .block-content .btn-wrapper a {
+            width: fit-content;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: var(--text-color-third);
+            font-family: "LatoSemiBold";
+            font-size: 18px;
+            line-height: normal; }
+        .account-details .container .account-details-block .info-wrapper .block-content .edit-profile-btn {
+          display: block;
+          width: 100%; }
+      .account-details .container .account-details-block .info-wrapper .avatar-wrapper {
+        width: 100px; }
+        .account-details .container .account-details-block .info-wrapper .avatar-wrapper img {
+          width: 100%; }
 
 html.overflow {
   overflow: hidden; }

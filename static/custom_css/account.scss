@@ -8,7 +8,7 @@
             border-radius: 16px;
             border: 1px solid #D9D9D9;
             background: #FFF;
-            padding: 32px 64px 8px 73px;
+            padding: 32px 64px 32px 73px;
             + .account-details-block {
                 margin-top: 32px;
             }
@@ -16,7 +16,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-bottom: 24px;
+                margin-bottom: 0;
                 .account-details-title {
                     display: flex;
                     align-items: center;
@@ -37,6 +37,61 @@
                     transform: rotate(180deg);
                 }
             }
+            .info-wrapper {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                padding-top: 24px;
+                .block-content {
+                    width: calc(100% - 48px - 100px);
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    justify-content: space-between;
+                    .input-wrapper {
+                        width: calc((100% - 24px)/2);
+                        margin-bottom: 40px;
+                        .label {
+                            color: #0F0F10;
+                            font-family: "LatoSemiBold";
+                            font-size: 16px;
+                            line-height: normal;
+                            margin-top: 0;
+                            margin-bottom: 8px;
+                        }
+                        .info-text {
+                            color: #0F0F10;
+                            font-family: "LatoRegular";
+                            font-size: 16px;
+                            margin-bottom: 0;
+                        }
+                    }
+                    .btn-wrapper {
+                        display: block;
+                        width: 100%;
+                        a {
+                            width: fit-content;
+                            text-decoration: none;
+                            text-transform: uppercase;
+                            color: var(--text-color-third);
+                            font-family: "LatoSemiBold";
+                            font-size: 18px;
+                            line-height: normal;
+                        }
+                    }
+                    .edit-profile-btn {
+                        display: block;
+                        width: 100%;
+                    }
+                }
+                .avatar-wrapper {
+                    width: 100px;
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
         }
+        
     }
 }
