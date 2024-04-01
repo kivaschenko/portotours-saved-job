@@ -7,13 +7,17 @@ from attractions.models import Attraction, ParentAttraction, TagAttraction, FAQA
 
 
 class AttractionModelTestCase(TestCase):
+    fixtures = [
+        'products/fixtures/testing/languages.json',
+    ]
+
     def setUp(self):
         # Create test objects as needed
         pass
 
     def test_attraction_str_method(self):
-        attraction = Attraction.objects.create(name="Test Attraction")
-        self.assertEqual(str(attraction), "Test Attraction")
+        attraction = Attraction.objects.create(name="Test Attraction", language_id=1)
+        self.assertEqual(str(attraction), "Test Attraction (English)")
 
     # Add more test methods as needed for other model functionalities
 
