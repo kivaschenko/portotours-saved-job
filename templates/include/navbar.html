@@ -105,17 +105,9 @@
                                 <h3 class="dropdown-title">
                                     Best experiences
                                 </h3>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-
+                                {% for experience in top_experiences %}
+                                    <a class="dropdown-item" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
+                                {% endfor %}
                                 <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
                                     see all
                                     <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
@@ -126,17 +118,9 @@
                                 <h3 class="dropdown-title">
                                     Top Attractions
                                 </h3>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-
+                                {% for attraction in top_attractions %}
+                                <a class="dropdown-item" href="{% url 'attraction-detail' lang=attraction.language.code.lower slug=attraction.slug %}">{{ attraction.name }}</a>
+                                {% endfor %}
                                 <a href="{% url 'attraction-list' lang='en' %}" class="dropdown-item-link">
                                     see all
                                     <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
@@ -156,17 +140,9 @@
                                 <h3 class="dropdown-title">
                                     Destinations
                                 </h3>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                
+                                {% for destination in top_destinations %}
+                                <a class="dropdown-item" href="{% url 'destination-detail' lang=destination.language.code.lower slug=destination.slug %}">{{ destination.name }}</a>
+                                {% endfor %}
                                 <a href="{% url 'destination-list' lang='en' %}" class="dropdown-item-link">
                                     see all
                                     <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
@@ -177,17 +153,7 @@
                                 <h3 class="dropdown-title">
                                     Most Popular
                                 </h3>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                               
+                                {{ top_experiences }}
                                 <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
                                     see all
                                     <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
@@ -228,16 +194,16 @@
                                 <h3 class="dropdown-title">
                                     Top Attractions
                                 </h3>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
+                                <a class="dropdown-item" href="#">Attraction name long-long-long  long-long-long  long-long-long    </a>
+                                <a class="dropdown-item" href="#">Attraction name long-long-long  </a>
+                                <a class="dropdown-item" href="#">Attraction name long-long-long  long-long-long  long-long-long    </a>
+                                <a class="dropdown-item" href="#">Attraction name long-long-long  </a>
+                                <a class="dropdown-item" href="#">Attraction name long-long-long  long-long-long  long-long-long    </a>
+                                <a class="dropdown-item" href="#">Attraction name long-long-long  </a>
+                                <a class="dropdown-item" href="#">Attraction name long-long-long  long-long-long  long-long-long    </a>
+                                <a class="dropdown-item" href="#">Attraction name long-long-long  </a>
+                                <a class="dropdown-item" href="#">Attraction name long-long-long  long-long-long  long-long-long    </a>
+                                <a class="dropdown-item" href="#">Attraction name long-long-long  </a>
 
                                 <a href="{% url 'attraction-list' lang='en' %}" class="dropdown-item-link">
                                     see all
@@ -258,16 +224,16 @@
                                 <h3 class="dropdown-title">
                                     Destinations
                                 </h3>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  long-long-long  long-long-long    </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long  </a>
+                                <a class="dropdown-item" href="#">Destination name long-long-long  long-long-long  long-long-long    </a>
+                                <a class="dropdown-item" href="#">Destination name long-long-long  </a>
+                                <a class="dropdown-item" href="#">Destination name long-long-long  long-long-long  long-long-long    </a>
+                                <a class="dropdown-item" href="#">Destination name long-long-long  </a>
+                                <a class="dropdown-item" href="#">Destination name long-long-long  long-long-long  long-long-long    </a>
+                                <a class="dropdown-item" href="#">Destination name long-long-long  </a>
+                                <a class="dropdown-item" href="#">Destination name long-long-long  long-long-long  long-long-long    </a>
+                                <a class="dropdown-item" href="#">Destination name long-long-long  </a>
+                                <a class="dropdown-item" href="#">Destination name long-long-long  long-long-long  long-long-long    </a>
+                                <a class="dropdown-item" href="#">Destination name long-long-long  </a>
 
                                 <a href="{% url 'destination-list' lang='en' %}" class="dropdown-item-link">
                                     see all
