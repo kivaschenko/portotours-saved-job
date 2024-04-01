@@ -1,0 +1,40 @@
+{% load static %}
+
+<section class="testimonials-slider-section">
+    <div class="container">
+        <h2 class="testimonials-title">
+            testimonials
+        </h2>
+        <p class="testimonials-subtitle body-text-b1">
+            Read the reviews of our clients about their experience with our service
+        </p>
+        {% if object.parent_experience.review_set.all %}
+            <div class="testimonials-slider">
+                <div class="swiper-wrapper">
+                    {% for review in object.parent_experience.review_set.all %}
+                        <div class="swiper-slide">
+                            <p class="swiper-text">
+                                {{ review.short_text }}
+                            </p>
+                            <div class="author-wrapper">
+                                {% if review.profile.avatar %}
+                                    <img src="{{ review.profile.avatar.url }}" alt="Avatar">
+                                {% else %}
+                                    <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar">
+                                {% endif %}
+                                <p class="name">{{ review.profile.name }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        {% else %}
+            <p>No any reviews yet...</p>
+        {% endif %}
+    </div>
+</section>
+

@@ -393,9 +393,20 @@
                             padding-left: 0;
                             list-style: none;
                             li {
-                                max-width: 24px;
+                                border-radius: 34px;
+                                background: rgba(241, 241, 241, 0.75);
+                                backdrop-filter: blur(25px);
+                                padding: 8px 10px;
+                                color: #0F0F10;
+                                font-size: 14px;
+                                line-height: 22px;
+                                display: flex;
+                                align-items: center;
+                                
                                 img {
-                                    width: 100%;
+                                    width: 24px;
+                                    height: 24px;
+                                    margin-right: 6px;
                                 }
                                 + li {
                                     margin-left: 16px;

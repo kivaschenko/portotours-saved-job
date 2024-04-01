@@ -512,54 +512,8 @@
         </div>
     </section>
 
-    <section class="testimonials-slider-section">
-        <div class="container">
-            <h2 class="testimonials-title">
-                testimonials
-            </h2>
-            <p class="testimonials-subtitle body-text-b1">
-                Read the reviews of our clients about their experience with our service
-            </p>
-            <div class="testimonials-slider">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <p class="swiper-text">
-                            Awesome! I wanted to make a trip to Lisbon not only fun but also educational for my kids. Here I found everything I needed. Wanna
-                            highlight great communication and customer service. I'll come back, thank you guys:)
-                        </p>
-                        <div class="author-wrapper">
-                            <img src="{% static 'images/testimonials-img1.png' %}" alt="">
-                            <p class="name">Katherine Jennerwein</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <p class="swiper-text">
-                            Highly recommended! I truly enjoyed this service. The guides are professional and funny. The support team is flexible and
-                            understanding. I had a small issue, and it was solved in a blink of an eye. Wish you growth and thankful clients!:)
-                        </p>
-                        <div class="author-wrapper">
-                            <img src="{% static 'images/testimonials-img2.png' %}" alt="">
-                            <p class="name">Olivia Carroll</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <p class="swiper-text">
-                            Great service! OneDayTours team created a perfect vacation for me and my family. We've ordered a few tours and got full experience
-                            of the most amazing spots of Portugal. 100% recommend!
-                        </p>
-                        <div class="author-wrapper">
-                            <img src="{% static 'images/testimonials-img3.png' %}" alt="">
-                            <p class="name">Andy Walker</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
-        </div>
-    </section>
+    {% include 'include/testimonials.html' %}
+    
     <section class="offers-banner">
         <div class="container">
             <h2 class="offers-banner-title">

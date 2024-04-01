@@ -240,11 +240,9 @@
                                 </p>
                                 <p class="card-text">
                                     {% if object.parent_experience.allowed_languages.all %}
-                                        <ul>
                                             {% for language in object.parent_experience.allowed_languages.all %}
-                                                <li>{{ language.name }}</li>
+                                               <span>{{ language.name }}{% if not forloop.last %},{% endif %}</span>
                                             {% endfor %}
-                                        </ul>
                                     {% endif %}
                                 </p>
                             </div>
