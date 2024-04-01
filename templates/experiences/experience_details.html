@@ -258,10 +258,7 @@
                                     Pick Up Location
                                 </p>
                                 <p class="card-text">
-                                    {% if object.parent_experience.meeting_point.get_map_url %}
-                                        <a href="{{ object.parent_experience.meeting_point.get_map_url }}"
-                                           target="_blank">{{ object.parent_experience.meeting_point.address }}</a>
-                                    {% else %}
+                                    {% if object.parent_experience.meeting_point.address %}
                                         {{ object.parent_experience.meeting_point.address }}
                                     {% endif %}
                                 </p>
@@ -341,8 +338,8 @@
             </p>
             <div class="swiper-also-interested">
                 <div class="swiper-wrapper also-interested-cards-wrapper">
-                    {% if object.recommended_experiences.all %}
-                        {% for experience in object.recommended_experiences.all %}
+                    {% if object.experience_recommendations.all %}
+                        {% for experience in object.experience_recommendations.all %}
                             <div class="also-interested-card swiper-slide">
                                 <img src="{{ experience.parent_experience.card_image.url }}" alt="{{ experience.name }} card image" class="also-interested-img">
                                 <p class="body-text-b2 also-interested-card-title">
