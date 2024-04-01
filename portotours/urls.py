@@ -25,7 +25,6 @@ handler400 = 'products.views.custom_bad_request_view'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_views.HomeView.as_view(), name='home'),
-    path('navbar/<str:lang>/', home_views.navbar_view, name='navbar'),
 ]
 
 # ACCOUNTS & PROFILES
