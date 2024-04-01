@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from blogs.models import ParentBlog, Blog, Category
+from .models import ParentBlog, Blog, Category
 
 
 class BlogModelTestCase(TestCase):

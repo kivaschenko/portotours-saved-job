@@ -2,8 +2,8 @@ from django.test import TestCase, RequestFactory
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 
-from attractions.views import AttractionListView, AttractionDetailView
-from attractions.models import Attraction, ParentAttraction, TagAttraction, FAQAttraction
+from .views import AttractionListView, AttractionDetailView
+from .models import Attraction, ParentAttraction, TagAttraction, FAQAttraction
 
 
 class AttractionModelTestCase(TestCase):
