@@ -1,0 +1,38 @@
+<section class="also-interested">
+    <div class="container">
+        <h2 class="also-interested-title">
+            {{ object.recommendations_title }}
+        </h2>
+        <p class="also-interested-subtitle body-text-b2">
+            {{ object.recommendations_subtitle }}
+        </p>
+        <div class="swiper-also-interested">
+            <div class="swiper-wrapper also-interested-cards-wrapper">
+                {% if object.recommended_experiences.all %}
+                    {% for experience in object.recommended_experiences.all %}
+                        <div class="also-interested-card swiper-slide">
+                            <img src="{{ experience.parent_experience.card_image.url }}" alt="{{ experience.name }} card image" class="also-interested-img">
+                            <p class="body-text-b2 also-interested-card-title">
+                                <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
+                            </p>
+                            <p class="body-text-b3 also-interested-card-text">
+                                {{ experience.short_description }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No recommended experiences found.</p>
+                {% endif %}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="also-interested-more-info-wrapper">
+            <h5 class="also-interested-more-info-title">
+                {{ object.recommendations_slogan }}
+            </h5>
+            <a href="{% url 'experience-list' lang=object.language.code.lower %}" class="btn-type-2 also-interested-info-link">
+                see more
+            </a>
+        </div>
+    </div>
+</section>
