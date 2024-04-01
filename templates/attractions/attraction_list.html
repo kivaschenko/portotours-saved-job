@@ -1,78 +1,66 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<section class="attraction-list-hero">
-    <div class="container">
-        <h1 class="attraction-list-hero-title">
-            Best Portugal Attractions and Activities <span>with</span>
-            <img src="{% static 'icons/main-logo.svg' %}" alt="Main logo">
-        </h1>
-    </div>
-</section>
-
-
-<section class="attraction-list">
-    <div class="container">
-        <div class="title-filter-wrapper">
-            <h3 class="attraction-list-title">
-                List of attractions in Portugal
-            </h3>
-            
+    <section class="attraction-list-hero">
+        <div class="container">
+            <h1 class="attraction-list-hero-title">
+                Best Portugal Attractions and Activities <span>with</span>
+                <img src="{% static 'icons/main-logo.svg' %}" alt="Main logo">
+            </h1>
         </div>
-        <ul class="attractions">
-            {% if object_list %}
-            {% for object in object_list %}
-                <li class="attraction-list-item">
-                    <div class="list-item-img-wrapper">
-                        <img src="{{ object.parent_attraction.card_image.url }}" alt="Card image for {{ object.name }}">
-                    </div>
-                    <div class="attraction-list-content-wrapper">
-                        <h5>
-                            {{ object.name }}
-                        </h5>
-                        <div class="attraction-type-list-wrapper">
-                            <!-- <p class="attraction-type-title body-text-b3">Type title:</p> -->
-                            <ul class="main-info-list">
-                                <li class="historical">
-                                    <img src="{% static 'icons/historical-icon.svg' %}" alt="icon">
-                                    Historical
-                                </li >
-                                <li class='entertaining'>
-                                    <img src="{% static 'icons/entertaining-icon.svg' %}" alt="icon">
-                                    Entertaining
-                                </li>
-                                <li class='museums'>
-                                    <img src="{% static 'icons/museums-icon.svg' %}" alt="icon">
-                                    Museums
-                                </li>
-                                <li class='galleries'>
-                                    <img src="{% static 'icons/galleries-icon.svg' %}" alt="icon">
-                                    Galleries
-                                </li>
-                                <li class='parks'>
-                                    <img src="{% static 'icons/parks-icon.svg' %}" alt="icon">
-                                    Parks
-                                </li>
-                                <li class='city'>
-                                    <img src="{% static 'icons/city-icon.svg' %}" alt="icon">
-                                    City Name
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="attraction-list-item-text">
-                            {{ object.short_introduction_text }}
-                        </p>
-                        <a href="{% url 'attraction-detail'  lang=object.language.code.lower slug=object.slug %}" class="attraction-link-btn">
-                            read more
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="link arrow">
-                        </a>
-                    </div>
-                </li>
-                {% endfor %}
+    </section>
+
+
+    <section class="attraction-list">
+        <div class="container">
+            <!-- <form method="GET">
+                {{ filter_form }}
+                <button type="submit">Filter</button>
+                <button type="button" onclick="resetForm()">Reset</button>
+            </form> -->
+            <div class="title-filter-wrapper">
+                <h3 class="attraction-list-title">
+                    List of attractions in Portugal
+                </h3>
+
+            </div>
+            <ul class="attractions">
+                {% if object_list %}
+                    {% for object in object_list %}
+                        <li class="attraction-list-item">
+                            <div class="list-item-img-wrapper">
+                                <img src="{{ object.parent_attraction.card_image.url }}" alt="Card image for {{ object.name }}">
+                            </div>
+                            <div class="attraction-list-content-wrapper">
+                                <h5>
+                                    {{ object.name }}
+                                </h5>
+                                <div class="attraction-type-list-wrapper">
+                                    {% if object.parent_attraction.tags.all %}
+                                        <ul class="main-info-list">
+                                            {% for tag in object.parent_attraction.tags.all %}
+                                                <li>
+                                                    <img src="{{ tag.icon_img.url }}" alt="icon for {{ tag.tag_name }}" title="{{ tag.tag_name }}">
+                                                    {{ tag.tag_name }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                                <p class="attraction-list-item-text">
+                                    {{ object.short_introduction_text }}
+                                </p>
+                                <a href="{% url 'attraction-detail'  lang=object.language.code.lower slug=object.slug %}" class="attraction-link-btn">
+                                    read more
+                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="link arrow">
+                                </a>
+                            </div>
+                        </li>
+                    {% endfor %}
                 {% endif %}
-        </ul>       
-        <div class="pagination-block">
-            {% if is_paginated %}
+            </ul>
+            <div class="pagination-block">
+                {% if is_paginated %}
                     {% if page_obj.has_previous %}
                         <button class="pagination-btn prev">
                             <a href="?page={{ page_obj.previous_page_number }}">
@@ -81,19 +69,19 @@
                         </button>
                     {% else %}
                         <button class="pagination-btn prev">
-                                <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+                            <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
                         </button>
                     {% endif %}
                     <ul class="pagination-list">
-                    {% for num in page_obj.paginator.page_range %}
-                        
-                        {% if page_obj.number == num %}
-                            <li class="pagination-list-item active">{{ num }}</li>
-                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                            <li class="pagination-list-item"><a class="" href="?page={{ num }}">{{ num }}</a></li>
-                        {% endif %}
-                        
-                    {% endfor %}
+                        {% for num in page_obj.paginator.page_range %}
+
+                            {% if page_obj.number == num %}
+                                <li class="pagination-list-item active">{{ num }}</li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="pagination-list-item"><a class="" href="?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+
+                        {% endfor %}
                     </ul>
                     {% if page_obj.has_next %}
                         <button class="pagination-btn next">
@@ -101,19 +89,24 @@
                                 <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
                             </a>
                         </button>
-                        {% else %}
+                    {% else %}
                         <button class="pagination-btn next">
                             <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
                         </button>
                     {% endif %}
                 {% endif %}
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
 
-    
+
     <!-- Custom JS import -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+    <script>
+    function resetForm() {
+        window.location.href = "{% url 'attraction-list' lang=current_language %}";  // Redirect to the same page without any parameters
+    }
+</script>
 {% endblock %}

@@ -62,12 +62,11 @@ class Blog(models.Model):
     # content part
     title = models.CharField(max_length=160, help_text="160 characters, max")
     short_description = models.TextField(max_length=300, help_text="300 characters, max", null=True, blank=True)
-    content = RichTextField(max_length=30000, blank=True, null=True, help_text="30000 characters, max")
     categories = models.ManyToManyField(Category)
     views = models.IntegerField(default=0)
     read_time = models.IntegerField(default=0)  # in minutes
     date_published = models.DateTimeField(auto_now_add=True)
-
+    middle_picture = models.ImageField(upload_to='blogs/middle_pictures', null=True, blank=True)
     objects = models.Manager()
     active = BlogActiveManager()
 
@@ -87,7 +86,7 @@ class Blog(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-        self.read_time = self.calculate_read_time(self.content)
+        # self.read_time = self.calculate_read_time(self.content)
         super(Blog, self).save(*args, **kwargs)
 
     def display_content(self):
@@ -112,3 +111,21 @@ class Blog(models.Model):
         read_time_minutes = round(read_time_minutes)
 
         return read_time_minutes
+
+
+class BlockBlog(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name="blocks")
+    title = models.CharField(max_length=255, help_text="title of text block including within Blog, max 255 characters", null=True, blank=True)
+    text = RichTextField(max_length=3000, help_text="maximum length of text block 3000 characters", null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['id']
+
+    def display_text(self):
+        return mark_safe(self.text)
+
+
+

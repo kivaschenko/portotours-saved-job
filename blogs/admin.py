@@ -19,21 +19,26 @@ class ParentBlogAdmin(admin.ModelAdmin):
     list_filter = ['parent_name']
 
 
-class BlogAdminForm(ModelForm):
-    class Meta:
-        model = Blog
-        fields = '__all__'
-        widgets = {
-            'content': CKEditorWidget(),
-        }
+class BlockBlogInline(admin.TabularInline):
+    model = BlockBlog
+    extra = 1
+    list_display = ['title', 'text']
+    widgets = {
+        'text': CKEditorWidget(),
+    }
 
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    form = BlogAdminForm
     exclude = ['updated_at']
     list_display = ['title', 'author', 'display_categories', 'views', 'date_published', 'is_active']
     list_filter = ['title', 'author', 'date_published', 'is_active']
+    inlines = [BlockBlogInline,]
 
     def display_categories(self, obj):
         return ', '.join(category.name for category in obj.categories.all())
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        for formset in formsets:
+            formset.save()

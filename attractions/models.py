@@ -12,6 +12,21 @@ from destinations.models import ParentDestination
 logger = logging.getLogger(__name__)
 
 
+def svg_upload_path(instance, filename):
+    return f'attractions/icons/{filename}'
+
+
+class TagAttraction(models.Model):
+    icon_img = models.ImageField(upload_to=svg_upload_path, blank=True, null=True, help_text="Image in .svg supported.")
+    tag_name = models.CharField(max_length=30, unique=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.tag_name
+
+    def __repr__(self):
+        return f'<TagAttraction: {self.tag_name}>'
+
+
 class ParentAttraction(models.Model):
     """A parent attraction brings together all attractions with multilingual content,
     but all in one location as a geographic and attraction. To save the common banner,
@@ -21,6 +36,7 @@ class ParentAttraction(models.Model):
     priority_number = models.IntegerField(null=True, blank=True, default=0,
                                           help_text="number for ordering in list on page by default")
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    tags = models.ManyToManyField(TagAttraction)
     slider_image_1 = models.FileField(upload_to='media/sliders/', null=True, blank=True)
     slider_image_2 = models.FileField(upload_to='media/sliders/', null=True, blank=True)
     slider_image_3 = models.FileField(upload_to='media/sliders/', null=True, blank=True)

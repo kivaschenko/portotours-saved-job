@@ -1,0 +1,287 @@
+[
+{
+    "model": "attractions.tagattraction",
+    "pk": 1,
+    "fields": {
+        "icon_img": "attractions/icons/historic-site.png",
+        "tag_name": "Historical"
+    }
+},
+{
+    "model": "attractions.tagattraction",
+    "pk": 2,
+    "fields": {
+        "icon_img": "attractions/icons/museum.png",
+        "tag_name": "Museums"
+    }
+},
+{
+    "model": "attractions.tagattraction",
+    "pk": 3,
+    "fields": {
+        "icon_img": "attractions/icons/amusement-park.png",
+        "tag_name": "Entertainment"
+    }
+},
+{
+    "model": "attractions.tagattraction",
+    "pk": 4,
+    "fields": {
+        "icon_img": "attractions/icons/park.png",
+        "tag_name": "Parks"
+    }
+},
+{
+    "model": "attractions.tagattraction",
+    "pk": 5,
+    "fields": {
+        "icon_img": "attractions/icons/art-gallery.png",
+        "tag_name": "Art Galleries"
+    }
+},
+{
+    "model": "attractions.parentattraction",
+    "pk": 1,
+    "fields": {
+        "parent_name": "Lisbon Oceanarium Parent",
+        "priority_number": 0,
+        "card_image": "media/cards/nick-karvounis-Cf0NnZ0C1bA-unsplash.png",
+        "slider_image_1": "media/sliders/attraction-hero-img1.png",
+        "slider_image_2": "media/sliders/attraction-hero-img2.png",
+        "slider_image_3": "media/sliders/attraction-hero-img3.png",
+        "slider_image_4": "media/sliders/attraction-hero-img3.png",
+        "slider_image_5": "media/sliders/attraction-img2.png",
+        "slider_image_6": "media/sliders/best-tours-img2.png",
+        "updated_at": "2024-03-31T13:58:50.167Z",
+        "tags": [
+            1,
+            2,
+            5
+        ]
+    }
+},
+{
+    "model": "attractions.parentattraction",
+    "pk": 2,
+    "fields": {
+        "parent_name": "St. George's Castle Lisbon",
+        "priority_number": 0,
+        "card_image": "media/cards/nick-karvounis-Cf0NnZ0C1bA-unsplash.png",
+        "slider_image_1": "",
+        "slider_image_2": "",
+        "slider_image_3": "",
+        "slider_image_4": "",
+        "slider_image_5": "",
+        "slider_image_6": "",
+        "updated_at": "2024-03-31T13:59:05.928Z",
+        "tags": [
+            1,
+            2,
+            3,
+            4
+        ]
+    }
+},
+{
+    "model": "attractions.attraction",
+    "pk": 1,
+    "fields": {
+        "parent_attraction": 1,
+        "name": "Lisbon Oceanarium",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:09:34.090Z",
+        "slug": "lisbon-oceanarium",
+        "page_title": "Lisbon Oceanarium: The Biggest in Europe",
+        "page_description": "",
+        "keywords": "",
+        "introduction_title": "Lisbon Oceanarium: The Biggest in Europe",
+        "introduction_text_above_slider": "<p>The Oceanarium in Lisbon, built in 1998, is one of the largest in the world, displaying more than 25 thousand marine life species. This place is perfect for an exciting family visit, and will certainly appeal not only to children but also to all adults who are not indifferent to the beauty and uniqueness of the underwater world. Lisbon Oceanarium is unique because it contains the inhabitants of all oceans without exception in one place. There is also a second building connected to the main one by a transparent gallery. The place is open not only to conduct excursions here but also to carry out serious scientific research on underwater flora and fauna.</p>\r\n\r\n<p>On the ground floor, there are 25 aquariums where you can view marine inhabitants individually. And in the center of the second floor, there is a huge tank about seven meters deep. Even though the representatives of different climatic zones are separated by a transparent partition, it is almost imperceptible, which emphasizes the idea of the unity of the waters of the World Ocean. This floor is also occupied by four thematic aquariums - in each of them is recreated the flora and fauna of one of the oceans. The second building is educational, as it hosts exhibitions, events, and excursions dedicated to the protection and safety of species.</p>",
+        "introduction_text_below_slider": "<p>The huge sunfish is the main attraction of the Oceanarium since its maintenance requires strict conditions. Also in the Lisbon Oceanarium lives a giant Pacific octopus weighing about 250 kg and with a tentacle span of 9 meters.</p>\r\n\r\n<p>The collection includes endangered species such as seahorses, octopuses, manta rays, and mobulas. The entire population is strictly protected by a research team that cares about the health and living conditions of the inhabitants. In the outdoor pools, you can meet vices and parrots, penguins, and otters.</p>\r\n\r\n<p>The main focus of the activities held here are organized excursions, but the base also regularly hosts master classes, exhibitions, concerts, and shows. The main purpose of most exhibitions is scientific and social activities, within which one can learn about endangered species of animals and the impact of human activities on the ecology of the seas. Some events are purely entertaining. In addition, it is possible to organize events upon individual request.</p>",
+        "short_introduction_text": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu.",
+        "info_title": "Oceanarium",
+        "info_subtitle": "Lisbon Oceanarium is the door to a world of 8,000 marine inhabitants, highlighting the wonder and majesty of the marine life",
+        "time_of_work": "<p>Open from 10 a.m. to 8 p.m.</p>\r\n\r\n<p>Last entry 7 p.m.</p>",
+        "address": "<p>Esplanada D. Carlos I - 1990-005<br />\r\nLisboa</p>",
+        "price": "<p>0 - 2 years: Free<br />\r\n3 - 12 years: 15&euro;<br />\r\n13 - 64 years: 25&euro;<br />\r\n65+ years: 17&euro;</p>",
+        "accessibility": "<p>Ramps and lifts are available</p>",
+        "possibility": "<p>Not allowed</p>",
+        "recommendations_title": "You May Also Be Interested to Visit from Lisbon",
+        "recommendations_subtitle": "Explore nearby spots from Lisbon, choosing captivating destinations that guarantee unforgettable experiences and cultural abundance.",
+        "recommendations_slogan": "Diverse your Lisbon experience with top attractions for cultural involvement",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful information for the most common queries about OneDayTours in Lisbon"
+    }
+},
+{
+    "model": "attractions.attraction",
+    "pk": 2,
+    "fields": {
+        "parent_attraction": 1,
+        "name": "Océanarium de Lisbonne",
+        "language": 3,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:10:12.859Z",
+        "slug": "oceanarium-de-lisbonne",
+        "page_title": null,
+        "page_description": "",
+        "keywords": "",
+        "introduction_title": "Océanarium de Lisbonne",
+        "introduction_text_above_slider": "",
+        "introduction_text_below_slider": "",
+        "short_introduction_text": null,
+        "info_title": null,
+        "info_subtitle": null,
+        "time_of_work": "",
+        "address": "",
+        "price": "",
+        "accessibility": "",
+        "possibility": "",
+        "recommendations_title": null,
+        "recommendations_subtitle": null,
+        "recommendations_slogan": null,
+        "faq_title": null,
+        "faq_subtitle": null
+    }
+},
+{
+    "model": "attractions.attraction",
+    "pk": 3,
+    "fields": {
+        "parent_attraction": 1,
+        "name": "Oceanario de Lisboa",
+        "language": 2,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:09:56.402Z",
+        "slug": "oceanario-de-lisboa",
+        "page_title": null,
+        "page_description": "",
+        "keywords": "",
+        "introduction_title": "Oceanario de Lisboa",
+        "introduction_text_above_slider": "",
+        "introduction_text_below_slider": "",
+        "short_introduction_text": null,
+        "info_title": null,
+        "info_subtitle": null,
+        "time_of_work": "",
+        "address": "",
+        "price": "",
+        "accessibility": "",
+        "possibility": "",
+        "recommendations_title": null,
+        "recommendations_subtitle": null,
+        "recommendations_slogan": null,
+        "faq_title": null,
+        "faq_subtitle": null
+    }
+},
+{
+    "model": "attractions.attraction",
+    "pk": 4,
+    "fields": {
+        "parent_attraction": 2,
+        "name": "St. George's Castle Lisbon",
+        "language": 1,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:10:45.005Z",
+        "slug": "st-georges-castle-lisbon",
+        "page_title": "St. George's Castle Lisbon",
+        "page_description": "",
+        "keywords": "",
+        "introduction_title": "St. George's Castle Lisbon: An Object of Lisbon Cultural Heritage and Notable Attraction",
+        "introduction_text_above_slider": "<p><span style=\"color:#000000\">The Castle of St. George is the heart of the Portuguese capital, the history of which began at the turn of two eras. In 1147, it was liberated by the Crusaders from the Moors. Afonso Henriques, the commander of the Crusaders, became the first ruler of the country. Then, until the 16th century, the castle was the official royal residence.</span></p>\r\n\r\n<p><span style=\"color:#000000\">Outstanding architecture and history made the castle one of the symbols of the country, a great introduction to medieval history for tourists. The complex is memorable for its calm atmosphere and solemnity, perfect for the Lisbon city walking tour. It mesmerizes with gorgeous panoramic views of Lisbon with red-tiled roofs and the Tagus River. As for the collection of cannons and an archaeological museum, it&#39;s more than impressive.</span></p>\r\n\r\n<p><span style=\"color:#000000\">From the top of the hill, there are open views of the ancient part of the city and houses with tiled roofs. The monument to the first king Afonso, who holds a shield and sword in his hands, is also located here. The castle went through numerous buildings and changed many times, the last time it was restored in the 20th century.</span></p>",
+        "introduction_text_below_slider": "<p><span style=\"color:#000000\">The fortress is presented not just by one castle, but by an ancient town, a popular destination for day tours from Lisbon. Visitors can see preserved fragments of medieval battlements, walking through the inner parks of olive trees of this magnificent landmark of Portugal. When Vasco da Gama returned from sea voyages, the celebration was here, as well as various significant events for the kingdom. The towers are open for visitors, so everyone has the opportunity to climb and take a walk along the fortress walls.&nbsp;</span></p>\r\n\r\n<p><span style=\"color:#000000\">For a more interactive experience, it&#39;s recommended to pay attention to the numerous multimedia exhibitions, held here every day. The Castle of St. George in Lisbon suffered badly from an earthquake in the 16th and 18th centuries. However, the fortress walls have been restored and are in good condition. In the Tower of Odysseus, for example, you can see panoramas of Lisbon, and an archaeological museum is located in one of the old wings of the fortress. Projected images on the walls show the major city&#39;s historical events, such as a simulated earthquake, the return of Vasco da Gama, the fall of the Church of Carmo, and much more, from the era of the Inquisition to the period of the Salazar dictatorship.</span></p>",
+        "short_introduction_text": "The Castle of St. George is the heart of the Portuguese capital, the history of which began at the turn of two eras. In 1147, it was liberated by the Crusaders from the Moors. Afonso Henriques, the commander of the Crusaders, became the first ruler of the",
+        "info_title": "St. George's Castle Lisbon",
+        "info_subtitle": "The Fortress of St. George is one of the main ancient landmarks in Lisbon and a top must-see spot",
+        "time_of_work": "<p>November to February: 9 AM to 7 PM</p>\r\n\r\n<p>March to October: 9 AM to 9 PM</p>\r\n\r\n<p>&nbsp;</p>",
+        "address": "<p>R. de Santa Cruz do Castelo, 1100-129 Lisboa, Portugal</p>",
+        "price": "<p>&euro;15,00</p>",
+        "accessibility": "<p>Accessible route to the eastern viewpoint overlooking the city of Lisbon</p>",
+        "possibility": "<p>Not allowed(only guide dogs)</p>",
+        "recommendations_title": "You May Also Be Interested In Lisbon",
+        "recommendations_subtitle": "Explore the list of the best things to visit in Lisbon with the most appropriate options for all categories of tourist",
+        "recommendations_slogan": "Diverse your Lisbon experience with top attractions for cultural involvement",
+        "faq_title": "Frequently Asked Questions",
+        "faq_subtitle": "Get clear and useful information for the most common queries about St. George's Castle Lisbon"
+    }
+},
+{
+    "model": "attractions.faqattraction",
+    "pk": 1,
+    "fields": {
+        "attraction": 1,
+        "language": 1,
+        "question": "What is a top list of must-have attractions in Lisbon?",
+        "answer": "<p>Lisbon is beautiful in its variety, where everybody can create their own list of the best spots.</p>\r\n\r\n<p>But as for the first visit, the main places are as follows:</p>\r\n\r\n<ul>\r\n\t<li>Alfama District</li>\r\n\t<li>S&atilde;o Jorge Castle</li>\r\n\t<li>Commerce Square</li>\r\n\t<li>Lisbon Cathedral</li>\r\n\t<li>National Pantheon</li>\r\n\t<li>Rossio Square</li>\r\n\t<li>Chiado District</li>\r\n\t<li>Lisbon Oceanarium</li>\r\n\t<li>Ajuda National Palace</li>\r\n\t<li>Lisbon Botanical Garden</li>\r\n\t<li>Amoreiras 360&ordm; Panoramic View</li>\r\n\t<li>Calouste Gulbenkian Museum</li>\r\n\t<li>Miradouro da Senhora do Monte</li>\r\n\t<li>National Coach Museum</li>\r\n</ul>",
+        "priority_number": 1,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:09:34.253Z"
+    }
+},
+{
+    "model": "attractions.faqattraction",
+    "pk": 2,
+    "fields": {
+        "attraction": 1,
+        "language": 1,
+        "question": "What are the top-rated tours in Lisbon?",
+        "answer": "<p>The choice of OneDayTours in Lisbon is variable, and among the available options, there is the best match for everybody. As for the best by travelers choice, the list is below:</p>\r\n\r\n<ol>\r\n\t<li><a href=\"#\">Sintra and Cascais: OneDayTours from Lisbon</a></li>\r\n\t<li><a href=\"#\">Lisbon: OneDayTours with Wine and Cuisine Tasting</a></li>\r\n\t<li><a href=\"#\">OneDayTours to F&aacute;tima, &Oacute;bidos, Batalha, Nazar&eacute; from Lisbon&nbsp;</a></li>\r\n\t<li><a href=\"#\">OneDayTours to Magical Sintra with Regaleira and Pena Palace from Lisbon</a></li>\r\n\t<li><a href=\"#\">Porto, Nazare, and Obidos OneDayTours from Lisbon</a></li>\r\n\t<li><a href=\"#\">OneDayTours from Lisbon to Arrabida with Wine and Food Tasting</a></li>\r\n\t<li><a href=\"#\">Setubal from Lisbon: OneDayTours to Wine Region with Tasting</a></li>\r\n\t<li><a href=\"#\">Sintra, Pena, and Moorish Castle OneDayTours from Lisbon</a></li>\r\n</ol>",
+        "priority_number": 2,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:09:34.290Z"
+    }
+},
+{
+    "model": "attractions.faqattraction",
+    "pk": 3,
+    "fields": {
+        "attraction": 1,
+        "language": 1,
+        "question": "What are the best experiences in Lisbon?",
+        "answer": "<p>Lisbon is unique in its variety. You can never get bored here if you choose a variable program for your leisure, trusting experienced guides who carefully created OneDayTours, among which can be chosen:</p>\r\n\r\n<ul>\r\n\t<li>Walking Tours</li>\r\n\t<li>Culinary Tours</li>\r\n\t<li>Wine Tasting</li>\r\n\t<li>Fado Shows</li>\r\n\t<li>Surfing Lessons</li>\r\n\t<li>Boat Tours(Cruises)</li>\r\n\t<li>Photo Tours&nbsp;</li>\r\n\t<li>Coastal(Beach Tours)Jeep/Car/Tuk-tuk Tours</li>\r\n</ul>",
+        "priority_number": 3,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:09:34.326Z"
+    }
+},
+{
+    "model": "attractions.faqattraction",
+    "pk": 4,
+    "fields": {
+        "attraction": 4,
+        "language": 1,
+        "question": "What other attractions are accessible near St. George's Castle?",
+        "answer": "<p><span style=\"color:#000000\">The visit to the castle can be combined with other things to see in Lisbon city, such as the historic neighborhood of Alfama, the Fado Museum, and the Cathedral. Visitors can also enjoy scenic walks along the Tagus River or explore the vibrant markets and cafes in the surrounding area.</span></p>",
+        "priority_number": 1,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:10:45.163Z"
+    }
+},
+{
+    "model": "attractions.faqattraction",
+    "pk": 5,
+    "fields": {
+        "attraction": 4,
+        "language": 1,
+        "question": "Is it allowed to take photos in St. George's Castle?",
+        "answer": "<p>Photography for personal use is allowed inside St. George&#39;s Castle, but in some areas, there are guidelines regarding photography, so it&#39;s recommended to be respectful to them.</p>",
+        "priority_number": 2,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:10:45.200Z"
+    }
+},
+{
+    "model": "attractions.faqattraction",
+    "pk": 6,
+    "fields": {
+        "attraction": 4,
+        "language": 1,
+        "question": "Can visitors bring their own food and drinks to St. George's Castle?",
+        "answer": "<p>Yes, as there are no restrictions, but alcohol is not allowed as it&#39;s the object of high historical value. The main rule is to act respectfully to medieval Lisbon sites, not litter.</p>",
+        "priority_number": 3,
+        "is_active": true,
+        "updated_at": "2024-02-29T17:10:45.237Z"
+    }
+}
+]

@@ -1,6 +1,8 @@
 from django.views.generic import DetailView, ListView
+from django.db.models import Q
 
 from attractions.models import Attraction
+from attractions.forms import TagAttractionFilterForm
 from products.models import Language
 
 
@@ -11,11 +13,20 @@ class AttractionListView(ListView):
     extra_context = {}
 
     def get_queryset(self):
-        queryset = super(AttractionListView, self).get_queryset()
+        queryset = super().get_queryset()
         current_language = Language.objects.get(code=self.kwargs['lang'].upper())
         self.extra_context['current_language'] = current_language.code.lower()
         filtered = queryset.filter(language=current_language)
+        selected_tags = self.request.GET.getlist('tags')
+        for tag_id in selected_tags:
+            filtered = filtered.filter(parent_attraction__tags__id=tag_id)
+        filtered = filtered.distinct()
         return filtered
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter_form'] = TagAttractionFilterForm(initial={'tags': self.request.GET.getlist('tags')})
+        return context
 
 
 class AttractionDetailView(DetailView):
