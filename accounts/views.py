@@ -11,11 +11,6 @@ from .forms import (CustomSignupForm, AddressForm,
 from accounts.models import User, Profile
 
 
-# HOME
-class HomeView(TemplateView):
-    template_name = 'home.html'
-
-
 # -----------------
 # BUILT IN ACCOUNTS
 

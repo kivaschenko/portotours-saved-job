@@ -11,6 +11,7 @@ from products import views as products_views
 from purchases import views as purchases_views
 from blogs import views as blogs_views
 from reviews import views as reviews_views
+from home import views as home_views
 
 
 # 404, 500 ERRORS
@@ -20,10 +21,15 @@ handler403 = 'products.views.custom_permission_denied_view'
 handler400 = 'products.views.custom_bad_request_view'
 
 
-# HOME & ACCOUNTS
+# HOME & ADMIN
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', accounts_views.HomeView.as_view(), name='home'),
+    path('', home_views.HomeView.as_view(), name='home'),
+    path('navbar/<str:lang>/', home_views.navbar_view, name='navbar'),
+]
+
+# ACCOUNTS & PROFILES
+urlpatterns += [
     path('accounts/signup/', accounts_views.RegistrationView.as_view(), name='signup'),
     path('login/', accounts_views.CustomLoginView.as_view(), name='login'),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),

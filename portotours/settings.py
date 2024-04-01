@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'purchases.apps.PurchasesConfig',
     'blogs.apps.BlogsConfig',
     'reviews.apps.ReviewsConfig',
+    'home.apps.HomeConfig',
 ]
 
 MIDDLEWARE = [
