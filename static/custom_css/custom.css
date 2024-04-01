@@ -8641,15 +8641,23 @@ html.off-scroll body {
       margin-bottom: 20px;
       border-radius: 26px;
       overflow: hidden;
+      object-fit: cover;
+      width: 100%;
+      height: 300px;
       object-fit: cover; }
       @media (max-width: 767.98px) {
         .top-attractions .container .swiper-attractions .swiper-slide .attraction-image {
           width: 100%;
           margin-bottom: 14px; } }
-    .top-attractions .container .swiper-attractions .swiper-slide h5, .top-attractions .container .swiper-attractions .swiper-slide .h5 {
+    .top-attractions .container .swiper-attractions .swiper-slide a {
       text-transform: capitalize;
       margin: 0;
-      color: var(--text-color-first); }
+      color: var(--text-color-first);
+      text-decoration: none;
+      font-size: 26px;
+      line-height: 36px;
+      display: block;
+      font-family: 'LatoSemiBold'; }
     .top-attractions .container .swiper-attractions .swiper-button-next, .top-attractions .container .swiper-attractions .swiper-rtl .swiper-button-prev {
       right: 0;
       width: 44px;
