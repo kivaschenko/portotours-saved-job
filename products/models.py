@@ -244,7 +244,7 @@ class Experience(models.Model):
     # Recommendations block
     recommendations_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
-    recommended_experiences = models.ManyToManyField('Experience', related_name='recommended')
+    experience_recommendations = models.ManyToManyField('Experience')
     recommendations_slogan = models.CharField(max_length=120, help_text="max 120 characters, belong SEE MORE button",
                                               null=True, blank=True)
 
@@ -257,7 +257,7 @@ class Experience(models.Model):
         unique_together = ('name', 'slug')
 
     def __str__(self):
-        return self.name
+        return f'{self.name} ({self.language})'
 
     def save(self, *args, **kwargs):
         if not self.slug:

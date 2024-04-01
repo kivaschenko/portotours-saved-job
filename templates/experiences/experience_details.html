@@ -256,10 +256,7 @@
                                     Pick Up Location
                                 </p>
                                 <p class="card-text">
-                                    {% if object.parent_experience.meeting_point.get_map_url %}
-                                        <a href="{{ object.parent_experience.meeting_point.get_map_url }}"
-                                           target="_blank">{{ object.parent_experience.meeting_point.address }}</a>
-                                    {% else %}
+                                    {% if object.parent_experience.meeting_point.address %}
                                         {{ object.parent_experience.meeting_point.address }}
                                     {% endif %}
                                 </p>
@@ -329,9 +326,88 @@
             </div>
         </div>
     </section>
+<<<<<<< HEAD
     {% include 'include/also_interested.html' %}
     {% include 'include/testimonials.html' %}
     
+=======
+    <section class="also-interested">
+        <div class="container">
+            <h2 class="also-interested-title">
+                {{ object.recommendations_title }}
+            </h2>
+            <p class="also-interested-subtitle body-text-b2">
+                {{ object.recommendations_subtitle }}
+            </p>
+            <div class="swiper-also-interested">
+                <div class="swiper-wrapper also-interested-cards-wrapper">
+                    {% if object.experience_recommendations.all %}
+                        {% for experience in object.experience_recommendations.all %}
+                            <div class="also-interested-card swiper-slide">
+                                <img src="{{ experience.parent_experience.card_image.url }}" alt="{{ experience.name }} card image" class="also-interested-img">
+                                <p class="body-text-b2 also-interested-card-title">
+                                    <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
+                                </p>
+                                <p class="body-text-b3 also-interested-card-text">
+                                    {{ experience.short_description }}
+                                </p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No recommended experiences found.</p>
+                    {% endif %}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="also-interested-more-info-wrapper">
+                <h5 class="also-interested-more-info-title">
+                    {{ object.recommendations_slogan }}
+                </h5>
+                <a href="{% url 'experience-list' lang=object.language.code.lower %}" class="btn-type-2 also-interested-info-link">
+                    see more
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials-slider-section">
+        <div class="container">
+            <h2 class="testimonials-title">
+                testimonials
+            </h2>
+            <p class="testimonials-subtitle body-text-b1">
+                Read the reviews of our clients about their experience with our service
+            </p>
+            {% if object.parent_experience.review_set.all %}
+                <div class="testimonials-slider">
+                    <div class="swiper-wrapper">
+                        {% for review in object.parent_experience.review_set.all %}
+                            <div class="swiper-slide">
+                                <p class="swiper-text">
+                                    {{ review.short_text }}
+                                    <a href="{% url 'review-details' review.pk %}"><small>...See more</small></a>
+                                </p>
+                                <div class="author-wrapper">
+                                    {% if review.profile.avatar %}
+                                        <img src="{{ review.profile.avatar.url }}" alt="Avatar">
+                                    {% else %}
+                                        <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar">
+                                    {% endif %}
+                                    <p class="name">{{ review.profile.name }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-pagination"></div>
+
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            {% else %}
+                <p>No any reviews yet...</p>
+            {% endif %}
+        </div>
+    </section>
+>>>>>>> 8dfd252ef4d84f6b7ca9a26731246e84f8c49e1a
 
     <script>
         let openFullBtn = document.querySelector('.timeline-btn-open');

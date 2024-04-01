@@ -45,68 +45,21 @@
                 Explore the diversity of Lisbon through new experiences of culture, cuisine and historical treasures
             </p>
             <div class="experience-cards-wrapper">
-                <div class="experience-card">
-                    <img src="{% static 'images/experience-card-img1.png' %}" alt="card image" class="experience-card-img">
-                    <p class="experience-card-title body-text-b3">
-                        Sintra and Cascais: OneDayTours from Lisbon
-                    </p>
-                    <p class="experience-card-text body-text-b4">
-                        Discover the historical and natural wonders of Sintra and Cascais with an adventurous OneDayTours from Lisbon. Pena Palace in Sintra is
-                        a real Wonderland, filled with historical heritage and magic. Then, explore the coastal beauty of Cascais with stunning Boca do Inferno
-                        cliffs.
-                    </p>
-                    <a href="#" class="experience-card-link">
-                        book now
-                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                    </a>
-                </div>
-                <div class="experience-card">
-                    <img src="{% static 'images/experience-card-img2.png' %}" alt="card image" class="experience-card-img">
-                    <p class="experience-card-title body-text-b3">
-                        Lisbon: OneDayTours with Wine and Cuisine Tasting
-                    </p>
-                    <p class="experience-card-text body-text-b4">
-                        Enjoy an exciting journey to Lisbon on a OneDayTours through the historical part, blended with delightful wine and cuisine experiences.
-                        Feel the vibrant atmosphere of the city, tasting local cuisine with sensitive Fado accompaniment. An unforgettable day of discovery and
-                        gastronomic pleasures is guaranteed.
-                    </p>
-                    <a href="#" class="experience-card-link">
-                        book now
-                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                    </a>
-                </div>
-                <div class="experience-card">
-                    <img src="{% static 'images/experience-card-img3.png' %}" alt="card image" class="experience-card-img">
-                    <p class="experience-card-title body-text-b3">
-                        OneDayTours to Fátima, Óbidos, Batalha, Nazaré from Lisbon
-                    </p>
-                    <p class="experience-card-text body-text-b4">
-                        Explore a historical OneDayTours from Lisbon to the cultural gems of Fátima, Óbidos, Batalha, and Nazaré. The trip is filled with
-                        spiritual vibes together with blushed natural beauty and the rich history of medieval cities. Experience of a seamless blend of
-                        exploration, inspiration, and amazement of history and picturesque wonders is guaranteed. 
-                    </p>
-                    <a href="#" class="experience-card-link">
-                        book now
-                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                    </a>
-                </div>
-                <div class="experience-card">
-                    <img src="{% static 'images/experience-card-img4.png' %}" alt="card image" class="experience-card-img">
-                    <p class="experience-card-title body-text-b3">
-                        OneDayTours to Magical Sintra with Regaleira and Pena Palace from Lisbon
-                    </p>
-                    <p class="experience-card-text body-text-b4">
-                        Investigate colorful Portugal with charming OneDayTours from Lisbon to Sintra, where the magical landscapes of Quinta da Regaleira
-                        organically mix with the iconic Pena Palace. Together with professional guidance, investigate all the mysteries of Sintra's architecture
-                        and breathtaking landscapes.
-                    </p>
-                    <a href="#" class="experience-card-link">
-                        book now
-                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                    </a>
-                </div>
+                {% if object.recommended_experiences.all %}
+                    {% for experience in object.recommended_experiences.all %}
+                        <div class="experience-card">
+                            <img src="{{ experience.parent_experience.card_image.url }}" alt="card image for {{ experience.name }}" class="experience-card-img">
+                            <p class="experience-card-title body-text-b3">{{ experience.name }}</p>
+                            <p class="experience-card-text body-text-b4">{{ experience.short_description }}</p>
+                            <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" class="experience-card-link">
+                                book now
+                                <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
-            <a href="#" class="experience-link-more btn-type-2">
+            <a href="{% url 'experience-list' lang=object.language.code.lower %}" class="experience-link-more btn-type-2">
                 see more experiences
             </a>
         </div>
@@ -169,32 +122,18 @@
             <div class="swiper-attractions">
                 <!-- Additional required wrapper -->
                 <div class="swiper-wrapper">
-                    <!-- Slides -->
-                    <div class="swiper-slide">
-                        <img src="{% static 'images/attraction-img1.png' %}" alt="" class="attraction-image">
-                        <h5>
-                            Saint George Castle (São Jorge Castle)
-                        </h5>
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{% static 'images/attraction-img2.png' %}" alt="" class="attraction-image">
-                        <h5>
-                            Commerce Square (Praça do Comércio)
-                        </h5>
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{% static 'images/attraction-img3.png' %}" alt="" class="attraction-image">
-                        <h5>
-                            Lisbon Cathedral (Sé de Lisboa)
-                        </h5>
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{% static 'images/attraction-img2.png' %}" alt="" class="attraction-image">
-                        <h5>
-                            Commerce Square (Praça do Comércio)
-                        </h5>
-                    </div>
-
+                    {% if object.top_attractions.all %}
+                        {% for attraction in object.top_attractions.all %}
+                            <!-- Slides -->
+                            <div class="swiper-slide">
+                                <img src="{{ attraction.parent_attraction.card_image.url }}" alt="card image for {{ attraction.name }}"
+                                     class="attraction-image">
+                                <a href="{% url 'attraction-detail' lang=attraction.language.code.lower slug=attraction.slug %}">
+                                    <h5>{{ attraction.name }}</h5>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <!-- If we need navigation buttons -->
@@ -202,12 +141,46 @@
                 <div class="swiper-button-next"></div>
                 <div class="swiper-pagination"></div>
             </div>
-            <a href="" class="btn-type-2 top-attractions-link">
+            <a href="{% url 'attraction-list' lang=object.language.code.lower %}" class="btn-type-2 top-attractions-link">
                 see more attractions
             </a>
         </div>
     </section>
-    {% include 'include/also_interested.html' %}
+    <section class="also-interested">
+        <div class="container">
+            <h2 class="also-interested-title">
+                {{ object.recommendations_title }}
+            </h2>
+            <p class="also-interested-subtitle body-text-b2">
+                {{ object.recommendations_subtitle }}
+            </p>
+            <div class="swiper-also-interested">
+                <div class="swiper-wrapper also-interested-cards-wrapper">
+                    {% if object.be_interested_destinations.all %}
+                        {% for destination in object.be_interested_destinations.all %}
+                            <div class="also-interested-card swiper-slide">
+                                <img src="{{ destination.parent_destination.card_image.url }}" alt="card image for {{ destination.name }}"
+                                     class="also-interested-img">
+                                <a href="{% url 'destination-detail' lang=destination.language.code.lower slug=destination.slug %}">
+                                    <p class="body-text-b2 also-interested-card-title">{{ destination.name }}</p>
+                                </a>
+                                <p class="body-text-b3 also-interested-card-text">{{ destination.short_introduction_text }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="also-interested-more-info-wrapper">
+                <h5 class="also-interested-more-info-title">
+                    {{ object.recommendations_slogan }}
+                </h5>
+                <a href="{% url 'destination-list' lang=object.language.code.lower %}" class="btn-type-2 also-interested-info-link">
+                    see more
+                </a>
+            </div>
+        </div>
+    </section>
     <section class="faq">
         <div class="container">
             <h2 class="faq-title">
