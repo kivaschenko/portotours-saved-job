@@ -6,7 +6,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from schedule.models import Calendar
 
-from .models import Product, ParentExperience, ExperienceEvent, Language, Occurrence, MeetingPoint
+from products.models import Product, ParentExperience, ExperienceEvent, Language, Occurrence, MeetingPoint
 
 
 class TestProductLogic(TestCase):

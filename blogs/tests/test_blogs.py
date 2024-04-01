@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import ParentBlog, Blog, Category
+from blogs.models import ParentBlog, Blog, Category
 
 
 class BlogModelTestCase(TestCase):
@@ -25,6 +25,7 @@ class BlogModelTestCase(TestCase):
         content = "<p>This is a test blog content.</p>\n<p>This is a test blog content.</p>\n<p>This is a test blog content.</p>\n<p>This is a test blog content.</p>"
         read_time = Blog.calculate_read_time(content)
         self.assertLessEqual(read_time, 30)
+
 
 class BlogViewTestCase(TestCase):
     fixtures = [
