@@ -66,6 +66,13 @@
                             margin-bottom: 0;
                         }
                     }
+                    .avatar-wrapper {
+                        width: calc((100% - 24px)/2);
+                        img {
+                            width: 100px;
+                            height: 100px;
+                        }
+                    }
                     .btn-wrapper {
                         display: block;
                         width: 100%;
@@ -84,11 +91,19 @@
                         width: 100%;
                     }
                 }
-                .avatar-wrapper {
-                    width: 100px;
-                    img {
-                        width: 100%;
-                    }
+                
+            }
+            &.change-password {
+                .change-password-btn {
+                    width: fit-content;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    color: var(--text-color-third);
+                    font-family: "LatoSemiBold";
+                    font-size: 18px;
+                    line-height: normal;
+                    background-color: transparent;
+                    border: none;
                 }
             }
         }
