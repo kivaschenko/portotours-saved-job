@@ -51,44 +51,44 @@
                 Create the best of your experience by visiting Portugal with our exclusive tours
             </p>
             <div class="why-cards-wrapper">
-                
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            100+ Experiences in Portugal
-                        </p>
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            Guided by local experts
-                        </p>
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            Best price guarantee
-                        </p>
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            No hidden fees
-                        </p>
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            Free cancellation
-                        </p>
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            Safe and secure website
-                        </p>
-                    </div>
-            
+
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        100+ Experiences in Portugal
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        Guided by local experts
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        Best price guarantee
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        No hidden fees
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        Free cancellation
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        Safe and secure website
+                    </p>
+                </div>
+
             </div>
         </div>
     </section>
@@ -103,198 +103,45 @@
                 </a>
             </div>
             <div class="best-tours-cards-wrapper">
-                <div class="best-tours-card">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/best-tours-img1.png' %}" alt="best tour">
-                    </div>
-                    <div class="card-content-wrapper">
-                        <div class="rating-wrapper body-text-b4">
-                            <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                            5.0
+                {% if experiences_top_year %}
+                    {% for experience in experiences_top_year %}
+                        <div class="best-tours-card">
+                            <div class="img-wrapper">
+                                <img src="{{ experience.parent_experience.card_image.url }}" alt="card image for {{ experience.name }}">
+                            </div>
+                            <div class="card-content-wrapper">
+                                <div class="rating-wrapper body-text-b4">
+                                    <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
+                                    {{ experience.parent_experience.rating }}
+                                </div>
+                                <p class="best-tours-card-title body-text-b2">
+                                    {{ experience.name }}
+                                </p>
+                                <div class="tour-info-wrapper">
+                                    <ul class="tour-info-list">
+                                        <li>
+                                            {{ experience.display_duration }}
+                                        </li>
+                                        {% if experience.parent_experience.is_private %}
+                                            <li>
+                                                Private tour
+                                            </li>
+                                        {% else %}
+                                            <li>Small group</li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                                <p class="tour-price">
+                                    € {{ experience.parent_experience.price }}<span>/ per person</span>
+                                </p>
+                                <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" class="tour-link">
+                                    Book
+                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                                </a>
+                            </div>
                         </div>
-                        <p class="best-tours-card-title body-text-b2">
-                            Porto: Spiritus multimedia show admission ticket
-                        </p>
-                        <div class="tour-info-wrapper">
-                            <ul class="tour-info-list">
-                                <li>
-                                    40 minutes
-                                </li>
-                                <li>
-                                    Small group
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="tour-price">
-                            € 20<span>/ per person</span>
-                        </p>
-                        <a href="" class="tour-link">
-                            Book
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                        </a>
-                    </div>
-
-                </div>
-                <div class="best-tours-card">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/best-tours-img1.png' %}" alt="best tour">
-                    </div>
-                    <div class="card-content-wrapper">
-                        <div class="rating-wrapper body-text-b4">
-                            <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                            5.0
-                        </div>
-                        <p class="best-tours-card-title body-text-b2">
-                            Porto: Spiritus multimedia show admission ticket
-                        </p>
-                        <div class="tour-info-wrapper">
-                            <ul class="tour-info-list">
-                                <li>
-                                    40 minutes
-                                </li>
-                                <li>
-                                    Small group
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="tour-price">
-                            € 20 <span>/ per person</span>
-                        </p>
-                        <a href="" class="tour-link">
-                            Book
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                        </a>
-                    </div>
-
-                </div>
-                <div class="best-tours-card">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/best-tours-img1.png' %}" alt="best tour">
-                    </div>
-                    <div class="card-content-wrapper">
-                        <div class="rating-wrapper body-text-b4">
-                            <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                            5.0
-                        </div>
-                        <p class="best-tours-card-title body-text-b2">
-                            Porto: Spiritus multimedia show admission ticket
-                        </p>
-                        <div class="tour-info-wrapper">
-                            <ul class="tour-info-list">
-                                <li>
-                                    40 minutes
-                                </li>
-                                <li>
-                                    Small group
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="tour-price">
-                            € 20 <span>/ per person</span>
-                        </p>
-                        <a href="" class="tour-link">
-                            Book
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                        </a>
-                    </div>
-
-                </div>
-                <div class="best-tours-card">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/best-tours-img1.png' %}" alt="best tour">
-                    </div>
-                    <div class="card-content-wrapper">
-                        <div class="rating-wrapper body-text-b4">
-                            <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                            5.0
-                        </div>
-                        <p class="best-tours-card-title body-text-b2">
-                            Porto: Spiritus multimedia show admission ticket
-                        </p>
-                        <div class="tour-info-wrapper">
-                            <ul class="tour-info-list">
-                                <li>
-                                    40 minutes
-                                </li>
-                                <li>
-                                    Small group
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="tour-price">
-                            € 20 <span>/ per person</span>
-                        </p>
-                        <a href="" class="tour-link">
-                            Book
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                        </a>
-                    </div>
-
-                </div>
-                <div class="best-tours-card">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/best-tours-img1.png' %}" alt="best tour">
-                    </div>
-                    <div class="card-content-wrapper">
-                        <div class="rating-wrapper body-text-b4">
-                            <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                            5.0
-                        </div>
-                        <p class="best-tours-card-title body-text-b2">
-                            Porto: Spiritus multimedia show admission ticket
-                        </p>
-                        <div class="tour-info-wrapper">
-                            <ul class="tour-info-list">
-                                <li>
-                                    40 minutes
-                                </li>
-                                <li>
-                                    Small group
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="tour-price">
-                            € 20 <span>/ per person</span>
-                        </p>
-                        <a href="" class="tour-link">
-                            Book
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                        </a>
-                    </div>
-
-                </div>
-                <div class="best-tours-card">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/best-tours-img1.png' %}" alt="best tour">
-                    </div>
-                    <div class="card-content-wrapper">
-                        <div class="rating-wrapper body-text-b4">
-                            <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                            5.0
-                        </div>
-                        <p class="best-tours-card-title body-text-b2">
-                            Porto: Spiritus multimedia show admission ticket
-                        </p>
-                        <div class="tour-info-wrapper">
-                            <ul class="tour-info-list">
-                                <li>
-                                    40 minutes
-                                </li>
-                                <li>
-                                    Small group
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="tour-price">
-                            € 20 <span>/ per person</span>
-                        </p>
-                        <a href="" class="tour-link">
-                            Book
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                        </a>
-                    </div>
-
-                </div>
+                    {% endfor %}
+                {% endif %}
             </div>
             <a href="#" class="btn-type-1 mobile">
                 show more
@@ -454,54 +301,54 @@
                 <div class="top-destinations-col">
                     <div class="top-destinations-card">
                         <a href="">
-                        <img src="{% static 'images/homepage-top-destination-img1.png' %}" alt="top destination img">
-                        <p class="top-destination-card-title">
-                            Lisbon
-                        </p>
+                            <img src="{% static 'images/homepage-top-destination-img1.png' %}" alt="top destination img">
+                            <p class="top-destination-card-title">
+                                Lisbon
+                            </p>
                         </a>
                     </div>
                     <div class="top-destinations-card">
                         <a href="">
-                        <img src="{% static 'images/homepage-top-destination-img2.png' %}" alt="top destination img">
-                        <p class="top-destination-card-title">
-                            Cascais
-                        </p>
+                            <img src="{% static 'images/homepage-top-destination-img2.png' %}" alt="top destination img">
+                            <p class="top-destination-card-title">
+                                Cascais
+                            </p>
                         </a>
                     </div>
                 </div>
                 <div class="top-destinations-col top-destinations-col--reverse">
                     <div class="top-destinations-card">
                         <a href="">
-                        <img src="{% static 'images/homepage-top-destination-img3.png' %}" alt="top destination img">
-                        <p class="top-destination-card-title">
-                            Fatima
-                        </p>
+                            <img src="{% static 'images/homepage-top-destination-img3.png' %}" alt="top destination img">
+                            <p class="top-destination-card-title">
+                                Fatima
+                            </p>
                         </a>
                     </div>
                     <div class="top-destinations-card">
                         <a href="">
-                        <img src="{% static 'images/homepage-top-destination-img2.png' %}" alt="top destination img">
-                        <p class="top-destination-card-title">
-                            Porto
-                        </p>
+                            <img src="{% static 'images/homepage-top-destination-img2.png' %}" alt="top destination img">
+                            <p class="top-destination-card-title">
+                                Porto
+                            </p>
                         </a>
                     </div>
                 </div>
                 <div class="top-destinations-col">
                     <div class="top-destinations-card">
                         <a href="">
-                        <img src="{% static 'images/homepage-top-destination-img5.png' %}" alt="top destination img">
-                        <p class="top-destination-card-title">
-                            Sintra
-                        </p>
+                            <img src="{% static 'images/homepage-top-destination-img5.png' %}" alt="top destination img">
+                            <p class="top-destination-card-title">
+                                Sintra
+                            </p>
                         </a>
                     </div>
                     <div class="top-destinations-card">
                         <a href="">
-                        <img src="{% static 'images/homepage-top-destination-img6.png' %}" alt="top destination img">
-                        <p class="top-destination-card-title">
-                            Nazare
-                        </p>
+                            <img src="{% static 'images/homepage-top-destination-img6.png' %}" alt="top destination img">
+                            <p class="top-destination-card-title">
+                                Nazare
+                            </p>
                         </a>
                     </div>
                 </div>
@@ -513,7 +360,7 @@
     </section>
 
     {% include 'include/testimonials.html' %}
-    
+
     <section class="offers-banner">
         <div class="container">
             <h2 class="offers-banner-title">
@@ -567,8 +414,8 @@
         });
     </script>
     <script>
-        
-        
+
+
         const swiperTestimonials = new Swiper(".testimonials-slider", {
             speed: 1000,
             spaceBetween: 24,

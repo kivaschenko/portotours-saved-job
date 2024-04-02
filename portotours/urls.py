@@ -1,5 +1,6 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, reverse_lazy
+from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
@@ -24,7 +25,8 @@ handler400 = 'products.views.custom_bad_request_view'
 # HOME & ADMIN
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_views.HomeView.as_view(), name='home'),
+    path('', RedirectView.as_view(url=reverse_lazy('home', kwargs={'lang': 'en'})), name='redirect_home'),
+    path('<str:lang>/', home_views.HomeView.as_view(), name='home'),
 ]
 
 # ACCOUNTS & PROFILES
