@@ -43,7 +43,7 @@ class DestinationAdmin(admin.ModelAdmin):
 @admin.register(ParentDestination)
 class ParentDestinationAdmin(admin.ModelAdmin):
     exclude = ['updated_at']
-    list_display = ['parent_name', 'priority_number']
+    list_display = ['id', 'parent_name', 'priority_number', 'show_on_home_page']
     list_filter = ['parent_name']
 
 
