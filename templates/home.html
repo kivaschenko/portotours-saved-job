@@ -51,44 +51,44 @@
                 Create the best of your experience by visiting Portugal with our exclusive tours
             </p>
             <div class="why-cards-wrapper">
-                
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            100+ Experiences in Portugal
-                        </p>
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            Guided by local experts
-                        </p>
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            Best price guarantee
-                        </p>
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            No hidden fees
-                        </p>
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            Free cancellation
-                        </p>
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
-                        <p class="why-text">
-                            Safe and secure website
-                        </p>
-                    </div>
-            
+
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        100+ Experiences in Portugal
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        Guided by local experts
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        Best price guarantee
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        No hidden fees
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        Free cancellation
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
+                    <p class="why-text">
+                        Safe and secure website
+                    </p>
+                </div>
+
             </div>
         </div>
     </section>
@@ -98,205 +98,54 @@
                 <h2 class="best-tours-title">
                     Best Experiences of Portugal in <span>year</span>
                 </h2>
-                <a href="#" class="btn-type-1">
+                <a href="{% url 'experience-list' lang=current_language %}" class="btn-type-1">
                     show more
                 </a>
             </div>
             <div class="best-tours-cards-wrapper">
-                <div class="best-tours-card">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/best-tours-img1.png' %}" alt="best tour">
-                    </div>
-                    <div class="card-content-wrapper">
-                        <div class="rating-wrapper body-text-b4">
-                            <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                            5.0
+                {% if experiences_top_year %}
+                    {% for experience in experiences_top_year %}
+                        <div class="best-tours-card">
+                            <div class="img-wrapper">
+                                <img src="{{ experience.parent_experience.card_image.url }}" alt="card image for {{ experience.name }}">
+                            </div>
+                            <div class="card-content-wrapper">
+                                <div class="rating-wrapper body-text-b4">
+                                    <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
+                                    {{ experience.parent_experience.rating }}
+                                </div>
+                                <p class="best-tours-card-title body-text-b2">
+                                    {{ experience.name }}
+                                </p>
+                                <div class="tour-info-wrapper">
+                                    <ul class="tour-info-list">
+                                        <li>
+                                            {{ experience.display_duration }}
+                                        </li>
+                                        {% if experience.parent_experience.is_private %}
+                                            <li>
+                                                Private tour
+                                            </li>
+                                        {% else %}
+                                            <li>Small group</li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                                <p class="tour-price">
+                                    € {{ experience.parent_experience.price }}<span>/ per person</span>
+                                </p>
+                                <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" class="tour-link">
+                                    Book
+                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                                </a>
+                            </div>
                         </div>
-                        <p class="best-tours-card-title body-text-b2">
-                            Porto: Spiritus multimedia show admission ticket
-                        </p>
-                        <div class="tour-info-wrapper">
-                            <ul class="tour-info-list">
-                                <li>
-                                    40 minutes
-                                </li>
-                                <li>
-                                    Small group
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="tour-price">
-                            € 20<span>/ per person</span>
-                        </p>
-                        <a href="" class="tour-link">
-                            Book
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                        </a>
-                    </div>
-
-                </div>
-                <div class="best-tours-card">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/best-tours-img1.png' %}" alt="best tour">
-                    </div>
-                    <div class="card-content-wrapper">
-                        <div class="rating-wrapper body-text-b4">
-                            <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                            5.0
-                        </div>
-                        <p class="best-tours-card-title body-text-b2">
-                            Porto: Spiritus multimedia show admission ticket
-                        </p>
-                        <div class="tour-info-wrapper">
-                            <ul class="tour-info-list">
-                                <li>
-                                    40 minutes
-                                </li>
-                                <li>
-                                    Small group
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="tour-price">
-                            € 20 <span>/ per person</span>
-                        </p>
-                        <a href="" class="tour-link">
-                            Book
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                        </a>
-                    </div>
-
-                </div>
-                <div class="best-tours-card">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/best-tours-img1.png' %}" alt="best tour">
-                    </div>
-                    <div class="card-content-wrapper">
-                        <div class="rating-wrapper body-text-b4">
-                            <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                            5.0
-                        </div>
-                        <p class="best-tours-card-title body-text-b2">
-                            Porto: Spiritus multimedia show admission ticket
-                        </p>
-                        <div class="tour-info-wrapper">
-                            <ul class="tour-info-list">
-                                <li>
-                                    40 minutes
-                                </li>
-                                <li>
-                                    Small group
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="tour-price">
-                            € 20 <span>/ per person</span>
-                        </p>
-                        <a href="" class="tour-link">
-                            Book
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                        </a>
-                    </div>
-
-                </div>
-                <div class="best-tours-card">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/best-tours-img1.png' %}" alt="best tour">
-                    </div>
-                    <div class="card-content-wrapper">
-                        <div class="rating-wrapper body-text-b4">
-                            <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                            5.0
-                        </div>
-                        <p class="best-tours-card-title body-text-b2">
-                            Porto: Spiritus multimedia show admission ticket
-                        </p>
-                        <div class="tour-info-wrapper">
-                            <ul class="tour-info-list">
-                                <li>
-                                    40 minutes
-                                </li>
-                                <li>
-                                    Small group
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="tour-price">
-                            € 20 <span>/ per person</span>
-                        </p>
-                        <a href="" class="tour-link">
-                            Book
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                        </a>
-                    </div>
-
-                </div>
-                <div class="best-tours-card">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/best-tours-img1.png' %}" alt="best tour">
-                    </div>
-                    <div class="card-content-wrapper">
-                        <div class="rating-wrapper body-text-b4">
-                            <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                            5.0
-                        </div>
-                        <p class="best-tours-card-title body-text-b2">
-                            Porto: Spiritus multimedia show admission ticket
-                        </p>
-                        <div class="tour-info-wrapper">
-                            <ul class="tour-info-list">
-                                <li>
-                                    40 minutes
-                                </li>
-                                <li>
-                                    Small group
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="tour-price">
-                            € 20 <span>/ per person</span>
-                        </p>
-                        <a href="" class="tour-link">
-                            Book
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                        </a>
-                    </div>
-
-                </div>
-                <div class="best-tours-card">
-                    <div class="img-wrapper">
-                        <img src="{% static 'images/best-tours-img1.png' %}" alt="best tour">
-                    </div>
-                    <div class="card-content-wrapper">
-                        <div class="rating-wrapper body-text-b4">
-                            <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                            5.0
-                        </div>
-                        <p class="best-tours-card-title body-text-b2">
-                            Porto: Spiritus multimedia show admission ticket
-                        </p>
-                        <div class="tour-info-wrapper">
-                            <ul class="tour-info-list">
-                                <li>
-                                    40 minutes
-                                </li>
-                                <li>
-                                    Small group
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="tour-price">
-                            € 20 <span>/ per person</span>
-                        </p>
-                        <a href="" class="tour-link">
-                            Book
-                            <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                        </a>
-                    </div>
-
-                </div>
+                    {% endfor %}
+                {% else %}
+                    No top Expirience found
+                {% endif %}
             </div>
-            <a href="#" class="btn-type-1 mobile">
+            <a href="{% url 'experience-list' lang=current_language %}" class="btn-type-1 mobile">
                 show more
             </a>
         </div>
@@ -351,94 +200,38 @@
             </p>
             <div class="top-attractions-slider">
                 <div class="swiper-wrapper">
-
-                    <div class="swiper-slide">
-                        <div class="img-wrapper">
-                            <img src="{% static 'images/top-attractions-slider-img1.png' %}" alt="slider img">
-                            <ul class="main-info-list">
-                                <li>
-                                    <img src="{% static 'icons/top-attractions-slider-icon1.svg' %}" alt="">
-                                    Historical
-                                </li>
-                                <li>
-                                    <img src="{% static 'icons/top-attractions-slider-icon2.svg' %}" alt="">
-                                    City Name
-                                </li>
-                                <li>
-                                    <img src="{% static 'icons/top-attractions-slider-icon3.svg' %}" alt="">
-                                    Winter
-                                </li>
-                            </ul>
-                        </div>
-                        <h5 class="slide-title">
-                            National Pantheon
-                        </h5>
-                        <p class="slide-text">
-                            Get acquainted with the most prominent figures in the history of Portugal by visiting this eminent monument. Being one of the most
-                            important cultural landmarks, the Pantheon impresses with its architecture and historical value, and definitely worse attention.
-                        </p>
-                        <a href="" class="slide-link-btn btn-type-2">Read more</a>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="img-wrapper">
-                            <img src="{% static 'images/top-attractions-slider-img1.png' %}" alt="slider img">
-                            <ul class="main-info-list">
-                                <li>
-                                    <img src="{% static 'icons/top-attractions-slider-icon1.svg' %}" alt="">
-                                    Historical
-                                </li>
-                                <li>
-                                    <img src="{% static 'icons/top-attractions-slider-icon2.svg' %}" alt="">
-                                    City Name
-                                </li>
-                                <li>
-                                    <img src="{% static 'icons/top-attractions-slider-icon3.svg' %}" alt="">
-                                    Winter
-                                </li>
-                            </ul>
-                        </div>
-                        <h5 class="slide-title">
-                            National Pantheon
-                        </h5>
-                        <p class="slide-text">
-                            Get acquainted with the most prominent figures in the history of Portugal by visiting this eminent monument. Being one of the most
-                            important cultural landmarks, the Pantheon impresses with its architecture and historical value, and definitely worse attention.
-                        </p>
-                        <a href="" class="slide-link-btn btn-type-2">Read more</a>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="img-wrapper">
-                            <img src="{% static 'images/top-attractions-slider-img1.png' %}" alt="slider img">
-                            <ul class="main-info-list">
-                                <li>
-                                    <img src="{% static 'icons/top-attractions-slider-icon1.svg' %}" alt="">
-                                    Historical
-                                </li>
-                                <li>
-                                    <img src="{% static 'icons/top-attractions-slider-icon2.svg' %}" alt="">
-                                    City Name
-                                </li>
-                                <li>
-                                    <img src="{% static 'icons/top-attractions-slider-icon3.svg' %}" alt="">
-                                    Winter
-                                </li>
-                            </ul>
-                        </div>
-                        <h5 class="slide-title">
-                            National Pantheon
-                        </h5>
-                        <p class="slide-text">
-                            Get acquainted with the most prominent figures in the history of Portugal by visiting this eminent monument. Being one of the most
-                            important cultural landmarks, the Pantheon impresses with its architecture and historical value, and definitely worse attention.
-                        </p>
-                        <a href="" class="slide-link-btn btn-type-2">Read more</a>
-                    </div>
+                    {% if attractions_top_year %}
+                        {% for attraction in attractions_top_year %}
+                            <div class="swiper-slide">
+                                <div class="img-wrapper">
+                                    <img src="{{ attraction.parent_attraction.card_image.url }}" alt="slider image for {{ attraction.name }}">
+                                    {% if attraction.parent_attraction.tags.all %}
+                                        <ul class="main-info-list">
+                                            {% for tag in attraction.parent_attraction.tags.all %}
+                                                <li>
+                                                    <img src="{{ tag.icon_img.url }}" alt="icon image for tag {{ tag.tag_name }}">
+                                                    {{ tag.tag_name }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                                <h5 class="slide-title">
+                                    {{ attraction.name }}
+                                </h5>
+                                <p class="slide-text">
+                                    {{ attraction.short_introduction_text }}
+                                </p>
+                                <a href="{% url 'attraction-detail' lang=attraction.language.code.lower slug=attraction.slug %}"
+                                   class="slide-link-btn btn-type-2">Read more</a>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        No top attractions found
+                    {% endif %}
+                    <div class="swiper-pagination"></div>
                 </div>
-
-                <div class="swiper-pagination"></div>
-
             </div>
-        </div>
     </section>
     <section class="homepage-top-destinations">
         <div class="container">
@@ -446,74 +239,59 @@
                 <h2 class="top-destinations-title">
                     Top Portugal Destinations in <span>year</span>
                 </h2>
-                <a href="" class="btn-type-1">
+                <!-- Only 6 items are coming from backend here -->
+                <a href="{% url 'destination-list' lang=current_language %}" class="btn-type-1">
                     show more
                 </a>
             </div>
             <div class="top-destinations-cards-wrapper">
-                <div class="top-destinations-col">
-                    <div class="top-destinations-card">
-                        <a href="">
-                        <img src="{% static 'images/homepage-top-destination-img1.png' %}" alt="top destination img">
-                        <p class="top-destination-card-title">
-                            Lisbon
-                        </p>
-                        </a>
+                {% if destinations_top_year %}
+                    <div class="top-destinations-col">
+                        {% for destination in destinations_top_year|slice:":2" %}
+                            <div class="top-destinations-card">
+                                <a href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
+                                    <img src="{{ destination.parent_destination.card_image.url }}" alt="card img for {{ destination.name }}">
+                                    <p class="top-destination-card-title">
+                                        {{ destination.name }}
+                                    </p>
+                                </a>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="top-destinations-card">
-                        <a href="">
-                        <img src="{% static 'images/homepage-top-destination-img2.png' %}" alt="top destination img">
-                        <p class="top-destination-card-title">
-                            Cascais
-                        </p>
-                        </a>
+                    <div class="top-destinations-col top-destinations-col--reverse">
+                        {% for destination in destinations_top_year|slice:"2:4" %}
+                            <div class="top-destinations-card">
+                                <a href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
+                                    <img src="{{ destination.parent_destination.card_image.url }}" alt="card img for {{ destination.name }}">
+                                    <p class="top-destination-card-title">
+                                        {{ destination.name }}
+                                    </p>
+                                </a>
+                            </div>
+                        {% endfor %}
                     </div>
-                </div>
-                <div class="top-destinations-col top-destinations-col--reverse">
-                    <div class="top-destinations-card">
-                        <a href="">
-                        <img src="{% static 'images/homepage-top-destination-img3.png' %}" alt="top destination img">
-                        <p class="top-destination-card-title">
-                            Fatima
-                        </p>
-                        </a>
+                    <div class="top-destinations-col">
+                        {% for destination in destinations_top_year|slice:"4:" %}
+                            <div class="top-destinations-card">
+                                <a href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
+                                    <img src="{{ destination.parent_destination.card_image.url }}" alt="card img for {{ destination.name }}">
+                                    <p class="top-destination-card-title">
+                                        {{ destination.name }}
+                                    </p>
+                                </a>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="top-destinations-card">
-                        <a href="">
-                        <img src="{% static 'images/homepage-top-destination-img2.png' %}" alt="top destination img">
-                        <p class="top-destination-card-title">
-                            Porto
-                        </p>
-                        </a>
-                    </div>
-                </div>
-                <div class="top-destinations-col">
-                    <div class="top-destinations-card">
-                        <a href="">
-                        <img src="{% static 'images/homepage-top-destination-img5.png' %}" alt="top destination img">
-                        <p class="top-destination-card-title">
-                            Sintra
-                        </p>
-                        </a>
-                    </div>
-                    <div class="top-destinations-card">
-                        <a href="">
-                        <img src="{% static 'images/homepage-top-destination-img6.png' %}" alt="top destination img">
-                        <p class="top-destination-card-title">
-                            Nazare
-                        </p>
-                        </a>
-                    </div>
-                </div>
+                {% endif %}
+                <a href="{% url 'destination-list' lang=current_language %}" class="btn-type-1 top-destination-link">
+                    show more
+                </a>
             </div>
-            <a href="#" class="btn-type-1 top-destination-link">
-                show more
-            </a>
         </div>
     </section>
 
     {% include 'include/testimonials.html' %}
-    
+
     <section class="offers-banner">
         <div class="container">
             <h2 class="offers-banner-title">
@@ -567,8 +345,8 @@
         });
     </script>
     <script>
-        
-        
+
+
         const swiperTestimonials = new Swiper(".testimonials-slider", {
             speed: 1000,
             spaceBetween: 24,

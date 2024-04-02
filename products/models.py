@@ -160,7 +160,8 @@ class ParentExperience(models.Model):
     child_old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
                                           help_text="For marketing purposes, this child old price will be higher than the new one.")
     meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
-                                      on_delete=models.SET_NULL, null=True, blank=True)
+                                      on_delete=models.SET_NULL, null=True, blank=True,
+                                      verbose_name='Start location')
     max_participants = models.IntegerField(null=True, blank=True, default=8, help_text="Maximum number of participants")
     is_private = models.BooleanField(default=False, help_text="If this experience is private then to sale whole number "
                                                               "of participants as one purchase will be")
@@ -168,6 +169,8 @@ class ParentExperience(models.Model):
     allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
     free_cancellation = models.BooleanField(default=False, help_text="Free Cancellation is allowed.", null=True)
     happy_clients_number = models.IntegerField(default=0)
+    show_on_home_page = models.BooleanField(default=False, help_text="Include in the top Experiences on the home page")
+    rating = models.DecimalField(max_digits=2, decimal_places=1, default=Decimal('5.0'), help_text="for example: 4.8")
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

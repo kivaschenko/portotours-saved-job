@@ -44,6 +44,7 @@ class ParentAttraction(models.Model):
     slider_image_5 = models.FileField(upload_to='media/sliders/', null=True, blank=True)
     slider_image_6 = models.FileField(upload_to='media/sliders/', null=True, blank=True)
 
+    show_on_home_page = models.BooleanField(default=False, help_text="Include in the top Attractions on the home page")
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

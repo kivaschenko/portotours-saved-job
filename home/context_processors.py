@@ -1,6 +1,6 @@
-from destinations.models import ParentDestination, Destination
-from attractions.models import ParentAttraction, Attraction
-from products.models import ParentExperience, Experience
+from destinations.models import Destination
+from attractions.models import Attraction
+from products.models import Experience
 
 
 def navbar_context(request, lang=None, **kwargs):
