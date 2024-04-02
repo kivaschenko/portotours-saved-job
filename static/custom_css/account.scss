@@ -9,6 +9,16 @@
             border: 1px solid #D9D9D9;
             background: #FFF;
             padding: 32px 64px 32px 73px;
+            max-height: 92px;
+            overflow: hidden;
+            &.open {
+                max-height: 100%;
+                .title-wrapper {
+                    .account-details-title + img {
+                        transform: none;
+                    }
+                }
+            }
             + .account-details-block {
                 margin-top: 32px;
             }
@@ -17,6 +27,7 @@
                 align-items: center;
                 justify-content: space-between;
                 margin-bottom: 0;
+                cursor: pointer;
                 .account-details-title {
                     display: flex;
                     align-items: center;
@@ -106,7 +117,57 @@
                     border: none;
                 }
             }
+            &.orders {
+                .table > :not(:last-child) > :last-child > * {
+                    border: none;
+                }
+                .table > :not(caption) > * > * {
+                    border: none;
+                    padding: 0;
+                }
+                .table {
+                    margin-bottom: 0;
+                    margin-top: 22px;
+                    thead {
+                        th {
+                            font-family: "LatoSemiBold";
+                            color: #0F0F10;
+                            font-size: 16px;
+                            line-height: 26px;
+                            text-transform: capitalize;
+                            padding: 0;
+                            padding-bottom: 12px;
+                        }
+                    }
+                    tbody {
+                        tr td {
+                            font-size: 16px;
+                            line-height: 26px;
+                            font-family: "LatoRegular";
+                        }
+                        tr + tr td {
+                            padding-top: 10px;
+                            
+                        }
+                    }
+                }
+            }
         }
-        
+        .logout-wrapper {
+            margin-top: 28px;
+            .btn-logout {
+                padding: 0;
+                display: flex;
+                align-items: center;
+                color: #0F0F10;
+                font-family: "LatoRegular";
+                font-size: 20px;
+                line-height: 30px;
+                text-transform: capitalize;
+                img {
+                    margin-right: 16px;
+                }
+            }
+        }
     }
 }

@@ -123,9 +123,10 @@ class LanguageModelForm(ModelForm):
 class ParentExperienceAdmin(admin.ModelAdmin):
     form = LanguageModelForm
     exclude = ['updated_at', 'slug']
-    list_display = ['parent_name', 'id', 'slug', 'currency', 'price', 'old_price', 'child_price', 'child_old_price',
-                    'max_participants', 'is_private', 'is_exclusive', 'priority_number']
-    list_filter = ['parent_name', 'price', 'max_participants', 'is_private', 'is_exclusive', ]
+    list_display = ['id', 'parent_name', 'currency', 'price', 'old_price', 'child_price', 'child_old_price',
+                    'max_participants', 'is_private', 'is_exclusive', 'priority_number', 'show_on_home_page', 'rating']
+    list_filter = ['parent_name', 'max_participants', 'is_private', 'is_exclusive', 'show_on_home_page',]
+    search_fields = ['parent__name', ]
 
 
 class ExperienceScheduleInline(admin.TabularInline):

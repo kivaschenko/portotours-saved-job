@@ -1,6 +1,9 @@
-from destinations.models import ParentDestination, Destination
-from attractions.models import ParentAttraction, Attraction
-from products.models import ParentExperience, Experience
+from django.conf import settings
+from django.core.cache import cache
+
+from destinations.models import Destination
+from attractions.models import Attraction
+from products.models import Experience
 
 
 def navbar_context(request, lang=None, **kwargs):
@@ -8,9 +11,20 @@ def navbar_context(request, lang=None, **kwargs):
         lang_code = 'EN'
     else:
         lang_code = lang.upper()
+    cache_key = f'navbar_context_{lang_code}'
+    cached_data = cache.get(cache_key)
+    if cached_data:
+        return cached_data
     top_destinations = Destination.active.filter(language__code=lang_code).order_by('parent_destination__priority_number')[:10]
     top_attractions = Attraction.active.filter(language__code=lang_code).order_by('parent_attraction__priority_number')[:10]
     top_experiences = Experience.active.filter(language__code=lang_code).order_by('parent_experience__priority_number')[:10]
-    context = {'top_destinations': top_destinations, 'top_attractions': top_attractions, 'top_experiences': top_experiences}
+    most_popular_experiences = Experience.active.filter(language__code=lang_code, parent_experience__show_on_home_page=True).order_by(
+        '-parent_experience__priority_number')
+    context = {
+        'top_destinations': top_destinations,
+        'top_attractions': top_attractions,
+        'top_experiences': top_experiences,
+        'most_popular_experiences': most_popular_experiences
+    }
+    cache.set(cache_key, context, timeout=settings.NAVBAR_CONTEXT_CACHE_TIMEOUT)
     return context
-

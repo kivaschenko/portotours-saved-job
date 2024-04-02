@@ -14,6 +14,8 @@ class Review(models.Model):
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     short_text = models.CharField(max_length=255, null=True, blank=True)
     text = RichTextField(max_length=6000, help_text="max 6000 characters", null=True, blank=True)
+    show_on_home_page = models.BooleanField(default=False, help_text="Include in the top Reviews on the home page")
+
     created_at = models.DateTimeField(auto_now_add=False, auto_now=False)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -376,15 +376,23 @@
                     border-radius: 26px;
                     overflow: hidden;
                     object-fit: cover;
+                    width: 100%;
+                    height: 300px;
+                    object-fit: cover;
                     @include media-breakpoint-down(md) {
                         width: 100%;
                         margin-bottom: 14px;
                     }
                 }
-                h5 {
+                a {
                     text-transform: capitalize;
                     margin: 0;
                     color: var(--text-color-first);
+                    text-decoration: none;
+                    font-size: 26px;
+                    line-height: 36px;
+                    display: block;
+                    font-family: 'LatoSemiBold';
                     @include media-breakpoint-down(md) {
 
                     }
@@ -775,9 +783,10 @@
                     }
                 }
                 .list-item-img-wrapper {
-                    width: 540px;
+                    width: 400px;
                     border-radius: 26px 0 0 26px;
                     overflow: hidden;
+                    height: 300px;
                     @include media-breakpoint-down(md) {
                         width: 100%;
                         border-radius: 26px;
@@ -789,7 +798,7 @@
                 }
                 .destination-list-content-wrapper {
                     padding: 40px 35px 40px 45px;
-                    width: calc(100% - 540px);
+                    width: calc(100% - 400px);
                     border: 1px solid #D9D9D9;
                     background: #FFF;
                     border-radius: 0 26px 26px 0;
