@@ -13,17 +13,21 @@
 
     <section class="attraction-list">
         <div class="container">
-            <form method="GET">
-                {{ filter_form }}
-                <button type="submit">Filter</button>
-                <button type="button" onclick="resetForm()">Reset</button>
-            </form>
             <div class="title-filter-wrapper">
                 <h3 class="attraction-list-title">
                     List of attractions in Portugal
                 </h3>
 
             </div>
+            <form method="GET" class="attraction-filter-form">
+                {{ filter_form }}
+                <div class="form-btns-wrapper">
+                    <button type="submit" class="btn btn-submit">Filter</button>
+                    <button type="button" class="btn btn-reset" onclick="resetForm()">Reset</button>
+                </div>
+                
+            </form>
+            
             <ul class="attractions">
                 {% if object_list %}
                     {% for object in object_list %}

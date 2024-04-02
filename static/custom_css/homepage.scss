@@ -378,6 +378,9 @@
         }
         .img-wrapper {
           width: 320px;
+          height: 270px;
+          
+          
           @include media-breakpoint-down(md) {
             width: 100%;
             max-height: 270px;
@@ -386,6 +389,9 @@
             display: block;
             width: 100%;
             height: 100%;
+            object-fit: cover;
+            border-radius: 26px;
+            overflow: hidden;
             @include media-breakpoint-down(md) {
               width: 100%;
               max-height: 270px;
@@ -441,6 +447,17 @@
                   font-size: 14px;
                   line-height: 22px;
                 }
+                & * {
+                  font-family: "LatoRegular";
+                  font-size: 16px;
+                  line-height: 26px;
+                  margin-bottom: 0;
+                  @include media-breakpoint-down(md) {
+                    font-size: 14px;
+                    line-height: 22px;
+                  }
+                }
+                
                 + li {
                   margin-left: 24px;
                   position: relative;
@@ -486,6 +503,9 @@
             text-transform: uppercase;
             text-decoration: none;
             margin-top: 24px;
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
             @include media-breakpoint-down(md) {
               position: absolute;
               bottom: 16px;
@@ -696,7 +716,10 @@
           }
           > img {
             width: 100%;
-            
+            border-radius: 26px;
+            overflow: hidden;
+            height: 550px;
+            object-fit: cover;
           }
           ul {
             position: absolute;
@@ -727,6 +750,7 @@
               }
               img {
                 margin-right: 6px;
+                max-width: 24px;
               }
             }
           }
@@ -862,14 +886,37 @@
           position: relative;
           border-radius: 26px;
           overflow: hidden;
+          position: relative;
+          
           @include media-breakpoint-down(md) {
             height: 200px;
             margin-bottom: 10px;
 
           }
+          a {
+            height: 100%;
+            display: block;
+            cursor: pointer;
+            &::after {
+              content: "";
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: rgba(11, 11, 11, 0.50);
+              z-index: 1;
+            }
+            &:hover {
+              &::after {
+                background: rgba(11, 11, 11, 0.70);
+              }
+            }
+          }
           img {
             width: 100%;
             height: 100%;
+            
           }
           .top-destination-card-title {
             position: absolute;
@@ -882,6 +929,7 @@
             text-transform: uppercase;
             color: white;
             line-height: normal;
+            z-index: 2;
             @include media-breakpoint-down(md) {
               font-size: 32px;
               letter-spacing: 1.92px;

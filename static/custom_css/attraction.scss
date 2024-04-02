@@ -322,6 +322,70 @@
                 }
             }
         }
+        .attraction-filter-form {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            legend {
+                display: none;
+            }
+            #id_tags {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                div {
+                    + div {
+                        margin-left: 24px;
+                    }
+                    label {
+                        font-family: 'LatoRegular';
+                        font-size: 14px;
+                        line-height: 22px;
+                        padding-left: 34px;
+                        position: relative;
+                        cursor: pointer;
+                        &::before {
+                            position: absolute;
+                            content: "";
+                            left: 0;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            width: 24px;
+                            height: 24px;
+                            background-image: url(../icons/empty-filter-checkbox.svg);
+                            background-position: center;
+                            background-size: 100%;
+                            background-repeat: no-repeat;
+                        }
+                        &:has(input:checked) {
+                            &::before {
+                                background-image: url(../icons/active-filter-checkbox.svg);
+                            }
+                        }
+                        input {
+                            display: none;
+                            
+                        }
+                    }
+                }
+                
+            }
+            .form-btns-wrapper {
+                display: flex;
+                align-items: center;
+                .btn {
+                    font-family: 'LatoSemiBold';
+                    font-size: 18px;
+                    line-height: normal;
+                    text-transform: uppercase;
+                    &.btn-submit {
+                        color: var(--text-color-third);
+                        margin-right: 40px;
+                    }
+                }
+            }
+        }
         .attractions {
             padding-left: 0;
             list-style: none;
