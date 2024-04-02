@@ -149,14 +149,22 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.environ.get('CACHES_LOCATION'),
-        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-        "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
-    },
-}
+# redis_password = os.environ.get('REDIS_PASSWORD')
+# redis_username = os.environ.get('REDIS_USERNAME')
+# redis_host = os.environ.get('REDIS_HOST')
+# redis_port = os.environ.get('REDIS_PORT')
+#
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": f"redis://:{redis_password}@{redis_host}:{redis_port}/1",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#             "USERNAME": redis_username,
+#         },
+#         "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
+#     },
+# }
 
 # Logging
 LOGGING_FILE = os.environ.get('LOGGING_FILE', 'portotours.log')
@@ -222,8 +230,11 @@ LOGGING = {
 }
 
 AUTH_USER_MODEL = 'accounts.User'
-LOGOUT_REDIRECT_URL = "home"
-LOGIN_REDIRECT_URL = "home"
+
+# Redirect URLs after login/logout
+LOGOUT_REDIRECT_URL = '/en/'
+LOGIN_REDIRECT_URL = '/en/'
+
 
 # Bootstrap Sass
 
@@ -371,3 +382,6 @@ DOMAIN = os.environ.get('DOMAIN_NAME', 'localhost:8000')
 if DEBUG:
     # Show detailed error pages in debug mode
     DEBUG_PROPAGATE_EXCEPTIONS = True
+
+# Navbar top lists cache
+NAVBAR_CONTEXT_CACHE_TIMEOUT = 3600

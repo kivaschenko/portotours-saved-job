@@ -2,11 +2,14 @@ from datetime import timedelta, datetime
 
 from django.views.generic import TemplateView
 from django.utils.translation import activate
+from django.shortcuts import redirect
 
 from destinations.models import Destination
 from attractions.models import Attraction
 from products.models import Experience
 from reviews.models import Review
+
+from .forms import SubscriberForm
 
 
 class HomeView(TemplateView):
@@ -33,4 +36,18 @@ class HomeView(TemplateView):
         context['reviews_top_year'] = Review.objects.filter(
             show_on_home_page=True, created_at__gte=year_ago
         ).order_by('-created_at')[:6]
+        context['subscription_form'] = SubscriberForm()
         return context
+    def post(self, request, *args, **kwargs):
+        lang = self.kwargs.get('lang', 'en')
+        activate(lang)
+        context = self.get_context_data(**kwargs)
+        form = SubscriberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect after successful form submission
+            return redirect('home', lang=lang)
+        else:
+            # If form is not valid, re-render the page with the form and any existing data
+            context['subscription_form'] = form
+            return self.render_to_response(context)
