@@ -32,7 +32,13 @@
                         <label for="date">
                             When?
                         </label>
-                        <input type="date" name="date" id="date">
+                        <div class="custom-calendar">
+                            <div class="calendar-icon">
+                                <img src="{% static 'icons/calendar-icon.svg' %}" alt="Calendar">
+                            </div>
+                            <input type="text" id="custom-date-input" placeholder="DD.MM.YYYY">
+                        </div>
+                       
                     </div>
                     <button type="button" class="form-btn btn-type-1">
                         <img src="{% static 'icons/search.svg' %}" alt="">
