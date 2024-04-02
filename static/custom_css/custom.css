@@ -10052,7 +10052,9 @@ html.off-scroll body {
     @media (max-width: 767.98px) {
       .offers-banner .container form {
         flex-direction: column; } }
-    .offers-banner .container form .email-input {
+    .offers-banner .container form #div_id_email.mb-3 {
+      margin-bottom: 0 !important; }
+    .offers-banner .container form .emailinput {
       border-radius: 47px;
       border: 1px solid #d9d9d9;
       background: #fff;
@@ -10064,11 +10066,11 @@ html.off-scroll body {
       margin-right: 24px;
       width: 320px; }
       @media (max-width: 767.98px) {
-        .offers-banner .container form .email-input {
+        .offers-banner .container form .emailinput {
           width: 100%;
           margin-bottom: 16px;
           margin-right: 0; } }
-      .offers-banner .container form .email-input::placeholder {
+      .offers-banner .container form .emailinput::placeholder {
         color: #6d6d6d; }
     .offers-banner .container form .form-submit-btn {
       border-radius: 40px;
@@ -12900,14 +12902,21 @@ html.off-scroll body {
     border-radius: 16px;
     border: 1px solid #D9D9D9;
     background: #FFF;
-    padding: 32px 64px 32px 73px; }
+    padding: 32px 64px 32px 73px;
+    max-height: 92px;
+    overflow: hidden; }
+    .account-details .container .account-details-block.open {
+      max-height: 100%; }
+      .account-details .container .account-details-block.open .title-wrapper .account-details-title + img {
+        transform: none; }
     .account-details .container .account-details-block + .account-details-block {
       margin-top: 32px; }
     .account-details .container .account-details-block .title-wrapper {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 0; }
+      margin-bottom: 0;
+      cursor: pointer; }
       .account-details .container .account-details-block .title-wrapper .account-details-title {
         display: flex;
         align-items: center;
@@ -12979,6 +12988,41 @@ html.off-scroll body {
       line-height: normal;
       background-color: transparent;
       border: none; }
+    .account-details .container .account-details-block.orders .table > :not(:last-child) > :last-child > * {
+      border: none; }
+    .account-details .container .account-details-block.orders .table > :not(caption) > * > * {
+      border: none;
+      padding: 0; }
+    .account-details .container .account-details-block.orders .table {
+      margin-bottom: 0;
+      margin-top: 22px; }
+      .account-details .container .account-details-block.orders .table thead th {
+        font-family: "LatoSemiBold";
+        color: #0F0F10;
+        font-size: 16px;
+        line-height: 26px;
+        text-transform: capitalize;
+        padding: 0;
+        padding-bottom: 12px; }
+      .account-details .container .account-details-block.orders .table tbody tr td {
+        font-size: 16px;
+        line-height: 26px;
+        font-family: "LatoRegular"; }
+      .account-details .container .account-details-block.orders .table tbody tr + tr td {
+        padding-top: 10px; }
+  .account-details .container .logout-wrapper {
+    margin-top: 28px; }
+    .account-details .container .logout-wrapper .btn-logout {
+      padding: 0;
+      display: flex;
+      align-items: center;
+      color: #0F0F10;
+      font-family: "LatoRegular";
+      font-size: 20px;
+      line-height: 30px;
+      text-transform: capitalize; }
+      .account-details .container .logout-wrapper .btn-logout img {
+        margin-right: 16px; }
 
 html.overflow {
   overflow: hidden; }
