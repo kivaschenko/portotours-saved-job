@@ -103,7 +103,7 @@
                                     Lisbon Things To Do
                                 </h2>
                                 <h3 class="dropdown-title">
-                                    Best experiences
+                                    Top experiences
                                 </h3>
                                 {% for experience in top_experiences %}
                                     <a class="dropdown-item"
@@ -140,7 +140,7 @@
                                     Out Of Lisbon Things To Do
                                 </h2>
                                 <h3 class="dropdown-title">
-                                    Destinations
+                                    Top Destinations
                                 </h3>
                                 {% for destination in top_destinations %}
                                     <a class="dropdown-item"
@@ -154,9 +154,12 @@
                             <li>
 
                                 <h3 class="dropdown-title">
-                                    Most Popular
+                                    Most Popular Experiences
                                 </h3>
-                                {{ top_experiences }}
+                                {% for experience in most_popular_experiences %}
+                                <a class="dropdown-item"
+                                   href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
+                                {% endfor %}
                                 <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
                                     see all
                                     <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
