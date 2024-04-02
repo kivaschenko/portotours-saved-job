@@ -223,8 +223,6 @@ LOGGING = {
 
 AUTH_USER_MODEL = 'accounts.User'
 
-from django.urls import reverse_lazy
-
 # Redirect URLs after login/logout
 LOGOUT_REDIRECT_URL = '/en/'
 LOGIN_REDIRECT_URL = '/en/'

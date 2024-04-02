@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 
     <section class="home-hero">
@@ -336,14 +337,14 @@
             <p class="offers-banner-subtitle">
                 Get the best deals and discounts by subscribing to our email newsletter!
             </p>
-            <form action="" class="offers-banner-form">
-                <input type="email" class="email-input" name="email" id="subscription-email" placeholder="Enter Email Address">
-                <button type="submit" class="form-submit-btn">
-                    Subscribe
-                </button>
+            <form action="" method="post" class="offers-banner-form">
+                {% csrf_token %}
+                {{ subscription_form|crispy }}
+                <button type="submit" class="form-submit-btn">Subscribe</button>
             </form>
         </div>
     </section>
+
     <!-- Local JS -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
     <script>
