@@ -41,7 +41,7 @@ class FAQAttractionInline(admin.TabularInline):
 class ParentAttractionAdmin(admin.ModelAdmin):
     form = TagModelForm
     exclude = ['updated_at']
-    list_display = ['parent_name', 'priority_number', 'show_on_home_page',]
+    list_display = ['id', 'parent_name', 'priority_number', 'show_on_home_page',]
     list_filter = ['parent_name']
 
 
