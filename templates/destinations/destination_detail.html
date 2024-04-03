@@ -129,7 +129,7 @@
                                 <img src="{{ attraction.parent_attraction.card_image.url }}" alt="card image for {{ attraction.name }}"
                                      class="attraction-image">
                                 <a href="{% url 'attraction-detail' lang=attraction.language.code.lower slug=attraction.slug %}">
-                                    <h5>{{ attraction.name }}</h5>
+                                    {{ attraction.name }}
                                 </a>
                             </div>
                         {% endfor %}
