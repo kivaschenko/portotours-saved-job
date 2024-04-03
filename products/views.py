@@ -203,6 +203,14 @@ def create_group_product(request):
     occurrence.save()
     new_product.occurrence = occurrence
     new_product.save()
+    new_product_type = 'Private' if new_product.parent_experience.is_private else 'Group'
+    new_product_event = events.NewProductCreated(product_id=new_product.id, product_name=new_product.parent_experience.parent_name,
+                                                 product_start_date=new_product.date_of_start, product_start_time=new_product.time_of_start,
+                                                 total_price=new_product.total_price, adults=new_product.adults_count, children=new_product.child_count,
+                                                 product_type=new_product_type)
+    service_events.append(new_product_event)
+    for event in service_events:
+        bus_messages.handle(event)
     return JsonResponse({'message': 'Product created successfully'}, status=201)
 
 
