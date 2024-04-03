@@ -152,6 +152,352 @@
                     }
                 }
             }
+            &.change-details {
+                .block-content {
+                    form {
+                        margin: 0 !important;
+                        width: 100%;
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        #div_id_name {
+                            width: calc((100% - 24px)/2);
+                            margin-bottom: 33px !important;
+                            position: relative;
+                            label {
+                                position: absolute;
+                                background-color: white;
+                                padding: 3px 5px;
+                                color: #0f0f10;
+                                font-family: "LatoMedium";
+                                font-size: 16px;
+                                line-height: normal;
+                                text-transform: capitalize;
+                                top: -13px;
+                                left: 20px;
+                                z-index: 3;
+                            }
+                            input {
+                                padding: 21px 24px;
+                                border-radius: 42px;
+                                border: 1px solid #D9D9D9;
+                                font-family: "LatoRegular";
+                                font-size: 16px;
+                                line-height: normal;
+                            }
+                            #id_name_helptext {
+                                display: none;
+                            }
+                        }
+                        #div_id_email {
+                            width: calc((100% - 24px)/2);
+                            margin-bottom: 33px !important;
+                            position: relative;
+                            label {
+                                position: absolute;
+                                background-color: white;
+                                padding: 3px 5px;
+                                color: #0f0f10;
+                                font-family: "LatoMedium";
+                                font-size: 16px;
+                                line-height: normal;
+                                text-transform: capitalize;
+                                top: -13px;
+                                left: 20px;
+                                z-index: 3;
+                            }
+                            input {
+                                padding: 21px 24px;
+                                border-radius: 42px;
+                                border: 1px solid #D9D9D9;
+                                font-family: "LatoRegular";
+                            }
+                        }
+                        #div_id_phone {
+                            width: calc((100% - 24px)/2);
+                            margin-bottom: 40px !important;
+                            position: relative;
+                            label {
+                                position: absolute;
+                                background-color: white;
+                                padding: 3px 5px;
+                                color: #0f0f10;
+                                font-family: "LatoMedium";
+                                font-size: 16px;
+                                line-height: normal;
+                                text-transform: capitalize;
+                                top: -13px;
+                                left: 20px;
+                                z-index: 3;
+
+                            }
+                            input {
+                                padding: 21px 24px;
+                                border-radius: 42px;
+                                border: 1px solid #D9D9D9;
+                                font-family: "LatoRegular";
+                            }
+                        }
+                        #div_id_avatar {
+                            width: calc((100% - 24px)/2);
+                            .input-group.mb-2 {
+                                display: none;
+                            }
+                            label {
+                                padding: 21px 24px;
+                                border-radius: 42px;
+                                border: 1px solid #D9D9D9;
+                                font-family: "LatoRegular";
+                                width: 100%;
+                                cursor: pointer;
+                                position: relative;
+                                &::before {
+                                    content: "Avatar";
+                                    position: absolute;
+                                    background-color: white;
+                                    padding: 3px 5px;
+                                    color: #0f0f10;
+                                    font-family: "LatoMedium";
+                                    font-size: 16px;
+                                    line-height: normal;
+                                    text-transform: capitalize;
+                                    top: -13px;
+                                    left: 20px;
+                                    z-index: 3;
+                                }
+                            }
+                            #id_avatar {
+                                
+                                display: none;
+                            }
+                        }
+                        .btn.btn-submit {
+                            padding: 0;
+                            background-color: white;
+                            border: none;
+                            font-family: "LatoSemiBold";
+                            color: var(--text-color-third);
+                            font-size: 18px;
+                            line-height: normal;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
+            &.change-address {
+                .block-content {
+                    form {
+                        margin: 0 !important;
+                        width: 100%;
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        #div_id_address_city {
+                            width: calc((100% - 24px)/2);
+                            margin-bottom: 33px !important;
+                            position: relative;
+                            label {
+                                position: absolute;
+                                background-color: white;
+                                padding: 3px 5px;
+                                color: #0f0f10;
+                                font-family: "LatoMedium";
+                                font-size: 16px;
+                                line-height: normal;
+                                text-transform: capitalize;
+                                top: -13px;
+                                left: 20px;
+                                z-index: 3;
+                            }
+                            input {
+                                padding: 21px 24px;
+                                border-radius: 42px;
+                                border: 1px solid #D9D9D9;
+                                font-family: "LatoRegular";
+                                font-size: 16px;
+                                line-height: normal;
+                            }
+                            #id_name_helptext {
+                                display: none;
+                            }
+                        }
+                        #div_id_address_country {
+                            width: calc((100% - 24px)/2);
+                            margin-bottom: 33px !important;
+                            position: relative;
+                            label {
+                                position: absolute;
+                                background-color: white;
+                                padding: 3px 5px;
+                                color: #0f0f10;
+                                font-family: "LatoMedium";
+                                font-size: 16px;
+                                line-height: normal;
+                                text-transform: capitalize;
+                                top: -13px;
+                                left: 20px;
+                                z-index: 3;
+                            }
+                            input {
+                                padding: 21px 24px;
+                                border-radius: 42px;
+                                border: 1px solid #D9D9D9;
+                                font-family: "LatoRegular";
+                                font-size: 16px;
+                                line-height: normal;
+                            }
+                            #id_address_country_helptext {
+                                display: none;
+                            }
+                        }
+                        #div_id_address_line1 {
+                            width: calc((100% - 24px)/2);
+                            margin-bottom: 40px !important;
+                            position: relative;
+                            label {
+                                position: absolute;
+                                background-color: white;
+                                padding: 3px 5px;
+                                color: #0f0f10;
+                                font-family: "LatoMedium";
+                                font-size: 16px;
+                                line-height: normal;
+                                text-transform: capitalize;
+                                top: -13px;
+                                left: 20px;
+                                z-index: 3;
+
+                            }
+                            input {
+                                padding: 21px 24px;
+                                border-radius: 42px;
+                                border: 1px solid #D9D9D9;
+                                font-family: "LatoRegular";
+                            }
+                        }
+                        #div_id_address_line2 {
+                            width: calc((100% - 24px)/2);
+                            margin-bottom: 40px !important;
+                            position: relative;
+                            label {
+                                position: absolute;
+                                background-color: white;
+                                padding: 3px 5px;
+                                color: #0f0f10;
+                                font-family: "LatoMedium";
+                                font-size: 16px;
+                                line-height: normal;
+                                text-transform: capitalize;
+                                top: -13px;
+                                left: 20px;
+                                z-index: 3;
+
+                            }
+                            input {
+                                padding: 21px 24px;
+                                border-radius: 42px;
+                                border: 1px solid #D9D9D9;
+                                font-family: "LatoRegular";
+                            }
+                        }
+                        #div_id_address_postal_code {
+                            width: calc((100% - 24px)/2);
+                            margin-bottom: 40px !important;
+                            position: relative;
+                            label {
+                                position: absolute;
+                                background-color: white;
+                                padding: 3px 5px;
+                                color: #0f0f10;
+                                font-family: "LatoMedium";
+                                font-size: 16px;
+                                line-height: normal;
+                                text-transform: capitalize;
+                                top: -13px;
+                                left: 20px;
+                                z-index: 3;
+
+                            }
+                            input {
+                                padding: 21px 24px;
+                                border-radius: 42px;
+                                border: 1px solid #D9D9D9;
+                                font-family: "LatoRegular";
+                            }
+                        }
+                        #div_id_address_state {
+                            width: calc((100% - 24px)/2);
+                            margin-bottom: 40px !important;
+                            position: relative;
+                            label {
+                                position: absolute;
+                                background-color: white;
+                                padding: 3px 5px;
+                                color: #0f0f10;
+                                font-family: "LatoMedium";
+                                font-size: 16px;
+                                line-height: normal;
+                                text-transform: capitalize;
+                                top: -13px;
+                                left: 20px;
+                                z-index: 3;
+
+                            }
+                            input {
+                                padding: 21px 24px;
+                                border-radius: 42px;
+                                border: 1px solid #D9D9D9;
+                                font-family: "LatoRegular";
+                            }
+                        }
+                        #div_id_avatar {
+                            width: calc((100% - 24px)/2);
+                            .input-group.mb-2 {
+                                display: none;
+                            }
+                            label {
+                                padding: 21px 24px;
+                                border-radius: 42px;
+                                border: 1px solid #D9D9D9;
+                                font-family: "LatoRegular";
+                                width: 100%;
+                                cursor: pointer;
+                                position: relative;
+                                &::before {
+                                    content: "Avatar";
+                                    position: absolute;
+                                    background-color: white;
+                                    padding: 3px 5px;
+                                    color: #0f0f10;
+                                    font-family: "LatoMedium";
+                                    font-size: 16px;
+                                    line-height: normal;
+                                    text-transform: capitalize;
+                                    top: -13px;
+                                    left: 20px;
+                                    z-index: 3;
+                                }
+                            }
+                            #id_avatar {
+                                
+                                display: none;
+                            }
+                        }
+                        .btn.btn-submit {
+                            padding: 0;
+                            background-color: white;
+                            border: none;
+                            font-family: "LatoSemiBold";
+                            color: var(--text-color-third);
+                            font-size: 18px;
+                            line-height: normal;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
         }
         .logout-wrapper {
             margin-top: 28px;

@@ -149,7 +149,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            left: 24px;
+            right: 24px;
             width: 24px;
             height: 24px;
             background-image: url(../icons/calendar-icon.svg);
@@ -157,6 +157,8 @@
             background-repeat: no-repeat;
             background-position: center;
             z-index: 2;
+            background-color: white;
+            pointer-events: none;
           }
           label {
             position: absolute;
@@ -175,7 +177,7 @@
             border-radius: 42px;
             border: 1px solid #d9d9d9;
             width: 100%;
-            padding: 18px 24px 18px 60px;
+            padding: 18px 22px 18px 18px;
             font-family: "LatoRegular";
             font-size: 16px;
             line-height: normal;

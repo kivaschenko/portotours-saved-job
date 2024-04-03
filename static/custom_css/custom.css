@@ -9208,14 +9208,16 @@ html.off-scroll body {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            left: 24px;
+            right: 24px;
             width: 24px;
             height: 24px;
             background-image: url(../icons/calendar-icon.svg);
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            z-index: 2; }
+            z-index: 2;
+            background-color: white;
+            pointer-events: none; }
           .home-hero .container .experience-list-hero-calendar form .date-wrapper label {
             position: absolute;
             background-color: white;
@@ -9232,7 +9234,7 @@ html.off-scroll body {
             border-radius: 42px;
             border: 1px solid #d9d9d9;
             width: 100%;
-            padding: 18px 24px 18px 60px;
+            padding: 18px 22px 18px 18px;
             font-family: "LatoRegular";
             font-size: 16px;
             line-height: normal;
@@ -10669,13 +10671,15 @@ html.off-scroll body {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          left: 24px;
+          right: 24px;
+          background-color: white;
           width: 24px;
           height: 24px;
           background-image: url(../icons/calendar-icon.svg);
           background-size: cover;
           background-repeat: no-repeat;
           background-position: center;
+          pointer-events: none;
           z-index: 2; }
         .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper label {
           position: absolute;
@@ -10693,7 +10697,7 @@ html.off-scroll body {
           border-radius: 42px;
           border: 1px solid #d9d9d9;
           width: 100%;
-          padding: 18px 24px 18px 60px;
+          padding: 18px 22px 18px 24px;
           font-family: "LatoRegular";
           font-size: 16px;
           line-height: normal;
@@ -13010,6 +13014,293 @@ html.off-scroll body {
         font-family: "LatoRegular"; }
       .account-details .container .account-details-block.orders .table tbody tr + tr td {
         padding-top: 10px; }
+    .account-details .container .account-details-block.change-details .block-content form {
+      margin: 0 !important;
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap; }
+      .account-details .container .account-details-block.change-details .block-content form #div_id_name {
+        width: calc((100% - 24px)/2);
+        margin-bottom: 33px !important;
+        position: relative; }
+        .account-details .container .account-details-block.change-details .block-content form #div_id_name label {
+          position: absolute;
+          background-color: white;
+          padding: 3px 5px;
+          color: #0f0f10;
+          font-family: "LatoMedium";
+          font-size: 16px;
+          line-height: normal;
+          text-transform: capitalize;
+          top: -13px;
+          left: 20px;
+          z-index: 3; }
+        .account-details .container .account-details-block.change-details .block-content form #div_id_name input {
+          padding: 21px 24px;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          font-family: "LatoRegular";
+          font-size: 16px;
+          line-height: normal; }
+        .account-details .container .account-details-block.change-details .block-content form #div_id_name #id_name_helptext {
+          display: none; }
+      .account-details .container .account-details-block.change-details .block-content form #div_id_email {
+        width: calc((100% - 24px)/2);
+        margin-bottom: 33px !important;
+        position: relative; }
+        .account-details .container .account-details-block.change-details .block-content form #div_id_email label {
+          position: absolute;
+          background-color: white;
+          padding: 3px 5px;
+          color: #0f0f10;
+          font-family: "LatoMedium";
+          font-size: 16px;
+          line-height: normal;
+          text-transform: capitalize;
+          top: -13px;
+          left: 20px;
+          z-index: 3; }
+        .account-details .container .account-details-block.change-details .block-content form #div_id_email input {
+          padding: 21px 24px;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          font-family: "LatoRegular"; }
+      .account-details .container .account-details-block.change-details .block-content form #div_id_phone {
+        width: calc((100% - 24px)/2);
+        margin-bottom: 40px !important;
+        position: relative; }
+        .account-details .container .account-details-block.change-details .block-content form #div_id_phone label {
+          position: absolute;
+          background-color: white;
+          padding: 3px 5px;
+          color: #0f0f10;
+          font-family: "LatoMedium";
+          font-size: 16px;
+          line-height: normal;
+          text-transform: capitalize;
+          top: -13px;
+          left: 20px;
+          z-index: 3; }
+        .account-details .container .account-details-block.change-details .block-content form #div_id_phone input {
+          padding: 21px 24px;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          font-family: "LatoRegular"; }
+      .account-details .container .account-details-block.change-details .block-content form #div_id_avatar {
+        width: calc((100% - 24px)/2); }
+        .account-details .container .account-details-block.change-details .block-content form #div_id_avatar .input-group.mb-2 {
+          display: none; }
+        .account-details .container .account-details-block.change-details .block-content form #div_id_avatar label {
+          padding: 21px 24px;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          font-family: "LatoRegular";
+          width: 100%;
+          cursor: pointer;
+          position: relative; }
+          .account-details .container .account-details-block.change-details .block-content form #div_id_avatar label::before {
+            content: "Avatar";
+            position: absolute;
+            background-color: white;
+            padding: 3px 5px;
+            color: #0f0f10;
+            font-family: "LatoMedium";
+            font-size: 16px;
+            line-height: normal;
+            text-transform: capitalize;
+            top: -13px;
+            left: 20px;
+            z-index: 3; }
+        .account-details .container .account-details-block.change-details .block-content form #div_id_avatar #id_avatar {
+          display: none; }
+      .account-details .container .account-details-block.change-details .block-content form .btn.btn-submit {
+        padding: 0;
+        background-color: white;
+        border: none;
+        font-family: "LatoSemiBold";
+        color: var(--text-color-third);
+        font-size: 18px;
+        line-height: normal;
+        text-transform: uppercase; }
+    .account-details .container .account-details-block.change-address .block-content form {
+      margin: 0 !important;
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap; }
+      .account-details .container .account-details-block.change-address .block-content form #div_id_address_city {
+        width: calc((100% - 24px)/2);
+        margin-bottom: 33px !important;
+        position: relative; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_city label {
+          position: absolute;
+          background-color: white;
+          padding: 3px 5px;
+          color: #0f0f10;
+          font-family: "LatoMedium";
+          font-size: 16px;
+          line-height: normal;
+          text-transform: capitalize;
+          top: -13px;
+          left: 20px;
+          z-index: 3; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_city input {
+          padding: 21px 24px;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          font-family: "LatoRegular";
+          font-size: 16px;
+          line-height: normal; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_city #id_name_helptext {
+          display: none; }
+      .account-details .container .account-details-block.change-address .block-content form #div_id_address_country {
+        width: calc((100% - 24px)/2);
+        margin-bottom: 33px !important;
+        position: relative; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_country label {
+          position: absolute;
+          background-color: white;
+          padding: 3px 5px;
+          color: #0f0f10;
+          font-family: "LatoMedium";
+          font-size: 16px;
+          line-height: normal;
+          text-transform: capitalize;
+          top: -13px;
+          left: 20px;
+          z-index: 3; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_country input {
+          padding: 21px 24px;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          font-family: "LatoRegular";
+          font-size: 16px;
+          line-height: normal; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_country #id_address_country_helptext {
+          display: none; }
+      .account-details .container .account-details-block.change-address .block-content form #div_id_address_line1 {
+        width: calc((100% - 24px)/2);
+        margin-bottom: 40px !important;
+        position: relative; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_line1 label {
+          position: absolute;
+          background-color: white;
+          padding: 3px 5px;
+          color: #0f0f10;
+          font-family: "LatoMedium";
+          font-size: 16px;
+          line-height: normal;
+          text-transform: capitalize;
+          top: -13px;
+          left: 20px;
+          z-index: 3; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_line1 input {
+          padding: 21px 24px;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          font-family: "LatoRegular"; }
+      .account-details .container .account-details-block.change-address .block-content form #div_id_address_line2 {
+        width: calc((100% - 24px)/2);
+        margin-bottom: 40px !important;
+        position: relative; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_line2 label {
+          position: absolute;
+          background-color: white;
+          padding: 3px 5px;
+          color: #0f0f10;
+          font-family: "LatoMedium";
+          font-size: 16px;
+          line-height: normal;
+          text-transform: capitalize;
+          top: -13px;
+          left: 20px;
+          z-index: 3; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_line2 input {
+          padding: 21px 24px;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          font-family: "LatoRegular"; }
+      .account-details .container .account-details-block.change-address .block-content form #div_id_address_postal_code {
+        width: calc((100% - 24px)/2);
+        margin-bottom: 40px !important;
+        position: relative; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_postal_code label {
+          position: absolute;
+          background-color: white;
+          padding: 3px 5px;
+          color: #0f0f10;
+          font-family: "LatoMedium";
+          font-size: 16px;
+          line-height: normal;
+          text-transform: capitalize;
+          top: -13px;
+          left: 20px;
+          z-index: 3; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_postal_code input {
+          padding: 21px 24px;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          font-family: "LatoRegular"; }
+      .account-details .container .account-details-block.change-address .block-content form #div_id_address_state {
+        width: calc((100% - 24px)/2);
+        margin-bottom: 40px !important;
+        position: relative; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_state label {
+          position: absolute;
+          background-color: white;
+          padding: 3px 5px;
+          color: #0f0f10;
+          font-family: "LatoMedium";
+          font-size: 16px;
+          line-height: normal;
+          text-transform: capitalize;
+          top: -13px;
+          left: 20px;
+          z-index: 3; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_address_state input {
+          padding: 21px 24px;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          font-family: "LatoRegular"; }
+      .account-details .container .account-details-block.change-address .block-content form #div_id_avatar {
+        width: calc((100% - 24px)/2); }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_avatar .input-group.mb-2 {
+          display: none; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_avatar label {
+          padding: 21px 24px;
+          border-radius: 42px;
+          border: 1px solid #D9D9D9;
+          font-family: "LatoRegular";
+          width: 100%;
+          cursor: pointer;
+          position: relative; }
+          .account-details .container .account-details-block.change-address .block-content form #div_id_avatar label::before {
+            content: "Avatar";
+            position: absolute;
+            background-color: white;
+            padding: 3px 5px;
+            color: #0f0f10;
+            font-family: "LatoMedium";
+            font-size: 16px;
+            line-height: normal;
+            text-transform: capitalize;
+            top: -13px;
+            left: 20px;
+            z-index: 3; }
+        .account-details .container .account-details-block.change-address .block-content form #div_id_avatar #id_avatar {
+          display: none; }
+      .account-details .container .account-details-block.change-address .block-content form .btn.btn-submit {
+        padding: 0;
+        background-color: white;
+        border: none;
+        font-family: "LatoSemiBold";
+        color: var(--text-color-third);
+        font-size: 18px;
+        line-height: normal;
+        text-transform: uppercase; }
   .account-details .container .logout-wrapper {
     margin-top: 28px; }
     .account-details .container .logout-wrapper .btn-logout {
