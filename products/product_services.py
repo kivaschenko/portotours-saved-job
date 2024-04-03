@@ -1,21 +1,22 @@
 import logging
 from datetime import datetime, timedelta
-from typing import Optional, Any, Union
+from typing import Any, Union
 
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import QuerySet
+from django.utils import timezone
 from schedule.models import Event, EventRelation, Calendar, Rule
 
-from products.models import ParentExperience, ExperienceEvent, Product
+from destinations.models import Destination
+from products.models import ParentExperience, ExperienceEvent, Experience, Language
 
 logger = logging.getLogger(__name__)
 
 
 # Handling ParentExperience and Event creating
 
-def create_event_for_parent_experience(start_datetime: Union[str, datetime], end_datetime: Union[str, datetime],
-                                       title: str, parent_experience_id: int,
-                                       description: str = '', creator_id: int = 1,
-                                       rule_name: str = None, end_recurring_period: datetime = None,
+def create_event_for_parent_experience(start_datetime: Union[str, datetime], end_datetime: Union[str, datetime], title: str, parent_experience_id: int,
+                                       description: str = '', creator_id: int = 1, rule_name: str = None, end_recurring_period: datetime = None,
                                        calendar_name: str = None, color_event: str = '#BF4040') -> tuple[Event, Any]:
     """Use primitive arguments to create an event, as it can be handled by a Celery task."""
     if type(start_datetime) is str:
@@ -40,17 +41,11 @@ def create_event_for_parent_experience(start_datetime: Union[str, datetime], end
     if end_recurring_period is None:
         # set by default 1 month duration
         end_recurring_period = end + timedelta(days=31)
-    event, _ = Event.objects.get_or_create(start=start, end=end, title=title, description=description,
-                                           creator_id=creator_id,
-                                           rule=rule, end_recurring_period=end_recurring_period,
-                                           calendar=calendar, color_event=color_event)
+    event, _ = Event.objects.get_or_create(start=start, end=end, title=title, description=description, creator_id=creator_id, rule=rule,
+                                           end_recurring_period=end_recurring_period, calendar=calendar, color_event=color_event)
     # bind new Event to ParentExperience
-    relation, _ = EventRelation.objects.get_or_create(
-        event,
-        content_type=ContentType.objects.get_for_model('products.ParentExperience'),
-        object_id=parent_experience_id,
-        distinction='owner'
-    )
+    relation, _ = EventRelation.objects.get_or_create(event, content_type=ContentType.objects.get_for_model('products.ParentExperience'),
+                                                      object_id=parent_experience_id, distinction='owner')
     return event, relation
 
 
@@ -80,18 +75,11 @@ def get_actual_events_for_experience(parent_experience_id: int) -> dict:
                     adult_price = float(event.experienceevent.special_price)
                 if event.experienceevent.child_special_price is not None:
                     child_price = float(event.experienceevent.child_special_price)
-                actual_events_list.append({
-                    'date': event.experienceevent.start_date,
-                    'time': event.experienceevent.start_time,
-                    'adult_price': adult_price,
-                    'child_price': child_price,
-                    'max_participants': event.experienceevent.max_participants,
-                    'booked_participants': event.experienceevent.booked_participants,
-                    'remaining_participants': event.experienceevent.remaining_participants,
-                    'experience_event_id': event.experienceevent.id,
-                    'is_private': parent_experience.is_private,
-                    'total_price': total_price,
-                })
+                actual_events_list.append(
+                    {'date': event.experienceevent.start_date, 'time': event.experienceevent.start_time, 'adult_price': adult_price, 'child_price': child_price,
+                     'max_participants': event.experienceevent.max_participants, 'booked_participants': event.experienceevent.booked_participants,
+                     'remaining_participants': event.experienceevent.remaining_participants, 'experience_event_id': event.experienceevent.id,
+                     'is_private': parent_experience.is_private, 'total_price': total_price, })
             result['events'] = actual_events_list
     except EventRelation.DoesNotExist:
         logger.error(f'No events found for ParentExperience id={parent_experience_id}')
@@ -118,3 +106,29 @@ def update_experience_event_booking(exp_event_id: int, booked_number: int) -> bo
             exp_event.remaining_participants = exp_event.max_participants - exp_event.booked_participants
             exp_event.save()
     return True
+
+
+def search_experience_by_place_start_lang(place: str, start_date: str, current_language: str) -> QuerySet:
+    destination = Destination.active.filter(slug=place).first()
+    if not destination:
+        return Experience.objects.none()
+
+    # Fetch the Language instance based on the provided language code
+    language_instance = Language.objects.filter(code=current_language).first()
+    if not language_instance:
+        return Experience.objects.none()
+
+    experiences = Experience.active.filter(destinations=destination, language=language_instance)
+    if not experiences.exists():
+        return Experience.objects.none()
+
+    # Convert the start date to datetime object
+    start = timezone.datetime.strptime(start_date, "%Y-%m-%d") - timezone.timedelta(days=2)
+    end = start + timezone.timedelta(days=30)
+    filtered_experiences = Experience.objects.filter(destinations=destination, language=language_instance, ).distinct()
+    for experience in filtered_experiences:
+        events = EventRelation.objects.get_events_for_object(experience.parent_experience, distinction='experience event').filter(start__range=(start, end),
+                                                                                                                                  experienceevent__remaining_participants__gte=1)
+        if not events.exists():
+            filtered_experiences.remove(experience)
+    return filtered_experiences
