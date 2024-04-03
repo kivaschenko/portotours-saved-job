@@ -360,10 +360,10 @@ else:
     # Default email address to use for various automated messages from Django
     DEFAULT_FROM_EMAIL = 'your_email@example.com'
 
-    # Additional settings for error reporting emails (optional)
-    ADMINS = [('Admin Name', 'admin@example.com')]
-    MANAGERS = ADMINS
-    SERVER_EMAIL = DEFAULT_FROM_EMAIL
+# Additional settings for error reporting emails (optional)
+ADMIN_EMAIL = [('Admin Name', 'admin@example.com')]
+MANAGER_EMAIL = ADMIN_EMAIL + [('Manager Name', 'manager@example.com')]
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # This params used also in email template for reset password
 

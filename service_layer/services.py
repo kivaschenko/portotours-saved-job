@@ -128,11 +128,20 @@ def send_new_password_by_email(email: str, password: str, name: str = '',
 
 # Product services
 
-def create_new_product():
-    pass
+def send_product_created_email(product_id: int = None, product_name: str = None, product_start_date: str = None, product_start_time: str = None,
+                               total_price: float = None, adult: int = None, children: int = None, product_type: str = None):
+    subject = f'[{product_id}] New Product Created'
+    message = (f'\tA new product "{product_name}" (ID: {product_id}) has been created.\n'
+               f'Start: {product_start_date} {product_start_time}. Type: {product_type}.\n'
+               f'Total: {total_price} EUR. Adult: {adult}. Children: {children}.')
+    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL])
 
-def update_event_for_product(event_id: str):
-    pass
 
-def create_occurence_for_product(event_id: int):
-    pass
+def send_product_changed_email(product_id: int = None, product_name: str = None, product_start_date: str = None, product_start_time: str = None,
+                               total_price: float = None, adult: int = None, children: int = None, product_type: str = None, status: str = None):
+    subject = f'[{product_id}] Product Changed'
+    message = (f'\tThe product "{product_name}" (ID: {product_id}) has been changed.\n'
+               f'Start: {product_start_date} {product_start_time}. Type: {product_type}.\n'
+               f'Total: {total_price} EUR. Adult: {adult}. Children: {children}.\n'
+               f'Status: {status}.')
+    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL])
