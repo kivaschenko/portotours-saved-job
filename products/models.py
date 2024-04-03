@@ -362,8 +362,10 @@ class ProductActiveManager(models.Manager):
 
 class ProductPendingManager(models.Manager):
     def get_queryset(self):
+        booking_minutes = settings.BOOKING_MINUTES
+        time_limit = datetime.utcnow() - timedelta(minutes=booking_minutes)
         queryset = super(ProductPendingManager, self).get_queryset()
-        return queryset.filter(status='Pending')
+        return queryset.filter(status='Pending', created_at__gt=time_limit)
 
 
 class Product(models.Model):
