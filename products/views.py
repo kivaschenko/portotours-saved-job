@@ -1,10 +1,11 @@
 from django.db.models import Sum
 from django.shortcuts import redirect, render
-from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse, HttpResponseNotAllowed
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, DeleteView
 from django.db import transaction
 
+from service_layer import events, services, bus_messages
 from products.models import *  # noqa
 from products.product_services import get_actual_events_for_experience, update_experience_event_booking
 
@@ -157,68 +158,52 @@ def get_actual_experience_events(request, parent_experience_id):
 
 @transaction.atomic
 def create_group_product(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-        except json.JSONDecodeError as e:
-            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
-
-        # Extract data from JSON
-        adults = data.get('adults')
-        children = data.get('children')
-        language_code = data.get('language_code')
-        customer_id = data.get('customer_id')
-        session_key = data.get('session_key')
-        event_id = data.get('event_id')
-        parent_experience_id = data.get('parent_experience_id')
-
-        # Get ExperienceEvent obj
-        exp_event = ExperienceEvent.objects.get(id=event_id)
-
-        # Get language
-        language = Language.objects.get(code=language_code)
-
-        # Create a new product using the received data
-        new_product = Product(
-            customer_id=customer_id,
-            session_key=session_key,
-            parent_experience_id=parent_experience_id,
-            language=language,
-            start_datetime=exp_event.start,
-            end_datetime=exp_event.end,
-            adults_price=exp_event.special_price,
-            adults_count=adults,
-            child_price=exp_event.child_special_price,
-            child_count=children,
-        )
-        new_product.save()
-
-        # Update ExperienceEvent data
-        total_booked = adults + children
-        update_result = update_experience_event_booking(exp_event.id, booked_number=total_booked)
-        if not update_result:
-            return HttpResponseBadRequest('Not allowed booking number.')
-
-        # Create Occurrence for Product
-        occurrence = Occurrence(
-            event=exp_event,
-            title=exp_event.title,
-            description=f"This occurrence has been created for the product: {new_product.id}.",
-            start=exp_event.start,
-            end=exp_event.end,
-            original_start=exp_event.start,
-            original_end=exp_event.end
-        )
-        occurrence.save()
-
-        new_product.occurrence = occurrence
-        new_product.save()
-
-        # Return a JSON response indicating success
-        return JsonResponse({'message': 'Product created successfully'}, status=201)
-
-    # If the request method is not POST, return an error response
-    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError as e:
+        return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+    service_events = []
+    adults = data.get('adults')
+    children = data.get('children')
+    language_code = data.get('language_code')
+    customer_id = data.get('customer_id')
+    session_key = data.get('session_key')
+    event_id = data.get('event_id')
+    parent_experience_id = data.get('parent_experience_id')
+    exp_event = ExperienceEvent.objects.get(id=event_id)
+    language = Language.objects.get(code=language_code)
+    new_product = Product(
+        customer_id=customer_id,
+        session_key=session_key,
+        parent_experience_id=parent_experience_id,
+        language=language,
+        start_datetime=exp_event.start,
+        end_datetime=exp_event.end,
+        adults_price=exp_event.special_price,
+        adults_count=adults,
+        child_price=exp_event.child_special_price,
+        child_count=children,
+    )
+    new_product.save()
+    total_booked = adults + children
+    update_result = update_experience_event_booking(exp_event.id, booked_number=total_booked)
+    if not update_result:
+        return HttpResponseBadRequest('Not allowed booking number.')
+    occurrence = Occurrence(
+        event=exp_event,
+        title=exp_event.title,
+        description=f"This occurrence has been created for the product: {new_product.id}.",
+        start=exp_event.start,
+        end=exp_event.end,
+        original_start=exp_event.start,
+        original_end=exp_event.end
+    )
+    occurrence.save()
+    new_product.occurrence = occurrence
+    new_product.save()
+    return JsonResponse({'message': 'Product created successfully'}, status=201)
 
 
 @transaction.atomic
