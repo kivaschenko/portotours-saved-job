@@ -30,26 +30,30 @@ class ExperienceListView(ListView):
         place = self.request.GET.get('place')
         date = self.request.GET.get('date')
         if place and date:
-            queryset = search_experience_by_place_start_lang(place, date, current_language.code)
+            filtered = search_experience_by_place_start_lang(place, date, current_language.code)
+            return filtered
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         place = self.request.GET.get('place')
         date = self.request.GET.get('date')
-        initial_data = {'place': place, 'date': date}
+        if place is None and date is None:
+            initial_data = None
+        else:
+            initial_data = {'place': place, 'date': date}
         form = ExperienceSearchForm(lang=self.kwargs['lang'].upper(), initial_data=initial_data)
         context['experience_form'] = form
         return context
 
-    # def get(self, request, *args, **kwargs):
-    #     # If the request has both 'place' and 'date' parameters, redirect to the filtered URL
-    #     place = self.request.GET.get('place')
-    #     date = self.request.GET.get('date')
-    #     if place and date:
-    #         lang_code = self.kwargs['lang'].lower()
-    #         return redirect('experience-list', lang=lang_code)
-    #     return super().get(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        place = self.request.GET.get('place')
+        date = self.request.GET.get('date')
+        if place == '' and date == '':
+            # Reset action, redirect to the same view without query parameters
+            lang_code = self.kwargs['lang'].lower()
+            return HttpResponseRedirect(reverse('experience-list', kwargs={'lang': lang_code}))
+        return super().get(request, *args, **kwargs)
 
 
 class ExperienceDetailView(DetailView):

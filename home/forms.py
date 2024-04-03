@@ -16,17 +16,19 @@ class SubscriberForm(forms.ModelForm):
 
 
 class ExperienceSearchForm(forms.Form):
-    place = forms.ChoiceField(choices=(('', 'Choose place'),))
     date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 
     def __init__(self, lang, *args, initial_data=None, **kwargs):
         super(ExperienceSearchForm, self).__init__(*args, **kwargs)
-        self.fields['date'].widget.attrs['class'] = 'datepicker'  # Add CSS class for custom styling
+        self.fields['place'] = forms.ChoiceField(choices=(('', 'Choose place'),))
 
-        # Customize place field choices to show distinct destinations
         destinations = Destination.objects.filter(language__code=lang.upper()).distinct().values_list('slug', 'name')
         self.fields['place'].choices += [(slug, name) for slug, name in destinations]
 
-        # Customize available dates based on remaining_participants > 0
+        self.fields['date'].widget.attrs['class'] = 'datepicker'  # Add CSS class for custom styling
+
+        # Set initial data if provided
         if initial_data is not None:
             self.initial = initial_data
+
+

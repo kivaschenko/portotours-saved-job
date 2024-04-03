@@ -16,7 +16,7 @@
                 <img src="{% static 'icons/main-logo.svg' %}" alt="Destination logo">
             </h1>
             <div class="experience-list-hero-calendar">
-                <form action="{% url 'experience-list' lang=current_language %}" method="get">
+                <form id="experience-search-form" action="{% url 'experience-list' lang=current_language %}" method="get">
                     <div class="place-wrapper">
                         <label for="place">
                             Where to?
@@ -41,10 +41,16 @@
                             <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                     </div>
-                    <button type="submit" class="form-btn btn-type-1">
-                        <img src="{% static 'icons/search.svg' %}" alt="">
-                        Search
-                    </button>
+                    <div class="button-wrapper">
+                        <button type="submit" class="form-btn btn-type-1">
+                            <img src="{% static 'icons/search.svg' %}" alt="">
+                            Search
+                        </button>
+                        <button id="reset-btn" type="reset" class="form-btn btn-type-2">
+                            Reset
+                        </button>
+                    </div>
+
                 </form>
             </div>
         </div>
@@ -181,4 +187,16 @@
 
     <!-- Custom JS import -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const resetBtn = document.getElementById('reset-btn');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function () {
+                    document.getElementById("experience-search-form").reset();
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    window.location.reload();
+                });
+            }
+        });
+    </script>
 {% endblock %}
