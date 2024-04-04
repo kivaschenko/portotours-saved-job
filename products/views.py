@@ -42,6 +42,8 @@ class ExperienceListView(ListView):
                 queryset = queryset.order_by('-parent_experience__price')
             elif sort_by == 'discount':
                 queryset = queryset.order_by('-parent_experience__increase_percentage_old_price')
+            elif sort_by == 'hot_deals':
+                queryset = queryset.order_by('-parent_experience__is_hot_deals')
         return queryset
 
     def get_context_data(self, **kwargs):

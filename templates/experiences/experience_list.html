@@ -121,6 +121,11 @@
                                         <li>
                                             Skip-The-Line
                                         </li>
+                                        {% if object.parent_experience.is_hot_deals %}
+                                            <li>
+                                                Hot Deal
+                                            </li>
+                                        {% endif %}
                                     </ul>
                                 </div>
                                 <p class="experience-list-item-text">
