@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 {% load crispy_forms_field %}
 {% load static %}
-{% block head %}
-    <title>{{ object.page_title }}</title>
+
+{% block title_suffix %}
+    {{ object.page_title }}
+{% endblock title_suffix %}
+
+{% block meta_tags %}
     <meta name="description" content="{{ object.page_description }}">
     <meta name="keywords" content="{{ object.page_keywords }}">
-{% endblock head %}
+{% endblock meta_tags %}
+
 {% block content %}
     <div class="mobile-form-btn-wrapper">
         <div class="container">

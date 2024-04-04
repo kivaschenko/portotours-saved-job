@@ -64,7 +64,7 @@ class AttractionAdminForm(ModelForm):
 class AttractionAdmin(admin.ModelAdmin):
     form = AttractionAdminForm
     exclude = ['updated_at']
-    list_display = ['id', 'name', 'slug', 'language', 'parent_attraction', 'is_active', 'updated_at']
+    list_display = ['id', 'name', 'slug', 'language', 'page_title', 'parent_attraction', 'is_active', 'updated_at']
     list_filter = ['name', 'slug', 'language', 'parent_attraction', 'is_active', 'updated_at']
     inlines = [FAQAttractionInline]
 
