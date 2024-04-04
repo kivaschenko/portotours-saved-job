@@ -1,13 +1,14 @@
 from django.db.models import Sum
-from django.shortcuts import redirect, render
-from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse, HttpResponseNotAllowed
+from django.shortcuts import redirect, render, get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, DeleteView
 from django.db import transaction
 
-from service_layer import events, services, bus_messages
+from destinations.models import Destination
 from products.models import *  # noqa
-from products.product_services import get_actual_events_for_experience, update_experience_event_booking
+from products.product_services import get_actual_events_for_experience, update_experience_event_booking, search_experience_by_place_start_lang
+from home.forms import ExperienceSearchForm
 
 Customer = settings.AUTH_USER_MODEL
 
@@ -23,11 +24,48 @@ class ExperienceListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = super(ExperienceListView, self).get_queryset()
         current_language = Language.objects.get(code=self.kwargs['lang'].upper())
         self.extra_context['current_language'] = current_language.code.lower()
-        filtered = queryset.filter(language=current_language)
-        return filtered
+        place = self.request.GET.get('place')
+        date = self.request.GET.get('date')
+        queryset = search_experience_by_place_start_lang(place, date, current_language.code)
+        if queryset is not None:
+            tour_type = self.request.GET.get('tour_type', 'all')
+            if tour_type == 'private':
+                queryset = queryset.filter(parent_experience__is_private=True)
+            elif tour_type == 'group':
+                queryset = queryset.filter(parent_experience__is_private=False)
+            sort_by = self.request.GET.get('filter_by', 'all')
+            if sort_by == 'price_low':
+                queryset = queryset.order_by('parent_experience__price')
+            elif sort_by == 'price_high':
+                queryset = queryset.order_by('-parent_experience__price')
+            elif sort_by == 'discount':
+                queryset = queryset.order_by('-parent_experience__increase_percentage_old_price')
+            elif sort_by == 'hot_deals':
+                queryset = queryset.order_by('-parent_experience__is_hot_deals')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        place = self.request.GET.get('place')
+        date = self.request.GET.get('date')
+        if place is None and date is None:
+            initial_data = None
+        else:
+            initial_data = {'place': place, 'date': date}
+        form = ExperienceSearchForm(lang=self.kwargs['lang'].upper(), initial_data=initial_data)
+        context['experience_form'] = form
+        return context
+
+    def get(self, request, *args, **kwargs):
+        place = self.request.GET.get('place')
+        date = self.request.GET.get('date')
+        if place == '' and date == '':
+            # Reset action, redirect to the same view without query parameters
+            lang_code = self.kwargs['lang'].lower()
+            return HttpResponseRedirect(reverse('experience-list', kwargs={'lang': lang_code}))
+        return super().get(request, *args, **kwargs)
 
 
 class ExperienceDetailView(DetailView):
@@ -158,60 +196,68 @@ def get_actual_experience_events(request, parent_experience_id):
 
 @transaction.atomic
 def create_group_product(request):
-    if request.method != 'POST':
-        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
-    try:
-        data = json.loads(request.body)
-    except json.JSONDecodeError as e:
-        return JsonResponse({'error': 'Invalid JSON format'}, status=400)
-    service_events = []
-    adults = data.get('adults')
-    children = data.get('children')
-    language_code = data.get('language_code')
-    customer_id = data.get('customer_id')
-    session_key = data.get('session_key')
-    event_id = data.get('event_id')
-    parent_experience_id = data.get('parent_experience_id')
-    exp_event = ExperienceEvent.objects.get(id=event_id)
-    language = Language.objects.get(code=language_code)
-    new_product = Product(
-        customer_id=customer_id,
-        session_key=session_key,
-        parent_experience_id=parent_experience_id,
-        language=language,
-        start_datetime=exp_event.start,
-        end_datetime=exp_event.end,
-        adults_price=exp_event.special_price,
-        adults_count=adults,
-        child_price=exp_event.child_special_price,
-        child_count=children,
-    )
-    new_product.save()
-    total_booked = adults + children
-    update_result = update_experience_event_booking(exp_event.id, booked_number=total_booked)
-    if not update_result:
-        return HttpResponseBadRequest('Not allowed booking number.')
-    occurrence = Occurrence(
-        event=exp_event,
-        title=exp_event.title,
-        description=f"This occurrence has been created for the product: {new_product.id}.",
-        start=exp_event.start,
-        end=exp_event.end,
-        original_start=exp_event.start,
-        original_end=exp_event.end
-    )
-    occurrence.save()
-    new_product.occurrence = occurrence
-    new_product.save()
-    new_product_type = 'Private' if new_product.parent_experience.is_private else 'Group'
-    new_product_event = events.NewProductCreated(product_id=new_product.id, product_name=new_product.parent_experience.parent_name,
-                                                 product_start_date=new_product.date_of_start, product_start_time=new_product.time_of_start,
-                                                 total_price=new_product.total_price, adults=new_product.adults_count, children=new_product.child_count,
-                                                 product_type=new_product_type)
-    service_events.append(new_product_event)
-    for event in service_events:
-        bus_messages.handle(event)
-    return JsonResponse({'message': 'Product created successfully'}, status=201)
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError as e:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+
+        # Extract data from JSON
+        adults = data.get('adults')
+        children = data.get('children')
+        language_code = data.get('language_code')
+        customer_id = data.get('customer_id')
+        session_key = data.get('session_key')
+        event_id = data.get('event_id')
+        parent_experience_id = data.get('parent_experience_id')
+
+        # Get ExperienceEvent obj
+        exp_event = ExperienceEvent.objects.get(id=event_id)
+
+        # Get language
+        language = Language.objects.get(code=language_code)
+
+        # Create a new product using the received data
+        new_product = Product(
+            customer_id=customer_id,
+            session_key=session_key,
+            parent_experience_id=parent_experience_id,
+            language=language,
+            start_datetime=exp_event.start,
+            end_datetime=exp_event.end,
+            adults_price=exp_event.special_price,
+            adults_count=adults,
+            child_price=exp_event.child_special_price,
+            child_count=children,
+        )
+        new_product.save()
+
+        # Update ExperienceEvent data
+        total_booked = adults + children
+        update_result = update_experience_event_booking(exp_event.id, booked_number=total_booked)
+        if not update_result:
+            return HttpResponseBadRequest('Not allowed booking number.')
+
+        # Create Occurrence for Product
+        occurrence = Occurrence(
+            event=exp_event,
+            title=exp_event.title,
+            description=f"This occurrence has been created for the product: {new_product.id}.",
+            start=exp_event.start,
+            end=exp_event.end,
+            original_start=exp_event.start,
+            original_end=exp_event.end
+        )
+        occurrence.save()
+
+        new_product.occurrence = occurrence
+        new_product.save()
+
+        # Return a JSON response indicating success
+        return JsonResponse({'message': 'Product created successfully'}, status=201)
+
+    # If the request method is not POST, return an error response
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 
 @transaction.atomic

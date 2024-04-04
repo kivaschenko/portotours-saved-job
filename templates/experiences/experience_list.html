@@ -11,36 +11,46 @@
     <section class="experience-list-hero">
         <div class="container">
             <h1 class="experience-list-hero-title">
-                Get the best Portugal experiences 
+                Get the best Portugal experiences
                 <span>with</span>
                 <img src="{% static 'icons/main-logo.svg' %}" alt="Destination logo">
             </h1>
             <div class="experience-list-hero-calendar">
-                <form action="">
+                <form id="experience-search-form" action="{% url 'experience-list' lang=current_language %}" method="get">
                     <div class="place-wrapper">
                         <label for="place">
                             Where to?
                         </label>
-                        <select required name="place" id="place" class="place">
-                            <option disabled selected hidden value="">Choose place</option>
-                            <option value="Porto">
-                                Porto
-                            </option>
-                            <option value="Lisbon">
-                                Lisbon
-                            </option>
-                        </select>
+                        {{ experience_form.place }}
+                        {% if experience_form.place.help_text %}
+                            <small class="form-text text-muted">{{ experience_form.place.help_text }}</small>
+                        {% endif %}
+                        {% for error in experience_form.place.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
                     </div>
                     <div class="date-wrapper">
                         <label for="date">
                             When?
                         </label>
-                        <input type="date" name="date" id="date">
+                        {{ experience_form.date }}
+                        {% if experience_form.date.help_text %}
+                            <small class="form-text text-muted">{{ experience_form.date.help_text }}</small>
+                        {% endif %}
+                        {% for error in experience_form.date.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
                     </div>
-                    <button type="button" class="form-btn btn-type-1">
-                        <img src="{% static 'icons/search.svg' %}" alt="">
-                        Search
-                    </button>
+                    <div class="button-wrapper">
+                        <button type="submit" class="form-btn btn-type-1">
+                            <img src="{% static 'icons/search.svg' %}" alt="">
+                            Search
+                        </button>
+                        <!-- <button id="reset-btn" type="reset" class="form-btn btn-type-2">
+                            Reset
+                        </button> -->
+                    </div>
+
                 </form>
             </div>
         </div>
@@ -54,22 +64,24 @@
                 <div class="filters-wrapper">
                     <div class="filter-wrapper">
                         <p class="experience-filter-title">
-                            Sort by
+                            Type
                         </p>
-                        <select name="experience filter" id="experience_filter">
-                            <option value="Price">Private</option>
-                            <option value="Discount">Group</option>
+                        <select name="experience filter" id="tour_type">
+                            <option value="all">All</option>
+                            <option value="private">Private</option>
+                            <option value="group">Group</option>
                         </select>
                     </div>
                     <div class="filter-wrapper">
                         <p class="experience-filter-title">
                             Sort by
                         </p>
-                        <select name="experience filter" id="experience_filter">
-                            <option value="Price">Price - Low To High</option>
-                            <option value="Discount">Price - High To Low</option>
-                            <option value="Date">Discount</option>
-                            <option value="Hot_deals">Hot deals first</option>
+                        <select name="experience filter" id="filter_by">
+                            <option value="all">All</option>
+                            <option value="price_low">Price - Low To High</option>
+                            <option value="price_high">Price - High To Low</option>
+                            <option value="discount">Discount</option>
+                            <option value="hot_deals">Hot deals first</option>
                         </select>
                     </div>
                 </div>
@@ -83,7 +95,7 @@
                                 {% if object.parent_experience.is_exclusive %}
                                     <span class="img-label">OneDayTours Exclusive</span>
                                 {% else %}
-                                    
+
                                 {% endif %}
                                 <img src="{% if object.parent_experience.card_image %}
                             {{ object.parent_experience.card_image.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
@@ -109,6 +121,11 @@
                                         <li>
                                             Skip-The-Line
                                         </li>
+                                        {% if object.parent_experience.is_hot_deals %}
+                                            <li>
+                                                Hot Deal
+                                            </li>
+                                        {% endif %}
                                     </ul>
                                 </div>
                                 <p class="experience-list-item-text">
@@ -137,44 +154,90 @@
 
             <div class="pagination-block">
                 {% if is_paginated %}
-                        {% if page_obj.has_previous %}
-                            <button class="pagination-btn prev">
-                                <a href="?page={{ page_obj.previous_page_number }}">
-                                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
-                                </a>
-                            </button>
-                        {% else %}
-                            <button class="pagination-btn prev">
-                                    <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
-                            </button>
-                        {% endif %}
-                        <ul class="pagination-list">
+                    {% if page_obj.has_previous %}
+                        <button class="pagination-btn prev">
+                            <a href="?page={{ page_obj.previous_page_number }}">
+                                <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                            </a>
+                        </button>
+                    {% else %}
+                        <button class="pagination-btn prev">
+                            <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+                        </button>
+                    {% endif %}
+                    <ul class="pagination-list">
                         {% for num in page_obj.paginator.page_range %}
-                            
+
                             {% if page_obj.number == num %}
                                 <li class="pagination-list-item active">{{ num }}</li>
                             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                                 <li class="pagination-list-item"><a class="" href="?page={{ num }}">{{ num }}</a></li>
                             {% endif %}
-                            
+
                         {% endfor %}
-                        </ul>
-                        {% if page_obj.has_next %}
-                            <button class="pagination-btn next">
-                                <a href="?page={{ page_obj.next_page_number }}">
-                                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
-                                </a>
-                            </button>
-                            {% else %}
-                            <button class="pagination-btn next">
-                                <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
-                            </button>
-                        {% endif %}
+                    </ul>
+                    {% if page_obj.has_next %}
+                        <button class="pagination-btn next">
+                            <a href="?page={{ page_obj.next_page_number }}">
+                                <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                            </a>
+                        </button>
+                    {% else %}
+                        <button class="pagination-btn next">
+                            <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+                        </button>
                     {% endif %}
+                {% endif %}
             </div>
         </div>
     </section>
 
     <!-- Custom JS import -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Функция для обновления URL страницы с параметрами
+            function updateURL() {
+                var urlParams = new URLSearchParams(window.location.search);
+                var tourType = document.getElementById('tour_type').value;
+                var filterBy = document.getElementById('filter_by').value;
+
+                // Добавляем новые параметры
+                urlParams.set('tour_type', tourType);
+                urlParams.set('filter_by', filterBy);
+
+                // Обновляем URL с параметрами
+                window.history.replaceState(null, null, window.location.pathname + '?' + urlParams.toString());
+
+                // Перезагружаем страницу
+                window.location.reload();
+            }
+
+            // Добавляем обработчики событий для изменений в теге <select>
+            document.getElementById('tour_type').addEventListener('change', updateURL);
+            document.getElementById('filter_by').addEventListener('change', updateURL);
+
+            // Проверяем, есть ли уже параметры в URL, если нет, то добавляем по умолчанию
+            var urlParams = new URLSearchParams(window.location.search);
+            if (!urlParams.has('tour_type') || !urlParams.has('filter_by')) {
+                updateURL(); // Если параметры отсутствуют, добавляем их по умолчанию
+            } else {
+                var tourTypeValue = urlParams.get('tour_type');
+                var filterByValue = urlParams.get('filter_by');
+                document.getElementById('tour_type').value = tourTypeValue;
+                document.getElementById('filter_by').value = filterByValue;
+            }
+
+
+            const resetBtn = document.getElementById('reset-btn');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function () {
+                    document.getElementById("experience-search-form").reset();
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    window.location.reload();
+                });
+            }
+        });
+    </script>
 {% endblock %}
