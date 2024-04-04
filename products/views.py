@@ -1,12 +1,14 @@
 from django.db.models import Sum
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, DeleteView
 from django.db import transaction
 
+from destinations.models import Destination
 from products.models import *  # noqa
-from products.product_services import get_actual_events_for_experience, update_experience_event_booking
+from products.product_services import get_actual_events_for_experience, update_experience_event_booking, search_experience_by_place_start_lang
+from home.forms import ExperienceSearchForm
 
 Customer = settings.AUTH_USER_MODEL
 
@@ -25,8 +27,33 @@ class ExperienceListView(ListView):
         queryset = super(ExperienceListView, self).get_queryset()
         current_language = Language.objects.get(code=self.kwargs['lang'].upper())
         self.extra_context['current_language'] = current_language.code.lower()
-        filtered = queryset.filter(language=current_language)
-        return filtered
+        place = self.request.GET.get('place')
+        date = self.request.GET.get('date')
+        if place and date:
+            filtered = search_experience_by_place_start_lang(place, date, current_language.code)
+            return filtered
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        place = self.request.GET.get('place')
+        date = self.request.GET.get('date')
+        if place is None and date is None:
+            initial_data = None
+        else:
+            initial_data = {'place': place, 'date': date}
+        form = ExperienceSearchForm(lang=self.kwargs['lang'].upper(), initial_data=initial_data)
+        context['experience_form'] = form
+        return context
+
+    def get(self, request, *args, **kwargs):
+        place = self.request.GET.get('place')
+        date = self.request.GET.get('date')
+        if place == '' and date == '':
+            # Reset action, redirect to the same view without query parameters
+            lang_code = self.kwargs['lang'].lower()
+            return HttpResponseRedirect(reverse('experience-list', kwargs={'lang': lang_code}))
+        return super().get(request, *args, **kwargs)
 
 
 class ExperienceDetailView(DetailView):

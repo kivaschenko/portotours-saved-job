@@ -9,7 +9,7 @@ from attractions.models import Attraction
 from products.models import Experience
 from reviews.models import Review
 
-from .forms import SubscriberForm
+from .forms import SubscriberForm, ExperienceSearchForm
 
 
 class HomeView(TemplateView):
@@ -37,7 +37,9 @@ class HomeView(TemplateView):
             show_on_home_page=True, created_at__gte=year_ago
         ).order_by('-created_at')[:6]
         context['subscription_form'] = SubscriberForm()
+        context['experience_form'] = ExperienceSearchForm(lang)
         return context
+
     def post(self, request, *args, **kwargs):
         lang = self.kwargs.get('lang', 'en')
         activate(lang)
