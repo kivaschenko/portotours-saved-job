@@ -24,14 +24,27 @@ class ExperienceListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = super(ExperienceListView, self).get_queryset()
         current_language = Language.objects.get(code=self.kwargs['lang'].upper())
         self.extra_context['current_language'] = current_language.code.lower()
         place = self.request.GET.get('place')
         date = self.request.GET.get('date')
-        if place and date:
-            filtered = search_experience_by_place_start_lang(place, date, current_language.code)
-            return filtered
+        if place is not None and date is not None:
+            queryset = search_experience_by_place_start_lang(place, date, current_language.code)
+        else:
+            queryset = super(ExperienceListView, self).get_queryset()
+        if queryset is not None:
+            tour_type = self.request.GET.get('tour_type', 'all')
+            if tour_type == 'private':
+                queryset = queryset.filter(parent_experience__is_private=True)
+            elif tour_type == 'group':
+                queryset = queryset.filter(parent_experience__is_private=False)
+            sort_by = self.request.GET.get('filter_by', 'all')
+            if sort_by == 'price_low':
+                queryset = queryset.order_by('parent_experience__price')
+            elif sort_by == 'price_high':
+                queryset = queryset.order_by('-parent_experience__price')
+            elif sort_by == 'discount':
+                queryset = queryset.order_by('-parent_experience__increase_percentage_old_price')
         return queryset
 
     def get_context_data(self, **kwargs):

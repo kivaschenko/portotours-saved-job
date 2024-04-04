@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from typing import Any, Union
 
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import QuerySet
 from django.utils import timezone
 from schedule.models import Event, EventRelation, Calendar, Rule
 
@@ -107,24 +108,53 @@ def update_experience_event_booking(exp_event_id: int, booked_number: int) -> bo
     return True
 
 
-def search_experience_by_place_start_lang(place: str, start_date: str, current_language: str) -> list:
+# def search_experience_by_place_start_lang(place: str, start_date: str, current_language: str) -> list:
+#     destination = Destination.active.filter(slug=place).first()
+#     if not destination:
+#         return Experience.objects.none()
+#
+#     experiences = Experience.active.filter(destinations=destination, language__code=current_language)
+#     if not experiences.exists():
+#         return Experience.objects.none()
+#
+#     start = timezone.datetime.strptime(start_date, "%Y-%m-%d") - timezone.timedelta(days=2)
+#     end = start + timezone.timedelta(days=30)
+#
+#     filtered_experiences = []
+#     for experience in experiences:
+#         events = EventRelation.objects.get_events_for_object(
+#             experience.parent_experience, distinction='experience event').filter(
+#             start__range=(start, end), experienceevent__remaining_participants__gte=1)
+#         if events.exists():
+#             filtered_experiences.append(experience)
+#
+#     return filtered_experiences
+
+
+def search_experience_by_place_start_lang(place: str, start_date: str, current_language: str) -> QuerySet:
     destination = Destination.active.filter(slug=place).first()
     if not destination:
         return Experience.objects.none()
 
-    experiences = Experience.active.filter(destinations=destination, language__code=current_language)
+    # Fetch the Language instance based on the provided language code
+    language_instance = Language.objects.filter(code=current_language).first()
+    if not language_instance:
+        return Experience.objects.none()
+
+    experiences = Experience.active.filter(destinations=destination, language=language_instance)
     if not experiences.exists():
         return Experience.objects.none()
 
+    # Convert the start date to datetime object
     start = timezone.datetime.strptime(start_date, "%Y-%m-%d") - timezone.timedelta(days=2)
     end = start + timezone.timedelta(days=30)
-
-    filtered_experiences = []
-    for experience in experiences:
-        events = EventRelation.objects.get_events_for_object(
-            experience.parent_experience, distinction='experience event').filter(
-            start__range=(start, end), experienceevent__remaining_participants__gte=1)
-        if events.exists():
-            filtered_experiences.append(experience)
-
-    return filtered_experiences
+    filtered_experiences = Experience.objects.filter(destinations=destination, language=language_instance, ).distinct()
+    for experience in filtered_experiences:
+        events = EventRelation.objects.get_events_for_object(experience.parent_experience, distinction='experience event').filter(start__range=(start, end),
+                                                                                                                                  experienceevent__remaining_participants__gte=1)
+        if not events.exists():
+            filtered_experiences.remove(experience)
+    if filtered_experiences:
+        return filtered_experiences
+    else:
+        return Experience.objects.none()
