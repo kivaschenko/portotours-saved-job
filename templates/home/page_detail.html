@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_suffix %}
+    {{ object.page_title }}
+{% endblock title_suffix %}
+
+{% block meta_tags %}
+    <meta name="description" content="{{ object.page_description }}">
+    <meta name="keywords" content="{{ object.page_keywords }}">
+{% endblock meta_tags %}
+
+{% block content %}
+    <div class="container">
+        <h2>{{ object.title }}</h2>
+        {{ object.display_content }}
+    </div>
+
+
+    <!-- Local JS -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+{% endblock %}

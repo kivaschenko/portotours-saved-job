@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
-{% block head %}
-    <title>{{ object.page_title }}</title>
+
+{% block title_suffix %}
+    {{ object.page_title }}
+{% endblock title_suffix %}
+
+{% block meta_tags %}
     <meta name="description" content="{{ object.page_description }}">
     <meta name="keywords" content="{{ object.page_keywords }}">
-{% endblock head %}
-{% block content %}
+{% endblock meta_tags %}
 
+{% block content %}
+    
     <section class="attraction-hero">
         <div class="container">
             <h2 class="attraction-hero-title">

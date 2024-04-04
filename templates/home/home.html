@@ -176,7 +176,7 @@
                 <img src="{% static 'images/tour-type-img1.png' %}" alt="">
                 <div class="tour-type-title-btn-wrapper">
                     <h4 class="tour-type-title">Group Tours</h4>
-                    <a href="" class="btn-type-3">
+                    <a href="#" class="btn-type-3" onclick="addTypeIsGroupAndNavigate(event, '{{ current_language }}')">
                         Book
                         <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="">
                     </a>
@@ -186,7 +186,7 @@
                 <img src="{% static 'images/tour-type-img2.png' %}" alt="">
                 <div class="tour-type-title-btn-wrapper">
                     <h4 class="tour-type-title">Private Tours</h4>
-                    <a href="" class="btn-type-3">
+                    <a href="#" class="btn-type-3" onclick="addTypeIsPrivateAndNavigate(event, '{{ current_language }}')">
                         Book
                         <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="">
                     </a>
@@ -419,5 +419,18 @@
                 clickable: true,
             },
         });
+    </script>
+    <script>
+        function addTypeIsGroupAndNavigate(event, lang) {
+            event.preventDefault(); // Prevent default link behavior
+            const url = `/experiences/${lang}/?tour_type=group&filter_by=all`;
+            window.location.href = url; // Navigate to the URL with added parameters
+        }
+        
+        function addTypeIsPrivateAndNavigate(event, lang) {
+            event.preventDefault();
+            const url = `/experiences/${lang}/?tour_type=private&filter_by=all`;
+            window.location.href = url;
+        }
     </script>
 {% endblock %}

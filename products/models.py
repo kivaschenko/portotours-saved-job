@@ -166,6 +166,7 @@ class ParentExperience(models.Model):
     is_private = models.BooleanField(default=False, help_text="If this experience is private then to sale whole number "
                                                               "of participants as one purchase will be")
     is_exclusive = models.BooleanField(default=False, help_text="If this experience is exclusive then competition will propose.")
+    is_hot_deals = models.BooleanField(default=False, help_text="If this experience is hot deals will show first queue.")
     allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
     free_cancellation = models.BooleanField(default=False, help_text="Free Cancellation is allowed.", null=True)
     happy_clients_number = models.IntegerField(default=0)
@@ -247,7 +248,7 @@ class Experience(models.Model):
     # Recommendations block
     recommendations_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
-    experience_recommendations = models.ManyToManyField('Experience')
+    experience_recommendations = models.ManyToManyField('Experience', blank=True)
     recommendations_slogan = models.CharField(max_length=120, help_text="max 120 characters, belong SEE MORE button",
                                               null=True, blank=True)
 
@@ -265,6 +266,10 @@ class Experience(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
+        if not self.page_title:
+            self.page_title = self.name
+        if not self.page_description:
+            self.page_description = self.short_description
         super(Experience, self).save(*args, **kwargs)
 
     def get_absolute_url(self):

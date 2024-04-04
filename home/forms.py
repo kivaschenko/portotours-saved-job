@@ -16,11 +16,11 @@ class SubscriberForm(forms.ModelForm):
 
 
 class ExperienceSearchForm(forms.Form):
-    date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=False)
 
     def __init__(self, lang, *args, initial_data=None, **kwargs):
         super(ExperienceSearchForm, self).__init__(*args, **kwargs)
-        self.fields['place'] = forms.ChoiceField(choices=(('', 'Choose place'),))
+        self.fields['place'] = forms.ChoiceField(choices=(('', 'Choose place'),), required=False)
 
         destinations = Destination.objects.filter(language__code=lang.upper()).distinct().values_list('slug', 'name')
         self.fields['place'].choices += [(slug, name) for slug, name in destinations]

@@ -28,10 +28,7 @@ class ExperienceListView(ListView):
         self.extra_context['current_language'] = current_language.code.lower()
         place = self.request.GET.get('place')
         date = self.request.GET.get('date')
-        if place is not None and date is not None:
-            queryset = search_experience_by_place_start_lang(place, date, current_language.code)
-        else:
-            queryset = super(ExperienceListView, self).get_queryset()
+        queryset = search_experience_by_place_start_lang(place, date, current_language.code)
         if queryset is not None:
             tour_type = self.request.GET.get('tour_type', 'all')
             if tour_type == 'private':
@@ -45,6 +42,8 @@ class ExperienceListView(ListView):
                 queryset = queryset.order_by('-parent_experience__price')
             elif sort_by == 'discount':
                 queryset = queryset.order_by('-parent_experience__increase_percentage_old_price')
+            elif sort_by == 'hot_deals':
+                queryset = queryset.order_by('-parent_experience__is_hot_deals')
         return queryset
 
     def get_context_data(self, **kwargs):
