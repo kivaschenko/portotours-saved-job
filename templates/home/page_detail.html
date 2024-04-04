@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <title>{{ object.page_title }}</title>
+    <meta name="description" content="{{ object.page_description }}">
+    <meta name="keywords" content="{{ object.page_keywords }}">
+{% endblock head %}
+
+{% block content %}
+    <div class="container">
+        <h2>{{ object.title }}</h2>
+        {{ object.display_content }}
+    </div>
+
+
+    <!-- Local JS -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+{% endblock %}

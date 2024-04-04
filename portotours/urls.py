@@ -27,13 +27,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url=reverse_lazy('home', kwargs={'lang': 'en'})), name='redirect_home'),
     path('<str:lang>/', home_views.HomeView.as_view(), name='home'),
+    path('pages/en/<slug:slug>/', home_views.PageDetailView.as_view(), name='page_detail'),
 ]
 
 # ACCOUNTS & PROFILES
 urlpatterns += [
     path('accounts/signup/', accounts_views.RegistrationView.as_view(), name='signup'),
-    path("/en/login/", accounts_views.CustomLoginView.as_view(), name='login'),
-    path("/en/logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path("en/login/", accounts_views.CustomLoginView.as_view(), name='login'),
+    path("en/logout/", auth_views.LogoutView.as_view(), name="logout"),
     # path("accounts/", include("django.contrib.auth.urls")),
     # Password reset
     path('password_reset/', accounts_views.CustomPasswordResetView.as_view(), name='password_reset'),

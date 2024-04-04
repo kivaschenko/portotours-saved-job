@@ -1,6 +1,6 @@
 from datetime import timedelta, datetime
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from django.utils.translation import activate
 from django.shortcuts import redirect
 
@@ -9,11 +9,13 @@ from attractions.models import Attraction
 from products.models import Experience
 from reviews.models import Review
 
+from .models import Page
+
 from .forms import SubscriberForm, ExperienceSearchForm
 
 
 class HomeView(TemplateView):
-    template_name = 'home.html'
+    template_name = 'home/home.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,3 +55,10 @@ class HomeView(TemplateView):
             # If form is not valid, re-render the page with the form and any existing data
             context['subscription_form'] = form
             return self.render_to_response(context)
+
+
+# -----
+# Pages
+
+class PageDetailView(DetailView):
+    model = Page
