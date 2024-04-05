@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block head %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation from Stripe Checkout</title>
-{% endblock head %}
+{% block title_suffix %}
+    Confirmation from Stripe Checkout
+{% endblock title_suffix %}
+
 {% block content %}
     <div class="cart">
         <div class="container">
@@ -58,7 +57,7 @@
                 </div>
                 <div class="content-wrapper">
                     <h4 class="content-title">
-                        Experience name long-long-long  long-long-long  long-long-long    
+                        Experience name long-long-long long-long-long long-long-long
                     </h4>
                     <ul class="content-list">
                         <li>MM/DD/YYYY</li>
@@ -69,7 +68,7 @@
                         <li>3 Children</li>
                     </ul>
                     <ul class="content-list">
-                        <li>Private type </li>
+                        <li>Private type</li>
                         <li>English Language</li>
                     </ul>
                 </div>
@@ -90,7 +89,7 @@
 
 
     <div class="container">
-        
+
         <section id="success" class="hidden">
             <h3>Confirmation</h3>
             <p>Your booking is confirmed. Please check the details below.</p>
@@ -143,6 +142,7 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <a href="{% url 'generate-pdf' product_id=object.id %}" class="btn btn-success">Download PDF</a>
                                 </div>
                             </div>
                         </div>
@@ -155,13 +155,7 @@
 
                 If you have any questions, please email <a href="mailto:orders@example.com">orders@example.com</a>.
             </p>
-        <div>
-            {% if purchase %}
-            <a href="{% url 'generate-pdf' purchase.id %}" class="btn btn-success">Download PDF</a>
-            {% else %}
-            <p>No PDF created...</p>
-            {% endif %}
-        </div>
+            <div>
         </section>
     </div>
 

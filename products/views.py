@@ -1,11 +1,13 @@
 from django.db.models import Sum
 from django.shortcuts import redirect, render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse, HttpResponse
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, DeleteView
 from django.db import transaction
 
-from destinations.models import Destination
+from weasyprint import HTML
+
 from products.models import *  # noqa
 from products.product_services import get_actual_events_for_experience, update_experience_event_booking, search_experience_by_place_start_lang
 from home.forms import ExperienceSearchForm
@@ -537,3 +539,18 @@ def custom_permission_denied_view(request, exception=None):
 
 def custom_bad_request_view(request, exception=None):
     return render(request, "errors/400.html", {})
+
+
+# PDF Generator
+
+def generate_pdf(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    experience = product.parent_experience.child_experiences.filter(language_id=product.language_id).first()
+    context = {'product': product, 'experience': experience}
+    html_template = render_to_string('products/product_pdf.html', context)
+    pdf_file = HTML(string=html_template).write_pdf()
+
+    filename = f'Booked_{product_id}.pdf'
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    return response

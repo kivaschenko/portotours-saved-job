@@ -1,0 +1,72 @@
+<!-- your_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated PDF</title>
+    <style>
+        /* CSS styles can be included here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #F0500B;
+        }
+
+        /* Add more styles as needed */
+    </style>
+</head>
+<body>
+<h1>Your header, logo, phone etc.</h1>
+<div class="row">
+    <h2>Experience name: {{ experience.name }} Price: {{ product.total_price }} EUR</h2>
+    <h3>Booked by: {{ product.customer.profile.name }}</h3>
+    <p>Date: {{ product.date_of_start }} Time: {{ product.time_of_start }} Adult: {{ product.adults_count }} Children: {{ product.child_count }}</p>
+    <div class="col">
+        <p>
+            Starting location:
+            {% if product.parent_experience.meeting_point.get_map_url %}
+                <a href="{{ product.parent_experience.meeting_point.get_map_url }}"
+                   target="_blank">{{ product.parent_experience.meeting_point.address }}</a>
+            {% else %}
+                {{ product.parent_experience.meeting_point.address }}
+            {% endif %}
+        </p>
+        <p>
+            Drop off location:
+            {% if product.parent_experience.drop_point.get_map_url %}
+                <a href="{{ product.parent_experience.drop_point.get_map_url }}"
+                   target="_blank">{{ product.parent_experience.drop_point.address }}</a>
+            {% else %}
+                {{ product.parent_experience.drop_point.address }}
+            {% endif %}
+        </p>
+    </div>
+    <div class="col"></div>
+</div>
+<h4>Additional info</h4>
+<ul>
+    <li>Type of experience: <p>{% if experience.parent_experience.is_private %}Private{% else %}Group{% endif %}</p></li>
+    <li>Duration: {{ experience.display_duration }}</li>
+    <li>Languages: {{ experience.language.name }}</li>
+    <li>Possibility: {{ experience.display_possibility }}</li>
+    <li>Accessibility: {{ experience.display_accessibility }}</li>
+</ul>
+<div class="row">
+    <div class="col">
+        <h5>{{ experience.includes_title }}</h5>
+        {{ experience.display_includes_text }}
+    </div>
+    <div class="col">
+        <h5>{{ experience.traveler_tips_title }}</h5>
+        {{ experience.display_traveler_text }}
+    </div>
+    <div class="col">
+        <h5>{{ experience.what_to_bring_title }}</h5>
+        {{ experience.display_what_to_bring_text }}</div>
+</div>
+<h1>Tour footer with all requisites here...</h1>
+</body>
+</html>

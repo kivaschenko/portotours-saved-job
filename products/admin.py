@@ -151,7 +151,7 @@ class ExperienceAdminForm(ModelForm):
 class ExperienceAdmin(admin.ModelAdmin):
     form = ExperienceAdminForm
     exclude = ["updated_at"]
-    list_display = ['id', 'name', 'slug', 'language', 'is_active', 'updated_at']
+    list_display = ['id', 'name', 'slug', 'language', 'page_title', 'is_active', 'updated_at']
     list_filter = ['name', 'slug', 'language', 'is_active', 'updated_at']
     inlines = [ExperienceScheduleInline]
 

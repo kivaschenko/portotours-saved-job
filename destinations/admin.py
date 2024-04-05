@@ -30,7 +30,7 @@ class DestinationAdminForm(ModelForm):
 class DestinationAdmin(admin.ModelAdmin):
     form = DestinationAdminForm
     exclude = ['updated_at']
-    list_display = ['name', 'id', 'slug', 'language', 'parent_destination', 'is_active', 'updated_at']
+    list_display = ['name', 'id', 'slug', 'language', 'page_title', 'parent_destination', 'is_active', 'updated_at']
     list_filter = ['name', 'language', 'slug', 'parent_destination', 'page_title', 'is_active']
     inlines = [FAQDestinationInline]
 

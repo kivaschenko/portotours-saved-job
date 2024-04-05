@@ -86,11 +86,12 @@ class Blog(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        if not self.page_title:
+            self.page_title = self.title
+        if not self.page_description:
+            self.page_description = self.short_description
         # self.read_time = self.calculate_read_time(self.content)
         super(Blog, self).save(*args, **kwargs)
-
-    def display_content(self):
-        return mark_safe(self.content)
 
     @property
     def localized_url(self):

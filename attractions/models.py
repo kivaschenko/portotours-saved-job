@@ -98,7 +98,7 @@ class Attraction(models.Model):
     # Recommendations block
     recommendations_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
-    recommendations_experiences = models.ManyToManyField('products.Experience')
+    recommendations_experiences = models.ManyToManyField('products.Experience', blank=True)
     recommendations_slogan = models.CharField(max_length=120, help_text="max 120 characters, belong SEE MORE button",
                                               null=True, blank=True)
     # FAQ block
@@ -150,6 +150,10 @@ class Attraction(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
+        if not self.page_title:
+            self.page_title = self.name
+        if not self.page_description:
+            self.page_description = self.short_introduction_text
         super(Attraction, self).save(*args, **kwargs)
 
 

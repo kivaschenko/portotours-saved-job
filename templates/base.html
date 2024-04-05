@@ -7,7 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block head %}
-        <title>Test Project title - </title>
+        <title>One Day Tours - {% block title_suffix %}{% endblock %}</title>
+        {% block meta_tags %}{% endblock %}
     {% endblock head %}
     <!-- Bootstrap 5 Custom CSS -->
     <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css"/>
@@ -27,9 +28,9 @@
         <!-- End Navbar -->
     {% endblock %}
 </header>
-        <!-- Messages -->
-        {% include 'include/messages.html' %}
-        <!-- End Messages-->
+<!-- Messages -->
+{% include 'include/messages.html' %}
+<!-- End Messages-->
 <main>
 
     {% block content %}
@@ -49,7 +50,7 @@
                     <img src="{% static 'icons/phone-icon-white.svg' %}" alt="">
                     +351 968 380 559
                 </div>
-                
+
                 <div class="email-wrapper">
                     <img src="{% static 'icons/email-icon-white.svg' %}" alt="">
                     info@onedaytours.pt
