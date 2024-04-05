@@ -1,18 +1,17 @@
 import json
 import logging
-from decimal import Decimal
 from datetime import datetime, timedelta
+from decimal import Decimal
 
+from ckeditor.fields import RichTextField
+from django.conf import settings
+from django.contrib.gis.db import models as gis_models
 from django.contrib.gis.geos import fromstr
 from django.db import models
-from django.contrib.gis.db import models as gis_models
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
-from django.conf import settings
-
 from geopy.geocoders import Nominatim
-from ckeditor.fields import RichTextField
 from schedule.models import Calendar, Event, Occurrence
 
 geolocator = Nominatim(timeout=5, user_agent="portotours")
@@ -98,6 +97,7 @@ class MeetingPoint(models.Model):
             return f"https://www.google.com/maps/search/?api=1&query={self.latitude},{self.longitude}"
         return None
 
+
 # --------
 # Language
 class LanguageActiveManager(models.Manager):
@@ -161,7 +161,9 @@ class ParentExperience(models.Model):
                                           help_text="For marketing purposes, this child old price will be higher than the new one.")
     meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
                                       on_delete=models.SET_NULL, null=True, blank=True,
-                                      verbose_name='Start location')
+                                      verbose_name='Starting location', related_name='meeting_point')
+    drop_point = models.ForeignKey(MeetingPoint, help_text="drop point for this experience", on_delete=models.SET_NULL, null=True, blank=True,
+                                   verbose_name='Drop off location', related_name='drop_points')
     max_participants = models.IntegerField(null=True, blank=True, default=8, help_text="Maximum number of participants")
     is_private = models.BooleanField(default=False, help_text="If this experience is private then to sale whole number "
                                                               "of participants as one purchase will be")
@@ -241,9 +243,11 @@ class Experience(models.Model):
     schedule_title = models.CharField(max_length=120, help_text='Title for the schedule block in current language, max 120 characters', null=True, blank=True)
     includes_title = models.CharField(max_length=120, help_text="Title for Includes block in current language, max 120 characters", null=True, blank=True)
     includes_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
-    traveler_tips_title = models.CharField(max_length=120, help_text="Title for Traveler tips block in current language, max 120 characters", null=True, blank=True)
+    traveler_tips_title = models.CharField(max_length=120, help_text="Title for Traveler tips block in current language, max 120 characters", null=True,
+                                           blank=True)
     traveler_tips_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
-    what_to_bring_title = models.CharField(max_length=120, help_text="Title for What to bring block in current language, max 120 characters", null=True, blank=True)
+    what_to_bring_title = models.CharField(max_length=120, help_text="Title for What to bring block in current language, max 120 characters", null=True,
+                                           blank=True)
     what_to_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
     # Recommendations block
     recommendations_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
@@ -354,6 +358,7 @@ class ExperienceSchedule(models.Model):
 
     def __repr__(self):
         return f'<ExperienceSchedule(id={self.id} time={self.time} name_stop={self.name_stop}...)>'
+
 
 # -------
 # Product
