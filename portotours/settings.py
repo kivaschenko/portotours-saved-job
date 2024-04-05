@@ -53,6 +53,10 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'bootstrap_datepicker_plus',
+    'celery',
+    'django_celery_beat',
+    'django_celery_results',
+    'djcelery_email',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -385,3 +389,18 @@ if DEBUG:
 
 # Navbar top lists cache
 NAVBAR_CONTEXT_CACHE_TIMEOUT = 3600
+
+# Celery Configuration Options
+CELERY_IMPORTS = (
+    "service_layer.tasks",
+)
+CELERY_TIMEZONE = "UTC"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_CACHE_BACKEND = 'default'
+CELERY_RESULT_EXTENDED = True
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
+
