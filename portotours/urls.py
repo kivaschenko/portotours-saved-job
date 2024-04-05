@@ -83,7 +83,7 @@ urlpatterns += [
     path('payment-form/<str:lang>/', purchases_views.BillingDetailView.as_view(), name='payment-form'),
     path('confirmation/<str:lang>/', purchases_views.ConfirmationView.as_view(), name='confirmation'),
     path('en/edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
-    path('en/geneate-pdf/<int:product_id>/', products_views.generate_pdf, name='generate-pdf'),
+    path('en/generate-pdf/<int:product_id>/', products_views.generate_pdf, name='generate-pdf'),
     # API for JS
     path('create-product/', products_views.create_group_product, name='create-product'),
     path('update-product/', products_views.update_group_product, name='update-product'),
