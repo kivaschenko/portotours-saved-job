@@ -76,7 +76,7 @@ urlpatterns += [
 
 # PRODUCTS & PURCHASES
 urlpatterns += [
-    path('create-checkout-session/', purchases_views.checkout_view, name='checkout-session'),
+    path('create-checkout-session/en/', purchases_views.checkout_view, name='checkout-session'),
     path('stripe-webhook/', purchases_views.stripe_webhook, name='stripe-webhook'),
     path('my-cart/<str:lang>/', products_views.ProductCartView.as_view(), name='my-cart'),
     path('products/<int:pk>/cancel/', products_views.CancelProductView.as_view(), name='cancel-product'),
@@ -87,7 +87,8 @@ urlpatterns += [
     path('update-product/', products_views.update_group_product, name='update-product'),
     path('create-private-product/', products_views.create_private_product, name='create-private-product'),
     path('update-private-product/', products_views.update_private_product, name='update-private-product'),
-    path('edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
+    path('en/edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
+    path('en/create-pdf/<int:product_id>/', products_views.generate_pdf, name='create-pdf'),
 ]
 
 # BLOGS

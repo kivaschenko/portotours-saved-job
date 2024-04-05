@@ -1,0 +1,30 @@
+<!-- your_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated PDF</title>
+    <style>
+        /* CSS styles can be included here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: blue;
+        }
+        /* Add more styles as needed */
+    </style>
+</head>
+<body>
+<div>Your header, logo, phone etc.</div>
+<div class="row">
+    <h1>Experience name: {{ experience.name }}  Price: {{ product.total_price }} EUR</h1>
+    <h2>Booked by: {{ product.customer.profile.name }}</h2>
+    <p>Date: {{ product.date_of_start }} Time: {{ product.time_of_start }} Adult: {{ product.adults_count }} Children: {{ product.child_count }}</p>
+    
+</div>
+    
+
+</body>
+</html>
