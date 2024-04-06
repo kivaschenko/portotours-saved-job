@@ -159,7 +159,8 @@ def update_products_status_if_expired():
         for product in queryset:
             if product.created_at + timedelta(minutes=31) > now:
                 product.status = 'Expired'
-                logger.info(f'Product {product} has been updated. Its status is: {product.status}.')
+                product.save()
+                logger.info(f'Product ID={product.id} {product} has been updated. Its status is: {product.status}.')
     logger.info(f'Finish updating status of expired products.')
 
 

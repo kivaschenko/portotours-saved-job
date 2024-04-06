@@ -397,7 +397,7 @@ NAVBAR_CONTEXT_CACHE_TIMEOUT = 3600
 
 # Celery Configuration Options
 CELERY_IMPORTS = (
-    "service_layer.tasks",
+    "products.tasks",
 )
 CELERY_TIMEZONE = "UTC"
 CELERY_TASK_TRACK_STARTED = True
@@ -409,3 +409,9 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
 
+CELERY_BEAT_SCHEDULE = {
+    'check-expired-products': {
+        'task': 'products.tasks.check_expired_products',
+        'schedule': 60,  # Run every minute
+    },
+}
