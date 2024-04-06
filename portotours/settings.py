@@ -169,7 +169,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #         "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
 #     },
 # }
-
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": os.environ.get('CACHES_LOCATION'),
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+        "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
+    },
+}
 # Logging
 LOGGING_FILE = os.environ.get('LOGGING_FILE', 'portotours.log')
 
@@ -239,9 +246,7 @@ AUTH_USER_MODEL = 'accounts.User'
 LOGOUT_REDIRECT_URL = '/en/'
 LOGIN_REDIRECT_URL = '/en/'
 
-
 # Bootstrap Sass
-
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',

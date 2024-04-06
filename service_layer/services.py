@@ -1,13 +1,17 @@
 import logging
+from datetime import timedelta
+
 import stripe
 import time
 
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.utils import timezone
 
-from accounts.models import User, CustomUserManager, Profile
+from accounts.models import User, Profile
 from purchases.models import Purchase
+from products.models import Product
 
 logger = logging.getLogger(__name__)
 
@@ -145,3 +149,17 @@ def send_product_changed_email(product_id: int = None, product_name: str = None,
                f'Total: {total_price} EUR. Adult: {adult}. Children: {children}.\n'
                f'Status: {status}.')
     send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL])
+
+
+def update_products_status_if_expired():
+    logger.info(f'Start updating status of expired products.')
+    queryset = Product.objects.filter(status='Pending').all()
+    if queryset.count() > 0:
+        now = timezone.now()
+        for product in queryset:
+            if product.created_at + timedelta(minutes=31) > now:
+                product.status = 'Expired'
+                logger.info(f'Product {product} has been updated. Its status is: {product.status}.')
+    logger.info(f'Finish updating status of expired products.')
+
+

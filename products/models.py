@@ -9,6 +9,7 @@ from django.contrib.gis.db import models as gis_models
 from django.contrib.gis.geos import fromstr
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from geopy.geocoders import Nominatim
@@ -438,10 +439,12 @@ class Product(models.Model):
             self.stripe_product_id = (f"{self.parent_experience.parent_name.upper()} start: {self.start_datetime} language: {self.language} "
                                       f"type: group | participants: {self.adults_count} adults & {self.child_count} children.")
         self.stripe_price = int(self.total_price * 100)
-        if not self.expired_time:
-            self.expired_time = datetime.utcnow() + timedelta(minutes=settings.BOOKING_MINUTES)  # by default 30 minutes
         if self.occurrence and self.occurrence.pk is None:
             self.occurrence.save()
+        if not self.created_at:
+            self.created_at = timezone.now()
+        if not self.expired_time:
+            self.expired_time = timezone.now() + timezone.timedelta(minutes=30)
         super(Product, self).save()
 
     def _count_old_total_price(self):
