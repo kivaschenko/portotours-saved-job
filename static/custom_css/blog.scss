@@ -15,7 +15,9 @@
      padding-top: 81px;
      padding-bottom: 81px;
      margin-top: 0;
-
+     @include media-breakpoint-down(md) {
+      border-radius: 0;
+     }
     }
   }
   .blog-hero-title {

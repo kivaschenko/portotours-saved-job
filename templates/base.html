@@ -99,13 +99,20 @@
         </div>
 
         <div class="footer-bottom-block">
-            <p>© One Day Tours LDA 2024. Made in Portugal.</p>
+            <p>© One Day Tours LDA <span class="currentYear"></span>. Made in Portugal.</p>
 
         </div>
     </div>
 </footer>
 <!-- Bootstrap 5 JS -->
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script>
+    const currentYear = new Date().getFullYear();
+    const spanElements = document.querySelectorAll('.currentYear');
+    spanElements.forEach(span => {
+      span.textContent = currentYear;
+    });
+</script>
 
 </body>
 </html>
