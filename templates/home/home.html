@@ -101,7 +101,7 @@
         <div class="container">
             <div class="title-btn-wrapper">
                 <h2 class="best-tours-title">
-                    Best Experiences of Portugal in <span>year</span>
+                    Best Experiences of Portugal in <span class="currentYear"></span>
                 </h2>
                 <a href="{% url 'experience-list' lang=current_language %}" class="btn-type-1">
                     show more
@@ -234,15 +234,16 @@
                     {% else %}
                         No top attractions found
                     {% endif %}
-                    <div class="swiper-pagination"></div>
+                    
                 </div>
+                <div class="swiper-pagination"></div>
             </div>
     </section>
     <section class="homepage-top-destinations">
         <div class="container">
             <div class="title-wrapper">
                 <h2 class="top-destinations-title">
-                    Top Portugal Destinations in <span>year</span>
+                    Top Portugal Destinations in <span class="currentYear"></span>
                 </h2>
                 <!-- Only 6 items are coming from backend here -->
                 <a href="{% url 'destination-list' lang=current_language %}" class="btn-type-1">
@@ -294,7 +295,6 @@
             </div>
         </div>
     </section>
-
     <section class="testimonials-slider-section">
         <div class="container">
             <h2 class="testimonials-title">
@@ -332,7 +332,6 @@
             {% endif %}
         </div>
     </section>
-
     <section class="offers-banner">
         <div class="container">
             <h2 class="offers-banner-title">
@@ -348,6 +347,20 @@
             </form>
         </div>
     </section>
+    <div class="subscribe-popup">
+        <a href="#" class="close-popup-btn">
+            <img src="{% static 'icons/icon-close.svg' %}" alt="close button">
+        </a>
+        <h2 class="popup-title">
+            Thank you for subscribing!
+        </h2>
+        <p class="popup-text">
+            We'll keep you updated on the latest news and discounts from our company.
+        </p>
+        <a href="#" class="btn-popup btn-type-1">
+            Continue
+        </a>
+    </div>
 
     <!-- Local JS -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
@@ -386,8 +399,6 @@
         });
     </script>
     <script>
-
-
         const swiperTestimonials = new Swiper(".testimonials-slider", {
             speed: 1000,
             spaceBetween: 24,

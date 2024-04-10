@@ -57,3 +57,74 @@ a {
 .nav-link {
     color: #0F0F10;
 }
+
+.subscribe-popup {
+    position: fixed;
+    width: 866px;
+    height: 550px;
+    background-color: white;
+    padding: 160px 84px;
+    border-radius: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    display: none;
+    &.opened {
+        display: block;
+    }
+    @include media-breakpoint-down(md) {
+        width: calc(100% - 32px);
+        padding: 120px 20px;
+        height: auto;
+    }
+    .close-popup-btn {
+        position: absolute;
+        right: 40px;
+        top: 40px;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        img {
+            width: 100%;
+        }
+        @include media-breakpoint-down(md) {
+            right: 24px;
+            top: 24px;
+        }
+    }
+    .popup-title {
+        text-align: center;
+        margin-bottom: 24px;
+        text-transform: capitalize;
+        font-size: 44px;
+        line-height: 56px;
+        font-family: 'LatoSemiBold';
+        @include media-breakpoint-down(md) {
+            font-size: 26px;
+            line-height: 36px;
+            margin-bottom: 16px;
+        }
+    }
+    .popup-text {
+        text-align: center;
+        margin-bottom: 60px;
+        font-size: 20px;
+        line-height: 30px;
+        font-family: 'LatoRegular';
+        @include media-breakpoint-down(md) {
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 45px;
+        }
+    }
+    .btn-popup {
+        width: 260px;
+        margin: 0 auto;
+        display: block;
+        text-align: center;
+        @include media-breakpoint-down(md) {
+
+        }
+    }
+}

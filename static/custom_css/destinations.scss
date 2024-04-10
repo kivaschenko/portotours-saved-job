@@ -723,6 +723,7 @@
                 line-height: 36px; 
                 display: block;
                 text-align: center;
+                padding: 0;
             }
              span {
                 margin-left: 24px;
@@ -741,7 +742,7 @@
              }
              img {
                 align-self: flex-end;
-                
+                max-width: 165px;
                 margin-top: 10px;
              }
         }

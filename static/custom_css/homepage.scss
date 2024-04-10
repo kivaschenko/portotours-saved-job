@@ -346,8 +346,8 @@
         margin-bottom: 0;
         text-transform: capitalize;
         @include media-breakpoint-down(md) {
-
-        }
+          text-align: center;
+        } 
       }
       .btn-type-1 {
         width: 275px;
@@ -485,7 +485,7 @@
             color: #0f0f10;
             margin-bottom: 0;
             @include media-breakpoint-down(md) {
-              margin-bottom: 0;
+              margin-bottom: 40px;
             }
             span {
               font-family: "LatoRegular";
@@ -510,8 +510,8 @@
             left: 24px;
             @include media-breakpoint-down(md) {
               position: absolute;
-              bottom: 16px;
-              right: 16px;
+              bottom: 14px;
+              left: 14px;
             }
             &:hover {
               text-decoration: none;
@@ -677,6 +677,7 @@
       @include media-breakpoint-down(md) {
         width: calc(100% + 32px);
         margin-left: -16px;
+        padding-bottom: 30px;
       }
       .swiper-pagination-bullet {
         background-color: var(--text-color-third);
@@ -715,6 +716,7 @@
           @include media-breakpoint-down(md) {
             order: 1;
             margin-bottom: 14px;
+            max-height: 250px;
           }
           > img {
             width: 100%;
@@ -722,6 +724,9 @@
             overflow: hidden;
             height: 550px;
             object-fit: cover;
+            @include media-breakpoint-down(md) {
+              height: 100%;
+            }
           }
           ul {
             position: absolute;
@@ -833,6 +838,19 @@
       .swiper-wrapper {
         z-index: 20;
       }
+      .swiper-horizontal > .swiper-pagination-bullets,
+      .swiper-pagination-bullets.swiper-pagination-horizontal,
+      .swiper-pagination-custom,
+      .swiper-pagination-fraction {
+        bottom: -5px;
+      }
+      .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+      .swiper-pagination-horizontal.swiper-pagination-bullets
+        .swiper-pagination-bullet {
+        background: var(--text-color-third);
+        width: 14px;
+        height: 14px;
+      }
     }
   }
 }
@@ -857,6 +875,10 @@
       .top-destinations-title {
         margin-bottom: 0;
         color: #0f0f10;
+        @include media-breakpoint-down(md) {
+          text-align: center;
+          padding: 0 20px;
+        }
       }
       .btn-type-1 {
         padding: 18px 80px;
@@ -962,6 +984,13 @@
 }
 
 .testimonials-slider-section {
+  &.experience-testimonials {
+    .container {
+      @include media-breakpoint-down(md) {
+        padding-top: 60px;
+      }
+    }
+  }
   .container {
     padding-top: 70px;
     padding-bottom: 70px;
@@ -1169,6 +1198,9 @@
       }
       #div_id_email.mb-3 {
         margin-bottom: 0 !important;
+        @include media-breakpoint-down(md) {
+          width: 100%;
+        }
       }
       .emailinput {
         border-radius: 47px;

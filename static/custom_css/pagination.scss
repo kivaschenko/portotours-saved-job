@@ -4,6 +4,9 @@
     right: 0;
     display: flex;
     align-items: center;
+    @include media-breakpoint-down(md) {
+        right: 16px;
+    }
     .pagination-btn {
         width: 24px;
         height: 24px;
