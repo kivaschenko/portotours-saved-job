@@ -21,9 +21,31 @@ handler500 = 'products.views.custom_error_view'
 handler403 = 'products.views.custom_permission_denied_view'
 handler400 = 'products.views.custom_bad_request_view'
 
+# Booking, payment endpoints
+urlpatterns = [
+    # API for JS
+    path('create-product/', products_views.create_group_product, name='create-product'),
+    path('update-product/', products_views.update_group_product, name='update-product'),
+    path('create-private-product/', products_views.create_private_product, name='create-private-product'),
+    path('update-private-product/', products_views.update_private_product, name='update-private-product'),
+]
+
+# PRODUCTS & PURCHASES
+urlpatterns += [
+    path('create-checkout-session/', purchases_views.checkout_view, name='checkout-session'),
+    path('my-cart/<str:lang>/', products_views.ProductCartView.as_view(), name='my-cart'),
+    path('en/products/<int:pk>/cancel/', products_views.CancelProductView.as_view(), name='cancel-product'),
+    path('payment-form/<str:lang>/', purchases_views.BillingDetailView.as_view(), name='payment-form'),
+    path('confirmation/<str:lang>/', purchases_views.ConfirmationView.as_view(), name='confirmation'),
+    path('en/edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
+    path('en/generate-pdf/<int:product_id>/', products_views.generate_pdf, name='generate-pdf'),
+    # Stripe web-hook
+    path('stripe-webhook/', purchases_views.stripe_webhook, name='stripe-webhook'),
+]
+
 
 # HOME & ADMIN
-urlpatterns = [
+urlpatterns += [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url=reverse_lazy('home', kwargs={'lang': 'en'})), name='redirect_home'),
     path('<str:lang>/', home_views.HomeView.as_view(), name='home'),
@@ -73,24 +95,6 @@ urlpatterns += [
     path('actual-experience-events/<int:parent_experience_id>/', products_views.get_actual_experience_events, name='actual-experience-events'),
     path('experience-event-data/<int:event_id>/', products_views.get_event_booking_data, name='experience-event-data'),
     path('private-experience-event-data/<int:event_id>/', products_views.get_private_event_booking_data, name='private-experience-event-data'),
-]
-
-# PRODUCTS & PURCHASES
-urlpatterns += [
-    path('en/create-checkout-session/', purchases_views.checkout_view, name='checkout-session'),
-    path('my-cart/<str:lang>/', products_views.ProductCartView.as_view(), name='my-cart'),
-    path('en/products/<int:pk>/cancel/', products_views.CancelProductView.as_view(), name='cancel-product'),
-    path('payment-form/<str:lang>/', purchases_views.BillingDetailView.as_view(), name='payment-form'),
-    path('confirmation/<str:lang>/', purchases_views.ConfirmationView.as_view(), name='confirmation'),
-    path('en/edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
-    path('en/generate-pdf/<int:product_id>/', products_views.generate_pdf, name='generate-pdf'),
-    # API for JS
-    path('create-product/', products_views.create_group_product, name='create-product'),
-    path('update-product/', products_views.update_group_product, name='update-product'),
-    path('create-private-product/', products_views.create_private_product, name='create-private-product'),
-    path('update-private-product/', products_views.update_private_product, name='update-private-product'),
-    # Stripe web-hook
-    path('stripe-webhook/', purchases_views.stripe_webhook, name='stripe-webhook'),
 ]
 
 # BLOGS
