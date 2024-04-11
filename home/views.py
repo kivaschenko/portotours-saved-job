@@ -3,6 +3,7 @@ from datetime import timedelta, datetime
 from django.views.generic import TemplateView, DetailView
 from django.utils.translation import activate
 from django.shortcuts import redirect
+from django.contrib import messages
 
 from destinations.models import Destination
 from attractions.models import Attraction
@@ -50,6 +51,7 @@ class HomeView(TemplateView):
         if form.is_valid():
             form.save()
             # Redirect after successful form submission
+            messages.success(request, 'Your subscription has been successfully completed.')
             return redirect('home', lang=lang)
         else:
             # If form is not valid, re-render the page with the form and any existing data
