@@ -5,6 +5,7 @@
                 position: absolute;
                 top: 0;
                 left: 0;
+                height: 100%;
                 width: 100%;
                 img {
                     height: 100%;
@@ -787,7 +788,7 @@
                     width: 400px;
                     border-radius: 26px 0 0 26px;
                     overflow: hidden;
-                    height: 300px;
+                    
                     @include media-breakpoint-down(md) {
                         width: 100%;
                         border-radius: 26px;
@@ -795,6 +796,8 @@
                     }
                     img {
                         width: 100%;
+                        display: block;
+                        height: 100%;
                     }
                 }
                 .destination-list-content-wrapper {
