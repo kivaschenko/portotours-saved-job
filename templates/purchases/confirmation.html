@@ -52,34 +52,45 @@
                 </p>
             </div>
             <section id="success" class="hidden confirmation-info">
-                <div class="img-wrapper">
-                    <img src="{% static 'images/best-tours-img1.png' %}" alt="confirm img">
-                </div>
-                <div class="content-wrapper">
-                    <h4 class="content-title">
-                        Experience name long-long-long long-long-long long-long-long
-                    </h4>
-                    <ul class="content-list">
-                        <li>MM/DD/YYYY</li>
-                        <li>11:10 AM</li>
-                    </ul>
-                    <ul class="content-list">
-                        <li>2 Adult</li>
-                        <li>3 Children</li>
-                    </ul>
-                    <ul class="content-list">
-                        <li>Private type</li>
-                        <li>English Language</li>
-                    </ul>
-                </div>
+                {% if purchase %}
+                    {% if object_list %}
+                        {% for object in object_list %}
+                            <div class="experience-card">
+                                <div class="img-wrapper">
+                                    <img src="{{ object.parent_experience.card_image.url }}" alt="card image preview for {{ object.parent_experience }}">
+                                </div>
+                                <div class="content-wrapper">
+                                    <h4 class="content-title">
+                                        {{ object.parent_experience.parent_name }}
+                                    </h4>
+                                    <ul class="content-list">
+                                        <li>{{ object.date_of_start }}</li>
+                                        <li>{{ object.time_of_start }}</li>
+                                    </ul>
+                                    <ul class="content-list">
+                                        <li>{{ object.adults_count }} Adult</li>
+                                        {% if object.child_count %}
+                                        <li>{{ object.child_count }} Children</li>
+                                        {% endif %}
+                                    </ul>
+                                    <ul class="content-list">
+                                        <li>{% if object.parent_experience.is_private %}Private{% else %}Group{% endif %} type</li>
+                                        <li>{{ object.language }} Language</li>
+                                    </ul>
+                                    <a href="{% url 'generate-pdf' product_id=object.id %}" class="download-pdf btn-type-1">
+                                        download pdf
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
             </section>
             <div class="confirmation-btns-wrapper">
-                <a href="" class="continue-shopping-btn">
+                <a href="{% url 'experience-list' lang='en' %}" class="continue-shopping-btn">
                     Continue shopping
                 </a>
-                <a href="" class="download-pdf btn-type-1">
-                    download pdf
-                </a>
+                
             </div>
         </div>
     </div>
@@ -88,7 +99,7 @@
 
 
 
-    <div class="container">
+    <!-- <div class="container">
 
         <section id="success" class="hidden">
             <h3>Confirmation</h3>
@@ -157,7 +168,7 @@
             </p>
             <div>
         </section>
-    </div>
+    </div> -->
 
     <!-- Custom JS import -->
     <script>
