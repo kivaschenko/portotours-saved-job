@@ -72,8 +72,8 @@ class Attraction(models.Model):
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
     # SEO part
-    slug = models.SlugField(max_length=60, unique=True, db_index=True, editable=True, blank=True,
-                            help_text="max 60 characters, exactly url tail that is unique")
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, editable=True, blank=True,
+                            help_text="max 255 characters, exactly url tail that is unique")
     page_title = models.CharField(max_length=120, help_text="seo title for header in search list, max 120 characters",
                                   null=True, blank=True)
     page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters",

@@ -201,9 +201,7 @@ const controller = {
             if (response.ok) {
                 // Handle successful response
                 console.log('Booking submitted successfully.');
-                 // Extract the language slug from the current URL
-            const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
-            
+                const languageSlug = model.bookingData.language_code.toLowerCase();
             // Redirect to the cart page after successful submission
             window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
             } else {

@@ -54,7 +54,7 @@ def checkout_view(request):
         product_ids = [int(pk) for pk in product_ids]
         products = Product.active.filter(id__in=product_ids)
 
-        confirmation_path = reverse_lazy("confirmation", kwargs={'lang': 'en'}).lstrip('/')
+        confirmation_path = reverse_lazy("confirmation", kwargs={'lang': 'en'})
         confirmation_url = f"{BASE_ENDPOINT}{confirmation_path}" + "?session_id={CHECKOUT_SESSION_ID}"
 
         session_data = dict(

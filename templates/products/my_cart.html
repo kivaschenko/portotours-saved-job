@@ -222,7 +222,7 @@
                         your basket is empty
                     </h2>
                     <img src="{% static 'images/empty-cart-icon.svg' %}" alt="" class="empty-cart-img">
-                    <a href="{% url 'experience-list' 'en' %}" class="btn-type-1 empty-cart-btn">List of experiences</a>
+                    <a href="{% url 'experience-list' lang='en' %}" class="btn-type-1 empty-cart-btn">List of experiences</a>
                 </div>
             </div>
         {% endif %}

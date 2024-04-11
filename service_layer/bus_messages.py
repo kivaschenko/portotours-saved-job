@@ -31,6 +31,16 @@ def create_new_profile(event: events.StripeCustomerCreated):
     services.create_profile_and_generate_password(**event_dict)
 
 
+# Products
+
+def send_email_about_new_product(event: events.NewProductCreated):
+    event_dict = event.__dict__
+    services.send_product_created_email(**event_dict)
+
+
+def send_email_about_changed_product(event: events.ProductUpdated):
+    event_dict = event.__dict__
+    services.send_product_changed_email(**event_dict)
 
 
 # Main handlers dict
@@ -42,5 +52,7 @@ HANDLERS = {
     ],
     events.StripeCustomerCreated: [
         create_new_profile,
-    ]
+    ],
+    events.NewProductCreated: [send_email_about_new_product,],
+    events.ProductUpdated: [send_email_about_changed_product,],
 }
