@@ -1,18 +1,18 @@
 import json
 import logging
-from decimal import Decimal
 from datetime import datetime, timedelta
+from decimal import Decimal
 
+from ckeditor.fields import RichTextField
+from django.conf import settings
+from django.contrib.gis.db import models as gis_models
 from django.contrib.gis.geos import fromstr
 from django.db import models
-from django.contrib.gis.db import models as gis_models
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
-from django.conf import settings
-
 from geopy.geocoders import Nominatim
-from ckeditor.fields import RichTextField
 from schedule.models import Calendar, Event, Occurrence
 
 geolocator = Nominatim(timeout=5, user_agent="portotours")
@@ -27,7 +27,7 @@ Customer = settings.AUTH_USER_MODEL
 # Geo Point
 class MeetingPoint(models.Model):
     name = models.CharField(max_length=60, unique=True, null=False, blank=False)
-    slug = models.SlugField(max_length=70, unique=True, blank=True, help_text="Slug generated from name")
+    slug = models.SlugField(max_length=255, unique=True, blank=True, help_text="Slug generated from name, max 255 characters")
     country = models.CharField(max_length=150, blank=True, default='Portugal',
                                help_text="Country name max 150 characters")
     region = models.CharField(max_length=150, blank=True, help_text="Region name max 150 characters", null=True)
@@ -98,6 +98,7 @@ class MeetingPoint(models.Model):
             return f"https://www.google.com/maps/search/?api=1&query={self.latitude},{self.longitude}"
         return None
 
+
 # --------
 # Language
 class LanguageActiveManager(models.Manager):
@@ -133,7 +134,7 @@ class ParentExperience(models.Model):
     card image and link between the experiences details page languages.
     """
     parent_name = models.CharField(max_length=160, unique=True, db_index=True)
-    slug = models.SlugField(unique=True, db_index=True, editable=True, max_length=200, blank=True)
+    slug = models.SlugField(unique=True, db_index=True, editable=True, max_length=255, blank=True, help_text='Unique, max 255 characters.')
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
     priority_number = models.IntegerField(null=True, blank=True, default=0,
@@ -161,7 +162,9 @@ class ParentExperience(models.Model):
                                           help_text="For marketing purposes, this child old price will be higher than the new one.")
     meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
                                       on_delete=models.SET_NULL, null=True, blank=True,
-                                      verbose_name='Start location')
+                                      verbose_name='Starting location', related_name='meeting_point')
+    drop_point = models.ForeignKey(MeetingPoint, help_text="drop point for this experience", on_delete=models.SET_NULL, null=True, blank=True,
+                                   verbose_name='Drop off location', related_name='drop_points')
     max_participants = models.IntegerField(null=True, blank=True, default=8, help_text="Maximum number of participants")
     is_private = models.BooleanField(default=False, help_text="If this experience is private then to sale whole number "
                                                               "of participants as one purchase will be")
@@ -213,8 +216,8 @@ class Experience(models.Model):
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
     # SEO part
-    slug = models.SlugField(max_length=60, unique=True, db_index=True, editable=True, blank=True,
-                            help_text="max 60 characters, exactly url tail that is unique")
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, editable=True, blank=True,
+                            help_text="max 255 characters, exactly url tail that is unique")
     page_title = models.CharField(max_length=120, help_text="seo title for header in search list, max 120 characters",
                                   null=True, blank=True)
     page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters",
@@ -241,9 +244,11 @@ class Experience(models.Model):
     schedule_title = models.CharField(max_length=120, help_text='Title for the schedule block in current language, max 120 characters', null=True, blank=True)
     includes_title = models.CharField(max_length=120, help_text="Title for Includes block in current language, max 120 characters", null=True, blank=True)
     includes_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
-    traveler_tips_title = models.CharField(max_length=120, help_text="Title for Traveler tips block in current language, max 120 characters", null=True, blank=True)
+    traveler_tips_title = models.CharField(max_length=120, help_text="Title for Traveler tips block in current language, max 120 characters", null=True,
+                                           blank=True)
     traveler_tips_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
-    what_to_bring_title = models.CharField(max_length=120, help_text="Title for What to bring block in current language, max 120 characters", null=True, blank=True)
+    what_to_bring_title = models.CharField(max_length=120, help_text="Title for What to bring block in current language, max 120 characters", null=True,
+                                           blank=True)
     what_to_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
     # Recommendations block
     recommendations_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
@@ -342,6 +347,13 @@ class ExperienceEvent(Event):
     def start_time(self):
         return self.start.strftime("%H:%M")
 
+    def update_booking_data(self, booked_number, *args, **kwargs):
+        self.booked_participants += booked_number
+        self.remaining_participants = self.max_participants - self.booked_participants
+        if self.remaining_participants < 0:
+            self.remaining_participants = 0
+        self.save(*args, **kwargs)
+
 
 class ExperienceSchedule(models.Model):
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name="schedule")
@@ -355,6 +367,7 @@ class ExperienceSchedule(models.Model):
     def __repr__(self):
         return f'<ExperienceSchedule(id={self.id} time={self.time} name_stop={self.name_stop}...)>'
 
+
 # -------
 # Product
 
@@ -367,8 +380,10 @@ class ProductActiveManager(models.Manager):
 
 class ProductPendingManager(models.Manager):
     def get_queryset(self):
+        booking_minutes = settings.BOOKING_MINUTES
+        time_limit = datetime.utcnow() - timedelta(minutes=booking_minutes)
         queryset = super(ProductPendingManager, self).get_queryset()
-        return queryset.filter(status='Pending')
+        return queryset.filter(status='Pending', created_at__gt=time_limit)
 
 
 class Product(models.Model):
@@ -431,10 +446,12 @@ class Product(models.Model):
             self.stripe_product_id = (f"{self.parent_experience.parent_name.upper()} start: {self.start_datetime} language: {self.language} "
                                       f"type: group | participants: {self.adults_count} adults & {self.child_count} children.")
         self.stripe_price = int(self.total_price * 100)
-        if not self.expired_time:
-            self.expired_time = datetime.utcnow() + timedelta(minutes=settings.BOOKING_MINUTES)  # by default 30 minutes
         if self.occurrence and self.occurrence.pk is None:
             self.occurrence.save()
+        if not self.created_at:
+            self.created_at = timezone.now()
+        if not self.expired_time:
+            self.expired_time = timezone.now() + timezone.timedelta(minutes=30)
         super(Product, self).save()
 
     def _count_old_total_price(self):

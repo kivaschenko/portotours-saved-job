@@ -53,6 +53,10 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'bootstrap_datepicker_plus',
+    'celery',
+    'django_celery_beat',
+    'django_celery_results',
+    'djcelery_email',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -165,7 +169,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #         "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
 #     },
 # }
-
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": os.environ.get('CACHES_LOCATION'),
+#         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+#         "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
+#     },
+# }
 # Logging
 LOGGING_FILE = os.environ.get('LOGGING_FILE', 'portotours.log')
 
@@ -235,9 +246,7 @@ AUTH_USER_MODEL = 'accounts.User'
 LOGOUT_REDIRECT_URL = '/en/'
 LOGIN_REDIRECT_URL = '/en/'
 
-
 # Bootstrap Sass
-
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -262,7 +271,7 @@ if DEBUG is True:
     # Check if the platform is macOS
     if current_platform == 'Darwin':
         print("The current operating system is macOS.")
-        GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', '/opt/homebrew/Cellar/gdal/3.8.4_3/lib/libgdal.dylib')
+        GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', '/opt/homebrew/Cellar/gdal/3.8.5/lib/libgdal.dylib')
         GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', '/opt/homebrew/Cellar/geos/3.12.1/lib/libgeos_c.dylib')
     else:
         print("The current operating system is not macOS.")
@@ -360,10 +369,10 @@ else:
     # Default email address to use for various automated messages from Django
     DEFAULT_FROM_EMAIL = 'your_email@example.com'
 
-    # Additional settings for error reporting emails (optional)
-    ADMINS = [('Admin Name', 'admin@example.com')]
-    MANAGERS = ADMINS
-    SERVER_EMAIL = DEFAULT_FROM_EMAIL
+# Additional settings for error reporting emails (optional)
+ADMIN_EMAIL = [('Admin Name', 'admin@example.com')]
+MANAGER_EMAIL = ADMIN_EMAIL + [('Manager Name', 'manager@example.com')]
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # This params used also in email template for reset password
 
@@ -385,3 +394,24 @@ if DEBUG:
 
 # Navbar top lists cache
 NAVBAR_CONTEXT_CACHE_TIMEOUT = 3600
+
+# Celery Configuration Options
+CELERY_IMPORTS = (
+    "products.tasks",
+)
+CELERY_TIMEZONE = "UTC"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_CACHE_BACKEND = 'default'
+CELERY_RESULT_EXTENDED = True
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
+
+CELERY_BEAT_SCHEDULE = {
+    'check-expired-products': {
+        'task': 'products.tasks.check_expired_products',
+        'schedule': 60,  # Run every minute
+    },
+}

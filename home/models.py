@@ -17,8 +17,8 @@ class Subscriber(models.Model):
 
 class Page(models.Model):
     title = models.CharField(max_length=60, unique=True, help_text="Title of the page")
-    slug = models.SlugField(unique=True, help_text="Slug of the page, if blank, will be generated automatically from the title",
-                            max_length=60, null=True, blank=True)
+    slug = models.SlugField(unique=True, help_text="Slug of the page, if blank, will be generated automatically from the title, max 255 characters",
+                            max_length=255, null=True, blank=True)
     content = RichTextField(max_length=20000, help_text="markdown content of the page, max 20 000 characters", blank=True, null=True)
     page_title = models.CharField(max_length=60, help_text="seo title for header in search list, max 120 characters",
                                   null=True, blank=True)

@@ -1,11 +1,13 @@
 from django.db.models import Sum
 from django.shortcuts import redirect, render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse, HttpResponse
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, DeleteView
 from django.db import transaction
 
-from destinations.models import Destination
+from weasyprint import HTML
+
 from products.models import *  # noqa
 from products.product_services import get_actual_events_for_experience, update_experience_event_booking, search_experience_by_place_start_lang
 from home.forms import ExperienceSearchForm
@@ -155,7 +157,7 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = self.get_queryset()  # Ensure queryset is evaluated every time
-        print('queryset:', queryset)
+        print('Cart queryset:', queryset)
 
         context['product_ids'] = [product.pk for product in queryset]
         context['total_price_sum'] = queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum'] or 0
@@ -194,8 +196,9 @@ def get_actual_experience_events(request, parent_experience_id):
         return HttpResponseBadRequest('Invalid JSON data')
 
 
-@transaction.atomic
+# @transaction.atomic
 def create_group_product(request):
+    print(request.POST)
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -537,3 +540,83 @@ def custom_permission_denied_view(request, exception=None):
 
 def custom_bad_request_view(request, exception=None):
     return render(request, "errors/400.html", {})
+
+
+# PDF Generator
+
+def generate_pdf(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    experience = product.parent_experience.child_experiences.filter(language_id=product.language_id).first()
+    context = {'product': product, 'experience': experience}
+    html_template = render_to_string('products/product_pdf.html', context)
+    pdf_file = HTML(string=html_template).write_pdf()
+
+    filename = f'Booked_{product_id}.pdf'
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    return response
+
+
+from django.views.decorators.csrf import csrf_exempt
+
+
+@csrf_exempt
+def create_product(request):
+    print('request.POST', request.POST)
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        # Extract data from JSON
+        adults = data.get('adults')
+        children = data.get('children')
+        language_code = data.get('language_code')
+        customer_id = data.get('customer_id')
+        session_key = data.get('session_key')
+        event_id = data.get('event_id')
+        parent_experience_id = data.get('parent_experience_id')
+
+        # Get ExperienceEvent obj
+        exp_event = ExperienceEvent.objects.get(id=event_id)
+
+        # Get language
+        language = Language.objects.get(code=language_code)
+
+        # Create a new product using the received data
+        new_product = Product(
+            customer_id=customer_id,
+            session_key=session_key,
+            parent_experience_id=parent_experience_id,
+            language=language,
+            start_datetime=exp_event.start,
+            end_datetime=exp_event.end,
+            adults_price=exp_event.special_price,
+            adults_count=adults,
+            child_price=exp_event.child_special_price,
+            child_count=children,
+        )
+        new_product.save()
+
+        # Update ExperienceEvent data
+        total_booked = adults + children
+        exp_event.update_booking_data(booked_number=total_booked)
+
+        # Create Occurrence for Product
+        occurrence = Occurrence(
+            event=exp_event,
+            title=exp_event.title,
+            description=f"This occurrence has been created for the product: {new_product.id}.",
+            start=exp_event.start,
+            end=exp_event.end,
+            original_start=exp_event.start,
+            original_end=exp_event.end
+        )
+        occurrence.save()
+
+        new_product.occurrence = occurrence
+        new_product.save()
+
+        # Return a JSON response indicating success
+        return JsonResponse({'message': 'Product created successfully'}, status=201)
+
+    # If the request method is not POST, return an error response
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)

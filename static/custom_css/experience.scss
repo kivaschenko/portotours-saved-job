@@ -36,8 +36,7 @@
         background-position: center;
         font-size: 26px;
         line-height: 36px;
-        padding-top: 67px;
-        padding-bottom: 67px;
+        padding: 67px 16px;
         display: block;
         font-family: "LatoSemiBold";
         margin-bottom: 0px;
@@ -204,18 +203,24 @@
             }
           }
         }
-        .form-btn {
-          width: 240px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+        .button-wrapper {
           @include media-breakpoint-down(md) {
             width: 100%;
           }
-          img {
-            margin-right: 14px;
+          .form-btn {
+            width: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @include media-breakpoint-down(md) {
+              width: 100%;
+            }
+            img {
+              margin-right: 14px;
+            }
           }
         }
+        
       }
     }
   }
@@ -253,13 +258,33 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        @include media-breakpoint-down(md) {
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+          width: 100%;
+        }
       }
       .filter-wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        @include media-breakpoint-down(md) {
+          width: 100%;
+          &:first-child {
+            .experience-filter-title {
+              margin-right: 43px;
+            }
+          }
+        }
+        
         + .filter-wrapper {
           margin-left: 40px;
+          @include media-breakpoint-down(md) {
+            margin-left: 0;
+            margin-top: 18px;
+            
+          }
         }
         .experience-filter-title {
           margin-right: 24px;
@@ -318,6 +343,7 @@
           height: 420px;
           @include media-breakpoint-down(md) {
             width: 100%;
+            height: 250px;
           }
           .img-label {
             position: absolute;
@@ -965,7 +991,7 @@
           padding: 60px 40px 20px;
           @include media-breakpoint-down(md) {
             height: 100vh;
-            padding: 20px 16px;
+            padding: 20px 16px 90px;
             border-radius: 0;
             overflow: scroll;
           }
@@ -1199,8 +1225,8 @@
                   background: none;
                   border: none;
                   outline: none;
-                  width: 20px;
-                  margin: 0 6px;
+                  width: 26px;
+                  margin: 0;
                   text-align: center;
                 }
                 .total-price {
@@ -1339,7 +1365,7 @@
         }
       }
       .mobile-form-btn {
-        width: 250px;
+        width: 220px;
         text-align: center;
       }
     }

@@ -1,4 +1,3 @@
-from decimal import Decimal
 from dataclasses import dataclass
 
 
@@ -9,17 +8,18 @@ class Event:
 
 @dataclass
 class NewProductCreated(Event):
-    total_price: Decimal
     product_id: int
     product_name: str
     product_start_date: str
     product_start_time: str
+    total_price: float
     adult: int
     children: int
+    product_type: str
 
 
 @dataclass
-class ProductStatusUpdated(NewProductCreated):
+class ProductUpdated(NewProductCreated):
     status: str
 
 
