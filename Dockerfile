@@ -39,4 +39,4 @@ EXPOSE 8000
 CMD ["gunicorn", "--workers", "4", "--bind", "0.0.0.0:8000", "portotours.wsgi:application"]
 
 # Start Celery worker alongside Django server
-#CMD celery -A portotours worker -l INFO  --beat --scheduler django
+CMD celery -A portotours worker -l INFO  --beat --scheduler django
