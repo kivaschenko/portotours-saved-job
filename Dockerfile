@@ -30,8 +30,8 @@ RUN mkdir -p /path/to/log && touch /path/to/log/portotours.log
 RUN export DJANGO_SETTINGS_MODULE=portotours.production
 
 # Collect static files and migrate database
-RUN python manage.py collectstatic --noinput
-RUN python manage.py migrate
+#RUN python manage.py collectstatic --noinput
+#RUN python manage.py migrate
 
 # Expose the port that Django will run on
 EXPOSE 8000
@@ -39,4 +39,4 @@ EXPOSE 8000
 CMD ["gunicorn", "--workers", "4", "--bind", "0.0.0.0:8000", "portotours.wsgi:application"]
 
 # Start Celery worker alongside Django server
-CMD celery -A portotours worker -l INFO  --beat --scheduler django
+#CMD celery -A portotours worker -l INFO  --beat --scheduler django
