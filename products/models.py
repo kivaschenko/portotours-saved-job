@@ -27,7 +27,7 @@ Customer = settings.AUTH_USER_MODEL
 # Geo Point
 class MeetingPoint(models.Model):
     name = models.CharField(max_length=60, unique=True, null=False, blank=False)
-    slug = models.SlugField(max_length=70, unique=True, blank=True, help_text="Slug generated from name")
+    slug = models.SlugField(max_length=255, unique=True, blank=True, help_text="Slug generated from name, max 255 characters")
     country = models.CharField(max_length=150, blank=True, default='Portugal',
                                help_text="Country name max 150 characters")
     region = models.CharField(max_length=150, blank=True, help_text="Region name max 150 characters", null=True)
@@ -134,7 +134,7 @@ class ParentExperience(models.Model):
     card image and link between the experiences details page languages.
     """
     parent_name = models.CharField(max_length=160, unique=True, db_index=True)
-    slug = models.SlugField(unique=True, db_index=True, editable=True, max_length=200, blank=True)
+    slug = models.SlugField(unique=True, db_index=True, editable=True, max_length=255, blank=True, help_text='Unique, max 255 characters.')
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
     priority_number = models.IntegerField(null=True, blank=True, default=0,
@@ -216,8 +216,8 @@ class Experience(models.Model):
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
     # SEO part
-    slug = models.SlugField(max_length=60, unique=True, db_index=True, editable=True, blank=True,
-                            help_text="max 60 characters, exactly url tail that is unique")
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, editable=True, blank=True,
+                            help_text="max 255 characters, exactly url tail that is unique")
     page_title = models.CharField(max_length=120, help_text="seo title for header in search list, max 120 characters",
                                   null=True, blank=True)
     page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters",

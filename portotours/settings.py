@@ -169,14 +169,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #         "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
 #     },
 # }
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.environ.get('CACHES_LOCATION'),
-        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-        "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
-    },
-}
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": os.environ.get('CACHES_LOCATION'),
+#         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+#         "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
+#     },
+# }
 # Logging
 LOGGING_FILE = os.environ.get('LOGGING_FILE', 'portotours.log')
 
