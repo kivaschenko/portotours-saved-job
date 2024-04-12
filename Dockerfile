@@ -4,6 +4,7 @@ FROM python:3.10-bullseye
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV DJANGO_SETTINGS_MODULE portotours.production
 
 # Set work directory
 WORKDIR /app/
@@ -19,15 +20,12 @@ RUN apt-get update \
 # Install dependencies
 COPY requirements.txt /app/
 RUN pip install --upgrade pip setuptools
-RUN pip install  --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the Django project files
 COPY . /app/
 # Create logfile
 RUN mkdir -p /app/log && touch /app/log/portotours.log
-
-# Use production.py module for deploy settings
-RUN export DJANGO_SETTINGS_MODULE=portotours.production
 
 # Collect static files and migrate database
 #RUN python manage.py collectstatic --noinput
@@ -44,4 +42,3 @@ RUN chmod +x /app/start.sh
 
 # Execute the startup script
 CMD ["/app/start.sh"]
-

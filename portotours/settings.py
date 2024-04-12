@@ -121,19 +121,19 @@ SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
 #########
 
 # The cache backends to use.
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-#     }
-# }
 CACHES = {
     "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.environ.get('CACHES_LOCATION'),
-        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-        "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
-    },
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    }
 }
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": os.environ.get('CACHES_LOCATION'),
+#         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+#         "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
+#     },
+# }
 CACHE_MIDDLEWARE_KEY_PREFIX = ""
 CACHE_MIDDLEWARE_SECONDS = 600
 CACHE_MIDDLEWARE_ALIAS = "default"
