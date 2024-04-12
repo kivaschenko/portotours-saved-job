@@ -4,7 +4,7 @@ FROM python:3.10-bullseye
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SETTINGS_MODULE portotours.production
+#ENV DJANGO_SETTINGS_MODULE portotours.production
 
 # Set work directory
 WORKDIR /app/
@@ -28,7 +28,7 @@ COPY . /app/
 RUN mkdir -p /app/log && touch /app/log/portotours.log
 
 # Collect static files and migrate database
-RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic
 RUN python manage.py migrate
 
 # Expose the port that Django will run on
