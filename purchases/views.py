@@ -31,7 +31,7 @@ BASE_ENDPOINT = settings.BASE_ENDPOINT
 class BillingDetailView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
     """View for listing all products for current user (session) only."""
     model = Product
-    template_name = 'purchases/embedded_stripe_payment.html'
+    template_name = 'purchases/checkout.html'
     queryset = Product.pending.all()
     extra_context = {'current_language': 'en'}
 
@@ -40,6 +40,9 @@ class BillingDetailView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
         product_ids = [product.pk for product in self.queryset.all()]
         context['product_ids'] = product_ids
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
+        return_path = reverse_lazy("payment-form", kwargs={'lang': 'en'})
+        context['return_url'] = f'{BASE_ENDPOINT}{return_path}'
+
         return context
 
 
@@ -173,13 +176,44 @@ class ConfirmationView(TemplateView):
         return kwargs
 
 
-# ----------------------------------
-# New Payment Form with Web Elements
+@csrf_exempt
+def checkout_payment_intent_view(request):
+    if request.method != "POST":
+        return HttpResponseBadRequest("Only POST requests are allowed")
+    print("Start checkout.")
+    print("request.method", request.method)
+    print("request.body", request.body)
+    user = request.user
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        product_ids = data.get('product_ids', [])
+        product_ids = [int(pk) for pk in product_ids]
+        products = Product.active.filter(id__in=product_ids)
 
-class CheckoutView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
-    model = Product
-    template_name = 'purchases/checkout.html'
-    queryset = Product.pending.all()
-    extra_context = {'current_language': 'en'}
+        total_amount = 0
+        for product in products:
+            total_amount += product.stripe_price
 
+        intent_data = dict(
+            currency='eur',
+            amount=total_amount,
+            automatic_payment_methods={"enabled": True},
+        )
+
+        if user.is_authenticated:
+            purchase = Purchase.objects.create(user=user, stripe_price=total_amount, stripe_customer_id=user.profile.stripe_customer_id)
+            intent_data.update({'customer': user.profile.stripe_customer_id})
+        else:
+            purchase = Purchase.objects.create(stripe_price=total_amount)
+        purchase.products.set(products)
+
+        payment_intent = stripe.PaymentIntent.create(**intent_data)
+
+        purchase.stripe_payment_intent_id = payment_intent.id
+        purchase.save()
+
+        return JsonResponse({'clientSecret': payment_intent.client_secret})
+
+    except json.JSONDecodeError as e:
+        return HttpResponseBadRequest('Invalid JSON data')
 
