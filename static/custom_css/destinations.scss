@@ -7,6 +7,15 @@
                 left: 0;
                 height: 100%;
                 width: 100%;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.2);
+                }
                 img {
                     height: 100%;
                     width: 100%;
@@ -58,7 +67,8 @@
             //     }
             //  }
              img {
-                margin-bottom: -20px;
+                margin-bottom: -13px;
+                width: 450px;
                 @include media-breakpoint-down(md) {
                     display: block;
                     margin: 14px auto 0;
@@ -76,8 +86,8 @@
     .container {
         max-width: 1090px;
         margin: 0 auto;
-        padding-top: 100px;
-        padding-bottom: 50px;
+        padding-top: 50px;
+        padding-bottom: 0px;
         @include media-breakpoint-down(md) {
             max-width: none;
             width: 100%;
@@ -240,8 +250,8 @@
 .all-about {
     .container {
         max-width: 1090px;
-        padding-top: 70px;
-        padding-bottom: 70px;
+        padding-top: 0px;
+        padding-bottom: 0px;
         text-align: center;
         @include media-breakpoint-down(md) {
             padding-top: 0;
@@ -327,7 +337,7 @@
 .top-attractions {
     .container {
         padding-top: 70px;
-        padding-bottom: 140px;
+        padding-bottom: 70px;
         text-align: center;
         @include media-breakpoint-down(md) {
             padding-top: 0;
@@ -454,14 +464,15 @@
     background-color: #F3FAF5;
     .container {
         text-align: center;
-        padding-top: 80px;
-        padding-bottom: 80px;
+        padding-top: 50px;
+        padding-bottom: 50px;
         @include media-breakpoint-down(md) {
             padding-top: 40px;
             padding-bottom: 40px;
         }
         .also-interested-title {
             margin-bottom: 20px;
+            line-height: 44px;
             @include media-breakpoint-down(md) {
                 margin-bottom: 14px;
             }
@@ -559,8 +570,8 @@
 
 .faq {
     .container {
-        padding-top: 140px;
-        padding-bottom: 140px;
+        padding-top: 60px;
+        padding-bottom: 70px;
         max-width: 1090px;
         @include media-breakpoint-down(md) {
             width: 100%;
@@ -694,14 +705,14 @@
     }
     .container {
         background-image: url(../images/destination-list-hero-img.png);
-        border-radius: 26px;
         overflow: hidden;
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
-        padding-top: 145px;
-        padding-bottom: 145px;
-        margin-top: 40px;
+        padding-top: 118px;
+        padding-bottom: 78px;
+        margin-top: 10px;
+        max-width: 100%;
         @include media-breakpoint-down(md) {
             margin-top: 0;
             background: none;
@@ -714,10 +725,12 @@
             align-items: baseline;
             justify-content: center;
             margin-bottom: 0;
-            padding: 0 100px;
+            padding: 0 180px;
             font-size: 62px;
             line-height: 56px;
             text-align: center;
+            max-width: 1500px;
+            margin: 0 auto;
             @include media-breakpoint-down(md) {
                 font-family: 'LatoSemiBold';
                 font-size: 26px;
@@ -743,8 +756,8 @@
              }
              img {
                 align-self: flex-end;
-                max-width: 165px;
-                margin-top: 10px;
+                max-width: 300px;
+                margin-top: 12px;
              }
         }
     }
@@ -753,7 +766,7 @@
     .container {
         margin-top: 40px;
         position: relative;
-        padding-bottom: 156px;
+        padding-bottom: 100px;
         @include media-breakpoint-down(md) {
             margin-top: 30px;
         }

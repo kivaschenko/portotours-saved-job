@@ -1,6 +1,6 @@
 .attraction-hero {
     .container {
-        padding-top: 60px;
+        padding-top: 10px;
         padding-bottom: 50px;
         text-align: center;
         @include media-breakpoint-down(md) {
@@ -127,8 +127,8 @@
 
 .attraction-info-cards {
     .container {
-        padding-top: 50px;
-        padding-bottom: 100px;
+        padding-top: 0;
+        padding-bottom: 50px;
         text-align: center;
         @include media-breakpoint-down(md) {
             padding-top: 0;
@@ -202,17 +202,17 @@
         background-repeat: no-repeat;
     }
     .container {
-        padding-top: 130px;
-        padding-bottom: 53px;
+        padding-top: 115px;
+        padding-bottom: 80px;
         background-image: url(../images/destination-list-hero-img.png);
-        border-radius: 26px;
+        
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
-        margin-top: 40px;
-        border-radius: 26px;
+        margin-top: 10px;
         overflow: hidden;
-        margin-bottom: 60px;
+        margin-bottom: 50px;
+        max-width: 100%;
         @include media-breakpoint-down(md) {
             background: none;
             padding-top: 50px;
@@ -227,7 +227,7 @@
             margin-bottom: 0;
             font-size: 62px;
             line-height: 56px;
-            padding: 0 100px;
+            padding: 0 180px;
             font-family: 'LatoSemiBold';
             @include media-breakpoint-down(md) {
                 font-size: 26px;
@@ -265,12 +265,12 @@
 .attraction-list {
     .container {
         position: relative;
-        padding-bottom: 156px;
+        padding-bottom: 100px;
         .title-filter-wrapper {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             @include media-breakpoint-down(md) {
                 flex-direction: column;
                 justify-content: center;
@@ -281,6 +281,7 @@
                 line-height: normal;
                 font-family: 'LatoMedium';
                 color: #0F0F10;
+                margin-bottom: 0;
                 @include media-breakpoint-down(md) {
                     font-size: 26px;
                     line-height: 36px;
@@ -444,15 +445,19 @@
                         width: 100%;
                         padding: 14px 13px 19px 13px;
                     }
-                    h5 {
-                        margin-bottom: 20px;
-                        color: #0F0F10;
-                        @include media-breakpoint-down(md) {
-                            font-size: 18px;
-                            line-height: 28px;
-                            margin-bottom: 12px;
+                    a {
+                        text-decoration: none;
+                        h5 {
+                            margin-bottom: 20px;
+                            color: #0F0F10;
+                            @include media-breakpoint-down(md) {
+                                font-size: 18px;
+                                line-height: 28px;
+                                margin-bottom: 12px;
+                            }
                         }
                     }
+                    
                     .attraction-type-list-wrapper {
                         display: flex;
                         align-items: center;
