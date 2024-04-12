@@ -28,7 +28,7 @@ COPY . /app/
 RUN mkdir -p /app/log && touch /app/log/portotours.log
 
 # Collect static files and migrate database
-RUN python manage.py collectstatic
+RUN python manage.py collectstatic --noinput
 RUN python manage.py migrate
 
 # Expose the port that Django will run on
