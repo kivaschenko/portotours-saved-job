@@ -154,13 +154,19 @@ def send_product_changed_email(product_id: int = None, product_name: str = None,
 def update_products_status_if_expired():
     logger.info(f'Start updating status of expired products.')
     queryset = Product.objects.filter(status='Pending').all()
+    logger.info(f'queryset length: {len(queryset)}')
+    updated_products = []
     if queryset.count() > 0:
         now = timezone.now()
         for product in queryset:
-            if product.created_at + timedelta(minutes=31) > now:
+            logger.info(f'Updating status of product "{product.stripe_product_id}"')
+            if product.expired_time < now:
+                logger.info(f'Product "[{product.id}]{product.stripe_product_id}" is expired.')
                 product.status = 'Expired'
                 product.save()
+                updated_products.append(product)
                 logger.info(f'Product ID={product.id} {product} has been updated. Its status is: {product.status}.')
     logger.info(f'Finish updating status of expired products.')
+    return updated_products
 
 
