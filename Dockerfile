@@ -24,7 +24,7 @@ RUN pip install  --no-cache-dir -r requirements.txt
 # Copy the Django project files
 COPY . /app/
 # Create logfile
-RUN mkdir -p /path/to/log && touch /path/to/log/portotours.log
+RUN mkdir -p /app/log && touch /app/log/portotours.log
 
 # Use production.py module for deploy settings
 RUN export DJANGO_SETTINGS_MODULE=portotours.production
@@ -36,7 +36,12 @@ RUN export DJANGO_SETTINGS_MODULE=portotours.production
 # Expose the port that Django will run on
 EXPOSE 8000
 
-CMD ["gunicorn", "--workers", "4", "--bind", "0.0.0.0:8000", "portotours.wsgi:application"]
+# Copy the startup script
+COPY start.sh /app/start.sh
 
-# Start Celery worker alongside Django server
-CMD celery -A portotours worker -l INFO  --beat --scheduler django
+# Make the startup script executable
+RUN chmod +x /app/start.sh
+
+# Execute the startup script
+CMD ["/app/start.sh"]
+
