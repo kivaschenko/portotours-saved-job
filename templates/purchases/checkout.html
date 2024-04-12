@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title_suffix %}
+    Billing details form
+{% endblock title_suffix %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'stripe/checkout.css' %}"/>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{% static 'stripe/checkout.js' %}" defer></script>
+    <script src="https://js.stripe.com/v3/"></script>
+{% endblock head %}
+
+{% block content %}
+    <div class="cart">
+        <div class="container">
+            <div class="cart-steps-wrapper">
+                <ul class="cart-steps">
+                    <li class="cart-step-item finished">
+                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        <p class="step-text body-text-b4">
+                            1 Step
+                        </p>
+                        <p class="body-text-b3 step-title">
+                            Basket
+                        </p>
+                    </li>
+                    <li class="cart-step-item active">
+                        <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        <p class="step-text body-text-b4">
+                            2 Step
+                        </p>
+                        <p class="body-text-b3 step-title">
+                            Billing details
+                        </p>
+                    </li>
+                    <li class="cart-step-item">
+                        <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        <p class="step-text body-text-b4">
+                            3 Step
+                        </p>
+                        <p class="body-text-b3 step-title">
+                            Confirmation
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="cart-title-wrapper">
+                <h2 class="cart-title">
+                    Billing Details
+                </h2>
+
+            </div>
+
+            <!-- Display a payment form -->
+            <form id="payment-form">
+                <div id="payment-element">
+                    <!--Stripe.js injects the Payment Element-->
+                </div>
+                <button id="submit">
+                    <div class="spinner hidden" id="spinner"></div>
+                    <span id="button-text">Pay now</span>
+                </button>
+                <div id="payment-message" class="hidden"></div>
+            </form>
+
+        </div>
+    </div>
+
+
+    <!-- Custom JS import -->
+    <script>
+        const stripe = Stripe('{{ stripe_public_key }}');
+
+        // Create a Checkout Session as soon as the page loads
+        async function initialize() {
+            const response = await fetch("/create-checkout-session/", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({product_ids: {{ product_ids }}}), // Pass productIds to the backend
+            });
+
+            console.log(response);
+            const {clientSecret} = await response.json();
+
+            const checkout = await stripe.initEmbeddedCheckout({
+                clientSecret,
+            });
+
+            // Mount Checkout
+            checkout.mount('#checkout');
+        }
+
+        initialize(); // Call initialize function when the page loads
+
+    </script>
+    <!-- For language selector -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+{% endblock %}

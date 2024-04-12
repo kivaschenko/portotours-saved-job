@@ -127,7 +127,7 @@ class ExperienceDetailView(DetailView):
 
 # Products
 
-class UserIsAuthentiacedOrSessionKeyRequiredMixin:
+class UserIsAuthenticatedOrSessionKeyRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
         user = request.user
         session_key = request.session.session_key
@@ -142,10 +142,10 @@ class UserIsAuthentiacedOrSessionKeyRequiredMixin:
             # Here, you can perform additional checks if needed, like checking if the session key exists in your models
             if Product.objects.filter(session_key=session_key).exists():
                 self.queryset = Product.pending.filter(session_key=session_key)
-        return super(UserIsAuthentiacedOrSessionKeyRequiredMixin, self).dispatch(request, *args, **kwargs)
+        return super(UserIsAuthenticatedOrSessionKeyRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
-class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
+class ProductCartView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
     """View for listing all products for current user (session) only."""
     model = Product
     template_name = 'products/my_cart.html'

@@ -16,7 +16,7 @@ from django.views.generic import ListView, TemplateView
 from django.contrib.auth.decorators import login_required
 
 from products.models import Product
-from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
+from products.views import UserIsAuthenticatedOrSessionKeyRequiredMixin
 from purchases.models import Purchase
 from service_layer.events import StripeSessionCompleted, StripeCustomerCreated
 from service_layer.bus_messages import handle
@@ -28,7 +28,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 BASE_ENDPOINT = settings.BASE_ENDPOINT
 
 
-class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
+class BillingDetailView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
     """View for listing all products for current user (session) only."""
     model = Product
     template_name = 'purchases/embedded_stripe_payment.html'
@@ -171,3 +171,15 @@ class ConfirmationView(TemplateView):
             elif session.status == 'open':
                 kwargs['status'] = 'open'
         return kwargs
+
+
+# ----------------------------------
+# New Payment Form with Web Elements
+
+class CheckoutView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
+    model = Product
+    template_name = 'purchases/checkout.html'
+    queryset = Product.pending.all()
+    extra_context = {'current_language': 'en'}
+
+
