@@ -71,6 +71,7 @@
                     color: #0F0F10;
                     margin-bottom: 0;
                     text-transform: capitalize;
+                    text-wrap: nowrap;
                     @include media-breakpoint-down(md) {
                         font-size: 14px;
                         line-height: 22px;
@@ -219,6 +220,8 @@
                     img {
                         display: block;
                         width: 100%;
+                        height: 250px;
+                        object-fit: cover;
                     }
                 }
                 .card-content-wrapper {
@@ -231,7 +234,7 @@
                     .card-title {
                         color: #0F0F10;
                         font-family: "LatoSemiBold";
-                        font-size: 18px;
+                        font-size: 26px;
                         line-height: 28px;
                         margin-bottom: 16px;
                         @include media-breakpoint-down(md) {
@@ -333,7 +336,7 @@
                     align-items: center;
                     justify-content: space-between;
                     font-family: "LatoRegular";
-                    font-size: 14px;
+                    font-size: 18px;
                     line-height: 22px;
                     margin-bottom: 16px;
                     @include media-breakpoint-down(md) {
@@ -362,7 +365,7 @@
             }
             .purchase-includes {
                 text-align: center;
-                margin-top: 60px;
+                margin-top: 24px;
                 @include media-breakpoint-down(md) {
                     display: none;
                 }

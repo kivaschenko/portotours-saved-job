@@ -32,7 +32,7 @@
             <form method="GET" class="attraction-filter-form">
                 {{ filter_form }}
                 <div class="form-btns-wrapper">
-                    <button type="submit" class="btn btn-submit">Filter</button>
+                    <button type="submit" class="btn btn-submit">Apply</button>
                     <button type="button" class="btn btn-reset" onclick="resetForm()">Reset</button>
                 </div>
                 
@@ -43,12 +43,14 @@
                     {% for object in object_list %}
                         <li class="attraction-list-item">
                             <div class="list-item-img-wrapper">
-                                <img src="{{ object.parent_attraction.card_image.url }}" alt="Card image for {{ object.name }}">
+                                <img src="{% if object.parent_attraction.card_image %}{{ object.parent_attraction.card_image.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
                             </div>
                             <div class="attraction-list-content-wrapper">
-                                <h5>
-                                    {{ object.name }}
-                                </h5>
+                                <a href="{% url 'attraction-detail'  lang=object.language.code.lower slug=object.slug %}">
+                                    <h5>
+                                        {{ object.name }}
+                                    </h5>
+                                </a>
                                 <div class="attraction-type-list-wrapper">
                                     {% if object.parent_attraction.tags.all %}
                                         <ul class="main-info-list">

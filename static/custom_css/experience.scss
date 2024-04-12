@@ -9,10 +9,10 @@
     background-repeat: no-repeat;
     background-position: center;
     text-align: center;
-    border-radius: 26px;
     overflow: hidden;
-    margin-top: 40px;
+    margin-top: 10px;
     position: relative;
+    max-width: 100%;
     @include media-breakpoint-down(md) {
       background: none;
       margin-top: 0;
@@ -28,7 +28,9 @@
       margin-bottom: 32px;
       font-size: 62px;
       line-height: 56px;
-      padding: 0 140px;
+      padding: 0 240px;
+      max-width: 1500px;
+      margin: 0 auto 32px;
       @include media-breakpoint-down(md) {
         background-image: url(../images/destination-list-hero-img-mob.png);
         background-size: cover;
@@ -485,8 +487,9 @@
 }
 
 .experience-hero {
+  overflow: hidden;
   .container {
-    padding-top: 62px;
+    padding-top: 10px;
     padding-bottom: 0px;
     @include media-breakpoint-down(md) {
       padding-top: 24px;
@@ -495,7 +498,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 24px;
+      margin-bottom: 15px;
       @include media-breakpoint-down(md) {
         flex-direction: column;
         margin-bottom: 16px;
@@ -580,7 +583,7 @@
       }
     }
     .experience-hero-swiper {
-      overflow: hidden;
+      
       position: relative;
       padding-bottom: 50px;
       @include media-breakpoint-down(md) {
@@ -600,7 +603,7 @@
       }
       .swiper-button-next,
       .swiper-rtl .swiper-button-prev {
-        right: 0;
+        right: -50px;
         width: 60px;
         height: 60px;
         transform: translateY(-50%);
@@ -621,7 +624,7 @@
       }
       .swiper-button-prev,
       .swiper-rtl .swiper-button-next {
-        left: 0;
+        left: -50px;
         width: 60px;
         height: 60px;
         transform: translateY(-50%);
@@ -657,8 +660,8 @@
 
 .experience-info {
   .container {
-    padding-top: 70px;
-    padding-bottom: 140px;
+    padding-top: 0px;
+    padding-bottom: 70px;
     @include media-breakpoint-down(md) {
       padding-top: 0px;
       padding-bottom: 60px;
@@ -674,7 +677,7 @@
       font-family: "LatoRegular";
       font-size: 20px;
       line-height: 30px;
-      margin-bottom: 60px;
+      margin-bottom: 40px;
       text-align: center;
       @include media-breakpoint-down(md) {
         font-size: 16px;
@@ -697,7 +700,7 @@
         }
         .experience-cards {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           justify-content: space-between;
           flex-wrap: wrap;
           margin-bottom: 16px;

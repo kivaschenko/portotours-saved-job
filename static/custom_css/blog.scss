@@ -5,11 +5,11 @@
     background-repeat: no-repeat;
     background-position: center;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 10px;
     padding-top: 114px;
     padding-bottom: 114px;
-    border-radius: 26px;
     overflow: hidden;
+    max-width: 100%;
     @include media-breakpoint-down(md) {
      background-image: url(../images/destination-list-hero-img-mob.png);
      padding-top: 81px;
@@ -48,8 +48,8 @@
 
 .blog-list {
   .container {
-    margin-top: 40px;
-    padding-bottom: 225px;
+    margin-top: 28px;
+    padding-bottom: 125px;
     @include media-breakpoint-down(md) {
         margin-top: 20px;
         padding-bottom: 144px;
@@ -185,13 +185,13 @@
 
 .blog-detail-hero {
   .container {
-    margin-top: 40px;
+    margin-top: 10px;
     margin-bottom: 40px;
     position: relative;
-    height: 600px;
-    border-radius: 26px;
+    height: 465px;
     overflow: hidden;
-    padding: 356px 87px 60px;
+    padding: 285px 87px 60px;
+    max-width: 100%;
     @include media-breakpoint-down(md) {
         margin-top: 0;
         margin-bottom: 32px;
@@ -362,7 +362,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding-bottom: 140px;
+    padding-bottom: 70px;
     @include media-breakpoint-down(md) {
         flex-direction: column-reverse;
     }
