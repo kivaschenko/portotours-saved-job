@@ -256,7 +256,7 @@
     
   }
   .container {
-    padding-top: 100px;
+    padding-top: 60px;
     padding-bottom: 46px;
     text-align: center;
     @include media-breakpoint-down(md) {
@@ -326,8 +326,8 @@
 
 .best-tours {
   .container {
-    padding-top: 70px;
-    padding-bottom: 46px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     @include media-breakpoint-down(md) {
       padding-top: 0;
       padding-bottom: 60px;
@@ -538,7 +538,7 @@
 
 .refund-banner {
   background-color: #f3faf5;
-  margin-top: 70px;
+  margin-top: 50px;
   margin-bottom: 70px;
   @include media-breakpoint-down(md) {
     margin-top: 0;
@@ -599,8 +599,8 @@
 
 .tour-type {
   .container {
-    padding-top: 70px;
-    padding-bottom: 70px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -857,8 +857,8 @@
 
 .homepage-top-destinations {
   .container {
-    padding-top: 70px;
-    padding-bottom: 46px;
+    padding-top: 50px;
+    padding-bottom: 0px;
     @include media-breakpoint-down(md) {
       padding-top: 0;
       padding-bottom: 60px;
@@ -992,7 +992,7 @@
     }
   }
   .container {
-    padding-top: 70px;
+    padding-top: 40px;
     padding-bottom: 70px;
     text-align: center;
     @include media-breakpoint-down(md) {
@@ -1140,7 +1140,7 @@
 .offers-banner {
   &.blog {
     .container {
-      margin-top: 160px;
+      margin-top: 70px;
     }
   }
   .container {
@@ -1153,7 +1153,7 @@
     text-align: center;
     border-radius: 26px;
     overflow: hidden;
-    margin-bottom: 140px;
+    margin-bottom: 70px;
     @include media-breakpoint-down(md) {
         margin-bottom: 60px;
         margin-top: 30px;
