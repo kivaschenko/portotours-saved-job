@@ -54,9 +54,11 @@
             box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
             width: 100%;
         }
+
         button:hover {
             filter: contrast(115%);
         }
+
         button:disabled {
             opacity: 0.5;
             cursor: default;
@@ -68,6 +70,7 @@
         .spinner:after {
             border-radius: 50%;
         }
+
         .spinner {
             color: #ffffff;
             font-size: 22px;
@@ -81,11 +84,13 @@
             -ms-transform: translateZ(0);
             transform: translateZ(0);
         }
+
         .spinner:before,
         .spinner:after {
             position: absolute;
             content: "";
         }
+
         .spinner:before {
             width: 10.4px;
             height: 20.4px;
@@ -98,6 +103,7 @@
             -webkit-animation: loading 2s infinite ease 1.5s;
             animation: loading 2s infinite ease 1.5s;
         }
+
         .spinner:after {
             width: 10.4px;
             height: 10.2px;
@@ -121,6 +127,7 @@
                 transform: rotate(360deg);
             }
         }
+
         @keyframes loading {
             0% {
                 -webkit-transform: rotate(0deg);
@@ -189,6 +196,9 @@
 
             <!-- Display a payment form -->
             <form id="payment-form">
+                <div id="address-element">
+                    <!--Stripe.js injects the Address Element-->
+                </div>
                 <div id="payment-element">
                     <!--Stripe.js injects the Payment Element-->
                 </div>
@@ -207,6 +217,8 @@
     <script>
         const stripe = Stripe('{{ stripe_public_key }}');
         let elements;
+        let paymentElement;
+
         initialize(); // Call initialize function when the page loads
         checkStatus();
 
@@ -222,17 +234,18 @@
                 },
                 body: JSON.stringify({product_ids: {{ product_ids }}}), // Pass productIds to the backend
             });
-
             console.log(response);
             const {clientSecret} = await response.json();
             const appearance = {
-                theme: 'stripe',
+                theme: 'flat',
+            };
+            const options = {
+                mode: 'billing',
             };
             elements = stripe.elements({appearance, clientSecret});
-            const paymentElementOptions = {
-                layout: "tabs",
-            }
-            const paymentElement = elements.create("payment", paymentElementOptions);
+            const addressElement = elements.create("address", options);
+            paymentElement = elements.create("payment");
+            addressElement.mount('#address-element');
             paymentElement.mount('#payment-element');
         }
 
