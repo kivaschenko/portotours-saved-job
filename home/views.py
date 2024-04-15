@@ -3,8 +3,6 @@ from datetime import timedelta, datetime
 from django.http import JsonResponse
 from django.views.generic import TemplateView, DetailView
 from django.utils.translation import activate
-from django.shortcuts import redirect
-from django.contrib import messages
 
 from destinations.models import Destination
 from attractions.models import Attraction

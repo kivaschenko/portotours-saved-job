@@ -1,11 +1,9 @@
 from math import ceil
 
-from django.shortcuts import redirect
 from django.views.generic import DetailView, ListView
 from django.utils.decorators import method_decorator
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
-from django.contrib import messages
 from django.http import JsonResponse
 
 from blogs.models import Blog, Category
