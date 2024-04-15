@@ -66,7 +66,8 @@
             <div class="cart-wrapper body-text-b3 hide">
                 <a href="{% url 'my-cart' lang='en' %}">
                     <img src="{% static 'icons/cart-icon.svg' %}" alt="">
-                    <span>Cart</span>
+                    <span>Cart<span class="badge rounded-pill bg-danger">{{ number_of_products }}</span>
+                    </span>
                 </a>
             </div>
             <div class="login-btn-wrapper">
@@ -157,8 +158,8 @@
                                     Most Popular Experiences
                                 </h3>
                                 {% for experience in most_popular_experiences %}
-                                <a class="dropdown-item"
-                                   href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
+                                    <a class="dropdown-item"
+                                       href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
                                 {% endfor %}
                                 <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
                                     see all
