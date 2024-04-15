@@ -142,3 +142,4 @@ coverage
 commands.txt
 .venv/
 media/
+dumpdb.json

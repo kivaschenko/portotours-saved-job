@@ -81,7 +81,7 @@ class Blog(models.Model):
         return f"<Blog(id={self.id} title={self.title}...>"
 
     def get_absolute_url(self):
-        return reverse("blogs:blog-detail", kwargs={"slug": self.slug, "lang": self.language})
+        return reverse("blog-detail", kwargs={"slug": self.slug, "lang": self.language})
 
     def save(self, *args, **kwargs):
         if not self.slug:

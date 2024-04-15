@@ -43,7 +43,9 @@
                     {% for object in object_list %}
                         <li class="attraction-list-item">
                             <div class="list-item-img-wrapper">
-                                <img src="{% if object.parent_attraction.card_image %}{{ object.parent_attraction.card_image.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
+                                <a class="link" href="{% url 'attraction-detail'  lang=object.language.code.lower slug=object.slug %}">
+                                    <img src="{% if object.parent_attraction.card_image %}{{ object.parent_attraction.card_image.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
+                                </a>
                             </div>
                             <div class="attraction-list-content-wrapper">
                                 <a href="{% url 'attraction-detail'  lang=object.language.code.lower slug=object.slug %}">
@@ -121,8 +123,8 @@
     <!-- Custom JS import -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
     <script>
-    function resetForm() {
-        window.location.href = "{% url 'attraction-list' lang=current_language %}";  // Redirect to the same page without any parameters
-    }
-</script>
+        function resetForm() {
+            window.location.href = "{% url 'attraction-list' lang=current_language %}";  // Redirect to the same page without any parameters
+        }
+    </script>
 {% endblock %}

@@ -45,17 +45,21 @@ if (window.innerWidth > 768) {
         let languageMatch = currentUrl.match(/\/([a-z]{2})\//);
 
         if (languageMatch) {
+            
             let selectedLanguage = languageMatch[1];
+            
             // Remove the 'active' class from all images
-            document.querySelectorAll('.language-icon').forEach(function (icon) {
+            document.querySelectorAll('#defaultLanguage .language-icon').forEach(function (icon) {
                 icon.classList.remove('active');
             });
             // Find image with the appropriate class and add the 'active' class to it
-            let selectedIcon = document.querySelector('.language-icon-' + selectedLanguage);
+            let selectedIcon = document.querySelector('#defaultLanguage .language-icon-' + selectedLanguage);
             if (selectedIcon) {
+                
                 selectedIcon.classList.add('active');
             }
         } else {
+            console.log('test language2')
             // If language slug is not found in the URL, set default language flag
             let defaultLanguageIcon = defaultLanguageElement.querySelector('.language-icon-en'); // Assuming 'en' for English
             if (defaultLanguageIcon) {
