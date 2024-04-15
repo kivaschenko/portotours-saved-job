@@ -20,6 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 dotenv_path = Path(__file__).resolve().parent.parent / '.env'
 load_dotenv(dotenv_path)
 
+
+# This is defined here as a do-nothing function because we can't import
+# django.utils.translation -- that module depends on the settings.
+def gettext_noop(s):
+    return s
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -29,7 +36,6 @@ SECRET_KEY = '2d18496423377c985535dbcb64e6b9df474f7238fc124315221bbdfb3de7a764'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']  # for debug in CI/CD
 BASE_ENDPOINT = 'http://127.0.0.1:8000'
 
@@ -77,6 +83,60 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+############
+# SESSIONS #
+############
+
+# Cache to store session data if using the cache session backend.
+SESSION_CACHE_ALIAS = "default"
+# Cookie name. This can be whatever you want.
+SESSION_COOKIE_NAME = "sessionid"
+# Age of cookie, in seconds (default: 2 weeks).
+SESSION_COOKIE_AGE = 60 * 60  # minutes
+# A string like "example.com", or None for standard domain cookie.
+SESSION_COOKIE_DOMAIN = None
+# Whether the session cookie should be secure (https:// only).
+SESSION_COOKIE_SECURE = False
+# The path of the session cookie.
+SESSION_COOKIE_PATH = "/"
+# Whether to use the HttpOnly flag.
+SESSION_COOKIE_HTTPONLY = True
+# Whether to set the flag restricting cookie leaks on cross-site requests.
+# This can be 'Lax', 'Strict', 'None', or False to disable the flag.
+SESSION_COOKIE_SAMESITE = "Lax"
+# Whether to save the session data on every request.
+SESSION_SAVE_EVERY_REQUEST = True
+# Whether a user's session cookie expires when the web browser is closed.
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+# The module to store session data
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+# Directory to store session files if using the file session module. If None,
+# the backend will use a sensible default.
+SESSION_FILE_PATH = None
+# class to serialize session data
+SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
+
+#########
+# CACHE #
+#########
+
+# The cache backends to use.
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    }
+}
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": os.environ.get('CACHES_LOCATION'),
+#         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+#         "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
+#     },
+# }
+CACHE_MIDDLEWARE_KEY_PREFIX = ""
+CACHE_MIDDLEWARE_SECONDS = 600
+CACHE_MIDDLEWARE_ALIAS = "default"
 
 ROOT_URLCONF = 'portotours.urls'
 
@@ -141,7 +201,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
+LANGUAGES = [
+    ("en", gettext_noop("English")),
+    ("en-au", gettext_noop("Australian English")),
+    ("en-gb", gettext_noop("British English")),
+    ("es", gettext_noop("Spanish")),
+    ("fr", gettext_noop("French")),
+    ("pt", gettext_noop("Portuguese")),
+]
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -153,30 +220,6 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# redis_password = os.environ.get('REDIS_PASSWORD')
-# redis_username = os.environ.get('REDIS_USERNAME')
-# redis_host = os.environ.get('REDIS_HOST')
-# redis_port = os.environ.get('REDIS_PORT')
-#
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": f"redis://:{redis_password}@{redis_host}:{redis_port}/1",
-#         "OPTIONS": {
-#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-#             "USERNAME": redis_username,
-#         },
-#         "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
-#     },
-# }
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": os.environ.get('CACHES_LOCATION'),
-#         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-#         "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
-#     },
-# }
 # Logging
 LOGGING_FILE = os.environ.get('LOGGING_FILE', 'portotours.log')
 
@@ -324,13 +367,7 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
-# AWS_DEFAULT_ACL = 'public-read'
 AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
-# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',  # cache static files for 24 hours
-# }
-# AWS_LOCATION = 'static'
 
 # STRIPE credentials
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')

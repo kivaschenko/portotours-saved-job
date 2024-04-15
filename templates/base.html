@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block head %}
-        <title>One Day Tours - {% block title_suffix %}{% endblock %}</title>
+        <title>{% block title_suffix %}{% endblock %} | One Day Tours Portugal</title>
         {% block meta_tags %}{% endblock %}
     {% endblock head %}
     <!-- Bootstrap 5 Custom CSS -->
@@ -88,12 +88,11 @@
                     Top things to do in Portugal
                 </p>
                 <ul class="footer-block-list">
-                    <li><a href="" class="footer-link">Name of tour</a></li>
-                    <li><a href="" class="footer-link">lang Name of tour</a></li>
-                    <li><a href="" class="footer-link">Name of tour</a></li>
-                    <li><a href="" class="footer-link">long-long Name of tour </a></li>
-                    <li><a href="" class="footer-link">Name of tour</a></li>
-                    <li><a href="" class="footer-link">long Name of tour</a></li>
+                    {% if top_experiences %}
+                    {% for experience in top_experiences %}
+                    <li><a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" class="footer-link">{{ experience.name }}</a></li>
+                    {% endfor %}
+                    {% endif %}
                 </ul>
             </div>
         </div>
