@@ -350,7 +350,7 @@
             <p class="offers-banner-subtitle">
                 Get the best deals and discounts by subscribing to our email newsletter!
             </p>
-            <form action="" method="post" class="offers-banner-form">
+            <form id="subscription-form" action="" method="post" class="offers-banner-form">
                 {% csrf_token %}
                 {{ subscription_form|crispy }}
                 <button type="submit" class="form-submit-btn">Subscribe</button>
@@ -367,7 +367,7 @@
         <p class="popup-text">
             We'll keep you updated on the latest news and discounts from our company.
         </p>
-        <a href="#" class="btn-popup btn-type-1">
+        <a href="#" class="btn-popup btn-type-1" id="continue-btn">
             Continue
         </a>
     </div>
@@ -454,4 +454,5 @@
             window.location.href = url;
         }
     </script>
+    <script src="{% static 'js/subscription.js' %}"></script>
 {% endblock %}

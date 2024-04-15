@@ -1,5 +1,6 @@
 from datetime import timedelta, datetime
 
+from django.http import JsonResponse
 from django.views.generic import TemplateView, DetailView
 from django.utils.translation import activate
 from django.shortcuts import redirect
@@ -50,13 +51,11 @@ class HomeView(TemplateView):
         form = SubscriberForm(request.POST)
         if form.is_valid():
             form.save()
-            # Redirect after successful form submission
-            messages.success(request, 'Your subscription has been successfully completed.')
-            return redirect('home', lang=lang)
+            # Return JSON response indicating success
+            return JsonResponse({'success': True})
         else:
-            # If form is not valid, re-render the page with the form and any existing data
-            context['subscription_form'] = form
-            return self.render_to_response(context)
+            # If form is not valid, return JSON response with errors
+            return JsonResponse({'success': False, 'errors': form.errors})
 
 
 # -----
