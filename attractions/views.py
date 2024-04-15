@@ -1,5 +1,4 @@
 from django.views.generic import DetailView, ListView
-from django.db.models import Q
 
 from attractions.models import Attraction
 from attractions.forms import TagAttractionFilterForm
@@ -18,8 +17,9 @@ class AttractionListView(ListView):
         self.extra_context['current_language'] = current_language.code.lower()
         filtered = queryset.filter(language=current_language)
         selected_tags = self.request.GET.getlist('tags')
-        for tag_id in selected_tags:
-            filtered = filtered.filter(parent_attraction__tags__id=tag_id)
+        if selected_tags:
+            for tag_id in selected_tags:
+                filtered = filtered.filter(parent_attraction__tags__id=tag_id)
         filtered = filtered.distinct()
         return filtered
 

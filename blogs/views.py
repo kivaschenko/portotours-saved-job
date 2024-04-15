@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from blogs.models import Blog, Category
 from products.models import Language
 from home.forms import SubscriberForm
+from .forms import BlogFilterForm
 
 
 class BlogDetailView(DetailView):
@@ -77,24 +78,23 @@ class BlogListView(ListView):
         current_language = Language.objects.get(code=self.kwargs['lang'].upper())
         self.extra_context['current_language'] = current_language.code.lower()
         queryset = queryset.filter(language=current_language)
-        # filter by category by click button
-        category_id = self.request.GET.get('category_id')
-        if category_id:
-            category = Category.objects.get(pk=category_id)
-            queryset = queryset.filter(categories=category)
-
+        categories = self.request.GET.getlist('categories')
+        if categories:
+            for category in categories:
+                queryset = queryset.filter(categories__id=category)
+        queryset = queryset.distinct()
         return queryset
-
-    # TODO: Complete filtering by Category
-    # def get(self, request, *args, **kwargs):
-    #     queryset = self.get_queryset()
-    #     context = self.get_context_data(object_list=queryset)
-    #     html = render_to_string(self.template_name, context, request=request)
-    #     return JsonResponse({'html': html})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['subscription_form'] = SubscriberForm()
+
+        # Get initial category IDs from request.GET if present
+        initial_category_ids = self.request.GET.getlist('categories')
+
+        # Set initial value for categories in the filter form
+        context['filter_form'] = BlogFilterForm(initial={'categories': initial_category_ids})
+
         return context
 
     def get(self, request, *args, **kwargs):

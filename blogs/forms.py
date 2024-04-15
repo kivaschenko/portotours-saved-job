@@ -3,4 +3,4 @@ from .models import Category
 
 
 class BlogFilterForm(forms.Form):
-    category = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label="All")
+    categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.CheckboxSelectMultiple, required=False)

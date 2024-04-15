@@ -121,8 +121,8 @@
     <!-- Custom JS import -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
     <script>
-    function resetForm() {
-        window.location.href = "{% url 'attraction-list' lang=current_language %}";  // Redirect to the same page without any parameters
-    }
-</script>
+        function resetForm() {
+            window.location.href = "{% url 'attraction-list' lang=current_language %}";  // Redirect to the same page without any parameters
+        }
+    </script>
 {% endblock %}
