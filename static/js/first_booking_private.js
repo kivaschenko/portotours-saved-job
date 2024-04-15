@@ -517,7 +517,8 @@ function handleEventData(data) {
         view.renderCalendar(currentDate);
        
     } else {
-        console.error('Received data format is invalid');
+        const currentDate = new Date(); 
+        view.renderCalendar(currentDate);
     }
 }
 
