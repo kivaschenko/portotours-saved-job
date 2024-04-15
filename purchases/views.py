@@ -180,8 +180,6 @@ class ConfirmationView(TemplateView):
 def checkout_payment_intent_view(request):
     if request.method != "POST":
         return HttpResponseBadRequest("Only POST requests are allowed")
-    print("Start checkout.")
-    print("request.method", request.method)
     print("request.body", request.body)
     user = request.user
     try:
@@ -197,14 +195,14 @@ def checkout_payment_intent_view(request):
         intent_data = dict(
             currency='eur',
             amount=total_amount,
-            automatic_payment_methods={"enabled": False},
-            payment_method_types=[
-                "card",
+            automatic_payment_methods={"enabled": True},
+            # payment_method_types=[
+            #     "card",
                 # "apple_pay",
                 # "google_pay",
                 # "paypal_stripe",
                 # "klarna"
-            ],
+            # ],
         )
 
         if user.is_authenticated:

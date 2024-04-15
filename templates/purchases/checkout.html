@@ -56,14 +56,11 @@
 
             <!-- Display a payment form -->
             <form id="payment-form">
-                <div id="express-checkout-element">
-                    <!-- Mount the Express Checkout Element here -->
-                </div>
                 <div id="address-element">
                     <!--Stripe.js injects the Address Element-->
                 </div>
-                <div id="payment-element">
-                    <!--Stripe.js injects the Payment Element-->
+                <div id="express-checkout-element">
+                    <!-- Mount the Express Checkout Element here -->
                 </div>
                 <button id="submit">
                     <div class="spinner hidden" id="spinner"></div>
@@ -87,7 +84,6 @@
 
         document.querySelector("#payment-form").addEventListener("submit", handleSubmit);
 
-        // Fetches a payment intent and captures the client secret
         async function initialize() {
             const response = await fetch("/checkout/", {
                 method: "POST",
@@ -114,12 +110,9 @@
             const addressElement = elements.create("address", options);
             addressElement.mount('#address-element');
 
-            // Mount the payment element (card)
-            paymentElement = elements.create("card");
-            paymentElement.mount('#payment-element');
-
             // Mount the Express Checkout element (Apple Pay, Google Pay, and PayPal)
             const expressCheckoutElement = elements.create("payment", {
+                wallet: {applePay: 'always', googlePay: 'always'}, // Specify the wallets you want to support
                 paymentMethod: {
                     card: null, // This allows users to select other payment methods like Apple Pay, Google Pay, and PayPal
                     billing_details: {
