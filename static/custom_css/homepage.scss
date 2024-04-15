@@ -127,6 +127,7 @@
             background-position-x: calc(100% - 16px);
             background-position-y: 50%;
             background-repeat: no-repeat;
+            color: #0F0F10;
             &:invalid {
               color: #6d6d6d;
             }
@@ -182,10 +183,13 @@
             font-size: 16px;
             line-height: normal;
             position: relative;
-            &::placeholder {
-              color: #6d6d6d;
-            }
+            background-color: white;
+            color: #0F0F10;
+            -webkit-appearance: none;
+            
+
           }
+          
         }
         .form-btn {
           width: 240px;
