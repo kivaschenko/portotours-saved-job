@@ -46,7 +46,24 @@ class BlogDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['midpoint'] = self.midpoint
+        context['subscription_form'] = SubscriberForm()
         return context
+
+    def post(self, request, *args, **kwargs):
+        lang = self.kwargs.get('lang', 'en')
+        activate(lang)
+        self.object = self.get_object()  # Set self.object
+        form = SubscriberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect after successful form submission
+            messages.success(request, 'Your subscription has been successfully completed.')
+            return redirect(self.object.get_absolute_url())
+        else:
+            # If form is not valid, re-render the page with the form and any existing data
+            context = self.get_context_data(**kwargs)
+            context['subscription_form'] = form
+            return self.render_to_response(context)
 
 
 class BlogListView(ListView):
