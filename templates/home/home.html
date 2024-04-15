@@ -454,5 +454,23 @@
             window.location.href = url;
         }
     </script>
+    <script>
+        // Получаем элемент input
+        const dateInput = document.getElementById('id_date');
+    
+        // Получаем сегодняшнюю дату
+        const today = new Date();
+    
+        // Получаем день, месяц и год
+        const day = today.getDate().toString().padStart(2, '0'); // Добавляем ведущий ноль, если число однозначное
+        const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Месяцы начинаются с 0
+        const year = today.getFullYear();
+    
+        // Форматируем дату в формате dd.MM.yyyy
+        const formattedDate = `${year}-${month}-${day}`;
+    
+        // Устанавливаем значение элементу input
+        dateInput.value = formattedDate;
+      </script>
     <script src="{% static 'js/subscription.js' %}"></script>
 {% endblock %}

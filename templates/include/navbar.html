@@ -8,6 +8,269 @@
                 </a>
             </div>
         </div>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-lg-0">
+    
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
+                               data-bs-toggle="dropdown" href="#">Lisbon Things To Do</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <h2 class="mobile-dropdown-title">
+                                        <img src="{% static 'images/language-arrow.png' %}" alt="">
+                                        Lisbon Things To Do
+                                    </h2>
+                                    <h3 class="dropdown-title">
+                                        Top experiences
+                                    </h3>
+                                    {% for experience in top_experiences %}
+                                        <a class="dropdown-item"
+                                           href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
+                                    {% endfor %}
+                                    <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
+                                        see all
+                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                                    </a>
+                                </li>
+                                <li>
+    
+                                    <h3 class="dropdown-title">
+                                        Top Attractions
+                                    </h3>
+                                    {% for attraction in top_attractions %}
+                                        <a class="dropdown-item"
+                                           href="{% url 'attraction-detail' lang=attraction.language.code.lower slug=attraction.slug %}">{{ attraction.name }}</a>
+                                    {% endfor %}
+                                    <a href="{% url 'attraction-list' lang='en' %}" class="dropdown-item-link">
+                                        see all
+                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
+                               data-bs-toggle="dropdown" href="#">Out Of Lisbon Things To Do</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <h2 class="mobile-dropdown-title">
+                                        <img src="{% static 'images/language-arrow.png' %}" alt="">
+                                        Out Of Lisbon Things To Do
+                                    </h2>
+                                    <h3 class="dropdown-title">
+                                        Top Destinations
+                                    </h3>
+                                    {% for destination in top_destinations %}
+                                        <a class="dropdown-item"
+                                           href="{% url 'destination-detail' lang=destination.language.code.lower slug=destination.slug %}">{{ destination.name }}</a>
+                                    {% endfor %}
+                                    <a href="{% url 'destination-list' lang='en' %}" class="dropdown-item-link">
+                                        see all
+                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                                    </a>
+                                </li>
+                                <li>
+    
+                                    <h3 class="dropdown-title">
+                                        Most Popular Experiences
+                                    </h3>
+                                    {% for experience in most_popular_experiences %}
+                                    <a class="dropdown-item"
+                                       href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
+                                    {% endfor %}
+                                    <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
+                                        see all
+                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
+                               data-bs-toggle="dropdown" href="#">Our services</a>
+                            <ul class="dropdown-menu small">
+                                <li>
+                                   
+                                    <h2 class="mobile-dropdown-title">
+                                        <img src="{% static 'images/language-arrow.png' %}" alt="">
+                                        Our services
+                                    </h2>
+                                        <a class="dropdown-item"
+                                           href="">Private tours</a>
+                                           <a class="dropdown-item"
+                                           href="">Group tours</a>
+                                           <a class="dropdown-item"
+                                           href="">Airport pickup</a>
+                                    
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link body-text-b3" aria-current="page" href="{% url 'blog-list' lang='en' %}">
+                                Travel Blog
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
+                               data-bs-toggle="dropdown" href="#">Lisbon Things To Do</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <h2 class="mobile-dropdown-title">
+                                        <img src="{% static 'images/language-arrow.png' %}" alt="">
+                                        Porto Things To Do
+                                    </h2>
+                                    <h3 class="dropdown-title">
+                                        Best experiences
+                                    </h3>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
+    
+                                    <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
+                                        see all
+                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                                    </a>
+                                </li>
+                                <li>
+    
+                                    <h3 class="dropdown-title">
+                                        Top Attractions
+                                    </h3>
+                                    <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Attraction name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Attraction name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Attraction name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Attraction name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Attraction name long-long-long </a>
+    
+                                    <a href="{% url 'attraction-list' lang='en' %}" class="dropdown-item-link">
+                                        see all
+                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
+                               data-bs-toggle="dropdown" href="#">Out Of Lisbon Things To Do</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <h2 class="mobile-dropdown-title">
+                                        <img src="{% static 'images/language-arrow.png' %}" alt="">
+                                        Out Of Porto Things To Do
+                                    </h2>
+                                    <h3 class="dropdown-title">
+                                        Destinations
+                                    </h3>
+                                    <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Destination name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Destination name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Destination name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Destination name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Destination name long-long-long </a>
+    
+                                    <a href="{% url 'destination-list' lang='en' %}" class="dropdown-item-link">
+                                        see all
+                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                                    </a>
+                                </li>
+                                <li>
+    
+                                    <h3 class="dropdown-title">
+                                        Most Popular
+                                    </h3>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
+                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
+    
+                                    <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
+                                        see all
+                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
+                                    </a>
+                                </li>
+                            </ul>
+                        </li> -->
+                    </ul>
+                </div>
+                <div class="language-phone-wrapper">
+                    <div class="contact-phone contact-phone-mobile">
+                        <img src="{% static 'icons/phone-icon.svg' %}" alt="">
+                        <p class="phone-number body-text-b3">
+                            +351 968 380 559
+                        </p>
+                    </div>
+                    <div class="language-switcher-mobile">
+                        <div class="default-language" id="mobileDefaultLanguage">
+                            <img class="language-icon-en language-icon" src="{% static 'images/en_flag.png' %}" alt="gb">
+                            <img class="language-icon-pt language-icon" src="{% static 'images/pt_flag.png' %}" alt="pt">
+                            <img class="language-icon-es language-icon" src="{% static 'images/es_flag.png' %}" alt="es">
+                            <img class="language-icon-fr language-icon" src="{% static 'images/fr_flag.png' %}" alt="rf">
+                            <span class="arrow-icon">
+                                <img src="{% static 'icons/header-arrow.svg' %}" alt="">
+                            </span>
+                        </div>
+                        <div class="custom-select-wrapper">
+                            <ul id="mobileLanguageOptions">
+                                <li data-language="en">
+                                    <img src="{% static 'images/en_flag.png' %}" alt="">
+                                    English
+                                </li>
+                                <li data-language="pt">
+                                    <img src="{% static 'images/pt_flag.png' %}" alt="">
+                                    Português
+                                </li>
+                                <li data-language="es">
+                                    <img src="{% static 'images/es_flag.png' %}" alt="">
+                                    Español
+                                </li>
+                                <li data-language="fr">
+                                    <img src="{% static 'images/fr_flag.png' %}" alt="">
+                                    Français
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="login-btn-wrapper login-btn-wrapper-mobile">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}" class="header-login-btn btn-type-2">
+                            Profile
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="header-login-btn btn-type-2">
+                            Login
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
         <div class="header-right-col">
             <div class="mobile-burger-wrapper">
                 <img class="burger" src="{% static 'icons/burger-menu.svg' %}" alt="">
@@ -33,7 +296,7 @@
                     <img class="language-icon-es language-icon" src="{% static 'images/es_flag.png' %}" alt="es">
                     <img class="language-icon-fr language-icon" src="{% static 'images/fr_flag.png' %}" alt="rf">
                     <span class="arrow-icon">
-                        <img src="{% static 'images/language-arrow.png' %}" alt="">
+                        <img src="{% static 'icons/header-arrow.svg' %}" alt="">
                     </span>
                 </div>
                 <div class="custom-select-wrapper">
@@ -57,20 +320,21 @@
                     </ul>
                 </div>
             </div>
-            <div class="contact-phone">
-                <img src="{% static 'images/phone-icon.png' %}" alt="">
+            <!-- <div class="contact-phone">
+                <img src="{% static 'icons/phone-icon.svg' %}" alt="">
                 <p class="phone-number body-text-b3">
                     +351 968 380 559
                 </p>
-            </div>
+            </div> -->
             <div class="cart-wrapper body-text-b3 hide">
                 <a href="{% url 'my-cart' lang='en' %}">
                     <img src="{% static 'icons/cart-icon.svg' %}" alt="">
-                    <span>Cart
-                        {% if number_of_products > 0 %}
-                        <span class="badge rounded-pill" style="margin-left: .5rem; background-color: #DA4303;">{{ number_of_products }}</span>
+                    {% if number_of_products > 0 %}
+                        <span class="items-count rounded-pill">{{ number_of_products }}</span>
                             {% else %}
                         {% endif %}
+                    <span>Cart
+                        
                     </span>
                 </a>
             </div>
@@ -88,247 +352,7 @@
         </div>
 
     </div>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-lg-0">
-
-                    <li class="nav-item">
-                        <a class="nav-link body-text-b3" aria-current="page" href="{% url 'blog-list' lang='en' %}">
-                            Travel Blog
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
-                           data-bs-toggle="dropdown" href="#">Lisbon Things To Do</a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <h2 class="mobile-dropdown-title">
-                                    <img src="{% static 'images/language-arrow.png' %}" alt="">
-                                    Lisbon Things To Do
-                                </h2>
-                                <h3 class="dropdown-title">
-                                    Top experiences
-                                </h3>
-                                {% for experience in top_experiences %}
-                                    <a class="dropdown-item"
-                                       href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
-                                {% endfor %}
-                                <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
-                                    see all
-                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                                </a>
-                            </li>
-                            <li>
-
-                                <h3 class="dropdown-title">
-                                    Top Attractions
-                                </h3>
-                                {% for attraction in top_attractions %}
-                                    <a class="dropdown-item"
-                                       href="{% url 'attraction-detail' lang=attraction.language.code.lower slug=attraction.slug %}">{{ attraction.name }}</a>
-                                {% endfor %}
-                                <a href="{% url 'attraction-list' lang='en' %}" class="dropdown-item-link">
-                                    see all
-                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
-                           data-bs-toggle="dropdown" href="#">Out Of Lisbon Things To Do</a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <h2 class="mobile-dropdown-title">
-                                    <img src="{% static 'images/language-arrow.png' %}" alt="">
-                                    Out Of Lisbon Things To Do
-                                </h2>
-                                <h3 class="dropdown-title">
-                                    Top Destinations
-                                </h3>
-                                {% for destination in top_destinations %}
-                                    <a class="dropdown-item"
-                                       href="{% url 'destination-detail' lang=destination.language.code.lower slug=destination.slug %}">{{ destination.name }}</a>
-                                {% endfor %}
-                                <a href="{% url 'destination-list' lang='en' %}" class="dropdown-item-link">
-                                    see all
-                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                                </a>
-                            </li>
-                            <li>
-
-                                <h3 class="dropdown-title">
-                                    Most Popular Experiences
-                                </h3>
-                                {% for experience in most_popular_experiences %}
-                                    <a class="dropdown-item"
-                                       href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
-                                {% endfor %}
-                                <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
-                                    see all
-                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
-                           data-bs-toggle="dropdown" href="#">Lisbon Things To Do</a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <h2 class="mobile-dropdown-title">
-                                    <img src="{% static 'images/language-arrow.png' %}" alt="">
-                                    Porto Things To Do
-                                </h2>
-                                <h3 class="dropdown-title">
-                                    Best experiences
-                                </h3>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-
-                                <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
-                                    see all
-                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                                </a>
-                            </li>
-                            <li>
-
-                                <h3 class="dropdown-title">
-                                    Top Attractions
-                                </h3>
-                                <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Attraction name long-long-long </a>
-                                <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Attraction name long-long-long </a>
-                                <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Attraction name long-long-long </a>
-                                <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Attraction name long-long-long </a>
-                                <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Attraction name long-long-long </a>
-
-                                <a href="{% url 'attraction-list' lang='en' %}" class="dropdown-item-link">
-                                    see all
-                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
-                           data-bs-toggle="dropdown" href="#">Out Of Lisbon Things To Do</a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <h2 class="mobile-dropdown-title">
-                                    <img src="{% static 'images/language-arrow.png' %}" alt="">
-                                    Out Of Porto Things To Do
-                                </h2>
-                                <h3 class="dropdown-title">
-                                    Destinations
-                                </h3>
-                                <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Destination name long-long-long </a>
-                                <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Destination name long-long-long </a>
-                                <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Destination name long-long-long </a>
-                                <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Destination name long-long-long </a>
-                                <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Destination name long-long-long </a>
-
-                                <a href="{% url 'destination-list' lang='en' %}" class="dropdown-item-link">
-                                    see all
-                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                                </a>
-                            </li>
-                            <li>
-
-                                <h3 class="dropdown-title">
-                                    Most Popular
-                                </h3>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-
-                                <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
-                                    see all
-                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="language-phone-wrapper">
-                <div class="contact-phone contact-phone-mobile">
-                    <img src="{% static 'images/phone-icon.png' %}" alt="">
-                    <p class="phone-number body-text-b3">
-                        +351 968 380 559
-                    </p>
-                </div>
-                <div class="language-switcher-mobile">
-                    <div class="default-language" id="mobileDefaultLanguage">
-                        <img class="language-icon-en language-icon" src="{% static 'images/en_flag.png' %}" alt="gb">
-                        <img class="language-icon-pt language-icon" src="{% static 'images/pt_flag.png' %}" alt="pt">
-                        <img class="language-icon-es language-icon" src="{% static 'images/es_flag.png' %}" alt="es">
-                        <img class="language-icon-fr language-icon" src="{% static 'images/fr_flag.png' %}" alt="rf">
-                        <span class="arrow-icon">
-                            <img src="{% static 'images/language-arrow.png' %}" alt="">
-                        </span>
-                    </div>
-                    <div class="custom-select-wrapper">
-                        <ul id="mobileLanguageOptions">
-                            <li data-language="en">
-                                <img src="{% static 'images/en_flag.png' %}" alt="">
-                                English
-                            </li>
-                            <li data-language="pt">
-                                <img src="{% static 'images/pt_flag.png' %}" alt="">
-                                Português
-                            </li>
-                            <li data-language="es">
-                                <img src="{% static 'images/es_flag.png' %}" alt="">
-                                Español
-                            </li>
-                            <li data-language="fr">
-                                <img src="{% static 'images/fr_flag.png' %}" alt="">
-                                Français
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-            <div class="login-btn-wrapper login-btn-wrapper-mobile">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'profile' %}" class="header-login-btn btn-type-2">
-                        Profile
-                    </a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="header-login-btn btn-type-2">
-                        Login
-                    </a>
-                {% endif %}
-            </div>
-        </div>
-    </nav>
+    
     <!-- Home page language -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -351,12 +375,12 @@
         let languageBtn = document.querySelector('.language-switcher .default-language');
         languageBtn.addEventListener('click', () => {
             languageBtn.classList.toggle('opened')
-            console.log('test')
+            
         });
         let languageBtnMobile = document.querySelector('.language-switcher-mobile .default-language');
         languageBtnMobile.addEventListener('click', () => {
             languageBtnMobile.classList.toggle('opened')
-            console.log('test')
+            
         });
 
         let burgerMobileMenuBtn = document.querySelector('.burger');

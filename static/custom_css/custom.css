@@ -7625,8 +7625,8 @@ html.off-scroll body {
   touch-action: none; }
 
 .header .container {
-  padding-top: 22px;
-  padding-bottom: 24px; }
+  padding-top: 10px;
+  padding-bottom: 10px; }
   @media (max-width: 767.98px) {
     .header .container {
       padding-top: 10px;
@@ -7691,12 +7691,29 @@ html.off-scroll body {
     .header-right-col .cart-wrapper a {
       display: flex;
       align-items: center;
-      text-decoration: none; }
+      text-decoration: none;
+      position: relative; }
+      .header-right-col .cart-wrapper a .items-count {
+        position: absolute;
+        top: 0;
+        left: 12px;
+        width: 12px;
+        height: 12px;
+        background-color: #0F0F10;
+        text-align: center;
+        color: white;
+        padding: 0;
+        border-radius: 50%;
+        font-size: 9px;
+        line-height: normal; }
       .header-right-col .cart-wrapper a:hover {
         color: inherit; }
     @media (max-width: 767.98px) {
       .header-right-col .cart-wrapper a span {
         display: none; } }
+    @media (max-width: 767.98px) {
+      .header-right-col .cart-wrapper a span.items-count {
+        display: block; } }
     .header-right-col .cart-wrapper img {
       margin-right: 14px; }
       @media (max-width: 767.98px) {
@@ -7777,7 +7794,7 @@ html.off-scroll body {
       line-height: normal; }
 
 .header .navbar {
-  padding-top: 16px;
+  padding-top: 0;
   padding-bottom: 0; }
   @media (max-width: 767.98px) {
     .header .navbar {
@@ -7806,7 +7823,7 @@ html.off-scroll body {
         border: 1px solid #D9D9D9;
         border-radius: 26px;
         padding: 24px;
-        height: calc(100% - 85px);
+        height: calc(100% - 170px);
         align-items: flex-start;
         position: relative;
         overflow: hidden; } }
@@ -7816,6 +7833,11 @@ html.off-scroll body {
     @media (max-width: 767.98px) {
       .header .navbar .navbar-nav {
         margin-bottom: 0; } }
+    .header .navbar .navbar-nav .nav-item + .nav-item {
+      margin-left: 25px; }
+      @media (max-width: 767.98px) {
+        .header .navbar .navbar-nav .nav-item + .nav-item {
+          margin-left: 0; } }
     @media (max-width: 767.98px) {
       .header .navbar .navbar-nav .nav-item {
         position: inherit; }
@@ -7839,6 +7861,13 @@ html.off-scroll body {
       top: 40px;
       left: 50%;
       transform: translateX(-50%); }
+      .header .navbar .navbar-nav .dropdown-menu.small {
+        width: 250px; }
+        @media (max-width: 767.98px) {
+          .header .navbar .navbar-nav .dropdown-menu.small {
+            width: 100%; } }
+        .header .navbar .navbar-nav .dropdown-menu.small li {
+          width: 100%; }
       .header .navbar .navbar-nav .dropdown-menu li {
         width: calc((100% - 40px)/2); }
         .header .navbar .navbar-nav .dropdown-menu li .mobile-dropdown-title {
@@ -7913,7 +7942,7 @@ html.off-scroll body {
     .header .navbar .navbar-nav .dropdown-toggle::after {
       vertical-align: top;
       margin-left: 10px;
-      background-image: url(../images/language-arrow.png);
+      background-image: url(../icons/header-arrow.svg);
       width: 24px;
       height: 24px;
       background-repeat: no-repeat;
@@ -8100,6 +8129,11 @@ html.off-scroll body {
           .footer .container .row .footer-info .address-wrapper img,
           .footer .container .row .footer-info .email-wrapper img {
             margin-right: 14px; }
+          .footer .container .row .footer-info .phone-wrapper a,
+          .footer .container .row .footer-info .address-wrapper a,
+          .footer .container .row .footer-info .email-wrapper a {
+            color: white;
+            text-decoration: none; }
         .footer .container .row .footer-info .address-wrapper {
           max-width: 265px; }
       .footer .container .row .footer-block {
@@ -9077,11 +9111,15 @@ html.off-scroll body {
             width: 100%;
             padding: 12px 13px 16px 13px;
             border: none; } }
-        .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper h4, .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper .h4 {
-          margin-bottom: 24px; }
-          @media (max-width: 767.98px) {
-            .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper h4, .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper .h4 {
-              margin-bottom: 6px; } }
+        .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper a.link {
+          text-decoration: none; }
+          .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper a.link:hover {
+            color: inherit; }
+          .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper a.link h4, .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper a.link .h4 {
+            margin-bottom: 24px; }
+            @media (max-width: 767.98px) {
+              .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper a.link h4, .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper a.link .h4 {
+                margin-bottom: 6px; } }
         .destinations-list .container .destinations .destinations-list-item .destination-list-content-wrapper .main-info-list {
           padding-left: 0;
           margin: 0;
@@ -9259,7 +9297,8 @@ html.off-scroll body {
             background-image: url(../images/language-arrow.png);
             background-position-x: calc(100% - 16px);
             background-position-y: 50%;
-            background-repeat: no-repeat; }
+            background-repeat: no-repeat;
+            color: #0F0F10; }
             .home-hero .container .experience-list-hero-calendar form .place-wrapper select:invalid {
               color: #6d6d6d; }
             @media (max-width: 767.98px) {
@@ -9309,9 +9348,10 @@ html.off-scroll body {
             font-family: "LatoRegular";
             font-size: 16px;
             line-height: normal;
-            position: relative; }
-            .home-hero .container .experience-list-hero-calendar form .date-wrapper input::placeholder {
-              color: #6d6d6d; }
+            position: relative;
+            background-color: white;
+            color: #0F0F10;
+            -webkit-appearance: none; }
         .home-hero .container .experience-list-hero-calendar form .form-btn {
           width: 240px;
           display: flex;
@@ -10776,6 +10816,7 @@ html.off-scroll body {
           -webkit-appearance: none;
           -moz-appearance: none;
           background: transparent;
+          color: #0F0F10;
           background-image: url(../images/language-arrow.png);
           background-position-x: calc(100% - 16px);
           background-position-y: 50%;
@@ -10829,7 +10870,10 @@ html.off-scroll body {
           font-family: "LatoRegular";
           font-size: 16px;
           line-height: normal;
-          position: relative; }
+          position: relative;
+          background-color: white;
+          color: #0F0F10;
+          -webkit-appearance: none; }
           .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper input::placeholder {
             color: #6d6d6d; }
       @media (max-width: 767.98px) {
@@ -10919,6 +10963,9 @@ html.off-scroll body {
         background-position-x: calc(100% - 16px);
         background-position-y: 50%;
         background-repeat: no-repeat; }
+        @media (max-width: 767.98px) {
+          .experience-list .container .title-filter-wrapper .filter-wrapper select {
+            width: 205px; } }
   .experience-list .container .experiences {
     padding-left: 0;
     list-style: none;
@@ -10975,12 +11022,16 @@ html.off-scroll body {
             width: 100%;
             padding: 14px;
             border-radius: 0; } }
-        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper h5, .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .h5 {
-          margin-bottom: 24px;
-          color: #0f0f10; }
-          @media (max-width: 767.98px) {
-            .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper h5, .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .h5 {
-              margin-bottom: 12px; } }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper > a.link {
+          text-decoration: none; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper > a.link:hover {
+            color: inherit; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper > a.link h5, .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper > a.link .h5 {
+            margin-bottom: 24px;
+            color: #0f0f10; }
+            @media (max-width: 767.98px) {
+              .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper > a.link h5, .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper > a.link .h5 {
+                margin-bottom: 12px; } }
         .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper {
           display: flex;
           align-items: center;
@@ -13566,5 +13617,3 @@ a {
     margin: 0 auto;
     display: block;
     text-align: center; }
-
-/*# sourceMappingURL=custom.css.map */
