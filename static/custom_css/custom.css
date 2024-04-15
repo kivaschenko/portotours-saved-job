@@ -7691,12 +7691,29 @@ html.off-scroll body {
     .header-right-col .cart-wrapper a {
       display: flex;
       align-items: center;
-      text-decoration: none; }
+      text-decoration: none;
+      position: relative; }
+      .header-right-col .cart-wrapper a .items-count {
+        position: absolute;
+        top: 0;
+        left: 12px;
+        width: 12px;
+        height: 12px;
+        background-color: #0F0F10;
+        text-align: center;
+        color: white;
+        padding: 0;
+        border-radius: 50%;
+        font-size: 9px;
+        line-height: normal; }
       .header-right-col .cart-wrapper a:hover {
         color: inherit; }
     @media (max-width: 767.98px) {
       .header-right-col .cart-wrapper a span {
         display: none; } }
+    @media (max-width: 767.98px) {
+      .header-right-col .cart-wrapper a span.items-count {
+        display: block; } }
     .header-right-col .cart-wrapper img {
       margin-right: 14px; }
       @media (max-width: 767.98px) {
@@ -13600,5 +13617,3 @@ a {
     margin: 0 auto;
     display: block;
     text-align: center; }
-
-/*# sourceMappingURL=custom.css.map */

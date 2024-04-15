@@ -329,11 +329,12 @@
             <div class="cart-wrapper body-text-b3 hide">
                 <a href="{% url 'my-cart' lang='en' %}">
                     <img src="{% static 'icons/cart-icon.svg' %}" alt="">
-                    <span>Cart
-                        {% if number_of_products > 0 %}
-                        <span class="badge rounded-pill" style="margin-left: .5rem; background-color: #DA4303;">{{ number_of_products }}</span>
+                    {% if number_of_products > 0 %}
+                        <span class="items-count rounded-pill">{{ number_of_products }}</span>
                             {% else %}
                         {% endif %}
+                    <span>Cart
+                        
                     </span>
                 </a>
             </div>
