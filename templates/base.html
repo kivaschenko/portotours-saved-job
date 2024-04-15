@@ -88,12 +88,11 @@
                     Top things to do in Portugal
                 </p>
                 <ul class="footer-block-list">
-                    <li><a href="" class="footer-link">Name of tour</a></li>
-                    <li><a href="" class="footer-link">lang Name of tour</a></li>
-                    <li><a href="" class="footer-link">Name of tour</a></li>
-                    <li><a href="" class="footer-link">long-long Name of tour </a></li>
-                    <li><a href="" class="footer-link">Name of tour</a></li>
-                    <li><a href="" class="footer-link">long Name of tour</a></li>
+                    {% if top_experiences %}
+                    {% for experience in top_experiences %}
+                    <li><a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" class="footer-link">{{ experience.name }}</a></li>
+                    {% endfor %}
+                    {% endif %}
                 </ul>
             </div>
         </div>
