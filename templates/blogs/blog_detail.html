@@ -91,8 +91,8 @@
                         {{ block.display_text }}
                         {% if forloop.counter == midpoint %}
                             {% if object.middle_picture %}
-                            <img src="{{ object.middle_picture.url }}" alt="Middle Picture">
-                                {% endif %}
+                                <img src="{{ object.middle_picture.url }}" alt="Middle Picture">
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 {% else %}
@@ -144,7 +144,7 @@
             <p class="offers-banner-subtitle">
                 Get exclusive benefits and premium discounts with our subscription plan
             </p>
-            <form action="" method="post" class="offers-banner-form">
+            <form id="subscription-form" action="" method="post" class="offers-banner-form">
                 {% csrf_token %}
                 {{ subscription_form|crispy }}
                 <button type="submit" class="form-submit-btn">Subscribe</button>
@@ -162,7 +162,7 @@
         <p class="popup-text">
             We'll keep you updated on the latest news and discounts from our company.
         </p>
-        <a href="#" class="btn-popup btn-type-1">
+        <a href="#" class="btn-popup btn-type-1" id="continue-btn">
             Continue
         </a>
     </div>
@@ -218,5 +218,6 @@
             },
         });
     </script>
+    <script src="{% static 'js/subscription.js' %}"></script>
     <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
 {% endblock content %}

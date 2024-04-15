@@ -3,57 +3,57 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<section class="blog-hero">
-    <div class="container">
-        <h1 class="blog-hero-title">
-            Portugal travel blog 
-        </h1>
-        <p class="blog-hero-subtitle">
-            Get insider information from locals and become more prepared for your trip to Portugal
-        </p>
-    </div>
-</section>
-<section class="blog-list">
-    <div class="container">
-        <div class="blog-categories-wrapper">
-            <!-- <h3 class="blog-categories-title">
-                Categories
-            </h3> -->
-            {% if categories %}
-            <ul class="categories-list">
-                {% for category in categories %}
-                <li class="categories-list-item">
-                    <button type="button" class="btn filter-category" data-category="{{ category.id }}">{{ category.name }}</button>
-                </li>
-                    {% endfor %}
-            </ul>
-            {% endif %}
-            
+    <section class="blog-hero">
+        <div class="container">
+            <h1 class="blog-hero-title">
+                Portugal travel blog
+            </h1>
+            <p class="blog-hero-subtitle">
+                Get insider information from locals and become more prepared for your trip to Portugal
+            </p>
         </div>
-        <div class="blog-cards-wrapper">
-            {% if object_list %}
-                {% for object in object_list %}
-                    <div class="blog-card">
-                        <div class="img-wrapper">
-                            <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
+    </section>
+    <section class="blog-list">
+        <div class="container">
+            <div class="blog-categories-wrapper">
+                <!-- <h3 class="blog-categories-title">
+					Categories
+				</h3> -->
+                {% if categories %}
+                    <ul class="categories-list">
+                        {% for category in categories %}
+                            <li class="categories-list-item">
+                                <button type="button" class="btn filter-category" data-category="{{ category.id }}">{{ category.name }}</button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+            </div>
+            <div class="blog-cards-wrapper">
+                {% if object_list %}
+                    {% for object in object_list %}
+                        <div class="blog-card">
+                            <div class="img-wrapper">
+                                <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
                             {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
+                            </div>
+                            <div class="card-content-wrapper">
+                                <p class="card-date">
+                                    {{ object.date_published|date }}
+                                </p>
+                                <h5 class="card-title">
+                                    {{ object.title }}
+                                </h5>
+                                <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}" class="card-link">
+                                    read article
+                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="link arrow">
+                                </a>
+                            </div>
                         </div>
-                        <div class="card-content-wrapper">
-                            <p class="card-date">
-                                {{ object.date_published|date }}
-                            </p>
-                            <h5 class="card-title">
-                                {{ object.title }}
-                            </h5>
-                            <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}" class="card-link">
-                                read article
-                                <img src="{% static 'icons/experience-link-icon.svg' %}" alt="link arrow">
-                            </a>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-            <!-- {% if object_list %}
+                    {% endfor %}
+                {% endif %}
+                <!-- {% if object_list %}
                     {% for object in object_list %}
                         <div class="card" style="width: 18rem;">
                             <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
@@ -66,42 +66,40 @@
                         </div>
                     {% endfor %}
             {% endif %} -->
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="offers-banner">
-    <div class="container">
-        <h2 class="offers-banner-title">
-            Special Offers
+    <section class="offers-banner">
+        <div class="container">
+            <h2 class="offers-banner-title">
+                Special Offers
+            </h2>
+            <p class="offers-banner-subtitle">
+                Get exclusive benefits and premium discounts with our subscription plan
+            </p>
+            <form id="subscription-form" action="" method="post" class="offers-banner-form">
+                {% csrf_token %}
+                {{ subscription_form|crispy }}
+                <button type="submit" class="form-submit-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="subscribe-popup">
+        <a href="#" class="close-popup-btn">
+            <img src="{% static 'icons/icon-close.svg' %}" alt="close button">
+        </a>
+        <h2 class="popup-title">
+            Thank you for subscribing!
         </h2>
-        <p class="offers-banner-subtitle">
-            Get exclusive benefits and premium discounts with our subscription plan
+        <p class="popup-text">
+            We'll keep you updated on the latest news and discounts from our company.
         </p>
-        <form action="" method="post" class="offers-banner-form">
-            {% csrf_token %}
-            {{ subscription_form|crispy }}
-            <button type="submit" class="form-submit-btn">Subscribe</button>
-        </form>
+        <a href="#" class="btn-popup btn-type-1" id="continue-btn">
+            Continue
+        </a>
     </div>
-</section>
-
-<div class="subscribe-popup">
-    <a href="#" class="close-popup-btn">
-        <img src="{% static 'icons/icon-close.svg' %}" alt="close button">
-    </a>
-    <h2 class="popup-title">
-        Thank you for subscribing!
-    </h2>
-    <p class="popup-text">
-        We'll keep you updated on the latest news and discounts from our company.
-    </p>
-    <a href="#" class="btn-popup btn-type-1">
-        Continue
-    </a>
-</div>
-
-
     
     <!-- Custom JS import -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
@@ -126,5 +124,5 @@
             });
         });
     </script>
-
+    <script src="{% static 'js/subscription.js' %}"></script>
 {% endblock content %}

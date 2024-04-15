@@ -6,6 +6,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
 from django.contrib import messages
+from django.http import JsonResponse
 
 from blogs.models import Blog, Category
 from products.models import Language
@@ -49,6 +50,7 @@ class BlogDetailView(DetailView):
         context['subscription_form'] = SubscriberForm()
         return context
 
+
     def post(self, request, *args, **kwargs):
         lang = self.kwargs.get('lang', 'en')
         activate(lang)
@@ -56,14 +58,11 @@ class BlogDetailView(DetailView):
         form = SubscriberForm(request.POST)
         if form.is_valid():
             form.save()
-            # Redirect after successful form submission
-            messages.success(request, 'Your subscription has been successfully completed.')
-            return redirect(self.object.get_absolute_url())
+            # Return JSON response indicating success
+            return JsonResponse({'success': True})
         else:
-            # If form is not valid, re-render the page with the form and any existing data
-            context = self.get_context_data(**kwargs)
-            context['subscription_form'] = form
-            return self.render_to_response(context)
+            # If form is not valid, return JSON response with errors
+            return JsonResponse({'success': False, 'errors': form.errors})
 
 
 class BlogListView(ListView):
@@ -131,12 +130,8 @@ class BlogListView(ListView):
         form = SubscriberForm(request.POST)
         if form.is_valid():
             form.save()
-            # Redirect after successful form submission
-            messages.success(request, 'Your subscription has been successfully completed.')
-            return redirect('blog-list', lang=lang)
+            # Return JSON response indicating success
+            return JsonResponse({'success': True})
         else:
-            # If form is not valid, re-render the page with the form and any existing data
-            context['subscription_form'] = form
-            return self.render_to_response(context)
-
-
+            # If form is not valid, return JSON response with errors
+            return JsonResponse({'success': False, 'errors': form.errors})
