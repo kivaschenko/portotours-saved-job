@@ -8,3 +8,5 @@ python manage.py dumpdata products.language --format=json --indent=4 --out=produ
 python manage.py loaddata accounts/fixtures/testing/users.json
 
 http://localhost:8000/confirmation/en/?session_id=cs_test_a1ZKtgWaobKETHKVXbu7faBFvZvZcCDnXCzmyzghgDTamGMpJ8gdETgPds
+
+?payment_intent=pi_3P5UOAB0X2obciNi12B0cMyP&payment_intent_client_secret=pi_3P5UOAB0X2obciNi12B0cMyP_secret_2IqEpSomUPBuQUZnuzI89Ry6a&redirect_status=succeeded

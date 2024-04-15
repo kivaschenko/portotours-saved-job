@@ -104,11 +104,12 @@
                 theme: 'flat',
                 labels: 'floating',
             };
+            elements = stripe.elements({appearance, clientSecret});
             const options = {
                 mode: 'billing',
+                fields: {phone: 'always'},
+                display: {name: 'split'},
             };
-            elements = stripe.elements({appearance, clientSecret});
-
             // Mount the address element
             const addressElement = elements.create("address", options);
             addressElement.mount('#address-element');
