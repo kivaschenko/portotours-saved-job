@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse, HttpResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+from django.contrib import messages
 from django.views.generic import DetailView, ListView, DeleteView
 from django.db import transaction
 
@@ -134,7 +135,8 @@ class UserIsAuthentiacedOrSessionKeyRequiredMixin:
         self.queryset = Product.objects.none()
         if session_key is None and not user.is_authenticated:
             # Redirect user to login page or any other page as you see fit
-            return redirect(reverse_lazy('login'))
+            # messages.info(request, f'There are no selected experiences for further purchase or the selected ones have already expired.')
+            return redirect('home', lang='en')
         elif user.is_authenticated:
             if Product.objects.filter(customer=user).exists():
                 self.queryset = Product.pending.filter(customer=user)
