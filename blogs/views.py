@@ -1,10 +1,15 @@
 from math import ceil
+
+from django.shortcuts import redirect
 from django.views.generic import DetailView, ListView
 from django.utils.decorators import method_decorator
+from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
+from django.contrib import messages
 
 from blogs.models import Blog, Category
 from products.models import Language
+from home.forms import SubscriberForm
 
 
 class BlogDetailView(DetailView):
@@ -44,8 +49,6 @@ class BlogDetailView(DetailView):
         return context
 
 
-
-
 class BlogListView(ListView):
     model = Blog
     template_name = 'blogs/blog_list.html'
@@ -67,12 +70,18 @@ class BlogListView(ListView):
             queryset = queryset.filter(categories=category)
 
         return queryset
+
     # TODO: Complete filtering by Category
     # def get(self, request, *args, **kwargs):
     #     queryset = self.get_queryset()
     #     context = self.get_context_data(object_list=queryset)
     #     html = render_to_string(self.template_name, context, request=request)
     #     return JsonResponse({'html': html})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['subscription_form'] = SubscriberForm()
+        return context
 
     def get(self, request, *args, **kwargs):
         self.object_list = self.get_queryset()
@@ -82,7 +91,7 @@ class BlogListView(ListView):
             # it's better to do a cheap query than to load the unpaginated
             # queryset in memory.
             if self.get_paginate_by(self.object_list) is not None and hasattr(
-                self.object_list, "exists"
+                    self.object_list, "exists"
             ):
                 is_empty = not self.object_list.exists()
             else:
@@ -96,3 +105,21 @@ class BlogListView(ListView):
                 )
         context = self.get_context_data()
         return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        lang = self.kwargs.get('lang', 'en')
+        activate(lang)
+        self.object_list = self.get_queryset()  # Set self.object_list
+        context = self.get_context_data(**kwargs)
+        form = SubscriberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect after successful form submission
+            messages.success(request, 'Your subscription has been successfully completed.')
+            return redirect('blog-list', lang=lang)
+        else:
+            # If form is not valid, re-render the page with the form and any existing data
+            context['subscription_form'] = form
+            return self.render_to_response(context)
+
+

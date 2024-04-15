@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 <section class="blog-hero">
@@ -77,11 +78,10 @@
         <p class="offers-banner-subtitle">
             Get exclusive benefits and premium discounts with our subscription plan
         </p>
-        <form action="" class="offers-banner-form">
-            <input type="email" class="email-input" name="email" id="subscription-email" placeholder="Enter Email Address">
-            <button type="submit" class="form-submit-btn">
-                Subscribe
-            </button>
+        <form action="" method="post" class="offers-banner-form">
+            {% csrf_token %}
+            {{ subscription_form|crispy }}
+            <button type="submit" class="form-submit-btn">Subscribe</button>
         </form>
     </div>
 </section>
