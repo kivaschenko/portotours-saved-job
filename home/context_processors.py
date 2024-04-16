@@ -8,15 +8,19 @@ from products.models import Experience, Product
 
 def navbar_context(request, lang=None, **kwargs):
     session_key = request.session.session_key
+    user = request.user
     if lang is None:
         lang_code = 'EN'
     else:
         lang_code = lang.upper()
     cache_key = f'navbar_context_{lang_code}'
     number_of_products = 0
-    if session_key:
-        if Product.objects.filter(session_key=session_key).exists():
-            number_of_products = Product.objects.filter(session_key=session_key).count()
+    if user.is_authenticated:
+        if Product.pending.filter(customer=user).exists():
+            number_of_products = Product.pending.filter(customer=user).count()
+    elif session_key:
+        if Product.pending.filter(session_key=session_key).exists():
+            number_of_products = Product.pending.filter(session_key=session_key).count()
     cached_data = cache.get(cache_key)
     if cached_data:
         cached_data.update({'number_of_products': number_of_products})
