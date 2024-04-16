@@ -129,7 +129,6 @@
                                             {% endif %}
 
                                         </div>
-                                        {% if object.parent_experience.is_private %}
                                             <div class="card-col">
                                                 <p class="card-col-title">
                                                     Price
@@ -138,18 +137,19 @@
                                                     €{{ object.total_price }}
                                                 </p>
                                             </div>
-                                        {% endif %}
                                     </div>
                                     <div class="hover-block">
                                         <ul class="hover-block-btns-list">
                                             <li class="hover-block-item">
                                                 <a href="{% url 'edit-product' object.pk %}">
                                                     <img src="{% static 'icons/cart-edit-icon.svg' %}" alt="edit">
+                                                    <span>Edit</span>
                                                 </a>
                                             </li>
                                             <li class="hover-block-item">
                                                 <a href="{% url 'cancel-product' object.pk %}">
                                                     <img src="{% static 'icons/cart-remove-icon.svg' %}" alt="remove">
+                                                    <span>Delete</span>
                                                 </a>
 
                                             </li>

@@ -28,16 +28,12 @@
         <!-- End Navbar -->
     {% endblock %}
 </header>
-<!-- Messages -->
-{% include 'include/messages.html' %}
-<!-- End Messages-->
+
 <main>
-
     {% block content %}
-
     {% endblock content %}
-
 </main>
+
 <footer class="mt-auto footer">
     <div class="container">
         <div class="row">
@@ -47,8 +43,10 @@
                     Contacts
                 </p>
                 <div class="phone-wrapper">
-                    <img src="{% static 'icons/phone-icon-white.svg' %}" alt="">
-                    +351 968 380 559
+                    <a href="tel:+351968380559" class="phone-link">
+                        <img src="{% static 'icons/phone-icon-white.svg' %}" alt="">
+                        +351 968 380 559
+                    </a>
                 </div>
 
                 <div class="email-wrapper">
@@ -88,18 +86,18 @@
                     Top things to do in Portugal
                 </p>
                 <ul class="footer-block-list">
-                    <li><a href="" class="footer-link">Name of tour</a></li>
-                    <li><a href="" class="footer-link">lang Name of tour</a></li>
-                    <li><a href="" class="footer-link">Name of tour</a></li>
-                    <li><a href="" class="footer-link">long-long Name of tour </a></li>
-                    <li><a href="" class="footer-link">Name of tour</a></li>
-                    <li><a href="" class="footer-link">long Name of tour</a></li>
+                    {% if top_experiences %}
+                        {% for experience in top_experiences %}
+                            <li><a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}"
+                                   class="footer-link">{{ experience.name }}</a></li>
+                        {% endfor %}
+                    {% endif %}
                 </ul>
             </div>
         </div>
 
         <div class="footer-bottom-block">
-            <p>© One Day Tours Portugal, LDA <span class="currentYear"></span>. Made in Portugal 🇵🇹</p>
+            <p>© One Day Tours Portugal, LDA <span class="currentYear"></span>. RNAAT 390/2024. Made in Portugal 🇵🇹</p>
 
         </div>
     </div>
@@ -110,7 +108,7 @@
     const currentYear = new Date().getFullYear();
     const spanElements = document.querySelectorAll('.currentYear');
     spanElements.forEach(span => {
-      span.textContent = currentYear;
+        span.textContent = currentYear;
     });
 </script>
 

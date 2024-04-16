@@ -5,6 +5,9 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, DeleteView
 from django.db import transaction
+from django.contrib.sessions.models import Session
+from django.http import HttpResponseBadRequest
+from django.views.generic import View
 
 from weasyprint import HTML
 
@@ -127,32 +130,39 @@ class ExperienceDetailView(DetailView):
 
 # Products
 
-class UserIsAuthenticatedOrSessionKeyRequiredMixin:
+class UserIsAuthentiacedOrSessionKeyRequiredMixin(View):
     def dispatch(self, request, *args, **kwargs):
         user = request.user
         session_key = request.session.session_key
         self.queryset = Product.objects.none()
+        # Check if the session is valid
+        try:
+            session = Session.objects.get(session_key=session_key)
+        except Session.DoesNotExist:
+            # If the session does not exist or is expired, redirect the user
+            return redirect('home', lang='en')
         if session_key is None and not user.is_authenticated:
             # Redirect user to login page or any other page as you see fit
-            return redirect(reverse_lazy('login'))
+            return redirect('home', lang='en')
         elif user.is_authenticated:
-            if Product.objects.filter(customer=user).exists():
+            if Product.pending.filter(customer=user).exists():
                 self.queryset = Product.pending.filter(customer=user)
         elif session_key:
             # Here, you can perform additional checks if needed, like checking if the session key exists in your models
-            if Product.objects.filter(session_key=session_key).exists():
+            if Product.pending.filter(session_key=session_key).exists():
                 self.queryset = Product.pending.filter(session_key=session_key)
-        return super(UserIsAuthenticatedOrSessionKeyRequiredMixin, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
-class ProductCartView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
+class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
     """View for listing all products for current user (session) only."""
     model = Product
     template_name = 'products/my_cart.html'
     extra_context = {'current_language': 'en'}
 
     def get_queryset(self):
-        return Product.pending.all()
+        queryset = super().get_queryset()  # Call the superclass method to get the filtered queryset
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

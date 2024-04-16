@@ -1,10 +1,15 @@
 from math import ceil
+
 from django.views.generic import DetailView, ListView
 from django.utils.decorators import method_decorator
+from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
+from django.http import JsonResponse
 
 from blogs.models import Blog, Category
 from products.models import Language
+from home.forms import SubscriberForm
+from .forms import BlogFilterForm
 
 
 class BlogDetailView(DetailView):
@@ -41,9 +46,22 @@ class BlogDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['midpoint'] = self.midpoint
+        context['subscription_form'] = SubscriberForm()
         return context
 
 
+    def post(self, request, *args, **kwargs):
+        lang = self.kwargs.get('lang', 'en')
+        activate(lang)
+        self.object = self.get_object()  # Set self.object
+        form = SubscriberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Return JSON response indicating success
+            return JsonResponse({'success': True})
+        else:
+            # If form is not valid, return JSON response with errors
+            return JsonResponse({'success': False, 'errors': form.errors})
 
 
 class BlogListView(ListView):
@@ -60,19 +78,24 @@ class BlogListView(ListView):
         current_language = Language.objects.get(code=self.kwargs['lang'].upper())
         self.extra_context['current_language'] = current_language.code.lower()
         queryset = queryset.filter(language=current_language)
-        # filter by category by click button
-        category_id = self.request.GET.get('category_id')
-        if category_id:
-            category = Category.objects.get(pk=category_id)
-            queryset = queryset.filter(categories=category)
-
+        categories = self.request.GET.getlist('categories')
+        if categories:
+            for category in categories:
+                queryset = queryset.filter(categories__id=category)
+        queryset = queryset.distinct()
         return queryset
-    # TODO: Complete filtering by Category
-    # def get(self, request, *args, **kwargs):
-    #     queryset = self.get_queryset()
-    #     context = self.get_context_data(object_list=queryset)
-    #     html = render_to_string(self.template_name, context, request=request)
-    #     return JsonResponse({'html': html})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['subscription_form'] = SubscriberForm()
+
+        # Get initial category IDs from request.GET if present
+        initial_category_ids = self.request.GET.getlist('categories')
+
+        # Set initial value for categories in the filter form
+        context['filter_form'] = BlogFilterForm(initial={'categories': initial_category_ids})
+
+        return context
 
     def get(self, request, *args, **kwargs):
         self.object_list = self.get_queryset()
@@ -82,7 +105,7 @@ class BlogListView(ListView):
             # it's better to do a cheap query than to load the unpaginated
             # queryset in memory.
             if self.get_paginate_by(self.object_list) is not None and hasattr(
-                self.object_list, "exists"
+                    self.object_list, "exists"
             ):
                 is_empty = not self.object_list.exists()
             else:
@@ -96,3 +119,17 @@ class BlogListView(ListView):
                 )
         context = self.get_context_data()
         return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        lang = self.kwargs.get('lang', 'en')
+        activate(lang)
+        self.object_list = self.get_queryset()  # Set self.object_list
+        context = self.get_context_data(**kwargs)
+        form = SubscriberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Return JSON response indicating success
+            return JsonResponse({'success': True})
+        else:
+            # If form is not valid, return JSON response with errors
+            return JsonResponse({'success': False, 'errors': form.errors})

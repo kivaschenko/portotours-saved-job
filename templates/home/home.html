@@ -112,7 +112,9 @@
                     {% for experience in experiences_top_year %}
                         <div class="best-tours-card">
                             <div class="img-wrapper">
-                                <img src="{{ experience.parent_experience.card_image.url }}" alt="card image for {{ experience.name }}">
+                                <img src="{% if experience.parent_experience.card_image %}
+                                    {{ experience.parent_experience.card_image.url }}
+                                    {% else %}{% endif %}" alt="card image for {{ experience.name }}">
                             </div>
                             <div class="card-content-wrapper">
                                 <div class="rating-wrapper body-text-b4">
@@ -209,7 +211,9 @@
                         {% for attraction in attractions_top_year %}
                             <div class="swiper-slide">
                                 <div class="img-wrapper">
-                                    <img src="{{ attraction.parent_attraction.card_image.url }}" alt="slider image for {{ attraction.name }}">
+                                    <img src="{% if attraction.parent_attraction.card_image %}
+                                        {{ attraction.parent_attraction.card_image.url }}
+                                        {% else %}{% endif %}" alt="slider image for {{ attraction.name }}">
                                     {% if attraction.parent_attraction.tags.all %}
                                         <ul class="main-info-list">
                                             {% for tag in attraction.parent_attraction.tags.all %}
@@ -256,7 +260,9 @@
                         {% for destination in destinations_top_year|slice:":2" %}
                             <div class="top-destinations-card">
                                 <a href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
-                                    <img src="{{ destination.parent_destination.card_image.url }}" alt="card img for {{ destination.name }}">
+                                    <img src="{% if destination.parent_destination.card_image %}
+                                        {{ destination.parent_destination.card_image.url }}
+                                        {% else %}{% endif %}" alt="card img for {{ destination.name }}">
                                     <p class="top-destination-card-title">
                                         {{ destination.name }}
                                     </p>
@@ -268,7 +274,9 @@
                         {% for destination in destinations_top_year|slice:"2:4" %}
                             <div class="top-destinations-card">
                                 <a href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
-                                    <img src="{{ destination.parent_destination.card_image.url }}" alt="card img for {{ destination.name }}">
+                                    <img src="{% if destination.parent_destination.card_image %}
+                                        {{ destination.parent_destination.card_image.url }}
+                                        {% else %}{% endif %}" alt="card img for {{ destination.name }}">
                                     <p class="top-destination-card-title">
                                         {{ destination.name }}
                                     </p>
@@ -280,7 +288,9 @@
                         {% for destination in destinations_top_year|slice:"4:" %}
                             <div class="top-destinations-card">
                                 <a href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
-                                    <img src="{{ destination.parent_destination.card_image.url }}" alt="card img for {{ destination.name }}">
+                                    <img src="{% if destination.parent_destination.card_image %}
+                                        {{ destination.parent_destination.card_image.url }}
+                                        {% else %}{% endif %}" alt="card img for {{ destination.name }}">
                                     <p class="top-destination-card-title">
                                         {{ destination.name }}
                                     </p>
@@ -340,7 +350,7 @@
             <p class="offers-banner-subtitle">
                 Get the best deals and discounts by subscribing to our email newsletter!
             </p>
-            <form action="" method="post" class="offers-banner-form">
+            <form id="subscription-form" action="" method="post" class="offers-banner-form">
                 {% csrf_token %}
                 {{ subscription_form|crispy }}
                 <button type="submit" class="form-submit-btn">Subscribe</button>
@@ -357,7 +367,7 @@
         <p class="popup-text">
             We'll keep you updated on the latest news and discounts from our company.
         </p>
-        <a href="#" class="btn-popup btn-type-1">
+        <a href="#" class="btn-popup btn-type-1" id="continue-btn">
             Continue
         </a>
     </div>
@@ -444,4 +454,23 @@
             window.location.href = url;
         }
     </script>
+    <script>
+        // Получаем элемент input
+        const dateInput = document.getElementById('id_date');
+    
+        // Получаем сегодняшнюю дату
+        const today = new Date();
+    
+        // Получаем день, месяц и год
+        const day = today.getDate().toString().padStart(2, '0'); // Добавляем ведущий ноль, если число однозначное
+        const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Месяцы начинаются с 0
+        const year = today.getFullYear();
+    
+        // Форматируем дату в формате dd.MM.yyyy
+        const formattedDate = `${year}-${month}-${day}`;
+    
+        // Устанавливаем значение элементу input
+        dateInput.value = formattedDate;
+      </script>
+    <script src="{% static 'js/subscription.js' %}"></script>
 {% endblock %}

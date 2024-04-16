@@ -13,7 +13,7 @@
             <p class="remove-cart-item-subtitle">Are you sure you want to to delete this experience?</p>
             <div class="remove-cart-item">
                 <div class="img-wrapper">
-                    <img src="{% static 'images/remove-cart-item-img.jpg' %}" alt="">
+                    <img src="{% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}" alt="card image for {{ object.parent_experience.parent_name }}">
                 </div>
                 <div class="content-wrapper">
                     <h3 class="content-title">

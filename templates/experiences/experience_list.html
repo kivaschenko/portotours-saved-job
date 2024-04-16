@@ -100,13 +100,18 @@
                                 {% else %}
 
                                 {% endif %}
+                                <a class="link" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
                                 <img src="{% if object.parent_experience.card_image %}
-                            {{ object.parent_experience.card_image.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
+                                    {{ object.parent_experience.card_image.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
+                                </a>
                             </div>
                             <div class="experience-list-content-wrapper">
-                                <h5>
-                                    {{ object.name }}
-                                </h5>
+                                <a class="link" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
+                                    <h5>
+                                        {{ object.name }}
+                                    </h5>
+                                </a>
+                                
                                 <div class="experience-type-list-wrapper">
 
                                     <ul class="main-info-list">

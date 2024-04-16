@@ -295,21 +295,63 @@
                         top: 50%;
                         transform: translateY(-50%);
                         display: none;
+                        @include media-breakpoint-down(md) {
+                            display: block;
+                            position: static;
+                            transform: translateY(0);
+                            margin-top: 24px;
+                        }
                         .hover-block-btns-list {
                             display: flex;
                             flex-direction: column;
                             padding-left: 0;
                             list-style: none;
                             margin: 0;
+                            @include media-breakpoint-down(md) {
+                                flex-direction: row;
+                            }
                             .hover-block-item {
                                 width: 24px;
                                 height: 24px;
                                 cursor: pointer;
+                                @include media-breakpoint-down(md) {
+                                    width: fit-content;
+                                    height: auto;
+                                }
+                                a {
+                                    @include media-breakpoint-down(md) {
+                                        width: fit-content;
+                                        display: flex;
+                                        align-items: center;
+                                        height: auto;
+                                        text-decoration: none;
+                                    }
+                                }
                                 img {
                                     width: 100%;
+                                    @include media-breakpoint-down(md) {
+                                        width: 24px;
+                                        height: 24px;
+                                        margin-right: 13px;
+                                    }
+                                }
+                                span {
+                                    display: none;
+                                    @include media-breakpoint-down(md) {
+                                        display: block;
+                                        font-size: 14px;
+                                        line-height: 22px;
+                                        font-family: "LatoRegular";
+                                        color: #0F0F10;
+                                        
+                                    }
                                 }
                                 + .hover-block-item {
                                     margin-top: 44px;
+                                    @include media-breakpoint-down(md) {
+                                        margin-top: 0;
+                                        margin-left: 80px;
+                                    }
                                 }
                             }
                         }
@@ -561,12 +603,22 @@
     .container {
         padding-top: 40px;
         padding-bottom: 90px;
+        @include media-breakpoint-down(md) {
+            padding-top: 16px;
+            padding-bottom: 60px;
+        }
         .remove-cart-item-title {
             text-align: center;
             font-family: "LatoBold";
             font-size: 40px;
             line-height: 48px;
             margin-bottom: 16px;
+            @include media-breakpoint-down(md) {
+                font-size: 26px;
+                line-height: 36px;
+                font-family: "LatoSemiBold";
+                margin-bottom: 10px;
+            }
         }
         .remove-cart-item-subtitle {
             text-align: center;
@@ -574,6 +626,12 @@
             font-size: 20px;
             line-height: 30px;
             margin-bottom: 32px;
+            @include media-breakpoint-down(md) {
+                font-size: 14px;
+                line-height: 22px;
+                font-family: "LatoRegular";
+                margin-bottom: 20px;
+            }
         }
         .remove-cart-item {
             display: flex;
@@ -581,22 +639,45 @@
             justify-content: center;
             max-width: 700px;
             margin: 0 auto;
+            @include media-breakpoint-down(md) {
+                flex-direction: column;
+                max-width: 100%;
+            }
             .img-wrapper {
                 width: 300px;
                 border-radius: 16px;
                 overflow: hidden;
                 margin-right: 32px;
+                @include media-breakpoint-down(md) {
+                    width: 100%;
+                    margin-bottom: 16px;
+                    margin-right: 0;
+                    
+                }
                 img {
                     width: 100%;
+                    object-fit: cover;
+                    
+                    @include media-breakpoint-down(md) {
+                        max-height: 240px;
+                    }
                 }
             }
             .content-wrapper {
                 width: calc(100% - 300px - 32px);
+                @include media-breakpoint-down(md) {
+                    width: 100%;
+                }
                 .content-title {
                     font-family: "LatoSemiBold";
                     font-size: 18px;
                     line-height: 28px;
                     margin-bottom: 16px;
+                    @include media-breakpoint-down(md) {
+                        font-size: 16px;
+                        line-height: 24px;
+                        margin-bottom: 12px;
+                    }
                 }
                 .content-list {
                     padding-left: 0;
@@ -615,6 +696,10 @@
                         margin: 0;
                         position: relative;
                         color: #0F0F10;
+                        @include media-breakpoint-down(md) {
+                            font-size: 14px;
+                            line-height: 22px;
+                        }
                         + li {
                             padding-left: 40px;
                             &::before {
@@ -636,6 +721,10 @@
                     align-items: center;
                     justify-content: flex-start;
                     margin-top: 24px;
+                    @include media-breakpoint-down(md) {
+                        margin-top: 32px;
+                        justify-content: center;
+                    }
                     .btn {
                         font-family: "LatoSemiBold";
                         font-size: 18px;
@@ -679,15 +768,27 @@
             font-size: 40px;
             line-height: 48px;
             text-transform: capitalize;
+            @include media-breakpoint-down(md) {
+                font-size: 22px;
+                line-height: 32px;
+               
+            }
         }
         .empty-cart-img {
             display: block;
             margin: 0 auto 24px;
+            @include media-breakpoint-down(md) {
+                width: 80px;
+                height: 80px;
+            }
         }
         .empty-cart-btn {
             width: 240px;
             margin: 0 auto;
             display: block;
+            @include media-breakpoint-down(md) {
+                width: 100%;
+            }
         }
     }
 }

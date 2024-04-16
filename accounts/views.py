@@ -1,13 +1,14 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, LoginView
-from django.views.generic import TemplateView, UpdateView, DetailView
+from django.views.generic import UpdateView, DetailView
+from django.contrib.auth.views import LogoutView as BaseLogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 
-from .forms import (CustomSignupForm, AddressForm,
-                    ProfileInfoForm, CustomLoginForm)
+from .forms import (CustomSignupForm, AddressForm, ProfileInfoForm, CustomLoginForm)
 from accounts.models import User, Profile
 
 
@@ -35,14 +36,38 @@ class RegistrationView(FormView):
             return self.form_invalid(form)
 
 
-class LogoutView(LoginRequiredMixin, TemplateView):
-    pass
+class CustomLogoutView(LoginRequiredMixin, BaseLogoutView):
+    """Custom logout view."""
+
+    def get(self, request, *args, **kwargs):
+        # Perform any additional logic you need before logging out
+        # For example, you might want to clear some session data
+        # You can also add logging or other actions here
+
+        # Clear the session
+        request.session.flush()
+
+        # Call the parent class's get method to perform the logout
+        return super().get(request, *args, **kwargs)
+
+    def dispatch(self, request, *args, **kwargs):
+        # If you need to perform any checks before logging out, you can do it here
+        # For example, you might want to check if the user has certain permissions
+        # If not, you can redirect them to another page or display an error message
+
+        # Call the parent class's dispatch method to continue with the logout process
+        return super().dispatch(request, *args, **kwargs)
 
 
 class CustomLoginView(LoginView):
     form = CustomLoginForm
     template_name = 'registration/login.html'  # Specify the template name for your login page
     success_url = reverse_lazy('home')  # Redirect URL after successful login
+
+    def form_valid(self, form):
+        # Reset session on login
+        self.request.session.flush()
+        return super().form_valid(form)
 
 
 class ProfileView(LoginRequiredMixin, DetailView):

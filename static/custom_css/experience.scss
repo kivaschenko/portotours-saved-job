@@ -141,6 +141,7 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             background: transparent;
+            color: #0F0F10;
             background-image: url(../images/language-arrow.png);
             background-position-x: calc(100% - 16px);
             background-position-y: 50%;
@@ -200,6 +201,9 @@
             font-size: 16px;
             line-height: normal;
             position: relative;
+            background-color: white;
+            color: #0F0F10;
+            -webkit-appearance: none;
             &::placeholder {
               color: #6d6d6d;
             }
@@ -311,6 +315,9 @@
           background-position-x: calc(100% - 16px);
           background-position-y: 50%;
           background-repeat: no-repeat;
+          @include media-breakpoint-down(md) {
+            width: 205px;
+          }
         }
       }
     }
@@ -375,13 +382,20 @@
             padding: 14px;
             border-radius: 0;
           }
-          h5 {
-            margin-bottom: 24px;
-            color: #0f0f10;
-            @include media-breakpoint-down(md) {
-              margin-bottom: 12px;
+          > a.link {
+            text-decoration: none;
+            &:hover {
+              color: inherit;
+            }
+            h5 {
+              margin-bottom: 24px;
+              color: #0f0f10;
+              @include media-breakpoint-down(md) {
+                margin-bottom: 12px;
+              }
             }
           }
+          
           .experience-type-list-wrapper {
             display: flex;
             align-items: center;
