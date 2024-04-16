@@ -1,25 +1,19 @@
-import logging
 import json
+import logging
+
 import stripe
-
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from reportlab.platypus import Table, TableStyle
-from reportlab.lib import colors
-
-from django.http import JsonResponse
-from django.http import HttpResponse, HttpResponseBadRequest
-from django.urls import reverse_lazy
 from django.conf import settings
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import JsonResponse, HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, TemplateView
-from django.contrib.auth.decorators import login_required
 
 from products.models import Product
-from products.views import UserIsAuthenticatedOrSessionKeyRequiredMixin
+from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
 from purchases.models import Purchase
-from service_layer.events import StripeSessionCompleted, StripeCustomerCreated
 from service_layer.bus_messages import handle
+from service_layer.events import StripeSessionCompleted, StripeCustomerCreated, StripePaymentIntentSucceeded
 
 logger = logging.getLogger(__name__)
 
@@ -28,12 +22,15 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 BASE_ENDPOINT = settings.BASE_ENDPOINT
 
 
-class BillingDetailView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
+class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
     """View for listing all products for current user (session) only."""
     model = Product
     template_name = 'purchases/checkout.html'
-    queryset = Product.pending.all()
     extra_context = {'current_language': 'en'}
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -119,6 +116,12 @@ def stripe_webhook(request):
         # Invalid payload
         return HttpResponse(status=400)
 
+    if event.type == 'payment_intent.succeeded':
+        payment_intent = event['data']['object']
+        logger.info(f"PaymentIntent {payment_intent.id} succeeded.")
+        payment_intent_event = StripePaymentIntentSucceeded(payment_intent_id=payment_intent.id)
+        handle(payment_intent_event)
+
     if event.type == 'checkout.session.completed':
         session = event['data']['object']
         logger.info(f"Completed session: {session.id}")
@@ -153,27 +156,21 @@ def stripe_webhook(request):
 class ConfirmationView(TemplateView):
     template_name = 'purchases/confirmation.html'
 
-    def setup(self, request, *args, **kwargs):
-        super(ConfirmationView, self).setup(request, *args, **kwargs)
-        if session_id := request.GET.get('session_id'):
-            self.kwargs['session_id'] = session_id
-
     def get_context_data(self, **kwargs):
-        kwargs = super().get_context_data(**kwargs)
-        session_id = self.kwargs.get('session_id')  # Retrieve session_id from kwargs
-        if session_id:
-            # Check session status
-            session = stripe.checkout.Session.retrieve(session_id)
-            customer_email = session['customer_details']['email']
-            kwargs['customer_email'] = customer_email
-            if session.status == 'complete':
-                # Get Purchase instance
-                purchase = Purchase.last24hours_manager.get(stripe_checkout_session_id=session.id)
+        context = super().get_context_data(**kwargs)
+        payment_intent_id = self.request.GET.get('payment_intent_id')
+        if payment_intent_id:
+            purchase = Purchase.last24hours_manager.filter(stripe_payment_intent_id=payment_intent_id).first()
+            if purchase:
                 object_list = purchase.products.all()
-                kwargs.update({'purchase': purchase, 'status': 'complete', 'object_list': object_list})
-            elif session.status == 'open':
-                kwargs['status'] = 'open'
-        return kwargs
+                context.update({'purchase': purchase, 'object_list': object_list})
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.GET.get('payment_intent_id'):
+            redirect_url = reverse_lazy('payment-form', kwargs={'lang': 'en'})
+            return HttpResponseRedirect(redirect_url)
+        return super().dispatch(request, *args, **kwargs)
 
 
 @csrf_exempt
@@ -192,22 +189,40 @@ def checkout_payment_intent_view(request):
         for product in products:
             total_amount += product.stripe_price
 
-        intent_data = dict(
-            currency='eur',
-            amount=total_amount,
-            automatic_payment_methods={"enabled": True},
-            # payment_method_types=[
-            #     "card",
+        intent_data = {
+            "amount": total_amount,
+            "currency": "eur",
+            "payment_method_types": [
+                "card",
                 # "apple_pay",
                 # "google_pay",
-                # "paypal_stripe",
-                # "klarna"
-            # ],
-        )
-
+                "paypal",
+                "klarna"
+            ],
+            "payment_method_options": {
+                "card": {
+                    "request_three_d_secure": "automatic"
+                },
+                # "apple_pay": {
+                #     # Apple Pay specific options if needed
+                # },
+                # "google_pay": {
+                #     # Google Pay specific options if needed
+                # },
+                "paypal": {
+                    # PayPal specific options if needed
+                },
+                "klarna": {
+                    # Klarna specific options if needed
+                }
+            },
+            "metadata": {
+                "product_ids": str(product_ids),
+            }
+        }
         if user.is_authenticated:
             purchase = Purchase.objects.create(user=user, stripe_price=total_amount, stripe_customer_id=user.profile.stripe_customer_id)
-            intent_data.update({'customer': user.profile.stripe_customer_id})
+            intent_data.update({'customer': {'id': user.profile.stripe_customer_id}})
         else:
             purchase = Purchase.objects.create(stripe_price=total_amount)
         purchase.products.set(products)
@@ -221,4 +236,3 @@ def checkout_payment_intent_view(request):
 
     except json.JSONDecodeError as e:
         return HttpResponseBadRequest('Invalid JSON data')
-

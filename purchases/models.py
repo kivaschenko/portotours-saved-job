@@ -31,7 +31,7 @@ class Purchase(models.Model):
         ordering = ('-timestamp',)
 
     def __str__(self):
-        return f'{self.stripe_checkout_session_id}'
+        return f'{self.id}'
 
     def __repr__(self):
-        return f'<Purchase: {self.id} | {self.stripe_checkout_session_id}>'
+        return f'<Purchase: {self.id} | {self.stripe_payment_intent_id}>'

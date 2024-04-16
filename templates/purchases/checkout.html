@@ -53,7 +53,6 @@
                 </h2>
 
             </div>
-
             <!-- Display a payment form -->
             <form id="payment-form">
                 <div id="address-element">
@@ -68,7 +67,6 @@
                 </button>
                 <div id="payment-message" class="hidden"></div>
             </form>
-
         </div>
     </div>
 
@@ -85,6 +83,15 @@
         document.querySelector("#payment-form").addEventListener("submit", handleSubmit);
 
         async function initialize() {
+            // Check if the product_ids list is empty
+            const queryParams = new URLSearchParams(window.location.search);
+            const paymentIntentClientSecret = queryParams.get('payment_intent_client_secret');
+
+            if (paymentIntentClientSecret) {
+                // If the payment_intent_client_secret is not present, do not initialize the payment form
+                return;
+            }
+
             const response = await fetch("/checkout/", {
                 method: "POST",
                 headers: {
@@ -103,8 +110,10 @@
             elements = stripe.elements({appearance, clientSecret});
             const options = {
                 mode: 'billing',
-                fields: {phone: 'always'},
-                display: {name: 'split'},
+                fields: {phone: 'always', email: 'always'},
+                display: {
+                    // name: 'split'
+                },
             };
             // Mount the address element
             const addressElement = elements.create("address", options);
@@ -139,7 +148,7 @@
             // your `return_url`. For some payment methods like iDEAL, your customer will
             // be redirected to an intermediate site first to authorize the payment, then
             // redirected to the `return_url`.
-            if (error.type === "card_error" || error.type === "validation_error") {
+            if (error) {
                 showMessage(error.message);
             } else {
                 showMessage("An unexpected error occurred.");
@@ -162,7 +171,7 @@
 
             switch (paymentIntent.status) {
                 case "succeeded":
-                    showMessage("Payment succeeded!");
+                    window.location.href = `/confirmation/{{ current_language }}/?payment_intent_id=${paymentIntent.id}`;
                     break;
                 case "processing":
                     showMessage("Your payment is processing.");

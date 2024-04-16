@@ -15,6 +15,10 @@
     margin-bottom: 20px; /* Adjust the spacing between form fields */
 }
 
+#submit {
+    align-self: flex-end; /* Align the button to the bottom of its column */
+}
+
 .hidden {
   display: none;
 }
@@ -33,7 +37,7 @@
 
 /* Buttons and links */
 #submit {
-  background: #5469d4;
+  background: #f0500b;
   font-family: Arial, sans-serif;
   color: #ffffff;
   border-radius: 4px;
