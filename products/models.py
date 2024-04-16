@@ -482,3 +482,22 @@ class Product(models.Model):
     @property
     def total_booked(self):
         return self.adults_count + self.child_count
+
+    @property
+    def order_number(self):
+        """
+            Example usage:
+            product_id = 123  # Replace this with the actual product ID
+            order_number = generate_order_number(product_id)
+            print("Order Number:", order_number)
+            Order Number: 0000000123
+        """
+        # Format the product ID as a string with leading zeros to ensure it is 8 digits long
+        formatted_product_id = str(self.id).zfill(6)  # Adjust the zfill value based on the length of your product IDs
+        print(formatted_product_id, '<- formatted product_id')
+        # Combine the formatted product ID with additional characters if needed
+        order_number = f"0000{formatted_product_id}"
+        return order_number
+
+
+
