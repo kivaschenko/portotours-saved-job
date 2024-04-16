@@ -44,7 +44,7 @@ def update_purchase_by_stripe_session(session_id: str, payment_intent_id: str, c
 def update_purchase_by_payment_intent_id(payment_intent_id: str, customer_id: str = None):
     try:
         # Update purchase status
-        purchase = Purchase.objects.filter(stripe_payment_intent_id=payment_intent_id)
+        purchase = Purchase.objects.filter(stripe_payment_intent_id=payment_intent_id).first()
         purchase.completed = True
         purchase.save()
         if customer_id is not None:
