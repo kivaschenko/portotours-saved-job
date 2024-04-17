@@ -25,153 +25,161 @@
             </a>
         </div>
     </div>
-    <section class="experience-hero">
-        <div class="container">
-            <div class="experience-hero-title-wrapper">
-                <h2 class="experience-hero-title">
-                    {{ object.name }}
-                </h2>
-                <div class="expreriece-hero-price-btn-wrapper">
-                    <div class="price-wrapper">
-                        <p class="price-title">
-                            From
-                        </p>
-                        <p class="price-amount">
-                            €{{ object.parent_experience.price }}
-                        </p>
+    <div class="sticky-container">
+        <div class="sticky-block">
+            <div class="container">
+                <div class="experience-hero-title-wrapper">
+                    <h2 class="experience-hero-title">
+                        {{ object.name }}
+                    </h2>
+                    <div class="expreriece-hero-price-btn-wrapper">
+                        <div class="price-wrapper">
+                            <p class="price-title">
+                                From
+                            </p>
+                            <p class="price-amount">
+                                €{{ object.parent_experience.price }}
+                            </p>
+                        </div>
+                        <a href="#goToForm" class="experience-hero-btn btn-type-1">
+                            check availability
+                        </a>
                     </div>
-                    <a href="#goToForm" class="experience-hero-btn btn-type-1">
-                        check availability
-                    </a>
                 </div>
-            </div>
-            <div class="experience-hero-info">
-                {% if object.parent_experience.free_cancellation %}
+                <div class="experience-hero-info">
+                    {% if object.parent_experience.free_cancellation %}
+                        <p class="experience-hero-info-text">
+                            <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
+                            free cancelation policy
+                        </p>
+                    {% endif %}
                     <p class="experience-hero-info-text">
-                        <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
-                        free cancelation policy
+                        <img src="{% static 'icons/experience-info-icon2.svg' %}" alt="">
+                        {{ object.parent_experience.happy_clients_number }} happy clients
                     </p>
-                {% endif %}
-                <p class="experience-hero-info-text">
-                    <img src="{% static 'icons/experience-info-icon2.svg' %}" alt="">
-                    {{ object.parent_experience.happy_clients_number }} happy clients
+                </div>
+            </div>
+            
+        </div>
+        <section class="experience-hero">
+            <div class="container">
+                <div class="experience-hero-swiper">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide">
+                            <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
+                        </div>
+    
+                    </div>
+    
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+        <section class="why experience-page why-slider">
+            <div class="container">
+                <h2 class="why-title">
+                    {{ object.why_title }}
+                </h2>
+                <p class="why-subtitle body-text-b1">
+                    {{ object.why_subtitle }}
                 </p>
-            </div>
-            <div class="experience-hero-swiper">
-                <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
-                    <!-- Slides -->
-                    <div class="swiper-slide">
-                        <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
-                    </div>
-
-                </div>
-
-                <!-- If we need navigation buttons -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-    </section>
-    <section class="why experience-page why-slider">
-        <div class="container">
-            <h2 class="why-title">
-                {{ object.why_title }}
-            </h2>
-            <p class="why-subtitle body-text-b1">
-                {{ object.why_subtitle }}
-            </p>
-            <div class="why-cards-wrapper">
-                <div class="swiper-wrapper">
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
-                        <div class="why-card-inner-wrapper">
-                            <p class="why-text">
-                                100+ Experiences in Portugal
-                            </p>
-                            <p class="why-subtext">
-                                Explore a wide range of unique options from historical tours and outdoor adventures to culinary trips and wine tasting.
-                            </p>
+                <div class="why-cards-wrapper">
+                    <div class="swiper-wrapper">
+                        <div class="why-card swiper-slide">
+                            <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
+                            <div class="why-card-inner-wrapper">
+                                <p class="why-text">
+                                    100+ Experiences in Portugal
+                                </p>
+                                <p class="why-subtext">
+                                    Explore a wide range of unique options from historical tours and outdoor adventures to culinary trips and wine tasting.
+                                </p>
+                            </div>
+    
                         </div>
-
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
-                        <div class="why-card-inner-wrapper">
-                            <p class="why-text">
-                                Guided by local experts
-                            </p>
-                            <p class="why-subtext">
-                                Get unforgettable experiences and unique insider information from local experts through carefully created tours.
-                            </p>
+                        <div class="why-card swiper-slide">
+                            <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
+                            <div class="why-card-inner-wrapper">
+                                <p class="why-text">
+                                    Guided by local experts
+                                </p>
+                                <p class="why-subtext">
+                                    Get unforgettable experiences and unique insider information from local experts through carefully created tours.
+                                </p>
+                            </div>
+    
                         </div>
-
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
-                        <div class="why-card-inner-wrapper">
-                            <p class="why-text">
-                                Best price guarantee
-                            </p>
-                            <p class="why-subtext">
-                                Get the best price guaranteed for booking our top-quality products and services.
-                            </p>
+                        <div class="why-card swiper-slide">
+                            <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
+                            <div class="why-card-inner-wrapper">
+                                <p class="why-text">
+                                    Best price guarantee
+                                </p>
+                                <p class="why-subtext">
+                                    Get the best price guaranteed for booking our top-quality products and services.
+                                </p>
+                            </div>
+    
                         </div>
-
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
-                        <div class="why-card-inner-wrapper">
-                            <p class="why-text">
-                                No hidden fees
-                            </p>
-                            <p class="why-subtext">
-                                Enjoy a transparent pricing policy, paying for what you need for a smooth shopping experience.
-                            </p>
+                        <div class="why-card swiper-slide">
+                            <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
+                            <div class="why-card-inner-wrapper">
+                                <p class="why-text">
+                                    No hidden fees
+                                </p>
+                                <p class="why-subtext">
+                                    Enjoy a transparent pricing policy, paying for what you need for a smooth shopping experience.
+                                </p>
+                            </div>
+    
                         </div>
-
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
-                        <div class="why-card-inner-wrapper">
-                            <p class="why-text">
-                                Free cancellation
-                            </p>
-                            <p class="why-subtext">
-                                Enjoy the flexibility with free cancellation, don't worry about additional costs, and feel free to adjust your plans.
-                            </p>
+                        <div class="why-card swiper-slide">
+                            <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
+                            <div class="why-card-inner-wrapper">
+                                <p class="why-text">
+                                    Free cancellation
+                                </p>
+                                <p class="why-subtext">
+                                    Enjoy the flexibility with free cancellation, don't worry about additional costs, and feel free to adjust your plans.
+                                </p>
+                            </div>
+    
                         </div>
-
-                    </div>
-                    <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
-                        <div class="why-card-inner-wrapper">
-                            <p class="why-text">
-                                Safe and secure website
-                            </p>
-                            <p class="why-subtext">
-                                Be confident with our reliable and protected service as your online safety at every step is our priority.
-                            </p>
+                        <div class="why-card swiper-slide">
+                            <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
+                            <div class="why-card-inner-wrapper">
+                                <p class="why-text">
+                                    Safe and secure website
+                                </p>
+                                <p class="why-subtext">
+                                    Be confident with our reliable and protected service as your online safety at every step is our priority.
+                                </p>
+                            </div>
+    
                         </div>
-
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
+    
     <section class="experience-info">
         <div class="container">
             <h2 class="experience-info-title">

@@ -140,6 +140,9 @@
                         }
                     }
                     tbody {
+                        tr {
+                            vertical-align: middle;
+                        }
                         tr td {
                             font-size: 16px;
                             line-height: 26px;
@@ -148,6 +151,10 @@
                         tr + tr td {
                             padding-top: 10px;
                             
+                        }
+                        .btn-type-2 {
+                            padding: 10px 15px;
+                            width: 100%;
                         }
                     }
                 }

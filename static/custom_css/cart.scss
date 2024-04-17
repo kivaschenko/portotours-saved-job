@@ -72,6 +72,7 @@
                     margin-bottom: 0;
                     text-transform: capitalize;
                     text-wrap: nowrap;
+                    white-space: nowrap;
                     @include media-breakpoint-down(md) {
                         font-size: 14px;
                         line-height: 22px;
@@ -1064,8 +1065,8 @@
               background: none;
               border: none;
               outline: none;
-              width: 20px;
-              margin: 0 6px;
+              width: 26px;
+              margin: 0;
               text-align: center;
             }
             .total-price {
@@ -1148,6 +1149,7 @@
                 + label {
                   &::before {
                     background-image: url(../icons/custom-radiobtn-active.svg);
+                    z-index: 2;
                   }
                   
                 }

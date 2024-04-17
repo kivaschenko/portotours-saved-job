@@ -498,7 +498,7 @@
         }
         .also-interested-cards-wrapper {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             margin-bottom: 40px;
             @include media-breakpoint-down(md) {
