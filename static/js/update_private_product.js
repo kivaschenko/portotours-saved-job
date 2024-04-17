@@ -627,7 +627,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     
 
      // Simulate a click on the current date in the calendar
-    const [tourYear, tourMonth, tourDay] = model.current_product.startDate.split('/');
+     const [tourMonth, tourDay, tourYear] = model.current_product.startDate.split('/');
     const tourStartDate = new Date(`${tourYear}-${tourMonth}-${tourDay}`);
     const tourStartYear = tourStartDate.getFullYear(); // Получаем год начала тура
     const tourStartMonth = tourStartDate.getMonth(); // Получаем номер месяца начала тура

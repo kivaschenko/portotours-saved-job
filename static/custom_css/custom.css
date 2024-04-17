@@ -13392,12 +13392,17 @@ html.off-scroll body {
         text-transform: capitalize;
         padding: 0;
         padding-bottom: 12px; }
+      .account-details .container .account-details-block.orders .table tbody tr {
+        vertical-align: middle; }
       .account-details .container .account-details-block.orders .table tbody tr td {
         font-size: 16px;
         line-height: 26px;
         font-family: "LatoRegular"; }
       .account-details .container .account-details-block.orders .table tbody tr + tr td {
         padding-top: 10px; }
+      .account-details .container .account-details-block.orders .table tbody .btn-type-2 {
+        padding: 10px 15px;
+        width: 100%; }
     .account-details .container .account-details-block.change-details .block-content form {
       margin: 0 !important;
       width: 100%;
