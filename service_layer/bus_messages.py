@@ -43,6 +43,13 @@ def send_email_about_changed_product(event: events.ProductUpdated):
     services.send_product_changed_email(**event_dict)
 
 
+# Stripe PaymentIntent
+
+def set_purchase_status_completed(event: events.StripePaymentIntentSucceeded):
+    event_dict = event.__dict__
+    services.update_purchase_by_payment_intent_id(**event_dict)
+
+
 # Main handlers dict
 
 HANDLERS = {
@@ -55,4 +62,5 @@ HANDLERS = {
     ],
     events.NewProductCreated: [send_email_about_new_product,],
     events.ProductUpdated: [send_email_about_changed_product,],
+    events.StripePaymentIntentSucceeded: [set_purchase_status_completed,],
 }

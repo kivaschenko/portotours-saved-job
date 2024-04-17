@@ -42,3 +42,9 @@ class StripeCustomerCreated(Event):
     address_line2: str
     address_postal_code: str
     address_state: str
+
+
+@dataclass
+class StripePaymentIntentSucceeded(Event):
+    payment_intent_id: str
+    customer_id: str = None

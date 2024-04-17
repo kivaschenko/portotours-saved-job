@@ -139,7 +139,7 @@ coverage
 
 # locally
 .idea/
-commands.txt
 .venv/
 media/
+commands.txt
 dumpdb.json

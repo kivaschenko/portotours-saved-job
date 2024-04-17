@@ -41,6 +41,27 @@ def update_purchase_by_stripe_session(session_id: str, payment_intent_id: str, c
         logger.error(f"Exception while handling payment: {e}")
 
 
+def update_purchase_by_payment_intent_id(payment_intent_id: str, customer_id: str = None):
+    try:
+        # Update purchase status
+        purchase = Purchase.objects.filter(stripe_payment_intent_id=payment_intent_id).first()
+        purchase.completed = True
+        purchase.save()
+        if customer_id is not None:
+            purchase.stripe_customer_id = customer_id
+            purchase.save()
+        logger.info(f"Completed payment for Purchase {purchase}\n")
+
+        # Update Products statuses included in Purchase
+        products = purchase.products.all()
+        for product in products:
+            product.status = "Payment"
+            product.save()
+            logger.info(f"Completed payment for {product}\n")
+    except Exception as e:
+        logger.error(f"Exception while handling payment: {e}")
+
+
 def set_real_user_in_purchase(session_id: str, customer_id: str, max_attempts=3, retry_delay=5):
     attempt = 0
 
@@ -168,5 +189,3 @@ def update_products_status_if_expired():
                 logger.info(f'Product ID={product.id} {product} has been updated. Its status is: {product.status}.')
     logger.info(f'Finish updating status of expired products.')
     return updated_products
-
-
