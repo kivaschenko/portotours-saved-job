@@ -499,14 +499,17 @@
     }
   }
 }
-
-.experience-hero {
-  overflow: hidden;
-  .container {
-    padding-top: 10px;
-    padding-bottom: 0px;
-    @include media-breakpoint-down(md) {
-      padding-top: 24px;
+.sticky-container {
+  .sticky-block {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
+    background-color: white;
+    .container {
+      padding-top: 15px;
+      padding-bottom: 15px;
     }
     .experience-hero-title-wrapper {
       display: flex;
@@ -564,7 +567,7 @@
     .experience-hero-info {
       display: flex;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 0;
       @include media-breakpoint-down(md) {
         margin-bottom: 16px;
       }
@@ -596,6 +599,16 @@
         }
       }
     }
+  }
+}
+.experience-hero {
+  overflow: hidden;
+  .container {
+    padding-bottom: 0px;
+    @include media-breakpoint-down(md) {
+      padding-top: 24px;
+    }
+    
     .experience-hero-swiper {
       
       position: relative;

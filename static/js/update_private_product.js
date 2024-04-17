@@ -542,7 +542,8 @@ function handleEventData(data) {
         view.renderCalendar(currentDate);
        
     } else {
-        console.error('Received data format is invalid');
+        const currentDate = new Date(); 
+        view.renderCalendar(currentDate);
     }
 }
 
@@ -637,6 +638,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Добавление класса selected-date к дате текущего тура
     const currentDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     const currentDay = document.querySelector(`[data-date="${currentDate}"]`);
+    console.log(currentDay);
     if (currentDay) {
         currentDay.classList.add('selected-date');
         const clickEvent = new MouseEvent('click', {

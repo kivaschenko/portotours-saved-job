@@ -8831,7 +8831,7 @@ html.off-scroll body {
       background: var(--text-color-third); }
     .also-interested .container .also-interested-cards-wrapper {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       margin-bottom: 40px; }
       @media (max-width: 767.98px) {
@@ -11120,91 +11120,100 @@ html.off-scroll body {
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-link-btn img {
             margin-left: 14px; }
 
+.sticky-container .sticky-block {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+  background-color: white; }
+  .sticky-container .sticky-block .container {
+    padding-top: 15px;
+    padding-bottom: 15px; }
+  .sticky-container .sticky-block .experience-hero-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px; }
+    @media (max-width: 767.98px) {
+      .sticky-container .sticky-block .experience-hero-title-wrapper {
+        flex-direction: column;
+        margin-bottom: 16px; } }
+    .sticky-container .sticky-block .experience-hero-title-wrapper .experience-hero-title {
+      color: #000;
+      margin-top: 0;
+      margin-bottom: 0;
+      text-transform: capitalize;
+      width: 730px; }
+      @media (max-width: 767.98px) {
+        .sticky-container .sticky-block .experience-hero-title-wrapper .experience-hero-title {
+          width: 100%;
+          text-align: center; } }
+    .sticky-container .sticky-block .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper {
+      display: flex;
+      align-items: center;
+      width: calc(100% - 730px - 50px); }
+      @media (max-width: 767.98px) {
+        .sticky-container .sticky-block .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper {
+          display: none; } }
+      .sticky-container .sticky-block .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .price-wrapper {
+        display: flex;
+        align-items: center;
+        margin-right: 32px; }
+        .sticky-container .sticky-block .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .price-wrapper .price-title {
+          font-family: "LatoRegular";
+          font-size: 18px;
+          line-height: 28px;
+          margin-bottom: 0;
+          margin-right: 18px;
+          color: #6d6d6d; }
+        .sticky-container .sticky-block .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .price-wrapper .price-amount {
+          font-family: "LatoSemiBold";
+          font-size: 44px;
+          line-height: 56px;
+          color: #0f0f10;
+          margin-bottom: 0; }
+      .sticky-container .sticky-block .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .experience-hero-btn {
+        width: 340px;
+        text-align: center; }
+  .sticky-container .sticky-block .experience-hero-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0; }
+    @media (max-width: 767.98px) {
+      .sticky-container .sticky-block .experience-hero-info {
+        margin-bottom: 16px; } }
+    .sticky-container .sticky-block .experience-hero-info .experience-hero-info-text {
+      display: flex;
+      align-items: center;
+      font-family: "LatoRegular";
+      font-size: 16px;
+      line-height: 26px;
+      color: #378f02;
+      text-transform: capitalize;
+      margin-bottom: 0; }
+      @media (max-width: 767.98px) {
+        .sticky-container .sticky-block .experience-hero-info .experience-hero-info-text {
+          font-size: 14px;
+          line-height: 22px; } }
+      .sticky-container .sticky-block .experience-hero-info .experience-hero-info-text + .experience-hero-info-text {
+        margin-left: 34px; }
+        @media (max-width: 767.98px) {
+          .sticky-container .sticky-block .experience-hero-info .experience-hero-info-text + .experience-hero-info-text {
+            margin-left: 21px; } }
+      .sticky-container .sticky-block .experience-hero-info .experience-hero-info-text img {
+        margin-right: 14px;
+        display: block; }
+        @media (max-width: 767.98px) {
+          .sticky-container .sticky-block .experience-hero-info .experience-hero-info-text img {
+            margin-right: 10px; } }
 .experience-hero {
   overflow: hidden; }
   .experience-hero .container {
-    padding-top: 10px;
     padding-bottom: 0px; }
     @media (max-width: 767.98px) {
       .experience-hero .container {
         padding-top: 24px; } }
-    .experience-hero .container .experience-hero-title-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 15px; }
-      @media (max-width: 767.98px) {
-        .experience-hero .container .experience-hero-title-wrapper {
-          flex-direction: column;
-          margin-bottom: 16px; } }
-      .experience-hero .container .experience-hero-title-wrapper .experience-hero-title {
-        color: #000;
-        margin-top: 0;
-        margin-bottom: 0;
-        text-transform: capitalize;
-        width: 730px; }
-        @media (max-width: 767.98px) {
-          .experience-hero .container .experience-hero-title-wrapper .experience-hero-title {
-            width: 100%;
-            text-align: center; } }
-      .experience-hero .container .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper {
-        display: flex;
-        align-items: center;
-        width: calc(100% - 730px - 50px); }
-        @media (max-width: 767.98px) {
-          .experience-hero .container .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper {
-            display: none; } }
-        .experience-hero .container .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .price-wrapper {
-          display: flex;
-          align-items: center;
-          margin-right: 32px; }
-          .experience-hero .container .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .price-wrapper .price-title {
-            font-family: "LatoRegular";
-            font-size: 18px;
-            line-height: 28px;
-            margin-bottom: 0;
-            margin-right: 18px;
-            color: #6d6d6d; }
-          .experience-hero .container .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .price-wrapper .price-amount {
-            font-family: "LatoSemiBold";
-            font-size: 44px;
-            line-height: 56px;
-            color: #0f0f10;
-            margin-bottom: 0; }
-        .experience-hero .container .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .experience-hero-btn {
-          width: 340px;
-          text-align: center; }
-    .experience-hero .container .experience-hero-info {
-      display: flex;
-      align-items: center;
-      margin-bottom: 24px; }
-      @media (max-width: 767.98px) {
-        .experience-hero .container .experience-hero-info {
-          margin-bottom: 16px; } }
-      .experience-hero .container .experience-hero-info .experience-hero-info-text {
-        display: flex;
-        align-items: center;
-        font-family: "LatoRegular";
-        font-size: 16px;
-        line-height: 26px;
-        color: #378f02;
-        text-transform: capitalize;
-        margin-bottom: 0; }
-        @media (max-width: 767.98px) {
-          .experience-hero .container .experience-hero-info .experience-hero-info-text {
-            font-size: 14px;
-            line-height: 22px; } }
-        .experience-hero .container .experience-hero-info .experience-hero-info-text + .experience-hero-info-text {
-          margin-left: 34px; }
-          @media (max-width: 767.98px) {
-            .experience-hero .container .experience-hero-info .experience-hero-info-text + .experience-hero-info-text {
-              margin-left: 21px; } }
-        .experience-hero .container .experience-hero-info .experience-hero-info-text img {
-          margin-right: 14px;
-          display: block; }
-          @media (max-width: 767.98px) {
-            .experience-hero .container .experience-hero-info .experience-hero-info-text img {
-              margin-right: 10px; } }
     .experience-hero .container .experience-hero-swiper {
       position: relative;
       padding-bottom: 50px; }
@@ -12362,7 +12371,8 @@ html.off-scroll body {
         color: #0F0F10;
         margin-bottom: 0;
         text-transform: capitalize;
-        text-wrap: nowrap; }
+        text-wrap: nowrap;
+        white-space: nowrap; }
         @media (max-width: 767.98px) {
           .cart .cart-steps-wrapper .cart-steps .cart-step-item .step-title {
             font-size: 14px;
@@ -13173,8 +13183,8 @@ html.off-scroll body {
         background: none;
         border: none;
         outline: none;
-        width: 20px;
-        margin: 0 6px;
+        width: 26px;
+        margin: 0;
         text-align: center; }
       .edit-cart-item-wrapper #editBookingForm .ticket-selection .ticket-type .total-price {
         margin-bottom: 0;
@@ -13241,7 +13251,8 @@ html.off-scroll body {
         opacity: 0;
         display: none; }
         .edit-cart-item-wrapper #editBookingForm .language-selection .input-wrapper input:checked + label::before {
-          background-image: url(../icons/custom-radiobtn-active.svg); }
+          background-image: url(../icons/custom-radiobtn-active.svg);
+          z-index: 2; }
   .edit-cart-item-wrapper #editBookingForm .btns-wrapper {
     display: flex;
     align-items: center;
@@ -13772,5 +13783,3 @@ a {
     margin: 0 auto;
     display: block;
     text-align: center; }
-
-/*# sourceMappingURL=custom.css.map */
