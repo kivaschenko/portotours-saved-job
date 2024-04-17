@@ -33,7 +33,6 @@ urlpatterns = [
 # PRODUCTS & PURCHASES
 urlpatterns += [
     path('checkout/', purchases_views.checkout_payment_intent_view, name='checkout-payment-intent'),
-    path('create-checkout-session/', purchases_views.checkout_view, name='checkout-session'),
     path('my-cart/<str:lang>/', products_views.ProductCartView.as_view(), name='my-cart'),
     path('en/products/<int:pk>/cancel/', products_views.CancelProductView.as_view(), name='cancel-product'),
     path('payment-form/<str:lang>/', purchases_views.BillingDetailView.as_view(), name='payment-form'),

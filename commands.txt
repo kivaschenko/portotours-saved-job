@@ -12,3 +12,33 @@ http://localhost:8000/confirmation/en/?session_id=cs_test_a1ZKtgWaobKETHKVXbu7fa
 ?payment_intent=pi_3P5UOAB0X2obciNi12B0cMyP&payment_intent_client_secret=pi_3P5UOAB0X2obciNi12B0cMyP_secret_2IqEpSomUPBuQUZnuzI89Ry6a&redirect_status=succeeded
 
 /payment-form/en/?payment_intent=pi_3P6ASkB0X2obciNi0Y6Wgttr&payment_intent_client_secret=pi_3P6ASkB0X2obciNi0Y6Wgttr_secret_bYZZJeq1tkycitKgefM3BkYzk&redirect_status=succeeded
+
+Content-Type: multipart/alternative;
+ boundary="===============3690381407339367051=="
+MIME-Version: 1.0
+Subject: Your New Password
+From: One Day Tours <info@onedaytours.com>
+To: G_Depardieu_test@gmail.com
+Date: Wed, 17 Apr 2024 14:18:34 -0000
+Message-ID: <171336351494.29122.6643923356173261793@teomeo>
+
+--===============3690381407339367051==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p>Dear Gérard Depardieu,</p>
+    <p>We created your account automatically.</p>
+    <p>Your new password is: 87lBkw9T6S</p>
+    <!-- You can add more HTML content here -->
+</body>
+</html>
+
+--===============3690381407339367051==--

@@ -13,7 +13,7 @@ from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
 from purchases.models import Purchase
 from service_layer.bus_messages import handle
-from service_layer.events import StripeSessionCompleted, StripeCustomerCreated, StripePaymentIntentSucceeded
+from service_layer.events import StripePaymentIntentSucceeded, StripeChargeSucceeded
 
 logger = logging.getLogger(__name__)
 
@@ -44,65 +44,6 @@ class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
 
 
 @csrf_exempt
-def checkout_view(request):
-    if not request.method == "POST":
-        return HttpResponseBadRequest()
-    user = request.user
-    try:
-        data = json.loads(request.body.decode('utf-8'))
-        product_ids = data.get('product_ids', [])
-        product_ids = [int(pk) for pk in product_ids]
-        products = Product.active.filter(id__in=product_ids)
-
-        confirmation_path = reverse_lazy("confirmation", kwargs={'lang': 'en'})
-        confirmation_url = f"{BASE_ENDPOINT}{confirmation_path}" + "?session_id={CHECKOUT_SESSION_ID}"
-
-        session_data = dict(
-            mode='payment',
-            ui_mode='embedded',
-            billing_address_collection='auto',
-            return_url=confirmation_url,
-        )
-
-        line_items = []
-        total_amount = 0
-        for product in products:
-            total_amount += product.stripe_price
-            item = {
-                'price_data': {
-                    'currency': 'eur',
-                    'product_data': {
-                        'name': product.stripe_product_id,
-                    },
-                    'unit_amount': product.stripe_price,
-                },
-                'quantity': 1,
-            }
-            line_items.append(item)
-
-        session_data.update({'line_items': line_items})
-
-        if user.is_authenticated:
-            purchase = Purchase.objects.create(user=user, stripe_price=total_amount, stripe_customer_id=user.profile.stripe_customer_id)
-            session_data.update({'customer': user.profile.stripe_customer_id})
-        else:
-            purchase = Purchase.objects.create(stripe_price=total_amount)
-            # if new anonymous user, then create a new Stripe customer with billing address
-            session_data.update({"customer_creation": "always"})
-            session_data.update({"billing_address_collection": 'required'})
-        purchase.products.set(products)
-
-        checkout_session = stripe.checkout.Session.create(**session_data)
-
-        purchase.stripe_checkout_session_id = checkout_session.id
-        purchase.save()
-
-        return JsonResponse({'clientSecret': checkout_session.client_secret})
-    except json.JSONDecodeError as exp:
-        return HttpResponseBadRequest('Invalid JSON data')
-
-
-@csrf_exempt
 def stripe_webhook(request):
     payload = request.body
     event = None
@@ -122,32 +63,26 @@ def stripe_webhook(request):
         payment_intent_event = StripePaymentIntentSucceeded(payment_intent_id=payment_intent.id)
         handle(payment_intent_event)
 
-    if event.type == 'checkout.session.completed':
-        session = event['data']['object']
-        logger.info(f"Completed session: {session.id}")
-        session_event = StripeSessionCompleted(session_id=session.id, payment_intent_id=session.payment_intent, customer_id=session.customer)
-        handle(session_event)
+    if event.type == 'charge.succeeded':
+        charge = event['data']['object']
+        logger.info(f"Charge {charge.id} succeeded.")
+        print(charge)
+        billing_details = charge.billing_details
 
-    if event.type == 'checkout.session.expired':
-        session = event['data']['object']
-        logger.info(f"Expired session: {session.id}")
-
-    if event.type == 'customer.created':
-        customer = event['data']['object']
-        logger.info(f"Customer created: {customer.id}")
-        customer_event = StripeCustomerCreated(
-            stripe_customer_id=customer['id'],
-            name=customer['name'],
-            email=customer['email'],
-            phone=customer['phone'],
-            address_city=customer['address']['city'],
-            address_country=customer['address']['country'],
-            address_line1=customer['address']['line1'],
-            address_line2=customer['address']['line2'],
-            address_postal_code=customer['address']['postal_code'],
-            address_state=customer['address']['state']
+        charge_event = StripeChargeSucceeded(
+            payment_intent_id=charge.payment_intent,
+            name=billing_details.name,
+            email=billing_details.email,
+            phone=billing_details.phone,
+            address_city=billing_details['address']['city'],
+            address_country=billing_details['address']['country'],
+            address_line1=billing_details['address']['line1'],
+            address_line2=billing_details['address']['line2'],
+            address_postal_code=billing_details['address']['postal_code'],
+            address_state=billing_details['address']['state']
         )
-        handle(customer_event)
+        handle(charge_event)
+
     else:
         logger.info('Unhandled event type {}'.format(event['type']))
     return HttpResponse(status=200)
