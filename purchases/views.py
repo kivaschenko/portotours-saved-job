@@ -44,65 +44,6 @@ class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
 
 
 @csrf_exempt
-def checkout_view(request):
-    if not request.method == "POST":
-        return HttpResponseBadRequest()
-    user = request.user
-    try:
-        data = json.loads(request.body.decode('utf-8'))
-        product_ids = data.get('product_ids', [])
-        product_ids = [int(pk) for pk in product_ids]
-        products = Product.active.filter(id__in=product_ids)
-
-        confirmation_path = reverse_lazy("confirmation", kwargs={'lang': 'en'})
-        confirmation_url = f"{BASE_ENDPOINT}{confirmation_path}" + "?session_id={CHECKOUT_SESSION_ID}"
-
-        session_data = dict(
-            mode='payment',
-            ui_mode='embedded',
-            billing_address_collection='auto',
-            return_url=confirmation_url,
-        )
-
-        line_items = []
-        total_amount = 0
-        for product in products:
-            total_amount += product.stripe_price
-            item = {
-                'price_data': {
-                    'currency': 'eur',
-                    'product_data': {
-                        'name': product.stripe_product_id,
-                    },
-                    'unit_amount': product.stripe_price,
-                },
-                'quantity': 1,
-            }
-            line_items.append(item)
-
-        session_data.update({'line_items': line_items})
-
-        if user.is_authenticated:
-            purchase = Purchase.objects.create(user=user, stripe_price=total_amount, stripe_customer_id=user.profile.stripe_customer_id)
-            session_data.update({'customer': user.profile.stripe_customer_id})
-        else:
-            purchase = Purchase.objects.create(stripe_price=total_amount)
-            # if new anonymous user, then create a new Stripe customer with billing address
-            session_data.update({"customer_creation": "always"})
-            session_data.update({"billing_address_collection": 'required'})
-        purchase.products.set(products)
-
-        checkout_session = stripe.checkout.Session.create(**session_data)
-
-        purchase.stripe_checkout_session_id = checkout_session.id
-        purchase.save()
-
-        return JsonResponse({'clientSecret': checkout_session.client_secret})
-    except json.JSONDecodeError as exp:
-        return HttpResponseBadRequest('Invalid JSON data')
-
-
-@csrf_exempt
 def stripe_webhook(request):
     payload = request.body
     event = None
