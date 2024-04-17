@@ -24,15 +24,8 @@ class ProductUpdated(NewProductCreated):
 
 
 @dataclass
-class StripeSessionCompleted(Event):
-    session_id: str
+class StripeChargeSucceeded(Event):
     payment_intent_id: str
-    customer_id: str
-
-
-@dataclass
-class StripeCustomerCreated(Event):
-    stripe_customer_id: str
     name: str
     email: str
     phone: str

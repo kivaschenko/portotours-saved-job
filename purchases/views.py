@@ -13,7 +13,7 @@ from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
 from purchases.models import Purchase
 from service_layer.bus_messages import handle
-from service_layer.events import StripeSessionCompleted, StripeCustomerCreated, StripePaymentIntentSucceeded
+from service_layer.events import StripePaymentIntentSucceeded, StripeChargeSucceeded
 
 logger = logging.getLogger(__name__)
 
@@ -122,32 +122,26 @@ def stripe_webhook(request):
         payment_intent_event = StripePaymentIntentSucceeded(payment_intent_id=payment_intent.id)
         handle(payment_intent_event)
 
-    if event.type == 'checkout.session.completed':
-        session = event['data']['object']
-        logger.info(f"Completed session: {session.id}")
-        session_event = StripeSessionCompleted(session_id=session.id, payment_intent_id=session.payment_intent, customer_id=session.customer)
-        handle(session_event)
+    if event.type == 'charge.succeeded':
+        charge = event['data']['object']
+        logger.info(f"Charge {charge.id} succeeded.")
+        print(charge)
+        billing_details = charge.billing_details
 
-    if event.type == 'checkout.session.expired':
-        session = event['data']['object']
-        logger.info(f"Expired session: {session.id}")
-
-    if event.type == 'customer.created':
-        customer = event['data']['object']
-        logger.info(f"Customer created: {customer.id}")
-        customer_event = StripeCustomerCreated(
-            stripe_customer_id=customer['id'],
-            name=customer['name'],
-            email=customer['email'],
-            phone=customer['phone'],
-            address_city=customer['address']['city'],
-            address_country=customer['address']['country'],
-            address_line1=customer['address']['line1'],
-            address_line2=customer['address']['line2'],
-            address_postal_code=customer['address']['postal_code'],
-            address_state=customer['address']['state']
+        charge_event = StripeChargeSucceeded(
+            payment_intent_id=charge.payment_intent,
+            name=billing_details.name,
+            email=billing_details.email,
+            phone=billing_details.phone,
+            address_city=billing_details['address']['city'],
+            address_country=billing_details['address']['country'],
+            address_line1=billing_details['address']['line1'],
+            address_line2=billing_details['address']['line2'],
+            address_postal_code=billing_details['address']['postal_code'],
+            address_state=billing_details['address']['state']
         )
-        handle(customer_event)
+        handle(charge_event)
+
     else:
         logger.info('Unhandled event type {}'.format(event['type']))
     return HttpResponse(status=200)

@@ -1,6 +1,7 @@
 from typing import Type
 
 from service_layer import events, services
+from products import tasks
 
 base_event = Type[events.Event]
 
@@ -10,25 +11,11 @@ def handle(event: events.Event):
         handler(event)
 
 
-# Stripe Session
+# Stripe Charge
 
-def update_purchase_status(event: events.StripeSessionCompleted):
-    services.update_purchase_by_stripe_session(event.session_id, event.payment_intent_id, event.customer_id)
-    # TODO: later will be exchanged by Celery task
-
-
-def update_purchase_customer(event: events.StripeSessionCompleted):
-    services.set_real_user_in_purchase(event.session_id, event.customer_id)
-    # TODO: later will be exchanged by Celery task
-
-
-# Stripe Customer
-
-def create_new_profile(event: events.StripeCustomerCreated):
-    # Convert the dataclass instance to a dictionary
+def handle_stripe_charge_success(event: events.StripeChargeSucceeded):
     event_dict = event.__dict__
-    # handle event data
-    services.create_profile_and_generate_password(**event_dict)
+    tasks.complete_charge_success(**event_dict)
 
 
 # Products
@@ -53,14 +40,8 @@ def set_purchase_status_completed(event: events.StripePaymentIntentSucceeded):
 # Main handlers dict
 
 HANDLERS = {
-    events.StripeSessionCompleted: [
-        update_purchase_status,
-        update_purchase_customer,
-    ],
-    events.StripeCustomerCreated: [
-        create_new_profile,
-    ],
-    events.NewProductCreated: [send_email_about_new_product,],
-    events.ProductUpdated: [send_email_about_changed_product,],
-    events.StripePaymentIntentSucceeded: [set_purchase_status_completed,],
+    events.NewProductCreated: [send_email_about_new_product, ],
+    events.ProductUpdated: [send_email_about_changed_product, ],
+    events.StripePaymentIntentSucceeded: [set_purchase_status_completed, ],
+    events.StripeChargeSucceeded: [handle_stripe_charge_success,]
 }

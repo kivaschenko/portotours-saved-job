@@ -109,7 +109,7 @@
                         <th scope="col" class="table-header-title start-date">Start Date & Time</th>
                         <th scope="col" class="table-header-title price">Total price</th>
                         <th scope="col" class="table-header-title status">Status</th>
-
+                        <th scope="col" class="table-header-title status">PDF</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -121,6 +121,11 @@
                                 <td>{{ product.date_of_start }} | {{ product.time_of_start }}</td>
                                 <td>€{{ product.total_price }}</td>
                                 <td>{{ product.status }}</td>
+                                <td>
+                                    <a href="{% url 'generate-pdf' product.id %}" class="btn btn-type-2">
+                                        download pdf
+                                    </a>
+                                </td>
                             </tr>
                         {% endfor %}
                     {% endif %}
