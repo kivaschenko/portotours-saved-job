@@ -155,9 +155,37 @@ def checkout_payment_intent_view(request):
                 "product_ids": str(product_ids),
             }
         }
+        customer_data = {
+            'name': '',
+            'email': '',
+            'phone': '',
+            'address': {
+                'city': '',
+                'country': '',
+                'line1': '',
+                'line2': '',
+                'postal_code': '',
+                'state': ''
+            }
+        }
         if user.is_authenticated:
             purchase = Purchase.objects.create(user=user, stripe_price=total_amount, stripe_customer_id=user.profile.stripe_customer_id)
             intent_data.update({'customer': user.profile.stripe_customer_id})  # Update customer directly as a string
+            customer_data.update(
+                {
+                    'name': user.profile.name,
+                    'email': user.profile.email,
+                    'phone': user.profile.phone,
+                    'address': {
+                        'city': user.profile.address_city,
+                        'country': user.profile.address_country,
+                        'line1': user.profile.address_line1,
+                        'line2': user.profile.address_line2,
+                        'postal_code': user.profile.address_postal_code,
+                        'state': user.profile.address_state
+                    }
+                }
+            )
         else:
             purchase = Purchase.objects.create(stripe_price=total_amount)
         purchase.products.set(products)
@@ -167,7 +195,7 @@ def checkout_payment_intent_view(request):
         purchase.stripe_payment_intent_id = payment_intent.id
         purchase.save()
 
-        return JsonResponse({'clientSecret': payment_intent.client_secret})
+        return JsonResponse({'clientSecret': payment_intent.client_secret, 'customerData': customer_data})
 
     except json.JSONDecodeError as e:
         return HttpResponseBadRequest('Invalid JSON data')

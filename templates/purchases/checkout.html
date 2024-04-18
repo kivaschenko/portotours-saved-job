@@ -103,7 +103,12 @@
                 },
                 body: JSON.stringify({product_ids: {{ product_ids }}}),
             });
-            const {clientSecret} = await response.json();
+            const {clientSecret, customerData} = await response.json();
+            console.log('clientSecret', clientSecret);
+            console.log('customerData', customerData);
+            // Access the nested properties of customerData
+            const {name, email, phone, address} = customerData;
+            const {city, country, line1, line2, postal_code, state} = address;
 
             // Create Stripe elements
             const appearance = {
@@ -111,6 +116,7 @@
                 labels: 'floating',
             };
             elements = stripe.elements({appearance, clientSecret});
+
             const linkAuthenticationElement = elements.create("linkAuthentication");
             linkAuthenticationElement.mount("#link-authentication-element");
 
@@ -120,6 +126,11 @@
                 display: {
                     // name: 'split'
                 },
+                defaultValues: {
+                    name,
+                    phone,
+                    address
+                }
             };
             // Mount the address element
             const addressElement = elements.create("address", options);
@@ -131,13 +142,22 @@
                 paymentMethod: {
                     card: null, // This allows users to select other payment methods like Apple Pay, Google Pay, and PayPal
                     billing_details: {
-                        name: "Customer Name", // You can customize this as needed
+                        name,
+                        email,
+                        phone,
                     },
                 },
             });
             expressCheckoutElement.mount("#express-checkout-element");
-        }
 
+            // Populate customer data into the form fields
+            // document.getElementById('Field-linkEmailInput').value = email;  // Populate email field
+            // document.getElementById('Field-nameInput').value = name;
+            // document.getElementById('Field-countryInput').value = country;
+            // document.getElementById('Field-addressLine1Input').value = line1;
+            // document.getElementById('Field-addressLine2Input').value = line2;
+
+        }
 
         async function handleSubmit(e) {
             e.preventDefault();
@@ -220,8 +240,10 @@
                 document.querySelector("#button-text").classList.remove("hidden");
             }
         }
-
     </script>
+    <!-- For language selector -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+
     <!-- For language selector -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 {% endblock %}
