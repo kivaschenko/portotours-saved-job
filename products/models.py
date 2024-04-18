@@ -495,7 +495,7 @@ class Product(models.Model):
         # Format the product ID as a string with leading zeros to ensure it is 8 digits long
         formatted_product_id = str(self.id).zfill(6)  # Adjust the zfill value based on the length of your product IDs
         # Combine the formatted product ID with additional characters if needed
-        order_number = f"0000{formatted_product_id}"
+        order_number = f"ODT_PT_Booking_0000{formatted_product_id}"
         return order_number
 
 

@@ -157,7 +157,7 @@ def checkout_payment_intent_view(request):
         }
         if user.is_authenticated:
             purchase = Purchase.objects.create(user=user, stripe_price=total_amount, stripe_customer_id=user.profile.stripe_customer_id)
-            intent_data.update({'customer': {'id': user.profile.stripe_customer_id}})
+            intent_data.update({'customer': user.profile.stripe_customer_id})  # Update customer directly as a string
         else:
             purchase = Purchase.objects.create(stripe_price=total_amount)
         purchase.products.set(products)
