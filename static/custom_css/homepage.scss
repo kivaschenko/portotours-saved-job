@@ -212,7 +212,8 @@
   &.experience-page {
     .container {
       @include media-breakpoint-down(md) {
-        padding-top: 40px;
+        padding-top: 20px;
+        padding-bottom: 20px;
       }
      
     }
@@ -264,8 +265,8 @@
     padding-bottom: 46px;
     text-align: center;
     @include media-breakpoint-down(md) {
-      padding-top: 60px;
-      padding-bottom: 60px;
+      padding-top: 25px;
+      padding-bottom: 25px;
     }
     .why-title {
       margin-bottom: 20px;
@@ -334,7 +335,7 @@
     padding-bottom: 0px;
     @include media-breakpoint-down(md) {
       padding-top: 0;
-      padding-bottom: 60px;
+      padding-bottom: 25px;
     }
     .title-btn-wrapper {
       display: flex;
@@ -546,7 +547,7 @@
   margin-bottom: 70px;
   @include media-breakpoint-down(md) {
     margin-top: 0;
-    margin-bottom: 60px;
+    margin-bottom: 25px;
   }
   .container {
     padding-top: 80px;
@@ -555,8 +556,8 @@
     align-items: center;
     justify-content: center;
     @include media-breakpoint-down(md) {
-      padding-top: 40px;
-      padding-bottom: 40px;
+      padding-top: 30px;
+      padding-bottom: 30px;
       flex-direction: column;
       text-align: center;
     }
@@ -610,7 +611,7 @@
     justify-content: space-between;
     @include media-breakpoint-down(md) {
       padding-top: 0;
-      padding-bottom: 60px;
+      padding-bottom: 25px;
       flex-direction: column;
     }
     .tour-type-card {
@@ -865,7 +866,7 @@
     padding-bottom: 0px;
     @include media-breakpoint-down(md) {
       padding-top: 0;
-      padding-bottom: 60px;
+      padding-bottom: 25px;
     }
     .title-wrapper {
       display: flex;
@@ -991,7 +992,7 @@
   &.experience-testimonials {
     .container {
       @include media-breakpoint-down(md) {
-        padding-top: 60px;
+        padding-top: 25px;
       }
     }
   }
@@ -1145,6 +1146,9 @@
   &.blog {
     .container {
       margin-top: 70px;
+      @include media-breakpoint-down(md) {
+        margin-top: 24px;
+      }
     }
   }
   .container {
@@ -1159,7 +1163,7 @@
     overflow: hidden;
     margin-bottom: 70px;
     @include media-breakpoint-down(md) {
-        margin-bottom: 60px;
+        margin-bottom: 25px;
         margin-top: 30px;
         padding-top: 50px;
         padding-bottom: 50px;
