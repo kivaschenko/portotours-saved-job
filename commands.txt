@@ -42,3 +42,33 @@ Content-Transfer-Encoding: 8bit
 </html>
 
 --===============3690381407339367051==--
+
+Content-Type: multipart/alternative;
+ boundary="===============5050713392778498008=="
+MIME-Version: 1.0
+Subject: Your New Password
+From: One Day Tours <info@onedaytours.com>
+To: Ralph_Fiennes_Test@gmail.com
+Date: Wed, 17 Apr 2024 15:31:14 -0000
+Message-ID: <171336787473.35504.11122686384666998799@teomeo>
+
+--===============5050713392778498008==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p>Dear Ralph Fiennes,</p>
+    <p>We created your account automatically.</p>
+    <p>Your new password is: zevxwjZg5D</p>
+    <!-- You can add more HTML content here -->
+</body>
+</html>
+
+--===============5050713392778498008==--
