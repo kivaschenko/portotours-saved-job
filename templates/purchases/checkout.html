@@ -103,15 +103,17 @@
                 },
                 body: JSON.stringify({product_ids: {{ product_ids }}}),
             });
-            const {clientSecret} = await response.json();
-
+            const {clientSecret, customerData} = await response.json();
+            // Access the nested properties of customerData
+            const {name, email, phone, address} = customerData;
             // Create Stripe elements
             const appearance = {
                 theme: 'flat',
                 labels: 'floating',
             };
             elements = stripe.elements({appearance, clientSecret});
-            const linkAuthenticationElement = elements.create("linkAuthentication");
+
+            const linkAuthenticationElement = elements.create("linkAuthentication", {defaultValues: {email: customerData.email}});
             linkAuthenticationElement.mount("#link-authentication-element");
 
             const options = {
@@ -120,6 +122,11 @@
                 display: {
                     // name: 'split'
                 },
+                defaultValues: {
+                    name,
+                    phone,
+                    address
+                }
             };
             // Mount the address element
             const addressElement = elements.create("address", options);
@@ -131,13 +138,15 @@
                 paymentMethod: {
                     card: null, // This allows users to select other payment methods like Apple Pay, Google Pay, and PayPal
                     billing_details: {
-                        name: "Customer Name", // You can customize this as needed
+                        name,
+                        email,
+                        phone,
                     },
                 },
             });
             expressCheckoutElement.mount("#express-checkout-element");
-        }
 
+        }
 
         async function handleSubmit(e) {
             e.preventDefault();
@@ -220,8 +229,10 @@
                 document.querySelector("#button-text").classList.remove("hidden");
             }
         }
-
     </script>
+    <!-- For language selector -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+
     <!-- For language selector -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 {% endblock %}
