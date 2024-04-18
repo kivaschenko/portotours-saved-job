@@ -104,12 +104,8 @@
                 body: JSON.stringify({product_ids: {{ product_ids }}}),
             });
             const {clientSecret, customerData} = await response.json();
-            console.log('clientSecret', clientSecret);
-            console.log('customerData', customerData);
             // Access the nested properties of customerData
             const {name, email, phone, address} = customerData;
-            const {city, country, line1, line2, postal_code, state} = address;
-
             // Create Stripe elements
             const appearance = {
                 theme: 'flat',
@@ -117,7 +113,7 @@
             };
             elements = stripe.elements({appearance, clientSecret});
 
-            const linkAuthenticationElement = elements.create("linkAuthentication");
+            const linkAuthenticationElement = elements.create("linkAuthentication", {defaultValues: {email: customerData.email}});
             linkAuthenticationElement.mount("#link-authentication-element");
 
             const options = {
