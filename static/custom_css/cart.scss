@@ -4,7 +4,7 @@
         padding-bottom: 50px;
         @include media-breakpoint-down(md) {
             padding-top: 10px;
-            padding-bottom: 60px;
+            padding-bottom: 24px;
         }
     }
     .cart-steps-wrapper {
@@ -454,7 +454,7 @@
                 display: flex;
                 order: 3;
                 text-align: center;
-                margin-top: 60px;
+                margin-top: 24px;
                 flex-direction: column;
                 width: 100%;
                 align-items: center;
@@ -463,11 +463,15 @@
                     font-size: 18px;
                     line-height: 28px;
                     margin-bottom: 20px;
+                    
                 }
                 ul {
                     padding-left: 0;
                     list-style: none;
                     text-align: left;
+                    @include media-breakpoint-down(md) {
+                        margin-bottom: 0;
+                    }
                     li {
                         font-family: "LatoRegular";
                         font-size: 16px;
