@@ -40,6 +40,11 @@ class AttractionListViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         # Add more assertions as needed
 
+    def test_attraction_details_view(self):
+        response = self.client.get(reverse('attraction-detail', kwargs={'lang': 'en', 'slug': "st-georges-castle-lisbon"}))
+        self.assertEqual(response.status_code, 200)
+
+
 
 # Similarly, write test cases for other views: AttractionDetailView
 # test_attractions.py inside your attractions app directory
