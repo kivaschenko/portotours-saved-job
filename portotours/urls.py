@@ -47,8 +47,9 @@ urlpatterns += [
 # HOME & ADMIN
 urlpatterns += [
     path('admin/', admin.site.urls),
-    path('', RedirectView.as_view(url=reverse_lazy('home', kwargs={'lang': 'en'})), name='redirect_home'),
-    path('<str:lang>/', home_views.HomeView.as_view(), name='home'),
+    # path('', RedirectView.as_view(url=reverse_lazy('home', kwargs={'lang': 'en'})), name='redirect_home'),
+    # path('<str:lang>/', home_views.HomeView.as_view(), name='home'),
+    path('', home_views.HomeView.as_view(), name='home'),
     path('en/pages/<slug:slug>/', home_views.PageDetailView.as_view(), name='page_detail'),
 ]
 
