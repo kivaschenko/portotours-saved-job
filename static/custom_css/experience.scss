@@ -238,7 +238,8 @@
     padding-bottom: 156px;
     position: relative;
     @include media-breakpoint-down(md) {
-      margin-top: 40px;
+      margin-top: 25px;
+      padding-bottom: 100px;
     }
     .title-filter-wrapper {
       display: flex;
@@ -327,7 +328,7 @@
       margin: 0;
 
       @include media-breakpoint-down(md) {
-        margin-bottom: 145px;
+        
       }
       .experience-list-item {
         display: flex;
@@ -489,6 +490,7 @@
             text-decoration: none;
             @include media-breakpoint-down(md) {
               margin: 0 auto;
+              width: 100%;
             }
             img {
               margin-left: 14px;
@@ -510,6 +512,10 @@
     .container {
       padding-top: 15px;
       padding-bottom: 15px;
+      @include media-breakpoint-down(md) {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
     }
     .experience-hero-title-wrapper {
       display: flex;
@@ -528,7 +534,7 @@
         width: 730px;
         @include media-breakpoint-down(md) {
           width: 100%;
-          text-align: center;
+          text-align: left;
         }
       }
       .expreriece-hero-price-btn-wrapper {
@@ -569,7 +575,7 @@
       align-items: center;
       margin-bottom: 0;
       @include media-breakpoint-down(md) {
-        margin-bottom: 16px;
+        margin-bottom: 0px;
       }
       .experience-hero-info-text {
         display: flex;
@@ -606,7 +612,7 @@
   .container {
     padding-bottom: 0px;
     @include media-breakpoint-down(md) {
-      padding-top: 24px;
+      padding-top: 0px;
     }
     
     .experience-hero-swiper {
@@ -691,13 +697,13 @@
     padding-bottom: 70px;
     @include media-breakpoint-down(md) {
       padding-top: 0px;
-      padding-bottom: 60px;
+      padding-bottom: 25px;
     }
     .experience-info-title {
       text-align: center;
       margin-bottom: 16px;
       @include media-breakpoint-down(md) {
-        
+        margin-bottom: 8px;
       }
     }
     .experience-info-subtitle {
@@ -709,7 +715,7 @@
       @include media-breakpoint-down(md) {
         font-size: 16px;
         line-height: 24px;
-        margin-bottom: 24px;
+        margin-bottom: 16px;
       }
     }
     .experience-info-inner-wrapper {
