@@ -26,7 +26,7 @@ class AttractionModelTestCase(TestCase):
 # test_attractions.py inside your attractions app directory
 
 
-class AttractionListViewTestCase(TestCase):
+class AttractionViewTestCase(TestCase):
     fixtures = [
         'products/fixtures/testing/languages.json',
         'attractions/fixtures/testing/attractions.json',
@@ -45,14 +45,11 @@ class AttractionListViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-
-# Similarly, write test cases for other views: AttractionDetailView
-# test_attractions.py inside your attractions app directory
-
-
 class AttractionsURLTestCase(SimpleTestCase):
     def test_attraction_list_url_resolves(self):
         url = reverse('attraction-list', kwargs={'lang': 'en'})
         self.assertEqual(resolve(url).func.view_class, AttractionListView)
 
-    # Add more URL resolution tests as needed
+    def test_attraction_details_url_resolves(self):
+        url = reverse('attraction-detail', kwargs={'lang': 'en', 'slug': "st-georges-castle-lisbon"})
+        self.assertEqual(resolve(url).func.view_class, AttractionDetailView)

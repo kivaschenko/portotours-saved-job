@@ -403,11 +403,11 @@
                     {{ product.time_of_start }}
                 </li>
                 <li>
-                    {{ product.adults_count }} Adult
+                    {{ product.adults_count }} {% if product.adults_count > 1 %}Adults{% else %}Adult{% endif %}
                 </li>
                 {% if product.child_count %}
                 <li>
-                    {{ product.child_count }} Children
+                    {{ product.child_count }} {% if product.child_count > 1 %}Children{% else %}Child{% endif %}
                 </li>
                 {% endif %}
             </ul>
@@ -513,23 +513,28 @@
         </div>
         <div class="columns-wrapper">
             <div class="col">
+                {% if experience.display_include_text %}
                 <h3 class="col-title">
                     Includes
                 </h3>
                 {{ experience.display_includes_text }}
+                {% endif %}
             </div>
             <div class="col">
+                {% if experience.display_what_to_bring_text %}
                 <h3 class="col-title">
                     What to bring
                 </h3>
                 {{ experience.display_what_to_bring_text }}
-                
+                {% endif %}
             </div>
             <div class="col">
+                {% if experience.display_traveler_tips_text %}
                 <h3 class="col-title">
                     Traveler tips
                 </h3>
                 {{ experience.display_traveler_tips_text }}
+                {% endif %}
             </div>
         </div>
         <footer>
