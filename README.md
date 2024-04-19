@@ -76,6 +76,11 @@ celery -A portotours flower -l INFO
 ```
 python3 manage.py test --verbosity=2 --keepdb
 ```
+To check coverage of codebase run:
+```
+coverage run manage.py test
+coverage report -m
+```
 #### Test credentials Django dashboard:
 - before upload fixtures: `python manage.py loaddata accounts/fixtures/testing/users.json`
 
