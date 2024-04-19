@@ -287,8 +287,8 @@ LOGGING = {
 AUTH_USER_MODEL = 'accounts.User'
 
 # Redirect URLs after login/logout
-LOGOUT_REDIRECT_URL = '/en/'
-LOGIN_REDIRECT_URL = '/en/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 
 # Bootstrap Sass
 STATICFILES_FINDERS = (
