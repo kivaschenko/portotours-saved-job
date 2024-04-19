@@ -140,10 +140,10 @@ class UserIsAuthentiacedOrSessionKeyRequiredMixin(View):
             session = Session.objects.get(session_key=session_key)
         except Session.DoesNotExist:
             # If the session does not exist or is expired, redirect the user
-            return redirect('home', lang='en')
+            return redirect('home')
         if session_key is None and not user.is_authenticated:
             # Redirect user to login page or any other page as you see fit
-            return redirect('home', lang='en')
+            return redirect('home')
         elif user.is_authenticated:
             if Product.pending.filter(customer=user).exists():
                 self.queryset = Product.pending.filter(customer=user)

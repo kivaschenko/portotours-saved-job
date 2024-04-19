@@ -3,7 +3,7 @@
     <div class="header-top-row">
         <div class="header-left-col">
             <div class="header-logo-wrapper">
-                <a href="#" class="logo-link" id="home-link">
+                <a href="{% url 'home' %}" class="logo-link" id="home-link">
                     <img src="{% static 'icons/logo_black.svg' %}" alt="Logo">
                 </a>
             </div>
@@ -116,108 +116,6 @@
                                 Travel Blog
                             </a>
                         </li>
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
-                               data-bs-toggle="dropdown" href="#">Lisbon Things To Do</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <h2 class="mobile-dropdown-title">
-                                        <img src="{% static 'images/language-arrow.png' %}" alt="">
-                                        Porto Things To Do
-                                    </h2>
-                                    <h3 class="dropdown-title">
-                                        Best experiences
-                                    </h3>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-    
-                                    <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
-                                        see all
-                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                                    </a>
-                                </li>
-                                <li>
-    
-                                    <h3 class="dropdown-title">
-                                        Top Attractions
-                                    </h3>
-                                    <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Attraction name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Attraction name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Attraction name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Attraction name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Attraction name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Attraction name long-long-long </a>
-    
-                                    <a href="{% url 'attraction-list' lang='en' %}" class="dropdown-item-link">
-                                        see all
-                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
-                               data-bs-toggle="dropdown" href="#">Out Of Lisbon Things To Do</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <h2 class="mobile-dropdown-title">
-                                        <img src="{% static 'images/language-arrow.png' %}" alt="">
-                                        Out Of Porto Things To Do
-                                    </h2>
-                                    <h3 class="dropdown-title">
-                                        Destinations
-                                    </h3>
-                                    <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Destination name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Destination name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Destination name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Destination name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Destination name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Destination name long-long-long </a>
-    
-                                    <a href="{% url 'destination-list' lang='en' %}" class="dropdown-item-link">
-                                        see all
-                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                                    </a>
-                                </li>
-                                <li>
-    
-                                    <h3 class="dropdown-title">
-                                        Most Popular
-                                    </h3>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long long-long-long long-long-long </a>
-                                    <a class="dropdown-item" href="#">Experiences name long-long-long </a>
-    
-                                    <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
-                                        see all
-                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> -->
                     </ul>
                 </div>
                 <div class="language-phone-wrapper">
@@ -322,12 +220,6 @@
                     </ul>
                 </div>
             </div>
-            <!-- <div class="contact-phone">
-                <img src="{% static 'icons/phone-icon.svg' %}" alt="">
-                <p class="phone-number body-text-b3">
-                    +351 968 380 559
-                </p>
-            </div> -->
             <div class="cart-wrapper body-text-b3 hide">
                 <a href="{% url 'my-cart' lang='en' %}">
                     <img src="{% static 'icons/cart-icon.svg' %}" alt="">
@@ -335,9 +227,7 @@
                         <span class="items-count rounded-pill">{{ number_of_products }}</span>
                             {% else %}
                         {% endif %}
-                    <span>Cart
-                        
-                    </span>
+                    <span>Cart</span>
                 </a>
             </div>
             <div class="login-btn-wrapper">
@@ -357,20 +247,20 @@
     
     <!-- Home page language -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let homeLink = document.getElementById('home-link');
-            let preferredLanguage = navigator.language || navigator.browserLanguage;
-            let allowedLanguages = ['en', 'es', 'fr', 'pt'];
-            let defaultLanguage = 'en'; // Default language if none of the preferred languages match
+       //  document.addEventListener('DOMContentLoaded', function () {
+       //      let homeLink = document.getElementById('home-link');
+       //      let preferredLanguage = navigator.language || navigator.browserLanguage;
+       //      let allowedLanguages = ['en', 'es', 'fr', 'pt'];
+       //      let defaultLanguage = 'en'; // Default language if none of the preferred languages match
 
-            // Check if the preferred language is in the allowed languages list
-            if (allowedLanguages.includes(preferredLanguage)) {
-                defaultLanguage = preferredLanguage;
-            }
+       //      // Check if the preferred language is in the allowed languages list
+       //      if (allowedLanguages.includes(preferredLanguage)) {
+       //          defaultLanguage = preferredLanguage;
+       //      }
 
-            // Set the href attribute of the home link with the default language
-            homeLink.href = '/' + defaultLanguage + '/';
-        });
+       //      // Set the href attribute of the home link with the default language
+       //      homeLink.href = '/' + defaultLanguage + '/';
+       //  });
     </script>
 
     <script>

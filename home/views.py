@@ -19,8 +19,10 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        lang = self.kwargs.get('lang', 'en')
-        activate(lang)
+        lang = 'en'
+        if self.kwargs.get('lang'):
+            lang = self.kwargs.get('lang', 'en')
+        # activate(lang)
         context['current_language'] = lang
         context['destinations_top_year'] = Destination.active.filter(
             parent_destination__show_on_home_page=True,
