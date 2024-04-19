@@ -66,7 +66,6 @@ def stripe_webhook(request):
     if event.type == 'charge.succeeded':
         charge = event['data']['object']
         logger.info(f"Charge {charge.id} succeeded.")
-        print(charge)
         billing_details = charge.billing_details
 
         charge_event = StripeChargeSucceeded(
@@ -112,7 +111,6 @@ class ConfirmationView(TemplateView):
 def checkout_payment_intent_view(request):
     if request.method != "POST":
         return HttpResponseBadRequest("Only POST requests are allowed")
-    print("request.body", request.body)
     user = request.user
     try:
         data = json.loads(request.body.decode('utf-8'))
