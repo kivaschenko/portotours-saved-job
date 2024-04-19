@@ -167,7 +167,6 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = self.get_queryset()  # Ensure queryset is evaluated every time
-        print('Cart queryset:', queryset)
 
         context['product_ids'] = [product.pk for product in queryset]
         context['total_price_sum'] = queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum'] or 0
@@ -208,7 +207,6 @@ def get_actual_experience_events(request, parent_experience_id):
 
 # @transaction.atomic
 def create_group_product(request):
-    print(request.POST)
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -371,7 +369,6 @@ def get_private_event_booking_data(request, event_id):
         'remaining_participants': event.experienceevent.remaining_participants,
         'experience_event_id': event.experienceevent.id,
     }
-    print('result:', actual_data_dict)
     return JsonResponse({'result': actual_data_dict}, status=200)
 
 
@@ -572,7 +569,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def create_product(request):
-    print('request.POST', request.POST)
     if request.method == 'POST':
         data = json.loads(request.body)
 
