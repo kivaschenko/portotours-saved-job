@@ -188,10 +188,10 @@ class ParentExperience(models.Model):
         if not self.slug:
             self.slug = slugify(self.parent_name)
         if self.use_auto_increase_old_price:
-            self.old_price = self.price * Decimal(round(float(self.increase_percentage_old_price / 100 + 1), 2))
+            self.old_price = round(self.price * Decimal(round(float(self.increase_percentage_old_price / 100 + 1), 2)), 2)
         if self.use_child_discount:
-            self.child_price = self.price * Decimal(round(float(1 - self.child_discount / 100), 2))
-            self.child_old_price = self.child_price * Decimal(round(float(self.increase_percentage_old_price / 100 + 1), 2))
+            self.child_price = round(self.price * Decimal(round(float(1 - self.child_discount / 100), 2)), 2)
+            self.child_old_price = round(self.child_price * Decimal(round(float(self.increase_percentage_old_price / 100 + 1), 2)), 2)
         super().save(*args, **kwargs)
 
 
