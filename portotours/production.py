@@ -198,8 +198,8 @@ LOGGING = {
     }
 }
 AUTH_USER_MODEL = 'accounts.User'
-LOGOUT_REDIRECT_URL = '/en/'
-LOGIN_REDIRECT_URL = '/en/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
