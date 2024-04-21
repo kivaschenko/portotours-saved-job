@@ -15,6 +15,8 @@ def gettext_noop(s):
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = False
 ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
+ALLOWED_HOSTS += ['127.0.0.1',]
+
 BASE_ENDPOINT = os.environ.get('BASE_ENDPOINT')
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -205,6 +207,7 @@ STATICFILES_FINDERS = (
 )
 SASS_PROCESSOR_INCLUDE_DIRS = [
     os.path.join(BASE_DIR, 'static/custom_css'),
+    os.path.join(BASE_DIR, 'static/custom_css/custom.scss')
 ]
 SASS_PROCESSOR_ENABLED = True
 SASS_PROCESSOR_ROOT = BASE_DIR / 'static'
@@ -239,7 +242,8 @@ STORAGES = {
         "BACKEND": "storages.backends.s3.S3Storage",
     },
     "staticfiles": {
-        "BACKEND": 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        # "BACKEND": 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
     }
 }
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
