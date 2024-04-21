@@ -39,8 +39,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t kivaschenko/portotours:latest .
-          docker push kivaschenko/portotours:latest
+          docker build -t portotours/portotours:latest .
+          docker push portotours/portotours:latest
 
       - name: SSH into Digital Ocean Droplet and deploy
         if: success()
@@ -50,9 +50,9 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
           script: |
-            docker pull kivaschenko/portotours:latest
+            docker pull portotours/portotours:latest
             docker stop django-portotours || true
             docker rm django-portotours || true
             docker volume rm $(docker volume ls -q) || true
             docker rmi $(docker images -q --filter "dangling=true") || true
-            docker run -d --name django-portotours -p 8000:8000 kivaschenko/portotours:latest
+            docker run -d --name django-portotours -p 8000:8000 portotours/portotours:latest
