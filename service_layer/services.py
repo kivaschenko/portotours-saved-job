@@ -178,7 +178,10 @@ def create_profile_and_generate_password(stripe_customer_id: str = None, name: s
 def send_new_password_by_email(email: str, password: str, name: str = '',
                                subject: str = 'Your New Password',
                                template_name: str = 'email_templates/new_password_email.html',
-                               from_email: str = 'One Day Tours <info@onedaytours.com>'):
+                               from_email: str = None):
+    if from_email is None:
+        from_email = settings.DEFAULT_FROM_EMAIL
+
     # Render the HTML template with the provided context
     html_message = render_to_string(template_name, {'password': password, 'name': name})
 

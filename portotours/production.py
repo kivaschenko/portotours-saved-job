@@ -62,13 +62,36 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-SESSION_COOKIE_AGE = 60 * 60  # 60 minutes
+# Cache to store session data if using the cache session backend.
+SESSION_CACHE_ALIAS = "default"
+# Cookie name. This can be whatever you want.
+SESSION_COOKIE_NAME = "sessionid"
+# Age of cookie, in seconds (default: 2 weeks).
+SESSION_COOKIE_AGE = 60 * 60  # minutes
+# A string like "example.com", or None for standard domain cookie.
+SESSION_COOKIE_DOMAIN = None
+# Whether the session cookie should be secure (https:// only).
 SESSION_COOKIE_SECURE = False
+# The path of the session cookie.
 SESSION_COOKIE_PATH = "/"
+# Whether to use the HttpOnly flag.
 SESSION_COOKIE_HTTPONLY = True
+# Whether to set the flag restricting cookie leaks on cross-site requests.
+# This can be 'Lax', 'Strict', 'None', or False to disable the flag.
+SESSION_COOKIE_SAMESITE = "Lax"
+# Whether to save the session data on every request.
 SESSION_SAVE_EVERY_REQUEST = True
+# Whether a user's session cookie expires when the web browser is closed.
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# The module to store session data
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+# Directory to store session files if using the file session module. If None,
+# the backend will use a sensible default.
+SESSION_FILE_PATH = None
+# class to serialize session data
+SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
+
+# CACHE
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -263,7 +286,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
-ADMIN_EMAIL = [('Admin Name', 'admin@example.com')]
+ADMIN_NAME = os.environ.get('EMAIL_FROM_USER')
+ADMIN_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+ADMIN_EMAIL = [(ADMIN_NAME, ADMIN_EMAIL),]
 MANAGER_EMAIL = ADMIN_EMAIL + [('Manager Name', 'manager@example.com')]
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 SITE_NAME = 'onedaytours.pt'
