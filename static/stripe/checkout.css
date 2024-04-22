@@ -1,11 +1,42 @@
 /* Variables */
 /* Custom styling for the form */
 #payment-form {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Adjust the number of columns as needed */
-    gap: 20px; /* Adjust the gap between columns */
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 }
-
+#payment-form .left-col {
+  width: calc((100% - 30px)/2);
+  border-radius: 26px;
+  background-color: #F8F8F8;
+  padding: 40px 20px;
+}
+#payment-form .right-col {
+  width: calc((100% - 30px)/2);
+  border-radius: 26px;
+  background-color: #F8F8F8;
+  padding: 40px 20px;
+}
+#payment-form .left-col input {
+  background-color: white !important;
+  border-radius: 42px;
+  border: 1px solid #D9D9D9;
+}
+@media screen and (max-width: 767px) {
+  #payment-form {
+    flex-direction: column;
+    width: 100%;
+  }
+  #payment-form .left-col {
+    width: 100%;
+    padding: 20px 10px;
+    margin-bottom: 20px;
+  }
+  #payment-form .right-col {
+    width: 100%;
+    padding: 20px 10px;
+  }
+}
 .form-column {
     display: flex;
     flex-direction: column;
@@ -37,18 +68,6 @@
 
 /* Buttons and links */
 #submit {
-  background: #f0500b;
-  font-family: Arial, sans-serif;
-  color: #ffffff;
-  border-radius: 4px;
-  border: 0;
-  padding: 12px 16px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  display: block;
-  transition: all 0.2s ease;
-  box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
   width: 100%;
 }
 #submit:hover {
