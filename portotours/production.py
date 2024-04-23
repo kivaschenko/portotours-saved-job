@@ -15,7 +15,7 @@ def gettext_noop(s):
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = False
 ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
-
+# ALLOWED_HOSTS += ['localhost', '127.0.0.1', '[::1]']
 BASE_ENDPOINT = os.environ.get('BASE_ENDPOINT')
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -291,7 +291,7 @@ ADMIN_EMAIL = [(ADMIN_NAME, ADMIN_EMAIL),]
 MANAGER_EMAIL = ADMIN_EMAIL + [('Manager Name', 'manager@example.com')]
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 SITE_NAME = 'onedaytours.pt'
-# PROTOCOL = 'https'
+PROTOCOL = 'https'
 DOMAIN = os.environ.get('DOMAIN_NAME', 'localhost:8000')
 NAVBAR_CONTEXT_CACHE_TIMEOUT = 3600
 CELERY_IMPORTS = (
