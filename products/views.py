@@ -29,26 +29,40 @@ class ExperienceListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
+        # Retrieve the base queryset using the custom manager
+        queryset = super().get_queryset()
+        # Apply additional filtering based on the view's requirements
         current_language = Language.objects.get(code=self.kwargs['lang'].upper())
         self.extra_context['current_language'] = current_language.code.lower()
         place = self.request.GET.get('place')
         date = self.request.GET.get('date')
         queryset = search_experience_by_place_start_lang(place, date, current_language.code)
-        if queryset is not None:
-            tour_type = self.request.GET.get('tour_type', 'all')
-            if tour_type == 'private':
-                queryset = queryset.filter(parent_experience__is_private=True)
-            elif tour_type == 'group':
-                queryset = queryset.filter(parent_experience__is_private=False)
-            sort_by = self.request.GET.get('filter_by', 'all')
-            if sort_by == 'price_low':
-                queryset = queryset.order_by('parent_experience__price')
-            elif sort_by == 'price_high':
-                queryset = queryset.order_by('-parent_experience__price')
-            elif sort_by == 'discount':
-                queryset = queryset.order_by('-parent_experience__increase_percentage_old_price')
-            elif sort_by == 'hot_deals':
-                queryset = queryset.order_by('-parent_experience__is_hot_deals')
+        if queryset is None:
+            queryset = queryset.none()
+
+        tour_type = self.request.GET.get('tour_type', 'all')
+        if tour_type in ['private', 'group']:
+            queryset = queryset.filter(parent_experience__is_private=(tour_type == 'private'))
+
+        sort_by = self.request.GET.get('filter_by', 'all')
+        if sort_by in ['price_low', 'price_high', 'discount', 'hot_deals']:
+            order_by_field = {
+                'price_low': 'parent_experience__price',
+                'price_high': '-parent_experience__price',
+                'discount': '-parent_experience__increase_percentage_old_price',
+                'hot_deals': '-parent_experience__is_hot_deals',
+            }.get(sort_by)
+            if order_by_field:
+                queryset = queryset.order_by(order_by_field)
+
+        selected_categories = self.request.GET.getlist('categories')
+        if selected_categories:
+            for category in selected_categories:
+                # Filter experiences related to each category
+                queryset_for_category = queryset.filter(parent_experience__categories__slug=category)
+                # Intersect the querysets to include only experiences related to all categories
+                queryset = queryset & queryset_for_category
+
         return queryset
 
     def get_context_data(self, **kwargs):
