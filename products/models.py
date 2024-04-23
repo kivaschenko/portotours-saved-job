@@ -145,6 +145,7 @@ class ExperienceCategory(models.Model):
             self.slug = slugify(self.name)
         super(ExperienceCategory, self).save(*args, **kwargs)
 
+
 # -----------
 # Experience
 
@@ -518,6 +519,3 @@ class Product(models.Model):
         # Combine the formatted product ID with additional characters if needed
         order_number = f"ODT_PT_Booking_0000{formatted_product_id}"
         return order_number
-
-
-
