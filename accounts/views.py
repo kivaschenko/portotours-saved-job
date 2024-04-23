@@ -1,9 +1,13 @@
+import os
+import base64
+
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, LoginView
 from django.views.generic import UpdateView, DetailView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
@@ -102,11 +106,38 @@ class ProfileInfoUpdateView(UpdateView):
 # --------------
 # PASSWORD RESET
 
+
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'registration/customized/password_reset_form.html'
     email_template_name = 'registration/customized/password_reset_email.html'
+    html_email_template_name = 'registration/customized/password_reset_email.html'
     success_url = reverse_lazy('password_reset_done')
     subject_template_name = 'registration/customized/password_reset_subject.txt'
+
+    def send_mail(self, subject_template_name, email_template_name, context, from_email, to_email, html_email_template_name=None):
+        subject = self.format_email_subject(self.render_to_string(subject_template_name, context))
+        body = self.render_to_string(email_template_name, context)
+        html_content = render_to_string(html_email_template_name, context)
+
+        email = EmailMultiAlternatives(subject, body, from_email, [to_email])
+
+        # Find the paths to the SVG images
+        svg_file_paths = {
+            'logo': os.path.join(settings.STATIC_ROOT, 'icons/logo_black.svg'),
+            'phone_icon': os.path.join(settings.STATIC_ROOT, 'icons/phone-icon.svg'),
+            'email_icon': os.path.join(settings.STATIC_ROOT, 'icons/email-icon.svg'),
+            # Add more image paths as needed
+        }
+
+        # Embed SVG images as base64 encoded strings
+        for name, path in svg_file_paths.items():
+            with open(path, 'rb') as f:
+                content = f.read()
+                encoded_content = base64.b64encode(content).decode('utf-8')
+                html_content = html_content.replace(f'src="{name}.svg"', f'src="data:image/svg+xml;base64,{encoded_content}"')
+
+        email.attach_alternative(html_content, 'text/html')
+        email.send()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -114,6 +145,8 @@ class CustomPasswordResetView(PasswordResetView):
         context['protocol'] = settings.PROTOCOL
         context['domain'] = settings.DOMAIN
         return context
+
+
 
 
 class CustomPasswordResetDoneView(PasswordResetDoneView):
