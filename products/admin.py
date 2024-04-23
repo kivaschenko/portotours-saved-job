@@ -100,6 +100,16 @@ class LanguageAdmin(admin.ModelAdmin):
     list_filter = ['name', 'code', 'is_active']
 
 
+# --------
+# Category
+
+@admin.register(ExperienceCategory)
+class CategoryAdmin(admin.ModelAdmin):
+    fields = ['name', 'slug']
+    list_display = ['name', 'slug']
+    list_filter = ['name']
+
+
 # ----------
 # Experience
 
@@ -110,8 +120,9 @@ class CheckboxSelectMultipleField(ModelMultipleChoiceField):
         self.widget = CheckboxSelectMultiple()
 
 
-class LanguageModelForm(ModelForm):
+class LanguageCategoryModelForm(ModelForm):
     allowed_languages = CheckboxSelectMultipleField(queryset=Language.objects.all())
+    categories = CheckboxSelectMultipleField(queryset=ExperienceCategory.objects.all())
 
     class Meta:
         model = ParentExperience
@@ -121,11 +132,11 @@ class LanguageModelForm(ModelForm):
 
 @admin.register(ParentExperience)
 class ParentExperienceAdmin(admin.ModelAdmin):
-    form = LanguageModelForm
+    form = LanguageCategoryModelForm
     exclude = ['updated_at', 'slug']
     list_display = ['id', 'parent_name', 'currency', 'price', 'old_price', 'child_price', 'child_old_price',
                     'max_participants', 'is_private', 'is_exclusive', 'priority_number', 'show_on_home_page', 'rating', 'is_hot_deals']
-    list_filter = ['parent_name', 'max_participants', 'is_private', 'is_exclusive', 'show_on_home_page',]
+    list_filter = ['parent_name', 'max_participants', 'is_private', 'is_exclusive', 'show_on_home_page', ]
     search_fields = ['parent__name', ]
 
 
@@ -134,6 +145,7 @@ class ExperienceScheduleInline(admin.TabularInline):
     extra = 1
     list_display = ['time', 'name_stop']
     list_filter = ['time', 'name_stop']
+
 
 class ExperienceAdminForm(ModelForm):
     class Meta:
@@ -228,8 +240,8 @@ class ExperienceEventAdmin(admin.ModelAdmin):
 @admin.register(Occurrence)
 class ExperienceOccurrenceAdmin(admin.ModelAdmin):
     readonly_fields = ['product_id', 'customer']
-    list_display = ['id', 'product_id', 'event', 'customer', 'start',]
-    list_filter = ['start',]
+    list_display = ['id', 'product_id', 'event', 'customer', 'start', ]
+    list_filter = ['start', ]
     search_fields = ['event', 'title', 'description', ]
 
     def product_id(self, obj):
