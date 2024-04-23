@@ -1,9 +1,10 @@
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, LoginView
 from django.views.generic import UpdateView, DetailView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
@@ -105,8 +106,23 @@ class ProfileInfoUpdateView(UpdateView):
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'registration/customized/password_reset_form.html'
     email_template_name = 'registration/customized/password_reset_email.html'
+    html_email_template_name = 'registration/customized/password_reset_email.html'
     success_url = reverse_lazy('password_reset_done')
     subject_template_name = 'registration/customized/password_reset_subject.txt'
+
+    def send_mail(self, subject_template_name, email_template_name, context, from_email, to_email, html_email_template_name=None):
+        """
+        Send a django.core.mail.EmailMultiAlternatives to `to_email`.
+        """
+        subject = self.format_email_subject(self.render_to_string(subject_template_name, context))
+        body = self.render_to_string(email_template_name, context)
+
+        # Render the HTML content from the template
+        html_content = render_to_string(html_email_template_name, context)
+
+        email = EmailMultiAlternatives(subject, body, from_email, [to_email])
+        email.attach_alternative(html_content, 'text/html')  # Attach the HTML content
+        email.send()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
