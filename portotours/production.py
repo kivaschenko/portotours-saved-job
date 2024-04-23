@@ -15,7 +15,6 @@ def gettext_noop(s):
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = False
 ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
-ALLOWED_HOSTS += ['127.0.0.1',]
 
 BASE_ENDPOINT = os.environ.get('BASE_ENDPOINT')
 INSTALLED_APPS = [
