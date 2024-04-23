@@ -382,31 +382,24 @@ BOOKING_MINUTES = 30
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-# EMAIL
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    EMAIL_HOST = 'localhost'
-    EMAIL_PORT = 25
-    DEFAULT_FROM_EMAIL = 'OneDayTours<<info@onedaytours.com>>'
-else:
-    # Set the email backend to SMTP
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 25
+# DEFAULT_FROM_EMAIL = 'OneDayTours<<info@onedaytours.com>>'
 
-    # SMTP server address
-    EMAIL_HOST = 'your_smtp_server_address'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# SMTP server address
+EMAIL_HOST = 'smtp.postmarkapp.com'
+# SMTP server port (usually 587 for TLS, 465 for SSL)
+EMAIL_PORT = 587
+# Whether to use TLS (True for most SMTP servers)
+EMAIL_USE_TLS = True
+# SMTP username and password (if authentication is required by your SMTP server)
+EMAIL_HOST_USER = 'e3a9f4b5-4a1a-43f1-8270-af8405499f87'
+EMAIL_HOST_PASSWORD = 'e3a9f4b5-4a1a-43f1-8270-af8405499f87'
 
-    # SMTP server port (usually 587 for TLS, 465 for SSL)
-    EMAIL_PORT = 587
-
-    # Whether to use TLS (True for most SMTP servers)
-    EMAIL_USE_TLS = True
-
-    # SMTP username and password (if authentication is required by your SMTP server)
-    EMAIL_HOST_USER = 'your_smtp_username'
-    EMAIL_HOST_PASSWORD = 'your_smtp_password'
-
-    # Default email address to use for various automated messages from Django
-    DEFAULT_FROM_EMAIL = 'your_email@example.com'
+# Default email address to use for various automated messages from Django
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 # Additional settings for error reporting emails (optional)
 ADMIN_EMAIL = [('Admin Name', 'admin@example.com')]
