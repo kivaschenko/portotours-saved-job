@@ -136,6 +136,8 @@
                                     <p class="card-col-text">
                                         €{{ object.total_price }}
                                     </p>
+                                    <!-- Add a span element for the timer -->
+                                    <span id="timer_{{ object.id }}"></span>
                                 </div>
                             </div>
                             <div class="hover-block">
@@ -155,8 +157,6 @@
                                     </li>
                                 </ul>
                             </div>
-                            <!-- Add a span element for the timer -->
-                            <span id="timer_{{ object.id }}"></span>
                             <!-- JavaScript script for the timer -->
                             <script>
                                 // Declare timer globally
