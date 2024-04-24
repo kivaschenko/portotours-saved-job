@@ -56,7 +56,9 @@
                 </div>
                 <div class="cart-cards-info">
                     <div class="cart-card-col">
-
+                        <h2 class="cart-cards-title">
+                            Order details
+                        </h2>
                         {% for object in object_list %}
                             <div class="cart-card">
                                 <div class="img-wrapper">
@@ -185,34 +187,41 @@
                                 Checkout
                             </a>
                         </div>
+                        
                         <div class="purchase-includes">
                             <h4 class="purchase-includes-title">
                                 Your purchase includes:
                             </h4>
                             <ul>
-                                <li>Tours developed by local experts</li>
                                 <li>Best price on the market</li>
-                                <li>Free cancellation policy</li>
-                                <li>Personal and accident insurance</li>
-                                <li>Discount for children</li>
-                                <li>Award-winning customer support</li>
+                            <li>Taxes and Fares</li>
+                            <li>Free cancellation</li>
+                            <li>Experiences developed by local experts</li>
+                            <li>Personal and accident insurance</li>
+                            <li>Discount for children</li>
+                            <li>Award-winning customer support</li>
                             </ul>
                         </div>
                     </div>
+                    
                     <div class="purchase-includes purchase-includes-mobile">
+                        <a href="{% url 'payment-form' lang='en' %}" class="order-btn-mobile btn-type-1">
+                            Checkout
+                        </a>
                         <h4 class="purchase-includes-title">
                             Your purchase includes:
                         </h4>
                         <ul>
-                            <li>Tours developed by local experts</li>
                             <li>Best price on the market</li>
-                            <li>Free cancellation policy</li>
+                            <li>Taxes and Fares</li>
+                            <li>Free cancellation</li>
+                            <li>Experiences developed by local experts</li>
                             <li>Personal and accident insurance</li>
                             <li>Discount for children</li>
                             <li>Award-winning customer support</li>
                            
-                            
                         </ul>
+                        
                     </div>
                 </div>
             {% endif %}

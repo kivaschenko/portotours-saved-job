@@ -1178,7 +1178,7 @@
               align-items: center;
               justify-content: flex-start;
               flex-wrap: wrap;
-              margin-bottom: 16px;
+              margin-bottom: 8px;
               
                 label {
                   font-family: "LatoRegular";
@@ -1223,7 +1223,7 @@
               
             }
             .ticket-selection {
-              margin-bottom: 16px;
+              margin-bottom: 8px;
               .ticket-selection-title {
                 margin-bottom: 12px;
               }
@@ -1276,6 +1276,9 @@
               }
               .max-participants {
                 margin-top: 15px;
+                font-size: 14px;
+                line-height: 18px;
+                color: grey;
                 span {
                   font-weight: 600;
                 }
@@ -1301,7 +1304,7 @@
               align-items: center;
               justify-content: flex-start;
               flex-wrap: wrap;
-              padding-top: 20px;
+              padding-top: 10px;
               &.disabled {
                 pointer-events: none;
                 .input-wrapper {
@@ -1367,6 +1370,15 @@
               &:disabled {
                 background-color: #FBCAB6;
               }
+            }
+            .free-canc-text {
+              color: #007728;
+              font-size: 14px;
+              line-height: 16px;
+              font-family: "LatoRegular";
+              text-align: center;
+              margin-top: 10px;
+              margin-bottom: 0;
             }
           }
         }

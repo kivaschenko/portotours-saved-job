@@ -1,6 +1,39 @@
 .authorization {
     position: relative;
-    
+    &.password-reset-done {
+        .container {
+            border-radius: 16px;
+            border: 1px solid #D9D9D9;
+            background: #FFF;
+            padding: 60px 30px;
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 60px;
+            h4 {
+                font-size: 26px;
+                line-height: 36px;
+                text-align: center;
+                margin-bottom: 16px;
+                text-transform: capitalize;
+                font-family: "LatoMedium";
+            }
+            p {
+                font-family: "LatoRegular";
+                font-size: 16px;
+                line-height: 26px;
+                text-align: center;
+                margin-bottom: 16px;
+            }
+            p.small-text {
+                font-family: "LatoRegular";
+                font-size: 12px;
+                line-height: 16px;
+                text-align: center;
+                margin-bottom: 0;
+                color: #6D6D6D;
+            }
+        }
+    }
     .container {
         max-width: 425px;
         margin: 0 auto;
