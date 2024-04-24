@@ -155,7 +155,6 @@
                                     </li>
                                 </ul>
                             </div>
-                            <!-- Inside your template -->
                             <!-- Add a span element for the timer -->
                             <span id="timer_{{ object.id }}"></span>
                             <!-- JavaScript script for the timer -->
@@ -181,8 +180,9 @@
                                 // Function to start the timer for this product
                                 function startTimerForProduct(productId, created_at) {
                                     // Parse the created_at string into a Date object
-                                    const createdAtDate = new Date(created_at);
+                                    const createdAtDate = new Date(Date.parse(created_at + ' UTC'));
 
+                                    console.log('createdAtDate:', createdAtDate);
                                     // Set the deadline to 30 minutes after the created_at time
                                     const deadline = new Date(createdAtDate.getTime() + (30 * 60 * 1000)); // 30 minutes in milliseconds
 
