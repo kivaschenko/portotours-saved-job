@@ -99,13 +99,13 @@
                                         Our services
                                     </h2>
                                         <a class="dropdown-item"
-                                           href="">Private tours</a>
+                                           href="#" onclick="addTypeIsPrivateAndNavigate(event, 'en')">Private tours</a>
                                            <a class="dropdown-item"
-                                           href="">Group tours</a>
+                                           href="#" onclick="addTypeIsGroupAndNavigate(event, 'en')">Group tours</a>
                                            <a class="dropdown-item"
-                                           href="">Walking tours</a>
+                                           href="#" onclick="addCategoryWalkingAdventures(event, 'en')">Walking tours</a>
                                            <a class="dropdown-item"
-                                           href="">Airport pickup</a>
+                                           href="#" onclick="addCategoryAirportPickup(event, 'en')">Airport pickup</a>
                                     
                                 </li>
                                 
@@ -261,6 +261,36 @@
        //      // Set the href attribute of the home link with the default language
        //      homeLink.href = '/' + defaultLanguage + '/';
        //  });
+    </script>
+
+    <script>
+        // Here functions for complex navigation links with query params
+        // the first 2 funcs are used in home.html too
+        function addTypeIsGroupAndNavigate(event, lang) {
+            // Redirection to the experiences list filtered by is_private=False
+            event.preventDefault(); // Prevent default link behavior
+            const url = `/${lang}/experiences/?tour_type=group&filter_by=all`;
+            window.location.href = url; // Navigate to the URL with added parameters
+        }
+
+        function addTypeIsPrivateAndNavigate(event, lang) {
+            // Redirection to the experiences list filtered by is_private=True
+            event.preventDefault();
+            const url = `/${lang}/experiences/?tour_type=private&filter_by=all`;
+            window.location.href = url;
+        }
+        
+        function addCategoryWalkingAdventures(event, lang) {
+            event.preventDefault();
+            const url = `/${lang}/experiences/?tour_type=all&filter_by=all&categories=walking-adventure`;
+            window.location.href = url;
+        }
+        
+        function addCategoryAirportPickup(event, lang) {
+            event.preventDefault();
+            const url = `/${lang}/experiences/?tour_type=all&filter_by=all&categories=airport-pickup`;
+            window.location.href = url;
+        }
     </script>
 
     <script>

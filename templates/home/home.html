@@ -453,19 +453,6 @@
         });
     </script>
     <script>
-        function addTypeIsGroupAndNavigate(event, lang) {
-            event.preventDefault(); // Prevent default link behavior
-            const url = `/experiences/${lang}/?tour_type=group&filter_by=all`;
-            window.location.href = url; // Navigate to the URL with added parameters
-        }
-        
-        function addTypeIsPrivateAndNavigate(event, lang) {
-            event.preventDefault();
-            const url = `/experiences/${lang}/?tour_type=private&filter_by=all`;
-            window.location.href = url;
-        }
-    </script>
-    <script>
         // Получаем элемент input
         const dateInput = document.getElementById('id_date');
     

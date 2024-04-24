@@ -10,7 +10,9 @@
             <div class="account-details-block personal-info open">
                 <div class="title-wrapper">
                     <h5 class="account-details-title">
-                        <img src="{% static 'icons/personal-info-icon.svg' %}" alt="">
+                        
+                        <img src="{% if object.profile.avatar %}{{ object.profile.avatar.url }}{% else %}{% static 'icons/personal-info-icon.svg' %}
+                                  {% endif %}" alt="profile avatar image">
                         Personal information
                     </h5>
                     <img src="{% static 'icons/toggler-arrow-icon.svg' %}" alt="" class="toggler-arrow">
@@ -30,8 +32,8 @@
                             <p class="info-text">{{ object.profile.phone }}</p>
                         </div>
                         <div class="avatar-wrapper">
-                            {% if review.profile.avatar %}
-                                <img src="{{ review.profile.avatar.url }}" alt="Avatar" width="100" height="100">
+                            {% if object.profile.avatar %}
+                                <img src="{{ object.profile.avatar.url }}" alt="Avatar" width="100" height="100">
                             {% else %}
                                 <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="100" height="100">
                             {% endif %}
