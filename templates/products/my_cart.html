@@ -155,8 +155,6 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <!-- Add a span element for the timer -->
-                                    <p><span id="timer_{{ object.id }}"></span></p>
                                 </div>
                             {% endfor %}
 
@@ -236,49 +234,5 @@
         <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 
         <!-- JavaScript script for the timer -->
-        <script>
-            // Declare timer globally
-            let timers = {};
 
-            // Function to update the timer
-            function updateTimer(deadline, elementId) {
-                const now = new Date();
-                const timeDiff = (deadline - now) / 1000; // Time difference in seconds
-                const minutes = Math.floor(timeDiff / 60);
-                const seconds = Math.floor(timeDiff % 60);
-                document.getElementById(elementId).innerText = `Time left: ${minutes}m ${seconds}s`;
-
-                // Check if the deadline has passed
-                if (timeDiff <= 0) {
-                    clearInterval(timers[elementId]); // Stop the timer
-                    document.getElementById(elementId).innerText = 'Expired'; // Update the message
-                }
-            }
-
-            // Function to start the timer for a specific product
-            function startTimerForProduct(productId, created_at) {
-                // Parse the created_at string into a Date object in UTC
-                const createdAtDate = new Date(Date.parse(created_at + ' UTC'));
-
-                // Set the deadline to 30 minutes after the created_at time in UTC
-                const deadline = new Date(createdAtDate.getTime() + (30 * 60 * 1000)); // 30 minutes in milliseconds
-
-                // Update the timer every second
-                timers['timer_' + productId] = setInterval(() => {
-                    updateTimer(deadline, 'timer_' + productId);
-                }, 1000);
-
-                // Update the timer immediately
-                updateTimer(deadline, 'timer_' + productId);
-            }
-
-            // Call the function to start the timer for each product after the DOM has fully loaded
-            document.addEventListener("DOMContentLoaded", function () {
-                {% for object in object_list %}
-                    setTimeout(() => {
-                        startTimerForProduct({{ object.id }}, '{{ object.created_at|date:"Y-m-d H:i:s" }}');
-                    }, 0);
-                {% endfor %}
-            });
-        </script>
 {% endblock %}
