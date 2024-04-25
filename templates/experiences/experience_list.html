@@ -150,6 +150,9 @@
                                         € {{ object.parent_experience.price }}
                                     </p>
                                 </div>
+                                <p>
+                                    Discount: {{ object.parent_experience.increase_percentage_old_price }} %
+                                </p>
                                 <a href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}"
                                    class="experience-link-btn btn-type-1">
                                     Book now

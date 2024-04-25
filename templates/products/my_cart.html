@@ -112,7 +112,7 @@
                                         </div>
                                         <div class="card-col">
                                             <p class="card-col-title">
-                                              Experience type
+                                                Experience type
                                             </p>
                                             <p class="card-col-text">
                                                 {% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}
@@ -134,14 +134,14 @@
                                             {% endif %}
 
                                         </div>
-                                            <div class="card-col">
-                                                <p class="card-col-title">
-                                                    Price
-                                                </p>
-                                                <p class="card-col-text">
-                                                    €{{ object.total_price }}
-                                                </p>
-                                            </div>
+                                        <div class="card-col">
+                                            <p class="card-col-title">
+                                                Price
+                                            </p>
+                                            <p class="card-col-text">
+                                                €{{ object.total_price }}
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="hover-block">
                                         <ul class="hover-block-btns-list">
@@ -160,35 +160,50 @@
                                             </li>
                                         </ul>
                                     </div>
+                                    <!-- Add a span element for the timer -->
+                                    <p><span id="timer_{{ object.id }}"></span></p>
                                 </div>
+                            {% endfor %}
 
                             </div>
-                        {% endfor %}
-
-                    </div>
-                    <div class="cart-order-info-col">
-                        <div class="order-info-wrapper">
-                            <p class="price">
-                                Price for {{ object_list|length }} experience(s)
-                                <span>
+                        </div>
+                        <div class="cart-order-info-col">
+                            <div class="order-info-wrapper">
+                                <p class="price">
+                                    Price for {{ object_list|length }} experience(s)
+                                    <span>
                                 €{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %}
                             </span>
-                            </p>
-                            <p class="price">
-                                Your exclusive discount
-                                <span>
+                                </p>
+                                <p class="price">
+                                    Your exclusive discount
+                                    <span>
                                 €{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %}
                             </span>
-                            </p>
-                            <p class="total-price">
-                                Total
-                                <span>
+                                </p>
+                                <p class="total-price">
+                                    Total
+                                    <span>
                                 €{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %}
                             </span>
-                            </p>
-                            <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
-                                Checkout
-                            </a>
+                                </p>
+                                <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
+                                    Checkout
+                                </a>
+                            </div>
+                            <div class="purchase-includes">
+                                <h4 class="purchase-includes-title">
+                                    Your purchase includes:
+                                </h4>
+                                <ul>
+                                    <li>Tours developed by local experts</li>
+                                    <li>Best price on the market</li>
+                                    <li>Free cancellation policy</li>
+                                    <li>Personal and accident insurance</li>
+                                    <li>Discount for children</li>
+                                    <li>Award-winning customer support</li>
+                                </ul>
+                            </div>
                         </div>
                         
                         <div class="purchase-includes">
@@ -244,4 +259,51 @@
         {% endif %}
         <!-- For language selector -->
         <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+
+        <!-- JavaScript script for the timer -->
+        <script>
+            // Declare timer globally
+            let timers = {};
+
+            // Function to update the timer
+            function updateTimer(deadline, elementId) {
+                const now = new Date();
+                const timeDiff = (deadline - now) / 1000; // Time difference in seconds
+                const minutes = Math.floor(timeDiff / 60);
+                const seconds = Math.floor(timeDiff % 60);
+                document.getElementById(elementId).innerText = `Time left: ${minutes}m ${seconds}s`;
+
+                // Check if the deadline has passed
+                if (timeDiff <= 0) {
+                    clearInterval(timers[elementId]); // Stop the timer
+                    document.getElementById(elementId).innerText = 'Expired'; // Update the message
+                }
+            }
+
+            // Function to start the timer for a specific product
+            function startTimerForProduct(productId, created_at) {
+                // Parse the created_at string into a Date object in UTC
+                const createdAtDate = new Date(Date.parse(created_at + ' UTC'));
+
+                // Set the deadline to 30 minutes after the created_at time in UTC
+                const deadline = new Date(createdAtDate.getTime() + (30 * 60 * 1000)); // 30 minutes in milliseconds
+
+                // Update the timer every second
+                timers['timer_' + productId] = setInterval(() => {
+                    updateTimer(deadline, 'timer_' + productId);
+                }, 1000);
+
+                // Update the timer immediately
+                updateTimer(deadline, 'timer_' + productId);
+            }
+
+            // Call the function to start the timer for each product after the DOM has fully loaded
+            document.addEventListener("DOMContentLoaded", function () {
+                {% for object in object_list %}
+                    setTimeout(() => {
+                        startTimerForProduct({{ object.id }}, '{{ object.created_at|date:"Y-m-d H:i:s" }}');
+                    }, 0);
+                {% endfor %}
+            });
+        </script>
 {% endblock %}
