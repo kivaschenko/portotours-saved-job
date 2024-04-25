@@ -51,6 +51,8 @@
                     </h2>
                     <p class="cart-title-info">
                         <img src="{% static 'icons/cart-info-icon.svg' %}" alt="">
+                        <!-- Add a span element for the common timer -->
+                        <span id="common-timer"></span>
                         We've reserved a place in the experience for you. Please make payment within 30 minutes to keep it.
                     </p>
                 </div>
@@ -234,5 +236,49 @@
         <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 
         <!-- JavaScript script for the timer -->
+        <script>
+            const createdAt = '{{ last_created_at }}';
+
+            // Declare timer globally
+            let commonTimer;
+
+            // Function to update the common timer
+            function updateCommonTimer(deadline) {
+                const now = new Date();
+                const timeDiff = (deadline - now) / 1000; // Time difference in seconds
+                const minutes = Math.floor(timeDiff / 60);
+                const seconds = Math.floor(timeDiff % 60);
+                document.getElementById('common-timer').innerText = `Time left: ${minutes}m ${seconds}s`;
+
+                // Check if the deadline has passed
+                if (timeDiff <= 0) {
+                    clearInterval(commonTimer); // Stop the timer
+                    document.getElementById('common-timer').innerText = 'Expired'; // Update the message
+                }
+            }
+
+            // Function to start the common timer for the last product
+            function startCommonTimerForLastProduct(created_at) {
+                // Parse the created_at string into a Date object in UTC
+                const createdAtDate = new Date(Date.parse(created_at + ' UTC'));
+
+                // Set the deadline to 30 minutes after the created_at time in UTC
+                const deadline = new Date(createdAtDate.getTime() + (30 * 60 * 1000)); // 30 minutes in milliseconds
+
+                // Update the timer every second
+                commonTimer = setInterval(() => {
+                    updateCommonTimer(deadline);
+                }, 1000);
+
+                // Update the timer immediately
+                updateCommonTimer(deadline);
+            }
+
+            // Call the function to start the common timer for the last product after the DOM has fully loaded
+            document.addEventListener("DOMContentLoaded", function () {
+                // Start the common timer for the last product
+                startCommonTimerForLastProduct(createdAt);
+            });
+        </script>
 
 {% endblock %}

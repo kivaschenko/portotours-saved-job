@@ -176,12 +176,13 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()  # Call the superclass method to get the filtered queryset
-        return queryset
+        return queryset.order_by('created_at')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = self.get_queryset()  # Ensure queryset is evaluated every time
 
+        context['last_created_at'] = queryset.latest('created_at').created_at
         context['product_ids'] = [product.pk for product in queryset]
         context['total_price_sum'] = queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum'] or 0
         context['old_price_sum'] = queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum'] or 0
