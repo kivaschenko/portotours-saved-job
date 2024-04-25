@@ -51,14 +51,21 @@
                     </h2>
                     <p class="cart-title-info">
                         <img src="{% static 'icons/cart-info-icon.svg' %}" alt="">
+                        <!-- Add a span element for the common timer -->
+                        <strong><span id="common-timer" style="margin-right: 1rem;"></span></strong>
                         We've reserved a place in the experience for you. Please make payment within 30 minutes to keep it.
                     </p>
                 </div>
                 <div class="cart-cards-info">
                     <div class="cart-card-col">
-                        <div class="cart-cards-wrapper">
-                            {% for object in object_list %}
-                                <div class="cart-card" id="cart_card_{{ object.id }}">
+                        <h2 class="cart-cards-title">
+                            Order details
+                        </h2>
+                        {% for object in object_list %}
+                            <div class="cart-card" id="cart_card_{{ object.id }}">
+                                <p class="card-title-mobile">
+                                    {{ object.parent_experience.parent_name }}
+                                </p>
                                 <div class="img-wrapper">
                                     <img src="{{ object.parent_experience.card_image.url }}" class="card-img"
                                          alt="card image preview for {{ object.parent_experience }}">
@@ -155,130 +162,131 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <!-- Add a span element for the timer -->
-                                    <p><span id="timer_{{ object.id }}"></span></p>
                                 </div>
-                            {% endfor %}
+
 
                             </div>
-                        </div>
-                        <div class="cart-order-info-col">
-                            <div class="order-info-wrapper">
-                                <p class="price">
-                                    Price for {{ object_list|length }} experience(s)
-                                    <span>
+                        {% endfor %}
+                    </div>
+                    <div class="cart-order-info-col">
+                        <div class="order-info-wrapper">
+                            <p class="price">
+                                Price for {{ object_list|length }} experience(s)
+                                <span>
                                 €{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %}
                             </span>
-                                </p>
-                                <p class="price">
-                                    Your exclusive discount
-                                    <span>
+                            </p>
+                            <p class="price">
+                                Your exclusive discount
+                                <span>
                                 €{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %}
                             </span>
-                                </p>
-                                <p class="total-price">
-                                    Total
-                                    <span>
+                            </p>
+                            <p class="total-price">
+                                Total
+                                <span>
                                 €{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %}
                             </span>
-                                </p>
-                                <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
-                                    Checkout
-                                </a>
-                            </div>
-                            <div class="purchase-includes">
-                                <h4 class="purchase-includes-title">
-                                    Your purchase includes:
-                                </h4>
-                                <ul>
-                                    <li>Tours developed by local experts</li>
-                                    <li>Best price on the market</li>
-                                    <li>Free cancellation policy</li>
-                                    <li>Personal and accident insurance</li>
-                                    <li>Discount for children</li>
-                                    <li>Award-winning customer support</li>
-                                </ul>
-                            </div>
+                            </p>
+                            <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
+                                Checkout
+                            </a>
                         </div>
-                        <div class="purchase-includes purchase-includes-mobile">
+                        <div class="purchase-includes">
                             <h4 class="purchase-includes-title">
                                 Your purchase includes:
                             </h4>
                             <ul>
-                                <li>Tours developed by local experts</li>
                                 <li>Best price on the market</li>
-                                <li>Free cancellation policy</li>
+                                <li>Taxes and Fares</li>
+                                <li>Free cancellation</li>
+                                <li>Experiences developed by local experts</li>
                                 <li>Personal and accident insurance</li>
                                 <li>Discount for children</li>
                                 <li>Award-winning customer support</li>
-
-
                             </ul>
                         </div>
                     </div>
+
+                    <div class="purchase-includes purchase-includes-mobile">
+                        <a href="{% url 'payment-form' lang='en' %}" class="order-btn-mobile btn-type-1">
+                            Checkout
+                        </a>
+                        <h4 class="purchase-includes-title">
+                            Your purchase includes:
+                        </h4>
+                        <ul>
+                            <li>Best price on the market</li>
+                            <li>Taxes and Fares</li>
+                            <li>Free cancellation</li>
+                            <li>Experiences developed by local experts</li>
+                            <li>Personal and accident insurance</li>
+                            <li>Discount for children</li>
+                            <li>Award-winning customer support</li>
+
+                        </ul>
+
+                    </div>
+                </div>
+
+
                 </div>
             {% endif %}
 
-        </div>
-        {% if object_list %}
-        {% else %}
-            <div class="empty-cart-wrapper">
-                <div class="container">
-                    <h2 class="empty-cart-title">
-                        your basket is empty
-                    </h2>
-                    <img src="{% static 'images/empty-cart-icon.svg' %}" alt="" class="empty-cart-img">
-                    <a href="{% url 'experience-list' lang='en' %}" class="btn-type-1 empty-cart-btn">List of experiences</a>
-                </div>
+    </div>
+    {% if object_list %}
+    {% else %}
+        <div class="empty-cart-wrapper">
+            <div class="container">
+                <h2 class="empty-cart-title">
+                    your basket is empty
+                </h2>
+                <img src="{% static 'images/empty-cart-icon.svg' %}" alt="" class="empty-cart-img">
+                <a href="{% url 'experience-list' lang='en' %}" class="btn-type-1 empty-cart-btn">List of experiences</a>
             </div>
-        {% endif %}
-        <!-- For language selector -->
-        <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+        </div>
+    {% endif %}
+    <!-- For language selector -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 
-        <!-- JavaScript script for the timer -->
-        <script>
-            // Declare timer globally
-            let timers = {};
-
-            // Function to update the timer
-            function updateTimer(deadline, elementId) {
-                const now = new Date();
-                const timeDiff = (deadline - now) / 1000; // Time difference in seconds
-                const minutes = Math.floor(timeDiff / 60);
-                const seconds = Math.floor(timeDiff % 60);
-                document.getElementById(elementId).innerText = `Time left: ${minutes}m ${seconds}s`;
-
-                // Check if the deadline has passed
-                if (timeDiff <= 0) {
-                    clearInterval(timers[elementId]); // Stop the timer
-                    document.getElementById(elementId).innerText = 'Expired'; // Update the message
-                }
+    <!-- JavaScript script for the timer -->
+    <script>
+        // Declare timer globally
+        let commonTimer;
+        // Function to update the common timer
+        function updateCommonTimer(deadline) {
+            const now = new Date();
+            const timeDiff = (deadline - now) / 1000; // Time difference in seconds
+            const minutes = Math.floor(timeDiff / 60);
+            const seconds = Math.floor(timeDiff % 60);
+            document.getElementById('common-timer').innerText = `Time left: ${minutes}m ${seconds}s`;
+            // Check if the deadline has passed
+            if (timeDiff <= 0) {
+                clearInterval(commonTimer); // Stop the timer
+                document.getElementById('common-timer').innerText = 'Expired'; // Update the message
             }
-
-            // Function to start the timer for a specific product
-            function startTimerForProduct(productId, created_at) {
-                // Parse the created_at string into a Date object in UTC
-                const createdAtDate = new Date(Date.parse(created_at + ' UTC'));
-
-                // Set the deadline to 30 minutes after the created_at time in UTC
-                const deadline = new Date(createdAtDate.getTime() + (30 * 60 * 1000)); // 30 minutes in milliseconds
-
-                // Update the timer every second
-                timers['timer_' + productId] = setInterval(() => {
-                    updateTimer(deadline, 'timer_' + productId);
-                }, 1000);
-
-                // Update the timer immediately
-                updateTimer(deadline, 'timer_' + productId);
+        }
+        // Function to start the common timer with the provided created_at value
+        function startCommonTimer(created_at) {
+            // Parse the created_at string into a Date object in UTC
+            const createdAtDate = new Date(Date.parse(created_at + ' UTC'));
+            // Set the deadline to 30 minutes after the created_at time
+            const deadline = new Date(createdAtDate.getTime() + (30 * 60 * 1000)); // 30 minutes in milliseconds
+            // Update the timer every second
+            commonTimer = setInterval(() => {
+                updateCommonTimer(deadline);
+            }, 1000);
+            // Update the timer immediately
+            updateCommonTimer(deadline);
+        }
+        // Call the function to start the common timer with the provided created_at value after the DOM has fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the created_at value from the template variable
+            const createdAt = '{{ last_created_at|date:"Y-m-d H:i:s" }}';
+            if (createdAt) {
+                // Start the common timer with the provided created_at value
+                startCommonTimer(createdAt);
             }
-
-            // Call the function to start the timer for each product after the DOM has fully loaded
-            document.addEventListener("DOMContentLoaded", function () {
-                {% for object in object_list %}
-                    setTimeout(() => {
-                        startTimerForProduct({{ object.id }}, '{{ object.created_at|date:"Y-m-d H:i:s" }}');
-                    }, 0);
-                {% endfor %}
-            });
-        </script>
+        });
+    </script>
 {% endblock %}

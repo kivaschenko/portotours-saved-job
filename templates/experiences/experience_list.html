@@ -96,7 +96,7 @@
                         <li class="experience-list-item">
                             <div class="list-item-img-wrapper">
                                 {% if object.parent_experience.is_exclusive %}
-                                    <span class="img-label">OneDayTours Exclusive</span>
+                                    <span class="img-label">Popular! Last booked 2 hours ago</span>
                                 {% else %}
 
                                 {% endif %}
@@ -106,6 +106,13 @@
                                 </a>
                             </div>
                             <div class="experience-list-content-wrapper">
+                                <div class="discount-banner">
+                                    <img src="{% static 'icons/fire-icon.svg' %}" alt="fire icon">
+                                    <span>
+                                        {{ object.parent_experience.increase_percentage_old_price }}% discount
+                                    </span>
+                                   
+                                </div>
                                 <a class="link" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
                                     <h5>
                                         {{ object.name }}
@@ -118,11 +125,6 @@
                                         <li>
                                             Duration: {% if object.duration %}{{ object.duration|safe }}{% else %}{% endif %}
                                         </li>
-                                        {% if object.parent_experience.free_cancellation %}
-                                            <li>
-                                                Free Cancellation
-                                            </li>
-                                        {% endif %}
                                         {% if object.parent_experience.is_private %}
                                             <li>
                                                 Private Tour
@@ -157,13 +159,19 @@
                                         € {{ object.parent_experience.price }}
                                     </p>
                                 </div>
-                                <p>
-                                    Discount: {{ object.parent_experience.increase_percentage_old_price }} %
-                                </p>
-                                <a href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}"
-                                   class="experience-link-btn btn-type-1">
-                                    Book now
-                                </a>
+                                
+                                <div class="btns-wrapper">
+                                    <a href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}"
+                                        class="experience-link-btn btn-type-1">
+                                        Book now
+                                    </a>
+                                    {% if object.parent_experience.free_cancellation %}
+                                        <p class="free-cancelation-label">
+                                            + free cancellation
+                                        </p>
+                                    {% endif %}
+                                </div>
+                                
                             </div>
                         </li>
                     {% endfor %}
