@@ -383,13 +383,29 @@
             padding: 14px;
             border-radius: 0;
           }
+          .discount-banner {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 14px;
+            span {
+              color: #E90505;
+              font-size: 16px;
+              line-height: 22px;
+              text-transform: uppercase;
+              font-family: "LatoBold";
+            }
+            img {
+              margin-right: 12px;
+            }
+          }
           > a.link {
             text-decoration: none;
             &:hover {
               color: inherit;
             }
             h5 {
-              margin-bottom: 24px;
+              margin-bottom: 16px;
               color: #0f0f10;
               @include media-breakpoint-down(md) {
                 margin-bottom: 12px;
@@ -417,10 +433,10 @@
                 font-family: "LatoRegular";
                 font-size: 14px;
                 line-height: 22px;
-                color: #006a1e;
+                color: #0F0F10;
                 padding: 5px 10px;
-                background-color: #f3faf5;
                 border-radius: 30px;
+                border: 1px solid #D6D6D6;
                  p {
                   display: inline;
                  }
