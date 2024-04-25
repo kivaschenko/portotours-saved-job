@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.db.models import Sum
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse, HttpResponse
@@ -176,13 +178,19 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()  # Call the superclass method to get the filtered queryset
-        return queryset.order_by('created_at')
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = self.get_queryset()  # Ensure queryset is evaluated every time
-
-        context['last_created_at'] = queryset.latest('created_at').created_at
+        if queryset.exists():
+            latest_product = queryset.latest()
+            print(latest_product.created_at)
+            # Convert the created_at datetime to a UNIX timestamp
+            context['last_created_at'] = latest_product.created_at  # Convert to seconds
+        else:
+            # Set last_created_at to None if queryset is empty
+            context['last_created_at'] = False
         context['product_ids'] = [product.pk for product in queryset]
         context['total_price_sum'] = queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum'] or 0
         context['old_price_sum'] = queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum'] or 0
