@@ -189,11 +189,12 @@ def checkout_payment_intent_view(request):
         purchase.products.set(products)
 
         payment_intent = stripe.PaymentIntent.create(**intent_data)
+        print(payment_intent.__dict__)
 
         purchase.stripe_payment_intent_id = payment_intent.id
         purchase.save()
 
-        return JsonResponse({'clientSecret': payment_intent.client_secret, 'customerData': customer_data})
+        return JsonResponse({'clientSecret': payment_intent.client_secret, 'customerData': customer_data, 'paymentAmount': payment_intent.amount})
 
     except json.JSONDecodeError as e:
         return HttpResponseBadRequest('Invalid JSON data')
