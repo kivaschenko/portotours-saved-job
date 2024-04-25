@@ -118,9 +118,11 @@
                                         <li>
                                             Duration: {% if object.duration %}{{ object.duration|safe }}{% else %}{% endif %}
                                         </li>
+                                        {% if object.parent_experience.free_cancellation %}
                                         <li>
                                             Free Cancellation
                                         </li>
+                                        {% endif %}
                                         {% if object.parent_experience.is_private %}
                                             <li>
                                                 Private Tour
