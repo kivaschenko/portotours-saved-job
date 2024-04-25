@@ -218,6 +218,7 @@
 
             switch (paymentIntent.status) {
                 case "succeeded":
+                    // http://onedaytours.pt/confirmation/en/?payment_intent_id=pi_3P9QpxLH746GcpOj1FMTEdhm
                     window.location.href = `/confirmation/{{ current_language }}/?payment_intent_id=${paymentIntent.id}`;
                     break;
                 case "processing":

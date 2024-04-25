@@ -37,8 +37,7 @@ SECRET_KEY = '2d18496423377c985535dbcb64e6b9df474f7238fc124315221bbdfb3de7a764'
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']  # for debug in CI/CD
-# BASE_ENDPOINT = 'http://127.0.0.1:8000'  # debug mode for stripe confirmation
-BASE_ENDPOINT = os.environ.get('BASE_ENDPOINT')
+BASE_ENDPOINT = 'http://127.0.0.1:8000'  # debug mode for stripe confirmation
 
 # Application definition
 
