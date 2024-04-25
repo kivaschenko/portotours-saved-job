@@ -11070,6 +11070,9 @@ html.off-scroll body {
           align-items: center;
           justify-content: flex-start;
           margin-bottom: 14px; }
+          @media (max-width: 767.98px) {
+            .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .discount-banner {
+              margin-bottom: 8px; } }
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .discount-banner span {
             color: #E90505;
             font-size: 16px;
@@ -11164,6 +11167,9 @@ html.off-scroll body {
           display: flex;
           align-items: center;
           justify-content: flex-start; }
+          @media (max-width: 767.98px) {
+            .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .btns-wrapper {
+              flex-direction: column; } }
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .btns-wrapper .experience-link-btn {
             display: flex;
             align-items: center;
@@ -11177,7 +11183,7 @@ html.off-scroll body {
             margin-right: 24px; }
             @media (max-width: 767.98px) {
               .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .btns-wrapper .experience-link-btn {
-                margin: 0 auto;
+                margin: 0 auto 14px;
                 width: 100%; } }
             .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .btns-wrapper .experience-link-btn img {
               margin-left: 14px; }

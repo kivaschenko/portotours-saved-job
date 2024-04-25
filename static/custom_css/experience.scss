@@ -388,6 +388,9 @@
             align-items: center;
             justify-content: flex-start;
             margin-bottom: 14px;
+            @include media-breakpoint-down(md) {
+              margin-bottom: 8px;
+            }
             span {
               color: #E90505;
               font-size: 16px;
@@ -498,6 +501,9 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
+            @include media-breakpoint-down(md) {
+              flex-direction: column;
+            }
             .experience-link-btn {
               display: flex;
               align-items: center;
@@ -510,7 +516,7 @@
               text-decoration: none;
               margin-right: 24px;
               @include media-breakpoint-down(md) {
-                margin: 0 auto;
+                margin: 0 auto 14px;
                 width: 100%;
               }
               img {
