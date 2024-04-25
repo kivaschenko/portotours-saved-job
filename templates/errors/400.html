@@ -1,5 +1,26 @@
 {% extends 'base.html' %}
-{% block content %}
-    <h2>Bad request. Error 400.</h2>
-
+{% load static %}
+{% block head %}
+    
 {% endblock %}
+{% block content %}
+    <body>
+    <!-- Error Page -->
+    <div class="error-page">
+        <div class="container error-page-container">
+            <img src="{% static 'icons/error_400.svg' %}" alt="error img">
+            <h4 class="error-title">
+                ERROR
+            </h4>
+            <p class="error-subtitle">
+                The requested page does not exist.
+            </p>
+            <a href="/" class="error-link btn-type-1">
+                go to homepage
+            </a>
+        </div>
+    </div>
+    <!-- Error Page -->
+    
+{% endblock %}
+

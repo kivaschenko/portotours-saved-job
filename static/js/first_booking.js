@@ -316,8 +316,8 @@ const controller = {
         timeSelection.innerHTML = '';
 
         // Reset adult and child ticket counts when date changes
-        document.getElementById('adultTicketCount').value = 0;
-        document.getElementById('childTicketCount').value = 0;
+        // document.getElementById('adultTicketCount').value = 0;
+        // document.getElementById('childTicketCount').value = 0;
 
         if (clickedDate) {
             const eventsForDate = model.events.filter(event => event.date === clickedDate);
@@ -391,6 +391,7 @@ const controller = {
             });
             clickedDateElement.classList.add('selected-date');
             model.selectedDate = clickedDate;
+            controller.updateTotalPrice()
         }
     },
      performValidation: function() {
@@ -471,8 +472,8 @@ const controller = {
 
     // Function to reset booking data when the date selection changes
     resetBookingData: function () {
-        model.bookingData.adults = 0;
-        model.bookingData.children = 0;
+        // model.bookingData.adults = 0;
+        // model.bookingData.children = 0;
         model.bookingData.language_code = null;
         model.bookingData.event_id = null;
     },
