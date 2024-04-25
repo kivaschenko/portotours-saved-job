@@ -61,6 +61,9 @@
                         </h2>
                         {% for object in object_list %}
                             <div class="cart-card">
+                                <p class="card-title-mobile">
+                                    {{ object.parent_experience.parent_name }}
+                                </p>
                                 <div class="img-wrapper">
                                     <img src="{{ object.parent_experience.card_image.url }}" class="card-img"
                                          alt="card image preview for {{ object.parent_experience }}">

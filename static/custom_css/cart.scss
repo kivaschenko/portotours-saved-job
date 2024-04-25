@@ -223,6 +223,20 @@
                         display: block;
                     }
                 }
+                .card-title-mobile {
+                    color: #0F0F10;
+                        font-family: "LatoSemiBold";
+                        font-size: 26px;
+                        line-height: 28px;
+                        margin-bottom: 16px;
+                        display: none;
+                        @include media-breakpoint-down(md) {
+                            font-size: 16px;
+                            line-height: 24px;
+                            display: block;
+                            text-align: left;
+                        }
+                }
                 .img-wrapper {
                     width: 300px;
                     border-radius: 16px;
@@ -253,6 +267,7 @@
                         margin-bottom: 16px;
                         @include media-breakpoint-down(md) {
                             font-size: 16px;
+                            display: none;
                             line-height: 24px;
                         }
                     }
@@ -469,7 +484,7 @@
                 display: flex;
                 order: 3;
                 text-align: center;
-                margin-top: 24px;
+                margin-top: 0px;
                 flex-direction: column;
                 width: 100%;
                 align-items: center;
@@ -477,8 +492,8 @@
                     font-family: "LatoSemiBold";
                     font-size: 18px;
                     line-height: 28px;
-                    margin-bottom: 20px;
-                    
+                    margin-bottom: 12px;
+                    margin-top: 16px;
                 }
                 .order-btn-mobile {
                     display: none;
