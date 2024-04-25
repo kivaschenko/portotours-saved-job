@@ -194,7 +194,12 @@ class ParentExperience(models.Model):
     allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
     categories = models.ManyToManyField(ExperienceCategory, help_text="list of categories this experience")
     free_cancellation = models.BooleanField(default=False, help_text="Free Cancellation is allowed.", null=True)
+    skip_the_line = models.BooleanField(default=False, null=True, help_text='If this experience is private then it will skip the line')
+    likely_to_sell_out = models.BooleanField(default=False, null=True, help_text='If this experience is private then it will likely sell the out')
     happy_clients_number = models.IntegerField(default=0)
+    recommended_by_locals = models.BooleanField(default=False, help_text="If this experience is recommended by locals", null=True)
+    clean_and_safe = models.BooleanField(default=True, null=True,
+                                         help_text="If this experience is clean_and_safe then the corresponding banner appears on the experience page")
     show_on_home_page = models.BooleanField(default=False, help_text="Include in the top Experiences on the home page")
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=Decimal('5.0'), help_text="for example: 4.8")
     updated_at = models.DateTimeField(auto_now=True)
@@ -278,6 +283,8 @@ class Experience(models.Model):
     experience_recommendations = models.ManyToManyField('Experience', blank=True)
     recommendations_slogan = models.CharField(max_length=120, help_text="max 120 characters, belong SEE MORE button",
                                               null=True, blank=True)
+    text_above_calendar = models.CharField(max_length=60, help_text="max 60 characters, view above calendar form to hide, make blank", null=True, blank=True,
+                                           default='Your dates are popular between travelers')
 
     objects = models.Manager()
     active = ExperienceActiveManager()

@@ -101,7 +101,7 @@
 
                                 {% endif %}
                                 <a class="link" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
-                                <img src="{% if object.parent_experience.card_image %}
+                                    <img src="{% if object.parent_experience.card_image %}
                                     {{ object.parent_experience.card_image.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
                                 </a>
                             </div>
@@ -111,7 +111,7 @@
                                         {{ object.name }}
                                     </h5>
                                 </a>
-                                
+
                                 <div class="experience-type-list-wrapper">
 
                                     <ul class="main-info-list">
@@ -119,18 +119,23 @@
                                             Duration: {% if object.duration %}{{ object.duration|safe }}{% else %}{% endif %}
                                         </li>
                                         {% if object.parent_experience.free_cancellation %}
-                                        <li>
-                                            Free Cancellation
-                                        </li>
+                                            <li>
+                                                Free Cancellation
+                                            </li>
                                         {% endif %}
                                         {% if object.parent_experience.is_private %}
                                             <li>
                                                 Private Tour
                                             </li>
                                         {% endif %}
-                                        <li>
-                                            Skip-The-Line
-                                        </li>
+                                        {% if object.parent_experience.skip_the_line %}
+                                            <li>
+                                                Skip-The-Line
+                                            </li>
+                                        {% endif %}
+                                        {% if object.parent_experience.likely_to_sell_out %}
+                                            <li>Likely to sell out</li>
+                                        {% endif %}
                                         {% if object.parent_experience.is_hot_deals %}
                                             <li>
                                                 Hot Deal
