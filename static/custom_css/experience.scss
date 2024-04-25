@@ -364,8 +364,8 @@
             padding: 8px 24px 12px 18px;
             color: var(--text-color-third);
             font-family: "LatoMedium";
-            font-size: 18px;
-            line-height: 28px;
+            font-size: 14px;
+            line-height: 22px;
             text-transform: capitalize;
           }
           img {
@@ -383,13 +383,29 @@
             padding: 14px;
             border-radius: 0;
           }
+          .discount-banner {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 14px;
+            span {
+              color: #E90505;
+              font-size: 16px;
+              line-height: 22px;
+              text-transform: uppercase;
+              font-family: "LatoBold";
+            }
+            img {
+              margin-right: 12px;
+            }
+          }
           > a.link {
             text-decoration: none;
             &:hover {
               color: inherit;
             }
             h5 {
-              margin-bottom: 24px;
+              margin-bottom: 16px;
               color: #0f0f10;
               @include media-breakpoint-down(md) {
                 margin-bottom: 12px;
@@ -417,10 +433,10 @@
                 font-family: "LatoRegular";
                 font-size: 14px;
                 line-height: 22px;
-                color: #006a1e;
+                color: #0F0F10;
                 padding: 5px 10px;
-                background-color: #f3faf5;
                 border-radius: 30px;
+                border: 1px solid #D6D6D6;
                  p {
                   display: inline;
                  }
@@ -478,24 +494,39 @@
               }
             }
           }
-          .experience-link-btn {
+          .btns-wrapper {
             display: flex;
             align-items: center;
-            width: 265px;
-            justify-content: center;
-            text-transform: uppercase;
-            font-family: "LatoMedium";
-            font-size: 18px;
-            line-height: normal;
-            text-decoration: none;
-            @include media-breakpoint-down(md) {
-              margin: 0 auto;
-              width: 100%;
+            justify-content: flex-start;
+            .experience-link-btn {
+              display: flex;
+              align-items: center;
+              width: 265px;
+              justify-content: center;
+              text-transform: uppercase;
+              font-family: "LatoMedium";
+              font-size: 18px;
+              line-height: normal;
+              text-decoration: none;
+              margin-right: 24px;
+              @include media-breakpoint-down(md) {
+                margin: 0 auto;
+                width: 100%;
+              }
+              img {
+                margin-left: 14px;
+              }
             }
-            img {
-              margin-left: 14px;
+            .free-cancelation-label {
+              color: #007728;
+              font-family: "LatoBold";
+              font-size: 18px;
+              line-height: 22px;
+              margin: 0;
+              text-transform: uppercase;
             }
           }
+          
         }
       }
     }
@@ -1178,7 +1209,7 @@
               align-items: center;
               justify-content: flex-start;
               flex-wrap: wrap;
-              margin-bottom: 16px;
+              margin-bottom: 8px;
               
                 label {
                   font-family: "LatoRegular";
@@ -1223,7 +1254,7 @@
               
             }
             .ticket-selection {
-              margin-bottom: 16px;
+              margin-bottom: 8px;
               .ticket-selection-title {
                 margin-bottom: 12px;
               }
@@ -1276,6 +1307,9 @@
               }
               .max-participants {
                 margin-top: 15px;
+                font-size: 14px;
+                line-height: 18px;
+                color: grey;
                 span {
                   font-weight: 600;
                 }
@@ -1301,7 +1335,7 @@
               align-items: center;
               justify-content: flex-start;
               flex-wrap: wrap;
-              padding-top: 20px;
+              padding-top: 10px;
               &.disabled {
                 pointer-events: none;
                 .input-wrapper {
@@ -1367,6 +1401,15 @@
               &:disabled {
                 background-color: #FBCAB6;
               }
+            }
+            .free-canc-text {
+              color: #007728;
+              font-size: 14px;
+              line-height: 16px;
+              font-family: "LatoRegular";
+              text-align: center;
+              margin-top: 10px;
+              margin-bottom: 0;
             }
           }
         }
