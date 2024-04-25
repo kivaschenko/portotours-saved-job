@@ -57,6 +57,11 @@
                         <img src="{% static 'icons/experience-info-icon2.svg' %}" alt="">
                         {{ object.parent_experience.happy_clients_number }} happy clients
                     </p>
+                    {% if object.parent_experience.recommended_by_locals %}
+                        <p class="experience-hero-info-text">
+                        recommended by locals
+                        </p>
+                    {% endif %}
                 </div>
             </div>
             
@@ -277,6 +282,9 @@
                         </div>
                     </div>
                     <div class="experience-description">
+                        {% if object.parent_experience.clean_and_safe %}
+                        <p>Banner Clean & Safe here ...</p>
+                        {% endif %}
                         <p>
                             Discount: {{ object.parent_experience.increase_percentage_old_price }} %
                         </p>
@@ -332,6 +340,10 @@
                         <img src="{% static 'images/booking-form-banner.svg' %}" alt="form banner">
                         <img src="{% static 'icons/icon-back.svg' %}" alt="go back" class="btn-back">
 
+                        <!-- Text above calendar -->
+                        {% if object.text_above_calendar %}
+                            <p>{{ object.text_above_calendar }}</p>
+                        {% endif %}
                         {% if object.parent_experience.is_private %}
                             {% include 'include/private_booking_form.html' %}
                         {% else %}

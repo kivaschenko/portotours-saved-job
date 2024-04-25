@@ -164,7 +164,6 @@
 
             // Mount the Express Checkout element (Apple Pay, Google Pay, and PayPal)
             const expressCheckoutElement = elements.create("payment", {
-                wallet: {applePay: 'always', googlePay: 'always'}, // Specify the wallets you want to support
                 paymentMethod: {
                     card: null, // This allows users to select other payment methods like Apple Pay, Google Pay, and PayPal
                     billing_details: {
@@ -218,6 +217,7 @@
 
             switch (paymentIntent.status) {
                 case "succeeded":
+                    // http://onedaytours.pt/confirmation/en/?payment_intent_id=pi_3P9QpxLH746GcpOj1FMTEdhm
                     window.location.href = `/confirmation/{{ current_language }}/?payment_intent_id=${paymentIntent.id}`;
                     break;
                 case "processing":
