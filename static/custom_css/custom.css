@@ -9580,6 +9580,10 @@ html.off-scroll body {
             margin-bottom: 0;
             font-size: 12px;
             line-height: 14px; }
+        .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .title-link {
+          text-decoration: none; }
+          .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .title-link:hover {
+            color: inherit; }
         .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .best-tours-card-title {
           margin-bottom: 8px;
           text-transform: capitalize; }
@@ -11045,8 +11049,8 @@ html.off-scroll body {
           padding: 8px 24px 12px 18px;
           color: var(--text-color-third);
           font-family: "LatoMedium";
-          font-size: 18px;
-          line-height: 28px;
+          font-size: 14px;
+          line-height: 22px;
           text-transform: capitalize; }
         .experience-list .container .experiences .experience-list-item .list-item-img-wrapper img {
           width: 100%;
@@ -11143,22 +11147,34 @@ html.off-scroll body {
               .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper .new-price {
                 font-size: 22px;
                 line-height: 32px; } }
-        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-link-btn {
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .btns-wrapper {
           display: flex;
           align-items: center;
-          width: 265px;
-          justify-content: center;
-          text-transform: uppercase;
-          font-family: "LatoMedium";
-          font-size: 18px;
-          line-height: normal;
-          text-decoration: none; }
-          @media (max-width: 767.98px) {
-            .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-link-btn {
-              margin: 0 auto;
-              width: 100%; } }
-          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-link-btn img {
-            margin-left: 14px; }
+          justify-content: flex-start; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .btns-wrapper .experience-link-btn {
+            display: flex;
+            align-items: center;
+            width: 265px;
+            justify-content: center;
+            text-transform: uppercase;
+            font-family: "LatoMedium";
+            font-size: 18px;
+            line-height: normal;
+            text-decoration: none;
+            margin-right: 24px; }
+            @media (max-width: 767.98px) {
+              .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .btns-wrapper .experience-link-btn {
+                margin: 0 auto;
+                width: 100%; } }
+            .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .btns-wrapper .experience-link-btn img {
+              margin-left: 14px; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .btns-wrapper .free-cancelation-label {
+            color: #007728;
+            font-family: "LatoBold";
+            font-size: 18px;
+            line-height: 22px;
+            margin: 0;
+            text-transform: uppercase; }
 
 .sticky-container .sticky-block {
   position: sticky;
@@ -12636,7 +12652,7 @@ html.off-scroll body {
               margin-bottom: 0; }
         .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .hover-block {
           position: absolute;
-          right: 42px;
+          right: 20px;
           top: 50%;
           transform: translateY(-50%);
           display: none; }

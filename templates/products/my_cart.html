@@ -163,10 +163,11 @@
                                     <!-- Add a span element for the timer -->
                                     <p><span id="timer_{{ object.id }}"></span></p>
                                 </div>
-                            {% endfor %}
+                           
 
                             </div>
-                        </div>
+                        {% endfor %}
+                    </div>
                         <div class="cart-order-info-col">
                             <div class="order-info-wrapper">
                                 <p class="price">
@@ -196,9 +197,10 @@
                                     Your purchase includes:
                                 </h4>
                                 <ul>
-                                    <li>Tours developed by local experts</li>
                                     <li>Best price on the market</li>
-                                    <li>Free cancellation policy</li>
+                                    <li>Taxes and Fares</li>
+                                    <li>Free cancellation</li>
+                                    <li>Experiences developed by local experts</li>
                                     <li>Personal and accident insurance</li>
                                     <li>Discount for children</li>
                                     <li>Award-winning customer support</li>
@@ -206,41 +208,28 @@
                             </div>
                         </div>
                         
-                        <div class="purchase-includes">
+                        <div class="purchase-includes purchase-includes-mobile">
+                            <a href="{% url 'payment-form' lang='en' %}" class="order-btn-mobile btn-type-1">
+                                Checkout
+                            </a>
                             <h4 class="purchase-includes-title">
                                 Your purchase includes:
                             </h4>
                             <ul>
                                 <li>Best price on the market</li>
-                            <li>Taxes and Fares</li>
-                            <li>Free cancellation</li>
-                            <li>Experiences developed by local experts</li>
-                            <li>Personal and accident insurance</li>
-                            <li>Discount for children</li>
-                            <li>Award-winning customer support</li>
+                                <li>Taxes and Fares</li>
+                                <li>Free cancellation</li>
+                                <li>Experiences developed by local experts</li>
+                                <li>Personal and accident insurance</li>
+                                <li>Discount for children</li>
+                                <li>Award-winning customer support</li>
+                               
                             </ul>
+                            
                         </div>
                     </div>
                     
-                    <div class="purchase-includes purchase-includes-mobile">
-                        <a href="{% url 'payment-form' lang='en' %}" class="order-btn-mobile btn-type-1">
-                            Checkout
-                        </a>
-                        <h4 class="purchase-includes-title">
-                            Your purchase includes:
-                        </h4>
-                        <ul>
-                            <li>Best price on the market</li>
-                            <li>Taxes and Fares</li>
-                            <li>Free cancellation</li>
-                            <li>Experiences developed by local experts</li>
-                            <li>Personal and accident insurance</li>
-                            <li>Discount for children</li>
-                            <li>Award-winning customer support</li>
-                           
-                        </ul>
-                        
-                    </div>
+                    
                 </div>
             {% endif %}
 
