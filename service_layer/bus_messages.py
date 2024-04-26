@@ -20,9 +20,9 @@ def handle_stripe_charge_success(event: events.StripeChargeSucceeded):
 
 # Products
 
-def send_email_about_new_product(event: events.NewProductCreated):
+def send_email_about_new_product(event: events.ProductPaid):
     event_dict = event.__dict__
-    services.send_product_created_email(**event_dict)
+    services.send_product_paid_email_staff(**event_dict)
 
 
 def send_email_about_changed_product(event: events.ProductUpdated):

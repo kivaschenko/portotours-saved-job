@@ -403,7 +403,7 @@ class ExperienceSchedule(models.Model):
 class ProductActiveManager(models.Manager):
     def get_queryset(self):
         queryset = super(ProductActiveManager, self).get_queryset()
-        status_list = ['Pending', 'Processing', 'Payment']
+        status_list = ['Pending', 'Payment']
         return queryset.filter(status__in=status_list)
 
 
@@ -438,10 +438,9 @@ class Product(models.Model):
     status = models.CharField(max_length=30, null=True, blank=True, default='Pending',
                               choices=[
                                   ('Pending', 'Pending'),
-                                  ('Cancelled', 'Cancelled'),
                                   ('Expired', 'Expired'),
-                                  ('Processing', 'Processing'),
                                   ('Payment', 'Payment'),
+                                  ('Cancelled', 'Cancelled'),
                                   ('Completed', 'Completed'),
                               ])
     # Stripe data
@@ -481,7 +480,7 @@ class Product(models.Model):
         if not self.created_at:
             self.created_at = timezone.now()
         if not self.expired_time:
-            self.expired_time = timezone.now() + timezone.timedelta(minutes=30)
+            self.expired_time = timezone.now() + timezone.timedelta(minutes=settings.PRODUCT_EXPIRE_MINUTES)
         super(Product, self).save()
 
     def _count_old_total_price(self):

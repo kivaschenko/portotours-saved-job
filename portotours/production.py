@@ -286,9 +286,10 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 ADMIN_NAME = os.environ.get('EMAIL_FROM_USER')
-ADMIN_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
-ADMIN_EMAIL = [(ADMIN_NAME, ADMIN_EMAIL),]
-MANAGER_EMAIL = ADMIN_EMAIL + [('Manager Name', 'manager@example.com')]
+admin_email = os.environ.get('DEFAULT_FROM_EMAIL')
+manager_email = os.environ.get('MANAGER_EMAIL')
+ADMIN_EMAIL = [(ADMIN_NAME, admin_email),]
+MANAGER_EMAIL = ADMIN_EMAIL + [('Manager', manager_email)]
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 SITE_NAME = 'onedaytours.pt'
 PROTOCOL = 'https'
@@ -312,3 +313,4 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 # SECURE_SSL_REDIRECT = True
+PRODUCT_EXPIRE_MINUTES = 60  # Expire timedelta for Product in minutes

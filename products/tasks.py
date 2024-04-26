@@ -19,3 +19,7 @@ def complete_charge_success(payment_intent_id: str, name: str, email: str, phone
     from service_layer.services import handle_charge_success
     handle_charge_success(payment_intent_id, name, email, phone, address_city, address_country, address_line1, address_line2, address_postal_code,
                           address_state)
+
+@shared_task()
+def send_notifications_about_paid_products(payment_intent_id: str):
+    pass

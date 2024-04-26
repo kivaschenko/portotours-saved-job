@@ -7,8 +7,9 @@ class Event:
 
 
 @dataclass
-class NewProductCreated(Event):
+class ProductPaid(Event):
     product_id: int
+    customer_id: int
     product_name: str
     product_start_date: str
     product_start_time: str
@@ -19,7 +20,7 @@ class NewProductCreated(Event):
 
 
 @dataclass
-class ProductUpdated(NewProductCreated):
+class ProductCancelled(ProductPaid):
     status: str
 
 
