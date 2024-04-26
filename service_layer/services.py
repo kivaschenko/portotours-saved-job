@@ -72,7 +72,7 @@ def handle_charge_success(payment_intent_id: str, name: str, email: str, phone: 
         logger.info(f"Created customer {customer}")
         if customer.id:
             result = create_profile_and_generate_password(customer.id, name, email, phone, address_city, address_country, address_line1,
-                                                 address_line2, address_postal_code, address_state)
+                                                          address_line2, address_postal_code, address_state)
             if result:
                 set_real_user_in_purchase(payment_intent_id, customer.id)
 
@@ -194,23 +194,30 @@ def send_new_password_by_email(email: str, password: str, name: str = '',
 # ---------------------------
 # Product & Purchase services
 
-def send_product_paid_email_staff(product_id: int = None, customer_id: int = None, product_name: str = None, product_start_date: str = None, product_start_time: str = None,
-                               total_price: float = None, adult: int = None, children: int = None, product_type: str = None):
+def send_product_paid_email_staff(product_id: int = None, customer_id: int = None, product_name: str = None, total_price: float = None):
     subject = f'[{product_id}] Product paid'
     message = (f'\tA new product "{product_name}" (ID: {product_id}) paid.\n'
-               f'Start: {product_start_date} {product_start_time}. Type: {product_type}.\n'
-               f'Total: {total_price} EUR. Adult: {adult}. Children: {children}.\n'
+               f'Total price: {total_price} EUR.\n'
                f'User id: {customer_id}.')
     send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL])
 
 
-def send_product_canceled_email_staff(product_id: int = None, customer_id: int = None, product_name: str = None, product_start_date: str = None, product_start_time: str = None,
-                               total_price: float = None, adult: int = None, children: int = None, product_type: str = None, status: str = None):
+def send_product_paid_email_to_customer(product_id: int = None, customer_id: int = None, product_name: str = None, total_price: float = None):
+    product = Product.objects.get(pk=product_id)
+    user = User.objects.get(pk=customer_id)
+    url = 'www.onedaytours.pt/en/generate-pdf/{}/'.format(product_id)
+    subject = f'[{product.order_number}] Product paid'
+    message = (f'Congratulations, {user.profile.name}! \n\tYour product "{product_name}" (ID: {product_id}) paid.\n'
+               f'Total price: {total_price} EUR.\n'
+               f'You can download your PDF here: {url}.')
+    send_mail(subject, message, settings.SERVER_EMAIL, [user.profile.email])
+
+
+def send_product_canceled_email_staff(product_id: int = None, customer_id: int = None, product_name: str = None, total_price: float = None, status: str = None):
     subject = f'[{product_id}] Product canceled'
     message = (f'\tThe product "{product_name}" (ID: {product_id}) canceled.\n'
-               f'Start: {product_start_date} {product_start_time}. Type: {product_type}.\n'
-               f'Total: {total_price} EUR. Adult: {adult}. Children: {children}.\n'
-               f'User id: {customer_id}.'
+               f'Total price: {total_price} EUR.\n'
+               f'User id: {customer_id}.\n'
                f'Status: {status}.')
     send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL])
 
@@ -232,3 +239,7 @@ def update_products_status_if_expired():
                 logger.info(f'Product ID={product.id} {product} has been updated. Its status is: {product.status}.')
     logger.info(f'Finish updating status of expired products.')
     return updated_products
+
+
+def set_booking_after_payment(booking_id: int):
+    pass

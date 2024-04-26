@@ -244,7 +244,7 @@ def get_actual_experience_events(request, parent_experience_id):
         return HttpResponseBadRequest('Invalid JSON data')
 
 
-# @transaction.atomic
+@transaction.atomic
 def create_group_product(request):
     if request.method == 'POST':
         try:
