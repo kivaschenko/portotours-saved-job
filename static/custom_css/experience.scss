@@ -825,6 +825,68 @@
             }
           }
         }
+        .clean-safe-badge {
+          margin-bottom: 24px;
+          border-radius: 26px;
+          border: 1px solid #D9D9D9;
+          background: #FFF;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          padding: 20px 24px;
+          @include media-breakpoint-down(md) {
+            border: none;
+            padding: 0;
+            margin-bottom: 32px;
+            border-radius: 0;
+            align-items: flex-start;
+          }
+          .img-wrapper {
+            width: 120px;
+            height: 120px;
+            margin-right: 24px;
+            @include media-breakpoint-down(md) {
+              width: 80px;
+              height: 80px;
+              right: 12px;
+            }
+            img {
+              width: 100%;
+            }
+          }
+          .content-wrapper {
+            width: calc(100% - 120px - 24px);
+            @include media-breakpoint-down(md) {
+              width: calc(100% - 80px - 12px);
+            }
+            .badge-title {
+              font-size: 18px;
+              line-height: 28px;
+              color: #0F0F10;
+              font-family: "LatoSemiBold";
+              text-transform: capitalize;
+              margin-top: 0;
+              margin-bottom: 8px;
+              @include media-breakpoint-down(md) {
+                margin-bottom: 4px;
+              }
+            }
+            .badge-text {
+              font-size: 16px;
+              line-height: 26px;
+              color: #0F0F10;
+              font-family: "LatoRegular";
+              padding-right: 50px;
+              margin-bottom: 0;
+              @include media-breakpoint-down(md) {
+                font-size: 14px;
+                line-height: 22px;
+                padding-right: 0;
+              }
+            }
+          }
+        }
         .experience-description {
           margin-bottom: 40px;
           @include media-breakpoint-down(md) {
@@ -1041,7 +1103,7 @@
         position: relative;
         position: sticky;
         left: 0;
-        top: 20px;
+        top: 50px;
         
         @include media-breakpoint-down(md) {
           display: none;
@@ -1061,17 +1123,18 @@
           position: relative;
           border-radius: 26px;
           background: #F8F8F8;
-          padding: 60px 40px 20px;
+          padding: 40px 40px 20px;
           @include media-breakpoint-down(md) {
             height: 100vh;
-            padding: 20px 16px 90px;
+            padding: 70px 16px 90px;
             border-radius: 0;
             overflow: scroll;
           }
           > img {
             position: absolute;
             right: -30px;
-            top: -20px;
+            top: -50px;
+            z-index: 20;
             &.btn-back {
               display: none;
             }
@@ -1081,12 +1144,47 @@
                 display: block;
                 position: relative;
                 right: inherit;
-                top: inherit;
+                top: -30px;
                 margin-bottom: 24px;
                 
               }
             }
           }
+          .form-text-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 11px 40px 21px;
+            background-color: #FFF2D2;
+            border-radius: 26px 26px 0 0;
+            width: 100%;
+            @include media-breakpoint-down(md) {
+              padding: 7px 0 23px;
+              justify-content: center;
+              width: calc(100% - 32px);
+              margin: 0 auto;
+              left: 16px;
+              top: 80px;
+            }
+            img {
+              width: 24px;
+              height: 24px;
+              display: block;
+              margin-right: 8px;
+            }
+            .form-text-banner {
+              margin: 0;
+              color: #F0500B;
+              font-size: 14px;
+              line-height: 22px;
+              font-family: "LatoMedium";
+            }
+          }
+            
+          
           .form-title {
             margin-bottom: 12px;
             text-align: center;
@@ -1098,6 +1196,7 @@
             font-family: "LatoSemiBold";
           }
           #bookingForm {
+            position: relative;
             .calendar {
               text-align: center;
               margin-bottom: 16px;

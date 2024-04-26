@@ -8139,6 +8139,8 @@ html.off-scroll body {
       .footer .container .row .footer-block {
         margin-right: 100px;
         width: fit-content; }
+        .footer .container .row .footer-block:last-child {
+          margin-right: 0; }
         @media (max-width: 767.98px) {
           .footer .container .row .footer-block {
             margin-right: 0;
@@ -8889,6 +8891,10 @@ html.off-scroll body {
               font-size: 18px;
               line-height: 28px;
               font-family: 'LatoSemiBold'; } }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-title a {
+            text-decoration: none; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-title a:hover {
+              color: inherit; }
         .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-text {
           margin: 0; }
           @media (max-width: 767.98px) {
@@ -9571,15 +9577,18 @@ html.off-scroll body {
             .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper {
               display: none; } }
           .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper .rating-block {
-            margin-right: 24px; }
+            margin-right: 24px;
+            display: flex;
+            font-size: 18px;
+            line-height: 20px; }
             .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper .rating-block img {
               width: 20px;
               height: 20px;
               margin-right: 8px; }
           .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper .duration-block p {
             margin-bottom: 0;
-            font-size: 12px;
-            line-height: 14px; }
+            font-size: 16px;
+            line-height: 18px; }
         .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .title-link {
           text-decoration: none; }
           .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .title-link:hover {
@@ -11444,6 +11453,62 @@ html.off-scroll body {
                 .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards .experience-card .card-content .card-text, .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards .experience-card .card-content p {
                   font-size: 16px;
                   line-height: 24px; } }
+      .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge {
+        margin-bottom: 24px;
+        border-radius: 26px;
+        border: 1px solid #D9D9D9;
+        background: #FFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 20px 24px; }
+        @media (max-width: 767.98px) {
+          .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge {
+            border: none;
+            padding: 0;
+            margin-bottom: 32px;
+            border-radius: 0;
+            align-items: flex-start; } }
+        .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge .img-wrapper {
+          width: 120px;
+          height: 120px;
+          margin-right: 24px; }
+          @media (max-width: 767.98px) {
+            .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge .img-wrapper {
+              width: 80px;
+              height: 80px;
+              right: 12px; } }
+          .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge .img-wrapper img {
+            width: 100%; }
+        .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge .content-wrapper {
+          width: calc(100% - 120px - 24px); }
+          @media (max-width: 767.98px) {
+            .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge .content-wrapper {
+              width: calc(100% - 80px - 12px); } }
+          .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge .content-wrapper .badge-title {
+            font-size: 18px;
+            line-height: 28px;
+            color: #0F0F10;
+            font-family: "LatoSemiBold";
+            text-transform: capitalize;
+            margin-top: 0;
+            margin-bottom: 8px; }
+            @media (max-width: 767.98px) {
+              .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge .content-wrapper .badge-title {
+                margin-bottom: 4px; } }
+          .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge .content-wrapper .badge-text {
+            font-size: 16px;
+            line-height: 26px;
+            color: #0F0F10;
+            font-family: "LatoRegular";
+            padding-right: 50px;
+            margin-bottom: 0; }
+            @media (max-width: 767.98px) {
+              .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge .content-wrapper .badge-text {
+                font-size: 14px;
+                line-height: 22px;
+                padding-right: 0; } }
       .experience-info .container .experience-info-inner-wrapper .left-col .experience-description {
         margin-bottom: 40px; }
         @media (max-width: 767.98px) {
@@ -11628,7 +11693,7 @@ html.off-scroll body {
       position: relative;
       position: sticky;
       left: 0;
-      top: 20px; }
+      top: 50px; }
       @media (max-width: 767.98px) {
         .experience-info .container .experience-info-inner-wrapper .aside-form {
           display: none; } }
@@ -11645,17 +11710,18 @@ html.off-scroll body {
         position: relative;
         border-radius: 26px;
         background: #F8F8F8;
-        padding: 60px 40px 20px; }
+        padding: 40px 40px 20px; }
         @media (max-width: 767.98px) {
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper {
             height: 100vh;
-            padding: 20px 16px 90px;
+            padding: 70px 16px 90px;
             border-radius: 0;
             overflow: scroll; } }
         .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper > img {
           position: absolute;
           right: -30px;
-          top: -20px; }
+          top: -50px;
+          z-index: 20; }
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper > img.btn-back {
             display: none; }
           @media (max-width: 767.98px) {
@@ -11665,8 +11731,38 @@ html.off-scroll body {
                 display: block;
                 position: relative;
                 right: inherit;
-                top: inherit;
+                top: -30px;
                 margin-bottom: 24px; } }
+        .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper .form-text-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          position: absolute;
+          top: 0;
+          left: 0;
+          padding: 11px 40px 21px;
+          background-color: #FFF2D2;
+          border-radius: 26px 26px 0 0;
+          width: 100%; }
+          @media (max-width: 767.98px) {
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper .form-text-wrapper {
+              padding: 7px 0 23px;
+              justify-content: center;
+              width: calc(100% - 32px);
+              margin: 0 auto;
+              left: 16px;
+              top: 80px; } }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper .form-text-wrapper img {
+            width: 24px;
+            height: 24px;
+            display: block;
+            margin-right: 8px; }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper .form-text-wrapper .form-text-banner {
+            margin: 0;
+            color: #F0500B;
+            font-size: 14px;
+            line-height: 22px;
+            font-family: "LatoMedium"; }
         .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper .form-title {
           margin-bottom: 12px;
           text-align: center; }
@@ -11675,213 +11771,112 @@ html.off-scroll body {
           margin-bottom: 12px;
           text-transform: capitalize;
           font-family: "LatoSemiBold"; }
-        .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar {
-          text-align: center;
-          margin-bottom: 16px;
-          border-radius: 16px;
-          background: #FFF;
-          padding: 10px 20px; }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls {
-            display: flex;
-            align-items: flex-end;
-            margin: 0 auto 6px;
-            justify-content: center; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls #currentMonth {
-              font-family: "LatoSemiBold";
-              font-size: 18px;
-              line-height: 28px;
-              margin-bottom: 0; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button {
-              border: none;
-              overflow: none;
-              background: none;
-              width: 24px;
-              height: 24px;
-              padding: 0; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button img {
-                width: 100%;
-                display: block; }
-                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button img.icon-disabled {
-                  display: none; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button:disabled img {
-                display: none; }
-                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button:disabled img.icon-disabled {
-                  display: block; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button#prevMonth {
-                transform: rotate(180deg);
-                margin-right: 16px; }
-                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button#prevMonth:disabled {
-                  transform: none; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button#nextMonth {
-                margin-left: 16px; }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .day-labels {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-            margin-bottom: 8px; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .day-labels span {
-              font-family: "LatoRegular";
-              font-size: 14px;
-              line-height: 22px;
-              color: #6D6D6D;
-              text-align: center; }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr); }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day {
-              color: #0F0F10;
-              font-family: "LatoRegular";
-              font-size: 16px;
-              line-height: normal;
-              cursor: pointer;
-              width: 46px;
-              height: 46px;
+        .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm {
+          position: relative; }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar {
+            text-align: center;
+            margin-bottom: 16px;
+            border-radius: 16px;
+            background: #FFF;
+            padding: 10px 20px; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls {
               display: flex;
-              flex-direction: column;
-              padding-top: 5px;
-              justify-content: flex-start; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.inactive {
-                color: #D9D9D9; }
-                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.inactive span {
-                  color: #D9D9D9; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.selected-date {
-                border-radius: 6px;
-                background: #F0500B;
-                color: white; }
-                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.selected-date span {
-                  color: white; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day span {
-                font-family: "LatoRegular";
-                display: block;
-                font-size: 12px;
-                line-height: normal;
-                margin-top: 2px;
-                color: #6D6D6D;
-                /* Цвет текста для цены тура */
-                pointer-events: none; }
-        .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection-title {
-          margin-bottom: 12px; }
-        .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection {
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          flex-wrap: wrap;
-          margin-bottom: 8px; }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection label {
-            font-family: "LatoRegular";
-            font-size: 16px;
-            line-height: 26px;
-            margin-bottom: 0;
-            padding-left: 36px;
-            position: relative;
-            cursor: pointer;
-            margin-right: 17px; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection label:last-child {
-              margin-right: 0; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection label::before {
-              content: "";
-              position: absolute;
-              width: 24px;
-              height: 24px;
-              left: 0;
-              top: 50%;
-              transform: translateY(-50%);
-              background-image: url(../icons/custom-radiobtn-default.svg);
-              background-repeat: no-repeat;
-              background-size: cover;
-              background-position: center; }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection input {
-            opacity: 0;
-            display: none; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection input:checked + label::before {
-              background-image: url(../icons/custom-radiobtn-active.svg); }
-        .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection {
-          margin-bottom: 8px; }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-selection-title {
-            margin-bottom: 12px; }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type {
-            display: flex;
-            align-items: center;
-            justify-content: start; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type + .ticket-type {
-              margin-top: 10px; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type .ticket-type-title {
-              color: #6D6D6D;
-              font-family: "LatoRegular";
-              font-size: 16px;
-              line-height: 26px;
-              margin-right: 40px;
-              margin-bottom: 0;
-              width: 60px; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type button {
-              border: none;
-              outline: none;
-              width: 18px;
-              height: 18px;
-              background: none;
-              padding: 0; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type button img {
-                display: block; }
-                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type button img.disabled {
+              align-items: flex-end;
+              margin: 0 auto 6px;
+              justify-content: center; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls #currentMonth {
+                font-family: "LatoSemiBold";
+                font-size: 18px;
+                line-height: 28px;
+                margin-bottom: 0; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button {
+                border: none;
+                overflow: none;
+                background: none;
+                width: 24px;
+                height: 24px;
+                padding: 0; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button img {
+                  width: 100%;
+                  display: block; }
+                  .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button img.icon-disabled {
+                    display: none; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button:disabled img {
                   display: none; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type input {
-              background: none;
-              border: none;
-              outline: none;
-              width: 26px;
-              margin: 0;
-              text-align: center; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type .total-price {
-              margin-bottom: 0;
-              margin-left: 40px;
-              font-family: "LatoSemiBold";
-              font-size: 18px;
-              line-height: 28px;
-              color: #0F0F10; }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .max-participants {
-            margin-top: 15px;
-            font-size: 14px;
-            line-height: 18px;
-            color: grey; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .max-participants span {
-              font-weight: 600; }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection.disabled {
-            pointer-events: none; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection.disabled .ticket-type button img.active {
-              display: none; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection.disabled .ticket-type button img.disabled {
-              display: block; }
-        .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection-title {
-          margin-bottom: 12px; }
-        .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection {
-          margin-bottom: 24px;
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          flex-wrap: wrap;
-          padding-top: 10px; }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection.disabled {
-            pointer-events: none; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection.disabled .input-wrapper label img {
-              filter: grayscale(1); }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper {
-            width: 25%;
+                  .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button:disabled img.icon-disabled {
+                    display: block; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button#prevMonth {
+                  transform: rotate(180deg);
+                  margin-right: 16px; }
+                  .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button#prevMonth:disabled {
+                    transform: none; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls button#nextMonth {
+                  margin-left: 16px; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .day-labels {
+              display: grid;
+              grid-template-columns: repeat(7, 1fr);
+              gap: 5px;
+              margin-bottom: 8px; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .day-labels span {
+                font-family: "LatoRegular";
+                font-size: 14px;
+                line-height: 22px;
+                color: #6D6D6D;
+                text-align: center; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid {
+              display: grid;
+              grid-template-columns: repeat(7, 1fr); }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day {
+                color: #0F0F10;
+                font-family: "LatoRegular";
+                font-size: 16px;
+                line-height: normal;
+                cursor: pointer;
+                width: 46px;
+                height: 46px;
+                display: flex;
+                flex-direction: column;
+                padding-top: 5px;
+                justify-content: flex-start; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.inactive {
+                  color: #D9D9D9; }
+                  .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.inactive span {
+                    color: #D9D9D9; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.selected-date {
+                  border-radius: 6px;
+                  background: #F0500B;
+                  color: white; }
+                  .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.selected-date span {
+                    color: white; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day span {
+                  font-family: "LatoRegular";
+                  display: block;
+                  font-size: 12px;
+                  line-height: normal;
+                  margin-top: 2px;
+                  color: #6D6D6D;
+                  /* Цвет текста для цены тура */
+                  pointer-events: none; }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection-title {
+            margin-bottom: 12px; }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection {
             display: flex;
             align-items: center;
-            justify-content: flex-start; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper label {
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 8px; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection label {
               font-family: "LatoRegular";
               font-size: 16px;
               line-height: 26px;
               margin-bottom: 0;
               padding-left: 36px;
               position: relative;
-              cursor: pointer; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper label img {
-                width: 36px;
-                height: 24px;
-                display: block; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper label::before {
+              cursor: pointer;
+              margin-right: 17px; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection label:last-child {
+                margin-right: 0; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection label::before {
                 content: "";
                 position: absolute;
                 width: 24px;
@@ -11893,25 +11888,128 @@ html.off-scroll body {
                 background-repeat: no-repeat;
                 background-size: cover;
                 background-position: center; }
-            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper input {
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection input {
               opacity: 0;
               display: none; }
-              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper input:checked + label::before {
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection input:checked + label::before {
                 background-image: url(../icons/custom-radiobtn-active.svg); }
-        .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm #submitBtn {
-          width: 100%;
-          display: block;
-          margin: 0 auto; }
-          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm #submitBtn:disabled {
-            background-color: #FBCAB6; }
-        .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .free-canc-text {
-          color: #007728;
-          font-size: 14px;
-          line-height: 16px;
-          font-family: "LatoRegular";
-          text-align: center;
-          margin-top: 10px;
-          margin-bottom: 0; }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection {
+            margin-bottom: 8px; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-selection-title {
+              margin-bottom: 12px; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type {
+              display: flex;
+              align-items: center;
+              justify-content: start; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type + .ticket-type {
+                margin-top: 10px; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type .ticket-type-title {
+                color: #6D6D6D;
+                font-family: "LatoRegular";
+                font-size: 16px;
+                line-height: 26px;
+                margin-right: 40px;
+                margin-bottom: 0;
+                width: 60px; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type button {
+                border: none;
+                outline: none;
+                width: 18px;
+                height: 18px;
+                background: none;
+                padding: 0; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type button img {
+                  display: block; }
+                  .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type button img.disabled {
+                    display: none; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type input {
+                background: none;
+                border: none;
+                outline: none;
+                width: 26px;
+                margin: 0;
+                text-align: center; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type .total-price {
+                margin-bottom: 0;
+                margin-left: 40px;
+                font-family: "LatoSemiBold";
+                font-size: 18px;
+                line-height: 28px;
+                color: #0F0F10; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .max-participants {
+              margin-top: 15px;
+              font-size: 14px;
+              line-height: 18px;
+              color: grey; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .max-participants span {
+                font-weight: 600; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection.disabled {
+              pointer-events: none; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection.disabled .ticket-type button img.active {
+                display: none; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection.disabled .ticket-type button img.disabled {
+                display: block; }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection-title {
+            margin-bottom: 12px; }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            padding-top: 10px; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection.disabled {
+              pointer-events: none; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection.disabled .input-wrapper label img {
+                filter: grayscale(1); }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper {
+              width: 25%;
+              display: flex;
+              align-items: center;
+              justify-content: flex-start; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper label {
+                font-family: "LatoRegular";
+                font-size: 16px;
+                line-height: 26px;
+                margin-bottom: 0;
+                padding-left: 36px;
+                position: relative;
+                cursor: pointer; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper label img {
+                  width: 36px;
+                  height: 24px;
+                  display: block; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper label::before {
+                  content: "";
+                  position: absolute;
+                  width: 24px;
+                  height: 24px;
+                  left: 0;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  background-image: url(../icons/custom-radiobtn-default.svg);
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  background-position: center; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper input {
+                opacity: 0;
+                display: none; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection .input-wrapper input:checked + label::before {
+                  background-image: url(../icons/custom-radiobtn-active.svg); }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm #submitBtn {
+            width: 100%;
+            display: block;
+            margin: 0 auto; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm #submitBtn:disabled {
+              background-color: #FBCAB6; }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .free-canc-text {
+            color: #007728;
+            font-size: 14px;
+            line-height: 16px;
+            font-family: "LatoRegular";
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 0; }
 
 .mobile-form-btn-wrapper {
   display: none; }
