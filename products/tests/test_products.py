@@ -168,7 +168,7 @@ class TestProductLogic(TestCase):
         self.assertEqual(updated_product.adults_price, tomorrow_group_event_2.special_price)
         self.assertEqual(updated_product.child_price, tomorrow_group_event_2.child_special_price)
 
-    def test_delete_group_product(self):
+    def test_cancel_group_product(self):
         tomorrow = datetime.utcnow() + timedelta(days=1)
         end_date = tomorrow + timedelta(hours=1)
         tomorrow_group_event = ExperienceEvent.objects.create(
@@ -198,14 +198,16 @@ class TestProductLogic(TestCase):
         self.assertEqual(updated_event.remaining_participants, 5)
         self.assertIsInstance(product.occurrence, Occurrence)
         response = self.client.delete(reverse('cancel-product', kwargs={'pk': product.pk}))
-        # Assert that the response is successful and the product is deleted
+
         self.assertEqual(response.status_code, 302)
+
         cancelled_product = Product.objects.get(pk=product.pk)
         cancelled_event = ExperienceEvent.objects.get(id=updated_event.id)
+        cancelled_occurrence = Occurrence.objects.get(pk=occur_pk)
+        self.assertEqual(cancelled_product.status, 'Cancelled')
         self.assertEqual(cancelled_event.booked_participants, 0)
         self.assertEqual(cancelled_event.remaining_participants, 8)
-        with self.assertRaises(Occurrence.DoesNotExist, msg=cancelled_product):
-            Occurrence.objects.get(pk=occur_pk)
+        self.assertTrue(cancelled_occurrence.cancelled)
 
     def test_create_private_product_post(self):
         tomorrow = datetime.utcnow() + timedelta(days=1)
@@ -323,7 +325,7 @@ class TestProductLogic(TestCase):
         self.assertEqual(updated_product.start_datetime.replace(tzinfo=None), tomorrow_private_event_2.start.replace(tzinfo=None))
         self.assertEqual(updated_product.total_price, tomorrow_private_event_2.total_price)
 
-    def test_delete_private_product(self):
+    def test_cancel_private_product(self):
         tomorrow = datetime.utcnow() + timedelta(days=1)
         end_date = tomorrow + timedelta(hours=1)
         tomorrow_private_event = ExperienceEvent.objects.create(
@@ -352,15 +354,19 @@ class TestProductLogic(TestCase):
         self.assertEqual(updated_event.remaining_participants, 5)
         self.assertIsInstance(product.occurrence, Occurrence)
         response = self.client.delete(reverse('cancel-product', kwargs={'pk': product.pk}))
-        # Assert that the response is successful and the product is deleted
+
         self.assertEqual(response.status_code, 302)
+
         cancelled_product = Product.objects.get(pk=product.pk)
         cancelled_event = ExperienceEvent.objects.get(id=updated_event.id)
+        cancelled_occurrence = Occurrence.objects.get(pk=occur_pk)
+        self.assertEqual(cancelled_product.status, 'Cancelled')
         self.assertEqual(cancelled_event.booked_participants, 0)
         self.assertEqual(cancelled_event.remaining_participants, 8)
-        with self.assertRaises(Occurrence.DoesNotExist, msg=cancelled_product):
-            Occurrence.objects.get(pk=occur_pk)
+        self.assertTrue(cancelled_occurrence.cancelled)
 
+# -------------------------
+# Fake booking products test
 
 class TestFakeBookingProductLogic(TestCase):
     """The logic for testing fake booking product."""
