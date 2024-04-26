@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'celery',
     'django_celery_beat',
     'django_celery_results',
-    'djcelery_email',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
