@@ -200,7 +200,16 @@ class DeleteProductView(DeleteView):
     model = Product
     template_name = 'products/delete_product_form.html'
     success_url = reverse_lazy('my-cart', kwargs={'lang': 'en'})
-
+    def delete(self, request, *args, **kwargs):
+        """
+        Call the delete() method on the fetched object and then redirect to the
+        success URL.
+        """
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.occurrence.delete()
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
 
 
 class CancelProductView(DeleteView):
@@ -221,7 +230,8 @@ class CancelProductView(DeleteView):
             return HttpResponseBadRequest('Not allowed booking number.')
         self.object.status = 'Cancelled'
         self.object.save()
-        self.object.occurrence.delete()
+        self.object.occurrence.cancelled = True
+        self.object.occurrence.save()
         # Instead of calling delete() on the object, change its status
         return HttpResponseRedirect(self.get_success_url())
 
