@@ -41,6 +41,7 @@ urlpatterns += [
     path('checkout/', purchases_views.checkout_payment_intent_view, name='checkout-payment-intent'),
     path('my-cart/<str:lang>/', products_views.ProductCartView.as_view(), name='my-cart'),
     path('en/products/<int:pk>/cancel/', products_views.CancelProductView.as_view(), name='cancel-product'),
+    path('en/products/delete/<int:pk>/', products_views.DeleteProductView.as_view(), name='delete-product'),
     path('payment-form/<str:lang>/', purchases_views.BillingDetailView.as_view(), name='payment-form'),
     path('confirmation/<str:lang>/', purchases_views.ConfirmationView.as_view(), name='confirmation'),
     path('en/edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),

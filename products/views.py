@@ -196,10 +196,20 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
         return context
 
 
+class DeleteProductView(DeleteView):
+    model = Product
+    template_name = 'products/delete_product_form.html'
+    success_url = reverse_lazy('my-cart', kwargs={'lang': 'en'})
+
+
+
 class CancelProductView(DeleteView):
+    """This is using for cancellation of the product. Update booking places in events and change status.
+    Not delete record in DB when cancellation of the product. Use for products that have been paid already.
+    """
     model = Product
     template_name = 'products/cancel_form.html'
-    success_url = reverse_lazy('my-cart', kwargs={'lang': 'en'})
+    success_url = reverse_lazy('home')
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
