@@ -1,21 +1,18 @@
-from datetime import datetime, timedelta
-
+from django.contrib.sessions.models import Session
+from django.db import transaction
 from django.db.models import Sum
+from django.http import HttpResponseBadRequest
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse, HttpResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, DeleteView
-from django.db import transaction
-from django.contrib.sessions.models import Session
-from django.http import HttpResponseBadRequest
 from django.views.generic import View
-
 from weasyprint import HTML
 
+from home.forms import ExperienceSearchForm
 from products.models import *  # noqa
 from products.product_services import get_actual_events_for_experience, update_experience_event_booking, search_experience_by_place_start_lang
-from home.forms import ExperienceSearchForm
 
 Customer = settings.AUTH_USER_MODEL
 
@@ -586,14 +583,15 @@ def generate_pdf(request, product_id):
     return response
 
 
-from django.views.decorators.csrf import csrf_exempt
+# ------------------------
+# Fake booking for Product
 
-
-@csrf_exempt
-def create_product(request):
+@transaction.atomic()
+def create_group_product_without_booking(request):
+    """This func create a new Product without booking.
+    Real booking will be set up after Stripe event about payment succeeded."""
     if request.method == 'POST':
         data = json.loads(request.body)
-
         # Extract data from JSON
         adults = data.get('adults')
         children = data.get('children')
@@ -602,13 +600,10 @@ def create_product(request):
         session_key = data.get('session_key')
         event_id = data.get('event_id')
         parent_experience_id = data.get('parent_experience_id')
-
         # Get ExperienceEvent obj
         exp_event = ExperienceEvent.objects.get(id=event_id)
-
         # Get language
         language = Language.objects.get(code=language_code)
-
         # Create a new product using the received data
         new_product = Product(
             customer_id=customer_id,
@@ -623,11 +618,6 @@ def create_product(request):
             child_count=children,
         )
         new_product.save()
-
-        # Update ExperienceEvent data
-        total_booked = adults + children
-        exp_event.update_booking_data(booked_number=total_booked)
-
         # Create Occurrence for Product
         occurrence = Occurrence(
             event=exp_event,
@@ -639,12 +629,173 @@ def create_product(request):
             original_end=exp_event.end
         )
         occurrence.save()
-
         new_product.occurrence = occurrence
         new_product.save()
-
         # Return a JSON response indicating success
         return JsonResponse({'message': 'Product created successfully'}, status=201)
-
     # If the request method is not POST, return an error response
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+
+
+@transaction.atomic
+def update_group_product_without_booking(request):
+    """This func update new Product without booking.
+    Real booking will be set up after Stripe event about payment succeeded."""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            adults = data.get('adults')
+            children = data.get('children')
+            language_code = data.get('language_code')
+            event_id = data.get('event_id')
+            product_id = data.get('product_id')
+        except json.JSONDecodeError as e:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+
+        if None in (adults, children, language_code, event_id, product_id):
+            return JsonResponse({'error': 'Invalid data provided'}, status=400)
+
+        try:
+            product = Product.objects.get(id=product_id)
+            exp_event = ExperienceEvent.objects.get(id=event_id)
+            language = Language.objects.get(code=language_code)
+        except (Product.DoesNotExist, ExperienceEvent.DoesNotExist, Language.DoesNotExist):
+            return JsonResponse({'error': 'Invalid product, event, or language'}, status=400)
+
+        if product.occurrence.event_id != exp_event.id:
+            product.occurrence.delete()
+            occurrence = Occurrence.objects.create(
+                event=exp_event,
+                title=exp_event.title,
+                description=f"This occurrence has been created for the product: {product.id}.",
+                start=exp_event.start,
+                end=exp_event.end,
+                original_start=exp_event.start,
+                original_end=exp_event.end
+            )
+            product.occurrence = occurrence
+            product.start_datetime = exp_event.start
+            product.end_datetime = exp_event.end
+            product.adults_count = adults
+            product.child_count = children
+            product.adults_price = exp_event.special_price
+            product.child_price = exp_event.child_special_price
+            product.language = language
+            product.save()
+        else:
+            if product.adults_count != adults or product.child_count != children:
+                product.adults_count = adults
+                product.child_count = children
+            if product.language != language:
+                product.language = language
+            product.save()
+        logger.info(f"Product {product.id} was updated.")
+        return JsonResponse({'message': 'Product updated successfully'}, status=201)
+
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+
+
+@transaction.atomic
+def create_private_product_without_booking(request):
+    """This func create a new Product without booking.
+    Real booking will be set up after Stripe event about payment succeeded."""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+        except json.decoder.JSONDecodeError as e:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+        # Extract data from JSON
+        adults = data.get('adults')
+        children = data.get('children')
+        language_code = data.get('language_code')
+        customer_id = data.get('customer_id')
+        session_key = data.get('session_key')
+        event_id = data.get('event_id')
+        parent_experience_id = data.get('parent_experience_id')
+        # Get ExperienceEvent obj
+        exp_event = ExperienceEvent.objects.get(id=event_id)
+        # Get language
+        language = Language.objects.get(code=language_code)
+        # Create a new product using the received data
+        new_product = Product(
+            customer_id=customer_id,
+            session_key=session_key,
+            parent_experience_id=parent_experience_id,
+            language=language,
+            start_datetime=exp_event.start,
+            end_datetime=exp_event.end,
+            total_price=exp_event.total_price,
+            adults_count=adults,
+            child_count=children,
+        )
+        new_product.save()
+        # Create Occurrence for Product
+        occurrence = Occurrence(
+            event=exp_event,
+            title=exp_event.title,
+            description=f"This occurrence has been created for the product: {new_product.id}.",
+            start=exp_event.start,
+            end=exp_event.end,
+            original_start=exp_event.start,
+            original_end=exp_event.end
+        )
+        occurrence.save()
+        new_product.occurrence = occurrence
+        new_product.save()
+        # Return a JSON response indicating success
+        return JsonResponse({'message': 'Product created successfully'}, status=201)
+    # If the request method is not POST, return an error response
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+
+
+@transaction.atomic
+def update_private_product_without_booking(request):
+    """This func update new Product without booking.
+    Real booking will be set up after Stripe event about payment succeeded."""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            adults = data.get('adults')
+            children = data.get('children')
+            language_code = data.get('language_code')
+            event_id = data.get('event_id')
+            product_id = data.get('product_id')
+        except json.JSONDecodeError as e:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+        if None in (adults, children, language_code, event_id, product_id):
+            return JsonResponse({'error': 'Invalid data provided'}, status=400)
+        try:
+            product = Product.objects.get(id=product_id)
+            exp_event = ExperienceEvent.objects.get(id=event_id)
+            language = Language.objects.get(code=language_code)
+        except (Product.DoesNotExist, ExperienceEvent.DoesNotExist, Language.DoesNotExist):
+            return JsonResponse({'error': 'Invalid product, event, or language'}, status=400)
+        if product.occurrence.event_id != exp_event.id:
+            product.occurrence.delete()
+            occurrence = Occurrence.objects.create(
+                event=exp_event,
+                title=exp_event.title,
+                description=f"This occurrence has been created for the product: {product.id}.",
+                start=exp_event.start,
+                end=exp_event.end,
+                original_start=exp_event.start,
+                original_end=exp_event.end
+            )
+            product.occurrence = occurrence
+            product.start_datetime = exp_event.start
+            product.end_datetime = exp_event.end
+            product.adults_count = adults
+            product.child_count = children
+            product.total_price = exp_event.total_price
+            product.language = language
+            product.save()
+        else:
+            if product.adults_count != adults or product.child_count != children:
+                product.adults_count = adults
+                product.child_count = children
+            if product.language != language:
+                product.language = language
+            product.save()
+        logger.info(f"Product {product.id} was updated.")
+        return JsonResponse({'message': 'Product updated successfully'}, status=201)
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
