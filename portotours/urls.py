@@ -24,7 +24,11 @@ handler400 = 'products.views.custom_bad_request_view'
 # Booking, payment endpoints
 urlpatterns = [
     # API for JS Real Booking is happening
-    # Check what exactly url out is using in JS files for booking
+    # Check what exactly url out is using in JS files for booking:
+    # static/js/first_booking.js
+    # static/js/first_booking_private.js
+    # static/js/update_private_product.js
+    # static/js/update_product.js
     path('create-product/', products_views.create_group_product, name='create-product'),
     path('update-product/', products_views.update_group_product, name='update-product'),
     path('create-private-product/', products_views.create_private_product, name='create-private-product'),
