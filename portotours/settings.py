@@ -312,7 +312,7 @@ if DEBUG is True:
 
     # Check if the platform is macOS
     if current_platform == 'Darwin':
-        print("The current operating system is macOS.")
+        print("The current operating system is macOS. Using another path for GDAL support.")
         GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', '/opt/homebrew/Cellar/gdal/3.8.5/lib/libgdal.dylib')
         GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', '/opt/homebrew/Cellar/geos/3.12.1/lib/libgeos_c.dylib')
     else:
@@ -370,8 +370,8 @@ AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
 
 # STRIPE credentials
-STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY=pk_test_51OgTxhB0X2obciNigcJJ1FZ831YDandrQUaDNTs6OmzaDaXljGs4W5argoWEaRy3brFpaGVeUtcmeRJEPyT8b9sO000V412c4k
+STRIPE_SECRET_KEY=sk_test_51OgTxhB0X2obciNiyzPMesPZRql9jQs9pOb2CNmkU8Lf9qYM55iGyBZ5eoTBGFzTQ3xlOl0SdPCp3QIAuems22t500sswKbQDU
 
 # PROJECT BUSINESS LOGIC
 BOOKING_MINUTES = 30
