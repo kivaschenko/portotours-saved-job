@@ -3,14 +3,14 @@
 {% load static %}
 
 {% block title_suffix %}
-    Delete Experience from my Cart
+    Cancel Paid Experience
 {% endblock title_suffix %}
 
 {% block content %}
     <div class="remove-cart-item-wrapper">
         <div class="container">
             <h2 class="remove-cart-item-title">Delete experience</h2>
-            <p class="remove-cart-item-subtitle">Are you sure you want to to delete this experience?</p>
+            <p class="remove-cart-item-subtitle">Are you sure you want to cancel this experience {{ object.order_number }}?</p>
             <div class="remove-cart-item">
                 <div class="img-wrapper">
                     <img src="{% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}" alt="card image for {{ object.parent_experience.parent_name }}">
