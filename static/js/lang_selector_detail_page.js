@@ -113,7 +113,7 @@ window.onload = onPageLoad
         let languageMatch = currentUrl.match(/\/([a-z]{2})\//);
 
         if (languageMatch) {
-            console.log('test!!')
+            
             let selectedLanguage = languageMatch[1];
             // Remove the 'active' class from all images
             document.querySelectorAll('.language-switcher-mobile .language-icon').forEach(function (icon) {
