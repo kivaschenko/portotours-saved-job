@@ -185,7 +185,6 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
         queryset = self.get_queryset()  # Ensure queryset is evaluated every time
         if queryset.exists():
             latest_product = queryset.latest()
-            print(latest_product.created_at)
             # Convert the created_at datetime to a UNIX timestamp
             context['last_created_at'] = latest_product.created_at  # Convert to seconds
         else:

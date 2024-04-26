@@ -189,7 +189,6 @@ def checkout_payment_intent_view(request):
         purchase.products.set(products)
 
         payment_intent = stripe.PaymentIntent.create(**intent_data)
-        print(payment_intent.__dict__)
 
         purchase.stripe_payment_intent_id = payment_intent.id
         purchase.save()
