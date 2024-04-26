@@ -462,6 +462,7 @@ class Product(models.Model):
 
     class Meta:
         ordering = ('-created_at', '-total_price')
+        get_latest_by = 'created_at'
 
     def save(self, *args, **kwargs):
         # recount each time during save because might be different numer of participants
