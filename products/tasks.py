@@ -20,6 +20,15 @@ def complete_charge_success(payment_intent_id: str, name: str, email: str, phone
     handle_charge_success(payment_intent_id, name, email, phone, address_city, address_country, address_line1, address_line2, address_postal_code,
                           address_state)
 
+
 @shared_task()
-def send_notifications_about_paid_products(payment_intent_id: str):
-    pass
+def send_notifications_about_paid_products(product_id: int = None, customer_id: int = None, product_name: str = None, total_price: float = None):
+    from service_layer.services import send_product_paid_email_staff, send_product_paid_email_to_customer
+    send_product_paid_email_staff(product_id, customer_id, product_name, total_price)
+    send_product_paid_email_to_customer(product_id, customer_id, product_name, total_price)
+
+
+@shared_task()
+def update_booking_data_for_product(product_id: int = None):
+    from service_layer.services import set_booking_after_payment
+    set_booking_after_payment(product_id)

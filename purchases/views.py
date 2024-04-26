@@ -22,6 +22,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 BASE_ENDPOINT = settings.BASE_ENDPOINT
 
 
+
 class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
     """View for listing all products for current user (session) only."""
     model = Product

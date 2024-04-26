@@ -10,6 +10,7 @@ from django.utils import timezone
 from accounts.models import User, Profile
 from products.models import Product
 from purchases.models import Purchase
+from products.product_services import update_experience_event_booking
 
 logger = logging.getLogger(__name__)
 
@@ -202,9 +203,21 @@ def send_product_paid_email_staff(product_id: int = None, customer_id: int = Non
     send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL])
 
 
-def send_product_paid_email_to_customer(product_id: int = None, customer_id: int = None, product_name: str = None, total_price: float = None):
+def send_product_paid_email_to_customer(product_id: int = None, customer_id: int = None, product_name: str = None, total_price: float = None,
+                                        max_attempts=5, retry_delay=5):
     product = Product.objects.get(pk=product_id)
-    user = User.objects.get(pk=customer_id)
+    attempt = 0
+    while attempt < max_attempts:
+        try:
+            user = User.objects.get(pk=customer_id)
+            break
+        except User.DoesNotExist:
+            attempt += 1
+            if attempt >= max_attempts:
+                logger.error(f"Max attempts reached. Could not fetch user: {customer_id}.")
+                return
+            logger.warning(f"User not found. Retrying in {retry_delay} seconds...")
+            time.sleep(retry_delay)
     url = 'www.onedaytours.pt/en/generate-pdf/{}/'.format(product_id)
     subject = f'[{product.order_number}] Product paid'
     message = (f'Congratulations, {user.profile.name}! \n\tYour product "{product_name}" (ID: {product_id}) paid.\n'
@@ -241,5 +254,14 @@ def update_products_status_if_expired():
     return updated_products
 
 
-def set_booking_after_payment(booking_id: int):
-    pass
+def set_booking_after_payment(product_id: int):
+    logger.info(f'Start setting booking after Product id: {product_id}.')
+    product = Product.objects.get(id=product_id)
+    total_booked = product.total_booked
+    update_result = update_experience_event_booking(product.occurrence.event_id, booked_number=total_booked)
+    if not update_result:
+        logger.error(f'Failed to update booking after ExperienceEvent id: {product.occurrence.event_id}.')
+        return f'Failed to update booking after ExperienceEvent id {product.occurrence.event_id}.'
+    else:
+        return f'Succeeded setting booking after Product id: {product.id}.'
+

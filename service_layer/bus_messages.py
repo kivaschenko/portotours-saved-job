@@ -22,12 +22,11 @@ def handle_stripe_charge_success(event: events.StripeChargeSucceeded):
 
 def send_email_about_new_product(event: events.ProductPaid):
     event_dict = event.__dict__
-    services.send_product_paid_email_staff(**event_dict)
+    tasks.send_notifications_about_paid_products(**event_dict)
 
 
-def send_email_about_changed_product(event: events.ProductUpdated):
-    event_dict = event.__dict__
-    services.send_product_changed_email(**event_dict)
+def update_booking_data_for_paid_product(event: events.ProductPaid):
+    tasks.update_booking_data_for_product(event.product_id)
 
 
 # Stripe PaymentIntent
@@ -40,8 +39,7 @@ def set_purchase_status_completed(event: events.StripePaymentIntentSucceeded):
 # Main handlers dict
 
 HANDLERS = {
-    events.NewProductCreated: [send_email_about_new_product, ],
-    events.ProductUpdated: [send_email_about_changed_product, ],
+    events.ProductPaid: [send_email_about_new_product, update_booking_data_for_paid_product],
     events.StripePaymentIntentSucceeded: [set_purchase_status_completed, ],
-    events.StripeChargeSucceeded: [handle_stripe_charge_success,]
+    events.StripeChargeSucceeded: [handle_stripe_charge_success, ]
 }
