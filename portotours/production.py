@@ -311,4 +311,4 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': 60,  # Run every minute
     },
 }
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = True
