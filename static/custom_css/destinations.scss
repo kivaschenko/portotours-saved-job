@@ -529,6 +529,12 @@
                         line-height: 28px;
                         font-family: 'LatoSemiBold';
                     }
+                    a {
+                        text-decoration: none;
+                        &:hover {
+                            color: inherit;
+                        }
+                    }
                 }
                 .also-interested-card-text {
                     margin: 0;

@@ -25,6 +25,27 @@
             </a>
         </div>
     </div>
+    <div class="container">
+        <div class="experience-hero-info">
+            {% if object.parent_experience.free_cancellation %}
+                <p class="experience-hero-info-text">
+                    <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
+                    free cancelation policy
+                </p>
+            {% endif %}
+            <p class="experience-hero-info-text">
+                <img src="{% static 'icons/experience-info-icon2.svg' %}" alt="">
+                {{ object.parent_experience.happy_clients_number }} happy clients
+            </p>
+            {% if object.parent_experience.recommended_by_locals %}
+                <p class="experience-hero-info-text">
+                    <img src="{% static 'icons/green-thumb.svg' %}" alt="">
+                    recommended by locals
+                </p>
+            {% endif %}
+        </div>
+    </div>
+    
     <div class="sticky-container">
         <div class="sticky-block">
             <div class="container">
@@ -46,23 +67,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="experience-hero-info">
-                    {% if object.parent_experience.free_cancellation %}
-                        <p class="experience-hero-info-text">
-                            <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
-                            free cancelation policy
-                        </p>
-                    {% endif %}
-                    <p class="experience-hero-info-text">
-                        <img src="{% static 'icons/experience-info-icon2.svg' %}" alt="">
-                        {{ object.parent_experience.happy_clients_number }} happy clients
-                    </p>
-                    {% if object.parent_experience.recommended_by_locals %}
-                        <p class="experience-hero-info-text">
-                        recommended by locals
-                        </p>
-                    {% endif %}
-                </div>
+               
             </div>
             
         </div>
@@ -281,13 +286,24 @@
                             </div>
                         </div>
                     </div>
+                    {% if object.parent_experience.clean_and_safe %}
+                        <div class="clean-safe-badge">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/clean-safe-badge.svg' %}" alt="badge">
+                            </div>
+                            <div class="content-wrapper">
+                                <h4 class="badge-title">
+                                    Clean & Safe
+                                </h4>
+                                <p class="badge-text">
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu. 
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
                     <div class="experience-description">
-                        {% if object.parent_experience.clean_and_safe %}
-                        <p>Banner Clean & Safe here ...</p>
-                        {% endif %}
-                        <p>
-                            Discount: {{ object.parent_experience.increase_percentage_old_price }} %
-                        </p>
+                        
+                        
                         <h5 class="description-title">
                             {{ object.title_description }}
                         </h5>
@@ -342,13 +358,18 @@
 
                         <!-- Text above calendar -->
                         {% if object.text_above_calendar %}
-                            <p>{{ object.text_above_calendar }}</p>
+                            <div class="form-text-wrapper">
+                                <img src="{% static 'icons/fire-icon.svg' %}" alt="fire icon">
+                                <p class="form-text-banner">{{ object.text_above_calendar }}</p>
+                            </div>
+                            
                         {% endif %}
                         {% if object.parent_experience.is_private %}
                             {% include 'include/private_booking_form.html' %}
                         {% else %}
                             {% include 'include/booking_form.html' %}
                         {% endif %}
+                        
                     </div>
                 </div>
             </div>
