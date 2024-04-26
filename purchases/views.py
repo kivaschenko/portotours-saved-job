@@ -90,7 +90,6 @@ def stripe_webhook(request):
             for product in products:
                 product_event = ProductPaid(
                     product_id=product.id,
-                    customer_id=product.customer_id,
                     product_name=product.stripe_product_id,
                     total_price=float(product.total_price),
                 )

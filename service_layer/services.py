@@ -195,21 +195,20 @@ def send_new_password_by_email(email: str, password: str, name: str = '',
 # ---------------------------
 # Product & Purchase services
 
-def send_product_paid_email_staff(product_id: int = None, customer_id: int = None, product_name: str = None, total_price: float = None):
+def send_product_paid_email_staff(product_id: int = None, product_name: str = None, total_price: float = None):
     subject = f'[{product_id}] Product paid'
     message = (f'\tA new product "{product_name}" (ID: {product_id}) paid.\n'
-               f'Total price: {total_price} EUR.\n'
-               f'User id: {customer_id}.')
+               f'Total price: {total_price} EUR.\n')
     send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL])
 
 
-def send_product_paid_email_to_customer(product_id: int = None, customer_id: int = None, product_name: str = None, total_price: float = None,
+def send_product_paid_email_to_customer(product_id: int = None, product_name: str = None, total_price: float = None,
                                         max_attempts=5, retry_delay=5):
-    product = Product.objects.get(pk=product_id)
     attempt = 0
     while attempt < max_attempts:
         try:
-            user = User.objects.get(pk=customer_id)
+            product = Product.objects.get(pk=product_id)
+            user = User.objects.get(pk=product.customer_id)
             break
         except User.DoesNotExist:
             attempt += 1

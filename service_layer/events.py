@@ -9,7 +9,6 @@ class Event:
 @dataclass
 class ProductPaid(Event):
     product_id: int
-    customer_id: int
     product_name: str
     total_price: float
 
