@@ -59,7 +59,7 @@ if (window.innerWidth > 768) {
                 selectedIcon.classList.add('active');
             }
         } else {
-            console.log('test language2')
+            
             // If language slug is not found in the URL, set default language flag
             let defaultLanguageIcon = defaultLanguageElement.querySelector('.language-icon-en'); // Assuming 'en' for English
             if (defaultLanguageIcon) {
@@ -117,7 +117,7 @@ if (window.innerWidth > 768) {
         let languageMatch = currentUrl.match(/\/([a-z]{2})\//);
 
         if (languageMatch) {
-            console.log('test!!')
+            
             let selectedLanguage = languageMatch[1];
             // Remove the 'active' class from all images
             document.querySelectorAll('.language-switcher-mobile .language-icon').forEach(function (icon) {
