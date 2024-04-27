@@ -61,8 +61,21 @@ def stripe_webhook(request):
     if event.type == 'payment_intent.succeeded':
         payment_intent = event['data']['object']
         logger.info(f"PaymentIntent {payment_intent.id} succeeded.")
+        handlers = []
         payment_intent_event = StripePaymentIntentSucceeded(payment_intent_id=payment_intent.id)
-        handle(payment_intent_event)
+        handlers.append(payment_intent_event)
+        purchase = Purchase.last24hours_manager.filter(stripe_payment_intent_id=payment_intent.id).first()
+        if purchase:
+            products = purchase.products.all()
+            for product in products:
+                product_event = ProductPaid(
+                    product_id=product.id,
+                    product_name=product.stripe_product_id,
+                    total_price=float(product.total_price),
+                )
+                handlers.append(product_event)
+        for handler in handlers:
+            handle(handler)
 
     if event.type == 'charge.succeeded':
         charge = event['data']['object']
@@ -83,17 +96,6 @@ def stripe_webhook(request):
         )
         handle(charge_event)
 
-        # find Purchase and handle tasks
-        purchase = Purchase.last24hours_manager.filter(stripe_payment_intent_id=charge.payment_intent).first()
-        if purchase:
-            products = purchase.products.all()
-            for product in products:
-                product_event = ProductPaid(
-                    product_id=product.id,
-                    product_name=product.stripe_product_id,
-                    total_price=float(product.total_price),
-                )
-                handle(product_event)
     else:
         logger.info('Unhandled event type {}'.format(event['type']))
     return HttpResponse(status=200)

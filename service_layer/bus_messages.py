@@ -39,7 +39,7 @@ def set_purchase_status_completed(event: events.StripePaymentIntentSucceeded):
 # Main handlers dict
 
 HANDLERS = {
-    events.ProductPaid: [update_booking_data_for_paid_product, send_email_about_new_product ],
+    events.ProductPaid: [update_booking_data_for_paid_product, send_email_about_new_product],
     events.StripePaymentIntentSucceeded: [set_purchase_status_completed, ],
     events.StripeChargeSucceeded: [handle_stripe_charge_success, ]
 }
