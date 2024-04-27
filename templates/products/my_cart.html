@@ -50,10 +50,10 @@
                         Please review your order
                     </h2>
                     <p class="cart-title-info">
-                        <img src="{% static 'icons/cart-info-icon.svg' %}" alt="">
+                       
                         <!-- Add a span element for the common timer -->
-                        <strong><span id="common-timer" style="margin-right: 1rem;"></span></strong>
-                        We've reserved a place in the experience for you. Please make payment within 30 minutes to keep it.
+                        <strong> <img src="{% static 'icons/cart-info-icon.svg' %}" alt=""> <span id="common-timer" style="margin-right: 1rem;"></span></strong>
+                        We've reserved a place in the experience for you. Please review your order and make payment to keep it.
                     </p>
                 </div>
                 <div class="cart-cards-info">
@@ -67,6 +67,9 @@
                                     {{ object.parent_experience.parent_name }}
                                 </p>
                                 <div class="img-wrapper">
+                                    <p class="card-img-badge">
+                                        {{ object.parent_experience.increase_percentage_old_price }}% discount 
+                                    </p>
                                     <img src="{{ object.parent_experience.card_image.url }}" class="card-img"
                                          alt="card image preview for {{ object.parent_experience }}">
                                 </div>
@@ -79,7 +82,7 @@
                                             <p class="card-col-title">
                                                 Date
                                             </p>
-                                            <p class="card-col-text">
+                                            <p class="card-col-text" id="date">
                                                 {{ object.date_of_start }}
                                             </p>
                                             <p class="card-col-title">
@@ -93,7 +96,7 @@
                                             <p class="card-col-title">
                                                 Time
                                             </p>
-                                            <p class="card-col-text">
+                                            <p class="card-col-text" id="time">
                                                 {{ object.time_of_start }}
                                             </p>
                                             {% if object.parent_experience.is_private %}
@@ -154,13 +157,22 @@
                                                 </a>
                                             </li>
                                             <li class="hover-block-item">
-                                                <a href="{% url 'cancel-product' object.pk %}">
+                                                <a href="{% url 'delete-product' object.pk %}">
                                                     <img src="{% static 'icons/cart-remove-icon.svg' %}" alt="remove">
                                                     <span>Delete</span>
                                                 </a>
 
                                             </li>
                                         </ul>
+                                    </div>
+                                    <div class="risk-free-banner">
+                                        <img src="{% static 'icons/risk-free-icon.svg' %}" alt="risk free icon">
+                                        <span>
+                                            Risk free!
+                                        </span>
+                                        <p class="risk-free-text">
+                                            Free cancellation before 23:59 hrs. on 28 April 2024 
+                                        </p>
                                     </div>
                                 </div>
 
@@ -177,20 +189,40 @@
                             </span>
                             </p>
                             <p class="price">
-                                Your exclusive discount
+                                Processing fees
                                 <span>
-                                €{% if discounted_price_sum %}{{ discounted_price_sum }}{% else %}0{% endif %}
+                                FREE
                             </span>
                             </p>
+                            {% if discounted_price_sum %}
+                            <div class="price discount">
+                                <div class="icon-wrapper">
+                                    <img src="{% static 'icons/flash-icon.svg' %}" alt="">
+                                    Instant discount - €{{ discounted_price_sum }}
+                                </div>
+                                
+                                <span>
+                                 APPLIED
+                                </span>
+                            </div>
+                            {% endif %}
                             <p class="total-price">
                                 Total
                                 <span>
                                 €{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %}
                             </span>
                             </p>
+                            <div class="price-match-banner">
+                                <img src="{% static 'icons/info-icon.svg' %}" alt="info icon">
+                                We price match. Find it for less, and we’ll match it! 
+                            </div>
                             <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
                                 Checkout
                             </a>
+                            <p class="secure-checkout">
+                                <img src="{% static 'icons/lock-icon.svg' %}" alt="">
+                                Secure Checkout
+                            </p>
                         </div>
                         <div class="purchase-includes">
                             <h4 class="purchase-includes-title">
@@ -257,25 +289,37 @@
         function updateCommonTimer(deadline) {
             const now = new Date();
             const timeDiff = (deadline - now) / 1000; // Time difference in seconds
+            
             const minutes = Math.floor(timeDiff / 60);
             const seconds = Math.floor(timeDiff % 60);
-            document.getElementById('common-timer').innerText = `Time left: ${minutes}m ${seconds}s`;
+            document.getElementById('common-timer').innerText = ` ${minutes}MIN ${seconds}SEC.`;
             // Check if the deadline has passed
             if (timeDiff <= 0) {
                 clearInterval(commonTimer); // Stop the timer
-                document.getElementById('common-timer').innerText = 'Expired'; // Update the message
+                const createdAt = '{{ last_created_at|date:"Y-m-d H:i:s" }}';
+                if (createdAt) {
+                    startCommonTimer(createdAt);
+                }
             }
         }
         // Function to start the common timer with the provided created_at value
         function startCommonTimer(created_at) {
             // Parse the created_at string into a Date object in UTC
-            const createdAtDate = new Date(Date.parse(created_at + ' UTC'));
+            const [dateStr, timeStr] = created_at.split(' ');
+            const [year, month, day] = dateStr.split('-').map(Number);
+            const [hour, minute, second] = timeStr.split(':').map(Number);
+            const createdAtDate = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
+            
+
             // Set the deadline to 30 minutes after the created_at time
             const deadline = new Date(createdAtDate.getTime() + (30 * 60 * 1000)); // 30 minutes in milliseconds
+            
+
             // Update the timer every second
             commonTimer = setInterval(() => {
                 updateCommonTimer(deadline);
             }, 1000);
+
             // Update the timer immediately
             updateCommonTimer(deadline);
         }
@@ -283,10 +327,55 @@
         document.addEventListener("DOMContentLoaded", function () {
             // Get the created_at value from the template variable
             const createdAt = '{{ last_created_at|date:"Y-m-d H:i:s" }}';
+            
             if (createdAt) {
                 // Start the common timer with the provided created_at value
                 startCommonTimer(createdAt);
             }
         });
+    </script>
+    <script>
+        // Получаем элементы с классами "card-col-text" для даты и времени
+        var dateElement = document.getElementById('date');
+        var timeElement = document.getElementById('time');
+
+        // Получаем тексты даты и времени
+        var dateString = dateElement.textContent.trim();
+        var timeString = timeElement.textContent.trim();
+
+        // Парсим дату и время в объект Date
+        var tourStartDate = new Date(dateString + ' ' + timeString);
+
+        // Получаем время для отмены бронирования в часах
+        var cancellationHours = 48; // Пример времени для отмены бронирования
+
+        // Вычисляем дату и время для отмены бронирования (добавляем время для отмены к дате начала тура)
+        var cancellationDate = new Date(tourStartDate.getTime() + (cancellationHours * 60 * 60 * 1000) - (1 * 60 * 1000));
+
+        // Форматируем дату и время для вывода
+        var formattedCancellationDate = cancellationDate.toLocaleString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: '2-digit', 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            hour12: false 
+        });
+
+        // Получаем строку времени в формате 'hh:mm'
+        var formattedTime = ('0' + cancellationDate.getHours()).slice(-2) + ':' + ('0' + cancellationDate.getMinutes()).slice(-2);
+
+        // Получаем строку даты в формате 'Day Month Year'
+        var formattedDate = cancellationDate.toLocaleString('en-US', { 
+            day: '2-digit', 
+            month: 'long', 
+            year: 'numeric' 
+        });
+
+        // Находим элемент с классом "risk-free-text"
+        var riskFreeElement = document.querySelector('.risk-free-text');
+
+        // Вставляем отформатированную дату и время в HTML
+        riskFreeElement.innerHTML = "Free cancellation before " + formattedTime + " hrs. on " + formattedDate;
     </script>
 {% endblock %}

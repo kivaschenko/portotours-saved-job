@@ -62,7 +62,6 @@ INSTALLED_APPS = [
     'celery',
     'django_celery_beat',
     'django_celery_results',
-    'djcelery_email',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -313,7 +312,7 @@ if DEBUG is True:
 
     # Check if the platform is macOS
     if current_platform == 'Darwin':
-        print("The current operating system is macOS.")
+        print("The current operating system is macOS. Using another path for GDAL support.")
         GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', '/opt/homebrew/Cellar/gdal/3.8.5/lib/libgdal.dylib')
         GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', '/opt/homebrew/Cellar/geos/3.12.1/lib/libgeos_c.dylib')
     else:
@@ -371,8 +370,8 @@ AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
 
 # STRIPE credentials
-STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = 'pk_test_51OgTxhB0X2obciNigcJJ1FZ831YDandrQUaDNTs6OmzaDaXljGs4W5argoWEaRy3brFpaGVeUtcmeRJEPyT8b9sO000V412c4k'
+STRIPE_SECRET_KEY = 'sk_test_51OgTxhB0X2obciNiyzPMesPZRql9jQs9pOb2CNmkU8Lf9qYM55iGyBZ5eoTBGFzTQ3xlOl0SdPCp3QIAuems22t500sswKbQDU'
 
 # PROJECT BUSINESS LOGIC
 BOOKING_MINUTES = 30
@@ -381,24 +380,13 @@ BOOKING_MINUTES = 30
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_HOST = 'localhost'
-# EMAIL_PORT = 25
-# DEFAULT_FROM_EMAIL = 'OneDayTours<<info@onedaytours.com>>'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# SMTP server address
-EMAIL_HOST = 'smtp.postmarkapp.com'
-# SMTP server port (usually 587 for TLS, 465 for SSL)
-EMAIL_PORT = 587
-# Whether to use TLS (True for most SMTP servers)
-EMAIL_USE_TLS = True
-# SMTP username and password (if authentication is required by your SMTP server)
-EMAIL_HOST_USER = 'e3a9f4b5-4a1a-43f1-8270-af8405499f87'
-EMAIL_HOST_PASSWORD = 'e3a9f4b5-4a1a-43f1-8270-af8405499f87'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25
+DEFAULT_FROM_EMAIL = 'OneDayTours<<info@onedaytours.com>>'
 
 # Default email address to use for various automated messages from Django
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+DEFAULT_FROM_EMAIL = 'default-email@example.com'
 
 # Additional settings for error reporting emails (optional)
 ADMIN_EMAIL = [('Admin Name', 'admin@example.com')]
@@ -411,17 +399,10 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 SITE_NAME = 'OneDayTours.com'
 
 # Set the protocol (http or https)
-if DEBUG:
-    PROTOCOL = 'http'
-else:
-    PROTOCOL = 'https'
+PROTOCOL = 'http'
 
 # Set your domain
 DOMAIN = os.environ.get('DOMAIN_NAME', 'localhost:8000')
-
-if DEBUG:
-    # Show detailed error pages in debug mode
-    DEBUG_PROPAGATE_EXCEPTIONS = True
 
 # Navbar top lists cache
 NAVBAR_CONTEXT_CACHE_TIMEOUT = 3600
@@ -436,9 +417,9 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_CACHE_BACKEND = 'default'
 CELERY_RESULT_EXTENDED = True
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
-
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
-CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
+# Use local redis server
+CELERY_BROKER_URL = 'redis://0.0.0.0:6379/1'
+CELERY_RESULT_BACKEND = 'redis://0.0.0.0:6379/1'
 
 CELERY_BEAT_SCHEDULE = {
     'check-expired-products': {
@@ -446,3 +427,4 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': 60,  # Run every minute
     },
 }
+PRODUCT_EXPIRE_MINUTES = 60  # Expire timedelta for Product

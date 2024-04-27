@@ -15,9 +15,9 @@ from products.forms import ExperienceEventFormSet
 
 
 admin.site.unregister(Calendar)
-admin.site.unregister(CalendarRelation)
-admin.site.unregister(Event)
-admin.site.unregister(EventRelation)
+# admin.site.unregister(CalendarRelation)
+# admin.site.unregister(Event)
+# admin.site.unregister(EventRelation)
 admin.site.unregister(Occurrence)
 
 
@@ -219,6 +219,8 @@ class ExperienceCalendarAdmin(admin.ModelAdmin):
         relation = obj.calendarrelation_set.first()
         if relation:
             parent_experience_obj = relation.content_object
+            if parent_experience_obj is None:
+                return 'N/A'
             if parent_experience_obj.is_private:
                 return 'Private'
             else:

@@ -7,19 +7,14 @@ class Event:
 
 
 @dataclass
-class NewProductCreated(Event):
+class ProductPaid(Event):
     product_id: int
     product_name: str
-    product_start_date: str
-    product_start_time: str
     total_price: float
-    adult: int
-    children: int
-    product_type: str
 
 
 @dataclass
-class ProductUpdated(NewProductCreated):
+class ProductCancelled(ProductPaid):
     status: str
 
 

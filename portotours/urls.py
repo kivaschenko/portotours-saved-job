@@ -23,11 +23,21 @@ handler400 = 'products.views.custom_bad_request_view'
 
 # Booking, payment endpoints
 urlpatterns = [
-    # API for JS
+    # API for JS Real Booking is happening
+    # Check what exactly url out is using in JS files for booking:
+    # static/js/first_booking.js
+    # static/js/first_booking_private.js
+    # static/js/update_private_product.js
+    # static/js/update_product.js
     path('create-product/', products_views.create_group_product, name='create-product'),
     path('update-product/', products_views.update_group_product, name='update-product'),
     path('create-private-product/', products_views.create_private_product, name='create-private-product'),
     path('update-private-product/', products_views.update_private_product, name='update-private-product'),
+    # Create & Update Products without real booking
+    path('create-group-product-without-booking/', products_views.create_group_product_without_booking, name='create-group-product-without-booking'),
+    path('update-group-product-without-booking/', products_views.update_group_product_without_booking, name='update-group-product-without-booking'),
+    path('create-private-product-without-booking/', products_views.create_private_product_without_booking, name='create-private-product-without-booking'),
+    path('update-private-product-without-booking/', products_views.update_private_product_without_booking, name='update-private-product-without-booking'),
 ]
 
 # PRODUCTS & PURCHASES
@@ -35,6 +45,7 @@ urlpatterns += [
     path('checkout/', purchases_views.checkout_payment_intent_view, name='checkout-payment-intent'),
     path('my-cart/<str:lang>/', products_views.ProductCartView.as_view(), name='my-cart'),
     path('en/products/<int:pk>/cancel/', products_views.CancelProductView.as_view(), name='cancel-product'),
+    path('en/products/delete/<int:pk>/', products_views.DeleteProductView.as_view(), name='delete-product'),
     path('payment-form/<str:lang>/', purchases_views.BillingDetailView.as_view(), name='payment-form'),
     path('confirmation/<str:lang>/', purchases_views.ConfirmationView.as_view(), name='confirmation'),
     path('en/edit-product/<int:pk>/', products_views.EditProductView.as_view(), name='edit-product'),
