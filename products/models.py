@@ -153,6 +153,25 @@ class ExperienceCategory(models.Model):
 # -----------
 # Experience
 
+class ExperienceProvider(models.Model):
+    short_name = models.CharField(max_length=60, unique=True, blank=True, help_text="Short name max 60 characters")
+    slug = models.SlugField(unique=True, db_index=True, editable=True, max_length=60, blank=True,
+                            help_text='Unique, max 60 characters, auto-generated from name if empty field.')
+    company_name = models.CharField(max_length=255, unique=True, help_text="Company name max 255 characters")
+    nif = models.CharField(max_length=60, unique=True, blank=True, null=True, help_text="National Free Identifier, max 60 characters.")
+    address = models.CharField(max_length=255, blank=True, null=True, help_text="Address line max 255 characters.")
+    email = models.EmailField(max_length=120, blank=True, null=True, help_text="Email address max 120 characters.")
+    phone = models.CharField(max_length=60, blank=True, null=True, help_text="Phone number max 60 characters.")
+    license = models.CharField(max_length=255, blank=True, null=True, help_text="License name max 255 characters.")
+
+    updated_at = models.DateTimeField(auto_now=True, editable=False, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.short_name)
+        super().save(*args, **kwargs)
+
+
 class ParentExperience(models.Model):
     """A Parent Experience brings together all experiences with multilingual content,
     but all in one location as a geographic and destination. To save the common banner,
