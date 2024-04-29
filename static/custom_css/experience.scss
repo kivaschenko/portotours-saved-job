@@ -1018,7 +1018,7 @@
                   font-family: "LatoSemiBold";
                   font-size: 18px;
                   line-height: 28px;
-                  text-transform: capitalize;
+                  text-transform: uppercase;
                   margin-bottom: 0;
                   margin-right: 26px;
                   position: relative;
@@ -1083,6 +1083,7 @@
             list-style: none;
             margin: 0;
             li {
+              list-style: none !important;
               padding-left: 24px;
               font-family: "LatoRegular";
               font-size: 16px;
