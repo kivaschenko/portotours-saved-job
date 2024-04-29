@@ -187,8 +187,9 @@ class ExperienceAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = [
-        'parent_experience',
         'id',
+        'random_order_number',
+        'parent_experience',
         'language',
         'start_datetime',
         'status',
@@ -201,6 +202,9 @@ class ProductAdmin(admin.ModelAdmin):
         'created_at',
         'expired_time'
     ]
+    readonly_fields = ['created_at', 'updated_at', 'parent_experience', 'language',
+                       # 'random_order_number',
+                       'session_key', 'expired_time']
 
 
 class ExperienceEventInline(admin.TabularInline):
