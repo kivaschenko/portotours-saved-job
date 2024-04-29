@@ -166,6 +166,12 @@ class ExperienceProvider(models.Model):
 
     updated_at = models.DateTimeField(auto_now=True, editable=False, null=True, blank=True)
 
+    class Meta:
+        ordering = ('short_name',)
+
+    def __str__(self):
+        return self.short_name
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.short_name)
@@ -228,6 +234,8 @@ class ParentExperience(models.Model):
     show_on_home_page = models.BooleanField(default=False, help_text="Include in the top Experiences on the home page")
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=Decimal('5.0'), help_text="for example: 4.8")
     updated_at = models.DateTimeField(auto_now=True)
+    provider = models.ForeignKey(ExperienceProvider, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Provider',
+                                 related_name='experience_provider', help_text='The company provider for current experience')
 
     def __str__(self):
         return self.parent_name

@@ -113,6 +113,11 @@ class CategoryAdmin(admin.ModelAdmin):
 # ----------
 # Experience
 
+@admin.register(ExperienceProvider)
+class ProviderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'short_name', 'slug', 'nif']
+    search_fields = ['short_name', 'nif']
+
 
 class CheckboxSelectMultipleField(ModelMultipleChoiceField):
     def __init__(self, queryset, *args, **kwargs):
@@ -128,7 +133,6 @@ class LanguageCategoryModelForm(ModelForm):
         model = ParentExperience
         exclude = ['parent_name', 'id', 'slug', 'currency', 'price', 'old_price', 'child_price', 'child_old_price',
                    'max_participants', 'is_private', 'priority_number', 'meeting_point', 'drop_point']
-
 
 
 @admin.register(ParentExperience)
