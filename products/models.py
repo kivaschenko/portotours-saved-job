@@ -1,24 +1,23 @@
-import sys
 import json
 import logging
+import sys
 from datetime import datetime, timedelta
 from decimal import Decimal
 from io import BytesIO
 
+from PIL import Image
 from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.contrib.gis.db import models as gis_models
 from django.contrib.gis.geos import fromstr
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from geopy.geocoders import Nominatim
 from schedule.models import Calendar, Event, Occurrence
-
-from PIL import Image
 
 geolocator = Nominatim(timeout=5, user_agent="portotours")
 
@@ -191,6 +190,8 @@ class ParentExperience(models.Model):
                                       verbose_name='Starting location', related_name='meeting_point')
     drop_point = models.ForeignKey(MeetingPoint, help_text="drop point for this experience", on_delete=models.SET_NULL, null=True, blank=True,
                                    verbose_name='Drop off location', related_name='drop_points')
+    pick_up_location = models.CharField(max_length=255, help_text="location to pick up this experience, max 255 characters", null=True, blank=True)
+    drop_off_location = models.CharField(max_length=255, help_text="location to drop off this experience, max 255 characters", null=True, blank=True)
     max_participants = models.IntegerField(null=True, blank=True, default=8, help_text="Maximum number of participants")
     is_private = models.BooleanField(default=False, help_text="If this experience is private then to sale whole number "
                                                               "of participants as one purchase will be")
@@ -250,14 +251,11 @@ class Experience(models.Model):
     # SEO part
     slug = models.SlugField(max_length=255, unique=True, db_index=True, editable=True, blank=True,
                             help_text="max 255 characters, exactly url tail that is unique")
-    page_title = models.CharField(max_length=120, help_text="seo title for header in search list, max 120 characters",
-                                  null=True, blank=True)
-    page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters",
-                                        null=True, blank=True)
+    page_title = models.CharField(max_length=120, help_text="seo title for header in search list, max 120 characters", null=True, blank=True)
+    page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters", null=True, blank=True)
     page_keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
     # Content part
-    name = models.CharField(max_length=60, unique=True,
-                            help_text="Short name for the experience, max 60 characters")
+    name = models.CharField(max_length=255, unique=True, help_text="Short name for the experience, max 255 characters")
     why_title = models.CharField(max_length=120, help_text="Title above why book slider, max 120 characters", null=True, blank=True)
     why_subtitle = models.CharField(max_length=255, help_text="Subtitle above why book slider, max 255 characters",
                                     null=True, blank=True)
@@ -392,8 +390,8 @@ class ExperienceEvent(Event):
 class ExperienceSchedule(models.Model):
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name="schedule")
     time = models.TimeField(null=True, blank=True)
-    name_stop = models.CharField(max_length=160, null=True, blank=True, help_text="Name of stop max 160 character length.")
-    description = models.TextField(max_length=320, null=True, blank=True, help_text="Description of stop max 320 characters.")
+    name_stop = models.CharField(max_length=255, null=True, blank=True, help_text="Name of stop max 255 character length.")
+    description = models.TextField(max_length=600, null=True, blank=True, help_text="Description of stop max 600 characters.")
 
     def __str__(self):
         return f'{self.time} {self.name_stop}'

@@ -127,13 +127,14 @@ class LanguageCategoryModelForm(ModelForm):
     class Meta:
         model = ParentExperience
         exclude = ['parent_name', 'id', 'slug', 'currency', 'price', 'old_price', 'child_price', 'child_old_price',
-                   'max_participants', 'is_private', 'priority_number']
+                   'max_participants', 'is_private', 'priority_number', 'meeting_point', 'drop_point']
+
 
 
 @admin.register(ParentExperience)
 class ParentExperienceAdmin(admin.ModelAdmin):
     form = LanguageCategoryModelForm
-    exclude = ['updated_at', 'slug']
+    exclude = ['updated_at', 'slug', 'meeting_point', 'drop_point']
     list_display = ['id', 'parent_name', 'currency', 'price', 'old_price', 'child_price', 'child_old_price',
                     'max_participants', 'is_private', 'is_exclusive', 'priority_number', 'show_on_home_page', 'rating', 'is_hot_deals']
     list_filter = ['parent_name', 'max_participants', 'is_private', 'is_exclusive', 'show_on_home_page', ]
