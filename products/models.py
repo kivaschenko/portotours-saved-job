@@ -278,18 +278,18 @@ class Experience(models.Model):
     # SEO part
     slug = models.SlugField(max_length=255, unique=True, db_index=True, editable=True, blank=True,
                             help_text="max 255 characters, exactly url tail that is unique")
-    page_title = models.CharField(max_length=120, help_text="seo title for header in search list, max 120 characters", null=True, blank=True)
-    page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters", null=True, blank=True)
-    page_keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
+    page_title = models.CharField(max_length=120, help_text="SEO title for header in search list, max 120 characters", null=True, blank=True)
+    page_description = models.TextField(max_length=600, help_text="SEO page description, max 600 characters", null=True, blank=True)
+    page_keywords = models.TextField(max_length=500, help_text="SEO keywords", null=True, blank=True)
     # Content part
     name = models.CharField(max_length=255, unique=True, help_text="Short name for the experience, max 255 characters")
-    why_title = models.CharField(max_length=120, help_text="Title above why book slider, max 120 characters", null=True, blank=True)
-    why_subtitle = models.CharField(max_length=255, help_text="Subtitle above why book slider, max 255 characters",
+    why_title = models.CharField(max_length=255, help_text="Title above why book slider, max 255 characters", null=True, blank=True)
+    why_subtitle = models.CharField(max_length=500, help_text="Subtitle above why book slider, max 500 characters",
                                     null=True, blank=True)
-    info_title = models.CharField(max_length=120, help_text="Info title above info block, max 120 characters", null=True, blank=True)
+    info_title = models.CharField(max_length=160, help_text="Info title above info block, max 160 characters", null=True, blank=True)
     info_subtitle = models.CharField(max_length=255, help_text="Info subtitle above info block, max 255 characters",
                                      blank=True, null=True)
-    short_description = models.CharField(max_length=255, help_text="Short description for the preview card, max 255 characters",
+    short_description = models.CharField(max_length=500, help_text="Short description for the preview card, max 500 characters",
                                          blank=True, null=True)
     title_description = models.CharField(max_length=255, help_text="Title for full description, max 255 characters", null=True, blank=True)
     full_description = RichTextField(max_length=6000, help_text="Full description for the Experience, max 6000 characters",
@@ -308,10 +308,10 @@ class Experience(models.Model):
                                            blank=True)
     what_to_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
     # Recommendations block
-    recommendations_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
-    recommendations_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    recommendations_title = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    recommendations_subtitle = models.CharField(max_length=500, help_text="max 500 characters", null=True, blank=True)
     experience_recommendations = models.ManyToManyField('Experience', blank=True)
-    recommendations_slogan = models.CharField(max_length=120, help_text="max 120 characters, belong SEE MORE button",
+    recommendations_slogan = models.CharField(max_length=160, help_text="max 160 characters, belong SEE MORE button",
                                               null=True, blank=True)
     text_above_calendar = models.CharField(max_length=60, help_text="max 60 characters, view above calendar form to hide, make blank", null=True, blank=True,
                                            default='Your dates are popular between travelers')
