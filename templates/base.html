@@ -37,8 +37,11 @@
 <footer class="mt-auto footer">
     <div class="container">
         <div class="row">
+            <span class="footer-info">
+            <img src="{% static 'icons/main-logo.svg' %}" alt="main logo in footer">
+            </span>
+            {% block footer_columns %}
             <div class="footer-info">
-                <img src="{% static 'icons/main-logo.svg' %}" alt="">
                 <p class="footer-contacts-title">
                     Contacts
                 </p>
@@ -94,11 +97,10 @@
                     {% endif %}
                 </ul>
             </div>
-        </div>
-
+            </div>
+            {% endblock footer_columns %}
         <div class="footer-bottom-block">
             <p>© One Day Tours Portugal, LDA <span class="currentYear"></span>. RNAAT 390/2024. Made in Portugal 🇵🇹</p>
-
         </div>
     </div>
 </footer>
