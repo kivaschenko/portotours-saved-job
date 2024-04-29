@@ -1,12 +1,16 @@
 import json
 import logging
+import sys
 from datetime import datetime, timedelta
 from decimal import Decimal
+from io import BytesIO
 
+from PIL import Image
 from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.contrib.gis.db import models as gis_models
 from django.contrib.gis.geos import fromstr
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -149,6 +153,31 @@ class ExperienceCategory(models.Model):
 # -----------
 # Experience
 
+class ExperienceProvider(models.Model):
+    short_name = models.CharField(max_length=60, unique=True, blank=True, help_text="Short name max 60 characters")
+    slug = models.SlugField(unique=True, db_index=True, editable=True, max_length=60, blank=True,
+                            help_text='Unique, max 60 characters, auto-generated from name if empty field.')
+    company_name = models.CharField(max_length=255, unique=True, help_text="Company name max 255 characters")
+    nif = models.CharField(max_length=60, unique=True, blank=True, null=True, help_text="National Free Identifier, max 60 characters.")
+    address = models.CharField(max_length=255, blank=True, null=True, help_text="Address line max 255 characters.")
+    email = models.EmailField(max_length=120, blank=True, null=True, help_text="Email address max 120 characters.")
+    phone = models.CharField(max_length=60, blank=True, null=True, help_text="Phone number max 60 characters.")
+    license = models.CharField(max_length=255, blank=True, null=True, help_text="License name max 255 characters.")
+
+    updated_at = models.DateTimeField(auto_now=True, editable=False, null=True, blank=True)
+
+    class Meta:
+        ordering = ('short_name',)
+
+    def __str__(self):
+        return self.short_name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.short_name)
+        super().save(*args, **kwargs)
+
+
 class ParentExperience(models.Model):
     """A Parent Experience brings together all experiences with multilingual content,
     but all in one location as a geographic and destination. To save the common banner,
@@ -186,6 +215,8 @@ class ParentExperience(models.Model):
                                       verbose_name='Starting location', related_name='meeting_point')
     drop_point = models.ForeignKey(MeetingPoint, help_text="drop point for this experience", on_delete=models.SET_NULL, null=True, blank=True,
                                    verbose_name='Drop off location', related_name='drop_points')
+    pick_up_location = models.CharField(max_length=255, help_text="location to pick up this experience, max 255 characters", null=True, blank=True)
+    drop_off_location = models.CharField(max_length=255, help_text="location to drop off this experience, max 255 characters", null=True, blank=True)
     max_participants = models.IntegerField(null=True, blank=True, default=8, help_text="Maximum number of participants")
     is_private = models.BooleanField(default=False, help_text="If this experience is private then to sale whole number "
                                                               "of participants as one purchase will be")
@@ -203,6 +234,8 @@ class ParentExperience(models.Model):
     show_on_home_page = models.BooleanField(default=False, help_text="Include in the top Experiences on the home page")
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=Decimal('5.0'), help_text="for example: 4.8")
     updated_at = models.DateTimeField(auto_now=True)
+    provider = models.ForeignKey(ExperienceProvider, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Provider',
+                                 related_name='experience_provider', help_text='The company provider for current experience')
 
     def __str__(self):
         return self.parent_name
@@ -245,14 +278,11 @@ class Experience(models.Model):
     # SEO part
     slug = models.SlugField(max_length=255, unique=True, db_index=True, editable=True, blank=True,
                             help_text="max 255 characters, exactly url tail that is unique")
-    page_title = models.CharField(max_length=120, help_text="seo title for header in search list, max 120 characters",
-                                  null=True, blank=True)
-    page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters",
-                                        null=True, blank=True)
+    page_title = models.CharField(max_length=120, help_text="seo title for header in search list, max 120 characters", null=True, blank=True)
+    page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters", null=True, blank=True)
     page_keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
     # Content part
-    name = models.CharField(max_length=60, unique=True,
-                            help_text="Short name for the experience, max 60 characters")
+    name = models.CharField(max_length=255, unique=True, help_text="Short name for the experience, max 255 characters")
     why_title = models.CharField(max_length=120, help_text="Title above why book slider, max 120 characters", null=True, blank=True)
     why_subtitle = models.CharField(max_length=255, help_text="Subtitle above why book slider, max 255 characters",
                                     null=True, blank=True)
@@ -387,14 +417,66 @@ class ExperienceEvent(Event):
 class ExperienceSchedule(models.Model):
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name="schedule")
     time = models.TimeField(null=True, blank=True)
-    name_stop = models.CharField(max_length=160, null=True, blank=True, help_text="Name of stop max 160 character length.")
-    description = models.TextField(max_length=320, null=True, blank=True, help_text="Description of stop max 320 characters.")
+    name_stop = models.CharField(max_length=255, null=True, blank=True, help_text="Name of stop max 255 character length.")
+    description = models.TextField(max_length=600, null=True, blank=True, help_text="Description of stop max 600 characters.")
 
     def __str__(self):
         return f'{self.time} {self.name_stop}'
 
     def __repr__(self):
         return f'<ExperienceSchedule(id={self.id} time={self.time} name_stop={self.name_stop}...)>'
+
+
+class ExperienceImage(models.Model):
+    experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name='images')
+    slider_image = models.FileField(upload_to='experience_images/')
+
+    # You can add more fields if needed, like a caption or description
+
+    def __str__(self):
+        return f'Image for {self.experience.name}'
+
+    class Meta:
+        verbose_name = 'Experience Image'
+        verbose_name_plural = 'Experience Images'
+
+    def save(self, *args, **kwargs):
+        if self.slider_image:
+            self.resize_slider_image()
+        super().save(*args, **kwargs)
+
+    def resize_slider_image(self):
+        img = Image.open(self.slider_image)
+        max_width = 1090
+        max_height = 600
+
+        # Calculate the aspect ratio of the original image
+        original_aspect_ratio = img.width / img.height
+
+        # Calculate the aspect ratio of the slider
+        slider_aspect_ratio = max_width / max_height
+
+        # Resize the image to fit the width of the slider
+        if original_aspect_ratio != slider_aspect_ratio:
+            new_height = int(max_width / original_aspect_ratio)
+            img = img.resize((max_width, new_height), Image.LANCZOS)
+
+        # If the height of the resized image is greater than the slider height, crop it
+        if img.height > max_height:
+            excess_height = img.height - max_height
+            top_crop = excess_height // 2
+            bottom_crop = excess_height - top_crop
+            img = img.crop((0, top_crop, img.width, img.height - bottom_crop))
+
+        # Save the resized image to a buffer
+        buffer = BytesIO()
+        img.save(buffer, format='JPEG')
+
+        # Create a new InMemoryUploadedFile instance with the resized image
+        self.slider_image = InMemoryUploadedFile(
+            buffer, None, f"{self.slider_image.name.split('.')[0]}_resized.jpg", 'image/jpeg',
+            sys.getsizeof(buffer), None
+        )
 
 
 # -------

@@ -45,7 +45,7 @@
             {% endif %}
         </div>
     </div>
-    
+
     <div class="sticky-container">
         <div class="sticky-block">
             <div class="container">
@@ -67,9 +67,9 @@
                         </a>
                     </div>
                 </div>
-               
+
             </div>
-            
+
         </div>
         <section class="experience-hero">
             <div class="container">
@@ -77,24 +77,15 @@
                     <!-- Additional required wrapper -->
                     <div class="swiper-wrapper">
                         <!-- Slides -->
-                        <div class="swiper-slide">
-                            <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="{% static 'images/experience-hero-slide.png' %}" alt="" class="attraction-image">
-                        </div>
-    
+                        {% if object.images.all %}
+                            {% for image in object.images.all %}
+                                <div class="swiper-slide">
+                                    <img src="{% if image.slider_image.url %}{{ image.slider_image.url }}{% endif %}" alt="slider image" class="attraction-image">
+                                </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
-    
+
                     <!-- If we need navigation buttons -->
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
@@ -122,7 +113,7 @@
                                     Explore a wide range of unique options from historical tours and outdoor adventures to culinary trips and wine tasting.
                                 </p>
                             </div>
-    
+
                         </div>
                         <div class="why-card swiper-slide">
                             <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
@@ -134,7 +125,7 @@
                                     Get unforgettable experiences and unique insider information from local experts through carefully created tours.
                                 </p>
                             </div>
-    
+
                         </div>
                         <div class="why-card swiper-slide">
                             <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
@@ -146,7 +137,7 @@
                                     Get the best price guaranteed for booking our top-quality products and services.
                                 </p>
                             </div>
-    
+
                         </div>
                         <div class="why-card swiper-slide">
                             <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
@@ -158,7 +149,7 @@
                                     Enjoy a transparent pricing policy, paying for what you need for a smooth shopping experience.
                                 </p>
                             </div>
-    
+
                         </div>
                         <div class="why-card swiper-slide">
                             <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
@@ -170,7 +161,7 @@
                                     Enjoy the flexibility with free cancellation, don't worry about additional costs, and feel free to adjust your plans.
                                 </p>
                             </div>
-    
+
                         </div>
                         <div class="why-card swiper-slide">
                             <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
@@ -182,14 +173,14 @@
                                     Be confident with our reliable and protected service as your online safety at every step is our priority.
                                 </p>
                             </div>
-    
+
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
-    
+
     <section class="experience-info">
         <div class="container">
             <h2 class="experience-info-title">
@@ -263,9 +254,9 @@
                                 </p>
                                 <p class="card-text">
                                     {% if object.parent_experience.allowed_languages.all %}
-                                            {% for language in object.parent_experience.allowed_languages.all %}
-                                               <span>{{ language.name }}{% if not forloop.last %},{% endif %}</span>
-                                            {% endfor %}
+                                        {% for language in object.parent_experience.allowed_languages.all %}
+                                            <span>{{ language.name }}{% if not forloop.last %},{% endif %}</span>
+                                        {% endfor %}
                                     {% endif %}
                                 </p>
                             </div>
@@ -279,8 +270,8 @@
                                     Pick Up Location
                                 </p>
                                 <p class="card-text">
-                                    {% if object.parent_experience.meeting_point.address %}
-                                        {{ object.parent_experience.meeting_point.address }}
+                                    {% if object.parent_experience.pick_up_location %}
+                                        {{ object.parent_experience.pick_up_location }}
                                     {% endif %}
                                 </p>
                             </div>
@@ -302,8 +293,8 @@
                         </div>
                     {% endif %}
                     <div class="experience-description">
-                        
-                        
+
+
                         <h5 class="description-title">
                             {{ object.title_description }}
                         </h5>
@@ -362,14 +353,14 @@
                                 <img src="{% static 'icons/fire-icon.svg' %}" alt="fire icon">
                                 <p class="form-text-banner">{{ object.text_above_calendar }}</p>
                             </div>
-                            
+
                         {% endif %}
                         {% if object.parent_experience.is_private %}
                             {% include 'include/private_booking_form.html' %}
                         {% else %}
                             {% include 'include/booking_form.html' %}
                         {% endif %}
-                        
+
                     </div>
                 </div>
             </div>
