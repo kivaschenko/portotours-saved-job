@@ -1,6 +1,8 @@
 import json
 import logging
 import sys
+import random
+import string
 from datetime import datetime, timedelta
 from decimal import Decimal
 from io import BytesIO
@@ -516,6 +518,7 @@ class Product(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     old_total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=Decimal('0'))
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+    updated_at = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
     expired_time = models.DateTimeField()
     status = models.CharField(max_length=30, null=True, blank=True, default='Pending',
                               choices=[
@@ -525,6 +528,7 @@ class Product(models.Model):
                                   ('Cancelled', 'Cancelled'),
                                   ('Completed', 'Completed'),
                               ])
+    random_order_number = models.CharField(max_length=30, null=True, blank=True)
     # Stripe data
     stripe_product_id = models.CharField(max_length=220, null=True, blank=True)
     stripe_price = models.IntegerField(null=True, blank=True)  # 100 * experience.price
@@ -563,6 +567,8 @@ class Product(models.Model):
             self.created_at = timezone.now()
         if not self.expired_time:
             self.expired_time = timezone.now() + timezone.timedelta(minutes=settings.PRODUCT_EXPIRE_MINUTES)
+        if not self.random_order_number:
+            self.random_order_number = self.generate_random_code()
         super(Product, self).save()
 
     def _count_old_total_price(self):
@@ -608,3 +614,18 @@ class Product(models.Model):
         # Combine the formatted product ID with additional characters if needed
         order_number = f"ODT_PT_Booking_0000{formatted_product_id}"
         return order_number
+
+    def generate_random_code(self):
+        code = ''
+        for _ in range(4):
+            code += ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
+            code += '-'
+        return code[:-1]  # Remove the last hyphen
+
+
+def generate_random_code():
+    code = ''
+    for _ in range(4):
+        code += ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
+        code += '-'
+    return code[:-1]  # Remove the last hyphen
