@@ -15,6 +15,8 @@ from django.utils.text import slugify
 from geopy.geocoders import Nominatim
 from schedule.models import Calendar, Event, Occurrence
 
+from PIL import Image
+
 geolocator = Nominatim(timeout=5, user_agent="portotours")
 
 logger = logging.getLogger(__name__)
@@ -395,6 +397,47 @@ class ExperienceSchedule(models.Model):
 
     def __repr__(self):
         return f'<ExperienceSchedule(id={self.id} time={self.time} name_stop={self.name_stop}...)>'
+
+
+class ExperienceImage(models.Model):
+    experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name='images')
+    slider_image = models.FileField(upload_to='experience_images/')
+
+    # You can add more fields if needed, like a caption or description
+
+    def __str__(self):
+        return f'Image for {self.experience.name}'
+
+    class Meta:
+        verbose_name = 'Experience Image'
+        verbose_name_plural = 'Experience Images'
+
+    def save(self, *args, **kwargs):
+        if self.slider_image:
+            self.resize_slider_image()
+        super().save(*args, **kwargs)
+
+    def resize_slider_image(self):
+        from PIL import Image, ImageOps
+        from io import BytesIO
+        from django.core.files.uploadedfile import InMemoryUploadedFile
+        import sys
+
+        img = Image.open(self.slider_image)
+        max_size = (1090, 600)
+
+        if img.height > max_size[1] or img.width > max_size[0]:
+            img.thumbnail(max_size, Image.LANCZOS)  # Use Image.LANCZOS for resizing
+
+            # Create a BytesIO buffer to store the resized image
+            buffer = BytesIO()
+            img.save(buffer, format=img.format)
+
+            # Create a new InMemoryUploadedFile instance with the resized image
+            self.slider_image = InMemoryUploadedFile(
+                buffer, None, f"{self.slider_image.name.split('.')[0]}_resized.{img.format.lower()}", 'image/jpeg',
+                sys.getsizeof(buffer), None
+            )
 
 
 # -------

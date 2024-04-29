@@ -147,6 +147,17 @@ class ExperienceScheduleInline(admin.TabularInline):
     list_filter = ['time', 'name_stop']
 
 
+@admin.register(ExperienceImage)
+class ExperienceImageAdmin(admin.ModelAdmin):
+    model = ExperienceImage
+    list_display = ['id', 'slider_image', 'experience']
+
+
+class ExperienceImageInline(admin.TabularInline):
+    model = ExperienceImage
+    extra = 5
+
+
 class ExperienceAdminForm(ModelForm):
     class Meta:
         model = Experience
@@ -165,7 +176,7 @@ class ExperienceAdmin(admin.ModelAdmin):
     exclude = ["updated_at"]
     list_display = ['id', 'name', 'slug', 'language', 'page_title', 'is_active', 'updated_at']
     list_filter = ['name', 'slug', 'language', 'is_active', 'updated_at']
-    inlines = [ExperienceScheduleInline]
+    inlines = [ExperienceImageInline, ExperienceScheduleInline]
 
 
 @admin.register(Product)
