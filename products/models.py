@@ -1,7 +1,9 @@
+import sys
 import json
 import logging
 from datetime import datetime, timedelta
 from decimal import Decimal
+from io import BytesIO
 
 from ckeditor.fields import RichTextField
 from django.conf import settings
@@ -12,6 +14,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from geopy.geocoders import Nominatim
 from schedule.models import Calendar, Event, Occurrence
 
@@ -418,26 +421,37 @@ class ExperienceImage(models.Model):
         super().save(*args, **kwargs)
 
     def resize_slider_image(self):
-        from PIL import Image, ImageOps
-        from io import BytesIO
-        from django.core.files.uploadedfile import InMemoryUploadedFile
-        import sys
-
         img = Image.open(self.slider_image)
-        max_size = (1090, 600)
+        max_width = 1090
+        max_height = 600
 
-        if img.height > max_size[1] or img.width > max_size[0]:
-            img.thumbnail(max_size, Image.LANCZOS)  # Use Image.LANCZOS for resizing
+        # Calculate the aspect ratio of the original image
+        original_aspect_ratio = img.width / img.height
 
-            # Create a BytesIO buffer to store the resized image
-            buffer = BytesIO()
-            img.save(buffer, format=img.format)
+        # Calculate the aspect ratio of the slider
+        slider_aspect_ratio = max_width / max_height
 
-            # Create a new InMemoryUploadedFile instance with the resized image
-            self.slider_image = InMemoryUploadedFile(
-                buffer, None, f"{self.slider_image.name.split('.')[0]}_resized.{img.format.lower()}", 'image/jpeg',
-                sys.getsizeof(buffer), None
-            )
+        # Resize the image to fit the width of the slider
+        if original_aspect_ratio != slider_aspect_ratio:
+            new_height = int(max_width / original_aspect_ratio)
+            img = img.resize((max_width, new_height), Image.LANCZOS)
+
+        # If the height of the resized image is greater than the slider height, crop it
+        if img.height > max_height:
+            excess_height = img.height - max_height
+            top_crop = excess_height // 2
+            bottom_crop = excess_height - top_crop
+            img = img.crop((0, top_crop, img.width, img.height - bottom_crop))
+
+        # Save the resized image to a buffer
+        buffer = BytesIO()
+        img.save(buffer, format='JPEG')
+
+        # Create a new InMemoryUploadedFile instance with the resized image
+        self.slider_image = InMemoryUploadedFile(
+            buffer, None, f"{self.slider_image.name.split('.')[0]}_resized.jpg", 'image/jpeg',
+            sys.getsizeof(buffer), None
+        )
 
 
 # -------
