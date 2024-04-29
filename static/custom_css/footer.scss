@@ -11,7 +11,7 @@
             display: flex;
             align-items: flex-start;
             justify-content: start;
-            padding-bottom: 40px;
+            padding-bottom: 16px;
             border-bottom: 1px solid white;
             @include media-breakpoint-down(md) {
                 padding-bottom: 20px;
@@ -22,7 +22,7 @@
             }
             .footer-info {
                 width: fit-content;
-                margin-right: 100px;
+                margin-right: 40px;
                 @include media-breakpoint-down(md) {
                     padding-left: 0;
                     padding-right: 0;
@@ -43,9 +43,9 @@
                 > img {
                     max-width: 160px;
                     display: block;
-                    margin-bottom: 28px;
+                    margin-bottom: 0;
                     @include media-breakpoint-down(md) {
-                        margin-bottom: 32px;
+                        margin-bottom: 0px;
                     }
                 }
                 .phone-wrapper,
@@ -74,10 +74,12 @@
                 }
             }
             .footer-block {
-                margin-right: 100px;
+                margin-right: 40px;
                 width: fit-content;
+                margin-bottom: 24px;
                 &:last-child {
                     margin-right: 0;
+                    width: 370px;
                 }
                 @include media-breakpoint-down(md) {
                     margin-right: 0;
