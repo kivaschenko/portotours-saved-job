@@ -73,12 +73,13 @@
             </div>
             <div class="footer-block">
                 <p class="footer-block-title">
-                    Our service
+                    Our services
                 </p>
                 <ul class="footer-block-list">
-                    <li><a href="" class="footer-link">Group tours</a></li>
-                    <li><a href="" class="footer-link">Private Tours</a></li>
-                    <li><a href="" class="footer-link">Airport pick up</a></li>
+                    <li><a href="javascript:void(0);" onclick="addTypeIsPrivateAndNavigate(event, 'en')" class="footer-link">Group tours</a></li>
+                    <li><a href="javascript:void(0);" onclick="addTypeIsGroupAndNavigate(event, 'en')" class="footer-link">Private Tours</a></li>
+                    <li><a href="javascript:void(0);" onclick="addCategoryWalkingAdventures(event, 'en')" class="footer-link">Walking tours</a></li>
+                    <li><a href="javascript:void(0);" onclick="addCategoryAirportPickup(event, 'en')" class="footer-link">Airport pick up</a></li>
                 </ul>
             </div>
             <div class="footer-block">
@@ -110,6 +111,36 @@
     spanElements.forEach(span => {
         span.textContent = currentYear;
     });
+</script>
+
+<script>
+    // Here functions for complex navigation links with query params
+    // the first 2 funcs are used in home.html too
+    function addTypeIsGroupAndNavigate(event, lang) {
+        // Redirection to the experiences list filtered by is_private=False
+        event.preventDefault(); // Prevent default link behavior
+        const url = `/${lang}/experiences/?tour_type=group&filter_by=all`;
+        window.location.href = url; // Navigate to the URL with added parameters
+    }
+
+    function addTypeIsPrivateAndNavigate(event, lang) {
+        // Redirection to the experiences list filtered by is_private=True
+        event.preventDefault();
+        const url = `/${lang}/experiences/?tour_type=private&filter_by=all`;
+        window.location.href = url;
+    }
+    
+    function addCategoryWalkingAdventures(event, lang) {
+        event.preventDefault();
+        const url = `/${lang}/experiences/?tour_type=all&filter_by=all&categories=walking-adventure`;
+        window.location.href = url;
+    }
+    
+    function addCategoryAirportPickup(event, lang) {
+        event.preventDefault();
+        const url = `/${lang}/experiences/?tour_type=all&filter_by=all&categories=airport-pickup`;
+        window.location.href = url;
+    }
 </script>
 
 </body>
