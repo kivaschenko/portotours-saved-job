@@ -10,6 +10,7 @@ from django.utils import timezone
 from accounts.models import User, Profile
 from products.models import Product
 from purchases.models import Purchase
+from products.product_services import update_experience_event_booking
 
 logger = logging.getLogger(__name__)
 
@@ -72,7 +73,7 @@ def handle_charge_success(payment_intent_id: str, name: str, email: str, phone: 
         logger.info(f"Created customer {customer}")
         if customer.id:
             result = create_profile_and_generate_password(customer.id, name, email, phone, address_city, address_country, address_line1,
-                                                 address_line2, address_postal_code, address_state)
+                                                          address_line2, address_postal_code, address_state)
             if result:
                 set_real_user_in_purchase(payment_intent_id, customer.id)
 
@@ -191,23 +192,44 @@ def send_new_password_by_email(email: str, password: str, name: str = '',
     logger.info(f"Email sent to {email}.")
 
 
-# Product services
+# ---------------------------
+# Product & Purchase services
 
-def send_product_created_email(product_id: int = None, product_name: str = None, product_start_date: str = None, product_start_time: str = None,
-                               total_price: float = None, adult: int = None, children: int = None, product_type: str = None):
-    subject = f'[{product_id}] New Product Created'
-    message = (f'\tA new product "{product_name}" (ID: {product_id}) has been created.\n'
-               f'Start: {product_start_date} {product_start_time}. Type: {product_type}.\n'
-               f'Total: {total_price} EUR. Adult: {adult}. Children: {children}.')
+def send_product_paid_email_staff(product_id: int = None, product_name: str = None, total_price: float = None):
+    subject = f'[{product_id}] Product paid'
+    message = (f'\tA new product "{product_name}" (ID: {product_id}) paid.\n'
+               f'Total price: {total_price} EUR.\n')
     send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL])
 
 
-def send_product_changed_email(product_id: int = None, product_name: str = None, product_start_date: str = None, product_start_time: str = None,
-                               total_price: float = None, adult: int = None, children: int = None, product_type: str = None, status: str = None):
-    subject = f'[{product_id}] Product Changed'
-    message = (f'\tThe product "{product_name}" (ID: {product_id}) has been changed.\n'
-               f'Start: {product_start_date} {product_start_time}. Type: {product_type}.\n'
-               f'Total: {total_price} EUR. Adult: {adult}. Children: {children}.\n'
+def send_product_paid_email_to_customer(product_id: int = None, product_name: str = None, total_price: float = None,
+                                        max_attempts=5, retry_delay=5):
+    attempt = 0
+    while attempt < max_attempts:
+        try:
+            product = Product.objects.get(pk=product_id)
+            user = User.objects.get(pk=product.customer_id)
+            break
+        except User.DoesNotExist:
+            attempt += 1
+            if attempt >= max_attempts:
+                logger.error(f"Max attempts reached. Could not fetch user: {customer_id}.")
+                return
+            logger.warning(f"User not found. Retrying in {retry_delay} seconds...")
+            time.sleep(retry_delay)
+    url = 'www.onedaytours.pt/en/generate-pdf/{}/'.format(product_id)
+    subject = f'[{product.order_number}] Product paid'
+    message = (f'Congratulations, {user.profile.name}! \n\tYour product "{product_name}" (ID: {product_id}) paid.\n'
+               f'Total price: {total_price} EUR.\n'
+               f'You can download your PDF here: {url}.')
+    send_mail(subject, message, settings.SERVER_EMAIL, [user.profile.email])
+
+
+def send_product_canceled_email_staff(product_id: int = None, customer_id: int = None, product_name: str = None, total_price: float = None, status: str = None):
+    subject = f'[{product_id}] Product canceled'
+    message = (f'\tThe product "{product_name}" (ID: {product_id}) canceled.\n'
+               f'Total price: {total_price} EUR.\n'
+               f'User id: {customer_id}.\n'
                f'Status: {status}.')
     send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL])
 
@@ -229,3 +251,16 @@ def update_products_status_if_expired():
                 logger.info(f'Product ID={product.id} {product} has been updated. Its status is: {product.status}.')
     logger.info(f'Finish updating status of expired products.')
     return updated_products
+
+
+def set_booking_after_payment(product_id: int):
+    logger.info(f'Start setting booking after Product id: {product_id}.')
+    product = Product.objects.get(id=product_id)
+    total_booked = product.total_booked
+    update_result = update_experience_event_booking(product.occurrence.event_id, booked_number=total_booked)
+    if not update_result:
+        logger.error(f'Failed to update booking after ExperienceEvent id: {product.occurrence.event_id}.')
+        return f'Failed to update booking after ExperienceEvent id {product.occurrence.event_id}.'
+    else:
+        return f'Succeeded setting booking after Product id: {product.id}.'
+

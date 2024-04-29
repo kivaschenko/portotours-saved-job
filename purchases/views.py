@@ -13,13 +13,14 @@ from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
 from purchases.models import Purchase
 from service_layer.bus_messages import handle
-from service_layer.events import StripePaymentIntentSucceeded, StripeChargeSucceeded
+from service_layer.events import StripePaymentIntentSucceeded, StripeChargeSucceeded, ProductPaid
 
 logger = logging.getLogger(__name__)
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 BASE_ENDPOINT = settings.BASE_ENDPOINT
+
 
 
 class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
@@ -60,8 +61,21 @@ def stripe_webhook(request):
     if event.type == 'payment_intent.succeeded':
         payment_intent = event['data']['object']
         logger.info(f"PaymentIntent {payment_intent.id} succeeded.")
+        handlers = []
         payment_intent_event = StripePaymentIntentSucceeded(payment_intent_id=payment_intent.id)
-        handle(payment_intent_event)
+        handlers.append(payment_intent_event)
+        purchase = Purchase.last24hours_manager.filter(stripe_payment_intent_id=payment_intent.id).first()
+        if purchase:
+            products = purchase.products.all()
+            for product in products:
+                product_event = ProductPaid(
+                    product_id=product.id,
+                    product_name=product.stripe_product_id,
+                    total_price=float(product.total_price),
+                )
+                handlers.append(product_event)
+        for handler in handlers:
+            handle(handler)
 
     if event.type == 'charge.succeeded':
         charge = event['data']['object']
@@ -187,13 +201,9 @@ def checkout_payment_intent_view(request):
         else:
             purchase = Purchase.objects.create(stripe_price=total_amount)
         purchase.products.set(products)
-
         payment_intent = stripe.PaymentIntent.create(**intent_data)
-
         purchase.stripe_payment_intent_id = payment_intent.id
         purchase.save()
-
         return JsonResponse({'clientSecret': payment_intent.client_secret, 'customerData': customer_data, 'paymentAmount': payment_intent.amount})
-
     except json.JSONDecodeError as e:
         return HttpResponseBadRequest('Invalid JSON data')

@@ -220,7 +220,7 @@ const controller = {
 
         try {
             // Send the booking data to the server using fetch or another AJAX method
-            const response = await fetch('/update-product/', {
+            const response = await fetch('/update-group-product-without-booking/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

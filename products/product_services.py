@@ -91,6 +91,7 @@ def update_experience_event_booking(exp_event_id: int, booked_number: int) -> bo
     exp_event = ExperienceEvent.objects.get(id=exp_event_id)
     if booked_number > 0:
         if exp_event.remaining_participants < booked_number:
+            logger.error(f'Booked number {booked_number} exceeds number of participants')
             return False
         else:
             exp_event.booked_participants += booked_number
@@ -99,12 +100,14 @@ def update_experience_event_booking(exp_event_id: int, booked_number: int) -> bo
             exp_event.save()
     elif booked_number < 0:
         if exp_event.booked_participants < booked_number:
+            logger.error(f'Booked number {booked_number} exceeds number of participants')
             return False
         else:
             exp_event.booked_participants += booked_number
             exp_event.save()
             exp_event.remaining_participants = exp_event.max_participants - exp_event.booked_participants
             exp_event.save()
+    logger.info(f'Booked number {booked_number} updated')
     return True
 
 
