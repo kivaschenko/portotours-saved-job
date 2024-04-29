@@ -8075,7 +8075,7 @@ html.off-scroll body {
       display: flex;
       align-items: flex-start;
       justify-content: start;
-      padding-bottom: 40px;
+      padding-bottom: 16px;
       border-bottom: 1px solid white; }
       @media (max-width: 767.98px) {
         .footer .container .row {
@@ -8086,7 +8086,7 @@ html.off-scroll body {
           margin: 0; } }
       .footer .container .row .footer-info {
         width: fit-content;
-        margin-right: 100px; }
+        margin-right: 40px; }
         @media (max-width: 767.98px) {
           .footer .container .row .footer-info {
             padding-left: 0;
@@ -8106,10 +8106,10 @@ html.off-scroll body {
         .footer .container .row .footer-info > img {
           max-width: 160px;
           display: block;
-          margin-bottom: 28px; }
+          margin-bottom: 0; }
           @media (max-width: 767.98px) {
             .footer .container .row .footer-info > img {
-              margin-bottom: 32px; } }
+              margin-bottom: 0px; } }
         .footer .container .row .footer-info .phone-wrapper,
         .footer .container .row .footer-info .address-wrapper,
         .footer .container .row .footer-info .email-wrapper {
@@ -8137,10 +8137,12 @@ html.off-scroll body {
         .footer .container .row .footer-info .address-wrapper {
           max-width: 265px; }
       .footer .container .row .footer-block {
-        margin-right: 100px;
-        width: fit-content; }
+        margin-right: 40px;
+        width: fit-content;
+        margin-bottom: 24px; }
         .footer .container .row .footer-block:last-child {
-          margin-right: 0; }
+          margin-right: 0;
+          width: 370px; }
         @media (max-width: 767.98px) {
           .footer .container .row .footer-block {
             margin-right: 0;
@@ -11326,13 +11328,17 @@ html.off-scroll body {
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover; }
+        .experience-hero .container .experience-hero-swiper .swiper-slide img {
+          border-radius: 26px;
+          overflow: hidden; }
         @media (max-width: 767.98px) {
           .experience-hero .container .experience-hero-swiper .swiper-slide {
             height: 250px;
             border-radius: 26px;
             overflow: hidden; }
             .experience-hero .container .experience-hero-swiper .swiper-slide img {
-              height: 100%; } }
+              height: 100%;
+              object-fit: cover; } }
       .experience-hero .container .experience-hero-swiper .swiper-button-next,
       .experience-hero .container .experience-hero-swiper .swiper-rtl .swiper-button-prev {
         right: -50px;
@@ -11622,7 +11628,7 @@ html.off-scroll body {
                 font-family: "LatoSemiBold";
                 font-size: 18px;
                 line-height: 28px;
-                text-transform: capitalize;
+                text-transform: uppercase;
                 margin-bottom: 0;
                 margin-right: 26px;
                 position: relative; }
@@ -11677,6 +11683,7 @@ html.off-scroll body {
           list-style: none;
           margin: 0; }
           .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block ul li {
+            list-style: none !important;
             padding-left: 24px;
             font-family: "LatoRegular";
             font-size: 16px;
@@ -12660,7 +12667,7 @@ html.off-scroll body {
     @media (max-width: 767.98px) {
       .cart .cart-title-wrapper .cart-title-info img {
         margin-right: 0;
-        margin-bottom: 10px; } }
+        margin-bottom: 0px; } }
 .cart .cart-cards-info {
   display: flex;
   align-items: flex-start;
@@ -12874,6 +12881,10 @@ html.off-scroll body {
           display: flex;
           align-items: center;
           justify-content: flex-start; }
+          @media (max-width: 767.98px) {
+            .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .risk-free-banner {
+              position: static;
+              margin-top: 16px; } }
           .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .risk-free-banner img {
             width: 24px;
             height: 24px;
@@ -12885,6 +12896,9 @@ html.off-scroll body {
             font-size: 16px;
             line-height: normal;
             margin-right: 10px; }
+            @media (max-width: 767.98px) {
+              .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .risk-free-banner span {
+                width: 120px; } }
           .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .risk-free-banner .risk-free-text {
             color: #6D6D6D;
             margin: 0;
@@ -14189,3 +14203,5 @@ a {
     margin: 0 auto;
     display: block;
     text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */
