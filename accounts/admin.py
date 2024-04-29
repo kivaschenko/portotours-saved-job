@@ -42,6 +42,7 @@ class CustomUserAdmin(UserAdmin):
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'user',
         'stripe_customer_id',
         'display_avatar',
@@ -55,7 +56,7 @@ class ProfileAdmin(admin.ModelAdmin):
         'address_state',
     )
     search_fields = ('name', 'stripe_customer_id', 'email')
-    list_per_page = 10
+    list_per_page = 20
     readonly_fields = (
         'user',
         'stripe_customer_id',
@@ -70,10 +71,10 @@ class ProfileAdmin(admin.ModelAdmin):
         'address_state',
     )
 
-
     def display_avatar(self, obj):
         if obj.avatar:
             return format_html('<img src="{}" width="50" height="50" style="border-radius: 50%;">', obj.avatar.url)
         else:
             return "No Avatar"
+
     display_avatar.short_description = "Avatar"

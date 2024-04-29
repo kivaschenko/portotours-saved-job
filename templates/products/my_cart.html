@@ -82,7 +82,7 @@
                                             <p class="card-col-title">
                                                 Date
                                             </p>
-                                            <p class="card-col-text" id="date">
+                                            <p class="card-col-text date-value">
                                                 {{ object.date_of_start }}
                                             </p>
                                             <p class="card-col-title">
@@ -96,7 +96,7 @@
                                             <p class="card-col-title">
                                                 Time
                                             </p>
-                                            <p class="card-col-text" id="time">
+                                            <p class="card-col-text time-value">
                                                 {{ object.time_of_start }}
                                             </p>
                                             {% if object.parent_experience.is_private %}
@@ -285,97 +285,113 @@
     <script>
         // Declare timer globally
         let commonTimer;
+        let createdAt; // Variable to store the createdAt value
+        let deadline; // Variable to store the deadline value
+        
         // Function to update the common timer
-        function updateCommonTimer(deadline) {
+        function updateCommonTimer() {
             const now = new Date();
             const timeDiff = (deadline - now) / 1000; // Time difference in seconds
             
             const minutes = Math.floor(timeDiff / 60);
             const seconds = Math.floor(timeDiff % 60);
-            document.getElementById('common-timer').innerText = ` ${minutes}MIN ${seconds}SEC.`;
+            document.getElementById('common-timer').innerText = `${minutes}MIN ${seconds}SEC.`;
+            
             // Check if the deadline has passed
             if (timeDiff <= 0) {
                 clearInterval(commonTimer); // Stop the timer
-                const createdAt = '{{ last_created_at|date:"Y-m-d H:i:s" }}';
-                if (createdAt) {
-                    startCommonTimer(createdAt);
-                }
+                // Reset the deadline to 30 minutes from now
+                deadline = new Date(Date.now() + (30 * 60 * 1000));
+                // Restart the timer
+                commonTimer = setInterval(updateCommonTimer, 1000);
+                // Update the timer immediately
+                updateCommonTimer();
             }
         }
-        // Function to start the common timer with the provided created_at value
-        function startCommonTimer(created_at) {
-            // Parse the created_at string into a Date object in UTC
-            const [dateStr, timeStr] = created_at.split(' ');
+        
+        // Function to start the common timer with the provided createdAt value
+        function startCommonTimer() {
+            // Parse the createdAt string into a Date object in UTC
+            const [dateStr, timeStr] = createdAt.split(' ');
             const [year, month, day] = dateStr.split('-').map(Number);
             const [hour, minute, second] = timeStr.split(':').map(Number);
             const createdAtDate = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
             
-
-            // Set the deadline to 30 minutes after the created_at time
-            const deadline = new Date(createdAtDate.getTime() + (30 * 60 * 1000)); // 30 minutes in milliseconds
+            // Set the deadline to 30 minutes after the createdAt time
+            deadline = new Date(createdAtDate.getTime() + (30 * 60 * 1000)); // 30 minutes in milliseconds
             
-
             // Update the timer every second
-            commonTimer = setInterval(() => {
-                updateCommonTimer(deadline);
-            }, 1000);
-
+            commonTimer = setInterval(updateCommonTimer, 1000);
+            
             // Update the timer immediately
-            updateCommonTimer(deadline);
+            updateCommonTimer();
         }
-        // Call the function to start the common timer with the provided created_at value after the DOM has fully loaded
+    
+        // Call the function to start the common timer after the DOM has fully loaded
         document.addEventListener("DOMContentLoaded", function () {
-            // Get the created_at value from the template variable
-            const createdAt = '{{ last_created_at|date:"Y-m-d H:i:s" }}';
+            // Get the createdAt value from the template variable
+            createdAt = '{{ last_created_at|date:"Y-m-d H:i:s" }}';
             
             if (createdAt) {
-                // Start the common timer with the provided created_at value
-                startCommonTimer(createdAt);
+                // Start the common timer with the provided createdAt value
+                startCommonTimer();
             }
         });
     </script>
     <script>
-        // Получаем элементы с классами "card-col-text" для даты и времени
-        var dateElement = document.getElementById('date');
-        var timeElement = document.getElementById('time');
+       // Находим все элементы с классом "card-content-inner-wrapper"
+        var cardElements = document.querySelectorAll('.cart-card');
 
-        // Получаем тексты даты и времени
-        var dateString = dateElement.textContent.trim();
-        var timeString = timeElement.textContent.trim();
+        // Проходим по каждому элементу карточки товара
+        cardElements.forEach(function(cardElement) {
+            // Находим элементы с классами "date-value" и "time-value" в текущей карточке товара
+            var dateElement = cardElement.querySelector('.date-value');
+            var timeElement = cardElement.querySelector('.time-value');
 
-        // Парсим дату и время в объект Date
-        var tourStartDate = new Date(dateString + ' ' + timeString);
+            // Проверяем, что элементы найдены
+            if (dateElement && timeElement) {
+                // Получаем тексты даты и времени
+                var dateString = dateElement.textContent.trim();
+                var timeString = timeElement.textContent.trim();
 
-        // Получаем время для отмены бронирования в часах
-        var cancellationHours = 48; // Пример времени для отмены бронирования
+                // Парсим дату и время в объект Date
+                var tourStartDate = new Date(dateString + ' ' + timeString);
 
-        // Вычисляем дату и время для отмены бронирования (добавляем время для отмены к дате начала тура)
-        var cancellationDate = new Date(tourStartDate.getTime() + (cancellationHours * 60 * 60 * 1000) - (1 * 60 * 1000));
+                // Получаем время для отмены бронирования в часах
+                var cancellationHours = 48; // Пример времени для отмены бронирования
 
-        // Форматируем дату и время для вывода
-        var formattedCancellationDate = cancellationDate.toLocaleString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: '2-digit', 
-            hour: '2-digit', 
-            minute: '2-digit', 
-            hour12: false 
+                // Вычисляем дату и время для отмены бронирования (уменьшаем время начала тура на количество часов для отмены и на 1 минуту)
+                var cancellationDate = new Date(tourStartDate.getTime() - ((cancellationHours * 60 * 60 * 1000) + (1 * 60 * 1000)));
+
+                // Форматируем дату и время для вывода
+                var formattedCancellationDate = cancellationDate.toLocaleString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: '2-digit', 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    hour12: false 
+                });
+
+                // Получаем строку времени в формате 'hh:mm'
+                var formattedTime = ('0' + cancellationDate.getHours()).slice(-2) + ':' + ('0' + cancellationDate.getMinutes()).slice(-2);
+
+                // Получаем строку даты в формате 'Day Month Year'
+                var formattedDate = cancellationDate.toLocaleString('en-US', { 
+                    day: '2-digit', 
+                    month: 'long', 
+                    year: 'numeric' 
+                });
+
+                // Находим элемент с классом "risk-free-text" в текущей карточке товара
+                var riskFreeElement = cardElement.querySelector('.risk-free-text');
+
+                // Вставляем отформатированную дату и время в HTML
+                riskFreeElement.innerHTML = "Free cancellation before " + formattedTime + " hrs. on " + formattedDate;
+            } else {
+                console.error("Ошибка: Элементы даты и времени не найдены в одной из карточек товара.");
+            }
         });
-
-        // Получаем строку времени в формате 'hh:mm'
-        var formattedTime = ('0' + cancellationDate.getHours()).slice(-2) + ':' + ('0' + cancellationDate.getMinutes()).slice(-2);
-
-        // Получаем строку даты в формате 'Day Month Year'
-        var formattedDate = cancellationDate.toLocaleString('en-US', { 
-            day: '2-digit', 
-            month: 'long', 
-            year: 'numeric' 
-        });
-
-        // Находим элемент с классом "risk-free-text"
-        var riskFreeElement = document.querySelector('.risk-free-text');
-
-        // Вставляем отформатированную дату и время в HTML
-        riskFreeElement.innerHTML = "Free cancellation before " + formattedTime + " hrs. on " + formattedDate;
     </script>
 {% endblock %}
+{% block footer_columns %}{% endblock %}

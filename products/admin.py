@@ -113,6 +113,11 @@ class CategoryAdmin(admin.ModelAdmin):
 # ----------
 # Experience
 
+@admin.register(ExperienceProvider)
+class ProviderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'short_name', 'slug', 'nif']
+    search_fields = ['short_name', 'nif']
+
 
 class CheckboxSelectMultipleField(ModelMultipleChoiceField):
     def __init__(self, queryset, *args, **kwargs):
@@ -127,13 +132,13 @@ class LanguageCategoryModelForm(ModelForm):
     class Meta:
         model = ParentExperience
         exclude = ['parent_name', 'id', 'slug', 'currency', 'price', 'old_price', 'child_price', 'child_old_price',
-                   'max_participants', 'is_private', 'priority_number']
+                   'max_participants', 'is_private', 'priority_number', 'meeting_point', 'drop_point']
 
 
 @admin.register(ParentExperience)
 class ParentExperienceAdmin(admin.ModelAdmin):
     form = LanguageCategoryModelForm
-    exclude = ['updated_at', 'slug']
+    exclude = ['updated_at', 'slug', 'meeting_point', 'drop_point']
     list_display = ['id', 'parent_name', 'currency', 'price', 'old_price', 'child_price', 'child_old_price',
                     'max_participants', 'is_private', 'is_exclusive', 'priority_number', 'show_on_home_page', 'rating', 'is_hot_deals']
     list_filter = ['parent_name', 'max_participants', 'is_private', 'is_exclusive', 'show_on_home_page', ]
@@ -145,6 +150,17 @@ class ExperienceScheduleInline(admin.TabularInline):
     extra = 1
     list_display = ['time', 'name_stop']
     list_filter = ['time', 'name_stop']
+
+
+@admin.register(ExperienceImage)
+class ExperienceImageAdmin(admin.ModelAdmin):
+    model = ExperienceImage
+    list_display = ['id', 'slider_image', 'experience']
+
+
+class ExperienceImageInline(admin.TabularInline):
+    model = ExperienceImage
+    extra = 5
 
 
 class ExperienceAdminForm(ModelForm):
@@ -165,7 +181,7 @@ class ExperienceAdmin(admin.ModelAdmin):
     exclude = ["updated_at"]
     list_display = ['id', 'name', 'slug', 'language', 'page_title', 'is_active', 'updated_at']
     list_filter = ['name', 'slug', 'language', 'is_active', 'updated_at']
-    inlines = [ExperienceScheduleInline]
+    inlines = [ExperienceImageInline, ExperienceScheduleInline]
 
 
 @admin.register(Product)
