@@ -7,10 +7,10 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils import timezone
 
-from accounts.models import User, Profile, CustomUserManager
+from accounts.models import User, Profile
 from products.models import Product
-from purchases.models import Purchase
 from products.product_services import update_experience_event_booking
+from purchases.models import Purchase
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +50,7 @@ def handle_charge_success(payment_intent_id: str, name: str, email: str, phone: 
         logger.info(f"Email address {email} does not exist.")
         # Create Stripe Customer
         create_new_stripe_customer_id(name, email, phone, address_city, address_country, address_line1,
-                                                 address_line2, address_postal_code, address_state)
+                                      address_line2, address_postal_code, address_state)
 
 
 def create_new_stripe_customer_id(name: str, email: str, phone: str = '', address_city: str = '', address_country: str = '', address_line1: str = '',
@@ -154,7 +154,7 @@ def send_new_password_by_email(email: str, password: str, name: str = '',
     if from_email is None:
         from_email = settings.DEFAULT_FROM_EMAIL
     html_message = render_to_string(template_name, {'password': password, 'name': name})
-    logger.info(f'Sending email to {email} to {name}.\nHTML: {html_message}')
+    logger.info(f'Sending email to {email} to {name}.\n')
     send_mail(subject=subject, message='', html_message=html_message,
               from_email=from_email, recipient_list=[email], fail_silently=False)
     logger.info(f"New password sent to {email}.")
@@ -167,7 +167,7 @@ def send_product_paid_email_staff(product_id: int = None, product_name: str = No
     subject = f'[{product_id}] Product paid'
     message = (f'\tA new product "{product_name}" (ID: {product_id}) paid.\n'
                f'Total price: {total_price} EUR.\n')
-    send_mail(subject, message, settings.SERVER_EMAIL, [settings.MANAGER_EMAIL])
+    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
 
 
 def send_product_paid_email_to_customer(product_id: int = None, product_name: str = None, total_price: float = None,
@@ -199,14 +199,14 @@ def send_product_canceled_email_staff(product_id: int = None, customer_id: int =
                f'Total price: {total_price} EUR.\n'
                f'User id: {customer_id}.\n'
                f'Status: {status}.')
-    send_mail(subject, message, settings.SERVER_EMAIL, [settings.MANAGER_EMAIL])
+    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
 
 
 def send_booking_updates_by_email_to_staff(product_id: int = None, status: str = None):
     subject = f'[{product_id}] Booking updates'
     message = (f'Booking updates for Product ID: {product_id}.'
                f'\n\tStatus: {status}.')
-    send_mail(subject, message, settings.SERVER_EMAIL, [settings.MANAGER_EMAIL])
+    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
 
 
 def update_products_status_if_expired():

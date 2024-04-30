@@ -1,7 +1,7 @@
 from typing import Type
 
-from service_layer import events, services
 from products import tasks
+from service_layer import events, services
 
 base_event = Type[events.Event]
 
@@ -36,10 +36,18 @@ def set_purchase_status_completed(event: events.StripePaymentIntentSucceeded):
     services.update_purchase_by_payment_intent_id(**event_dict)
 
 
+# Stripe Customer
+
+def check_profile_and_send_password_email(event: events.StripeCustomerCreated):
+    event_dict = event.__dict__
+    tasks.create_profile_and_send_password.delay(**event_dict)
+
+
 # Main handlers dict
 
 HANDLERS = {
     events.ProductPaid: [update_booking_data_for_paid_product, send_email_about_new_product],
     events.StripePaymentIntentSucceeded: [set_purchase_status_completed, ],
-    events.StripeChargeSucceeded: [handle_stripe_charge_success, ]
+    events.StripeChargeSucceeded: [handle_stripe_charge_success, ],
+    events.StripeCustomerCreated: [check_profile_and_send_password_email, ]
 }

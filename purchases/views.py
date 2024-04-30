@@ -13,7 +13,7 @@ from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
 from purchases.models import Purchase
 from service_layer.bus_messages import handle
-from service_layer.events import StripePaymentIntentSucceeded, StripeChargeSucceeded, ProductPaid
+from service_layer.events import StripePaymentIntentSucceeded, StripeChargeSucceeded, ProductPaid, StripeCustomerCreated
 from service_layer.services import create_profile_and_generate_password
 
 logger = logging.getLogger(__name__)
@@ -21,7 +21,6 @@ logger = logging.getLogger(__name__)
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 BASE_ENDPOINT = settings.BASE_ENDPOINT
-
 
 
 class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
@@ -99,10 +98,9 @@ def stripe_webhook(request):
 
     if event.type == 'customer.created':
         customer = event['data']['object']
-        print(customer)
         logger.info(f"Stripe customer {customer.id} created.")
         logger.info(f"Start creation of Profile {customer.id}.")
-        create_profile_and_generate_password(
+        stripe_customer_created_event = StripeCustomerCreated(
             stripe_customer_id=customer.id,
             name=customer.name,
             email=customer.email,
@@ -114,6 +112,7 @@ def stripe_webhook(request):
             address_postal_code=customer['address']['postal_code'],
             address_state=customer['address']['state']
         )
+        handle(stripe_customer_created_event)
 
     else:
         logger.info('Unhandled event type {}'.format(event['type']))
