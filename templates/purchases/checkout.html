@@ -73,31 +73,28 @@
                             </span>
                         </div>
                         <ul class="orders-list">
-                            <li class="order-item">
-                                <p class="order-name">
-                                    Experience name
-                                </p>
-                                <p class="order-price">
-                                    €100.00 
-                                </p>
-                            </li>
-                            <li class="order-item">
-                                <p class="order-name">
-                                    Experience name
-                                </p>
-                                <p class="order-price">
-                                    €100.00 
-                                </p>
-                            </li>
+                            {% if object_list %}
+                                {% for object in object_list %}
+                                    <li class="order-item">
+                                        <p class="order-name">
+                                            {{ object.parent_experience }}
+                                        </p>
+                                        <p class="order-price">
+                                            €{{ object.total_price }}
+                                        </p>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
                         </ul>
                         <div class="total-price-wrapper">
                             <p class="total-title">
                                 Total:
                             </p>
                             <p class="total-sum">
-                                €100.00 
+                                €{{ total_sum }}
                             </p>
                         </div>
+
                     </div>
                     <div id="express-checkout-element">
                         <!-- Mount the Express Checkout Element here -->
