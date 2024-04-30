@@ -13,10 +13,105 @@
 }
 #payment-form .right-col {
   width: calc((100% - 30px)/2);
+}
+#payment-form .right-col .order-details {
+  border-radius: 26px;
+  background-color: #F8F8F8;
+  padding: 32px 32px;
+  margin-bottom: 24px;
+}
+#payment-form .right-col .order-details .details-title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+#payment-form .right-col .order-details .details-title-wrapper h4 {
+  font-size: 20px;
+  line-height: 30px;
+  color: #0F0F10;
+  font-family: 'LatoRegular';
+  margin-bottom: 0;
+}
+#payment-form .right-col .order-details .details-title-wrapper span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F0500B;
+  font-size: 18px;
+  line-height: 28px;
+  font-family: 'LatoRegular';
+  cursor: pointer;
+}
+#payment-form .right-col .order-details .details-title-wrapper span.opened img {
+  transform: scaleY(1);
+}
+#payment-form .right-col .order-details .details-title-wrapper span img {
+  margin-left: 14px;
+  transform: scaleY(-1);
+}
+#payment-form .right-col .order-details .orders-list {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+  padding-bottom: 16px;
+  display: none;
+}
+#payment-form .right-col .order-details .orders-list.opened {
+  display: block;
+}
+#payment-form .right-col .order-details .orders-list li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+
+}
+#payment-form .right-col .order-details .orders-list li .order-name {
+  font-size: 16px;
+  line-height: 26px;
+  color: #0F0F10;
+  font-family: 'LatoRegular';
+  margin: 0;
+}
+#payment-form .right-col .order-details .orders-list li .order-price {
+  font-size: 16px;
+  line-height: 26px;
+  color: #0F0F10;
+  font-family: 'LatoRegular';
+  margin: 0;
+}
+#payment-form .right-col .order-details .orders-list li + li {
+  margin-top: 6px;
+}
+#payment-form .right-col .order-details .total-price-wrapper {
+  display: flex;
+  padding-top: 16px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px dashed #6D6D6D;
+}
+#payment-form .right-col .order-details .total-price-wrapper .total-title {
+  font-size: 20px;
+  line-height: 30px;
+  color: #0F0F10;
+  font-family: 'LatoRegular';
+  margin: 0;
+}
+#payment-form .right-col .order-details .total-price-wrapper .total-sum {
+  font-size: 20px;
+  line-height: 30px;
+  color: #0F0F10;
+  font-family: 'LatoSemiBold';
+  margin: 0;
+}
+#payment-form .right-col #express-checkout-element {
   border-radius: 26px;
   background-color: #F8F8F8;
   padding: 40px 20px;
 }
+
 #payment-form .left-col input {
   background-color: white !important;
   border-radius: 42px;
