@@ -227,6 +227,7 @@ class ParentExperience(models.Model):
     allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
     categories = models.ManyToManyField(ExperienceCategory, help_text="list of categories this experience")
     free_cancellation = models.BooleanField(default=False, help_text="Free Cancellation is allowed.", null=True)
+    free_cancellation_hours = models.IntegerField(null=True, blank=True, default=24, help_text="How many hours the free cancellation period from payment.")
     skip_the_line = models.BooleanField(default=False, null=True, help_text='If this experience is private then it will skip the line')
     likely_to_sell_out = models.BooleanField(default=False, null=True, help_text='If this experience is private then it will likely sell the out')
     happy_clients_number = models.IntegerField(default=0)
@@ -621,6 +622,15 @@ class Product(models.Model):
             code += ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
             code += '-'
         return code[:-1]  # Remove the last hyphen
+
+    @property
+    def free_cancellation_datetime(self):
+        if self.parent_experience.free_cancellation and self.parent_experience.free_cancellation_hours:
+            res = self.start_datetime - timedelta(hours=self.parent_experience.free_cancellation_hours) - timedelta(minutes=1)
+            if res <= timezone.now() + timedelta(minutes=settings.PRODUCT_EXPIRE_MINUTES):
+                return 0
+            else:
+                return res
 
 
 def generate_random_code():
