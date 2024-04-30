@@ -418,8 +418,8 @@ CELERY_CACHE_BACKEND = 'default'
 CELERY_RESULT_EXTENDED = True
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 # Use local redis server
-CELERY_BROKER_URL = 'redis://0.0.0.0:6379/1'
-CELERY_RESULT_BACKEND = 'redis://0.0.0.0:6379/1'
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
 
 CELERY_BEAT_SCHEDULE = {
     'check-expired-products': {

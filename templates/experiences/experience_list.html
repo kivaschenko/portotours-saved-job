@@ -145,8 +145,9 @@
                                         {% endif %}
                                     </ul>
                                 </div>
-                                {{ object.short_introduction_text }}
-                                
+                                <p class="experience-list-item-text">
+                                    {{ object.short_description }}
+                                </p>
                                 <div class="price-wrapper">
                                     <p class="old-price">
                                         € {{ object.parent_experience.old_price }}

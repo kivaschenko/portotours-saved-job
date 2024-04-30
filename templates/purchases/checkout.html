@@ -252,8 +252,11 @@
 
             switch (paymentIntent.status) {
                 case "succeeded":
+                    // Redirect to the confirmation page after a delay
+                    setTimeout(() => {
+                        window.location.href = `/confirmation/{{ current_language }}/?payment_intent_id=${paymentIntent.id}`;
+                    }, 5000); // Delay in milliseconds (e.g., 5000 for 5 seconds)
                     // http://onedaytours.pt/confirmation/en/?payment_intent_id=pi_3P9QpxLH746GcpOj1FMTEdhm
-                    window.location.href = `/confirmation/{{ current_language }}/?payment_intent_id=${paymentIntent.id}`;
                     break;
                 case "processing":
                     showMessage("Your payment is processing.");
