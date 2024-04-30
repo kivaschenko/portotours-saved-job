@@ -9,8 +9,8 @@ from django.utils import timezone
 
 from accounts.models import User, Profile
 from products.models import Product
-from purchases.models import Purchase
 from products.product_services import update_experience_event_booking
+from purchases.models import Purchase
 
 logger = logging.getLogger(__name__)
 
@@ -19,25 +19,6 @@ BASE_ENDPOINT = settings.BASE_ENDPOINT
 
 
 # Purchase services
-
-def update_purchase_by_stripe_session(session_id: str, payment_intent_id: str, customer_id: str):
-    try:
-        # Update purchase status
-        purchase = Purchase.objects.get(stripe_checkout_session_id=session_id)
-        purchase.completed = True
-        purchase.stripe_payment_intent_id = payment_intent_id
-        purchase.stripe_customer_id = customer_id
-        purchase.save()
-        logger.info(f"Completed payment for {purchase}\n")
-
-        # Update Products statuses included in Purchase
-        products = purchase.products.all()
-        for product in products:
-            product.status = "Payment"
-            product.save()
-            logger.info(f"Completed payment for {product}\n")
-    except Exception as e:
-        logger.error(f"Exception while handling payment: {e}")
 
 
 def update_purchase_by_payment_intent_id(payment_intent_id: str, customer_id: str = None):
@@ -68,14 +49,8 @@ def handle_charge_success(payment_intent_id: str, name: str, email: str, phone: 
     if not User.objects.filter(email=email).exists():
         logger.info(f"Email address {email} does not exist.")
         # Create Stripe Customer
-        customer = create_new_stripe_customer_id(name, email, phone, address_city, address_country, address_line1,
-                                                 address_line2, address_postal_code, address_state)
-        logger.info(f"Created customer {customer}")
-        if customer.id:
-            result = create_profile_and_generate_password(customer.id, name, email, phone, address_city, address_country, address_line1,
-                                                          address_line2, address_postal_code, address_state)
-            if result:
-                set_real_user_in_purchase(payment_intent_id, customer.id)
+        create_new_stripe_customer_id(name, email, phone, address_city, address_country, address_line1,
+                                      address_line2, address_postal_code, address_state)
 
 
 def create_new_stripe_customer_id(name: str, email: str, phone: str = '', address_city: str = '', address_country: str = '', address_line1: str = '',
@@ -94,7 +69,7 @@ def create_new_stripe_customer_id(name: str, email: str, phone: str = '', addres
         }
     }
     customer = stripe.Customer.create(**data)
-    return customer
+    logger.info(f'Creating Stripe customer {customer}.\n')
 
 
 def set_real_user_in_purchase(payment_intent_id: str, customer_id: str, max_attempts=3, retry_delay=5):
@@ -151,29 +126,25 @@ def create_profile_and_generate_password(stripe_customer_id: str = None, name: s
                                          address_city: str = None, address_country: str = None, address_line1: str = None, address_line2: str = None,
                                          address_postal_code: str = None, address_state: str = None, **kwargs) -> bool:
     if email is None:
-        return False
+        return
     try:
-        if not User.objects.filter(username=email).exists():
-            if name is not None:
-                first_name, last_name = get_first_last_name(name)
-            else:
-                first_name, last_name = None, None
-            # Create a new user
-            new_user, new_password = User.objects.create_user_without_password(email, first_name=first_name, last_name=last_name)
-            logger.info(f"New user: {new_user}\n")
-
+        if name is not None:
+            first_name, last_name = get_first_last_name(name)
+        else:
+            first_name, last_name = None, None
+        # Create a new user
+        new_user, new_password = User.objects.get_or_create_user(email, first_name=first_name, last_name=last_name)
+        logger.info(f"New user: {new_user} created or updated with a new password.\n")
+        if not Profile.objects.filter(user=new_user).exists():
             profile = Profile(user=new_user, stripe_customer_id=stripe_customer_id, name=name, email=email, phone=phone, address_city=address_city,
                               address_country=address_country, address_line1=address_line1, address_line2=address_line2,
                               address_postal_code=address_postal_code,
                               address_state=address_state)
             profile.save()
             logger.info(f'Profile created with id: {profile.id}')
-            send_new_password_by_email(profile.email, new_password, profile.name)
-            return True
-
+        send_new_password_by_email(email, new_password, new_user)
     except Exception as e:
         logger.error(f"Exception while handling customer: {e}")
-        return False
 
 
 def send_new_password_by_email(email: str, password: str, name: str = '',
@@ -182,14 +153,11 @@ def send_new_password_by_email(email: str, password: str, name: str = '',
                                from_email: str = None):
     if from_email is None:
         from_email = settings.DEFAULT_FROM_EMAIL
-
-    # Render the HTML template with the provided context
     html_message = render_to_string(template_name, {'password': password, 'name': name})
-
-    # Send the email
+    logger.info(f'Sending email to {email} to {name}.\n')
     send_mail(subject=subject, message='', html_message=html_message,
               from_email=from_email, recipient_list=[email], fail_silently=False)
-    logger.info(f"Email sent to {email}.")
+    logger.info(f"New password sent to {email}.")
 
 
 # ---------------------------
@@ -199,7 +167,7 @@ def send_product_paid_email_staff(product_id: int = None, product_name: str = No
     subject = f'[{product_id}] Product paid'
     message = (f'\tA new product "{product_name}" (ID: {product_id}) paid.\n'
                f'Total price: {total_price} EUR.\n')
-    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL])
+    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
 
 
 def send_product_paid_email_to_customer(product_id: int = None, product_name: str = None, total_price: float = None,
@@ -231,7 +199,14 @@ def send_product_canceled_email_staff(product_id: int = None, customer_id: int =
                f'Total price: {total_price} EUR.\n'
                f'User id: {customer_id}.\n'
                f'Status: {status}.')
-    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL])
+    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
+
+
+def send_booking_updates_by_email_to_staff(product_id: int = None, status: str = None):
+    subject = f'[{product_id}] Booking updates'
+    message = (f'Booking updates for Product ID: {product_id}.'
+               f'\n\tStatus: {status}.')
+    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
 
 
 def update_products_status_if_expired():
@@ -259,8 +234,9 @@ def set_booking_after_payment(product_id: int):
     total_booked = product.total_booked
     update_result = update_experience_event_booking(product.occurrence.event_id, booked_number=total_booked)
     if not update_result:
-        logger.error(f'Failed to update booking after ExperienceEvent id: {product.occurrence.event_id}.')
-        return f'Failed to update booking after ExperienceEvent id {product.occurrence.event_id}.'
+        status = f'Failed to update booking after ExperienceEvent id: {product.occurrence.event_id}.'
+        logger.error(status)
     else:
-        return f'Succeeded setting booking after Product id: {product.id}.'
-
+        status = f'Succeeded setting booking after Product id: {product.id}.'
+        logger.info(status)
+    send_booking_updates_by_email_to_staff(product_id=product_id, status=status)

@@ -26,3 +26,12 @@ def send_notifications_about_paid_products(product_id: int = None, product_name:
 def update_booking_data_for_product(product_id: int = None):
     from service_layer.services import set_booking_after_payment
     set_booking_after_payment(product_id)
+
+
+@shared_task()
+def create_profile_and_send_password(stripe_customer_id: str = None, name: str = None, email: str = None, phone: str = None,
+                                     address_city: str = None, address_country: str = None, address_line1: str = None, address_line2: str = None,
+                                     address_postal_code: str = None, address_state: str = None, **kwargs):
+    from service_layer.services import create_profile_and_generate_password
+    create_profile_and_generate_password(stripe_customer_id, name, email, phone, address_city, address_country, address_line1, address_line2,
+                                         address_postal_code, address_state, **kwargs)

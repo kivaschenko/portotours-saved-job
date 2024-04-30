@@ -60,6 +60,20 @@ class CustomUserManager(UserManager):
         characters = string.ascii_letters + string.digits
         return ''.join(random.choice(characters) for _ in range(length))
 
+    def get_or_create_user(self, email, **extra_fields):
+        """
+        Get or create a user with the given email.
+        If the user already exists, generate a new random password and update it.
+        """
+        try:
+            user = self.get(email=email)
+            new_password = self.make_random_password()
+            user.set_password(new_password)
+            user.save()
+            return user, new_password
+        except self.model.DoesNotExist:
+            return self.create_user_without_password(email, **extra_fields)
+
 
 class User(AbstractUser):
     email = models.EmailField(_("email address"), unique=True,
@@ -134,9 +148,9 @@ class Profile(models.Model):
                 buffer, None, f"{self.avatar.name.split('.')[0]}_resized.{img.format.lower()}", 'image/jpeg',
                 sys.getsizeof(buffer), None
             )
-    
+
     class Meta:
-        ordering = ['name']
+        ordering = ['-id']
 
     def __str__(self):
         return self.name

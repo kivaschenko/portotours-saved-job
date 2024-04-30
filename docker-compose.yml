@@ -1,51 +1,61 @@
 services:
-  db:
-    container_name: postgresql_db
-    image: postgis/postgis:15-3.3
-    restart: always
-    ports:
-      - 54321:5432
-    environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
-    volumes:
-      - postgres:/var/lib/postgresql/data/
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready --dbname=${DB_NAME} --host=localhost --port=5432 --username=${DB_USER}"]
-      interval: 2s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
+#  db:
+#    container_name: postgresql_db
+#    image: postgis/postgis:15-3.3
+#    restart: always
+#    ports:
+#      - 54321:5432
+#    environment:
+#      - POSTGRES_USER=admin
+#      - POSTGRES_PASSWORD=112358
+#      - POSTGRES_DB=postgres
+#    volumes:
+#      - postgres:/var/lib/postgresql/data/
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready --dbname=${DB_NAME} --host=localhost --port=5432 --username=${DB_USER}"]
+#      interval: 2s
+#      timeout: 5s
+#      retries: 5
+#      start_period: 10s
 
-    app:
-      build: .
-      container_name: django_app
-      env_file:
-        - .env
-      volumes:
-        - django:/volume_app/
-      command:
-        python3 manage.py migrate &&
-        python3 manage.py runserver 8000
-      ports:
-        - 8000:8000
-      depends_on:
-        db:
-          condition: service_healthy
+#    app:
+#      build: .
+#      container_name: django_app
+#      env_file:
+#        - .env
+#      volumes:
+#        - django:/volume_app/
+#      command:
+#        python3 manage.py migrate &&
+#        python3 manage.py runserver 8000
+#      ports:
+#        - 8000:8000
+#      depends_on:
+#        db:
+#          condition: service_healthy
 
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
     environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=112358
     ports:
       - 5050:80
     volumes:
       - pgadmin:/volume_pgadmin/
 
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/var/lib/redis/data
+
 volumes:
   pgadmin:
+#  postgres:
   redis:
-  postgres:
