@@ -610,6 +610,7 @@ def generate_pdf(request, product_id):
 def create_group_product_without_booking(request):
     """This func create a new Product without booking.
     Real booking will be set up after Stripe event about payment succeeded."""
+    print('Inside create group product without booking\nrequest headers origin:', request.headers['Origin'])
     if request.method == 'POST':
         data = json.loads(request.body)
         # Extract data from JSON
