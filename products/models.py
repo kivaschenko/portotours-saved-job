@@ -500,6 +500,12 @@ class ProductPendingManager(models.Manager):
         return queryset.filter(status='Pending', created_at__gt=time_limit)
 
 
+class ProductLostManager(models.Manager):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(status='Expired', customer__isnull=True, start_datetime__lt=timezone.now())
+
+
 class Product(models.Model):
     """Product - is a digital product that sells access to a specific service (Experience)
     for numbers of adults or children at a specified total price on a specified date
@@ -537,6 +543,7 @@ class Product(models.Model):
     objects = models.Manager()
     active = ProductActiveManager()
     pending = ProductPendingManager()
+    lost_products = ProductLostManager()
 
     def __str__(self):
         return (f"{self.parent_experience.parent_name} | {self.date_of_start}  {self.time_of_start} | "
@@ -634,6 +641,7 @@ class Product(models.Model):
 
 
 def generate_random_code():
+    """Don't touch it because issue in migrations appears too much."""
     code = ''
     for _ in range(4):
         code += ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
