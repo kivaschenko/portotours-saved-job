@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # dotenv
-dotenv_path = Path(__file__).resolve().parent.parent / '.env'
+dotenv_path = Path(__file__).resolve().parent.parent / '.dev.env'
 load_dotenv(dotenv_path)
 
 
@@ -209,9 +209,7 @@ LANGUAGES = [
     ("pt", gettext_noop("Portuguese")),
 ]
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 # Default primary key field type
@@ -276,9 +274,9 @@ LOGGING = {
             "level": "INFO",
             "propagate": False,
         },
-        # 'django.db.backends': {
-        #     'level': 'DEBUG',
-        # }
+        'django.db.backends': {
+            'level': 'DEBUG',
+        }
     }
 }
 

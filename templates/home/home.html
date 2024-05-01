@@ -327,18 +327,18 @@
             {% if reviews_top_year %}
                 <div class="testimonials-slider">
                     <div class="swiper-wrapper">
-                        {% for review in reviews_top_year %}
+                        {% for testimonial in testimonials %}
                             <div class="swiper-slide">
                                 <p class="swiper-text">
-                                    {{ review.short_text }}
+                                    {{ testimonial.short_text }}
                                 </p>
                                 <div class="author-wrapper">
-                                    {% if review.profile.avatar %}
-                                        <img src="{{ review.profile.avatar.url }}" alt="Avatar">
+                                    {% if testimonial.profile.avatar %}
+                                        <img src="{{ testimonial.profile.avatar.url }}" alt="Avatar">
                                     {% else %}
                                         <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar">
                                     {% endif %}
-                                    <p class="name">{{ review.profile.name }}</p>
+                                    <p class="name">{{ testimonial.profile.name }}</p>
                                 </div>
                             </div>
                         {% endfor %}
@@ -349,7 +349,7 @@
                     <div class="swiper-button-next"></div>
                 </div>
             {% else %}
-                <p>No any reviews yet...</p>
+                <p>No any testimonials yet...</p>
             {% endif %}
         </div>
     </section>
