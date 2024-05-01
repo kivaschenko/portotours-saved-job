@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, ListView, DeleteView
 from django.views.generic import View
 from weasyprint import HTML
@@ -243,7 +244,7 @@ def get_actual_experience_events(request, parent_experience_id):
     except json.decoder.JSONDecodeError as exp:
         return HttpResponseBadRequest('Invalid JSON data')
 
-
+@csrf_exempt
 @transaction.atomic
 def create_group_product(request):
     if request.method == 'POST':
@@ -310,6 +311,7 @@ def create_group_product(request):
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 
+@csrf_exempt
 @transaction.atomic
 def update_group_product(request):
     if request.method == 'POST':
@@ -436,6 +438,7 @@ class EditProductView(DetailView):
         return kwargs
 
 
+@csrf_exempt
 @transaction.atomic
 def create_private_product(request):
     if request.method == 'POST':
@@ -501,6 +504,7 @@ def create_private_product(request):
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 
+@csrf_exempt
 @transaction.atomic
 def update_private_product(request):
     if request.method == 'POST':
@@ -606,6 +610,7 @@ def generate_pdf(request, product_id):
 # ------------------------
 # Fake booking for Product
 
+@csrf_exempt
 @transaction.atomic()
 def create_group_product_without_booking(request):
     """This func create a new Product without booking.
@@ -658,6 +663,7 @@ def create_group_product_without_booking(request):
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 
+@csrf_exempt
 @transaction.atomic
 def update_group_product_without_booking(request):
     """This func update new Product without booking.
@@ -716,6 +722,7 @@ def update_group_product_without_booking(request):
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 
+@csrf_exempt
 @transaction.atomic
 def create_private_product_without_booking(request):
     """This func create a new Product without booking.
@@ -769,6 +776,7 @@ def create_private_product_without_booking(request):
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 
+@csrf_exempt
 @transaction.atomic
 def update_private_product_without_booking(request):
     """This func update new Product without booking.
