@@ -55,9 +55,9 @@ MIDDLEWARE = [
     # Add whitenoise middleware after the security middleware
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Place CORS middleware here
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -314,10 +314,16 @@ CELERY_BEAT_SCHEDULE = {
 # SECURE_SSL_REDIRECT = True
 PRODUCT_EXPIRE_MINUTES = 60  # Expire timedelta for Product in minutes
 CORS_ALLOWED_ORIGINS = [
-    "https://www.onedaytours.pt",
-    "https://onedaytours.pt",
+    'https://onedaytours.pt',
+    'https://www.onedaytours.pt',
+    # Add other allowed origins as needed
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://onedaytours.pt',
+    'https://www.onedaytours.pt',
 ]
 CORS_ORIGIN_WHITELIST = [
+    'https://onedaytours.pt',
     'https://www.onedaytours.pt',
     # Add other allowed origins here if needed
 ]
