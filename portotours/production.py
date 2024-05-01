@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'celery',
     'django_celery_beat',
     'django_celery_results',
+    'corsheaders',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     # Add whitenoise middleware after the security middleware
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -311,3 +313,7 @@ CELERY_BEAT_SCHEDULE = {
 }
 # SECURE_SSL_REDIRECT = True
 PRODUCT_EXPIRE_MINUTES = 60  # Expire timedelta for Product in minutes
+CORS_ALLOWED_ORIGINS = [
+    "https://www.onedaytours.pt",
+    "https://onedaytours.pt",
+]
