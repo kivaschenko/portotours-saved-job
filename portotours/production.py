@@ -311,7 +311,7 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': 60,  # Run every minute
     },
 }
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = True
 PRODUCT_EXPIRE_MINUTES = 60  # Expire timedelta for Product in minutes
 CORS_ALLOWED_ORIGINS = [
     "https://www.onedaytours.pt",
