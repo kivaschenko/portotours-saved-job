@@ -64,6 +64,38 @@
                     </div>
                 </div>
                 <div class="right-col">
+                    <div class="order-details">
+                        <div class="details-title-wrapper">
+                            <h4>Order Details</h4>
+                            <span>
+                                Details
+                                <img src="{% static 'icons/orange-arrow.svg' %}" alt="arrow">
+                            </span>
+                        </div>
+                        <ul class="orders-list">
+                            {% if object_list %}
+                                {% for object in object_list %}
+                                    <li class="order-item">
+                                        <p class="order-name">
+                                            {{ object.parent_experience }}
+                                        </p>
+                                        <p class="order-price">
+                                            €{{ object.total_price }}
+                                        </p>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                        <div class="total-price-wrapper">
+                            <p class="total-title">
+                                Total:
+                            </p>
+                            <p class="total-sum">
+                                €{{ total_sum }}
+                            </p>
+                        </div>
+
+                    </div>
                     <div id="express-checkout-element">
                         <!-- Mount the Express Checkout Element here -->
                     </div>
@@ -262,6 +294,18 @@
                 document.querySelector("#button-text").classList.remove("hidden");
             }
         }
+    </script>
+    <!-- Order Details Toggler -->
+    <script>
+        let orderDetailsBtn = document.querySelector('.details-title-wrapper span')
+        let orderDetailsBtnIcon = orderDetailsBtn.querySelector('img')
+        let orderList = document.querySelector('.orders-list')
+
+        orderDetailsBtn.addEventListener('click', () => {
+            orderDetailsBtn.classList.toggle('opened');
+            orderList.classList.toggle('opened')
+        })
+
     </script>
     <!-- For language selector -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>

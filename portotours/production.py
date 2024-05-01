@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'celery',
     'django_celery_beat',
     'django_celery_results',
+    'corsheaders',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -54,8 +55,9 @@ MIDDLEWARE = [
     # Add whitenoise middleware after the security middleware
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Place CORS middleware here
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -285,7 +287,7 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 ADMIN_NAME = os.environ.get('EMAIL_FROM_USER')
-ADMIN_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')
 MANAGER_EMAIL = os.environ.get('MANAGER_EMAIL')
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 SITE_NAME = 'www.onedaytours.pt'
@@ -311,3 +313,17 @@ CELERY_BEAT_SCHEDULE = {
 }
 # SECURE_SSL_REDIRECT = True
 PRODUCT_EXPIRE_MINUTES = 60  # Expire timedelta for Product in minutes
+CORS_ALLOWED_ORIGINS = [
+    'https://onedaytours.pt',
+    'https://www.onedaytours.pt',
+    # Add other allowed origins as needed
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://onedaytours.pt',
+    'https://www.onedaytours.pt',
+]
+CORS_ORIGIN_WHITELIST = [
+    'https://onedaytours.pt',
+    'https://www.onedaytours.pt',
+    # Add other allowed origins here if needed
+]

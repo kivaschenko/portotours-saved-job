@@ -8,6 +8,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, TemplateView
+from django.db.models import Sum
 
 from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
@@ -35,8 +36,16 @@ class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        product_ids = [product.pk for product in self.queryset.all()]
-        context['product_ids'] = product_ids
+
+        # Fetch all products
+        products = self.get_queryset()
+
+        # Calculate total sum of total_price for all products
+        total_sum = products.aggregate(total_sum=Sum('total_price'))['total_sum']
+        context['total_sum'] = total_sum if total_sum else 0
+
+        # Other context data
+        context['product_ids'] = [product.pk for product in products]
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         return_path = reverse_lazy("payment-form", kwargs={'lang': 'en'})
         context['return_url'] = f'{BASE_ENDPOINT}{return_path}'
