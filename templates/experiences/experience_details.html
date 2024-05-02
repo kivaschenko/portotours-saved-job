@@ -419,12 +419,14 @@
                 </p>
                 {% if object.review_set.all %}
                     {% for review in object.review_set.all %}
+                        {% if review.approved %}
                         <p>{{ review.rating }}</p>
                         <h4>{{ review.title }}</h4>
                         <p>
                             {{ review.short_text }}
                         </p>
                         <p>{{ review.full_name }}</p>
+                        {% endif %}
                     {% endfor %}
                 {% else %}
                     <p>No any reviews yet...</p>

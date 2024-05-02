@@ -99,15 +99,12 @@ class ExperienceDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.extra_context['current_language'] = self.object.language.code.lower()
-        # find all other languages
+
+        # Find all other languages
         brothers = self.object.parent_experience.child_experiences.all()
-        # create local urls
-        if len(brothers) > 0:
-            for brother in brothers:
-                lang = brother.language.code.lower()
-                url = brother.localized_url
-                self.extra_context['languages'].update({lang: url})
-        context['reviews'] = Review.objects.filter(experience=self.object, approved=True)
+        if brothers.exists():
+            self.extra_context['languages'] = {brother.language.code.lower(): brother.localized_url for brother in brothers}
+
         context.setdefault("view", self)
         if self.extra_context is not None:
             context.update(self.extra_context)

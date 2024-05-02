@@ -26,7 +26,10 @@ class ReviewForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Turn off empty choice for rating field
-        self.fields['rating'].empty_label = None
+        # Get the existing choices from the model
+        rating_choices = self.fields['rating'].choices
+        # Filter out the empty choice (usually the first one)
+        self.fields['rating'].choices = [choice for choice in rating_choices if choice[0] != '']
+
 
 
