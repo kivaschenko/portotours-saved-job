@@ -274,9 +274,9 @@ LOGGING = {
             "level": "INFO",
             "propagate": False,
         },
-        'django.db.backends': {
-            'level': 'DEBUG',
-        }
+        # 'django.db.backends': {
+        #     'level': 'DEBUG',
+        # }
     }
 }
 

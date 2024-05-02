@@ -5,8 +5,8 @@ from reviews.models import Review, Testimonial
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ['id', 'experience', 'rating', 'short_text', 'approved', 'created_at']
-    list_filter = ['approved', 'created_at', 'experience']
+    list_display = ['id', 'experience', 'title', 'rating', 'short_text', 'full_name', 'approved', 'created_at']
+    list_filter = ['approved', 'experience']
 
 
 @admin.register(Testimonial)

@@ -1,6 +1,4 @@
 from django.db import models
-from django.utils.safestring import mark_safe
-from django.utils.html import strip_tags
 
 from accounts.models import Profile
 from products.models import ParentExperience, Experience
@@ -8,20 +6,30 @@ from products.models import ParentExperience, Experience
 
 class Review(models.Model):
     experience = models.ForeignKey(Experience, on_delete=models.SET_NULL, null=True, blank=True)
-    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    rating = models.IntegerField(
+        choices=[
+            (1, 'Terrible'),
+            (2, 'Poor'),
+            (3, 'Average'),
+            (4, 'Very good'),
+            (5, 'Excellent'),
+        ]
+    )
+    full_name = models.CharField(max_length=120, blank=False, null=True)
+    title = models.CharField(max_length=255, null=True, blank=False)
     short_text = models.TextField(max_length=500, null=True, blank=False)
     approved = models.BooleanField(default=False)
 
-    created_at = models.DateTimeField(auto_now_add=False, auto_now=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ('-created_at',)
 
     def __str__(self):
-        return f'{self.id} - about {self.experience}'
+        return f'{self.id} - about {self.experience} - {self.title}'
 
     def __repr__(self):
-        return f'<Review(id={self.id} profile={self.profile} experience={self.experience}...)>'
+        return f'<Review(id={self.id} profile={self.title} experience={self.experience}...)>'
 
 
 class Testimonial(models.Model):

@@ -14,6 +14,8 @@ from weasyprint import HTML
 from home.forms import ExperienceSearchForm
 from products.models import *  # noqa
 from products.product_services import get_actual_events_for_experience, update_experience_event_booking, search_experience_by_place_start_lang
+from reviews.forms import ReviewForm
+from reviews.models import Review
 
 Customer = settings.AUTH_USER_MODEL
 
@@ -105,6 +107,7 @@ class ExperienceDetailView(DetailView):
                 lang = brother.language.code.lower()
                 url = brother.localized_url
                 self.extra_context['languages'].update({lang: url})
+        context['reviews'] = Review.objects.filter(experience=self.object, approved=True)
         context.setdefault("view", self)
         if self.extra_context is not None:
             context.update(self.extra_context)
@@ -126,7 +129,22 @@ class ExperienceDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
+        context['review_form'] = ReviewForm()
         return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.experience = self.object
+            review.save()
+            # Redirect to the detail page of the current experience with its slug and language
+            return redirect('experience-detail', slug=self.object.slug, lang=self.extra_context['current_language'])
+        else:
+            context = self.get_context_data(object=self.object)
+            context['review_form'] = form
+            return self.render_to_response(context)
 
     def setup(self, request, *args, **kwargs):
         if request.user.is_authenticated:
