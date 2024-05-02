@@ -13,20 +13,3 @@
         <p>No reviews available.</p>
     {% endfor %}
 </div>
-
-<div id="paginationContainer">
-    <!-- Pagination controls will be rendered here -->
-    {% if is_paginated %}
-        <ul class="pagination">
-            {% if page_obj.has_previous %}
-                <li><a href="?page=1">&laquo;</a></li>
-                <li><a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
-            {% endif %}
-            <li class="active"><span>{{ page_obj.number }}</span></li>
-            {% if page_obj.has_next %}
-                <li><a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
-                <li><a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
-            {% endif %}
-        </ul>
-    {% endif %}
-</div>
