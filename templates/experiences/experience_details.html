@@ -30,7 +30,7 @@
             {% if object.parent_experience.free_cancellation %}
                 <p class="experience-hero-info-text">
                     <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
-                    free cancelation policy
+                    free cancellation policy
                 </p>
             {% endif %}
             <p class="experience-hero-info-text">
@@ -439,6 +439,114 @@
             {% else %}
                 <p>No any reviews yet...</p>
             {% endif %}
+        </div>
+    </section>
+
+    <section class="reviews">
+        <div class="container">
+            <h2 class="reviews-title">
+                Review title name 
+            </h2>
+            <div class="reviews-inner-wrapper">
+                <div class="left-col">
+                    <ul class="reviews-list">
+                        <li class="reviews-list-item">
+                            <div class="review-stars-wrapper">
+                                <img class="3-stars" src="{% static 'icons/3-stars-icon.svg' %}" alt="3 start review">
+                                <img class="4-stars" src="{% static 'icons/4-stars-icon.svg' %}" alt="4 start review">
+                                <img class="5-stars" src="{% static 'icons/5-stars-icon.svg' %}" alt="5 start review">
+                            </div>
+                            <h4 class="review-title">
+                                Great service! 
+                            </h4>
+                            <p class="review-text">
+                                OneDayTours team created a perfect vacation for me and my family. We've ordered a few tours and got full experience of the most amazing 
+                            </p>
+                            <p class="review-author">
+                                Andy Walker
+                            </p>
+                        </li>
+                        <li class="reviews-list-item">
+                            <div class="review-stars-wrapper">
+                                <img class="3-stars" src="{% static 'icons/3-stars-icon.svg' %}" alt="3 start review">
+                                <img class="4-stars" src="{% static 'icons/4-stars-icon.svg' %}" alt="4 start review">
+                                <img class="5-stars" src="{% static 'icons/5-stars-icon.svg' %}" alt="5 start review">
+                            </div>
+                            <h4 class="review-title">
+                                Great service! 
+                            </h4>
+                            <p class="review-text">
+                                OneDayTours team created a perfect vacation for me and my family. We've ordered a few tours and got full experience of the most amazing 
+                            </p>
+                            <p class="review-author">
+                                Andy Walker
+                            </p>
+                        </li>
+                        <li class="reviews-list-item">
+                            <div class="review-stars-wrapper">
+                                <img class="3-stars" src="{% static 'icons/3-stars-icon.svg' %}" alt="3 start review">
+                                <img class="4-stars" src="{% static 'icons/4-stars-icon.svg' %}" alt="4 start review">
+                                <img class="5-stars" src="{% static 'icons/5-stars-icon.svg' %}" alt="5 start review">
+                            </div>
+                            <h4 class="review-title">
+                                Great service! 
+                            </h4>
+                            <p class="review-text">
+                                OneDayTours team created a perfect vacation for me and my family. We've ordered a few tours and got full experience of the most amazing 
+                            </p>
+                            <p class="review-author">
+                                Andy Walker
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="right-col">
+                    <form action="" class="send-review-form">
+                        <div class="checkboxes-wrapper">
+                            <input type="checkbox" id="star1" name="rating" value="1">
+                            <label for="star1">
+                                Terrible 
+                            </label>
+                            <input type="checkbox" id="star2" name="rating" value="2">
+                            <label for="star2">
+                                Poor
+                            </label>
+                            <input type="checkbox" id="star3" name="rating" value="3">
+                            <label for="star3">
+                                Average
+                            </label>
+                            <input type="checkbox" id="star4" name="rating" value="4">
+                            <label for="star4">
+                                Very good
+                            </label>
+                            <input type="checkbox" id="star5" name="rating" value="5">
+                            <label for="star5">
+                                Excellent
+                            </label>
+                        </div>
+                        <div class="name-input-wrapper">
+                            <label for="name">
+                                Full name
+                            </label>
+                            <input type="text" name="name" id="name">
+                        </div>
+                        <div class="review-title-input-wrapper">
+                            <label for="review-title">
+                                Review title 
+                            </label>
+                            <input type="text" name="review-title" id="review-title">
+                        </div>
+                        <div class="review-wrapper">
+                            <label for="review">
+                                Your review
+                            </label>
+                            <textarea name="review" id="review" placeholder="placeholder"></textarea>
+                        </div>
+                        <button type="submit" class="btn-type-1">Send</button>
+                    </form>
+                </div>
+            </div>
+            
         </div>
     </section>
 

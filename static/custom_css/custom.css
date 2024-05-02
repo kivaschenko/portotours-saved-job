@@ -12062,6 +12062,15 @@ html.off-scroll body {
         .mobile-form-btn-wrapper .container .mobile-form-btn {
           width: 220px;
           text-align: center; } }
+.reviews .container {
+  margin-top: 120px;
+  margin-bottom: 120px; }
+
+.reviews .reviews-inner-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between; }
+
 .blog-hero .container {
   background-image: url(../images/experience-hero.png);
   background-size: cover;
@@ -14203,3 +14212,5 @@ a {
     margin: 0 auto;
     display: block;
     text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */

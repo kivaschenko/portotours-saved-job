@@ -1581,3 +1581,18 @@
     }
   }
 }
+
+.reviews {
+  .container {
+    margin-top: 120px;
+    margin-bottom: 120px;
+  }
+  .reviews-title {
+
+  }
+  .reviews-inner-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}

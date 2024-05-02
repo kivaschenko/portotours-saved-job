@@ -63,7 +63,7 @@
 #payment-form .right-col .order-details .orders-list li {
   list-style: none;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 0;
 
@@ -74,6 +74,7 @@
   color: #0F0F10;
   font-family: 'LatoRegular';
   margin: 0;
+  margin-right: 50px;
 }
 #payment-form .right-col .order-details .orders-list li .order-price {
   font-size: 16px;
@@ -129,7 +130,13 @@
   }
   #payment-form .right-col {
     width: 100%;
-    padding: 20px 10px;
+    padding: 0;
+  }
+  #payment-form .right-col .order-details {
+    padding: 10px;
+  }
+  #payment-form .right-col .order-details .orders-list li .order-name {
+    margin-right: 20px;
   }
 }
 .form-column {
