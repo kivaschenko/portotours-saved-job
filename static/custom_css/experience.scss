@@ -1581,3 +1581,247 @@
     }
   }
 }
+
+.reviews {
+  .container {
+    margin-top: 120px;
+    margin-bottom: 120px;
+    @include media-breakpoint-down(md) {
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+  }
+  .reviews-title {
+    text-align: center;
+    margin-bottom: 40px;
+    @include media-breakpoint-down(md) {
+      margin-bottom: 20px;
+    }
+  }
+  .reviews-inner-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    @include media-breakpoint-down(md) {
+      flex-direction: column-reverse;
+    }
+  }
+  .left-col {
+    width: calc((100% - 110px)/2);
+    @include media-breakpoint-down(md) {
+      width: 100%;
+    }
+    .reviews-list {
+      padding-left: 0;
+      margin: 0;
+      list-style: none;
+      .reviews-list-item {
+        + .reviews-list-item {
+          margin-top: 32px;
+          position: relative;
+          @include media-breakpoint-down(md) {
+            margin-top: 24px;
+          }
+          &::before {
+            width: 100%;
+            content: "";
+            height: 1px;
+            background-color: #D9D9D9;
+            position: absolute;
+            top: -16px;
+            left: 0;
+            @include media-breakpoint-down(md) {
+              top: -12px;
+            }
+          }
+        }
+        .review-stars-wrapper {
+          margin-bottom: 12px;
+          max-width: 120px;
+          img {
+            display: none;
+            width: 100%;
+          }
+          &.star-3 {
+            .star3 {
+              display: block;
+            }
+          }
+          &.star-4 {
+            .star4 {
+              display: block;
+            }
+          }
+          &.star-5 {
+            .star5 {
+              display: block;
+            }
+          }
+        }
+        .review-title {
+          font-size: 18px;
+          line-height: 28px;
+          font-family: "LatoSemiBold";
+          color: #0F0F10;
+          margin-bottom: 8px;
+          @include media-breakpoint-down(md) {
+            margin-bottom: 4px;
+          }
+        }
+        .review-text {
+          font-size: 18px;
+          line-height: 28px;
+          font-family: "LatoRegular";
+          color: #0F0F10;
+          margin-bottom: 16px;
+          @include media-breakpoint-down(md) {
+            font-size: 14px;
+            line-height: 22px;
+            margin-bottom: 8px;
+          }
+        }
+        .review-author {
+          font-size: 18px;
+          line-height: 28px;
+          font-family: "LatoRegular";
+          color: #6D6D6D;
+          margin-bottom: 0;
+          @include media-breakpoint-down(md) {
+            font-size: 16px;
+            line-height: 26px;
+          }
+        }
+      }
+    }
+  }
+  .right-col {
+    width: calc((100% - 110px)/2);
+    border-radius: 26px;
+    background: #F8F8F8;
+    padding: 32px;
+    @include media-breakpoint-down(md) {
+      width: calc(100% + 32px);
+      margin-left: -16px;
+      padding: 24px 16px;
+      margin-bottom: 40px;
+    }
+    #div_id_rating {
+      width: 385px;
+      margin: 0 auto;
+      @include media-breakpoint-down(md) {
+        width: 335px;
+      }
+      > label {
+        display: none;
+      }
+      > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .form-check {
+          padding-left: 0;
+          width: calc((100% - 70px)/5);
+          @include media-breakpoint-down(md) {
+            width: calc((100% - 40px)/5);
+          }
+          input {
+            display: none;
+            &:checked + label {
+                &::before {
+                  background-image: url(../icons/checked-star.svg);
+              }
+            }
+          }
+          label {
+            font-size: 12px;
+            line-height: 16px;
+            position: relative;
+            padding-top: 44px;
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+            &::before {
+              content: "";
+              position: absolute;
+              width: 40px;
+              height: 40px;
+              border-radius: 10px;
+              background-color: white;
+              top: 0;
+              left: 50%;
+              transform: translateX(-50%);
+              background-image: url(../icons/default-star-icon.svg);
+              background-position: center;
+              background-repeat: no-repeat;
+              
+            }
+            
+          }
+        }
+      }
+    }
+    #div_id_full_name,
+    #div_id_title,
+    #div_id_short_text {
+      margin-bottom: 20px !important; 
+      label {
+        font-size: 16px;
+        line-height: normal;
+        font-family: "LatoSemiBold";
+        text-transform: capitalize;
+        margin-bottom: 10px;
+        span {
+          display: none;
+        }
+      }
+      input {
+        border-radius: 42px;
+        background-color: white;
+        padding: 20px 24px;
+        font-size: 16px;
+        line-height: normal;
+        font-family: "LatoRegular";
+        color: #0F0F10;
+        border: none;
+        &::placeholder {
+          color: #6D6D6D;
+          text-transform: capitalize;
+        }
+        &:focus {
+          border: none;
+          box-shadow: none;
+        }
+      }
+      textarea {
+        resize: none;
+        height: 225px;
+        width: 100%;
+        border-radius: 26px;
+        background-color: white;
+        padding: 20px 24px;
+        font-size: 16px;
+        line-height: normal;
+        font-family: "LatoRegular";
+        color: #0F0F10;
+        border: none;
+        &::placeholder {
+          color: #6D6D6D;
+          text-transform: capitalize;
+        }
+      }
+    }
+    .btn {
+      width: 100%;
+      padding: 19px 0;
+      text-align: center;
+      background-color: var(--text-color-third);
+      color: white;
+      text-transform: uppercase;
+      font-size: 18px;
+      line-height: normal;
+      font-family: "LatoSemiBold";
+      line-height: normal;
+      margin-top: 4px;
+    }
+  }
+}
