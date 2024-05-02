@@ -165,17 +165,19 @@
                                             </li>
                                         </ul>
                                     </div>
+                                    {% if object.free_cancellation_datetime %}
                                     <div class="risk-free-banner">
                                         <img src="{% static 'icons/risk-free-icon.svg' %}" alt="risk free icon">
                                         <span>
                                             Risk free!
                                         </span>
-                                        {% if object.free_cancellation_datetime %}
+                                        
                                         <p class="risk-free-text">
                                             Free cancellation before  {{ object.free_cancellation_datetime }}
                                         </p>
-                                        {% endif %}
+                                        
                                     </div>
+                                    {% endif %}
                                 </div>
 
 

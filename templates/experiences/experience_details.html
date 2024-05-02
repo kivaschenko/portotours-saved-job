@@ -412,15 +412,71 @@
             <h2 class="testimonials-title">
                 reviews
             </h2>
-            <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <p class="testimonials-subtitle body-text-b1">
-                        Read the reviews of our clients about their experience with our service
-                    </p>
-                    {% include 'reviews/review_list.html' %}
-                    {% include 'reviews/review_pagination.html' %}
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <p class="testimonials-subtitle body-text-b1">
+                    Read the reviews of our clients about their experience with our service
+                </p>
+                {% if object.review_set.all %}
+                    {% for review in object.review_set.all %}
+                        {% if review.approved %}
+                        <p>{{ review.rating }}</p>
+                        <h4>{{ review.title }}</h4>
+                        <p>
+                            {{ review.short_text }}
+                        </p>
+                        <p>{{ review.full_name }}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p>No any reviews yet...</p>
+                {% endif %}
+            </div>
+            <div class="col-lg-6 col-md-6">
+
+
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <section class="reviews">
+        <div class="container">
+            <h2 class="reviews-title">
+                Reviews
+            </h2>
+            <div class="reviews-inner-wrapper">
+                <div class="left-col">
+                    <ul class="reviews-list">
+                        {% if object.review_set.all %}
+                        {% for review in object.review_set.all %}
+                            {% if review.approved %}
+                            <li class="reviews-list-item">
+                                <div class="review-stars-wrapper star-{{ review.rating }}">
+                                    <img class="star3" src="{% static 'icons/3-stars-icon.svg' %}" alt="3 start review">
+                                    <img class="star4" src="{% static 'icons/4-stars-icon.svg' %}" alt="4 start review">
+                                    <img class="star5" src="{% static 'icons/5-stars-icon.svg' %}" alt="5 start review">
+                                </div>
+                                <h4 class="review-title">
+                                    {{ review.title }}
+                                </h4>
+                                <p class="review-text">
+                                    {{ review.short_text }}
+                                </p>
+                                <p class="review-author">
+                                    {{ review.full_name }}
+                                </p>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p>No any reviews yet...</p>
+                    {% endif %}
+
+
+                    </ul>
                 </div>
-                <div class="col-lg-6 col-md-6">
+                <div class="right-col">
                     <form method="post">
                         {% csrf_token %}
                         {{ review_form|crispy }}
@@ -428,6 +484,7 @@
                     </form>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -449,7 +506,7 @@
 
     <!--Review list with pagination -->
     <script src="{% static 'js/reviews.js' %}"></script>
-    
+
     <script>
         // There are constants from backend using for switch languages and send data for booking
 
