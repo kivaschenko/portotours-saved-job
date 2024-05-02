@@ -96,17 +96,26 @@
                         </div>
 
                     </div>
-                    <div id="express-checkout-element">
-                        <!-- Mount the Express Checkout Element here -->
+                    <div class="checkout-btn-wrapper">
+                        <div id="express-checkout-element">
+                            <!-- Mount the Express Checkout Element here -->
+                        </div>
+                        <!-- Display the payment amount -->
+                        <div class="payment-amount-wrapper">
+                            <p>Payment Amount: <span id="payment-amount">{{ paymentAmount }}</span></p>
+                        </div>
+                        <p class="privacy-text">
+                            By clicking "Pay now" button, I agree to the <a href="">Terms of Service</a>  and <a href="">Privacy Policy</a> 
+                        </p>
+                        <button id="submit" class="btn-type-1">
+                            <div class="spinner hidden" id="spinner"></div>
+                            <span id="button-text">Pay Now</span>
+                        </button>
+                        <p class="charges-text">
+                            Charges will appear on your credit card or bank statement as ONEDAYTOURSLDA
+                        </p>
                     </div>
-                    <!-- Display the payment amount -->
-                    <div>
-                        <p>Payment Amount: <span id="payment-amount">{{ paymentAmount }}</span></p>
-                    </div>
-                    <button id="submit" class="btn-type-1">
-                        <div class="spinner hidden" id="spinner"></div>
-                        <span id="button-text">Pay Now</span>
-                    </button>
+                   
                 </div>
 
                 <div id="payment-message" class="hidden"></div>
