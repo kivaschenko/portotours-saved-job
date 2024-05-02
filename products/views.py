@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, ListView, DeleteView
 from django.views.generic import View
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from weasyprint import HTML
 
 from home.forms import ExperienceSearchForm
@@ -127,7 +128,20 @@ class ExperienceDetailView(DetailView):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
         context['review_form'] = ReviewForm()
+        
+        if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+            page_obj = self.get_paginated_reviews()
+            reviews_html = render_to_string('reviews/review_list.html', {'page_obj': page_obj})
+            pagination_html = render_to_string('reviews/review_pagination.html', {'page_obj': page_obj})
+            return JsonResponse({'reviews_html': reviews_html, 'pagination_html': pagination_html})
         return self.render_to_response(context)
+
+    def get_paginated_reviews(self):
+        reviews = Review.objects.filter(experience=self.object, approved=True)
+        paginator = Paginator(reviews, 1)  # Change 10 to the desired number of reviews per page
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return page_obj
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -216,6 +230,7 @@ class DeleteProductView(DeleteView):
     model = Product
     template_name = 'products/delete_product_form.html'
     success_url = reverse_lazy('my-cart', kwargs={'lang': 'en'})
+
     def delete(self, request, *args, **kwargs):
         """
         Call the delete() method on the fetched object and then redirect to the
@@ -258,6 +273,7 @@ def get_actual_experience_events(request, parent_experience_id):
         return JsonResponse({'result': result}, status=200)
     except json.decoder.JSONDecodeError as exp:
         return HttpResponseBadRequest('Invalid JSON data')
+
 
 @csrf_exempt
 @transaction.atomic

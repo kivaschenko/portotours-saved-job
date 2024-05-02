@@ -5,6 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
+import reviews
 from accounts import views as accounts_views
 from destinations import views as destinations_views
 from attractions import views as attractions_views
@@ -117,6 +118,8 @@ urlpatterns += [
 
 # REVIEWS
 urlpatterns += [
+    path('reviews/', reviews_views.reviews, name='review-list'),
+    # path('reviews/', reviews_views.ReviewListView.as_view(), name='review-list'),
     path('reviews/<int:pk>/', reviews_views.ReviewDetailView.as_view(), name='review-details'),
 ]
 

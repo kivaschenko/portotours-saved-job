@@ -412,35 +412,22 @@
             <h2 class="testimonials-title">
                 reviews
             </h2>
-        <div class="row">
-            <div class="col-lg-6 col-md-6">
-                <p class="testimonials-subtitle body-text-b1">
-                    Read the reviews of our clients about their experience with our service
-                </p>
-                {% if object.review_set.all %}
-                    {% for review in object.review_set.all %}
-                        {% if review.approved %}
-                        <p>{{ review.rating }}</p>
-                        <h4>{{ review.title }}</h4>
-                        <p>
-                            {{ review.short_text }}
-                        </p>
-                        <p>{{ review.full_name }}</p>
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-                    <p>No any reviews yet...</p>
-                {% endif %}
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <p class="testimonials-subtitle body-text-b1">
+                        Read the reviews of our clients about their experience with our service
+                    </p>
+                    {% include 'reviews/review_list.html' %}
+                    {% include 'reviews/review_pagination.html' %}
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ review_form|crispy }}
+                        <button class="btn btn-primary" type="submit">Send</button>
+                    </form>
+                </div>
             </div>
-            <div class="col-lg-6 col-md-6">
-
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ review_form|crispy }}
-                            <button class="btn btn-primary" type="submit">Send</button>
-                        </form>
-            </div>
-        </div>
         </div>
     </section>
 
@@ -460,6 +447,9 @@
         })
     </script>
 
+    <!--Review list with pagination -->
+    <script src="{% static 'js/reviews.js' %}"></script>
+    
     <script>
         // There are constants from backend using for switch languages and send data for booking
 
