@@ -417,20 +417,7 @@
                 <p class="testimonials-subtitle body-text-b1">
                     Read the reviews of our clients about their experience with our service
                 </p>
-                {% if object.review_set.all %}
-                    {% for review in object.review_set.all %}
-                        {% if review.approved %}
-                        <p>{{ review.rating }}</p>
-                        <h4>{{ review.title }}</h4>
-                        <p>
-                            {{ review.short_text }}
-                        </p>
-                        <p>{{ review.full_name }}</p>
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-                    <p>No any reviews yet...</p>
-                {% endif %}
+                {% include 'reviews/review_list.html' %}
             </div>
             <div class="col-lg-6 col-md-6">
 

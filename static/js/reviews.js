@@ -20,11 +20,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to render reviews
     function renderReviews(reviews) {
         reviewContainer.innerHTML = ''; // Clear existing reviews
-
+        console.log('Got data.reviews: ', reviews);
         reviews.forEach(review => {
-            // Create HTML elements for each review and append them to reviewContainer
+            // Create HTML elements for each review
             const reviewElement = document.createElement('div');
+            const ratingElement = document.createElement('p');
+            const titleElement = document.createElement('h4');
+            const shortTextElement = document.createElement('p');
+            const fullNameElement = document.createElement('p');
+
             // Populate reviewElement with review data
+            ratingElement.textContent = `Rating: ${review.rating}`;
+            titleElement.textContent = review.title;
+            shortTextElement.textContent = review.short_text;
+            fullNameElement.textContent = `Full Name: ${review.full_name}`;
+
+            // Append elements to reviewElement
+            reviewElement.appendChild(ratingElement);
+            reviewElement.appendChild(titleElement);
+            reviewElement.appendChild(shortTextElement);
+            reviewElement.appendChild(fullNameElement);
+
+            // Append reviewElement to reviewContainer
             reviewContainer.appendChild(reviewElement);
         });
     }
