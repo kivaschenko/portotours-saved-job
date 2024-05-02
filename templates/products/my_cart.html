@@ -170,9 +170,11 @@
                                         <span>
                                             Risk free!
                                         </span>
+                                        {% if object.free_cancellation_datetime %}
                                         <p class="risk-free-text">
-                                            Free cancellation before 23:59 hrs. on 28 April 2024 
+                                            Free cancellation before  {{ object.free_cancellation_datetime }}
                                         </p>
+                                        {% endif %}
                                     </div>
                                 </div>
 
@@ -335,61 +337,6 @@
             if (createdAt) {
                 // Start the common timer with the provided createdAt value
                 startCommonTimer();
-            }
-        });
-    </script>
-    <script>
-       // Находим все элементы с классом "card-content-inner-wrapper"
-        var cardElements = document.querySelectorAll('.cart-card');
-
-        // Проходим по каждому элементу карточки товара
-        cardElements.forEach(function(cardElement) {
-            // Находим элементы с классами "date-value" и "time-value" в текущей карточке товара
-            var dateElement = cardElement.querySelector('.date-value');
-            var timeElement = cardElement.querySelector('.time-value');
-
-            // Проверяем, что элементы найдены
-            if (dateElement && timeElement) {
-                // Получаем тексты даты и времени
-                var dateString = dateElement.textContent.trim();
-                var timeString = timeElement.textContent.trim();
-
-                // Парсим дату и время в объект Date
-                var tourStartDate = new Date(dateString + ' ' + timeString);
-
-                // Получаем время для отмены бронирования в часах
-                var cancellationHours = 48; // Пример времени для отмены бронирования
-
-                // Вычисляем дату и время для отмены бронирования (уменьшаем время начала тура на количество часов для отмены и на 1 минуту)
-                var cancellationDate = new Date(tourStartDate.getTime() - ((cancellationHours * 60 * 60 * 1000) + (1 * 60 * 1000)));
-
-                // Форматируем дату и время для вывода
-                var formattedCancellationDate = cancellationDate.toLocaleString('en-US', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: '2-digit', 
-                    hour: '2-digit', 
-                    minute: '2-digit', 
-                    hour12: false 
-                });
-
-                // Получаем строку времени в формате 'hh:mm'
-                var formattedTime = ('0' + cancellationDate.getHours()).slice(-2) + ':' + ('0' + cancellationDate.getMinutes()).slice(-2);
-
-                // Получаем строку даты в формате 'Day Month Year'
-                var formattedDate = cancellationDate.toLocaleString('en-US', { 
-                    day: '2-digit', 
-                    month: 'long', 
-                    year: 'numeric' 
-                });
-
-                // Находим элемент с классом "risk-free-text" в текущей карточке товара
-                var riskFreeElement = cardElement.querySelector('.risk-free-text');
-
-                // Вставляем отформатированную дату и время в HTML
-                riskFreeElement.innerHTML = "Free cancellation before " + formattedTime + " hrs. on " + formattedDate;
-            } else {
-                console.error("Ошибка: Элементы даты и времени не найдены в одной из карточек товара.");
             }
         });
     </script>

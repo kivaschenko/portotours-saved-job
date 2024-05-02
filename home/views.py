@@ -7,7 +7,7 @@ from django.utils.translation import activate
 from destinations.models import Destination
 from attractions.models import Attraction
 from products.models import Experience
-from reviews.models import Review
+from reviews.models import Testimonial
 
 from .models import Page
 
@@ -37,9 +37,7 @@ class HomeView(TemplateView):
             language__code=lang.upper(),
         ).order_by('parent_experience__priority_number')[:6]
         year_ago = datetime.utcnow() - timedelta(days=365)
-        context['reviews_top_year'] = Review.objects.filter(
-            show_on_home_page=True, created_at__gte=year_ago
-        ).order_by('-created_at')[:6]
+        context['testimonials'] = Testimonial.objects.all()[:6]
         context['subscription_form'] = SubscriberForm()
         context['experience_form'] = ExperienceSearchForm(lang)
         return context

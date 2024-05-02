@@ -7,62 +7,13 @@ python manage.py dumpdata products.language --format=json --indent=4 --out=produ
 
 python manage.py loaddata accounts/fixtures/testing/users.json
 
-Content-Type: multipart/alternative;
- boundary="===============3690381407339367051=="
-MIME-Version: 1.0
-Subject: Your New Password
-From: One Day Tours <info@onedaytours.com>
-To: G_Depardieu_test@gmail.com
-Date: Wed, 17 Apr 2024 14:18:34 -0000
-Message-ID: <171336351494.29122.6643923356173261793@teomeo>
+HTTP validation
+Create “.well-known” and “pki-validation” folders at onedaytours.pt/.well-known/pki-validation/ and upload the validation file from this page (Edit methods).
 
---===============3690381407339367051==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+You should be able to access the file via both links:
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <p>Dear Gérard Depardieu,</p>
-    <p>We created your account automatically.</p>
-    <p>Your new password is: 87lBkw9T6S</p>
-    <!-- You can add more HTML content here -->
-</body>
-</html>
+http://onedaytours.pt/.well-known/pki-validation/04BE9BE36AB31C68E878C3D2EB5CD4CD.txt
+https://portotoursmedia.fra1.cdn.digitaloceanspaces.com/.well-known/pki-validation/04BE9BE36AB31C68E878C3D2EB5CD4CD.txt
 
---===============3690381407339367051==--
+http://www.onedaytours.pt/.well-known/pki-validation/04BE9BE36AB31C68E878C3D2EB5CD4CD.txt
 
-Content-Type: multipart/alternative;
- boundary="===============5050713392778498008=="
-MIME-Version: 1.0
-Subject: Your New Password
-From: One Day Tours <info@onedaytours.com>
-To: Ralph_Fiennes_Test@gmail.com
-Date: Wed, 17 Apr 2024 15:31:14 -0000
-Message-ID: <171336787473.35504.11122686384666998799@teomeo>
-
---===============5050713392778498008==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <p>Dear Ralph Fiennes,</p>
-    <p>We created your account automatically.</p>
-    <p>Your new password is: zevxwjZg5D</p>
-    <!-- You can add more HTML content here -->
-</body>
-</html>
-
---===============5050713392778498008==--
