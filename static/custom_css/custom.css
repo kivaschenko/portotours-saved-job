@@ -8455,7 +8455,11 @@ html.off-scroll body {
       font-family: 'LatoRegular';
       font-size: 18px;
       line-height: 28px;
+      background-color: white;
       cursor: pointer; }
+      .pagination-block .pagination-list .pagination-list-item:disabled {
+        border-color: var(--text-color-third);
+        color: var(--text-color-third); }
       .pagination-block .pagination-list .pagination-list-item a {
         color: inherit;
         text-decoration: none; }
@@ -12083,10 +12087,12 @@ html.off-scroll body {
     .reviews .reviews-inner-wrapper {
       flex-direction: column-reverse; } }
 .reviews .left-col {
-  width: calc((100% - 110px)/2); }
+  width: calc((100% - 110px)/2);
+  position: relative; }
   @media (max-width: 767.98px) {
     .reviews .left-col {
-      width: 100%; } }
+      width: 100%;
+      padding-bottom: 50px; } }
   .reviews .left-col .reviews-list {
     padding-left: 0;
     margin: 0;
@@ -12150,6 +12156,14 @@ html.off-scroll body {
         .reviews .left-col .reviews-list .reviews-list-item .review-author {
           font-size: 16px;
           line-height: 26px; } }
+  .reviews .left-col .pagination-block {
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    right: inherit; }
+    @media (max-width: 767.98px) {
+      .reviews .left-col .pagination-block {
+        bottom: -20px; } }
 .reviews .right-col {
   width: calc((100% - 110px)/2);
   border-radius: 26px;

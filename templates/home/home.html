@@ -126,8 +126,8 @@
                                         <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
                                         {{ experience.parent_experience.rating }}
                                     </div>
-                                    <div class="duration-block">
-                                        {{ experience.display_duration }}
+                                    <div class="discount-block">
+                                        
                                     </div>
 
 
@@ -140,13 +140,21 @@
                                  </a>
                                 <div class="tour-info-wrapper">
                                     <ul class="tour-info-list">
-                                        
+                                            <li>
+                                                <img src="{% static 'icons/duration-icon.svg' %}" alt="">
+                                                {{ experience.display_duration }}
+                                            </li>
                                         {% if experience.parent_experience.is_private %}
                                             <li>
-                                                Private tour
+                                                <img src="{% static 'icons/private-tour-icon.svg' %}" alt="">
+                                                Private experience 
                                             </li>
                                         {% else %}
-                                            <li>Small group</li>
+                                        
+                                            <li>
+                                                <img src="{% static 'icons/group-tour-icon.svg' %}" alt="">
+                                                Group experience
+                                            </li>
                                         {% endif %}
                                     </ul>
                                 </div>
@@ -188,7 +196,7 @@
             <div class="tour-type-card">
                 <img src="{% static 'images/tour-type-img1.png' %}" alt="">
                 <div class="tour-type-title-btn-wrapper">
-                    <h4 class="tour-type-title">Group Tours</h4>
+                    <h4 class="tour-type-title">Group Experiences</h4>
                     <a href="#" class="btn-type-3" onclick="addTypeIsGroupAndNavigate(event, '{{ current_language }}')">
                         Learn more
                         <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="">
@@ -198,7 +206,7 @@
             <div class="tour-type-card">
                 <img src="{% static 'images/tour-type-img2.png' %}" alt="">
                 <div class="tour-type-title-btn-wrapper">
-                    <h4 class="tour-type-title">Private Tours</h4>
+                    <h4 class="tour-type-title">Private Experiences</h4>
                     <a href="#" class="btn-type-3" onclick="addTypeIsPrivateAndNavigate(event, '{{ current_language }}')">
                         Learn more
                         <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="">

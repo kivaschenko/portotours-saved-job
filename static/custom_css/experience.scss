@@ -1608,8 +1608,10 @@
   }
   .left-col {
     width: calc((100% - 110px)/2);
+    position: relative;
     @include media-breakpoint-down(md) {
       width: 100%;
+      padding-bottom: 50px;
     }
     .reviews-list {
       padding-left: 0;
@@ -1691,6 +1693,15 @@
             line-height: 26px;
           }
         }
+      }
+    }
+    .pagination-block {
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      right: inherit;
+      @include media-breakpoint-down(md) {
+        bottom: -20px;
       }
     }
   }
