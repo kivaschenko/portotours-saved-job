@@ -110,7 +110,7 @@
                             <p>Payment Amount: <span id="payment-amount">{{ paymentAmount }}</span></p>
                         </div>
                         <p class="privacy-text">
-                            By clicking "Pay now" button, I agree to the <a href="">Terms of Service</a>  and <a href="">Privacy Policy</a> 
+                            By clicking "Pay now" button, I agree to the <a href="{% url 'page_detail' slug='terms-and-conditions' %}">Terms of Service</a>  and <a href="{% url 'page_detail' slug='privacy-policy' %}">Privacy Policy</a>
                         </p>
                         <button id="submit" class="btn-type-1">
                             <div class="spinner hidden" id="spinner"></div>
