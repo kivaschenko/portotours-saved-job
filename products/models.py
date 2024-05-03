@@ -14,6 +14,7 @@ from django.contrib.gis.db import models as gis_models
 from django.contrib.gis.geos import fromstr
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
+from django.db.models import Avg
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
@@ -367,6 +368,17 @@ class Experience(models.Model):
 
     def display_what_to_bring_text(self):
         return mark_safe(self.what_to_bring_text)
+
+    @property
+    def average_rating(self):
+        # Get the related reviews for this experience
+        related_reviews = self.review_set.filter(approved=True)
+
+        # Calculate the average rating using Django's Avg aggregation function
+        average_rating = related_reviews.aggregate(Avg('rating'))['rating__avg']
+
+        # Return the average rating or None if no reviews exist
+        return average_rating
 
 
 class ExperienceEvent(Event):

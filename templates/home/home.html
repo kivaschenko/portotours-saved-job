@@ -122,9 +122,10 @@
                             </div>
                             <div class="card-content-wrapper">
                                 <div class="rating-wrapper body-text-b4">
+                                    {% if object.average_rating %}
                                     <div class="rating-block">
                                         <img src="{% static 'icons/rating_icon.svg' %}" alt="best tour">
-                                        {{ experience.parent_experience.rating }}
+                                            {{ experience.average_rating }}
                                     </div>
                                     <div class="discount-block">
                                         
