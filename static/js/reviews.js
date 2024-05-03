@@ -18,33 +18,71 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to render reviews
-    function renderReviews(reviews) {
-        reviewContainer.innerHTML = ''; // Clear existing reviews
-        console.log('Got data.reviews: ', reviews);
-        reviews.forEach(review => {
-            // Create HTML elements for each review
-            const reviewElement = document.createElement('div');
-            const ratingElement = document.createElement('p');
-            const titleElement = document.createElement('h4');
-            const shortTextElement = document.createElement('p');
-            const fullNameElement = document.createElement('p');
+    function renderReviews(reviewsData) {
+        const reviewsList = document.getElementById('reviewsList');
+        reviewsList.innerHTML = ''; // Clear existing reviews
+        console.log('Got reviews data: ', reviewsData);
+        reviewsData.forEach(review => {
+            // Create HTML elements for each review and append them to reviewsList
+            const reviewItem = document.createElement('li');
+            reviewItem.classList.add('reviews-list-item');
+            const starsWrapper = document.createElement('div');
+            starsWrapper.classList.add('review-stars-wrapper');
+            starsWrapper.classList.add(`star-${review.rating}`);
+            starsWrapper.innerHTML = `
+                <img class="star3" src="{% static 'icons/3-stars-icon.svg' %}" alt="3 start review">
+                <img class="star4" src="{% static 'icons/4-stars-icon.svg' %}" alt="4 start review">
+                <img class="star5" src="{% static 'icons/5-stars-icon.svg' %}" alt="5 start review">
+            `;
+            const reviewTitle = document.createElement('h4');
+            reviewTitle.classList.add('review-title');
+            reviewTitle.textContent = review.title;
+            const reviewText = document.createElement('p');
+            reviewText.classList.add('review-text');
+            reviewText.textContent = review.short_text;
+            const reviewAuthor = document.createElement('p');
+            reviewAuthor.classList.add('review-author');
+            reviewAuthor.textContent = review.full_name;
 
-            // Populate reviewElement with review data
-            ratingElement.textContent = `Rating: ${review.rating}`;
-            titleElement.textContent = review.title;
-            shortTextElement.textContent = review.short_text;
-            fullNameElement.textContent = `Full Name: ${review.full_name}`;
+            // Append elements to reviewItem
+            reviewItem.appendChild(starsWrapper);
+            reviewItem.appendChild(reviewTitle);
+            reviewItem.appendChild(reviewText);
+            reviewItem.appendChild(reviewAuthor);
 
-            // Append elements to reviewElement
-            reviewElement.appendChild(ratingElement);
-            reviewElement.appendChild(titleElement);
-            reviewElement.appendChild(shortTextElement);
-            reviewElement.appendChild(fullNameElement);
-
-            // Append reviewElement to reviewContainer
-            reviewContainer.appendChild(reviewElement);
+            // Append reviewItem to reviewsList
+            reviewsList.appendChild(reviewItem);
         });
     }
+
+    // Function to render reviews
+    // function renderReviews(reviews) {
+    //     reviewContainer.innerHTML = ''; // Clear existing reviews
+    //     console.log('Got data.reviews: ', reviews);
+    //     reviews.forEach(review => {
+    //         // Create HTML elements for each review
+    //         const reviewElement = document.createElement('div');
+    //         const ratingElement = document.createElement('p');
+    //         const titleElement = document.createElement('h4');
+    //         const shortTextElement = document.createElement('p');
+    //         const fullNameElement = document.createElement('p');
+    //
+    //         // Populate reviewElement with review data
+    //         ratingElement.textContent = `Rating: ${review.rating}`;
+    //         titleElement.textContent = review.title;
+    //         shortTextElement.textContent = review.short_text;
+    //         fullNameElement.textContent = `Full Name: ${review.full_name}`;
+    //
+    //         // Append elements to reviewElement
+    //         reviewElement.appendChild(ratingElement);
+    //         reviewElement.appendChild(titleElement);
+    //         reviewElement.appendChild(shortTextElement);
+    //         reviewElement.appendChild(fullNameElement);
+    //
+    //         // Append reviewElement to reviewContainer
+    //         reviewContainer.appendChild(reviewElement);
+    //     });
+    // }
 
     // Function to render pagination controls
     function renderPaginationControls(paginationData) {

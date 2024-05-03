@@ -30,24 +30,15 @@ class ReviewListView(ListView):
         return JsonResponse({'reviews': reviews_data}, **response_kwargs)
 
 
-
-def reviews(request):
-    reviews_list = Review.objects.all()
-    paginator = Paginator(reviews_list, 1)  # Show 10 reviews per page
-
+def review_list(request):
+    reviews = Review.objects.filter(approved=True).order_by('-created_at')
+    paginator = Paginator(reviews, 3)  # Set the number of reviews per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    reviews_data = [{
-        'id': review.id,
-        'rating': review.rating,
-        'title': review.title,
-        'short_text': review.short_text,
-        'full_name': review.full_name,
-        'created_at': review.created_at.strftime('%Y-%m-%d %H:%M:%S')
-    } for review in page_obj]
+    reviews_data = list(page_obj.object_list.values())  # Convert queryset to list of dictionaries
 
-    return JsonResponse({
+    data = {
         'reviews': reviews_data,
         'has_next': page_obj.has_next(),
         'has_previous': page_obj.has_previous(),
@@ -55,4 +46,7 @@ def reviews(request):
         'previous_page_number': page_obj.previous_page_number() if page_obj.has_previous() else None,
         'total_pages': paginator.num_pages,
         'current_page_number': page_obj.number,
-    })
+    }
+
+    return JsonResponse(data)
+
