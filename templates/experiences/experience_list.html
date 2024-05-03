@@ -117,6 +117,9 @@
                                     <h5>
                                         {{ object.name }}
                                     </h5>
+                                    {% if object.average_rating %}
+                                        <p>Average rating: {{ object.average_rating }}</p>
+                                    {% endif %}
                                 </a>
 
                                 <div class="experience-type-list-wrapper">
