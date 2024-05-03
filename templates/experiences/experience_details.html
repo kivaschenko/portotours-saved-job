@@ -95,92 +95,7 @@
                 </div>
             </div>
         </section>
-        <section class="why experience-page why-slider">
-            <div class="container">
-                <h2 class="why-title">
-                    {{ object.why_title }}
-                </h2>
-                <p class="why-subtitle body-text-b1">
-                    {{ object.why_subtitle }}
-                </p>
-                <div class="why-cards-wrapper">
-                    <div class="swiper-wrapper">
-                        <div class="why-card swiper-slide">
-                            <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
-                            <div class="why-card-inner-wrapper">
-                                <p class="why-text">
-                                    30+ Experiences in Portugal
-                                </p>
-                                <p class="why-subtext">
-                                    Explore a wide range of unique options from historical tours and outdoor adventures to culinary trips and wine tasting.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="why-card swiper-slide">
-                            <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
-                            <div class="why-card-inner-wrapper">
-                                <p class="why-text">
-                                    Guided by local experts
-                                </p>
-                                <p class="why-subtext">
-                                    Get unforgettable experiences and unique insider information from local experts through carefully created tours.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="why-card swiper-slide">
-                            <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
-                            <div class="why-card-inner-wrapper">
-                                <p class="why-text">
-                                    Best price guarantee
-                                </p>
-                                <p class="why-subtext">
-                                    Get the best price guaranteed for booking our top-quality products and services.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="why-card swiper-slide">
-                            <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
-                            <div class="why-card-inner-wrapper">
-                                <p class="why-text">
-                                    No hidden fees
-                                </p>
-                                <p class="why-subtext">
-                                    Enjoy a transparent pricing policy, paying for what you need for a smooth shopping experience.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="why-card swiper-slide">
-                            <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
-                            <div class="why-card-inner-wrapper">
-                                <p class="why-text">
-                                    Free cancellation
-                                </p>
-                                <p class="why-subtext">
-                                    Enjoy the flexibility with free cancellation, don't worry about additional costs, and feel free to adjust your plans.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="why-card swiper-slide">
-                            <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
-                            <div class="why-card-inner-wrapper">
-                                <p class="why-text">
-                                    Safe and secure website
-                                </p>
-                                <p class="why-subtext">
-                                    Be confident with our reliable and protected service as your online safety at every step is our priority.
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
     </div>
 
     <section class="experience-info">
@@ -363,6 +278,92 @@
                         {% else %}
                             {% include 'include/booking_form.html' %}
                         {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="why experience-page why-slider">
+        <div class="container">
+            <h2 class="why-title">
+                {{ object.why_title }}
+            </h2>
+            <p class="why-subtitle body-text-b1">
+                {{ object.why_subtitle }}
+            </p>
+            <div class="why-cards-wrapper">
+                <div class="swiper-wrapper">
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                30+ Experiences in Portugal
+                            </p>
+                            <p class="why-subtext">
+                                Explore a wide range of unique options from historical tours and outdoor adventures to culinary trips and wine tasting.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Guided by local experts
+                            </p>
+                            <p class="why-subtext">
+                                Get unforgettable experiences and unique insider information from local experts through carefully created tours.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Best price guarantee
+                            </p>
+                            <p class="why-subtext">
+                                Get the best price guaranteed for booking our top-quality products and services.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                No hidden fees
+                            </p>
+                            <p class="why-subtext">
+                                Enjoy a transparent pricing policy, paying for what you need for a smooth shopping experience.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Free cancellation
+                            </p>
+                            <p class="why-subtext">
+                                Enjoy the flexibility with free cancellation, don't worry about additional costs, and feel free to adjust your plans.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Safe and secure website
+                            </p>
+                            <p class="why-subtext">
+                                Be confident with our reliable and protected service as your online safety at every step is our priority.
+                            </p>
+                        </div>
 
                     </div>
                 </div>
