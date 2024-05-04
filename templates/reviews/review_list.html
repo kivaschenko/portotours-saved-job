@@ -4,7 +4,7 @@
     <ul class="reviews-list" id="reviewsList"></ul>
 </div>
 
-<div id="paginationContainer">
+<div id="paginationContainer" class="pagination-block">
     <!-- Pagination controls will be rendered here -->
     {% if is_paginated %}
         <ul class="pagination">
@@ -14,9 +14,17 @@
             {% endif %}
             <li class="active"><span>{{ page_obj.number }}</span></li>
             {% if page_obj.has_next %}
-                <li><a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
-                <li><a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+            <button class="pagination-btn next">
+                <a href="?page={{ page_obj.next_page_number }}">
+                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                </a>
+            </button>
             {% endif %}
         </ul>
     {% endif %}
 </div>
+
+
+
+
+

@@ -31,7 +31,7 @@
             {% if object.parent_experience.free_cancellation %}
                 <p class="experience-hero-info-text">
                     <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
-                    free cancellation policy
+                    free cancellation
                 </p>
             {% endif %}
             <p class="experience-hero-info-text">
@@ -584,6 +584,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             const reviewContainer = document.getElementById('reviewContainer');
             const paginationContainer = document.getElementById('paginationContainer');
+            
+
 
             // Function to fetch reviews with pagination
             async function fetchReviews(pageNumber) {
@@ -673,31 +675,42 @@
                 const {has_next, has_previous, next_page_number, previous_page_number, total_pages, current_page_number} = paginationData;
 
                 // Render previous page button
-                if (has_previous) {
+                
                     const prevButton = document.createElement('button');
-                    prevButton.textContent = 'Previous';
+                    prevButton.innerHTML = `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
+                    prevButton.classList.add('pagination-btn', 'prev')
                     prevButton.addEventListener('click', () => handlePaginationClick(previous_page_number));
                     paginationContainer.appendChild(prevButton);
-                }
+                    if (has_previous) {
+                        prevButton.innerHTML = `<img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">`
+                    }
 
+                    const paginationList = document.createElement('ul')
+                    paginationContainer.appendChild(paginationList)
+                    paginationList.classList.add('pagination-list')
                 // Render page numbers
                 for (let i = 1; i <= total_pages; i++) {
                     const pageButton = document.createElement('button');
+                    pageButton.classList.add('pagination-list-item')
                     pageButton.textContent = i;
                     if (i === current_page_number) {
                         pageButton.disabled = true;
                     }
                     pageButton.addEventListener('click', () => handlePaginationClick(i));
-                    paginationContainer.appendChild(pageButton);
+                    paginationList.appendChild(pageButton);
                 }
 
                 // Render next page button
-                if (has_next) {
+                
                     const nextButton = document.createElement('button');
-                    nextButton.textContent = 'Next';
+                    nextButton.innerHTML = 
+                    `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
+                    nextButton.classList.add('pagination-btn', 'next')
                     nextButton.addEventListener('click', () => handlePaginationClick(next_page_number));
                     paginationContainer.appendChild(nextButton);
-                }
+                    if (has_next) {
+                        nextButton.innerHTML = `<img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">`
+                    }
             }
 
             // Function to handle pagination click event

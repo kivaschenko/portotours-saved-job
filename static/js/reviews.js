@@ -1,7 +1,7 @@
 // reviews.js
 document.addEventListener('DOMContentLoaded', () => {
     const reviewContainer = document.getElementById('reviewContainer');
-    const paginationContainer = document.getElementById('paginationContainer');
+    let paginationContainer = document.getElementById('paginationContainer1');
 
     // Function to fetch reviews with pagination
     async function fetchReviews(pageNumber) {
@@ -86,21 +86,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to render pagination controls
     function renderPaginationControls(paginationData) {
+        console.log('test')
         paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
         const { has_next, has_previous, next_page_number, previous_page_number, total_pages, current_page_number } = paginationData;
-
         // Render previous page button
         if (has_previous) {
             const prevButton = document.createElement('button');
             prevButton.textContent = 'Previous';
+            prevButton.classList.add('prev-btn');
             prevButton.addEventListener('click', () => handlePaginationClick(previous_page_number));
             paginationContainer.appendChild(prevButton);
         }
 
         // Render page numbers
         for (let i = 1; i <= total_pages; i++) {
-            const pageButton = document.createElement('button');
+            let pageButton = document.createElement('button');
             pageButton.textContent = i;
             if (i === current_page_number) {
                 pageButton.disabled = true;
@@ -108,11 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
             pageButton.addEventListener('click', () => handlePaginationClick(i));
             paginationContainer.appendChild(pageButton);
         }
-
+        
         // Render next page button
         if (has_next) {
-            const nextButton = document.createElement('button');
+            let nextButton = document.createElement('button');
             nextButton.textContent = 'Next';
+            nextButton.classList.add('next-btn');
             nextButton.addEventListener('click', () => handlePaginationClick(next_page_number));
             paginationContainer.appendChild(nextButton);
         }
