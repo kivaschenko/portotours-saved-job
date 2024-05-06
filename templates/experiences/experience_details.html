@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_field %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block title_suffix %}
@@ -30,7 +31,7 @@
             {% if object.parent_experience.free_cancellation %}
                 <p class="experience-hero-info-text">
                     <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
-                    free cancellation policy
+                    free cancellation
                 </p>
             {% endif %}
             <p class="experience-hero-info-text">
@@ -42,6 +43,9 @@
                     <img src="{% static 'icons/green-thumb.svg' %}" alt="">
                     recommended by locals
                 </p>
+            {% endif %}
+            {% if object.average_rating %}
+                <p>Average rating: {{ object.average_rating }}</p>
             {% endif %}
         </div>
     </div>
@@ -80,7 +84,8 @@
                         {% if object.images.all %}
                             {% for image in object.images.all %}
                                 <div class="swiper-slide">
-                                    <img src="{% if image.slider_image.url %}{{ image.slider_image.url }}{% endif %}" alt="slider image" class="attraction-image">
+                                    <img src="{% if image.slider_image.url %}{{ image.slider_image.url }}{% endif %}" alt="slider image"
+                                         class="attraction-image">
                                 </div>
                             {% endfor %}
                         {% endif %}
@@ -93,92 +98,7 @@
                 </div>
             </div>
         </section>
-        <section class="why experience-page why-slider">
-            <div class="container">
-                <h2 class="why-title">
-                    {{ object.why_title }}
-                </h2>
-                <p class="why-subtitle body-text-b1">
-                    {{ object.why_subtitle }}
-                </p>
-                <div class="why-cards-wrapper">
-                    <div class="swiper-wrapper">
-                        <div class="why-card swiper-slide">
-                            <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
-                            <div class="why-card-inner-wrapper">
-                                <p class="why-text">
-                                    30+ Experiences in Portugal
-                                </p>
-                                <p class="why-subtext">
-                                    Explore a wide range of unique options from historical tours and outdoor adventures to culinary trips and wine tasting.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="why-card swiper-slide">
-                            <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
-                            <div class="why-card-inner-wrapper">
-                                <p class="why-text">
-                                    Guided by local experts
-                                </p>
-                                <p class="why-subtext">
-                                    Get unforgettable experiences and unique insider information from local experts through carefully created tours.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="why-card swiper-slide">
-                            <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
-                            <div class="why-card-inner-wrapper">
-                                <p class="why-text">
-                                    Best price guarantee
-                                </p>
-                                <p class="why-subtext">
-                                    Get the best price guaranteed for booking our top-quality products and services.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="why-card swiper-slide">
-                            <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
-                            <div class="why-card-inner-wrapper">
-                                <p class="why-text">
-                                    No hidden fees
-                                </p>
-                                <p class="why-subtext">
-                                    Enjoy a transparent pricing policy, paying for what you need for a smooth shopping experience.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="why-card swiper-slide">
-                            <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
-                            <div class="why-card-inner-wrapper">
-                                <p class="why-text">
-                                    Free cancellation
-                                </p>
-                                <p class="why-subtext">
-                                    Enjoy the flexibility with free cancellation, don't worry about additional costs, and feel free to adjust your plans.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="why-card swiper-slide">
-                            <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
-                            <div class="why-card-inner-wrapper">
-                                <p class="why-text">
-                                    Safe and secure website
-                                </p>
-                                <p class="why-subtext">
-                                    Be confident with our reliable and protected service as your online safety at every step is our priority.
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
     </div>
 
     <section class="experience-info">
@@ -287,7 +207,8 @@
                                     Clean & Safe
                                 </h4>
                                 <p class="badge-text">
-                                    Сertified with the “Clean & Safe” seal to guarantee that we will comply with all mandatory hygiene and safety standards by WHO/ the National Tourist Authority in coordination with the General Directorate of Health.
+                                    Сertified with the “Clean & Safe” seal to guarantee that we will comply with all mandatory hygiene and safety standards by
+                                    WHO/ the National Tourist Authority in coordination with the General Directorate of Health.
                                 </p>
                             </div>
                         </div>
@@ -366,6 +287,92 @@
             </div>
         </div>
     </section>
+    <section class="why experience-page why-slider">
+        <div class="container">
+            <h2 class="why-title">
+                {{ object.why_title }}
+            </h2>
+            <p class="why-subtitle body-text-b1">
+                {{ object.why_subtitle }}
+            </p>
+            <div class="why-cards-wrapper">
+                <div class="swiper-wrapper">
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                30+ Experiences in Portugal
+                            </p>
+                            <p class="why-subtext">
+                                Explore a wide range of unique options from historical tours and outdoor adventures to culinary trips and wine tasting.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Guided by local experts
+                            </p>
+                            <p class="why-subtext">
+                                Get unforgettable experiences and unique insider information from local experts through carefully created tours.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Best price guarantee
+                            </p>
+                            <p class="why-subtext">
+                                Get the best price guaranteed for booking our top-quality products and services.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                No hidden fees
+                            </p>
+                            <p class="why-subtext">
+                                Enjoy a transparent pricing policy, paying for what you need for a smooth shopping experience.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Free cancellation
+                            </p>
+                            <p class="why-subtext">
+                                Enjoy the flexibility with free cancellation, don't worry about additional costs, and feel free to adjust your plans.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Safe and secure website
+                            </p>
+                            <p class="why-subtext">
+                                Be confident with our reliable and protected service as your online safety at every step is our priority.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="also-interested">
         <div class="container">
             <h2 class="also-interested-title">
@@ -404,41 +411,24 @@
             </div>
         </div>
     </section>
-    <section class="testimonials-slider-section experience-testimonials">
+    <section class="reviews">
         <div class="container">
-            <h2 class="testimonials-title">
-                testimonials
+            <h2 class="reviews-title">
+                Reviews
             </h2>
-            <p class="testimonials-subtitle body-text-b1">
-                Read the reviews of our clients about their experience with our service
-            </p>
-            {% if object.parent_experience.review_set.all %}
-                <div class="testimonials-slider">
-                    <div class="swiper-wrapper">
-                        {% for review in object.parent_experience.review_set.all %}
-                            <div class="swiper-slide">
-                                <p class="swiper-text">
-                                    {{ review.short_text }}
-                                </p>
-                                <div class="author-wrapper">
-                                    {% if review.profile.avatar %}
-                                        <img src="{{ review.profile.avatar.url }}" alt="Avatar">
-                                    {% else %}
-                                        <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar">
-                                    {% endif %}
-                                    <p class="name">{{ review.profile.name }}</p>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <div class="swiper-pagination"></div>
-
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
+            <div class="reviews-inner-wrapper">
+                <div class="left-col">
+                    {% include 'reviews/review_list.html' %}
                 </div>
-            {% else %}
-                <p>No any reviews yet...</p>
-            {% endif %}
+                <div class="right-col">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ review_form|crispy }}
+                        <button class="btn btn-primary" type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -457,6 +447,8 @@
 
         })
     </script>
+
+    <!--Review list with pagination -->
 
     <script>
         // There are constants from backend using for switch languages and send data for booking
@@ -587,7 +579,156 @@
 
         });
     </script>
+    <script>
+        // reviews.js
+        document.addEventListener('DOMContentLoaded', () => {
+            const reviewContainer = document.getElementById('reviewContainer');
+            const paginationContainer = document.getElementById('paginationContainer');
+            
 
+
+            // Function to fetch reviews with pagination
+            async function fetchReviews(pageNumber) {
+                try {
+                    const response = await fetch(`/reviews/?page=${pageNumber}`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch reviews');
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.error('Error fetching reviews:', error);
+                    return {reviews: [], has_next: false, has_previous: false};
+                }
+            }
+
+            // Function to render reviews
+            function renderReviews(reviewsData) {
+                const reviewsList = document.getElementById('reviewsList');
+                reviewsList.innerHTML = ''; // Clear existing reviews
+                console.log('Got reviews data: ', reviewsData);
+                reviewsData.forEach(review => {
+                    // Create HTML elements for each review and append them to reviewsList
+                    const reviewItem = document.createElement('li');
+                    reviewItem.classList.add('reviews-list-item');
+                    const starsWrapper = document.createElement('div');
+                    starsWrapper.classList.add('review-stars-wrapper');
+                    starsWrapper.classList.add(`star-${review.rating}`);
+                    starsWrapper.innerHTML = `
+                <img class="star3" src="{% static 'icons/3-stars-icon.svg' %}" alt="3 start review">
+                <img class="star4" src="{% static 'icons/4-stars-icon.svg' %}" alt="4 start review">
+                <img class="star5" src="{% static 'icons/5-stars-icon.svg' %}" alt="5 start review">
+            `;
+                    const reviewTitle = document.createElement('h4');
+                    reviewTitle.classList.add('review-title');
+                    reviewTitle.textContent = review.title;
+                    const reviewText = document.createElement('p');
+                    reviewText.classList.add('review-text');
+                    reviewText.textContent = review.short_text;
+                    const reviewAuthor = document.createElement('p');
+                    reviewAuthor.classList.add('review-author');
+                    reviewAuthor.textContent = review.full_name;
+
+                    // Append elements to reviewItem
+                    reviewItem.appendChild(starsWrapper);
+                    reviewItem.appendChild(reviewTitle);
+                    reviewItem.appendChild(reviewText);
+                    reviewItem.appendChild(reviewAuthor);
+
+                    // Append reviewItem to reviewsList
+                    reviewsList.appendChild(reviewItem);
+                });
+            }
+
+            // Function to render reviews
+            // function renderReviews(reviews) {
+            //     reviewContainer.innerHTML = ''; // Clear existing reviews
+            //     console.log('Got data.reviews: ', reviews);
+            //     reviews.forEach(review => {
+            //         // Create HTML elements for each review
+            //         const reviewElement = document.createElement('div');
+            //         const ratingElement = document.createElement('p');
+            //         const titleElement = document.createElement('h4');
+            //         const shortTextElement = document.createElement('p');
+            //         const fullNameElement = document.createElement('p');
+            //
+            //         // Populate reviewElement with review data
+            //         ratingElement.textContent = `Rating: ${review.rating}`;
+            //         titleElement.textContent = review.title;
+            //         shortTextElement.textContent = review.short_text;
+            //         fullNameElement.textContent = `Full Name: ${review.full_name}`;
+            //
+            //         // Append elements to reviewElement
+            //         reviewElement.appendChild(ratingElement);
+            //         reviewElement.appendChild(titleElement);
+            //         reviewElement.appendChild(shortTextElement);
+            //         reviewElement.appendChild(fullNameElement);
+            //
+            //         // Append reviewElement to reviewContainer
+            //         reviewContainer.appendChild(reviewElement);
+            //     });
+            // }
+
+            // Function to render pagination controls
+            function renderPaginationControls(paginationData) {
+                paginationContainer.innerHTML = ''; // Clear existing pagination controls
+
+                const {has_next, has_previous, next_page_number, previous_page_number, total_pages, current_page_number} = paginationData;
+
+                // Render previous page button
+                
+                    const prevButton = document.createElement('button');
+                    prevButton.innerHTML = `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
+                    prevButton.classList.add('pagination-btn', 'prev')
+                    prevButton.addEventListener('click', () => handlePaginationClick(previous_page_number));
+                    paginationContainer.appendChild(prevButton);
+                    if (has_previous) {
+                        prevButton.innerHTML = `<img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">`
+                    }
+
+                    const paginationList = document.createElement('ul')
+                    paginationContainer.appendChild(paginationList)
+                    paginationList.classList.add('pagination-list')
+                // Render page numbers
+                for (let i = 1; i <= total_pages; i++) {
+                    const pageButton = document.createElement('button');
+                    pageButton.classList.add('pagination-list-item')
+                    pageButton.textContent = i;
+                    if (i === current_page_number) {
+                        pageButton.disabled = true;
+                    }
+                    pageButton.addEventListener('click', () => handlePaginationClick(i));
+                    paginationList.appendChild(pageButton);
+                }
+
+                // Render next page button
+                
+                    const nextButton = document.createElement('button');
+                    nextButton.innerHTML = 
+                    `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
+                    nextButton.classList.add('pagination-btn', 'next')
+                    nextButton.addEventListener('click', () => handlePaginationClick(next_page_number));
+                    paginationContainer.appendChild(nextButton);
+                    if (has_next) {
+                        nextButton.innerHTML = `<img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">`
+                    }
+            }
+
+            // Function to handle pagination click event
+            function handlePaginationClick(pageNumber) {
+                fetchReviews(pageNumber)
+                    .then(data => {
+                        renderReviews(data.reviews);
+                        renderPaginationControls(data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching reviews:', error);
+                    });
+            }
+
+            // Fetch reviews for the first page when the page loads
+            handlePaginationClick(1);
+        });
+    </script>
 
     <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
 {% endblock %}

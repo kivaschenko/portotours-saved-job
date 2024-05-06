@@ -355,7 +355,7 @@
           text-align: center;
         } 
       }
-      .btn-type-1 {
+      .btn-type-2 {
         width: 275px;
         text-align: center;
         @include media-breakpoint-down(md) {
@@ -408,29 +408,47 @@
         }
         .card-content-wrapper {
           width: calc(100% - 320px);
-          padding: 24px 40px 24px 24px;
+          padding: 20px 18px 18px 24px;
           position: relative;
           @include media-breakpoint-down(md) {
             width: 100%;
             padding: 14px;
           }
+          .discount-banner-wrapper {
+            position: absolute;
+            right: 0;
+            top: 20px;
+            @include media-breakpoint-down(md) {
+              top: 12px;
+            }
+            .discount {
+              position: absolute;
+              top: 3px;
+              right: 10px;
+              font-family: "LatoSemiBold";
+              font-size: 14px;
+              line-height: normal;
+              color: white;
+              text-transform: capitalize;
+            }
+          }
           .rating-wrapper {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
             @include media-breakpoint-down(md) {
-              display: none;
+              
             }
             .rating-block {
-              margin-right: 24px;
-              display: flex;
-              font-size: 18px;
-              line-height: 20px;
+              margin-right: 0px;
+              margin-bottom: 18px;
+              @include media-breakpoint-down(md) {
+              margin-bottom: 16px;
+              }
               img {
-                width: 20px;
+                width: 132px;
                 height: 20px;
-                margin-right: 8px;
+                margin-right: 0;
               }
             }
             .duration-block p {
@@ -446,7 +464,7 @@
             }
           }
           .best-tours-card-title {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             text-transform: capitalize;
             @include media-breakpoint-down(md) {
               margin-bottom: 6px;
@@ -467,17 +485,27 @@
               }
               li {
                 font-family: "LatoRegular";
-                font-size: 16px;
-                line-height: 26px;
+                font-size: 14px;
+                line-height: 22px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                color: #6D6D6D;
+                img {
+                  margin-right: 8px;
+                  width: 16px;
+                  height: 16px;
+                }
                 @include media-breakpoint-down(md) {
                   font-size: 14px;
                   line-height: 22px;
                 }
                 & * {
                   font-family: "LatoRegular";
-                  font-size: 16px;
-                  line-height: 26px;
+                  font-size: 14px;
+                  line-height: 22px;
                   margin-bottom: 0;
+                  color: #6D6D6D !important;
                   @include media-breakpoint-down(md) {
                     font-size: 14px;
                     line-height: 22px;
@@ -485,68 +513,78 @@
                 }
                 
                 + li {
-                  margin-left: 24px;
-                  position: relative;
-                  &::before {
-                    content: "";
-                    position: absolute;
-                    top: 50%;
-                    left: -15px;
-                    transform: translateY(-50%);
-                    width: 6px;
-                    height: 6px;
-                    background-color: var(--text-color-third);
-                    border-radius: 50%;
-                  }
+                  margin-left: 16px;
+                  
                 }
               }
             }
           }
-          .tour-price {
-            font-family: "LatoMedium";
-            font-size: 26px;
-            line-height: 36px;
-            color: #0f0f10;
-            margin-bottom: 0;
-            @include media-breakpoint-down(md) {
-              margin-bottom: 40px;
-            }
-            span {
-              font-family: "LatoRegular";
-              font-size: 16px;
-              line-height: 26px;
-              margin-left: 10px;
-              color: #6d6d6d;
-            }
-          }
-          .tour-link {
-            font-family: "LatoSemiBold";
-            font-size: 18px;
-            line-height: normal;
-            text-transform: uppercase;
-            text-decoration: none;
+          .price-link-wrapper {
             position: absolute;
-            bottom: 24px;
-            right: 24px;
-            margin-top: 0;
-            padding: 8px 30px;
+            bottom: 18px;
+            left: 24px;
             @include media-breakpoint-down(md) {
-              position: absolute;
-              bottom: 14px;
-              left: 14px;
+              position: static;
             }
-            &:hover {
-              text-decoration: none;
+            .tour-price {
+              font-family: "LatoMedium";
+              font-size: 26px;
+              line-height: 36px;
+              color: #0f0f10;
+              margin-bottom: 16px;
+              @include media-breakpoint-down(md) {
+                margin-bottom: 12px;
+              }
+              span {
+                font-family: "LatoRegular";
+                font-size: 16px;
+                line-height: 26px;
+                margin-left: 10px;
+                color: #6d6d6d;
+              }
             }
-            img {
-              margin-left: 16px;
+            .book-banner-wrapper {
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              .tour-link {
+                font-family: "LatoSemiBold";
+                font-size: 18px;
+                line-height: normal;
+                text-transform: uppercase;
+                text-decoration: none;
+                margin-top: 0;
+                padding: 8px 30px;
+                margin-right: 10px;
+                @include media-breakpoint-down(md) {
+                  position: static;
+                  bottom: 14px;
+                  left: 14px;
+                }
+                &:hover {
+                  text-decoration: none;
+                }
+                img {
+                  margin-left: 16px;
+                }
+              }
+              .free-canc-title {
+                color: #007728;
+                margin: 0;
+                font-family: "LatoBold";
+                font-size: 12px;
+                line-height: 22px;
+                text-transform: uppercase;
+              }
             }
+            
           }
+          
         }
         
       }
     }
-    .btn-type-1.mobile {
+    .btn-type-2.mobile {
       display: none;
       @include media-breakpoint-down(md) {
         display: flex;

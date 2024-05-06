@@ -48,7 +48,12 @@
             font-family: 'LatoRegular';
             font-size: 18px;
             line-height: 28px;
+            background-color: white;
             cursor: pointer;
+            &:disabled {
+                border-color: var(--text-color-third);
+                color: var(--text-color-third);
+            }
             a {
                 color: inherit;
                 text-decoration: none;

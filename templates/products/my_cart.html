@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% block header %}
+    <!-- Navbar -->
+    {% include 'include/navbar_empty.html' %}
+    <!-- End Navbar -->
+{% endblock %}
 {% load static %}
 
 {% block title_suffix %}
@@ -165,17 +170,19 @@
                                             </li>
                                         </ul>
                                     </div>
+                                    {% if object.free_cancellation_datetime %}
                                     <div class="risk-free-banner">
                                         <img src="{% static 'icons/risk-free-icon.svg' %}" alt="risk free icon">
                                         <span>
                                             Risk free!
                                         </span>
-                                        {% if object.free_cancellation_datetime %}
+                                        
                                         <p class="risk-free-text">
                                             Free cancellation before  {{ object.free_cancellation_datetime }}
                                         </p>
-                                        {% endif %}
+                                        
                                     </div>
+                                    {% endif %}
                                 </div>
 
 
@@ -232,7 +239,7 @@
                             </h4>
                             <ul>
                                 <li>Best price on the market</li>
-                                <li>Taxes and Fares</li>
+                                <li>Taxes and Fees</li>
                                 <li>Free cancellation</li>
                                 <li>Experiences developed by local experts</li>
                                 <li>Personal and accident insurance</li>
@@ -251,7 +258,7 @@
                         </h4>
                         <ul>
                             <li>Best price on the market</li>
-                            <li>Taxes and Fares</li>
+                            <li>Taxes and Fees</li>
                             <li>Free cancellation</li>
                             <li>Experiences developed by local experts</li>
                             <li>Personal and accident insurance</li>

@@ -11,24 +11,21 @@
                         <img src="{% static 'icons/personal-info-icon.svg' %}" alt="">
                         Billing Address
                     </h5>
-                   
                 </div>
                 <div class="info-wrapper">
                     <div class="block-content">
-                    
+
                         <form method="post">
                             {% csrf_token %}
                             {{ form|crispy }}
                             <button class="btn btn-submit" type="submit">save</button>
                         </form>
-                    
-                </div>
-                
+                    </div>
                 </div>
             </div>
         </div>
-        
+
     </section>
 
-    
+
 {% endblock %}

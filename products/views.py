@@ -9,11 +9,14 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, ListView, DeleteView
 from django.views.generic import View
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from weasyprint import HTML
 
 from home.forms import ExperienceSearchForm
 from products.models import *  # noqa
 from products.product_services import get_actual_events_for_experience, update_experience_event_booking, search_experience_by_place_start_lang
+from reviews.forms import ReviewForm
+from reviews.models import Review
 
 Customer = settings.AUTH_USER_MODEL
 
@@ -97,14 +100,12 @@ class ExperienceDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.extra_context['current_language'] = self.object.language.code.lower()
-        # find all other languages
+
+        # Find all other languages
         brothers = self.object.parent_experience.child_experiences.all()
-        # create local urls
-        if len(brothers) > 0:
-            for brother in brothers:
-                lang = brother.language.code.lower()
-                url = brother.localized_url
-                self.extra_context['languages'].update({lang: url})
+        if brothers.exists():
+            self.extra_context['languages'] = {brother.language.code.lower(): brother.localized_url for brother in brothers}
+
         context.setdefault("view", self)
         if self.extra_context is not None:
             context.update(self.extra_context)
@@ -126,7 +127,35 @@ class ExperienceDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
+        context['review_form'] = ReviewForm()
+        
+        if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+            page_obj = self.get_paginated_reviews()
+            reviews_html = render_to_string('reviews/review_list.html', {'page_obj': page_obj})
+            pagination_html = render_to_string('reviews/review_pagination.html', {'page_obj': page_obj})
+            return JsonResponse({'reviews_html': reviews_html, 'pagination_html': pagination_html})
         return self.render_to_response(context)
+
+    def get_paginated_reviews(self):
+        reviews = Review.objects.filter(experience=self.object, approved=True)
+        paginator = Paginator(reviews, 1)  # Change 10 to the desired number of reviews per page
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return page_obj
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.experience = self.object
+            review.save()
+            # Redirect to the detail page of the current experience with its slug and language
+            return redirect('experience-detail', slug=self.object.slug, lang=self.extra_context['current_language'])
+        else:
+            context = self.get_context_data(object=self.object)
+            context['review_form'] = form
+            return self.render_to_response(context)
 
     def setup(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -201,6 +230,7 @@ class DeleteProductView(DeleteView):
     model = Product
     template_name = 'products/delete_product_form.html'
     success_url = reverse_lazy('my-cart', kwargs={'lang': 'en'})
+
     def delete(self, request, *args, **kwargs):
         """
         Call the delete() method on the fetched object and then redirect to the
@@ -243,6 +273,7 @@ def get_actual_experience_events(request, parent_experience_id):
         return JsonResponse({'result': result}, status=200)
     except json.decoder.JSONDecodeError as exp:
         return HttpResponseBadRequest('Invalid JSON data')
+
 
 @csrf_exempt
 @transaction.atomic

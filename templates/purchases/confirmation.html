@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% block header %}
+    <!-- Navbar -->
+    {% include 'include/navbar_empty.html' %}
+    <!-- End Navbar -->
+{% endblock %}
 {% load static %}
 {% block title_suffix %}
     Confirmation from Stripe Checkout
@@ -48,7 +53,7 @@
                     Congratulations!
                 </h2>
                 <p class="cart-subtitle">
-                    Your booking is confirmed. Please check the details below.
+                    Your booking is confirmed. Please check the details below and your email.
                 </p>
             </div>
             <section id="success" class="hidden confirmation-info">

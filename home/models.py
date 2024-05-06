@@ -19,12 +19,12 @@ class Page(models.Model):
     title = models.CharField(max_length=60, unique=True, help_text="Title of the page")
     slug = models.SlugField(unique=True, help_text="Slug of the page, if blank, will be generated automatically from the title, max 255 characters",
                             max_length=255, null=True, blank=True)
-    content = RichTextField(max_length=20000, help_text="markdown content of the page, max 20 000 characters", blank=True, null=True)
-    page_title = models.CharField(max_length=60, help_text="seo title for header in search list, max 120 characters",
+    content = RichTextField(max_length=50000, help_text="markdown content of the page, max 50 000 characters", blank=True, null=True)
+    page_title = models.CharField(max_length=60, help_text="SEO title for header in search list, max 120 characters",
                                   null=True, blank=True)
-    page_description = models.TextField(max_length=600, help_text="seo page description, max 500 characters",
+    page_description = models.TextField(max_length=600, help_text="SEO page description, max 500 characters",
                                         null=True, blank=True)
-    keywords = models.TextField(max_length=500, help_text="seo keywords", null=True, blank=True)
+    keywords = models.TextField(max_length=500, help_text="SEO keywords", null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
