@@ -58,7 +58,7 @@ urlpatterns += [
 
 # HOME & ADMIN
 urlpatterns += [
-    path('admin/', admin.site.urls),
+    path('odt-admin/', admin.site.urls),
     # path('', RedirectView.as_view(url=reverse_lazy('home', kwargs={'lang': 'en'})), name='redirect_home'),
     # path('<str:lang>/', home_views.HomeView.as_view(), name='home'),
     path('', home_views.HomeView.as_view(), name='home'),
@@ -118,7 +118,7 @@ urlpatterns += [
 
 # REVIEWS
 urlpatterns += [
-    path('reviews/', reviews_views.review_list, name='review-list'),
+    path('reviews/<int:experience_id>/', reviews_views.review_list, name='review-list'),
     # path('reviews/', reviews_views.ReviewListView.as_view(), name='review-list'),
     path('reviews/<int:pk>/', reviews_views.ReviewDetailView.as_view(), name='review-details'),
 ]

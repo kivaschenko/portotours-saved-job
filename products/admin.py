@@ -198,12 +198,13 @@ class ProductAdmin(admin.ModelAdmin):
         'total_price',
         'old_total_price',
         'customer',
+        'reported',
         'session_key',
         'created_at',
         'expired_time'
     ]
     readonly_fields = ['created_at', 'updated_at', 'parent_experience', 'language',
-                       # 'random_order_number',
+                       'random_order_number', 'reported', 'created_at',
                        'session_key', 'expired_time']
 
 

@@ -108,3 +108,44 @@ within your (venv) command line interface.
 #### The cloud used for production deployment: 
 [Digital Ocean Docs](https://docs.digitalocean.com/products/)
 
+You can update the site on the server both manually and through an automatic tunnel for Continuous Integration and 
+Continuous Development (CI/CD) on the GitHub repository.
+### Description CI/CD
+When the GitHub Actions service is enabled, the site is automatically updated after a Pull Request to the main master branch. 
+All settings are in the file:
+*.github/workflows/docker-image.yml*
+The flow is set up to run all the tests that exist, then build the Docker image.
+The Docker image is pushed to the Docker repository.
+Then login to the server with the permissions specified in GitHub secrets. 
+From there, a new Docker image is pulled from the Docker hub, the old container is stopped and deleted. 
+A new container launched based on the new Docker image.
+### Manual deployment
+On the local machine side:
+
+```
+# Go to production branch with latest and tested changes, for example: develop
+git checkout develop
+# get out rom virtual environment if you here:
+deactivate 
+# Create a new docker image
+docker build -t portotours/portotours:latest .
+# push new docker image to the certain Docker hub:
+docker push portotours/portotours:latest
+```
+
+Then go to the server and update site there:
+```
+ssh root@164.90.217.249
+docker pull portotours/portotours:latest
+docker ps -a
+docker stop django-portotours 
+docker rm django-portotours 
+docker run -d --name django-portotours -p 8000:8000 portotours/portotours:latest 
+docker ps -a
+systemctl reload nginx
+systemctl status nginx.service 
+docker images
+docker image rm   <your-old-docker-image-ID> 
+docker ps -a
+exit
+```
