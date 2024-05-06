@@ -243,11 +243,12 @@ const controller = {
     },
 
     handleTimeSelection: function () {
-        document.querySelectorAll('time-selection input[type="radio"]').forEach(input => {
-            input.addEventListener('change', function () {
+        document.querySelectorAll('.time-selection input[type="radio"]').forEach(input => {
+            input.addEventListener('click', function () {
                 controller.performValidation();
                 const selectedDate = document.querySelector('.calendar-day.selected-date');
                 if (selectedDate) {
+                    console.log('test')
                     controller.updateTotalPrice(selectedDate.dataset.date, this.value);
                 }
                 
@@ -381,7 +382,7 @@ const controller = {
             } else {
                 // If no events are available for the clicked date, display a message
                 const noEventsMessage = document.createElement('p');
-                noEventsMessage.textContent = 'No events available for this date.';
+                noEventsMessage.textContent = 'No experiences available for this date.';
                 timeSelection.appendChild(noEventsMessage);
             }
 
@@ -392,6 +393,7 @@ const controller = {
             clickedDateElement.classList.add('selected-date');
             model.selectedDate = clickedDate;
             controller.updateTotalPrice()
+            controller.handleTimeSelection()
         }
     },
      performValidation: function() {

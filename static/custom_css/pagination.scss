@@ -68,3 +68,18 @@
         }
     }
 }
+
+#paginationContainer {
+    .pagination-list-item {
+        display: none;
+        &:first-child {
+            display: block;
+        }
+        &:nth-child(2) {
+            display: block;
+        }
+        &:nth-child(3) {
+            display: block;
+        }
+    }
+}
