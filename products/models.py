@@ -518,6 +518,12 @@ class ProductLostManager(models.Manager):
         return queryset.filter(status='Expired', customer__isnull=True, start_datetime__lt=timezone.now())
 
 
+class ProductForReportManager(models.Manager):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(status='Payment', customer__isnull=False, reported=False)
+
+
 class Product(models.Model):
     """Product - is a digital product that sells access to a specific service (Experience)
     for numbers of adults or children at a specified total price on a specified date
@@ -548,6 +554,7 @@ class Product(models.Model):
                                   ('Completed', 'Completed'),
                               ])
     random_order_number = models.CharField(max_length=30, null=True, blank=True)
+    reported = models.BooleanField(default=False)
     # Stripe data
     stripe_product_id = models.CharField(max_length=220, null=True, blank=True)
     stripe_price = models.IntegerField(null=True, blank=True)  # 100 * experience.price
@@ -556,6 +563,7 @@ class Product(models.Model):
     active = ProductActiveManager()
     pending = ProductPendingManager()
     lost_products = ProductLostManager()
+    for_report = ProductForReportManager()
 
     def __str__(self):
         return (f"{self.parent_experience.parent_name} | {self.date_of_start}  {self.time_of_start} | "

@@ -57,19 +57,19 @@ class ProfileAdmin(admin.ModelAdmin):
     )
     search_fields = ('name', 'stripe_customer_id', 'email')
     list_per_page = 20
-    readonly_fields = (
-        'user',
-        'stripe_customer_id',
-        'name',
-        'email',
-        'phone',
-        'address_city',
-        'address_country',
-        'address_line1',
-        'address_line2',
-        'address_postal_code',
-        'address_state',
-    )
+    # readonly_fields = (
+    #     'user',
+    #     'stripe_customer_id',
+    #     'name',
+    #     'email',
+    #     'phone',
+    #     'address_city',
+    #     'address_country',
+    #     'address_line1',
+    #     'address_line2',
+    #     'address_postal_code',
+    #     'address_state',
+    # )
 
     def display_avatar(self, obj):
         if obj.avatar:

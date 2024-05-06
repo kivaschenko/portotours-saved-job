@@ -210,10 +210,19 @@ def send_product_canceled_email_staff(product_id: int = None, customer_id: int =
 
 
 def send_booking_updates_by_email_to_staff(product_id: int = None, status: str = None):
-    subject = f'[{product_id}] Booking updates'
-    message = (f'Booking updates for Product ID: {product_id}.'
-               f'\n\tStatus: {status}.')
-    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
+    logger.info(f'Sending email about real update booking numbers for Product Id: {product_id}.\n')
+    try:
+        product = Product.objects.get(id=product_id)
+        subject = f'Result of real booking for Order: {product.random_order_number}, {product.full_name}, {product.date_of_start}'
+        message = (f'\tProduct name: {product.full_name}\n'
+                   f'\tNumber of passengers: {product.total_booked}\n'
+                   f'\tLanguage: {product.language}\n'
+                   f'\tPassenger details: ({product.customer.name}, {product.customer.email}, {product.customer.phone})\n'
+                   f'\t\tResult of real booking: {status}')
+        send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
+        logger.info(f'Email sent to {product.customer.email}.')
+    except Product.DoesNotExist:
+        logger.error(f"Product {product_id} does not exist.")
 
 
 def update_products_status_if_expired():
@@ -247,3 +256,9 @@ def set_booking_after_payment(product_id: int):
         status = f'Succeeded setting booking after Product id: {product.id}.'
         logger.info(status)
     send_booking_updates_by_email_to_staff(product_id=product_id, status=status)
+
+
+def send_report_about_paid_products():
+    products = Product.for_report.all()
+    for product in products:
+        pass
