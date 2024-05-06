@@ -25,7 +25,7 @@ class Command(BaseCommand):
         def generate_review():
             experience_id = random.choice(experience_ids)
             print('chosen experience_id:', experience_id)
-            rating = random.choice([1, 2, 3, 4, 5])
+            rating = random.choice([3, 4, 5])
             full_name = fake.name()
             title = fake.sentence(nb_words=5)
             short_text = fake.paragraph(nb_sentences=3)
