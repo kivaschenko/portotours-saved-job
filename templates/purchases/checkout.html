@@ -19,42 +19,59 @@
             <div class="cart-steps-wrapper">
                 <ul class="cart-steps">
                     <li class="cart-step-item finished">
-                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
-                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
-                        <p class="step-text body-text-b4">
-                            1 Step
-                        </p>
-                        <p class="body-text-b3 step-title">
-                            My Experiences
-                        </p>
+                        <div class="img-wrapper">
+                            <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                            <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        </div>
+                        <div class="text-wrapper">
+                            <p class="step-text body-text-b4">
+                                1 Step
+                            </p>
+                            <p class="body-text-b3 step-title">
+                                My experiences
+                            </p>
+                        </div>
+                        
                     </li>
                     <li class="cart-step-item active">
-                        <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
-                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
-                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
-                        <p class="step-text body-text-b4">
-                            2 Step
-                        </p>
-                        <p class="body-text-b3 step-title">
-                            Billing details
-                        </p>
+                        <div class="img-wrapper">
+                            <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                            <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                            <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        </div>
+                        <div class="text-wrapper">
+                            <p class="step-text body-text-b4">
+                                2 Step
+                            </p>
+                            <p class="body-text-b3 step-title">
+                                Billing details
+                            </p>
+                        </div>
+                        
                     </li>
-                    <li class="cart-step-item">
-                        <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
-                        <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
-                        <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
-                        <p class="step-text body-text-b4">
-                            3 Step
-                        </p>
-                        <p class="body-text-b3 step-title">
-                            Confirmation
-                        </p>
+                    <li class="cart-step-item ">
+                        <div class="img-wrapper">
+                            <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                            <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                            <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        </div>
+                        
+                        <div class="text-wrapper">
+                            <p class="step-text body-text-b4">
+                                3 Step
+                            </p>
+                            <p class="body-text-b3 step-title">
+                                Confirmation
+                            </p>
+                        </div>
+                        
                     </li>
                 </ul>
+                
             </div>
             <div class="cart-title-wrapper">
                 <h2 class="cart-title">
-                    Billing Details
+                    Please Complete your order
                 </h2>
 
             </div>
@@ -125,6 +142,25 @@
 
                 <div id="payment-message" class="hidden"></div>
             </form>
+            
+        </div>
+        <div class="we-accept-wrapper">
+            <div class="container">
+                <p class="we-accept-title">
+                    We accept:
+                </p>
+                <ul class="we-accept-list">
+                    <li><img src="{% static 'icons/mastercard.svg' %}" alt=""></li>
+                    <li><img src="{% static 'icons/visa.svg' %}" alt=""></li>
+                    <li><img src="{% static 'icons/discover.svg' %}" alt=""></li>
+                    <li><img src="{% static 'icons/diners-club.svg' %}" alt=""></li>
+                    <li><img src="{% static 'icons/klarna.svg' %}" alt=""></li>
+                    <li><img src="{% static 'icons/paypal.svg' %}" alt=""></li>
+                    <li><img src="{% static 'icons/union-pay.svg' %}" alt=""></li>
+                    <li><img src="{% static 'icons/amex.svg' %}" alt=""></li>
+                </ul>
+            </div>
+            
         </div>
     </div>
 
@@ -172,7 +208,7 @@
             const appearance = {
                 theme: 'flat',
                 variables: {
-                    colorPrimary: '#F0500B',
+                    colorPrimary: '#ffffff',
                     colorBackground: '#ffffff',
                     colorText: '#0F0F10',
                     colorDanger: '#df1b41',
@@ -183,8 +219,14 @@
                 rules: {
                     '.Tab': {
                         padding: '10px 24px',
-
-                    }
+                        border: 'none',
+                        color: '#6D6D6D'
+                    },
+                    '.Tab--selected': {
+                        border: '1px solid #F0500B',
+                        color: '#6D6D6D',
+                        
+                    },
                 }
             };
             elements = stripe.elements({appearance, clientSecret});

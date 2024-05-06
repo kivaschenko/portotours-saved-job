@@ -630,10 +630,19 @@
             margin-right: 18px;
             color: #6d6d6d;
           }
+          .old-price-amount {
+            font-family: "LatoRegular";
+            font-size: 24px;
+            line-height: normal;
+            color: #6D6D6D;
+            text-decoration: line-through;
+            margin-bottom: 0;
+            margin-right: 12px;
+          }
           .price-amount {
-            font-family: "LatoSemiBold";
-            font-size: 34px;
-            line-height: 44px;
+            font-family: "LatoBold";
+            font-size: 40px;
+            line-height: 48px;
             color: #0f0f10;
             margin-bottom: 0;
           }
@@ -644,7 +653,29 @@
         }
       }
     }
-    
+    .reviews-rating-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 10px;
+      margin-bottom: 9px;
+      .reviews-count {
+        color: #0F0F10;
+        font-family: "LatoRegular";
+        font-size: 14px;
+        line-height: normal;
+        text-transform: capitalize;
+        margin: 0;
+        margin-right: 13px;
+        text-decoration: none;
+        display: block;
+      }
+      .rating-img-wrapper {
+        img {
+          display: block;
+        }
+      }
+    }
   }
 }
 .experience-hero {
@@ -847,6 +878,49 @@
                   line-height: 24px;
                 }
               }
+            }
+          }
+        }
+        .risk-free-badge {
+          width: 100%;
+          padding: 4px 0;
+          border-radius: 10px;
+          background: #F3FAF5;
+          margin-bottom: 14px;
+          .badge-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            color: #007728;
+            font-family: "LatoRegular";
+            font-size: 24px;
+            line-height: normal;
+            text-transform: uppercase;
+            img {
+              margin-right: 20px;
+            }
+          }
+          
+        }
+        .children-discount-badge {
+          width: 100%;
+          padding: 4px 0;
+          border-radius: 10px;
+          background: #FFF1EB;
+          margin-bottom: 32px;
+          .badge-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            color: #F0500B;
+            font-family: "LatoRegular";
+            font-size: 24px;
+            line-height: normal;
+            text-transform: uppercase;
+            img {
+              margin-right: 20px;
             }
           }
         }
@@ -1122,6 +1196,31 @@
               }
             }
           }
+          &.travel-tips {
+            ul {
+              li {
+                padding-left: 38px;
+                &::before {
+                  content: "";
+                  position: absolute;
+                  width: 24px;
+                  height: 24px;
+                  background-image: url(../icons/travel-tips-after.svg);
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  border-radius: 50%;
+                  left: 0;
+                  top: 0;
+                  transform: translateY(0);
+                  @include media-breakpoint-down(md) {
+                    top: 7px;
+                    transform: none;
+                  }
+                }
+              }
+            }
+          }
         }
       }
       .aside-form {
@@ -1341,7 +1440,9 @@
               justify-content: flex-start;
               flex-wrap: wrap;
               margin-bottom: 8px;
-              
+              > p {
+                margin: 0;
+              }
                 label {
                   font-family: "LatoRegular";
                   font-size: 16px;
@@ -1389,6 +1490,7 @@
               .ticket-selection-title {
                 margin-bottom: 12px;
               }
+              
               .ticket-type {
                 display: flex;
                 align-items: center;
@@ -1401,9 +1503,9 @@
                   font-family: "LatoRegular";
                   font-size: 16px;
                   line-height: 26px;
-                  margin-right: 40px;
+                  margin-right: 20px;
                   margin-bottom: 0;
-                  width: 60px;
+                  width: 170px;
                 }
                 button {
                   border: none;
@@ -1447,6 +1549,7 @@
               }
               &.disabled {
                 pointer-events: none;
+                opacity: 0;
                 .ticket-type button img {
                   &.active {
                     display: none;
@@ -1469,6 +1572,7 @@
               padding-top: 10px;
               &.disabled {
                 pointer-events: none;
+                opacity: 0;
                 .input-wrapper {
                   label {
                     img {

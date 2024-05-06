@@ -27,17 +27,20 @@ if (window.innerWidth > 768) {
 
         // Get the language options list
         let languageOptionsList = document.getElementById('languageOptions');
+        if (languageOptionsList) {
+             // Attach click event to each language option
+            languageOptionsList.querySelectorAll('li').forEach(function (option) {
+                option.addEventListener('click', function () {
+                    // Get the selected language code from the data attribute
+                    let selectedLanguage = option.getAttribute('data-language');
 
-        // Attach click event to each language option
-        languageOptionsList.querySelectorAll('li').forEach(function (option) {
-            option.addEventListener('click', function () {
-                // Get the selected language code from the data attribute
-                let selectedLanguage = option.getAttribute('data-language');
-
-                // Call the changeLanguage function with the selected language
-                changeLanguage(selectedLanguage);
+                    // Call the changeLanguage function with the selected language
+                    changeLanguage(selectedLanguage);
+                });
             });
-        });
+        }
+
+       
 
         let currentUrl = window.location.href;
         // Modify the content of the default language element
@@ -99,17 +102,19 @@ if (window.innerWidth > 768) {
 
         // Get the language options list
         let languageOptionsList = document.getElementById('mobileLanguageOptions');
+        if (languageOptionsList) {
+            // Attach click event to each language option
+            languageOptionsList.querySelectorAll('li').forEach(function (option) {
+                option.addEventListener('click', function () {
+                    // Get the selected language code from the data attribute
+                    let selectedLanguage = option.getAttribute('data-language');
 
-        // Attach click event to each language option
-        languageOptionsList.querySelectorAll('li').forEach(function (option) {
-            option.addEventListener('click', function () {
-                // Get the selected language code from the data attribute
-                let selectedLanguage = option.getAttribute('data-language');
-
-                // Call the changeLanguage function with the selected language
-                changeLanguage(selectedLanguage);
+                    // Call the changeLanguage function with the selected language
+                    changeLanguage(selectedLanguage);
+                });
             });
-        });
+        }
+        
 
         let currentUrl = window.location.href;
         // Modify the content of the default language element

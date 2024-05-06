@@ -35,8 +35,8 @@
                 </p>
             {% endif %}
             <p class="experience-hero-info-text">
-                <img src="{% static 'icons/experience-info-icon2.svg' %}" alt="">
-                {{ object.parent_experience.happy_clients_number }} happy clients
+                <img src="{% static 'icons/pickup-icon.svg' %}" alt="">
+                hotel pick up 
             </p>
             {% if object.parent_experience.recommended_by_locals %}
                 <p class="experience-hero-info-text">
@@ -62,6 +62,9 @@
                             <p class="price-title">
                                 From
                             </p>
+                            <p class="old-price-amount">
+                                €{{object.parent_experience.old_price}}
+                            </p>
                             <p class="price-amount">
                                 €{{ object.parent_experience.price }}
                             </p>
@@ -71,7 +74,14 @@
                         </a>
                     </div>
                 </div>
-
+                <div class="reviews-rating-wrapper">
+                    <a href="#reviews" class="reviews-count">
+                        130 reviews
+                    </a>
+                    <div class="rating-img-wrapper">
+                        <img src="{% static 'icons/empty-stars.svg' %}" alt="">
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -197,6 +207,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="risk-free-badge">
+                        <h3 class="badge-title">
+                            <img src="{% static 'icons/shield-icon.svg' %}" alt="">
+                            risk free! Neque porro quisquam 
+                        </h3>
+                    </div>
+                    <div class="children-discount-badge">
+                        <h3 class="badge-title">
+                            <img src="{% static 'icons/children-icon.svg' %}" alt="">
+                            price for children only from €20.00
+                        </h3>
+                    </div>
                     {% if object.parent_experience.clean_and_safe %}
                         <div class="clean-safe-badge">
                             <div class="img-wrapper">
@@ -254,14 +276,11 @@
                         <h5>{{ object.includes_title }}</h5>
                         {{ object.display_includes_text }}
                     </div>
-                    <div class="experience-info-block">
+                    <div class="experience-info-block travel-tips">
                         <h5>{{ object.traveler_tips_title }}</h5>
                         {{ object.display_traveler_tips_text }}
                     </div>
-                    <div class="experience-info-block">
-                        <h5>{{ object.what_to_bring_title }}</h5>
-                        {{ object.display_what_to_bring_text }}
-                    </div>
+                    
                 </div>
                 <div class="aside-form">
                     <div class="booking-form-wrapper">
@@ -386,7 +405,10 @@
                     {% if object.experience_recommendations.all %}
                         {% for experience in object.experience_recommendations.all %}
                             <div class="also-interested-card swiper-slide">
-                                <img src="{{ experience.parent_experience.card_image.url }}" alt="{{ experience.name }} card image" class="also-interested-img">
+                                <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">
+                                    <img src="{{ experience.parent_experience.card_image.url }}" alt="{{ experience.name }} card image" class="also-interested-img">
+                                </a>
+                               
                                 <p class="body-text-b2 also-interested-card-title">
                                     <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
                                 </p>
@@ -411,7 +433,7 @@
             </div>
         </div>
     </section>
-    <section class="reviews">
+    <section class="reviews" id="reviews">
         <div class="container">
             <h2 class="reviews-title">
                 Reviews

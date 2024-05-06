@@ -211,7 +211,9 @@
 .why {
   &.experience-page {
     .container {
-      padding-bottom: 0;
+      padding-bottom: 40px;
+      padding-top: 0;
+
       @include media-breakpoint-down(md) {
         padding-top: 20px;
         padding-bottom: 20px;
@@ -737,7 +739,7 @@
     .top-attractions-slider {
       position: relative;
       overflow: hidden;
-      padding-bottom: 10px;
+      padding-bottom: 35px;
       @include media-breakpoint-down(md) {
         width: calc(100% + 32px);
         margin-left: -16px;
