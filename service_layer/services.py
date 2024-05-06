@@ -164,9 +164,12 @@ def send_new_password_by_email(email: str, password: str, name: str = '',
 # Product & Purchase services
 
 def send_product_paid_email_staff(product_id: int = None, product_name: str = None, total_price: float = None):
-    subject = f'[{product_id}] Product paid'
-    message = (f'\tA new product "{product_name}" (ID: {product_id}) paid.\n'
-               f'Total price: {total_price} EUR.\n')
+    product = Product.objects.get(id=product_id)
+    subject = f'New Order: {product.random_order_number}, {product.full_name}, {product.date_of_start}'
+    message = (f'\tProduct name: {product.full_name}\n'
+               f'\tNumber of passengers: {product.total_booked}\n'
+               f'\tLanguage: {product.language}\n'
+               f'\tPassenger details: ({product.customer.name}, {product.customer.email}, {product.customer.phone})\n')
     send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
 
 
