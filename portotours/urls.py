@@ -118,7 +118,7 @@ urlpatterns += [
 
 # REVIEWS
 urlpatterns += [
-    path('reviews/', reviews_views.review_list, name='review-list'),
+    path('reviews/<int:experience_id>/', reviews_views.review_list, name='review-list'),
     # path('reviews/', reviews_views.ReviewListView.as_view(), name='review-list'),
     path('reviews/<int:pk>/', reviews_views.ReviewDetailView.as_view(), name='review-details'),
 ]

@@ -30,8 +30,8 @@ class ReviewListView(ListView):
         return JsonResponse({'reviews': reviews_data}, **response_kwargs)
 
 
-def review_list(request):
-    reviews = Review.objects.filter(approved=True).order_by('-created_at')
+def review_list(request, experience_id):
+    reviews = Review.objects.filter(approved=True, experience_id=experience_id).order_by('-created_at')
     paginator = Paginator(reviews, 3)  # Set the number of reviews per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
