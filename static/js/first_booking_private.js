@@ -386,7 +386,7 @@ const controller = {
             } else {
                 // If no events are available for the clicked date, display a message
                 const noEventsMessage = document.createElement('p');
-                noEventsMessage.textContent = 'No events available for this date.';
+                noEventsMessage.textContent = 'No experiences available for this date.';
                 timeSelection.appendChild(noEventsMessage);
             }
 

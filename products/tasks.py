@@ -35,3 +35,9 @@ def create_profile_and_send_password(stripe_customer_id: str = None, name: str =
     from service_layer.services import create_profile_and_generate_password
     create_profile_and_generate_password(stripe_customer_id, name, email, phone, address_city, address_country, address_line1, address_line2,
                                          address_postal_code, address_state, **kwargs)
+
+
+@shared_task()
+def report_about_paid():
+    from service_layer.services import send_report_about_paid_products
+    send_report_about_paid_products()

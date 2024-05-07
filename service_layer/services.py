@@ -258,7 +258,19 @@ def set_booking_after_payment(product_id: int):
     send_booking_updates_by_email_to_staff(product_id=product_id, status=status)
 
 
+def send_email_notification_to_customer(product):
+    url = 'www.onedaytours.pt/en/generate-pdf/{}/'.format(product.id)
+    subject = f'[{product.order_number}] Product paid'
+    message = (f'Congratulations, {product.customer.profile.name}! \n\tYour product "{product.full_name}" (ID: {product.random_order_number}) paid.\n'
+               f'Total price: {product.total_price} EUR.\n'
+               f'You can download your PDF here: {url}.')
+    send_mail(subject, message, settings.SERVER_EMAIL, [product.customer.profile.email])
+
+
 def send_report_about_paid_products():
     products = Product.for_report.all()
     for product in products:
-        pass
+        set_booking_after_payment(product.id)
+        send_email_notification_to_customer(product)
+        product.reported = True
+        product.save()
