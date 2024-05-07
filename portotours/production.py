@@ -310,6 +310,10 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'products.tasks.check_expired_products',
         'schedule': 60,  # Run every minute
     },
+    'report-about-paid-products': {
+        'task': 'products.tasks.report_about_paid',
+        'schedule': 90,  # run every 1.5 minutes
+    }
 }
 # SECURE_SSL_REDIRECT = True
 PRODUCT_EXPIRE_MINUTES = 60  # Expire timedelta for Product in minutes

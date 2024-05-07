@@ -378,7 +378,10 @@ class Experience(models.Model):
         average_rating = related_reviews.aggregate(Avg('rating'))['rating__avg']
 
         # Return the average rating or None if no reviews exist
-        return round(average_rating, 1)
+        if average_rating:
+            return round(average_rating, 1)
+        else:
+            return None
 
 
 class ExperienceEvent(Event):
