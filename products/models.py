@@ -381,6 +381,7 @@ class Experience(models.Model):
         if average_rating:
             return round(average_rating, 1)
         else:
+            # if no reviews then return None to avoit error in template
             return None
 
 
