@@ -308,8 +308,7 @@ class Experience(models.Model):
     not_includes_text = RichTextField(max_length=1000, help_text="List of features NOT INCLUDED in tour, max 1000 characters", null=True, blank=True)
     traveler_tips_title = models.CharField(max_length=120, help_text="Title for Traveler tips block in current language, max 120 characters", null=True,
                                            blank=True)
-    traveler_tips_text = RichTextField(max_length=1000, help_text="Max 1000 characters, POSITIVE LIST", null=True, blank=True)
-    traveler_tips_text_2 = RichTextField(max_length=1000, help_text="Max 1000 characters, NEGATIVE LIST", null=True, blank=True)
+    traveler_tips_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
     # Recommendations block
     recommendations_title = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=500, help_text="max 500 characters", null=True, blank=True)
@@ -367,9 +366,6 @@ class Experience(models.Model):
 
     def display_traveler_tips_text(self):
         return mark_safe(self.traveler_tips_text)
-
-    def display_traveler_tips_text_2(self):
-        return mark_safe(self.traveler_tips_text_2)
 
     @property
     def average_rating(self):
