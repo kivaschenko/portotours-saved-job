@@ -304,13 +304,15 @@ class Experience(models.Model):
     possibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     schedule_title = models.CharField(max_length=120, help_text='Title for the schedule block in current language, max 120 characters', null=True, blank=True)
     includes_title = models.CharField(max_length=120, help_text="Title for Includes block in current language, max 120 characters", null=True, blank=True)
-    includes_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
+    includes_text = RichTextField(max_length=1000, help_text="List of features INCLUDED in tour, max 1000 characters", null=True, blank=True)
+    not_includes_text = RichTextField(max_length=1000, help_text="List of features NOT INCLUDED in tour, max 1000 characters", null=True, blank=True)
     traveler_tips_title = models.CharField(max_length=120, help_text="Title for Traveler tips block in current language, max 120 characters", null=True,
                                            blank=True)
     traveler_tips_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
     what_to_bring_title = models.CharField(max_length=120, help_text="Title for What to bring block in current language, max 120 characters", null=True,
                                            blank=True)
-    what_to_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
+    what_to_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True, verbose_name="What to bring block")
+    that_not_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True, verbose_name="That do not bring a block")
     # Recommendations block
     recommendations_title = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=500, help_text="max 500 characters", null=True, blank=True)
@@ -363,12 +365,17 @@ class Experience(models.Model):
     def display_includes_text(self):
         return mark_safe(self.includes_text)
 
+    def display_not_includes_text(self):
+        return mark_safe(self.not_includes_text)
+
     def display_traveler_tips_text(self):
         return mark_safe(self.traveler_tips_text)
 
     def display_what_to_bring_text(self):
         return mark_safe(self.what_to_bring_text)
 
+    def display_that_not_bring_text(self):
+        return mark_safe(self.that_not_bring_text)
     @property
     def average_rating(self):
         # Get the related reviews for this experience
