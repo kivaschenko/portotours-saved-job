@@ -64,5 +64,4 @@ jobs:
             docker volume rm $(docker volume ls -q) || true
             docker rmi $(docker images -q --filter "dangling=true") || true
             docker run -d --name django-portotours -p 8000:8000 portotours/portotours:latest
-            # Additional steps for nginx
             systemctl reload nginx.service
