@@ -170,43 +170,10 @@ def send_product_paid_email_staff(product_id: int = None, product_name: str = No
         message = (f'\tProduct name: {product.full_name}\n'
                    f'\tNumber of passengers: {product.total_booked}\n'
                    f'\tLanguage: {product.language}\n'
-                   f'\tPassenger details: ({product.customer.name}, {product.customer.email}, {product.customer.phone})\n')
+                   f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n')
         send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
     except Product.DoesNotExist:
         logger.error(f"Product {product_id} does not exist.")
-
-
-def send_product_paid_email_to_customer(product_id: int = None, product_name: str = None, total_price: float = None,
-                                        max_attempts=3, retry_delay=10):
-    attempt = 0
-    while attempt < max_attempts:
-        try:
-            product = Product.objects.get(pk=product_id)
-            user = User.objects.get(pk=product.customer_id)
-            break
-        except Exception as e:
-            attempt += 1
-            if attempt >= max_attempts:
-                logger.error(f"Max attempts reached. Exception: {e}.")
-                return
-            logger.warning(f"User not found. Retrying in {retry_delay} seconds...")
-            time.sleep(retry_delay)
-    if product_id is not None and user is not None:
-        url = 'www.onedaytours.pt/en/generate-pdf/{}/'.format(product_id)
-        subject = f'[{product.order_number}] Product paid'
-        message = (f'Congratulations, {user.profile.name}! \n\tYour product "{product_name}" (ID: {product_id}) paid.\n'
-                   f'Total price: {total_price} EUR.\n'
-                   f'You can download your PDF here: {url}.')
-        send_mail(subject, message, settings.SERVER_EMAIL, [user.profile.email])
-
-
-def send_product_canceled_email_staff(product_id: int = None, customer_id: int = None, product_name: str = None, total_price: float = None, status: str = None):
-    subject = f'[{product_id}] Product canceled'
-    message = (f'\tThe product "{product_name}" (ID: {product_id}) canceled.\n'
-               f'Total price: {total_price} EUR.\n'
-               f'User id: {customer_id}.\n'
-               f'Status: {status}.')
-    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
 
 
 def send_booking_updates_by_email_to_staff(product_id: int = None, status: str = None):
@@ -217,10 +184,10 @@ def send_booking_updates_by_email_to_staff(product_id: int = None, status: str =
         message = (f'\tProduct name: {product.full_name}\n'
                    f'\tNumber of passengers: {product.total_booked}\n'
                    f'\tLanguage: {product.language}\n'
-                   f'\tPassenger details: ({product.customer.name}, {product.customer.email}, {product.customer.phone})\n'
+                   f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n'
                    f'\t\tResult of real booking: {status}')
         send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
-        logger.info(f'Email sent to {product.customer.email}.')
+        logger.info(f'Email sent to {product.customer.profile.email}.')
     except Product.DoesNotExist:
         logger.error(f"Product {product_id} does not exist.")
 

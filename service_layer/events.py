@@ -7,18 +7,6 @@ class Event:
 
 
 @dataclass
-class ProductPaid(Event):
-    product_id: int
-    product_name: str
-    total_price: float
-
-
-@dataclass
-class ProductCancelled(ProductPaid):
-    status: str
-
-
-@dataclass
 class StripeChargeSucceeded(Event):
     payment_intent_id: str
     name: str

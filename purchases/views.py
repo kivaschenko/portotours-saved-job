@@ -14,8 +14,7 @@ from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
 from purchases.models import Purchase
 from service_layer.bus_messages import handle
-from service_layer.events import StripePaymentIntentSucceeded, StripeChargeSucceeded, ProductPaid, StripeCustomerCreated
-from service_layer.services import create_profile_and_generate_password
+from service_layer.events import StripePaymentIntentSucceeded, StripeChargeSucceeded, StripeCustomerCreated
 
 logger = logging.getLogger(__name__)
 
@@ -73,16 +72,6 @@ def stripe_webhook(request):
         handlers = []
         payment_intent_event = StripePaymentIntentSucceeded(payment_intent_id=payment_intent.id)
         handlers.append(payment_intent_event)
-        purchase = Purchase.last24hours_manager.filter(stripe_payment_intent_id=payment_intent.id).first()
-        if purchase:
-            products = purchase.products.all()
-            for product in products:
-                product_event = ProductPaid(
-                    product_id=product.id,
-                    product_name=product.stripe_product_id,
-                    total_price=float(product.total_price),
-                )
-                handlers.append(product_event)
         for handler in handlers:
             handle(handler)
 
