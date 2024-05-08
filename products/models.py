@@ -310,7 +310,8 @@ class Experience(models.Model):
     traveler_tips_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
     what_to_bring_title = models.CharField(max_length=120, help_text="Title for What to bring block in current language, max 120 characters", null=True,
                                            blank=True)
-    what_to_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
+    what_to_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True, verbose_name="What to bring block")
+    that_not_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True, verbose_name="That do not bring a block")
     # Recommendations block
     recommendations_title = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=500, help_text="max 500 characters", null=True, blank=True)
