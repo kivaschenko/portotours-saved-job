@@ -1,13 +1,31 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
 
-from accounts.models import User, Profile
+from .models import User, Profile
+
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta(UserChangeForm.Meta):
+        model = User
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = User
+
+
+class ProfileInline(admin.StackedInline):
+    model = Profile
 
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
+    form = CustomUserChangeForm
+    add_form = CustomUserCreationForm
+    inlines = [ProfileInline]
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
@@ -57,19 +75,7 @@ class ProfileAdmin(admin.ModelAdmin):
     )
     search_fields = ('name', 'stripe_customer_id', 'email')
     list_per_page = 20
-    # readonly_fields = (
-    #     'user',
-    #     'stripe_customer_id',
-    #     'name',
-    #     'email',
-    #     'phone',
-    #     'address_city',
-    #     'address_country',
-    #     'address_line1',
-    #     'address_line2',
-    #     'address_postal_code',
-    #     'address_state',
-    # )
+    readonly_fields = ('display_avatar',)
 
     def display_avatar(self, obj):
         if obj.avatar:
