@@ -213,12 +213,14 @@
                             risk free! Neque porro quisquam 
                         </h3>
                     </div>
+                    {% if object.parent_experience.child_price < object.parent_experience.price %}
                     <div class="children-discount-badge">
                         <h3 class="badge-title">
                             <img src="{% static 'icons/children-icon.svg' %}" alt="">
-                            price for children only from €20.00
+                            price for children only from €{{ object.parent_experience.child_price }}
                         </h3>
                     </div>
+                    {% endif %}
                     {% if object.parent_experience.clean_and_safe %}
                         <div class="clean-safe-badge">
                             <div class="img-wrapper">
@@ -274,12 +276,19 @@
                     </div>
                     <div class="experience-info-block">
                         <h5>{{ object.includes_title }}</h5>
+                        <!-- What included and NOT included lists -->
                         {{ object.display_includes_text }}
+                        {{ object.display_not_includes_text }}
                     </div>
                     <div class="experience-info-block travel-tips">
                         <h5>{{ object.traveler_tips_title }}</h5>
                         {{ object.display_traveler_tips_text }}
                     </div>
+                <div>
+                    <h5>{{ object.what_to_bring_title }}</h5>
+                    {{ object.display_what_to_bring_text }}
+                    {{ object.display_that_not_bring_text }}
+                </div>
                     
                 </div>
                 <div class="aside-form">
