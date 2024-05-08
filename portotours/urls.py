@@ -112,8 +112,8 @@ urlpatterns += [
 
 # BLOGS
 urlpatterns += [
-    path('<str:lang>/blogs/', blogs_views.BlogListView.as_view(), name='blog-list'),
-    path('<str:lang>/blogs/<slug:slug>/', blogs_views.BlogDetailView.as_view(), name='blog-detail'),
+    path('<str:lang>/blog/', blogs_views.BlogListView.as_view(), name='blog-list'),
+    path('<str:lang>/blog/<slug:slug>/', blogs_views.BlogDetailView.as_view(), name='blog-detail'),
 ]
 
 # REVIEWS
