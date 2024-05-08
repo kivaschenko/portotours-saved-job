@@ -49,8 +49,9 @@ def handle_charge_success(payment_intent_id: str, name: str, email: str, phone: 
     if not User.objects.filter(email=email).exists():
         logger.info(f"Email address {email} does not exist.")
         # Create Stripe Customer
-        create_new_stripe_customer_id(name, email, phone, address_city, address_country, address_line1,
-                                      address_line2, address_postal_code, address_state)
+        customer = create_new_stripe_customer_id(name, email, phone, address_city, address_country, address_line1,
+                                                 address_line2, address_postal_code, address_state)
+        set_real_user_in_purchase(payment_intent_id, customer.id)
 
 
 def create_new_stripe_customer_id(name: str, email: str, phone: str = '', address_city: str = '', address_country: str = '', address_line1: str = '',
@@ -70,6 +71,7 @@ def create_new_stripe_customer_id(name: str, email: str, phone: str = '', addres
     }
     customer = stripe.Customer.create(**data)
     logger.info(f'Creating Stripe customer {customer}.\n')
+    return customer
 
 
 def set_real_user_in_purchase(payment_intent_id: str, customer_id: str, max_attempts=3, retry_delay=5):
@@ -163,17 +165,13 @@ def send_new_password_by_email(email: str, password: str, name: str = '',
 # ---------------------------
 # Product & Purchase services
 
-def send_product_paid_email_staff(product_id: int = None):
-    try:
-        product = Product.objects.get(id=product_id)
-        subject = f'New Order: {product.random_order_number}, {product.full_name}, {product.date_of_start}'
-        message = (f'\tProduct name: {product.full_name}\n'
-                   f'\tNumber of passengers: {product.total_booked}\n'
-                   f'\tLanguage: {product.language}\n'
-                   f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n')
-        send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
-    except Product.DoesNotExist:
-        logger.error(f"Product {product_id} does not exist.")
+def send_product_paid_email_staff(product):
+    subject = f'New Order: {product.random_order_number}, {product.full_name}, {product.date_of_start}'
+    message = (f'\tProduct name: {product.full_name}\n'
+               f'\tNumber of passengers: {product.total_booked}\n'
+               f'\tLanguage: {product.language}\n'
+               f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n')
+    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
 
 
 def send_booking_updates_by_email_to_staff(product_id: int = None, status: str = None):
@@ -211,9 +209,8 @@ def update_products_status_if_expired():
     return updated_products
 
 
-def set_booking_after_payment(product_id: int):
-    logger.info(f'Start setting booking after Product id: {product_id}.')
-    product = Product.objects.get(id=product_id)
+def set_booking_after_payment(product):
+    logger.info(f'Start setting booking after Product id: {product}.')
     total_booked = product.total_booked
     update_result = update_experience_event_booking(product.occurrence.event_id, booked_number=total_booked)
     if not update_result:
@@ -222,7 +219,6 @@ def set_booking_after_payment(product_id: int):
     else:
         status = f'Succeeded setting booking after Product id: {product.id}.'
         logger.info(status)
-    send_booking_updates_by_email_to_staff(product_id=product_id, status=status)
 
 
 def send_email_notification_to_customer(product):
@@ -237,8 +233,8 @@ def send_email_notification_to_customer(product):
 def send_report_about_paid_products():
     products = Product.for_report.all()
     for product in products:
-        send_product_paid_email_staff(product.id)
-        set_booking_after_payment(product.id)
+        set_booking_after_payment(product)
+        send_product_paid_email_staff(product)
         send_email_notification_to_customer(product)
         product.reported = True
         product.save()
