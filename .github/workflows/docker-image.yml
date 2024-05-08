@@ -57,11 +57,11 @@ jobs:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
-          run: |
-            docker pull portotours/portotours:latest
-            docker stop django-portotours || true
-            docker rm django-portotours || true
-            docker volume rm $(docker volume ls -q) || true
-            docker rmi $(docker images -q --filter "dangling=true") || true
-            docker run -d --name django-portotours -p 8000:8000 portotours/portotours:latest
-            systemctl reload nginx.service
+        run: |
+          docker pull portotours/portotours:latest
+          docker stop django-portotours || true
+          docker rm django-portotours || true
+          docker volume rm $(docker volume ls -q) || true
+          docker rmi $(docker images -q --filter "dangling=true") || true
+          docker run -d --name django-portotours -p 8000:8000 portotours/portotours:latest
+          systemctl reload nginx.service
