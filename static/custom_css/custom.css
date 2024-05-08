@@ -9905,7 +9905,7 @@ html.off-scroll body {
         width: 100%;
         border-radius: 26px;
         overflow: hidden;
-        height: 550px;
+        height: 300px;
         object-fit: cover; }
         @media (max-width: 767.98px) {
           .top-attractions-slider-section .container .top-attractions-slider .swiper-slide .img-wrapper > img {
@@ -9919,7 +9919,8 @@ html.off-scroll body {
         list-style: none;
         display: flex;
         align-items: center;
-        margin: 0; }
+        margin: 0;
+        display: none; }
         @media (max-width: 767.98px) {
           .top-attractions-slider-section .container .top-attractions-slider .swiper-slide .img-wrapper ul {
             display: none; } }
@@ -11111,7 +11112,7 @@ html.off-scroll body {
         border-radius: 26px;
         overflow: hidden;
         position: relative;
-        height: 420px; }
+        height: 440px; }
         @media (max-width: 767.98px) {
           .experience-list .container .experiences .experience-list-item .list-item-img-wrapper {
             width: 100%;
@@ -11134,18 +11135,20 @@ html.off-scroll body {
           object-fit: cover; }
       .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper {
         width: calc(100% - 450px);
-        padding: 32px 32px 28px 32px;
+        padding: 24px 32px 32px 32px;
         border-radius: 0 26px 26px 0; }
         @media (max-width: 767.98px) {
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper {
             width: 100%;
             padding: 14px;
             border-radius: 0; } }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-wrapper {
+          margin-bottom: 8px; }
         .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .discount-banner {
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          margin-bottom: 14px; }
+          margin-bottom: 12px; }
           @media (max-width: 767.98px) {
             .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .discount-banner {
               margin-bottom: 8px; } }
@@ -11162,7 +11165,7 @@ html.off-scroll body {
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper > a.link:hover {
             color: inherit; }
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper > a.link h5, .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper > a.link .h5 {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             color: #0f0f10; }
             @media (max-width: 767.98px) {
               .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper > a.link h5, .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper > a.link .h5 {
@@ -11805,42 +11808,9 @@ html.off-scroll body {
         .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block h5, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block .h5 {
           margin-bottom: 14px;
           color: #000; }
-        .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block ul {
-          padding-left: 0;
-          list-style: none;
-          margin: 0; }
-          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block ul li {
-            list-style: none !important;
-            padding-left: 24px;
-            font-family: "LatoRegular";
-            font-size: 16px;
-            line-height: 26px;
-            margin-bottom: 0;
-            position: relative; }
-            @media (max-width: 767.98px) {
-              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block ul li {
-                padding-left: 20px;
-                font-size: 14px;
-                line-height: 22px; } }
-            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block ul li + li {
-              margin-top: 8px; }
-            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block ul li::before {
-              content: "";
-              position: absolute;
-              width: 10px;
-              height: 10px;
-              background-color: var(--text-color-third);
-              border-radius: 50%;
-              left: 0;
-              top: 50%;
-              transform: translateY(-50%); }
-              @media (max-width: 767.98px) {
-                .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block ul li::before {
-                  top: 7px;
-                  transform: none; } }
-        .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li {
+        .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li {
           padding-left: 38px; }
-          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li::before {
+          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li::before, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li::before {
             content: "";
             position: absolute;
             width: 24px;
@@ -11854,9 +11824,89 @@ html.off-scroll body {
             top: 0;
             transform: translateY(0); }
             @media (max-width: 767.98px) {
-              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li::before {
+              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li::before, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li::before {
                 top: 7px;
                 transform: none; } }
+        .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between; }
+          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol {
+            width: calc((100% - 15px)/2);
+            padding-left: 0;
+            list-style: none;
+            margin: 0; }
+          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul {
+            padding-left: 0;
+            list-style: none;
+            margin: 0; }
+            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul li {
+              list-style: none !important;
+              padding-left: 38px;
+              font-family: "LatoRegular";
+              font-size: 16px;
+              line-height: 26px;
+              margin-bottom: 0;
+              position: relative; }
+              @media (max-width: 767.98px) {
+                .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul li {
+                  padding-left: 20px;
+                  font-size: 14px;
+                  line-height: 22px; } }
+              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul li + li {
+                margin-top: 8px; }
+              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul li::before {
+                content: "";
+                position: absolute;
+                width: 24px;
+                height: 24px;
+                background-image: url(../icons/green-check.svg);
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%); }
+                @media (max-width: 767.98px) {
+                  .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul li::before {
+                    top: 7px;
+                    transform: none; } }
+          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol {
+            padding-left: 0;
+            list-style: none;
+            margin: 0; }
+            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol li {
+              list-style: none !important;
+              padding-left: 38px;
+              font-family: "LatoRegular";
+              font-size: 16px;
+              line-height: 26px;
+              margin-bottom: 0;
+              position: relative;
+              color: #6D6D6D; }
+              @media (max-width: 767.98px) {
+                .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol li {
+                  padding-left: 20px;
+                  font-size: 14px;
+                  line-height: 22px; } }
+              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol li + li {
+                margin-top: 8px; }
+              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol li::before {
+                content: "";
+                position: absolute;
+                width: 24px;
+                height: 24px;
+                background-image: url(../icons/red-crest.svg);
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%); }
+                @media (max-width: 767.98px) {
+                  .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol li::before {
+                    top: 7px;
+                    transform: none; } }
     .experience-info .container .experience-info-inner-wrapper .aside-form {
       width: 445px;
       position: relative;
@@ -14614,5 +14664,3 @@ a {
     margin: 0 auto;
     display: block;
     text-align: center; }
-
-/*# sourceMappingURL=custom.css.map */
