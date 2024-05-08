@@ -163,7 +163,7 @@ def send_new_password_by_email(email: str, password: str, name: str = '',
 # ---------------------------
 # Product & Purchase services
 
-def send_product_paid_email_staff(product_id: int = None, product_name: str = None, total_price: float = None):
+def send_product_paid_email_staff(product_id: int = None):
     try:
         product = Product.objects.get(id=product_id)
         subject = f'New Order: {product.random_order_number}, {product.full_name}, {product.date_of_start}'
@@ -226,8 +226,8 @@ def set_booking_after_payment(product_id: int):
 
 
 def send_email_notification_to_customer(product):
-    url = 'www.onedaytours.pt/en/generate-pdf/{}/'.format(product.id)
-    subject = f'[{product.order_number}] Product paid'
+    url = 'https://onedaytours.pt/en/generate-pdf/{}/'.format(product.id)
+    subject = f'[{product.random_order_number}] Product paid'
     message = (f'Congratulations, {product.customer.profile.name}! \n\tYour product "{product.full_name}" (ID: {product.random_order_number}) paid.\n'
                f'Total price: {product.total_price} EUR.\n'
                f'You can download your PDF here: {url}.')
@@ -237,6 +237,7 @@ def send_email_notification_to_customer(product):
 def send_report_about_paid_products():
     products = Product.for_report.all()
     for product in products:
+        send_product_paid_email_staff(product.id)
         set_booking_after_payment(product.id)
         send_email_notification_to_customer(product)
         product.reported = True
