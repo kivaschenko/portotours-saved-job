@@ -309,10 +309,6 @@ class Experience(models.Model):
     traveler_tips_title = models.CharField(max_length=120, help_text="Title for Traveler tips block in current language, max 120 characters", null=True,
                                            blank=True)
     traveler_tips_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
-    what_to_bring_title = models.CharField(max_length=120, help_text="Title for What to bring block in current language, max 120 characters", null=True,
-                                           blank=True)
-    what_to_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True, verbose_name="What to bring block")
-    that_not_bring_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True, verbose_name="That do not bring a block")
     # Recommendations block
     recommendations_title = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=500, help_text="max 500 characters", null=True, blank=True)
@@ -371,11 +367,6 @@ class Experience(models.Model):
     def display_traveler_tips_text(self):
         return mark_safe(self.traveler_tips_text)
 
-    def display_what_to_bring_text(self):
-        return mark_safe(self.what_to_bring_text)
-
-    def display_that_not_bring_text(self):
-        return mark_safe(self.that_not_bring_text)
     @property
     def average_rating(self):
         # Get the related reviews for this experience
@@ -388,7 +379,7 @@ class Experience(models.Model):
         if average_rating:
             return round(average_rating, 1)
         else:
-            # if no reviews then return None to avoit error in template
+            # if no reviews then return None to avoid error in template
             return None
 
 
