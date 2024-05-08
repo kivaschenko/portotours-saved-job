@@ -788,7 +788,7 @@
             width: 100%;
             border-radius: 26px;
             overflow: hidden;
-            height: 550px;
+            height: 300px;
             object-fit: cover;
             @include media-breakpoint-down(md) {
               height: 100%;
@@ -804,6 +804,7 @@
             display: flex;
             align-items: center;
             margin: 0;
+            display: none;
             @include media-breakpoint-down(md) {
               display: none;
             }

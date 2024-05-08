@@ -272,11 +272,14 @@
                             See all
                         </btn>
                     </div>
-                    <div class="experience-info-block">
+                    <div class="experience-info-block experience-include">
                         <h5>{{ object.includes_title }}</h5>
                         <!-- What included and NOT included lists -->
-                        {{ object.display_includes_text }}
-                        {{ object.display_not_includes_text }}
+                        <div class="info-block-inner">
+                            {{ object.display_includes_text }}
+                            {{ object.display_not_includes_text }}
+                        </div>
+                        
                     </div>
                     <div class="experience-info-block travel-tips">
                         <h5>{{ object.traveler_tips_title }}</h5>
