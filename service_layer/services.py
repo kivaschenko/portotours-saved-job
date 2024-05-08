@@ -49,8 +49,9 @@ def handle_charge_success(payment_intent_id: str, name: str, email: str, phone: 
     if not User.objects.filter(email=email).exists():
         logger.info(f"Email address {email} does not exist.")
         # Create Stripe Customer
-        create_new_stripe_customer_id(name, email, phone, address_city, address_country, address_line1,
-                                      address_line2, address_postal_code, address_state)
+        customer = create_new_stripe_customer_id(name, email, phone, address_city, address_country, address_line1,
+                                                 address_line2, address_postal_code, address_state)
+        set_real_user_in_purchase(payment_intent_id, customer.id)
 
 
 def create_new_stripe_customer_id(name: str, email: str, phone: str = '', address_city: str = '', address_country: str = '', address_line1: str = '',
@@ -70,6 +71,7 @@ def create_new_stripe_customer_id(name: str, email: str, phone: str = '', addres
     }
     customer = stripe.Customer.create(**data)
     logger.info(f'Creating Stripe customer {customer}.\n')
+    return customer
 
 
 def set_real_user_in_purchase(payment_intent_id: str, customer_id: str, max_attempts=3, retry_delay=5):
@@ -163,49 +165,12 @@ def send_new_password_by_email(email: str, password: str, name: str = '',
 # ---------------------------
 # Product & Purchase services
 
-def send_product_paid_email_staff(product_id: int = None, product_name: str = None, total_price: float = None):
-    try:
-        product = Product.objects.get(id=product_id)
-        subject = f'New Order: {product.random_order_number}, {product.full_name}, {product.date_of_start}'
-        message = (f'\tProduct name: {product.full_name}\n'
-                   f'\tNumber of passengers: {product.total_booked}\n'
-                   f'\tLanguage: {product.language}\n'
-                   f'\tPassenger details: ({product.customer.name}, {product.customer.email}, {product.customer.phone})\n')
-        send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
-    except Product.DoesNotExist:
-        logger.error(f"Product {product_id} does not exist.")
-
-
-def send_product_paid_email_to_customer(product_id: int = None, product_name: str = None, total_price: float = None,
-                                        max_attempts=3, retry_delay=10):
-    attempt = 0
-    while attempt < max_attempts:
-        try:
-            product = Product.objects.get(pk=product_id)
-            user = User.objects.get(pk=product.customer_id)
-            break
-        except Exception as e:
-            attempt += 1
-            if attempt >= max_attempts:
-                logger.error(f"Max attempts reached. Exception: {e}.")
-                return
-            logger.warning(f"User not found. Retrying in {retry_delay} seconds...")
-            time.sleep(retry_delay)
-    if product_id is not None and user is not None:
-        url = 'www.onedaytours.pt/en/generate-pdf/{}/'.format(product_id)
-        subject = f'[{product.order_number}] Product paid'
-        message = (f'Congratulations, {user.profile.name}! \n\tYour product "{product_name}" (ID: {product_id}) paid.\n'
-                   f'Total price: {total_price} EUR.\n'
-                   f'You can download your PDF here: {url}.')
-        send_mail(subject, message, settings.SERVER_EMAIL, [user.profile.email])
-
-
-def send_product_canceled_email_staff(product_id: int = None, customer_id: int = None, product_name: str = None, total_price: float = None, status: str = None):
-    subject = f'[{product_id}] Product canceled'
-    message = (f'\tThe product "{product_name}" (ID: {product_id}) canceled.\n'
-               f'Total price: {total_price} EUR.\n'
-               f'User id: {customer_id}.\n'
-               f'Status: {status}.')
+def send_product_paid_email_staff(product):
+    subject = f'New Order: {product.random_order_number}, {product.full_name}, {product.date_of_start}'
+    message = (f'\tProduct name: {product.full_name}\n'
+               f'\tNumber of passengers: {product.total_booked}\n'
+               f'\tLanguage: {product.language}\n'
+               f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n')
     send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
 
 
@@ -217,10 +182,10 @@ def send_booking_updates_by_email_to_staff(product_id: int = None, status: str =
         message = (f'\tProduct name: {product.full_name}\n'
                    f'\tNumber of passengers: {product.total_booked}\n'
                    f'\tLanguage: {product.language}\n'
-                   f'\tPassenger details: ({product.customer.name}, {product.customer.email}, {product.customer.phone})\n'
+                   f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n'
                    f'\t\tResult of real booking: {status}')
         send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
-        logger.info(f'Email sent to {product.customer.email}.')
+        logger.info(f'Email sent to {product.customer.profile.email}.')
     except Product.DoesNotExist:
         logger.error(f"Product {product_id} does not exist.")
 
@@ -244,9 +209,8 @@ def update_products_status_if_expired():
     return updated_products
 
 
-def set_booking_after_payment(product_id: int):
-    logger.info(f'Start setting booking after Product id: {product_id}.')
-    product = Product.objects.get(id=product_id)
+def set_booking_after_payment(product):
+    logger.info(f'Start setting booking after Product id: {product}.')
     total_booked = product.total_booked
     update_result = update_experience_event_booking(product.occurrence.event_id, booked_number=total_booked)
     if not update_result:
@@ -255,10 +219,22 @@ def set_booking_after_payment(product_id: int):
     else:
         status = f'Succeeded setting booking after Product id: {product.id}.'
         logger.info(status)
-    send_booking_updates_by_email_to_staff(product_id=product_id, status=status)
+
+
+def send_email_notification_to_customer(product):
+    url = 'https://onedaytours.pt/en/generate-pdf/{}/'.format(product.id)
+    subject = f'[{product.random_order_number}] Product paid'
+    message = (f'Congratulations, {product.customer.profile.name}! \n\tYour product "{product.full_name}" (ID: {product.random_order_number}) paid.\n'
+               f'Total price: {product.total_price} EUR.\n'
+               f'You can download your PDF here: {url}.')
+    send_mail(subject, message, settings.SERVER_EMAIL, [product.customer.profile.email])
 
 
 def send_report_about_paid_products():
     products = Product.for_report.all()
     for product in products:
-        pass
+        set_booking_after_payment(product)
+        send_product_paid_email_staff(product)
+        send_email_notification_to_customer(product)
+        product.reported = True
+        product.save()

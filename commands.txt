@@ -6,14 +6,3 @@ python manage.py dumpdata products.meetingpoint schedule.event schedule.calendar
 python manage.py dumpdata products.language --format=json --indent=4 --out=products/fixtures/prod/languages.json
 
 python manage.py loaddata accounts/fixtures/testing/users.json
-
-HTTP validation
-Create “.well-known” and “pki-validation” folders at onedaytours.pt/.well-known/pki-validation/ and upload the validation file from this page (Edit methods).
-
-You should be able to access the file via both links:
-
-http://onedaytours.pt/.well-known/pki-validation/04BE9BE36AB31C68E878C3D2EB5CD4CD.txt
-https://portotoursmedia.fra1.cdn.digitaloceanspaces.com/.well-known/pki-validation/04BE9BE36AB31C68E878C3D2EB5CD4CD.txt
-
-http://www.onedaytours.pt/.well-known/pki-validation/04BE9BE36AB31C68E878C3D2EB5CD4CD.txt
-

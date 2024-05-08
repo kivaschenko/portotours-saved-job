@@ -2,19 +2,21 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "master" ]
+    branches: 
+      - "master"
   pull_request:
-    branches: [ "master" ]
+    branches: 
+      - "master"
 
 jobs:
   build:
     runs-on: ubuntu-22.04
-
     steps:
       - name: Set up environment variables
         env:
           STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -33,12 +35,12 @@ jobs:
 
   build_and_deploy:
     runs-on: ubuntu-22.04
-
     steps:
       - name: Set up environment variables
         env:
           STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -62,7 +64,7 @@ jobs:
             docker stop django-portotours || true
             docker rm django-portotours || true
             docker volume rm $(docker volume ls -q) || true
-            docker rmi $(docker images -q --filter "dangling=true") || true
             docker run -d --name django-portotours -p 8000:8000 portotours/portotours:latest
-            # Additional steps for nginx
-            systemctl reload nginx.service
+            docker rmi $(docker images -q --filter "dangling=true") || true
+            systemctl reload nginx
+
