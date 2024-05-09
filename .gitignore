@@ -77,4 +77,4 @@ venv.bak/
 .idea/
 # locally dev files
 commands.txt
-dumpdb.json
+#dumpdb.json
