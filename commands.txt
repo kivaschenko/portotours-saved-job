@@ -6,3 +6,5 @@ python manage.py dumpdata products.meetingpoint schedule.event schedule.calendar
 python manage.py dumpdata products.language --format=json --indent=4 --out=products/fixtures/prod/languages.json
 
 python manage.py loaddata accounts/fixtures/testing/users.json
+
+python manage.py dumpdata --format=json --indent=4 --exclude=auth --exclude=contenttypes --exclude=sessions --out dumpdb.json

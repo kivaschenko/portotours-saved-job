@@ -4,6 +4,16 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X9P4D6080"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-9X9P4D6080');
+    </script>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block head %}
@@ -20,16 +30,6 @@
     <link rel="stylesheet" href="{% static 'custom_css/swiper-bundle.min.css' %}"/>
     <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9X9P4D6080"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9X9P4D6080');
-</script>
-
 <body class="d-flex flex-column min-vh-100">
 <header class="header">
     {% block header %}
