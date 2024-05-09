@@ -74,19 +74,31 @@
                 </div>
                 {% if object.review_set.count > 0 %} 
                 <div class="reviews-rating-wrapper">
-                    {% if object.review_set.count > 0 %}
+                    
                     <a href="#reviews" class="reviews-count">
-<<<<<<< HEAD
-                        {{object.review_set.count}} reviews
-=======
                         {{ object.review_set.count }} reviews
->>>>>>> 2d009c5392a9b7863c9cf5ecf5a4cbb889054ded
                     </a>
-                    {% else %}
+                   
                     <div class="rating-img-wrapper">
-                        <img src="{% static 'icons/empty-stars.svg' %}" alt="">
+                        <div class="rating">
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
+                            </svg>
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
+                            </svg>
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
+                            </svg>
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
+                            </svg>
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
+                            </svg>
+                          </div>
                     </div>
-                    {% endif %}
+                   
                 </div>
                 {% else %}
                 <div class="reviews-rating-wrapper">
@@ -577,7 +589,7 @@
                     loop: true,
                 },
                 767: {
-                    slidesPerView: 1.2,
+                    slidesPerView: 1.5,
                     spaceBetween: 24,
                     centeredSlides: true,
                     loop: true,
@@ -629,7 +641,7 @@
             const paginationContainer = document.getElementById('paginationContainer');
             
 
-
+            {% if object.review_set.count > 0 %}
             // Function to fetch reviews with pagination
             async function fetchReviews(pageNumber) {
                 try {
@@ -643,7 +655,9 @@
                     return {reviews: [], has_next: false, has_previous: false};
                 }
             }
+            {% endif %}
 
+            {% if object.review_set.count > 0 %}
             // Function to render reviews
             function renderReviews(reviewsData) {
                 const reviewsList = document.getElementById('reviewsList');
@@ -681,7 +695,23 @@
                     reviewsList.appendChild(reviewItem);
                 });
             }
+            {% else %}
+                const reviewsList = document.getElementById('reviewsList');
+                const emptyReviewItem = document.createElement('li');
+                emptyReviewItem.classList.add('reviews-list-item');
+                const emptyReviewBlock = document.createElement('div');
+                emptyReviewBlock.classList.add('empty-review-block');
+                emptyReviewBlock.innerHTML = `
+                    <img class="empty-review-img" src="{% static 'icons/empty-review-img.svg' %}" alt="empty review">
+                    <p class="empty-review-text"> There are no reviews for this experience yet. <br/> Be the first one to write one. </p>
+                    `;
+                    
+                emptyReviewItem.appendChild(emptyReviewBlock);
+                reviewsList.appendChild(emptyReviewItem);
+                    
 
+            {% endif %}
+            {% if object.review_set.count > 0 %}
             // Function to render pagination controls
             function renderPaginationControls(paginationData) {
                 paginationContainer.innerHTML = ''; // Clear existing pagination controls
@@ -689,7 +719,6 @@
                 const {has_next, has_previous, next_page_number, previous_page_number, total_pages, current_page_number} = paginationData;
 
                 // Render previous page button
-                
                     const prevButton = document.createElement('button');
                     prevButton.innerHTML = `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
                     prevButton.classList.add('pagination-btn', 'prev')
@@ -698,7 +727,6 @@
                     if (has_previous) {
                         prevButton.innerHTML = `<img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">`
                     }
-
                     const paginationList = document.createElement('ul')
                     paginationContainer.appendChild(paginationList)
                     paginationList.classList.add('pagination-list')
@@ -715,7 +743,6 @@
                 }
 
                 // Render next page button
-                
                     const nextButton = document.createElement('button');
                     nextButton.innerHTML = 
                     `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
@@ -726,7 +753,9 @@
                         nextButton.innerHTML = `<img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">`
                     }
             }
+            {% endif %}
 
+            {% if object.review_set.count > 0 %}
             // Function to handle pagination click event
             function handlePaginationClick(pageNumber) {
                 fetchReviews(pageNumber)
@@ -738,10 +767,40 @@
                         console.error('Error fetching reviews:', error);
                     });
             }
-
+            {% endif %}
             // Fetch reviews for the first page when the page loads
+
+            {% if object.review_set.count > 0 %}
             handlePaginationClick(1);
+            {% else %}
+
+            {% endif %}
         });
+    </script>
+    <script>
+        let averageRating = {{object.average_rating}};
+        if (averageRating) {
+           
+            function fillStars(rating) {
+            const stars = document.querySelectorAll('.star');
+            const filledStars = Math.floor(rating); 
+            const fraction = rating - filledStars; 
+
+            stars.forEach((star, index) => {
+                if (index < filledStars) {
+                star.classList.add('filled'); 
+                } else if (index === filledStars) {
+                star.style.setProperty('--fraction', fraction); 
+                star.classList.add('partial-fill'); 
+                }
+            });
+            }
+
+            
+            fillStars(averageRating);
+        }
+        
+
     </script>
 
     <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>

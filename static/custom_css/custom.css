@@ -9632,14 +9632,24 @@ html.off-scroll body {
           justify-content: space-between; }
           .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper .rating-block {
             margin-right: 0px;
-            margin-bottom: 18px; }
+            margin-bottom: 18px;
+            position: relative; }
             @media (max-width: 767.98px) {
               .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper .rating-block {
                 margin-bottom: 16px; } }
             .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper .rating-block img {
               width: 132px;
               height: 20px;
-              margin-right: 0; }
+              margin-right: 0;
+              position: relative;
+              z-index: 2;
+              display: block; }
+              .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper .rating-block img.empty {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 1; }
           .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper .duration-block p {
             margin-bottom: 0;
             font-size: 16px;
@@ -11282,7 +11292,8 @@ html.off-scroll body {
   margin-bottom: 0; }
   @media (max-width: 767.98px) {
     .experience-hero-info {
-      margin-bottom: 0px; } }
+      margin-bottom: 0px;
+      flex-wrap: wrap; } }
   .experience-hero-info .experience-hero-info-text {
     display: flex;
     align-items: center;
@@ -11295,12 +11306,14 @@ html.off-scroll body {
     @media (max-width: 767.98px) {
       .experience-hero-info .experience-hero-info-text {
         font-size: 14px;
-        line-height: 22px; } }
+        line-height: 22px;
+        margin-bottom: 10px;
+        margin-right: 16px; } }
     .experience-hero-info .experience-hero-info-text + .experience-hero-info-text {
       margin-left: 34px; }
       @media (max-width: 767.98px) {
         .experience-hero-info .experience-hero-info-text + .experience-hero-info-text {
-          margin-left: 21px; } }
+          margin-left: 0; } }
     .experience-hero-info .experience-hero-info-text img {
       margin-right: 14px;
       display: block; }
@@ -11393,8 +11406,16 @@ html.off-scroll body {
       margin-right: 13px;
       text-decoration: none;
       display: block; }
-    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper img {
-      display: block; }
+    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .rating {
+      display: flex;
+      gap: 8px;
+      /* Расстояние между звездами */ }
+    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .star {
+      fill: none;
+      stroke-width: 2; }
+    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .filled {
+      fill: yellow;
+      /* Заливка желтым цветом */ }
 
 .experience-hero {
   overflow: hidden; }
@@ -11424,9 +11445,14 @@ html.off-scroll body {
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover; }
+          @media (max-width: 767.98px) {
+            .experience-hero .container .experience-hero-swiper .swiper-slide::after {
+              width: calc(100% + 14px);
+              left: -14px; } }
         .experience-hero .container .experience-hero-swiper .swiper-slide img {
           border-radius: 26px;
-          overflow: hidden; }
+          overflow: hidden;
+          width: 100%; }
         @media (max-width: 767.98px) {
           .experience-hero .container .experience-hero-swiper .swiper-slide {
             height: 250px;
@@ -11810,34 +11836,54 @@ html.off-scroll body {
         .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block h5, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block .h5 {
           margin-bottom: 14px;
           color: #000; }
-        .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li {
-          padding-left: 38px; }
-          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li::before, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li::before {
-            content: "";
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            background-image: url(../icons/travel-tips-after.svg);
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            border-radius: 50%;
-            left: 0;
-            top: 0;
-            transform: translateY(0); }
+        .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol {
+          padding-left: 0;
+          margin: 0; }
+          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li {
+            padding-left: 38px;
+            list-style: none !important;
+            position: relative; }
             @media (max-width: 767.98px) {
-              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li::before, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li::before {
-                top: 7px;
-                transform: none; } }
+              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li {
+                padding-left: 34px;
+                font-size: 14px;
+                line-height: 22px; } }
+            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li + li, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li + li {
+              margin-top: 8px; }
+            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li::before, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li::before {
+              content: "";
+              position: absolute;
+              width: 24px;
+              height: 24px;
+              background-image: url(../icons/travel-tips-after.svg);
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+              border-radius: 50%;
+              left: 0;
+              top: 0;
+              transform: translateY(0); }
+              @media (max-width: 767.98px) {
+                .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li::before, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li::before {
+                  top: 0px;
+                  transform: none; } }
         .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner {
           display: flex;
           align-items: flex-start;
           justify-content: space-between; }
+          @media (max-width: 767.98px) {
+            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner {
+              flex-direction: column; } }
+          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner > p {
+            display: none; }
           .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol {
             width: calc((100% - 15px)/2);
             padding-left: 0;
             list-style: none;
             margin: 0; }
+            @media (max-width: 767.98px) {
+              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol {
+                width: 100%; } }
           .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul {
             padding-left: 0;
             list-style: none;
@@ -11852,7 +11898,7 @@ html.off-scroll body {
               position: relative; }
               @media (max-width: 767.98px) {
                 .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul li {
-                  padding-left: 20px;
+                  padding-left: 34px;
                   font-size: 14px;
                   line-height: 22px; } }
               .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul li + li {
@@ -11871,12 +11917,13 @@ html.off-scroll body {
                 transform: translateY(-50%); }
                 @media (max-width: 767.98px) {
                   .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul li::before {
-                    top: 7px;
+                    top: 0;
                     transform: none; } }
             .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul {
               padding-left: 0;
               list-style: none;
-              margin: 0; }
+              margin: 0;
+              margin-top: 12px; }
               .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li {
                 list-style: none !important;
                 padding-left: 38px;
@@ -11888,7 +11935,7 @@ html.off-scroll body {
                 color: #6D6D6D; }
                 @media (max-width: 767.98px) {
                   .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li {
-                    padding-left: 20px;
+                    padding-left: 34px;
                     font-size: 14px;
                     line-height: 22px; } }
                 .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li + li {
@@ -11907,7 +11954,7 @@ html.off-scroll body {
                   transform: translateY(-50%); }
                   @media (max-width: 767.98px) {
                     .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li::before {
-                      top: 7px;
+                      top: 0;
                       transform: none; } }
     .experience-info .container .experience-info-inner-wrapper .aside-form {
       width: 445px;
@@ -12312,6 +12359,19 @@ html.off-scroll body {
         @media (max-width: 767.98px) {
           .reviews .left-col .reviews-list .reviews-list-item + .reviews-list-item::before {
             top: -12px; } }
+    .reviews .left-col .reviews-list .reviews-list-item .empty-review-block {
+      text-align: center;
+      margin-top: 100px; }
+      .reviews .left-col .reviews-list .reviews-list-item .empty-review-block img {
+        margin-bottom: 30px;
+        width: 120px;
+        height: 120px; }
+      .reviews .left-col .reviews-list .reviews-list-item .empty-review-block .empty-review-text {
+        font-size: 20px;
+        line-height: 30px;
+        font-family: "LatoRegular";
+        color: #0F0F10;
+        margin: 0; }
     .reviews .left-col .reviews-list .reviews-list-item .review-stars-wrapper {
       margin-bottom: 12px;
       max-width: 120px; }
@@ -14666,5 +14726,3 @@ a {
     margin: 0 auto;
     display: block;
     text-align: center; }
-
-/*# sourceMappingURL=custom.css.map */

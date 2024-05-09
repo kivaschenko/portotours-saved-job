@@ -444,6 +444,7 @@
             .rating-block {
               margin-right: 0px;
               margin-bottom: 18px;
+              position: relative;
               @include media-breakpoint-down(md) {
               margin-bottom: 16px;
               }
@@ -451,7 +452,18 @@
                 width: 132px;
                 height: 20px;
                 margin-right: 0;
+                position: relative;
+                z-index: 2;
+                display: block;
+                &.empty {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  z-index: 1;
+                }
               }
+            
             }
             .duration-block p {
               margin-bottom: 0;
