@@ -108,8 +108,8 @@
                 </a>
             </div>
             <div class="best-tours-cards-wrapper">
-                {% if experiences_top_year %}
-                    {% for experience in experiences_top_year %}
+                {% if experiences %}
+                    {% for experience in experiences %}
                         <div class="best-tours-card">
                             <div class="img-wrapper">
                                 <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" target="_blank">

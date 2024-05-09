@@ -15,7 +15,9 @@ from home.forms import SubscriberForm, ExperienceSearchForm
 
 
 class LandingPageView(DetailView):
+    model = LandingPage
     template_name = 'landing_pages/parent_landing.html'
+    queryset = LandingPage.active.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,18 +26,19 @@ class LandingPageView(DetailView):
             lang = self.kwargs.get('lang')
         # activate(lang)
         context['current_language'] = lang
-        context['experiences_top_year'] = Experience.active.filter(
-            parent_experience__show_on_home_page=True,
+        context['experiences'] = Experience.active.filter(
+            parent_experience__category=self.object.category,
             language__code=lang.upper(),
-        ).order_by('parent_experience__priority_number')[:6]
+        ).all()
+        if self.object.destination:
+            self.template_name = 'landing_pages/child_landing.html'
+            context['experiences'] = context['experiences'].filter(destination=self.object.destination)
         context['testimonials'] = Testimonial.objects.all()[:6]
         context['subscription_form'] = SubscriberForm()
         context['experience_form'] = ExperienceSearchForm(lang)
         return context
 
     def post(self, request, *args, **kwargs):
-        lang = self.kwargs.get('lang', 'en')
-        activate(lang)
         context = self.get_context_data(**kwargs)
         form = SubscriberForm(request.POST)
         if form.is_valid():
