@@ -122,11 +122,11 @@
                                 <div class="discount-banner-wrapper">
                                     <img src="{% static 'icons/discount-bg.svg' %}" alt="">
                                     <p class="discount">
-                                        10% discount
+                                        {{ experience.parent_experience.increase_percentage_old_price}}% discount
                                     </p>
                                 </div>
                                 <div class="rating-wrapper body-text-b4">
-                                    {% if object.average_rating %}
+                                    {% if experience.average_rating %}
                                     <div class="rating-block">
                                         <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
                                             {{ experience.average_rating }}

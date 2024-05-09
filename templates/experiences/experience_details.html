@@ -73,12 +73,15 @@
                     </div>
                 </div>
                 <div class="reviews-rating-wrapper">
+                    {% if object.review_set.count > 0 %}
                     <a href="#reviews" class="reviews-count">
-                        130 reviews
+                        {{ object.review_set.count }} reviews
                     </a>
+                    {% else %}
                     <div class="rating-img-wrapper">
                         <img src="{% static 'icons/empty-stars.svg' %}" alt="">
                     </div>
+                    {% endif %}
                 </div>
             </div>
 
