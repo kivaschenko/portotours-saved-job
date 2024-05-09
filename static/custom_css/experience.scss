@@ -547,6 +547,8 @@
   margin-bottom: 0;
   @include media-breakpoint-down(md) {
     margin-bottom: 0px;
+    flex-wrap: wrap;
+    
   }
   .experience-hero-info-text {
     display: flex;
@@ -560,13 +562,17 @@
     @include media-breakpoint-down(md) {
       font-size: 14px;
       line-height: 22px;
+      margin-bottom: 10px;
+      margin-right: 16px;
     }
     + .experience-hero-info-text {
       margin-left: 34px;
       @include media-breakpoint-down(md) {
-        margin-left: 21px;
+        margin-left: 0;
+        
       }
     }
+    
     img {
       margin-right: 14px;
       display: block;
@@ -674,9 +680,20 @@
         display: block;
       }
       .rating-img-wrapper {
-        img {
-          display: block;
+        .rating {
+          display: flex;
+          gap: 8px; /* Расстояние между звездами */
         }
+        
+        .star {
+          fill: none;
+          stroke-width: 2;
+        }
+        
+        .filled {
+          fill: yellow; /* Заливка желтым цветом */
+        }
+        
       }
     }
   }
@@ -712,10 +729,15 @@
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover;
+          @include media-breakpoint-down(md) {
+            width: calc(100% + 14px);
+            left: -14px;
+          }
         }
         img {
           border-radius: 26px;
             overflow: hidden;
+            width: 100%;
         }
         @include media-breakpoint-down(md) {
           height: 250px;
@@ -1165,8 +1187,20 @@
          
           &.travel-tips {
             ul,ol {
+              padding-left: 0;
+              margin: 0;
               li {
                 padding-left: 38px;
+                list-style: none !important;
+                position: relative;
+                @include media-breakpoint-down(md) {
+                  padding-left: 34px;
+                  font-size: 14px;
+                    line-height: 22px;
+                }
+                + li {
+                  margin-top: 8px;
+                }
                 &::before {
                   content: "";
                   position: absolute;
@@ -1181,7 +1215,7 @@
                   top: 0;
                   transform: translateY(0);
                   @include media-breakpoint-down(md) {
-                    top: 7px;
+                    top: 0px;
                     transform: none;
                   }
                 }
@@ -1193,11 +1227,20 @@
               display: flex;
               align-items: flex-start;
               justify-content: space-between;
+              @include media-breakpoint-down(md) {
+                flex-direction: column;
+              }
+              > p {
+                display: none;
+              }
               ul,ol {
                 width: calc((100% - 15px)/2);
                 padding-left: 0; 
                 list-style: none;
                 margin: 0;
+                @include media-breakpoint-down(md) {
+                  width: 100%;
+                }
               }
               ul {
                 padding-left: 0;
@@ -1212,7 +1255,7 @@
                   margin-bottom: 0;
                   position: relative;
                   @include media-breakpoint-down(md) {
-                    padding-left: 20px;
+                    padding-left: 34px;
                     font-size: 14px;
                     line-height: 22px;
                   }
@@ -1232,7 +1275,7 @@
                     top: 12px;
                     transform: translateY(-50%);
                     @include media-breakpoint-down(md) {
-                      top: 7px;
+                      top: 0;
                       transform: none;
                     }
                   }
@@ -1241,6 +1284,7 @@
                   padding-left: 0;
                   list-style: none;
                   margin: 0;
+                  margin-top: 12px;
                   li {
                     list-style: none !important;
                     padding-left: 38px;
@@ -1251,7 +1295,7 @@
                     position: relative;
                     color: #6D6D6D;
                     @include media-breakpoint-down(md) {
-                      padding-left: 20px;
+                      padding-left: 34px;
                       font-size: 14px;
                       line-height: 22px;
                     }
@@ -1271,7 +1315,7 @@
                       top: 12px;
                       transform: translateY(-50%);
                       @include media-breakpoint-down(md) {
-                        top: 7px;
+                        top: 0;
                         transform: none;
                       }
                     }
@@ -1799,6 +1843,22 @@
             @include media-breakpoint-down(md) {
               top: -12px;
             }
+          }
+        }
+        .empty-review-block {
+          text-align: center;
+          margin-top: 100px;
+          img {
+            margin-bottom: 30px;
+            width: 120px;
+            height: 120px;
+          }
+          .empty-review-text {
+            font-size: 20px;
+            line-height: 30px;
+            font-family: "LatoRegular";
+            color: #0F0F10;
+            margin: 0;
           }
         }
         .review-stars-wrapper {
