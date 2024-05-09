@@ -106,9 +106,15 @@
                                 </a>
                             </div>
                             <div class="experience-list-content-wrapper">
+                                {% if object.review_set.count > 0 %} 
                                <div class="rating-wrapper">
                                 <img src="{% static 'icons/empty-stars.svg' %}" alt="">
                                </div>
+                               {% else %}
+                               <div class="rating-wrapper">
+                                <img src="{% static 'icons/5-stars-icon.svg' %}" alt="">
+                               </div>
+                               {% endif %}
                                 <a target="_blank" class="link" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
                                     <h5>
                                         {{ object.name }}

@@ -122,11 +122,11 @@
                                 <div class="discount-banner-wrapper">
                                     <img src="{% static 'icons/discount-bg.svg' %}" alt="">
                                     <p class="discount">
-                                        10% discount
+                                        {{ experience.parent_experience.increase_percentage_old_price }}% discount
                                     </p>
                                 </div>
                                 <div class="rating-wrapper body-text-b4">
-                                    {% if object.average_rating %}
+                                    {% if experience.average_rating %}
                                     <div class="rating-block">
                                         <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
                                             {{ experience.average_rating }}
@@ -177,11 +177,11 @@
                                         <a target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" class="tour-link btn-type-1">
                                             Book
                                         </a>
-                                        
+                                        {% if experience.parent_experience.free_cancellation %}
                                         <p class="free-canc-title">
                                             + free cancellation
                                         </p>
-                                        
+                                        {% endif %}
                                     </div>
                                     
                                 </div>
@@ -272,7 +272,7 @@
                                 <p class="slide-text">
                                     {{ attraction.short_introduction_text }}
                                 </p>
-                                <a target="_blank" href="{% url 'attraction-detail' lang=attraction.language.code.lower slug=attraction.slug %}"
+                                <a href="{% url 'attraction-detail' lang=attraction.language.code.lower slug=attraction.slug %}"
                                    class="slide-link-btn btn-type-2">Read more</a>
                             </div>
                         {% endfor %}
@@ -300,7 +300,7 @@
                     <div class="top-destinations-col">
                         {% for destination in destinations_top_year|slice:":2" %}
                             <div class="top-destinations-card">
-                                <a target="_blank" href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
+                                <a  href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
                                     <img src="{% if destination.parent_destination.card_image %}
                                         {{ destination.parent_destination.card_image.url }}
                                         {% else %}{% endif %}" alt="card img for {{ destination.name }}">
@@ -314,7 +314,7 @@
                     <div class="top-destinations-col top-destinations-col--reverse">
                         {% for destination in destinations_top_year|slice:"2:4" %}
                             <div class="top-destinations-card">
-                                <a target="_blank" href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
+                                <a  href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
                                     <img src="{% if destination.parent_destination.card_image %}
                                         {{ destination.parent_destination.card_image.url }}
                                         {% else %}{% endif %}" alt="card img for {{ destination.name }}">
@@ -328,7 +328,7 @@
                     <div class="top-destinations-col">
                         {% for destination in destinations_top_year|slice:"4:" %}
                             <div class="top-destinations-card">
-                                <a target="_blank" href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
+                                <a  href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
                                     <img src="{% if destination.parent_destination.card_image %}
                                         {{ destination.parent_destination.card_image.url }}
                                         {% else %}{% endif %}" alt="card img for {{ destination.name }}">
