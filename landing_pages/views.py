@@ -6,7 +6,7 @@ from django.utils.translation import activate
 
 from destinations.models import Destination
 from attractions.models import Attraction
-from products.models import Experience
+from products.models import Experience, ParentExperience
 from reviews.models import Testimonial
 
 from .models import LandingPage
@@ -26,10 +26,13 @@ class LandingPageView(DetailView):
             lang = self.kwargs.get('lang')
         # activate(lang)
         context['current_language'] = lang
-        context['experiences'] = Experience.active.filter(
-            parent_experience__category=self.object.category,
-            language__code=lang.upper(),
-        ).all()
+        parent_experiences = ParentExperience.objects.filter(categories=self.object.category)
+        experiences = []
+        for par_exp in parent_experiences:
+            found_experience = par_exp.child_experiences.filter(is_active=True, language__code=lang.upper()).first()
+            if found_experience:
+                experiences.append(found_experience)
+        context['experiences'] = experiences
         if self.object.destination:
             self.template_name = 'landing_pages/child_landing.html'
             context['experiences'] = context['experiences'].filter(destination=self.object.destination)
@@ -48,5 +51,3 @@ class LandingPageView(DetailView):
         else:
             # If form is not valid, return JSON response with errors
             return JsonResponse({'success': False, 'errors': form.errors})
-
-# Create your views here.
