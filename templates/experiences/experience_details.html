@@ -211,7 +211,7 @@
                             risk free! Neque porro quisquam 
                         </h3>
                     </div>
-                    {% if object.parent_experience.child_price < object.parent_experience.price %}
+                    {% if not object.parent_experience.is_private and object.parent_experience.child_price < object.parent_experience.price %}
                     <div class="children-discount-badge">
                         <h3 class="badge-title">
                             <img src="{% static 'icons/children-icon.svg' %}" alt="">
