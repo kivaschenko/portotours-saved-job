@@ -464,8 +464,8 @@ class ExperienceImage(models.Model):
 
     def resize_slider_image(self):
         img = Image.open(self.slider_image)
-        max_width = 1090
-        max_height = 600
+        max_width = 870
+        max_height = 420
 
         # Calculate the aspect ratio of the original image
         original_aspect_ratio = img.width / img.height
