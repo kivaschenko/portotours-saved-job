@@ -14,6 +14,7 @@ from purchases import views as purchases_views
 from blogs import views as blogs_views
 from reviews import views as reviews_views
 from home import views as home_views
+from landing_pages import views as landing_pages_views
 
 
 # 404, 500 ERRORS
@@ -122,6 +123,9 @@ urlpatterns += [
     # path('reviews/', reviews_views.ReviewListView.as_view(), name='review-list'),
     path('reviews/<int:pk>/', reviews_views.ReviewDetailView.as_view(), name='review-details'),
 ]
+
+# LANDING PAGES
+urlpatterns += [path('<str:lang>/tour-type/<slug:slug>/', landing_pages_views.LandingPageView.as_view(), name='landing-page'),]
 
 # Scheduler urls
 urlpatterns += [

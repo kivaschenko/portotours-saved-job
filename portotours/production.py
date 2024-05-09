@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'blogs.apps.BlogsConfig',
     'reviews.apps.ReviewsConfig',
     'home.apps.HomeConfig',
+    'landing_pages.apps.LandingPagesConfig',
 ]
 # WhiteNoise configuration
 MIDDLEWARE = [
