@@ -7747,7 +7747,8 @@ html.off-scroll body {
   .header-right-col .language-switcher {
     margin-right: 40px;
     position: relative;
-    z-index: 20; }
+    z-index: 20;
+    display: none; }
     @media (max-width: 767.98px) {
       .header-right-col .language-switcher {
         display: none; } }
@@ -8006,7 +8007,8 @@ html.off-scroll body {
       @media (max-width: 767.98px) {
         .header .navbar .language-phone-wrapper .language-switcher-mobile {
           display: block;
-          margin-right: 0; } }
+          margin-right: 0;
+          display: none; } }
       .header .navbar .language-phone-wrapper .language-switcher-mobile .default-language {
         cursor: pointer;
         display: flex;
@@ -11287,7 +11289,7 @@ html.off-scroll body {
     font-family: "LatoRegular";
     font-size: 16px;
     line-height: 26px;
-    color: #378f02;
+    color: #0C692C;
     text-transform: capitalize;
     margin-bottom: 0; }
     @media (max-width: 767.98px) {
@@ -11379,7 +11381,7 @@ html.off-scroll body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-top: 10px;
+    margin-top: 0;
     margin-bottom: 9px; }
     .sticky-container .sticky-block .reviews-rating-wrapper .reviews-count {
       color: #0F0F10;
@@ -11865,48 +11867,48 @@ html.off-scroll body {
                 background-repeat: no-repeat;
                 background-size: contain;
                 left: 0;
-                top: 50%;
+                top: 12px;
                 transform: translateY(-50%); }
                 @media (max-width: 767.98px) {
                   .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul li::before {
                     top: 7px;
                     transform: none; } }
-          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol {
-            padding-left: 0;
-            list-style: none;
-            margin: 0; }
-            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol li {
-              list-style: none !important;
-              padding-left: 38px;
-              font-family: "LatoRegular";
-              font-size: 16px;
-              line-height: 26px;
-              margin-bottom: 0;
-              position: relative;
-              color: #6D6D6D; }
-              @media (max-width: 767.98px) {
-                .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol li {
-                  padding-left: 20px;
-                  font-size: 14px;
-                  line-height: 22px; } }
-              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol li + li {
-                margin-top: 8px; }
-              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol li::before {
-                content: "";
-                position: absolute;
-                width: 24px;
-                height: 24px;
-                background-image: url(../icons/red-crest.svg);
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: contain;
-                left: 0;
-                top: 50%;
-                transform: translateY(-50%); }
+            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul {
+              padding-left: 0;
+              list-style: none;
+              margin: 0; }
+              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li {
+                list-style: none !important;
+                padding-left: 38px;
+                font-family: "LatoRegular";
+                font-size: 16px;
+                line-height: 26px;
+                margin-bottom: 0;
+                position: relative;
+                color: #6D6D6D; }
                 @media (max-width: 767.98px) {
-                  .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol li::before {
-                    top: 7px;
-                    transform: none; } }
+                  .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li {
+                    padding-left: 20px;
+                    font-size: 14px;
+                    line-height: 22px; } }
+                .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li + li {
+                  margin-top: 8px; }
+                .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li::before {
+                  content: "";
+                  position: absolute;
+                  width: 24px;
+                  height: 24px;
+                  background-image: url(../icons/red-crest.svg);
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  background-size: contain;
+                  left: 0;
+                  top: 12px;
+                  transform: translateY(-50%); }
+                  @media (max-width: 767.98px) {
+                    .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li::before {
+                      top: 7px;
+                      transform: none; } }
     .experience-info .container .experience-info-inner-wrapper .aside-form {
       width: 445px;
       position: relative;
@@ -12263,8 +12265,8 @@ html.off-scroll body {
           width: 220px;
           text-align: center; } }
 .reviews .container {
-  margin-top: 120px;
-  margin-bottom: 120px; }
+  margin-top: 50px;
+  margin-bottom: 50px; }
   @media (max-width: 767.98px) {
     .reviews .container {
       margin-top: 40px;

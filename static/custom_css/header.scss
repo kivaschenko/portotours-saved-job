@@ -152,6 +152,7 @@
             margin-right: 40px;
             position: relative;
             z-index: 20;
+            display: none;
             @include media-breakpoint-down(md) {
                 display: none;
             }
@@ -474,6 +475,7 @@
                 @include media-breakpoint-down(md) {
                     display: block;
                     margin-right: 0;
+                    display: none;
                 }
                 .default-language {
                     cursor: pointer;
