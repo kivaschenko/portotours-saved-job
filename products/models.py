@@ -304,11 +304,11 @@ class Experience(models.Model):
     possibility = RichTextField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     schedule_title = models.CharField(max_length=120, help_text='Title for the schedule block in current language, max 120 characters', null=True, blank=True)
     includes_title = models.CharField(max_length=120, help_text="Title for Includes block in current language, max 120 characters", null=True, blank=True)
-    includes_text = RichTextField(max_length=1000, help_text="List of features INCLUDED in tour, max 1000 characters", null=True, blank=True)
-    not_includes_text = RichTextField(max_length=1000, help_text="List of features NOT INCLUDED in tour, max 1000 characters", null=True, blank=True)
+    includes_text = RichTextField(max_length=10000, help_text="List of features INCLUDED in tour, max 10000 characters", null=True, blank=True)
+    not_includes_text = RichTextField(max_length=10000, help_text="List of features NOT INCLUDED in tour, max 10000 characters", null=True, blank=True)
     traveler_tips_title = models.CharField(max_length=120, help_text="Title for Traveler tips block in current language, max 120 characters", null=True,
                                            blank=True)
-    traveler_tips_text = RichTextField(max_length=1000, help_text="Max 1000 characters", null=True, blank=True)
+    traveler_tips_text = RichTextField(max_length=10000, help_text="Max 10000 characters", null=True, blank=True)
     # Recommendations block
     recommendations_title = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=500, help_text="max 500 characters", null=True, blank=True)
@@ -464,8 +464,8 @@ class ExperienceImage(models.Model):
 
     def resize_slider_image(self):
         img = Image.open(self.slider_image)
-        max_width = 1090
-        max_height = 600
+        max_width = 870
+        max_height = 420
 
         # Calculate the aspect ratio of the original image
         original_aspect_ratio = img.width / img.height

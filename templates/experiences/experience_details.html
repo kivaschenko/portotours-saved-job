@@ -74,12 +74,19 @@
                 </div>
                 {% if object.review_set.count > 0 %} 
                 <div class="reviews-rating-wrapper">
+                    {% if object.review_set.count > 0 %}
                     <a href="#reviews" class="reviews-count">
+<<<<<<< HEAD
                         {{object.review_set.count}} reviews
+=======
+                        {{ object.review_set.count }} reviews
+>>>>>>> 2d009c5392a9b7863c9cf5ecf5a4cbb889054ded
                     </a>
+                    {% else %}
                     <div class="rating-img-wrapper">
                         <img src="{% static 'icons/empty-stars.svg' %}" alt="">
                     </div>
+                    {% endif %}
                 </div>
                 {% else %}
                 <div class="reviews-rating-wrapper">
@@ -219,7 +226,7 @@
                             risk free! Neque porro quisquam 
                         </h3>
                     </div>
-                    {% if object.parent_experience.child_price < object.parent_experience.price %}
+                    {% if not object.parent_experience.is_private and object.parent_experience.child_price < object.parent_experience.price %}
                     <div class="children-discount-badge">
                         <h3 class="badge-title">
                             <img src="{% static 'icons/children-icon.svg' %}" alt="">
@@ -294,12 +301,6 @@
                         <h5>{{ object.traveler_tips_title }}</h5>
                         {{ object.display_traveler_tips_text }}
                     </div>
-                <div>
-                    <h5>{{ object.what_to_bring_title }}</h5>
-                    {{ object.display_what_to_bring_text }}
-                    {{ object.display_that_not_bring_text }}
-                </div>
-                    
                 </div>
                 <div class="aside-form">
                     <div class="booking-form-wrapper">

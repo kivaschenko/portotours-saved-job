@@ -1,5 +1,7 @@
+from datetime import timedelta, datetime
+
 from django.http import JsonResponse
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import DetailView
 from django.utils.translation import activate
 
 from destinations.models import Destination
@@ -7,41 +9,36 @@ from attractions.models import Attraction
 from products.models import Experience
 from reviews.models import Testimonial
 
-from .models import Page
+from .models import LandingPage
 
-from .forms import SubscriberForm, ExperienceSearchForm
+from home.forms import SubscriberForm, ExperienceSearchForm
 
 
-class HomeView(TemplateView):
-    template_name = 'home/home.html'
+class LandingPageView(DetailView):
+    model = LandingPage
+    template_name = 'landing_pages/parent_landing.html'
+    queryset = LandingPage.active.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         lang = 'en'
         if self.kwargs.get('lang'):
-            lang = self.kwargs.get('lang', 'en')
+            lang = self.kwargs.get('lang')
         # activate(lang)
         context['current_language'] = lang
-        context['destinations_top_year'] = Destination.active.filter(
-            parent_destination__show_on_home_page=True,
+        context['experiences'] = Experience.active.filter(
+            parent_experience__category=self.object.category,
             language__code=lang.upper(),
-        ).order_by('parent_destination__priority_number')[:6]
-        context['attractions_top_year'] = Attraction.active.filter(
-            parent_attraction__show_on_home_page=True,
-            language__code=lang.upper(),
-        ).order_by('parent_attraction__priority_number')[:6]
-        context['experiences_top_year'] = Experience.active.filter(
-            parent_experience__show_on_home_page=True,
-            language__code=lang.upper(),
-        ).order_by('parent_experience__priority_number')[:6]
+        ).all()
+        if self.object.destination:
+            self.template_name = 'landing_pages/child_landing.html'
+            context['experiences'] = context['experiences'].filter(destination=self.object.destination)
         context['testimonials'] = Testimonial.objects.all()[:6]
         context['subscription_form'] = SubscriberForm()
         context['experience_form'] = ExperienceSearchForm(lang)
         return context
 
     def post(self, request, *args, **kwargs):
-        lang = self.kwargs.get('lang', 'en')
-        activate(lang)
         context = self.get_context_data(**kwargs)
         form = SubscriberForm(request.POST)
         if form.is_valid():
@@ -52,9 +49,4 @@ class HomeView(TemplateView):
             # If form is not valid, return JSON response with errors
             return JsonResponse({'success': False, 'errors': form.errors})
 
-
-# -----
-# Pages
-
-class PageDetailView(DetailView):
-    model = Page
+# Create your views here.
