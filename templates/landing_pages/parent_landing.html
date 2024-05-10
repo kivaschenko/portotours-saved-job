@@ -1,54 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
+{% block title_suffix %}
+    {{ object.page_title }}
+{% endblock title_suffix %}
+<!-- This is parent template -->
+{% block meta_tags %}
+    <meta name="description" content={{ object.page_description }}>
+{% endblock meta_tags %}
 {% block content %}
-
-    <section class="home-hero">
+    <section>
+        {% if object.banner %}
+            <img src="{{ object.banner.url }}">
+        {% else %}
+            <img src="{% static 'images/destination-list-hero-img.png' %}">
+        {% endif %}
         <div class="container">
-            <h1 class="hero-title">
-                Experience <br>
-                <span>
-                    Lisbon & Portugal
-                </span>
-                with
-                {% if object.banner %}
-                <img src="{{ object.banner.url }}" alt="Banner {{ object.page_title }}">
-                {% else %}
-                <img src="{% static 'icons/main-logo.svg' %}" alt="logo">
-                {% endif %}
+            <sm>parent template</sm>
+            <h1 class="destination-list-hero-title">
+                {{ object.title }} <span>with</span>
+                <img src="{% static 'icons/main-logo.svg' %}" alt="Destination logo">
             </h1>
-            <div class="experience-list-hero-calendar">
-                <form action="{% url 'experience-list' lang=current_language %}" method="get">
-                    <div class="place-wrapper">
-                        <label for="place">
-                            Where to?
-                        </label>
-                        {{ experience_form.place }}
-                        {% if experience_form.place.help_text %}
-                            <small class="form-text text-muted">{{ experience_form.place.help_text }}</small>
-                        {% endif %}
-                        {% for error in experience_form.place.errors %}
-                            <div class="alert alert-danger" role="alert">{{ error }}</div>
-                        {% endfor %}
-                    </div>
-                    <div class="date-wrapper">
-                        <label for="date">
-                            When?
-                        </label>
-                        {{ experience_form.date }}
-                        {% if experience_form.date.help_text %}
-                            <small class="form-text text-muted">{{ experience_form.date.help_text }}</small>
-                        {% endif %}
-                        {% for error in experience_form.date.errors %}
-                            <div class="alert alert-danger" role="alert">{{ error }}</div>
-                        {% endfor %}
-                    </div>
-                    <button type="submit" class="form-btn btn-type-1">
-                        <img src="{% static 'icons/search.svg' %}" alt="">
-                        Search
-                    </button>
-                </form>
-            </div>
         </div>
     </section>
 
@@ -87,17 +58,11 @@
                                     {% else %}
                                         <div class="rating-block">
                                             <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
-
                                         </div>
                                     {% endif %}
-                                    <div class="discount-block">
-
-                                    </div>
-
-
-
                                 </div>
-                                <a class="title-link" target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">
+                                <a class="title-link" target="_blank"
+                                   href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">
                                     <p class="best-tours-card-title body-text-b2">
                                         {{ experience.name }}
                                     </p>
@@ -124,21 +89,19 @@
                                 </div>
                                 <div class="price-link-wrapper">
                                     <p class="tour-price">
-                                        € {{ experience.parent_experience.price }}<span>{% if experience.parent_experience.is_private %}{% else %}/ per person{% endif %}</span>
+                                        € {{ experience.parent_experience.price }}<span>{% if experience.parent_experience.is_private %}{% else %}/ per
+                                        person{% endif %}</span>
                                     </p>
                                     <div class="book-banner-wrapper">
-                                        <a target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" class="tour-link btn-type-1">
+                                        <a target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}"
+                                           class="tour-link btn-type-1">
                                             Book
                                         </a>
-
                                         <p class="free-canc-title">
                                             + free cancellation
                                         </p>
-
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     {% endfor %}
@@ -151,7 +114,7 @@
             </a>
         </div>
     </section>
-    
+
     <section class="why">
         <div class="container">
             <h2 class="why-title">
@@ -161,7 +124,6 @@
                 Create the best of your experience by visiting Portugal with our exclusive tours
             </p>
             <div class="why-cards-wrapper">
-
                 <div class="why-card swiper-slide">
                     <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
                     <p class="why-text">
@@ -198,7 +160,6 @@
                         Safe and secure website
                     </p>
                 </div>
-
             </div>
         </div>
     </section>
@@ -245,7 +206,6 @@
                         {% endfor %}
                     </div>
                     <div class="swiper-pagination"></div>
-
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
                 </div>
@@ -254,72 +214,22 @@
             {% endif %}
         </div>
     </section>
-    <section class="offers-banner">
-        <div class="container">
-            <h2 class="offers-banner-title">
-                Special Offers
-            </h2>
-            <p class="offers-banner-subtitle">
-                Get the best deals and discounts by subscribing to our email newsletter!
-            </p>
-            <form id="subscription-form" action="" method="post" class="offers-banner-form">
-                {% csrf_token %}
-                {{ subscription_form|crispy }}
-                <button type="submit" class="form-submit-btn">Subscribe</button>
-            </form>
-        </div>
+
+    <section>
+        {% if object.related_landing_pages.all %}
+            <div class="container">
+                <h2>{% if object.title_related_landing_pages %}{{ object.title_related_landing_pages }}{% else %}{{ object.title }}{% endif %}</h2>
+                <ul>
+                    {% for land_page in object.related_landing_pages.all %}
+                        <li><a href="{% url "landing-page" lang=land_page.language.code.lower slug=land_page.slug %}">{{ land_page.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
     </section>
-    <div class="subscribe-popup">
-        <a href="#" class="close-popup-btn">
-            <img src="{% static 'icons/icon-close.svg' %}" alt="close button">
-        </a>
-        <h2 class="popup-title">
-            Thank you for subscribing!
-        </h2>
-        <p class="popup-text">
-            We'll keep you updated on the latest news and discounts from our company.
-        </p>
-        <a href="#" class="btn-popup btn-type-1" id="continue-btn">
-            Continue
-        </a>
-    </div>
 
     <!-- Local JS -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
-    <script>
-        const swiperAttractionHero = new Swiper(".top-attractions-slider", {
-            speed: 4000,
-            autoplay: {
-                delay: 5000,
-
-            },
-            spaceBetween: 136,
-            loop: true,
-            slidesPerView: 1.6,
-
-            centeredSlides: true,
-            breakpoints: {
-                200: {
-                    slidesPerView: 1.4,
-                    spaceBetween: 14,
-                },
-                768: {
-                    slidesPerView: 2,
-                    spaceBetween: 24,
-                    centeredSlides: true,
-                }
-            },
-            // Navigation arrows
-            // navigation: {
-            //     nextEl: ".swiper-button-next",
-            //     prevEl: ".swiper-button-prev",
-            // },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-        });
-    </script>
     <script>
         const swiperTestimonials = new Swiper(".testimonials-slider", {
             speed: 1000,
@@ -353,23 +263,4 @@
             },
         });
     </script>
-    <script>
-        // Получаем элемент input
-        const dateInput = document.getElementById('id_date');
-    
-        // Получаем сегодняшнюю дату
-        const today = new Date();
-    
-        // Получаем день, месяц и год
-        const day = today.getDate().toString().padStart(2, '0'); // Добавляем ведущий ноль, если число однозначное
-        const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Месяцы начинаются с 0
-        const year = today.getFullYear();
-    
-        // Форматируем дату в формате dd.MM.yyyy
-        const formattedDate = `${year}-${month}-${day}`;
-    
-        // Устанавливаем значение элементу input
-        dateInput.value = formattedDate;
-      </script>
-    <script src="{% static 'js/subscription.js' %}"></script>
 {% endblock %}

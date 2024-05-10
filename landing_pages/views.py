@@ -11,8 +11,6 @@ from reviews.models import Testimonial
 
 from .models import LandingPage
 
-from home.forms import SubscriberForm, ExperienceSearchForm
-
 
 class LandingPageView(DetailView):
     model = LandingPage
@@ -32,22 +30,11 @@ class LandingPageView(DetailView):
             found_experience = par_exp.child_experiences.filter(is_active=True, language__code=lang.upper()).first()
             if found_experience:
                 experiences.append(found_experience)
-        context['experiences'] = experiences
+        experiences_queryset = Experience.objects.filter(pk__in=[exp.pk for exp in experiences])
         if self.object.destination:
             self.template_name = 'landing_pages/child_landing.html'
-            context['experiences'] = context['experiences'].filter(destination=self.object.destination)
+            experiences_queryset = experiences_queryset.filter(destinations__exact=self.object.destination)
+        context['experiences'] = experiences_queryset
         context['testimonials'] = Testimonial.objects.all()[:6]
-        context['subscription_form'] = SubscriberForm()
-        context['experience_form'] = ExperienceSearchForm(lang)
         return context
 
-    def post(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        form = SubscriberForm(request.POST)
-        if form.is_valid():
-            form.save()
-            # Return JSON response indicating success
-            return JsonResponse({'success': True})
-        else:
-            # If form is not valid, return JSON response with errors
-            return JsonResponse({'success': False, 'errors': form.errors})
