@@ -4,15 +4,44 @@
 <!doctype html>
 <html lang="en">
 <head>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X9P4D6080"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-9X9P4D6080');
     </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-PDPBPWJC');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PDPBPWJC"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block head %}
@@ -53,66 +82,66 @@
             <img src="{% static 'icons/main-logo.svg' %}" alt="main logo in footer">
             </span>
             {% block footer_columns %}
-            <div class="footer-info">
-                <p class="footer-contacts-title">
-                    Contacts
-                </p>
-                <div class="phone-wrapper">
-                    <a href="tel:+351968380559" class="phone-link">
-                        <img src="{% static 'icons/phone-icon-white.svg' %}" alt="">
-                        +351 968 380 559
-                    </a>
-                </div>
+                <div class="footer-info">
+                    <p class="footer-contacts-title">
+                        Contacts
+                    </p>
+                    <div class="phone-wrapper">
+                        <a href="tel:+351968380559" class="phone-link">
+                            <img src="{% static 'icons/phone-icon-white.svg' %}" alt="">
+                            +351 968 380 559
+                        </a>
+                    </div>
 
-                <div class="email-wrapper">
-                    <img src="{% static 'icons/email-icon-white.svg' %}" alt="">
-                    info@onedaytours.pt
+                    <div class="email-wrapper">
+                        <img src="{% static 'icons/email-icon-white.svg' %}" alt="">
+                        info@onedaytours.pt
+                    </div>
+                    <div class="address-wrapper">
+                        <img src="{% static 'icons/pin-icon-white.svg' %}" alt="">
+                        Estrada do Algueirão, № 148 A - 2725-021 Mem Martins
+                    </div>
                 </div>
-                <div class="address-wrapper">
-                    <img src="{% static 'icons/pin-icon-white.svg' %}" alt="">
-                    Estrada do Algueirão, № 148 A - 2725-021 Mem Martins
+                <div class="footer-block">
+                    <p class="footer-block-title">
+                        About
+                    </p>
+                    <ul class="footer-block-list">
+                        <li><a href="{% url 'page_detail' slug='about-us' %}" class="footer-link">About us</a></li>
+                        <li><a href="{% url 'page_detail' slug='best-price-guarantee' %}" class="footer-link">Best price guarantee</a></li>
+                        <li><a href="{% url 'page_detail' slug='terms-and-conditions' %}" class="footer-link">Terms and conditions</a></li>
+                        <li><a href="{% url 'page_detail' slug='privacy-policy' %}" class="footer-link">Privacy policy </a></li>
+                        <li><a href="{% url 'page_detail' slug='cookie-policy' %}" class="footer-link">Cookie policy</a></li>
+                        <li><a href="" class="footer-link">Jobs</a></li>
+                    </ul>
                 </div>
-            </div>
-            <div class="footer-block">
-                <p class="footer-block-title">
-                    About
-                </p>
-                <ul class="footer-block-list">
-                    <li><a href="{% url 'page_detail' slug='about-us' %}" class="footer-link">About us</a></li>
-                    <li><a href="{% url 'page_detail' slug='best-price-guarantee' %}" class="footer-link">Best price guarantee</a></li>
-                    <li><a href="{% url 'page_detail' slug='terms-and-conditions' %}" class="footer-link">Terms and conditions</a></li>
-                    <li><a href="{% url 'page_detail' slug='privacy-policy' %}" class="footer-link">Privacy policy </a></li>
-                    <li><a href="{% url 'page_detail' slug='cookie-policy' %}" class="footer-link">Cookie policy</a></li>
-                    <li><a href="" class="footer-link">Jobs</a></li>
-                </ul>
-            </div>
-            <div class="footer-block">
-                <p class="footer-block-title">
-                    Our services
-                </p>
-                <ul class="footer-block-list">
-                    <li><a href="javascript:void(0);" onclick="addTypeIsPrivateAndNavigate(event, 'en')" class="footer-link">Group tours</a></li>
-                    <li><a href="javascript:void(0);" onclick="addTypeIsGroupAndNavigate(event, 'en')" class="footer-link">Private Tours</a></li>
-                    <li><a href="javascript:void(0);" onclick="addCategoryWalkingAdventures(event, 'en')" class="footer-link">Walking tours</a></li>
-                    <li><a href="javascript:void(0);" onclick="addCategoryAirportPickup(event, 'en')" class="footer-link">Airport pick up</a></li>
-                </ul>
-            </div>
-            <div class="footer-block">
-                <p class="footer-block-title">
-                    Top things to do in Portugal
-                </p>
-                <ul class="footer-block-list">
-                    {% if top_experiences %}
-                        {% for experience in top_experiences %}
-                            <li><a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}"
-                                   class="footer-link">{{ experience.name }}</a></li>
-                        {% endfor %}
-                    {% endif %}
-                </ul>
-            </div>
+                <div class="footer-block">
+                    <p class="footer-block-title">
+                        Our services
+                    </p>
+                    <ul class="footer-block-list">
+                        <li><a href="javascript:void(0);" onclick="addTypeIsPrivateAndNavigate(event, 'en')" class="footer-link">Group tours</a></li>
+                        <li><a href="javascript:void(0);" onclick="addTypeIsGroupAndNavigate(event, 'en')" class="footer-link">Private Tours</a></li>
+                        <li><a href="javascript:void(0);" onclick="addCategoryWalkingAdventures(event, 'en')" class="footer-link">Walking tours</a></li>
+                        <li><a href="javascript:void(0);" onclick="addCategoryAirportPickup(event, 'en')" class="footer-link">Airport pick up</a></li>
+                    </ul>
+                </div>
+                <div class="footer-block">
+                    <p class="footer-block-title">
+                        Top things to do in Portugal
+                    </p>
+                    <ul class="footer-block-list">
+                        {% if top_experiences %}
+                            {% for experience in top_experiences %}
+                                <li><a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}"
+                                       class="footer-link">{{ experience.name }}</a></li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
             {% endblock footer_columns %}
         </div>
-            
+
         <div class="footer-bottom-block">
             <p>© One Day Tours Portugal, LDA <span class="currentYear"></span>. RNAAT 390/2024. Made in Portugal 🇵🇹</p>
         </div>
@@ -144,13 +173,13 @@
         const url = `/${lang}/experiences/?tour_type=private&filter_by=all`;
         window.location.href = url;
     }
-    
+
     function addCategoryWalkingAdventures(event, lang) {
         event.preventDefault();
         const url = `/${lang}/experiences/?tour_type=all&filter_by=all&categories=walking-adventure`;
         window.location.href = url;
     }
-    
+
     function addCategoryAirportPickup(event, lang) {
         event.preventDefault();
         const url = `/${lang}/experiences/?tour_type=all&filter_by=all&categories=airport-pickup`;
