@@ -5,23 +5,13 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxSelectMultiple
 
 from ckeditor.widgets import CKEditorWidget
-from schedule.models import Calendar, CalendarRelation, Event, EventRelation, Occurrence, Rule
-from schedule.admin import EventAdmin, EventRelationAdmin, CalendarAdmin, CalendarRelationAdmin, RuleAdmin
 
 from products.models import *  # noqa
 from products.forms import ExperienceEventFormSet
 
 # Hide exceeded models from django-scheduler
-
-
 admin.site.unregister(Calendar)
-# admin.site.unregister(CalendarRelation)
-# admin.site.unregister(Event)
-# admin.site.unregister(EventRelation)
 admin.site.unregister(Occurrence)
-
-
-# admin.site.unregister(Rule)
 
 
 # ------------
@@ -182,6 +172,7 @@ class ExperienceAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'slug', 'language', 'page_title', 'is_active', 'updated_at']
     list_filter = ['name', 'slug', 'language', 'is_active', 'updated_at']
     inlines = [ExperienceImageInline, ExperienceScheduleInline]
+    list_per_page = 20
 
 
 @admin.register(Product)
@@ -206,6 +197,7 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'updated_at', 'parent_experience', 'language',
                        'random_order_number', 'reported', 'created_at',
                        'session_key', 'expired_time']
+    list_per_page = 20
 
 
 class ExperienceEventInline(admin.TabularInline):
@@ -258,6 +250,7 @@ class ExperienceEventAdmin(admin.ModelAdmin):
     # readonly_fields = ['title', 'max_participants', 'booked_participants', 'remaining_participants']
     search_fields = ['title', 'description', ]
     list_filter = ['start', 'calendar']
+    list_per_page = 20
 
 
 @admin.register(Occurrence)
@@ -266,6 +259,7 @@ class ExperienceOccurrenceAdmin(admin.ModelAdmin):
     list_display = ['id', 'product_id', 'event', 'customer', 'start', ]
     list_filter = ['start', ]
     search_fields = ['event', 'title', 'description', ]
+    list_per_page = 20
 
     def product_id(self, obj):
         product = obj.product_set.first()
