@@ -25,6 +25,8 @@ jobs:
 
   build_and_deploy:
     runs-on: ubuntu-22.04
+    needs: build
+    if: ${{ needs.build.result == 'success' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,7 +40,6 @@ jobs:
           docker build -t portotours/portotours:latest .
           docker push portotours/portotours:latest
       - name: SSH into Digital Ocean Droplet and deploy
-        if: success()
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DROPLET_IP }}
