@@ -605,7 +605,7 @@
       margin-bottom: 0;
       @include media-breakpoint-down(md) {
         flex-direction: column;
-        margin-bottom: 16px;
+        margin-bottom: 10px;
       }
       .experience-hero-title {
         color: #000;
@@ -617,7 +617,7 @@
         line-height: 44px;
         @include media-breakpoint-down(md) {
           width: 100%;
-          text-align: left;
+          text-align: center;
         }
       }
       .expreriece-hero-price-btn-wrapper {
@@ -668,6 +668,9 @@
       justify-content: flex-start;
       margin-top: 0;
       margin-bottom: 9px;
+      @include media-breakpoint-down(md) {
+        justify-content: center;
+      }
       .reviews-count {
         color: #0F0F10;
         font-family: "LatoRegular";
@@ -1294,6 +1297,9 @@
                     margin-bottom: 0;
                     position: relative;
                     color: #6D6D6D;
+                    & * {
+                      color: #6D6D6D !important;
+                    }
                     @include media-breakpoint-down(md) {
                       padding-left: 34px;
                       font-size: 14px;
