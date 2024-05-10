@@ -9855,9 +9855,11 @@ html.off-scroll body {
       .tour-type .container .tour-type-card .tour-type-title-btn-wrapper .tour-type-title {
         color: white;
         margin-bottom: 0; }
-      .tour-type .container .tour-type-card .tour-type-title-btn-wrapper a img {
-        width: 24px;
-        height: 24px; }
+      .tour-type .container .tour-type-card .tour-type-title-btn-wrapper a {
+        padding: 12px 15px; }
+        .tour-type .container .tour-type-card .tour-type-title-btn-wrapper a img {
+          width: 24px;
+          height: 24px; }
 
 .top-attractions-slider-section .container {
   padding-top: 40px;
@@ -11342,7 +11344,7 @@ html.off-scroll body {
     @media (max-width: 767.98px) {
       .sticky-container .sticky-block .experience-hero-title-wrapper {
         flex-direction: column;
-        margin-bottom: 16px; } }
+        margin-bottom: 10px; } }
     .sticky-container .sticky-block .experience-hero-title-wrapper .experience-hero-title {
       color: #000;
       margin-top: 0;
@@ -11354,7 +11356,7 @@ html.off-scroll body {
       @media (max-width: 767.98px) {
         .sticky-container .sticky-block .experience-hero-title-wrapper .experience-hero-title {
           width: 100%;
-          text-align: left; } }
+          text-align: center; } }
     .sticky-container .sticky-block .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper {
       display: flex;
       align-items: center;
@@ -11396,6 +11398,9 @@ html.off-scroll body {
     justify-content: flex-start;
     margin-top: 0;
     margin-bottom: 9px; }
+    @media (max-width: 767.98px) {
+      .sticky-container .sticky-block .reviews-rating-wrapper {
+        justify-content: center; } }
     .sticky-container .sticky-block .reviews-rating-wrapper .reviews-count {
       color: #0F0F10;
       font-family: "LatoRegular";
@@ -11933,6 +11938,8 @@ html.off-scroll body {
                 margin-bottom: 0;
                 position: relative;
                 color: #6D6D6D; }
+                .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li * {
+                  color: #6D6D6D !important; }
                 @media (max-width: 767.98px) {
                   .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li {
                     padding-left: 34px;
@@ -14668,61 +14675,67 @@ a {
 
 .subscribe-popup {
   position: fixed;
-  width: 866px;
-  height: 550px;
-  background-color: white;
-  padding: 160px 84px;
-  border-radius: 20px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 19;
   display: none; }
-  .subscribe-popup.opened {
-    display: block; }
-  @media (max-width: 767.98px) {
-    .subscribe-popup {
-      width: calc(100% - 32px);
-      padding: 120px 20px;
-      height: auto; } }
-  .subscribe-popup .close-popup-btn {
-    position: absolute;
-    right: 40px;
-    top: 40px;
-    width: 24px;
-    height: 24px;
-    cursor: pointer; }
-    .subscribe-popup .close-popup-btn img {
-      width: 100%; }
+  .subscribe-popup .subscribe-popup-inner {
+    position: fixed;
+    width: 866px;
+    height: 550px;
+    background-color: white;
+    padding: 160px 84px;
+    border-radius: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20; }
     @media (max-width: 767.98px) {
-      .subscribe-popup .close-popup-btn {
-        right: 24px;
-        top: 24px; } }
-  .subscribe-popup .popup-title {
-    text-align: center;
-    margin-bottom: 24px;
-    text-transform: capitalize;
-    font-size: 44px;
-    line-height: 56px;
-    font-family: 'LatoSemiBold'; }
-    @media (max-width: 767.98px) {
-      .subscribe-popup .popup-title {
-        font-size: 26px;
-        line-height: 36px;
-        margin-bottom: 16px; } }
-  .subscribe-popup .popup-text {
-    text-align: center;
-    margin-bottom: 60px;
-    font-size: 20px;
-    line-height: 30px;
-    font-family: 'LatoRegular'; }
-    @media (max-width: 767.98px) {
-      .subscribe-popup .popup-text {
-        font-size: 16px;
-        line-height: 24px;
-        margin-bottom: 45px; } }
-  .subscribe-popup .btn-popup {
-    width: 260px;
-    margin: 0 auto;
-    display: block;
-    text-align: center; }
+      .subscribe-popup .subscribe-popup-inner {
+        width: calc(100% - 32px);
+        padding: 120px 20px;
+        height: auto; } }
+    .subscribe-popup .subscribe-popup-inner .close-popup-btn {
+      position: absolute;
+      right: 40px;
+      top: 40px;
+      width: 24px;
+      height: 24px;
+      cursor: pointer; }
+      .subscribe-popup .subscribe-popup-inner .close-popup-btn img {
+        width: 100%; }
+      @media (max-width: 767.98px) {
+        .subscribe-popup .subscribe-popup-inner .close-popup-btn {
+          right: 24px;
+          top: 24px; } }
+    .subscribe-popup .subscribe-popup-inner .popup-title {
+      text-align: center;
+      margin-bottom: 24px;
+      text-transform: capitalize;
+      font-size: 44px;
+      line-height: 56px;
+      font-family: 'LatoSemiBold'; }
+      @media (max-width: 767.98px) {
+        .subscribe-popup .subscribe-popup-inner .popup-title {
+          font-size: 26px;
+          line-height: 36px;
+          margin-bottom: 16px; } }
+    .subscribe-popup .subscribe-popup-inner .popup-text {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 20px;
+      line-height: 30px;
+      font-family: 'LatoRegular'; }
+      @media (max-width: 767.98px) {
+        .subscribe-popup .subscribe-popup-inner .popup-text {
+          font-size: 16px;
+          line-height: 24px;
+          margin-bottom: 45px; } }
+    .subscribe-popup .subscribe-popup-inner .btn-popup {
+      width: 260px;
+      margin: 0 auto;
+      display: block;
+      text-align: center; }

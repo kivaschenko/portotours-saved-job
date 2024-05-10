@@ -27,6 +27,11 @@ document.getElementById("continue-btn").addEventListener("click", function (even
     document.querySelector('.subscribe-popup').style.display = 'none';
 });
 
+document.querySelector(".close-popup-btn").addEventListener("click", function (event) {
+    event.preventDefault();
+    document.querySelector('.subscribe-popup').style.display = 'none';
+});
+
 // Add event listener to hide the popup after some time (e.g., 5 seconds)
 setTimeout(function () {
     document.querySelector('.subscribe-popup').style.display = 'none';
