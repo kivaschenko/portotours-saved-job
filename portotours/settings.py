@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'blogs.apps.BlogsConfig',
     'reviews.apps.ReviewsConfig',
     'home.apps.HomeConfig',
+    'landing_pages.apps.LandingPagesConfig',
 ]
 
 MIDDLEWARE = [
@@ -163,13 +164,21 @@ WSGI_APPLICATION = 'portotours.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
+    # "default": {
+    #     "ENGINE": "django.contrib.gis.db.backends.postgis",
+    #     "NAME": 'postgres',
+    #     "USER": 'admin',
+    #     "PASSWORD": '112358',
+    #     "HOST": 'localhost',
+    #     "PORT": '54321',
+    # },
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": os.environ.get("DB_NAME", 'postgres'),
-        "USER": os.environ.get("DB_USER", 'admin'),
-        "PASSWORD": os.environ.get("DB_PASSWORD", '112358'),
-        "HOST": os.environ.get('DB_HOST', 'localhost'),
-        "PORT": os.environ.get('DB_PORT', '54321'),
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get('DB_HOST'),
+        "PORT": os.environ.get('DB_PORT'),
     },
     "other": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",

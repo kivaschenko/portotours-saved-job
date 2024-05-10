@@ -100,12 +100,26 @@
                                 {% else %}
 
                                 {% endif %}
-                                <a class="link" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
+                                <a target="_blank" class="link" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
                                     <img src="{% if object.parent_experience.card_image %}
                                     {{ object.parent_experience.card_image.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
                                 </a>
                             </div>
                             <div class="experience-list-content-wrapper">
+                                {% if object.review_set.count > 0 %} 
+                               <div class="rating-wrapper">
+                                <img src="{% static 'icons/empty-stars.svg' %}" alt="">
+                               </div>
+                               {% else %}
+                               <div class="rating-wrapper">
+                                <img src="{% static 'icons/5-stars-icon.svg' %}" alt="">
+                               </div>
+                               {% endif %}
+                                <a target="_blank" class="link" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
+                                    <h5>
+                                        {{ object.name }}
+                                    </h5>
+                                </a>
                                 <div class="discount-banner">
                                     <img src="{% static 'icons/fire-icon.svg' %}" alt="fire icon">
                                     <span>
@@ -113,14 +127,6 @@
                                     </span>
                                    
                                 </div>
-                                <a class="link" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
-                                    <h5>
-                                        {{ object.name }}
-                                    </h5>
-                                    {% if object.average_rating %}
-                                        <p>Average rating: {{ object.average_rating }}</p>
-                                    {% endif %}
-                                </a>
 
                                 <div class="experience-type-list-wrapper">
 
@@ -161,7 +167,7 @@
                                 </div>
                                 
                                 <div class="btns-wrapper">
-                                    <a href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}"
+                                    <a target="_blank" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}"
                                         class="experience-link-btn btn-type-1">
                                         Book now
                                     </a>

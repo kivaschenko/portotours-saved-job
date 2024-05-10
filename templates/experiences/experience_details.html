@@ -44,9 +44,7 @@
                     recommended by locals
                 </p>
             {% endif %}
-            {% if object.average_rating %}
-                <p>Average rating: {{ object.average_rating }}</p>
-            {% endif %}
+            
         </div>
     </div>
 
@@ -74,14 +72,41 @@
                         </a>
                     </div>
                 </div>
+                {% if object.review_set.count > 0 %} 
                 <div class="reviews-rating-wrapper">
+                    
                     <a href="#reviews" class="reviews-count">
-                        130 reviews
+                        {{ object.review_set.count }} reviews
                     </a>
+                   
                     <div class="rating-img-wrapper">
-                        <img src="{% static 'icons/empty-stars.svg' %}" alt="">
+                        <div class="rating">
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
+                            </svg>
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
+                            </svg>
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
+                            </svg>
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
+                            </svg>
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
+                            </svg>
+                          </div>
+                    </div>
+                   
+                </div>
+                {% else %}
+                <div class="reviews-rating-wrapper">
+                    <div class="rating-img-wrapper">
+                        <img src="{% static 'icons/5-stars-icon.svg' %}" alt="">
                     </div>
                 </div>
+                {% endif %}
             </div>
 
         </div>
@@ -213,7 +238,7 @@
                             risk free! Neque porro quisquam 
                         </h3>
                     </div>
-                    {% if object.parent_experience.child_price < object.parent_experience.price %}
+                    {% if not object.parent_experience.is_private and object.parent_experience.child_price < object.parent_experience.price %}
                     <div class="children-discount-badge">
                         <h3 class="badge-title">
                             <img src="{% static 'icons/children-icon.svg' %}" alt="">
@@ -221,22 +246,7 @@
                         </h3>
                     </div>
                     {% endif %}
-                    {% if object.parent_experience.clean_and_safe %}
-                        <div class="clean-safe-badge">
-                            <div class="img-wrapper">
-                                <img src="{% static 'icons/clean-safe-badge.svg' %}" alt="badge">
-                            </div>
-                            <div class="content-wrapper">
-                                <h4 class="badge-title">
-                                    Clean & Safe
-                                </h4>
-                                <p class="badge-text">
-                                    Сertified with the “Clean & Safe” seal to guarantee that we will comply with all mandatory hygiene and safety standards by
-                                    WHO/ the National Tourist Authority in coordination with the General Directorate of Health.
-                                </p>
-                            </div>
-                        </div>
-                    {% endif %}
+                    
                     <div class="experience-description">
 
 
@@ -274,22 +284,35 @@
                             See all
                         </btn>
                     </div>
-                    <div class="experience-info-block">
+                    {% if object.parent_experience.clean_and_safe %}
+                        <div class="clean-safe-badge">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/clean-safe-badge.svg' %}" alt="badge">
+                            </div>
+                            <div class="content-wrapper">
+                                <h4 class="badge-title">
+                                    Clean & Safe
+                                </h4>
+                                <p class="badge-text">
+                                    Сertified with the “Clean & Safe” seal to guarantee that we will comply with all mandatory hygiene and safety standards by
+                                    WHO/ the National Tourist Authority in coordination with the General Directorate of Health.
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="experience-info-block experience-include">
                         <h5>{{ object.includes_title }}</h5>
                         <!-- What included and NOT included lists -->
-                        {{ object.display_includes_text }}
-                        {{ object.display_not_includes_text }}
+                        <div class="info-block-inner">
+                            {{ object.display_includes_text }}
+                            {{ object.display_not_includes_text }}
+                        </div>
+                        
                     </div>
                     <div class="experience-info-block travel-tips">
                         <h5>{{ object.traveler_tips_title }}</h5>
                         {{ object.display_traveler_tips_text }}
                     </div>
-                <div>
-                    <h5>{{ object.what_to_bring_title }}</h5>
-                    {{ object.display_what_to_bring_text }}
-                    {{ object.display_that_not_bring_text }}
-                </div>
-                    
                 </div>
                 <div class="aside-form">
                     <div class="booking-form-wrapper">
@@ -566,7 +589,7 @@
                     loop: true,
                 },
                 767: {
-                    slidesPerView: 1.2,
+                    slidesPerView: 1.5,
                     spaceBetween: 24,
                     centeredSlides: true,
                     loop: true,
@@ -618,7 +641,7 @@
             const paginationContainer = document.getElementById('paginationContainer');
             
 
-
+            {% if object.review_set.count > 0 %}
             // Function to fetch reviews with pagination
             async function fetchReviews(pageNumber) {
                 try {
@@ -632,7 +655,9 @@
                     return {reviews: [], has_next: false, has_previous: false};
                 }
             }
+            {% endif %}
 
+            {% if object.review_set.count > 0 %}
             // Function to render reviews
             function renderReviews(reviewsData) {
                 const reviewsList = document.getElementById('reviewsList');
@@ -646,10 +671,10 @@
                     starsWrapper.classList.add('review-stars-wrapper');
                     starsWrapper.classList.add(`star-${review.rating}`);
                     starsWrapper.innerHTML = `
-                <img class="star3" src="{% static 'icons/3-stars-icon.svg' %}" alt="3 start review">
-                <img class="star4" src="{% static 'icons/4-stars-icon.svg' %}" alt="4 start review">
-                <img class="star5" src="{% static 'icons/5-stars-icon.svg' %}" alt="5 start review">
-            `;
+                        <img class="star3" src="{% static 'icons/3-stars-icon.svg' %}" alt="3 start review">
+                        <img class="star4" src="{% static 'icons/4-stars-icon.svg' %}" alt="4 start review">
+                        <img class="star5" src="{% static 'icons/5-stars-icon.svg' %}" alt="5 start review">
+                    `;
                     const reviewTitle = document.createElement('h4');
                     reviewTitle.classList.add('review-title');
                     reviewTitle.textContent = review.title;
@@ -670,36 +695,23 @@
                     reviewsList.appendChild(reviewItem);
                 });
             }
+            {% else %}
+                const reviewsList = document.getElementById('reviewsList');
+                const emptyReviewItem = document.createElement('li');
+                emptyReviewItem.classList.add('reviews-list-item');
+                const emptyReviewBlock = document.createElement('div');
+                emptyReviewBlock.classList.add('empty-review-block');
+                emptyReviewBlock.innerHTML = `
+                    <img class="empty-review-img" src="{% static 'icons/empty-review-img.svg' %}" alt="empty review">
+                    <p class="empty-review-text"> There are no reviews for this experience yet. <br/> Be the first one to write one. </p>
+                    `;
+                    
+                emptyReviewItem.appendChild(emptyReviewBlock);
+                reviewsList.appendChild(emptyReviewItem);
+                    
 
-            // Function to render reviews
-            // function renderReviews(reviews) {
-            //     reviewContainer.innerHTML = ''; // Clear existing reviews
-            //     console.log('Got data.reviews: ', reviews);
-            //     reviews.forEach(review => {
-            //         // Create HTML elements for each review
-            //         const reviewElement = document.createElement('div');
-            //         const ratingElement = document.createElement('p');
-            //         const titleElement = document.createElement('h4');
-            //         const shortTextElement = document.createElement('p');
-            //         const fullNameElement = document.createElement('p');
-            //
-            //         // Populate reviewElement with review data
-            //         ratingElement.textContent = `Rating: ${review.rating}`;
-            //         titleElement.textContent = review.title;
-            //         shortTextElement.textContent = review.short_text;
-            //         fullNameElement.textContent = `Full Name: ${review.full_name}`;
-            //
-            //         // Append elements to reviewElement
-            //         reviewElement.appendChild(ratingElement);
-            //         reviewElement.appendChild(titleElement);
-            //         reviewElement.appendChild(shortTextElement);
-            //         reviewElement.appendChild(fullNameElement);
-            //
-            //         // Append reviewElement to reviewContainer
-            //         reviewContainer.appendChild(reviewElement);
-            //     });
-            // }
-
+            {% endif %}
+            {% if object.review_set.count > 0 %}
             // Function to render pagination controls
             function renderPaginationControls(paginationData) {
                 paginationContainer.innerHTML = ''; // Clear existing pagination controls
@@ -707,7 +719,6 @@
                 const {has_next, has_previous, next_page_number, previous_page_number, total_pages, current_page_number} = paginationData;
 
                 // Render previous page button
-                
                     const prevButton = document.createElement('button');
                     prevButton.innerHTML = `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
                     prevButton.classList.add('pagination-btn', 'prev')
@@ -716,7 +727,6 @@
                     if (has_previous) {
                         prevButton.innerHTML = `<img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">`
                     }
-
                     const paginationList = document.createElement('ul')
                     paginationContainer.appendChild(paginationList)
                     paginationList.classList.add('pagination-list')
@@ -733,7 +743,6 @@
                 }
 
                 // Render next page button
-                
                     const nextButton = document.createElement('button');
                     nextButton.innerHTML = 
                     `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
@@ -744,7 +753,9 @@
                         nextButton.innerHTML = `<img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">`
                     }
             }
+            {% endif %}
 
+            {% if object.review_set.count > 0 %}
             // Function to handle pagination click event
             function handlePaginationClick(pageNumber) {
                 fetchReviews(pageNumber)
@@ -756,10 +767,40 @@
                         console.error('Error fetching reviews:', error);
                     });
             }
-
+            {% endif %}
             // Fetch reviews for the first page when the page loads
+
+            {% if object.review_set.count > 0 %}
             handlePaginationClick(1);
+            {% else %}
+
+            {% endif %}
         });
+    </script>
+    <script>
+        let averageRating = {{object.average_rating}};
+        if (averageRating) {
+           
+            function fillStars(rating) {
+            const stars = document.querySelectorAll('.star');
+            const filledStars = Math.floor(rating); 
+            const fraction = rating - filledStars; 
+
+            stars.forEach((star, index) => {
+                if (index < filledStars) {
+                star.classList.add('filled'); 
+                } else if (index === filledStars) {
+                star.style.setProperty('--fraction', fraction); 
+                star.classList.add('partial-fill'); 
+                }
+            });
+            }
+
+            
+            fillStars(averageRating);
+        }
+        
+
     </script>
 
     <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>

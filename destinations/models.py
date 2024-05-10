@@ -101,7 +101,7 @@ class Destination(models.Model):
         return f'{self.name} ({self.language})'
 
     def get_absolute_url(self):
-        return reverse('destinations:destination-detail', kwargs={'lang': self.language.code.lower(), 'slug': self.slug})
+        return reverse('destination-detail', kwargs={'lang': self.language.code.lower(), 'slug': self.slug})
 
     @property
     def localized_url(self):

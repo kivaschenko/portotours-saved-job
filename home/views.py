@@ -1,5 +1,3 @@
-from datetime import timedelta, datetime
-
 from django.http import JsonResponse
 from django.views.generic import TemplateView, DetailView
 from django.utils.translation import activate
@@ -36,7 +34,6 @@ class HomeView(TemplateView):
             parent_experience__show_on_home_page=True,
             language__code=lang.upper(),
         ).order_by('parent_experience__priority_number')[:6]
-        year_ago = datetime.utcnow() - timedelta(days=365)
         context['testimonials'] = Testimonial.objects.all()[:6]
         context['subscription_form'] = SubscriberForm()
         context['experience_form'] = ExperienceSearchForm(lang)
