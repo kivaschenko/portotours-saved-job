@@ -1,4 +1,9 @@
+import sys
+from io import BytesIO
+
+from PIL import Image
 from ckeditor.fields import RichTextField
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.urls import reverse
 from django.utils.safestring import mark_safe
@@ -27,11 +32,13 @@ class LandingPage(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.SET_NULL, null=True, blank=True,
                                     help_text="The destination of the landing page. "
                                               "Should be empty for parent page where all destinations are available")
-    banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
+    banner = models.FileField(upload_to='media/banners/', null=True, blank=True,
+                              help_text="Banner image, this image will be cropped and scaled max width: 1920 and max height: 460")
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
     priority_number = models.IntegerField(null=True, blank=True, default=0)
     is_active = models.BooleanField(default=True)
     show_in_navbar = models.BooleanField(default=False, help_text="Include in the navbar")
+    title_related_landing_pages = models.CharField(max_length=255, blank=True, null=True, help_text="Title of the landing page, max 255 characters",)
     related_landing_pages = models.ManyToManyField('LandingPage', blank=True)
 
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
@@ -54,7 +61,28 @@ class LandingPage(models.Model):
             self.slug = slugify(self.title)
         if not self.page_title:
             self.page_title = self.title
-        super(LandingPage, self).save(*args, **kwargs)
+        if self.banner:
+            self.resize_banner()
+        super().save(*args, **kwargs)
 
     def display_content(self):
         return mark_safe(self.content)
+
+    def resize_banner(self):
+        img = Image.open(self.banner)
+        max_width = 1920
+        max_height = 460
+        original_aspect_ratio = img.width / img.height
+        banner_aspect_ratio = max_width / max_height
+        if original_aspect_ratio != banner_aspect_ratio:
+            new_height = int(max_width / original_aspect_ratio)
+            img = img.resize((max_width, new_height), Image.LANCZOS)
+        if img.height > max_height:
+            excess_height = img.height - max_height
+            top_crop = excess_height // 2
+            bottom_crop = excess_height - top_crop
+            img = img.crop((0, top_crop, img.width, img.height - bottom_crop))
+        buffer = BytesIO()
+        img.save(buffer, format='JPEG')
+        self.banner = InMemoryUploadedFile(buffer, None, f"{self.banner.name.split('.')[0]}_resized.jpg", 'image/jpeg',
+                                           sys.getsizeof(buffer), None)
