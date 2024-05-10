@@ -40,6 +40,7 @@ jobs:
           docker build -t portotours/portotours:latest .
           docker push portotours/portotours:latest
       - name: SSH into Digital Ocean Droplet and deploy
+        if: success()
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DROPLET_IP }}
