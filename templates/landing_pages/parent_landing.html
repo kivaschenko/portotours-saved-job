@@ -5,17 +5,17 @@
 
     <section class="home-hero">
         <div class="container">
+            {% if object.banner %}
+                <img src="{{ object.banner.url }}" alt="Banner {{ object.page_title }}">
+            {% else %}
+            {% endif %}
             <h1 class="hero-title">
                 Experience <br>
                 <span>
                     Lisbon & Portugal
                 </span>
                 with
-                {% if object.banner %}
-                <img src="{{ object.banner.url }}" alt="Banner {{ object.page_title }}">
-                {% else %}
                 <img src="{% static 'icons/main-logo.svg' %}" alt="logo">
-                {% endif %}
             </h1>
             <div class="experience-list-hero-calendar">
                 <form action="{% url 'experience-list' lang=current_language %}" method="get">
