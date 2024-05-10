@@ -32,6 +32,7 @@ class LandingPage(models.Model):
     priority_number = models.IntegerField(null=True, blank=True, default=0)
     is_active = models.BooleanField(default=True)
     show_in_navbar = models.BooleanField(default=False, help_text="Include in the navbar")
+    related_landing_pages = models.ManyToManyField('LandingPage', blank=True)
 
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
 
