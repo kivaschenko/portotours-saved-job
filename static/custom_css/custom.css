@@ -13020,7 +13020,7 @@ html.off-scroll body {
     @media (max-width: 767.98px) {
       .cart .container {
         padding-top: 10px;
-        padding-bottom: 24px; } }
+        padding-bottom: 130px; } }
   .cart .cart-steps-wrapper {
     max-width: 870px;
     margin: 0 auto 20px; }
@@ -13046,7 +13046,6 @@ html.off-scroll body {
             width: 85px;
             flex-direction: column; } }
         .cart .cart-steps-wrapper .cart-steps .cart-step-item:not(:first-child)::before {
-          content: "";
           position: absolute;
           width: 142px;
           height: 2px;
@@ -13055,8 +13054,8 @@ html.off-scroll body {
           right: 180px; }
           @media (max-width: 767.98px) {
             .cart .cart-steps-wrapper .cart-steps .cart-step-item:not(:first-child)::before {
-              width: 70px;
-              right: 75px; } }
+              width: 100%;
+              right: 80px; } }
         .cart .cart-steps-wrapper .cart-steps .cart-step-item .img-wrapper {
           margin-right: 14px; }
           @media (max-width: 767.98px) {
@@ -13096,7 +13095,7 @@ html.off-scroll body {
             @media (max-width: 767.98px) {
               .cart .cart-steps-wrapper .cart-steps .cart-step-item .text-wrapper .step-title {
                 font-size: 14px;
-                line-height: 22px; } }
+                line-height: 14px; } }
         .cart .cart-steps-wrapper .cart-steps .cart-step-item.active::before {
           background-color: #F0500B; }
         .cart .cart-steps-wrapper .cart-steps .cart-step-item.active img.active {
@@ -14176,6 +14175,13 @@ html.off-scroll body {
     display: flex;
     align-items: center;
     justify-content: flex-end; }
+    @media (max-width: 767.98px) {
+      .we-accept-wrapper .container {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-top: 16px;
+        padding-bottom: 6px; } }
   .we-accept-wrapper .we-accept-title {
     margin: 0;
     margin-right: 25px;
@@ -14183,15 +14189,29 @@ html.off-scroll body {
     font-size: 20px;
     line-height: 30px;
     color: #000; }
+    @media (max-width: 767.98px) {
+      .we-accept-wrapper .we-accept-title {
+        margin-right: 0;
+        margin-bottom: 10px; } }
   .we-accept-wrapper .we-accept-list {
     display: flex;
     align-items: center;
     list-style: none;
     padding-left: 0;
     margin: 0; }
+    @media (max-width: 767.98px) {
+      .we-accept-wrapper .we-accept-list {
+        width: 300px;
+        flex-wrap: wrap; } }
+    @media (max-width: 767.98px) {
+      .we-accept-wrapper .we-accept-list li {
+        margin-bottom: 10px;
+        margin-right: 10px; } }
     .we-accept-wrapper .we-accept-list li + li {
       margin-left: 16px; }
-
+      @media (max-width: 767.98px) {
+        .we-accept-wrapper .we-accept-list li + li {
+          margin-left: 0; } }
 .account-details .container {
   max-width: 1090px;
   margin: 0 auto;
@@ -14635,6 +14655,9 @@ html.off-scroll body {
       font-family: 'LatoRegular';
       font-size: 32px;
       color: black; }
+      @media (max-width: 767.98px) {
+        .error-page .error-page-container .error-title {
+          font-size: 26px; } }
     .error-page .error-page-container .error-subtitle {
       position: absolute;
       left: 50%;
@@ -14644,11 +14667,16 @@ html.off-scroll body {
       font-size: 14px;
       line-height: normal;
       bottom: 60px; }
+      @media (max-width: 767.98px) {
+        .error-page .error-page-container .error-subtitle {
+          bottom: 50px; } }
     .error-page .error-page-container .error-link {
       display: block;
       width: 320px;
       margin: 16px auto 0; }
-
+      @media (max-width: 767.98px) {
+        .error-page .error-page-container .error-link {
+          margin: 50px auto 0; } }
 html.overflow {
   overflow: hidden; }
 
@@ -14739,3 +14767,5 @@ a {
       margin: 0 auto;
       display: block;
       text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */
