@@ -5,7 +5,7 @@
         padding-bottom: 145px;
         @include media-breakpoint-down(md) {
             padding-top: 10px;
-            padding-bottom: 24px;
+            padding-bottom: 130px;
         }
     }
     .cart-steps-wrapper {
@@ -34,7 +34,7 @@
                 }
                 &:not(:first-child) {
                     &::before {
-                        content: "";
+                        
                         position: absolute;
                         width: 142px;
                         height: 2px;
@@ -42,8 +42,8 @@
                         top: 25px;
                         right: 180px;
                         @include media-breakpoint-down(md) {
-                            width: 70px;
-                            right: 75px;
+                            width: 100%;
+                            right: 80px;
                         }
                     }
                 }
@@ -91,7 +91,7 @@
                         white-space: nowrap;
                         @include media-breakpoint-down(md) {
                             font-size: 14px;
-                            line-height: 22px;
+                            line-height: 14px;
                             
                         }
                     }
@@ -1401,6 +1401,13 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        @include media-breakpoint-down(md) {
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-top: 16px;
+            padding-bottom: 6px;
+        }
     }
     .we-accept-title {
         margin: 0;
@@ -1409,6 +1416,10 @@
         font-size: 20px;
         line-height: 30px;
         color: #000;
+        @include media-breakpoint-down(md) {
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
     }
     .we-accept-list {
         display: flex;
@@ -1416,9 +1427,20 @@
         list-style: none;
         padding-left: 0;
         margin: 0;
+        @include media-breakpoint-down(md) {
+            width: 300px;
+            flex-wrap: wrap;
+        }
         li {
+            @include media-breakpoint-down(md) {
+                margin-bottom: 10px;
+                margin-right: 10px;
+            }
             + li {
                 margin-left: 16px;
+                @include media-breakpoint-down(md) {
+                    margin-left: 0;
+                }
             }
         }
     }
