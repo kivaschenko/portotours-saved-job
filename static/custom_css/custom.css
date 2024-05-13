@@ -10847,7 +10847,8 @@ html.off-scroll body {
     line-height: 56px;
     padding: 0 240px;
     max-width: 1500px;
-    margin: 0 auto 32px; }
+    margin: 0 auto 32px;
+    text-transform: capitalize; }
     @media (max-width: 767.98px) {
       .experience-list-hero .container .experience-list-hero-title {
         background-image: url(../images/destination-list-hero-img-mob.png);
@@ -11415,11 +11416,36 @@ html.off-scroll body {
       display: flex;
       gap: 8px;
       /* Расстояние между звездами */ }
+    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper {
+      width: 20px;
+      height: 20px;
+      position: relative; }
+      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper.partial-fill::before {
+        content: '';
+        /* Добавляем контент в псевдоэлемент */
+        position: absolute;
+        /* Абсолютное позиционирование для точного позиционирования */
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: calc(var(--fraction, 1) * 100%);
+        background-color: transparent;
+        z-index: -1;
+        /* Помещаем псевдоэлемент под фоновое изображение */
+        background-image: url(../icons/one-filled-star.svg);
+        /* Изображение, которое будет показываться только частично */
+        background-size: cover;
+        /* Растягиваем изображение, чтобы оно занимало всю доступную область */
+        background-repeat: no-repeat;
+        /* Отключаем повторение изображения */ }
+      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper svg {
+        display: block; }
     .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .star {
       fill: none;
-      stroke-width: 2; }
+      stroke-width: 1;
+      width: 100%; }
     .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .filled {
-      fill: yellow;
+      fill: #FDB601;
       /* Заливка желтым цветом */ }
 
 .experience-hero {
@@ -11918,7 +11944,7 @@ html.off-scroll body {
                 background-repeat: no-repeat;
                 background-size: contain;
                 left: 0;
-                top: 12px;
+                top: 15px;
                 transform: translateY(-50%); }
                 @media (max-width: 767.98px) {
                   .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul li::before {
@@ -11927,8 +11953,10 @@ html.off-scroll body {
             .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul {
               padding-left: 0;
               list-style: none;
-              margin: 0;
-              margin-top: 12px; }
+              margin: 0; }
+              @media (max-width: 767.98px) {
+                .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul {
+                  margin-top: 12px; } }
               .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li {
                 list-style: none !important;
                 padding-left: 38px;
@@ -12334,10 +12362,12 @@ html.off-scroll body {
 .reviews .reviews-inner-wrapper {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between; }
+  justify-content: space-between;
+  padding-bottom: 90px; }
   @media (max-width: 767.98px) {
     .reviews .reviews-inner-wrapper {
-      flex-direction: column-reverse; } }
+      flex-direction: column-reverse;
+      padding-bottom: 20px; } }
 .reviews .left-col {
   width: calc((100% - 110px)/2);
   position: relative; }
@@ -12405,7 +12435,8 @@ html.off-scroll body {
       line-height: 28px;
       font-family: "LatoRegular";
       color: #0F0F10;
-      margin-bottom: 16px; }
+      margin-bottom: 16px;
+      word-break: break-all; }
       @media (max-width: 767.98px) {
         .reviews .left-col .reviews-list .reviews-list-item .review-text {
           font-size: 14px;
@@ -12461,6 +12492,8 @@ html.off-scroll body {
         .reviews .right-col #div_id_rating > div .form-check input {
           display: none; }
           .reviews .right-col #div_id_rating > div .form-check input:checked + label::before {
+            background-image: url(../icons/checked-star.svg); }
+          .reviews .right-col #div_id_rating > div .form-check input.highlighted + label::before {
             background-image: url(../icons/checked-star.svg); }
         .reviews .right-col #div_id_rating > div .form-check label {
           font-size: 12px;
