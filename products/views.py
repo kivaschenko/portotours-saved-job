@@ -32,9 +32,6 @@ class ExperienceListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        # Retrieve the base queryset using the custom manager
-        queryset = super().get_queryset()
-        # Apply additional filtering based on the view's requirements
         current_language = Language.objects.get(code=self.kwargs['lang'].upper())
         self.extra_context['current_language'] = current_language.code.lower()
         place = self.request.GET.get('place')
