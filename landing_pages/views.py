@@ -31,10 +31,11 @@ class LandingPageView(DetailView):
             if found_experience:
                 experiences.append(found_experience)
         experiences_queryset = Experience.objects.filter(pk__in=[exp.pk for exp in experiences])
-        if self.object.destination:
-            self.template_name = 'landing_pages/child_landing.html'
-            experiences_queryset = experiences_queryset.filter(destinations__exact=self.object.destination)
+        # if self.object.destinations:
+        #     self.template_name = 'landing_pages/child_landing.html'
+        #     experiences_queryset = experiences_queryset.filter(destinations__in=[self.object.destinations.all()])
         context['experiences'] = experiences_queryset
         context['testimonials'] = Testimonial.objects.all()[:6]
         return context
+
 

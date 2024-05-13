@@ -29,6 +29,30 @@
                 <h2 class="best-tours-title">
                     {{ object.title }} <span class="currentYear"></span>
                 </h2>
+                                <div class="filters-wrapper">
+                    <div class="filter-wrapper">
+                        <p class="experience-filter-title">
+                            Type
+                        </p>
+                        <select name="experience filter" id="tour_type">
+                            <option value="all">All</option>
+                            <option value="private">Private</option>
+                            <option value="group">Group</option>
+                        </select>
+                    </div>
+                    <div class="filter-wrapper">
+                        <p class="experience-filter-title">
+                            Sort by
+                        </p>
+                        <select name="experience filter" id="filter_by">
+                            <option value="all">All</option>
+                            <option value="price_low">Price - Low To High</option>
+                            <option value="price_high">Price - High To Low</option>
+                            <option value="discount">Discount</option>
+                            <option value="hot_deals">Hot deals first</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div>{{ object.display_content }}</div>
             <div class="best-tours-cards-wrapper">
