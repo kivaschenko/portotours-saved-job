@@ -78,6 +78,38 @@
             <!-- Display a payment form -->
             <form id="payment-form">
                 <div class="left-col">
+                    <div class="order-details order-details--mobile">
+                        <div class="details-title-wrapper">
+                            <h4>Order Details</h4>
+                            <span>
+                                Details
+                                <img src="{% static 'icons/orange-arrow.svg' %}" alt="arrow">
+                            </span>
+                        </div>
+                        <ul class="orders-list">
+                            {% if object_list %}
+                                {% for object in object_list %}
+                                    <li class="order-item">
+                                        <p class="order-name">
+                                            {{ object.parent_experience }}
+                                        </p>
+                                        <p class="order-price">
+                                            €{{ object.total_price }}
+                                        </p>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                        <div class="total-price-wrapper">
+                            <p class="total-title">
+                                Total:
+                            </p>
+                            <p class="total-sum">
+                                €{{ total_sum }}
+                            </p>
+                        </div>
+
+                    </div>
                     <div id="link-authentication-element">
                         <!--Stripe.js injects Link Authentication Element-->
                     </div>

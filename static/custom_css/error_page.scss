@@ -19,6 +19,10 @@
             font-family: 'LatoRegular';
             font-size: 32px;
             color: black;
+            @include media-breakpoint-down(md) {
+                
+                font-size: 26px;
+            }
         }
         .error-subtitle {
             position: absolute;
@@ -29,11 +33,18 @@
             font-size: 14px;
             line-height: normal;
             bottom: 60px;
+            @include media-breakpoint-down(md) {
+                bottom: 50px;
+                
+            }
         }
         .error-link {
             display: block;
             width: 320px;
             margin: 16px auto 0;
+            @include media-breakpoint-down(md) {
+                margin: 50px auto 0;
+            }
         }
     }
 
