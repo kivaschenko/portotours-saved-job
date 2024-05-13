@@ -2,6 +2,8 @@ from django.views.generic import DetailView, ListView
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import JsonResponse
+
+from accounts import models
 from .models import Review
 
 

@@ -4,6 +4,11 @@ from accounts.models import Profile
 from products.models import ParentExperience, Experience
 
 
+
+class ApprovedReviewManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(approved=True)
+
 class Review(models.Model):
     experience = models.ForeignKey(Experience, on_delete=models.SET_NULL, null=True, blank=True)
     rating = models.IntegerField(
@@ -19,9 +24,10 @@ class Review(models.Model):
     title = models.CharField(max_length=255, null=True, blank=False)
     short_text = models.TextField(max_length=500, null=True, blank=False)
     approved = models.BooleanField(default=False)
-
     created_at = models.DateTimeField(auto_now_add=True)
 
+    objects = models.Manager()
+    approved_only = ApprovedReviewManager()
     class Meta:
         ordering = ('-created_at',)
 

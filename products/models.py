@@ -201,7 +201,7 @@ class ParentExperience(models.Model):
                                                        "the percentage is specified, then when saving, "
                                                        "it automatically recalculates the children's price depending "
                                                        "on the main price f the amount of the discount in percent")
-    child_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    child_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True)
     currency = models.CharField(max_length=3, null=True, blank=True, default='eur')
     price_changed_timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
     use_auto_increase_old_price = models.BooleanField(default=False,
