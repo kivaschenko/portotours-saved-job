@@ -29,9 +29,7 @@ class LandingPage(models.Model):
                                         null=True, blank=True)
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     category = models.ForeignKey(ExperienceCategory, on_delete=models.SET_NULL, null=True, blank=True)
-    destination = models.ForeignKey(Destination, on_delete=models.SET_NULL, null=True, blank=True,
-                                    help_text="The destination of the landing page. "
-                                              "Should be empty for parent page where all destinations are available")
+    destinations = models.ManyToManyField(Destination, blank=True)
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True,
                               help_text="Banner image, this image will be cropped and scaled max width: 1920 and max height: 460")
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
@@ -47,7 +45,7 @@ class LandingPage(models.Model):
     active = LandingPageActiveManager()
 
     class Meta:
-        ordering = ('title',)
+        ordering = ('-priority_number', 'title')
         unique_together = ('title', 'slug')
 
     def __str__(self):
