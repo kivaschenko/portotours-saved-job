@@ -72,11 +72,11 @@
                         </a>
                     </div>
                 </div>
-                {% if object.review_set.count > 0 %} 
+                {% if approved_reviews_count > 0 %} 
                 <div class="reviews-rating-wrapper">
                     
                     <a href="#reviews" class="reviews-count">
-                        {{ object.review_set.count }} reviews
+                        {{ approved_reviews_count }} reviews
                     </a>
                    
                     <div class="rating-img-wrapper">

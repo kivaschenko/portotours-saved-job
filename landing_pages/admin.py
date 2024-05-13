@@ -19,6 +19,5 @@ class LandingPageForm(ModelForm):
 class LandingPageAdmin(admin.ModelAdmin):
     form = LandingPageForm
     exclude = ['updated_at', 'card_image']
-    list_display = ['id', 'title', 'slug', 'category', 'destination', 'show_in_navbar',
-                    'priority_number', 'is_active',  'updated_at']
+    list_display = ['id', 'title', 'slug', 'category', 'show_in_navbar', 'priority_number', 'is_active',  'updated_at']
     list_per_page = 20

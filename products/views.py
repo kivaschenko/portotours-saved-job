@@ -32,9 +32,6 @@ class ExperienceListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        # Retrieve the base queryset using the custom manager
-        queryset = super().get_queryset()
-        # Apply additional filtering based on the view's requirements
         current_language = Language.objects.get(code=self.kwargs['lang'].upper())
         self.extra_context['current_language'] = current_language.code.lower()
         place = self.request.GET.get('place')
@@ -109,10 +106,12 @@ class ExperienceDetailView(DetailView):
         context.setdefault("view", self)
         if self.extra_context is not None:
             context.update(self.extra_context)
+        print(context)
         return context
 
     def get_object(self, queryset=None):
         obj = super(ExperienceDetailView, self).get_object(queryset=queryset)
+        self.extra_context['approved_reviews_count'] = obj.review_set.filter(approved=True).count()
         self.extra_context['current_language'] = obj.language.code.lower()
         # find all other languages
         brothers = obj.parent_experience.child_experiences.all()

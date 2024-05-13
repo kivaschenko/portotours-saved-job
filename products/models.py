@@ -201,7 +201,7 @@ class ParentExperience(models.Model):
                                                        "the percentage is specified, then when saving, "
                                                        "it automatically recalculates the children's price depending "
                                                        "on the main price f the amount of the discount in percent")
-    child_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    child_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True)
     currency = models.CharField(max_length=3, null=True, blank=True, default='eur')
     price_changed_timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
     use_auto_increase_old_price = models.BooleanField(default=False,
@@ -251,12 +251,18 @@ class ParentExperience(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.parent_name)
-        if self.use_auto_increase_old_price:
-            self.old_price = round(self.price * Decimal(round(float(self.increase_percentage_old_price / 100 + 1), 2)), 2)
-        if self.use_child_discount:
-            self.child_price = round(self.price * Decimal(round(float(1 - self.child_discount / 100), 2)), 2)
-            self.child_old_price = round(self.child_price * Decimal(round(float(self.increase_percentage_old_price / 100 + 1), 2)), 2)
+        self.count_increase_percentage_old_price()
+        self.count_child_discount()
         super().save(*args, **kwargs)
+
+    def count_increase_percentage_old_price(self):
+        if self.old_price and self.price:
+            self.increase_percentage_old_price = int(round((1 - self.price / self.old_price) * 100, 0))
+
+    def count_child_discount(self):
+        if self.child_price and self.price:
+            self.child_discount = int(round((1 - self.child_price / self.price) * 100, 0))
+
 
 
 class ExperienceActiveManager(models.Manager):
