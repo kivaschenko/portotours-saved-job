@@ -8128,7 +8128,7 @@ html.off-scroll body {
               margin-bottom: 20px;
               display: block;
               color: white;
-              text-transform: uppercase; } }
+              text-transform: capitalize; } }
         .footer .container .row .footer-info > img {
           max-width: 160px;
           display: block;
@@ -8177,9 +8177,14 @@ html.off-scroll body {
             padding-left: 0;
             padding-right: 0;
             flex-direction: column;
-            width: calc((100%)/2); }
+            width: calc((100%)/2);
+            display: none; }
             .footer .container .row .footer-block:first-of-type {
-              margin-right: 40px; }
+              margin-right: 40px;
+              display: flex; }
+            .footer .container .row .footer-block.about {
+              display: flex;
+              margin-bottom: 0; }
             .footer .container .row .footer-block:last-child {
               width: 100%;
               margin-top: 24px; } }
@@ -11637,40 +11642,47 @@ html.off-scroll body {
                   line-height: 24px; } }
       .experience-info .container .experience-info-inner-wrapper .left-col .risk-free-badge {
         width: 100%;
-        padding: 4px 0;
+        padding: 4px 15px;
         border-radius: 10px;
         background: #F3FAF5;
         margin-bottom: 14px; }
         .experience-info .container .experience-info-inner-wrapper .left-col .risk-free-badge .badge-title {
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: flex-start;
           margin: 0;
           color: #007728;
           font-family: "LatoRegular";
-          font-size: 24px;
+          font-size: 18px;
           line-height: normal;
           text-transform: uppercase; }
           .experience-info .container .experience-info-inner-wrapper .left-col .risk-free-badge .badge-title img {
-            margin-right: 20px; }
+            margin-right: 10px;
+            width: 40px;
+            height: 40px; }
+          .experience-info .container .experience-info-inner-wrapper .left-col .risk-free-badge .badge-title span {
+            text-transform: none;
+            margin-left: 10px; }
       .experience-info .container .experience-info-inner-wrapper .left-col .children-discount-badge {
         width: 100%;
-        padding: 4px 0;
+        padding: 4px 15px;
         border-radius: 10px;
         background: #FFF1EB;
         margin-bottom: 32px; }
         .experience-info .container .experience-info-inner-wrapper .left-col .children-discount-badge .badge-title {
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: flex-start;
           margin: 0;
           color: #F0500B;
           font-family: "LatoRegular";
-          font-size: 24px;
+          font-size: 18px;
           line-height: normal;
           text-transform: uppercase; }
           .experience-info .container .experience-info-inner-wrapper .left-col .children-discount-badge .badge-title img {
-            margin-right: 20px; }
+            margin-right: 10px;
+            width: 40px;
+            height: 40px; }
       .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge {
         margin-bottom: 24px;
         border-radius: 26px;

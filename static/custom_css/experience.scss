@@ -934,44 +934,52 @@
         }
         .risk-free-badge {
           width: 100%;
-          padding: 4px 0;
+          padding: 4px 15px;
           border-radius: 10px;
           background: #F3FAF5;
           margin-bottom: 14px;
           .badge-title {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             margin: 0;
             color: #007728;
             font-family: "LatoRegular";
-            font-size: 24px;
+            font-size: 18px;
             line-height: normal;
             text-transform: uppercase;
             img {
-              margin-right: 20px;
+              margin-right: 10px;
+              width: 40px;
+              height: 40px;
+            }
+            span {
+              text-transform: none;
+              margin-left: 10px;
             }
           }
           
         }
         .children-discount-badge {
           width: 100%;
-          padding: 4px 0;
+          padding: 4px 15px;
           border-radius: 10px;
           background: #FFF1EB;
           margin-bottom: 32px;
           .badge-title {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             margin: 0;
             color: #F0500B;
             font-family: "LatoRegular";
-            font-size: 24px;
+            font-size: 18px;
             line-height: normal;
             text-transform: uppercase;
             img {
-              margin-right: 20px;
+              margin-right: 10px;
+              width: 40px;
+              height: 40px;
             }
           }
         }
