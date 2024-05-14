@@ -223,3 +223,27 @@ def send_report_about_paid_products():
         send_email_notification_to_customer(product)
         product.reported = True
         product.save()
+
+
+def update_purchase_and_send_email_payment_intent_failed(payment_intent_id: str, customer_id: str = '', error_code: str = '', error_message: str = ''):
+    email_data = dict(
+        subject=f'New Order payment failed: {payment_intent_id}, {error_code}',
+        message=error_message,
+        from_email=settings.ORDER_EMAIL,
+        recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
+    )
+    try:
+        logger.info(f'Start updating purchase and send email about PaymentIntent failed: {payment_intent_id}.')
+        purchase = Purchase.objects.get(stripe_payment_intent_id=payment_intent_id)
+        if customer_id and not purchase.stripe_customer_id:
+            purchase.stripe_customer_id = customer_id
+        purchase.error_code = error_code
+        purchase.error_message = error_message
+        purchase.save()
+    except Purchase.DoesNotExist:
+        logger.error(f'Purchase {payment_intent_id} does not exist.')
+    finally:
+        send_mail(**email_data)
+
+
+
