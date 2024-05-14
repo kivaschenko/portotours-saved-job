@@ -399,6 +399,7 @@ DEFAULT_FROM_EMAIL = 'default-email@example.com'
 ADMIN_EMAIL = [('Admin Name', 'admin@example.com')]
 MANAGER_EMAIL = ADMIN_EMAIL + [('Manager Name', 'manager@example.com')]
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
+ORDER_EMAIL = 'orders@portotours.pt'
 
 # This params used also in email template for reset password
 
