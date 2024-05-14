@@ -171,23 +171,8 @@ def send_product_paid_email_staff(product):
                f'\tNumber of passengers: {product.total_booked}\n'
                f'\tLanguage: {product.language}\n'
                f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n')
-    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
-
-
-def send_booking_updates_by_email_to_staff(product_id: int = None, status: str = None):
-    logger.info(f'Sending email about real update booking numbers for Product Id: {product_id}.\n')
-    try:
-        product = Product.objects.get(id=product_id)
-        subject = f'Result of real booking for Order: {product.random_order_number}, {product.full_name}, {product.date_of_start}'
-        message = (f'\tProduct name: {product.full_name}\n'
-                   f'\tNumber of passengers: {product.total_booked}\n'
-                   f'\tLanguage: {product.language}\n'
-                   f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n'
-                   f'\t\tResult of real booking: {status}')
-        send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
-        logger.info(f'Email sent to {product.customer.profile.email}.')
-    except Product.DoesNotExist:
-        logger.error(f"Product {product_id} does not exist.")
+    send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
+              fail_silently=False)
 
 
 def update_products_status_if_expired():
@@ -227,7 +212,7 @@ def send_email_notification_to_customer(product):
     message = (f'Congratulations, {product.customer.profile.name}! \n\tYour product "{product.full_name}" (ID: {product.random_order_number}) paid.\n'
                f'Total price: {product.total_price} EUR.\n'
                f'You can download your PDF here: {url}.')
-    send_mail(subject, message, settings.SERVER_EMAIL, [product.customer.profile.email])
+    send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipients_list=[product.customer.profile.email], fail_silently=False)
 
 
 def send_report_about_paid_products():

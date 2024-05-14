@@ -287,6 +287,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+ORDER_EMAIL = os.environ.get('ORDER_EMAIL')
 ADMIN_NAME = os.environ.get('EMAIL_FROM_USER')
 ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')
 MANAGER_EMAIL = os.environ.get('MANAGER_EMAIL')
