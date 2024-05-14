@@ -102,10 +102,6 @@
                                            href="javascript:void(0);" onclick="addTypeIsPrivateAndNavigate(event, 'en')">Private tours</a>
                                            <a class="dropdown-item"
                                            href="javascript:void(0);" onclick="addTypeIsGroupAndNavigate(event, 'en')">Group tours</a>
-                                           <a class="dropdown-item"
-                                           href="javascript:void(0);" onclick="addCategoryWalkingAdventures(event, 'en')">Walking tours</a>
-                                           <a class="dropdown-item"
-                                           href="javascript:void(0);" onclick="addCategoryAirportPickup(event, 'en')">Airport pickup</a>
                                     {% if landing_pages %}
                                         {% for landing_page in landing_pages %}
                                         <a class="dropdown-item" href="{% url 'landing-page' lang='en' slug=landing_page.slug %}">{{ landing_page.title }}</a>

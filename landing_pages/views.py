@@ -1,20 +1,14 @@
-from datetime import timedelta, datetime
-
-from django.http import JsonResponse
 from django.views.generic import DetailView
-from django.utils.translation import activate
-
-from destinations.models import Destination
-from attractions.models import Attraction
 from products.models import Experience, ParentExperience
 from reviews.models import Testimonial
 
 from .models import LandingPage
+from .forms import LandingPageForm
 
 
 class LandingPageView(DetailView):
     model = LandingPage
-    template_name = 'landing_pages/parent_landing.html'
+    template_name = 'landing_pages/landing_page.html'
     queryset = LandingPage.active.all()
 
     def get_context_data(self, **kwargs):
@@ -30,10 +24,15 @@ class LandingPageView(DetailView):
             found_experience = par_exp.child_experiences.filter(is_active=True, language__code=lang.upper()).first()
             if found_experience:
                 experiences.append(found_experience)
-        experiences_queryset = Experience.objects.filter(pk__in=[exp.pk for exp in experiences])
-        # if self.object.destinations:
-        #     self.template_name = 'landing_pages/child_landing.html'
-        #     experiences_queryset = experiences_queryset.filter(destinations__in=[self.object.destinations.all()])
+        print(experiences, '<- experiences')
+        destinations = self.object.destinations.all()
+        context['experience_form'] = LandingPageForm(lang, destinations)
+        if experiences:
+            experiences_queryset = Experience.objects.filter(pk__in=[exp.pk for exp in experiences])
+            if self.object.destinations:
+                experiences_queryset = experiences_queryset.filter(destinations__in=self.object.destinations.all())
+        else:
+            experiences_queryset = Experience.objects.none()
         context['experiences'] = experiences_queryset
         context['testimonials'] = Testimonial.objects.all()[:6]
         return context

@@ -117,8 +117,11 @@
                     <ul class="footer-block-list">
                         <li><a href="javascript:void(0);" onclick="addTypeIsPrivateAndNavigate(event, 'en')" class="footer-link">Group tours</a></li>
                         <li><a href="javascript:void(0);" onclick="addTypeIsGroupAndNavigate(event, 'en')" class="footer-link">Private Tours</a></li>
-                        <li><a href="javascript:void(0);" onclick="addCategoryWalkingAdventures(event, 'en')" class="footer-link">Walking tours</a></li>
-                        <li><a href="javascript:void(0);" onclick="addCategoryAirportPickup(event, 'en')" class="footer-link">Airport pick up</a></li>
+                        {% if landing_pages %}
+                            {% for landing_page in landing_pages %}
+                                <li><a href="{% url 'landing-page' lang='en' slug=landing_page.slug %}">{{ landing_page.title }}</a></li>
+                            {% endfor %}
+                        {% endif %}
                     </ul>
                 </div>
                 <div class="footer-block">
