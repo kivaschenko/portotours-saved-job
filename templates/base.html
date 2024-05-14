@@ -115,8 +115,6 @@
                         Our services
                     </p>
                     <ul class="footer-block-list">
-                        <li><a href="javascript:void(0);" onclick="addTypeIsPrivateAndNavigate(event, 'en')" class="footer-link">Group tours</a></li>
-                        <li><a href="javascript:void(0);" onclick="addTypeIsGroupAndNavigate(event, 'en')" class="footer-link">Private Tours</a></li>
                         {% if landing_pages %}
                             {% for landing_page in landing_pages %}
                                 <li><a href="{% url 'landing-page' lang='en' slug=landing_page.slug %}">{{ landing_page.title }}</a></li>
@@ -154,36 +152,5 @@
         span.textContent = currentYear;
     });
 </script>
-
-<script>
-    // Here functions for complex navigation links with query params
-    // the first 2 funcs are used in home.html too
-    function addTypeIsGroupAndNavigate(event, lang) {
-        // Redirection to the experiences list filtered by is_private=False
-        event.preventDefault(); // Prevent default link behavior
-        const url = `/${lang}/experiences/?tour_type=group&filter_by=all`;
-        window.location.href = url; // Navigate to the URL with added parameters
-    }
-
-    function addTypeIsPrivateAndNavigate(event, lang) {
-        // Redirection to the experiences list filtered by is_private=True
-        event.preventDefault();
-        const url = `/${lang}/experiences/?tour_type=private&filter_by=all`;
-        window.location.href = url;
-    }
-
-    function addCategoryWalkingAdventures(event, lang) {
-        event.preventDefault();
-        const url = `/${lang}/experiences/?tour_type=all&filter_by=all&categories=walking-adventure`;
-        window.location.href = url;
-    }
-
-    function addCategoryAirportPickup(event, lang) {
-        event.preventDefault();
-        const url = `/${lang}/experiences/?tour_type=all&filter_by=all&categories=airport-pickup`;
-        window.location.href = url;
-    }
-</script>
-
 </body>
 </html>

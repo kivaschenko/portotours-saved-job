@@ -15,7 +15,6 @@
             <img src="{% static 'images/destination-list-hero-img.png' %}">
         {% endif %}
         <div class="container">
-            <sm>parent template</sm>
             <h1 class="destination-list-hero-title">
                 {{ object.title }} <span>with</span>
                 <img src="{% static 'icons/main-logo.svg' %}" alt="Destination logo">
@@ -144,6 +143,25 @@
                     {% endfor %}
                 {% else %}
                     No top Expirience found
+                {% endif %}
+                {% if experiences.has_other_pages %}
+                    <ul class="pagination">
+                        {% if experiences.has_previous %}
+                            <li><a href="?page={{ experiences.previous_page_number }}">Previous</a></li>
+                        {% endif %}
+
+                        {% for num in experiences.paginator.page_range %}
+                            {% if experiences.number == num %}
+                                <li class="active"><span>{{ num }}</span></li>
+                            {% elif num > experiences.number|add:'-5' and num < experiences.number|add:'5' %}
+                                <li><a href="?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if experiences.has_next %}
+                            <li><a href="?page={{ experiences.next_page_number }}">Next</a></li>
+                        {% endif %}
+                    </ul>
                 {% endif %}
             </div>
             <a href="{% url 'experience-list' lang=current_language %}" class="btn-type-2 mobile">
