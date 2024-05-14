@@ -212,7 +212,7 @@ def send_email_notification_to_customer(product):
     message = (f'Congratulations, {product.customer.profile.name}! \n\tYour product "{product.full_name}" (ID: {product.random_order_number}) paid.\n'
                f'Total price: {product.total_price} EUR.\n'
                f'You can download your PDF here: {url}.')
-    send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipients_list=[product.customer.profile.email], fail_silently=False)
+    send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[product.customer.profile.email], fail_silently=False)
 
 
 def send_report_about_paid_products():
