@@ -934,44 +934,52 @@
         }
         .risk-free-badge {
           width: 100%;
-          padding: 4px 0;
+          padding: 4px 15px;
           border-radius: 10px;
           background: #F3FAF5;
           margin-bottom: 14px;
           .badge-title {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             margin: 0;
             color: #007728;
             font-family: "LatoRegular";
-            font-size: 24px;
+            font-size: 18px;
             line-height: normal;
             text-transform: uppercase;
             img {
-              margin-right: 20px;
+              margin-right: 10px;
+              width: 40px;
+              height: 40px;
+            }
+            span {
+              text-transform: none;
+              margin-left: 10px;
             }
           }
           
         }
         .children-discount-badge {
           width: 100%;
-          padding: 4px 0;
+          padding: 4px 15px;
           border-radius: 10px;
           background: #FFF1EB;
           margin-bottom: 32px;
           .badge-title {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             margin: 0;
             color: #F0500B;
             font-family: "LatoRegular";
-            font-size: 24px;
+            font-size: 18px;
             line-height: normal;
             text-transform: uppercase;
             img {
-              margin-right: 20px;
+              margin-right: 10px;
+              width: 40px;
+              height: 40px;
             }
           }
         }
@@ -982,9 +990,9 @@
           background: #FFF;
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: flex-start;
           width: 100%;
-          padding: 20px 24px;
+          padding: 25px 24px;
           @include media-breakpoint-down(md) {
             border: none;
             padding: 0;
@@ -993,9 +1001,9 @@
             align-items: flex-start;
           }
           .img-wrapper {
-            width: 120px;
-            height: 120px;
-            margin-right: 24px;
+            width: 80px;
+            height: 80px;
+            margin-right: 16px;
             @include media-breakpoint-down(md) {
               width: 80px;
               height: 80px;
@@ -1027,7 +1035,7 @@
               line-height: 26px;
               color: #0F0F10;
               font-family: "LatoRegular";
-              padding-right: 50px;
+              padding-right: 15px;
               margin-bottom: 0;
               @include media-breakpoint-down(md) {
                 font-size: 14px;

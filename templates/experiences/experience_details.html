@@ -245,7 +245,7 @@
                     <div class="risk-free-badge">
                         <h3 class="badge-title">
                             <img src="{% static 'icons/shield-icon.svg' %}" alt="">
-                            risk free! Neque porro quisquam 
+                            risk free! <span>Cancellation available up to 24 hours before your trip starts</span> 
                         </h3>
                     </div>
                     {% if not object.parent_experience.is_private and object.parent_experience.child_price < object.parent_experience.price %}
@@ -300,9 +300,6 @@
                                 <img src="{% static 'icons/clean-safe-badge.svg' %}" alt="badge">
                             </div>
                             <div class="content-wrapper">
-                                <h4 class="badge-title">
-                                    Clean & Safe
-                                </h4>
                                 <p class="badge-text">
                                     Сertified with the “Clean & Safe” seal to guarantee that we will comply with all mandatory hygiene and safety standards by
                                     WHO/ the National Tourist Authority in coordination with the General Directorate of Health.
