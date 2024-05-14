@@ -29,27 +29,19 @@
                 <h2 class="best-tours-title">
                     {{ object.title }} <span class="currentYear"></span>
                 </h2>
-                <form id="experience-search-form" action="{% url 'landing-page' lang='en' slug=object.slug %}" method="get">
-                    <div class="place-wrapper">
-                        <label for="place">
-                            Where to?
-                        </label>
-                        {{ experience_form.place }}
-                        {% if experience_form.place.help_text %}
-                            <small class="form-text text-muted">{{ experience_form.place.help_text }}</small>
-                        {% endif %}
-                        {% for error in experience_form.place.errors %}
-                            <div class="alert alert-danger" role="alert">{{ error }}</div>
-                        {% endfor %}
+                <div class="filters-wrapper">
+                    <div class="filter-wrapper">
+                        <p class="experience-filter-title">
+                            Destinations
+                        </p>
+                        <select name="experience filter" id="destination">
+                            <option value="all">All</option>
+                            {% for destination in destinations %}
+                                <option value="{{ destination.0 }}">{{ destination.1 }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    <div class="button-wrapper">
-                        <button type="submit" class="form-btn btn-type-1">
-                            <img src="{% static 'icons/search.svg' %}" alt="">
-                            Search
-                        </button>
-                    </div>
-
-                </form>
+                </div>
                 <div class="filters-wrapper">
                     <div class="filter-wrapper">
                         <p class="experience-filter-title">
