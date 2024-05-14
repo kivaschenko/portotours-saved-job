@@ -66,6 +66,12 @@ def stripe_webhook(request):
         # Invalid payload
         return HttpResponse(status=400)
 
+    if event.type == 'payment_intent.payment_failed':
+        payment_intent = event['date']['object']
+        logger.info(f"Received payment intent: {payment_intent.id} failed.\n")
+        handlers = []
+        payment_intent_event = StripePaymentIntentFailed(payment_intent_id=payment_intent.id)
+
     if event.type == 'payment_intent.succeeded':
         payment_intent = event['data']['object']
         logger.info(f"PaymentIntent {payment_intent.id} succeeded.")
