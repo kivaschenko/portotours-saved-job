@@ -11678,30 +11678,36 @@ html.off-scroll body {
         padding: 4px 15px;
         border-radius: 10px;
         background: #F3FAF5;
-        margin-bottom: 14px; }
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; }
+        @media (max-width: 767.98px) {
+          .experience-info .container .experience-info-inner-wrapper .left-col .risk-free-badge {
+            width: calc(100% + 32px);
+            margin-left: -16px; } }
+        .experience-info .container .experience-info-inner-wrapper .left-col .risk-free-badge img {
+          margin-right: 10px;
+          width: 40px;
+          height: 40px; }
         .experience-info .container .experience-info-inner-wrapper .left-col .risk-free-badge .badge-title {
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
           margin: 0;
           color: #007728;
           font-family: "LatoRegular";
           font-size: 18px;
-          line-height: normal;
-          text-transform: uppercase; }
-          .experience-info .container .experience-info-inner-wrapper .left-col .risk-free-badge .badge-title img {
-            margin-right: 10px;
-            width: 40px;
-            height: 40px; }
+          line-height: normal; }
           .experience-info .container .experience-info-inner-wrapper .left-col .risk-free-badge .badge-title span {
-            text-transform: none;
-            margin-left: 10px; }
+            text-transform: uppercase; }
       .experience-info .container .experience-info-inner-wrapper .left-col .children-discount-badge {
         width: 100%;
         padding: 4px 15px;
         border-radius: 10px;
         background: #FFF1EB;
         margin-bottom: 32px; }
+        @media (max-width: 767.98px) {
+          .experience-info .container .experience-info-inner-wrapper .left-col .children-discount-badge {
+            width: calc(100% + 32px);
+            margin-left: -16px; } }
         .experience-info .container .experience-info-inner-wrapper .left-col .children-discount-badge .badge-title {
           display: flex;
           align-items: center;

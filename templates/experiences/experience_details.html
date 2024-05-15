@@ -243,9 +243,10 @@
                         </div>
                     </div>
                     <div class="risk-free-badge">
+                        <img src="{% static 'icons/shield-icon.svg' %}" alt="">
                         <h3 class="badge-title">
-                            <img src="{% static 'icons/shield-icon.svg' %}" alt="">
-                            risk free! <span>Cancellation available up to 24 hours before your trip starts</span> 
+                            
+                            <span>risk free!</span> Cancellation is available up to 24 hours before your trip starts
                         </h3>
                     </div>
                     {% if not object.parent_experience.is_private and object.parent_experience.child_price < object.parent_experience.price %}
@@ -736,7 +737,7 @@
                     
 
             {% endif %}
-            {% if object.review_set.count > 0 %}
+            {% if object.review_set.count > 5 %}
             // Function to render pagination controls
             function renderPaginationControls(paginationData) {
                 paginationContainer.innerHTML = ''; // Clear existing pagination controls
@@ -786,7 +787,9 @@
                 fetchReviews(pageNumber)
                     .then(data => {
                         renderReviews(data.reviews);
+                        {% if object.review_set.count > 5 %}
                         renderPaginationControls(data);
+                        {% endif %}
                     })
                     .catch(error => {
                         console.error('Error fetching reviews:', error);

@@ -973,24 +973,30 @@
           border-radius: 10px;
           background: #F3FAF5;
           margin-bottom: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          @include media-breakpoint-down(md) {
+            width: calc(100% + 32px);
+            margin-left: -16px;
+          }
+          img {
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+          }
           .badge-title {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
+            
             margin: 0;
             color: #007728;
             font-family: "LatoRegular";
             font-size: 18px;
             line-height: normal;
-            text-transform: uppercase;
-            img {
-              margin-right: 10px;
-              width: 40px;
-              height: 40px;
-            }
+            
+            
             span {
-              text-transform: none;
-              margin-left: 10px;
+              text-transform: uppercase;
+              
             }
           }
           
@@ -1001,6 +1007,10 @@
           border-radius: 10px;
           background: #FFF1EB;
           margin-bottom: 32px;
+          @include media-breakpoint-down(md) {
+            width: calc(100% + 32px);
+            margin-left: -16px;
+          }
           .badge-title {
             display: flex;
             align-items: center;
