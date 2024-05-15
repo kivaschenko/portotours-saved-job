@@ -235,54 +235,62 @@ def update_purchase_and_send_email_payment_intent_failed(payment_intent_id: str 
     if payment_intent_id is None:
         logger.error('Inside function "service_layer.services.update_purchase_and_send_email_payment_intent_failed" payment_intent_id is empty.')
         return
+
     email_data = dict(
         subject=f'New Order payment failed: {payment_intent_id}, {error_code}',
         message=error_message,
         from_email=settings.ORDER_EMAIL,
         recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
     )
-    body = []
+
     try:
         logger.info(f'Start updating purchase and send email about PaymentIntent failed: {payment_intent_id}.')
         purchase = Purchase.objects.get(stripe_payment_intent_id=payment_intent_id)
+
         if stripe_customer_id and not purchase.stripe_customer_id:
             purchase.stripe_customer_id = stripe_customer_id
+
         purchase.error_code = error_code
         purchase.error_message = error_message
         purchase.save()
-        res = create_message_about_products(purchase)
-        if res:
-            email_data['subject'] = res[0]
-            body = res[1]
+
+        subject, product_info = create_message_about_products(purchase)
+        if subject and product_info:
+            email_data['subject'] = subject
+            email_data['message'] = product_info
     except Purchase.DoesNotExist:
         logger.error(f'Purchase {payment_intent_id} does not exist.')
     finally:
-        client_info = (f"\tClient info:\n"
+        client_info = (f"\nClient info:\n"
                        f"\tStripe ID: {stripe_customer_id}\n"
                        f"\tName: {name}\n"
                        f"\tEmail: {email}\n"
                        f"\tPhone: {phone}\n")
-        body.append(client_info)
-        error_info = (f"\tError info:\n"
-                      f"Error code: {error_code}\n"
-                      f"Error message: {error_message}\n")
-        body.append(error_info)
-        email_data['message'] = str(body)
+        error_info = (f"\nError info:\n"
+                      f"\tError code: {error_code}\n"
+                      f"\tError message: {error_message}\n")
+
+        body = [email_data.get('message', ''), client_info, error_info]
+        email_data['message'] = '\n'.join(body)
+
         send_mail(**email_data)
 
 
 def create_message_about_products(purchase: Purchase):
-    if not purchase.products.all().exists():
-        return False
     products = purchase.products.all()
+    if not products.exists():
+        return None, None
+
     product_order_numbers = [product.random_order_number for product in products]
-    subject = "Unsuccessful attempt of payment for order(s): " + str(product_order_numbers)
+    subject = "Unsuccessful attempt of payment for order(s): " + ', '.join(product_order_numbers)
+
     body = []
     for product in products:
-        message = (f'\tOrder ID: {product.random_order_number}\n'
-                   f'\tProduct name: {product.full_name}\n'
-                   f'\tNumber of passengers: {product.total_booked}\n'
-                   f'\tLanguage: {product.language}\n'
-                   f'\tTotal sum: {product.total_price}\n\n')
+        message = (f"\nOrder ID: {product.random_order_number}\n"
+                   f"\tProduct name: {product.full_name}\n"
+                   f"\tNumber of passengers: {product.total_booked}\n"
+                   f"\tLanguage: {product.language}\n"
+                   f"\tTotal sum: {product.total_price}\n")
         body.append(message)
-    return subject, body
+
+    return subject, '\n'.join(body)
