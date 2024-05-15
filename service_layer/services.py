@@ -278,7 +278,7 @@ def update_purchase_and_send_email_payment_intent_failed(payment_intent_id: str 
 
 def create_message_about_products(purchase: Purchase):
     products = purchase.products.all()
-    if not products.exists():
+    if not products:
         return None, None
 
     product_order_numbers = [product.random_order_number for product in products]

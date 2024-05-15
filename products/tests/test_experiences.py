@@ -57,7 +57,9 @@ class ParentExperienceModelTest(TestCase):
             parent_name="Lisbon View Attractions Test",
             priority_number=11,
             price=Decimal('100.00'),
-            use_auto_increase_old_price=True,
+            old_price=Decimal('133.00'),
+            child_price=Decimal('50.00'),
+            child_old_price=Decimal('80.00'),
             meeting_point_id=1,
             drop_point_id=2,
             is_exclusive=True,
@@ -72,8 +74,10 @@ class ParentExperienceModelTest(TestCase):
 
         self.assertEqual(parent_experience.price, Decimal('100.00'))
         self.assertEqual(parent_experience.old_price, Decimal('133.00'))
-        self.assertEqual(parent_experience.child_price, Decimal('67.00'))
-        self.assertEqual(parent_experience.child_old_price, Decimal('89.11'))
+        self.assertEqual(parent_experience.increase_percentage_old_price, 25)
+        self.assertEqual(parent_experience.child_price, Decimal('50.00'))
+        self.assertEqual(parent_experience.child_old_price, Decimal('80.00'))
+        self.assertEqual(parent_experience.child_discount, 50)
         self.assertEqual(parent_experience.currency, 'eur')
         self.assertEqual(parent_experience.slug, "lisbon-view-attractions-test")
         self.assertEqual(parent_experience.priority_number, 11)
