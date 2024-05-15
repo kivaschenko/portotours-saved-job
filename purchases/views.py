@@ -68,7 +68,6 @@ def stripe_webhook(request):
 
     if event.type == 'payment_intent.payment_failed':
         payment_intent = event['data']['object']
-        print(payment_intent)
         logger.info(f"Received payment intent: {payment_intent.id} failed.\n")
         error = payment_intent['last_payment_error']
         logger.error(f'A payment failed due to {error["message"]}.')
@@ -76,13 +75,9 @@ def stripe_webhook(request):
         handlers = []
         payment_intent_event = StripePaymentIntentFailed(
             payment_intent_id=payment_intent.id,
-            customer_id=payment_intent.customer,
+            stripe_customer_id=payment_intent.customer,
             error_code=error['code'],
             error_message=error['message'],
-        )
-        handlers.append(payment_intent_event)
-        stripe_customer_created_event = StripeCustomerCreated(
-            stripe_customer_id=payment_intent.customer,
             name=billing_details.name,
             email=billing_details.email,
             phone=billing_details.phone,
@@ -93,7 +88,7 @@ def stripe_webhook(request):
             address_postal_code=billing_details['address']['postal_code'],
             address_state=billing_details['address']['state']
         )
-        handlers.append(stripe_customer_created_event)
+        handlers.append(payment_intent_event)
         for handler in handlers:
             handle(handler)
 
