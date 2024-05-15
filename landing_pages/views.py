@@ -48,6 +48,7 @@ class LandingPageView(DetailView):
                 destination_ids_list = experiences_queryset.values_list('destinations', flat=True)
                 unique_destination_ids = set(destination_ids_list)
                 destinations = Destination.active.filter(id__in=unique_destination_ids).values_list('slug', 'name')
+            context['destinations'] = [(slug, name) for slug, name in destinations]
             destination_slug = self.request.GET.get('destination', 'all')
             if destination_slug != 'all':
                 experiences_queryset = experiences_queryset.filter(destinations__slug=destination_slug)
@@ -55,7 +56,7 @@ class LandingPageView(DetailView):
             experiences_queryset = Experience.objects.none()
 
         page = self.request.GET.get('page', 1)
-        paginator = Paginator(experiences_queryset, 2)
+        paginator = Paginator(experiences_queryset, 10)
         try:
             experiences_paginated = paginator.page(page)
         except PageNotAnInteger:
@@ -63,7 +64,6 @@ class LandingPageView(DetailView):
         except EmptyPage:
             experiences_paginated = paginator.page(paginator.num_pages)
         context['experiences'] = experiences_paginated
-        context['destinations'] = [(slug, name) for slug, name in destinations]
         context['testimonials'] = Testimonial.objects.all()[:6]
         return context
 
