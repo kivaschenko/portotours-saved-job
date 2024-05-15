@@ -11169,8 +11169,41 @@ html.off-scroll body {
             width: 100%;
             padding: 14px;
             border-radius: 0; } }
-        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-wrapper {
-          margin-bottom: 8px; }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .rating {
+          display: flex;
+          gap: 8px;
+          /* Расстояние между звездами */ }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .icon-wrapper {
+          width: 20px;
+          height: 20px;
+          position: relative; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .icon-wrapper.partial-fill::before {
+            content: '';
+            /* Добавляем контент в псевдоэлемент */
+            position: absolute;
+            /* Абсолютное позиционирование для точного позиционирования */
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: calc(var(--fraction, 1) * 100%);
+            background-color: transparent;
+            z-index: -1;
+            /* Помещаем псевдоэлемент под фоновое изображение */
+            background-image: url(../icons/one-filled-star.svg);
+            /* Изображение, которое будет показываться только частично */
+            background-size: cover;
+            /* Растягиваем изображение, чтобы оно занимало всю доступную область */
+            background-repeat: no-repeat;
+            /* Отключаем повторение изображения */ }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .icon-wrapper svg {
+            display: block; }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .star {
+          fill: none;
+          stroke-width: 1;
+          width: 100%; }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .filled {
+          fill: #FDB601;
+          /* Заливка желтым цветом */ }
         .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .discount-banner {
           display: flex;
           align-items: center;
@@ -14752,6 +14785,9 @@ html.off-scroll body {
   .ppc-hero .container {
     height: 400px;
     position: relative; }
+    @media (max-width: 767.98px) {
+      .ppc-hero .container {
+        height: 200px; } }
     .ppc-hero .container .ppc-hero-title {
       position: absolute;
       top: 50%;
@@ -14763,10 +14799,16 @@ html.off-scroll body {
       font-family: 'LatoBold';
       text-align: center;
       width: 100%; }
-
+      @media (max-width: 767.98px) {
+        .ppc-hero .container .ppc-hero-title {
+          font-size: 34px;
+          line-height: normal; } }
 .best-tours-cards-wrapper.ppc-best-tours {
   position: relative;
   padding-bottom: 60px; }
+  @media (max-width: 767.98px) {
+    .best-tours-cards-wrapper.ppc-best-tours {
+      padding-bottom: 40px; } }
   .best-tours-cards-wrapper.ppc-best-tours .pagination-block {
     bottom: 0; }
 
@@ -14781,12 +14823,21 @@ html.off-scroll body {
     margin: 0; }
     .best-tours .ppc-text p + p {
       margin-top: 20px; }
-
+      @media (max-width: 767.98px) {
+        .best-tours .ppc-text p + p {
+          margin-top: 14px; } }
 .best-tours .title-btn-wrapper.ppc-title-btn-wrapper {
   flex-direction: column;
   align-items: flex-start; }
+  @media (max-width: 767.98px) {
+    .best-tours .title-btn-wrapper.ppc-title-btn-wrapper {
+      align-items: center; } }
   .best-tours .title-btn-wrapper.ppc-title-btn-wrapper .best-tours-title {
     margin-bottom: 32px; }
+    @media (max-width: 767.98px) {
+      .best-tours .title-btn-wrapper.ppc-title-btn-wrapper .best-tours-title {
+        margin-bottom: 28px;
+        text-align: center; } }
   .best-tours .title-btn-wrapper.ppc-title-btn-wrapper .filters-wrapper {
     display: flex;
     align-items: center;
@@ -14837,6 +14888,61 @@ html.off-scroll body {
       @media (max-width: 767.98px) {
         .best-tours .title-btn-wrapper.ppc-title-btn-wrapper .filter-wrapper select {
           width: 205px; } }
+@media (max-width: 767.98px) {
+  .best-tours .btn-type-2.mobile {
+    margin-top: 20px; } }
+
+.guided-tours .container {
+  padding-bottom: 50px; }
+  @media (max-width: 767.98px) {
+    .guided-tours .container {
+      padding-bottom: 30px; } }
+  .guided-tours .container h2, .guided-tours .container .h2 {
+    margin-bottom: 32px;
+    text-transform: capitalize; }
+    @media (max-width: 767.98px) {
+      .guided-tours .container h2, .guided-tours .container .h2 {
+        margin-bottom: 20px; } }
+  .guided-tours .container ul {
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+    width: 840px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap; }
+    @media (max-width: 767.98px) {
+      .guided-tours .container ul {
+        width: 100%;
+        flex-direction: column; } }
+    .guided-tours .container ul li {
+      width: calc((100% - 140px)/3);
+      margin-bottom: 20px;
+      margin-right: 70px; }
+      @media (max-width: 767.98px) {
+        .guided-tours .container ul li {
+          width: 100%; } }
+      @media (max-width: 767.98px) {
+        .guided-tours .container ul li {
+          margin-bottom: 10px; } }
+      .guided-tours .container ul li a {
+        text-decoration: none;
+        font-size: 26px;
+        line-height: 36px;
+        font-family: "LatoMedium";
+        text-transform: capitalize; }
+        @media (max-width: 767.98px) {
+          .guided-tours .container ul li a {
+            font-size: 18px;
+            line-height: 28px; } }
+        .guided-tours .container ul li a:hover {
+          color: inherit; }
+
+.refund-banner.ppc-page {
+  margin-top: 0;
+  margin-bottom: 0; }
+
 html.overflow {
   overflow: hidden; }
 

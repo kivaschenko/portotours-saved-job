@@ -241,7 +241,7 @@
             </div>
         </div>
     </section>
-    <section class="refund-banner">
+    <section class="refund-banner ppc-page">
         <div class="container">
             <div class="img-wrapper">
                 <img src="{% static 'icons/refund-banner-icon.svg' %}" alt="">
@@ -293,7 +293,7 @@
         </div>
     </section>
 
-    <section>
+    <section class="guided-tours">
         {% if object.related_landing_pages.all %}
             <div class="container">
                 <h2>{% if object.title_related_landing_pages %}{{ object.title_related_landing_pages }}{% else %}{{ object.title }}{% endif %}</h2>
