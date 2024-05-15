@@ -27,6 +27,14 @@ class StripePaymentIntentSucceeded(Event):
 
 
 @dataclass
+class StripePaymentIntentFailed(Event):
+    payment_intent_id: str
+    customer_id: str
+    error_code: str
+    error_message: str
+
+
+@dataclass
 class StripeCustomerCreated(Event):
     stripe_customer_id: str
     name: str
