@@ -290,7 +290,7 @@ def create_message_about_products(purchase: Purchase):
                    f"\tProduct name: {product.full_name}\n"
                    f"\tNumber of passengers: {product.total_booked}\n"
                    f"\tLanguage: {product.language}\n"
-                   f"\tTotal sum: {product.total_price}\n")
+                   f"\tTotal sum: €{product.total_price}\n")
         body.append(message)
 
     return subject, '\n'.join(body)
