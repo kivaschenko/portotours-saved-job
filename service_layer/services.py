@@ -128,7 +128,7 @@ def create_profile_and_generate_password(stripe_customer_id: str = None, name: s
                                          address_city: str = None, address_country: str = None, address_line1: str = None, address_line2: str = None,
                                          address_postal_code: str = None, address_state: str = None, **kwargs) -> bool:
     if email is None:
-        return
+        return False
     try:
         if name is not None:
             first_name, last_name = get_first_last_name(name)
@@ -227,7 +227,8 @@ def send_report_about_paid_products():
         product.save()
 
 
-def update_purchase_and_send_email_payment_intent_failed(payment_intent_id: str = None, stripe_customer_id: str = '', error_code: str = '', error_message: str = '',
+def update_purchase_and_send_email_payment_intent_failed(payment_intent_id: str = None, stripe_customer_id: str = '',
+                                                         error_code: str = '', error_message: str = '',
                                                          name: str = '', email: str = '', phone: str = '', address_city: str = '',
                                                          address_country: str = '', address_line1: str = '', address_line2: str = '',
                                                          address_postal_code: str = '', address_state: str = ''):
@@ -244,8 +245,8 @@ def update_purchase_and_send_email_payment_intent_failed(payment_intent_id: str 
     try:
         logger.info(f'Start updating purchase and send email about PaymentIntent failed: {payment_intent_id}.')
         purchase = Purchase.objects.get(stripe_payment_intent_id=payment_intent_id)
-        if customer_id and not purchase.stripe_customer_id:
-            purchase.stripe_customer_id = customer_id
+        if stripe_customer_id and not purchase.stripe_customer_id:
+            purchase.stripe_customer_id = stripe_customer_id
         purchase.error_code = error_code
         purchase.error_message = error_message
         purchase.save()
@@ -257,7 +258,7 @@ def update_purchase_and_send_email_payment_intent_failed(payment_intent_id: str 
         logger.error(f'Purchase {payment_intent_id} does not exist.')
     finally:
         client_info = (f"\tClient info:\n"
-                       f"\tStripe ID: {customer_id}\n"
+                       f"\tStripe ID: {stripe_customer_id}\n"
                        f"\tName: {name}\n"
                        f"\tEmail: {email}\n"
                        f"\tPhone: {phone}\n")
