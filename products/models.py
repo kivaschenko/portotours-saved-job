@@ -395,7 +395,7 @@ class Experience(models.Model):
             return round(average_rating, 1)
         else:
             # if no reviews then return None to avoid error in template
-            return None
+            return 0
 
 
 class ExperienceEvent(Event):

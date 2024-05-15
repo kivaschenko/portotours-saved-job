@@ -79,10 +79,6 @@ def stripe_webhook(request):
             customer_id=payment_intent.customer,
             error_code=error['code'],
             error_message=error['message'],
-        )
-        handlers.append(payment_intent_event)
-        stripe_customer_created_event = StripeCustomerCreated(
-            stripe_customer_id=payment_intent.customer,
             name=billing_details.name,
             email=billing_details.email,
             phone=billing_details.phone,
@@ -93,7 +89,7 @@ def stripe_webhook(request):
             address_postal_code=billing_details['address']['postal_code'],
             address_state=billing_details['address']['state']
         )
-        handlers.append(stripe_customer_created_event)
+        handlers.append(payment_intent_event)
         for handler in handlers:
             handle(handler)
 
