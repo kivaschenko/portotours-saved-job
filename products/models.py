@@ -257,12 +257,21 @@ class ParentExperience(models.Model):
 
     def count_increase_percentage_old_price(self):
         if self.old_price and self.price:
-            self.increase_percentage_old_price = int(round((1 - self.price / self.old_price) * 100, 0))
+            increase_percentage_old_price = int(round((1 - self.price / self.old_price) * 100, 0))
+            if increase_percentage_old_price < 0:
+                increase_percentage_old_price = 0
+            elif increase_percentage_old_price > 100:
+                increase_percentage_old_price = 100
+            self.increase_percentage_old_price = increase_percentage_old_price
 
     def count_child_discount(self):
         if self.child_price and self.price:
-            self.child_discount = int(round((1 - self.child_price / self.price) * 100, 0))
-
+            discount = int(round((1 - self.child_price / self.price) * 100, 0))
+            if discount < 0:
+                discount = 0
+            elif discount > 100:
+                discount = 100
+            self.child_discount = discount
 
 
 class ExperienceActiveManager(models.Manager):
