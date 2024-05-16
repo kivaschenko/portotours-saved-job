@@ -155,9 +155,7 @@
                             <!-- Mount the Express Checkout Element here -->
                         </div>
                         <!-- Display the payment amount -->
-                        <div class="payment-amount-wrapper">
-                            <p>Payment Amount: <span id="payment-amount">{{ paymentAmount }}</span></p>
-                        </div>
+                        
                         <p class="privacy-text">
                             By clicking "Pay now" button, I agree to the <a href="{% url 'page_detail' slug='terms-and-conditions' %}">Terms of Service</a>  and <a href="{% url 'page_detail' slug='privacy-policy' %}">Privacy Policy</a>
                         </p>
@@ -228,12 +226,12 @@
             });
             const {clientSecret, customerData, paymentAmount} = await response.json();
             // Convert the payment amount from cents to euros
-            const paymentAmountInEuros = (paymentAmount / 100).toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'EUR'
-            });
-            // Display the payment amount in the form
-            document.getElementById('payment-amount').textContent = paymentAmountInEuros;
+            // const paymentAmountInEuros = (paymentAmount / 100).toLocaleString('en-US', {
+            //     style: 'currency',
+            //     currency: 'EUR'
+            // });
+            
+            // document.getElementById('payment-amount').textContent = paymentAmountInEuros;
             // Access the nested properties of customerData
             const {name, email, phone, address} = customerData;
             // Create Stripe elements

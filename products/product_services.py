@@ -140,7 +140,7 @@ def search_experience_by_place_start_lang(place: str, start_date: str, current_l
     if not language_instance:
         return Experience.objects.none()
 
-    experiences = Experience.active.filter(language=language_instance).distinct()
+    experiences = Experience.active.filter(language=language_instance).distinct().order_by('-parent_experience__priority_number')
     if not experiences.exists():
         return Experience.objects.none()
     experiences_to_remove = []

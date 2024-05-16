@@ -23,6 +23,8 @@ class Purchase(models.Model):
     stripe_price = models.IntegerField(default=0)
     completed = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
+    error_code = models.CharField(max_length=100, null=True, blank=True)
+    error_message = models.TextField(max_length=600, null=True, blank=True)
 
     objects = models.Manager()
     last24hours_manager = PurchaseLast24HoursManager()

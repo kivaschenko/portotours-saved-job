@@ -128,22 +128,24 @@ def create_profile_and_generate_password(stripe_customer_id: str = None, name: s
                                          address_city: str = None, address_country: str = None, address_line1: str = None, address_line2: str = None,
                                          address_postal_code: str = None, address_state: str = None, **kwargs) -> bool:
     if email is None:
-        return
+        return False
     try:
         if name is not None:
             first_name, last_name = get_first_last_name(name)
         else:
             first_name, last_name = None, None
         # Create a new user
-        new_user, new_password = User.objects.get_or_create_user(email, first_name=first_name, last_name=last_name)
-        logger.info(f"New user: {new_user} created or updated with a new password.\n")
-        if not Profile.objects.filter(user=new_user).exists():
+        new_user, new_password, created = User.objects.get_or_create_user(email, first_name=first_name, last_name=last_name)
+        if created:
+            logger.info(f"New user: {new_user} created with a new password.\n")
             profile = Profile(user=new_user, stripe_customer_id=stripe_customer_id, name=name, email=email, phone=phone, address_city=address_city,
                               address_country=address_country, address_line1=address_line1, address_line2=address_line2,
                               address_postal_code=address_postal_code,
                               address_state=address_state)
             profile.save()
             logger.info(f'Profile created with id: {profile.id}')
+        else:
+            logger.info(f"New user: {new_user} updated with a new password.\n")
         send_new_password_by_email(email, new_password, new_user)
     except Exception as e:
         logger.error(f"Exception while handling customer: {e}")
@@ -171,23 +173,8 @@ def send_product_paid_email_staff(product):
                f'\tNumber of passengers: {product.total_booked}\n'
                f'\tLanguage: {product.language}\n'
                f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n')
-    send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
-
-
-def send_booking_updates_by_email_to_staff(product_id: int = None, status: str = None):
-    logger.info(f'Sending email about real update booking numbers for Product Id: {product_id}.\n')
-    try:
-        product = Product.objects.get(id=product_id)
-        subject = f'Result of real booking for Order: {product.random_order_number}, {product.full_name}, {product.date_of_start}'
-        message = (f'\tProduct name: {product.full_name}\n'
-                   f'\tNumber of passengers: {product.total_booked}\n'
-                   f'\tLanguage: {product.language}\n'
-                   f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n'
-                   f'\t\tResult of real booking: {status}')
-        send_mail(subject, message, settings.SERVER_EMAIL, [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
-        logger.info(f'Email sent to {product.customer.profile.email}.')
-    except Product.DoesNotExist:
-        logger.error(f"Product {product_id} does not exist.")
+    send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
+              fail_silently=False)
 
 
 def update_products_status_if_expired():
@@ -227,7 +214,7 @@ def send_email_notification_to_customer(product):
     message = (f'Congratulations, {product.customer.profile.name}! \n\tYour product "{product.full_name}" (ID: {product.random_order_number}) paid.\n'
                f'Total price: {product.total_price} EUR.\n'
                f'You can download your PDF here: {url}.')
-    send_mail(subject, message, settings.SERVER_EMAIL, [product.customer.profile.email])
+    send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[product.customer.profile.email], fail_silently=False)
 
 
 def send_report_about_paid_products():
@@ -238,3 +225,72 @@ def send_report_about_paid_products():
         send_email_notification_to_customer(product)
         product.reported = True
         product.save()
+
+
+def update_purchase_and_send_email_payment_intent_failed(payment_intent_id: str = None, stripe_customer_id: str = '',
+                                                         error_code: str = '', error_message: str = '',
+                                                         name: str = '', email: str = '', phone: str = '', address_city: str = '',
+                                                         address_country: str = '', address_line1: str = '', address_line2: str = '',
+                                                         address_postal_code: str = '', address_state: str = ''):
+    if payment_intent_id is None:
+        logger.error('Inside function "service_layer.services.update_purchase_and_send_email_payment_intent_failed" payment_intent_id is empty.')
+        return
+
+    email_data = dict(
+        subject=f'New Order payment failed: {payment_intent_id}, {error_code}',
+        message=error_message,
+        from_email=settings.ORDER_EMAIL,
+        recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
+    )
+
+    try:
+        logger.info(f'Start updating purchase and send email about PaymentIntent failed: {payment_intent_id}.')
+        purchase = Purchase.objects.get(stripe_payment_intent_id=payment_intent_id)
+
+        if stripe_customer_id and not purchase.stripe_customer_id:
+            purchase.stripe_customer_id = stripe_customer_id
+
+        purchase.error_code = error_code
+        purchase.error_message = error_message
+        purchase.save()
+
+        subject, product_info = create_message_about_products(purchase)
+        if subject and product_info:
+            email_data['subject'] = subject
+            email_data['message'] = product_info
+    except Purchase.DoesNotExist:
+        logger.error(f'Purchase {payment_intent_id} does not exist.')
+    finally:
+        client_info = (f"\nClient info:\n"
+                       f"\tStripe ID: {stripe_customer_id}\n"
+                       f"\tName: {name}\n"
+                       f"\tEmail: {email}\n"
+                       f"\tPhone: {phone}\n")
+        error_info = (f"\nError info:\n"
+                      f"\tError code: {error_code}\n"
+                      f"\tError message: {error_message}\n")
+
+        body = [email_data.get('message', ''), client_info, error_info]
+        email_data['message'] = '\n'.join(body)
+
+        send_mail(**email_data)
+
+
+def create_message_about_products(purchase: Purchase):
+    products = purchase.products.all()
+    if not products:
+        return None, None
+
+    product_order_numbers = [product.random_order_number for product in products]
+    subject = "Unsuccessful attempt of payment for order(s): " + ', '.join(product_order_numbers)
+
+    body = []
+    for product in products:
+        message = (f"\nOrder ID: {product.random_order_number}\n"
+                   f"\tProduct name: {product.full_name}\n"
+                   f"\tNumber of passengers: {product.total_booked}\n"
+                   f"\tLanguage: {product.language}\n"
+                   f"\tTotal sum: €{product.total_price}\n")
+        body.append(message)
+
+    return subject, '\n'.join(body)

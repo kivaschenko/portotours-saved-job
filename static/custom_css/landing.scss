@@ -1,0 +1,220 @@
+.ppc-hero {
+    position: relative;
+    .img-hero-wrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        &::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+         img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    
+    .container {
+        height: 400px;
+        position: relative;
+        @include media-breakpoint-down(md) {
+            height: 200px;
+        }
+        .ppc-hero-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 92px;
+            line-height: 110px;
+            color: white;
+            font-family: 'LatoBold';
+            text-align: center;
+            width: 100%;
+            @include media-breakpoint-down(md) {
+                font-size: 34px;
+                line-height: normal;
+            }
+        }
+    }
+}
+
+.best-tours-cards-wrapper.ppc-best-tours {
+    position: relative;
+    padding-bottom: 60px;
+    @include media-breakpoint-down(md) {
+        padding-bottom: 40px;
+    }
+    .pagination-block {
+        bottom: 0;
+    }
+    
+}
+
+.best-tours {
+    .ppc-text {
+        margin-bottom: 40px;
+        margin-top: 40px;
+        p {
+            color: #0F0F10;
+            font-family: 'LatoRegular';
+            font-size: 16px;
+            line-height: 26px;
+            margin: 0;
+            
+            + p {
+                margin-top: 20px;
+                @include media-breakpoint-down(md) {
+                margin-top: 14px;
+                }
+            }
+        }
+    }
+    .title-btn-wrapper.ppc-title-btn-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        @include media-breakpoint-down(md) {
+            align-items: center;
+        }
+        .best-tours-title {
+            margin-bottom: 32px;
+            @include media-breakpoint-down(md) {
+                margin-bottom: 28px;
+                text-align: center;
+            }
+        }
+        .filters-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @include media-breakpoint-down(md) {
+              flex-direction: column;
+              justify-content: flex-start;
+              align-items: flex-start;
+              width: 100%;
+            }
+          }
+          .filter-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            @include media-breakpoint-down(md) {
+              width: 100%;
+              &:first-child {
+                .experience-filter-title {
+                  margin-right: 43px;
+                }
+              }
+            }
+            
+            + .filter-wrapper {
+              margin-left: 40px;
+              @include media-breakpoint-down(md) {
+                margin-left: 0;
+                margin-top: 18px;
+                
+              }
+            }
+            .experience-filter-title {
+              margin-right: 24px;
+              font-size: 18px;
+              line-height: 28px;
+              font-family: "LatoRegular";
+              color: #0f0f10;
+              margin-bottom: 0;
+            }
+            select {
+              padding: 9px 50px 9px 16px;
+              border-radius: 6px;
+              border: 1px solid #d9d9d9;
+              color: #0f0f10;
+              font-size: 16px;
+              line-height: 26px;
+              font-family: "LatoRegular";
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              background: transparent;
+              background-image: url(../images/language-arrow.png);
+              background-position-x: calc(100% - 16px);
+              background-position-y: 50%;
+              background-repeat: no-repeat;
+              @include media-breakpoint-down(md) {
+                width: 205px;
+              }
+            }
+          }
+    }
+    .btn-type-2.mobile {
+        @include media-breakpoint-down(md) {
+            margin-top: 20px;
+        }
+        
+    }
+}
+
+.guided-tours {
+    .container {
+        padding-bottom: 50px;
+        @include media-breakpoint-down(md) {
+            padding-bottom: 30px;
+        }
+        h2 {
+            margin-bottom: 32px;
+            text-transform: capitalize;
+            @include media-breakpoint-down(md) {
+                margin-bottom: 20px;
+            }
+        }
+        ul {
+            padding-left: 0;
+            list-style: none;
+            margin: 0;
+            width: 840px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            @include media-breakpoint-down(md) {
+                width: 100%;
+                flex-direction: column;
+            }
+            li {
+                width: calc((100% - 140px)/3);
+                margin-bottom: 20px;
+                margin-right: 70px;
+                @include media-breakpoint-down(md) {
+                    width: 100%;
+                }
+                @include media-breakpoint-down(md) {
+                    margin-bottom: 10px;
+                }
+                a {
+                    text-decoration: none;
+                    font-size: 26px;
+                    line-height: 36px;
+                    font-family: "LatoMedium";
+                    text-transform: capitalize;
+                    @include media-breakpoint-down(md) {
+                        font-size: 18px;
+                        line-height: 28px;
+                    }
+                    &:hover {
+                        color: inherit;
+                    }
+                }
+            }
+        }
+    }
+}
+.refund-banner.ppc-page {
+    margin-top: 0;
+    margin-bottom: 0;
+}

@@ -31,6 +31,7 @@
       padding: 0 240px;
       max-width: 1500px;
       margin: 0 auto 32px;
+      text-transform: capitalize;
       @include media-breakpoint-down(md) {
         background-image: url(../images/destination-list-hero-img-mob.png);
         background-size: cover;
@@ -383,8 +384,43 @@
             padding: 14px;
             border-radius: 0;
           }
-          .rating-wrapper {
-            margin-bottom: 8px;
+          .rating-img-wrapper {
+            .rating {
+              display: flex;
+              gap: 8px; /* Расстояние между звездами */
+            }
+            .icon-wrapper {
+              width: 20px;
+              height: 20px;
+              position: relative;
+              &.partial-fill::before {
+                content: ''; /* Добавляем контент в псевдоэлемент */
+                position: absolute; /* Абсолютное позиционирование для точного позиционирования */
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: calc(var(--fraction, 1) * 100%);
+                background-color: transparent;
+                z-index: -1; /* Помещаем псевдоэлемент под фоновое изображение */
+                background-image: url(../icons/one-filled-star.svg); /* Изображение, которое будет показываться только частично */
+                background-size: cover; /* Растягиваем изображение, чтобы оно занимало всю доступную область */
+                background-repeat: no-repeat; /* Отключаем повторение изображения */
+               
+              }
+                svg {
+                  display: block;
+                }
+            }
+            .star {
+              fill: none;
+              stroke-width: 1;
+              width: 100%;
+            }
+            
+            .filled {
+              fill: #FDB601; /* Заливка желтым цветом */
+            }
+            
           }
           .discount-banner {
             display: flex;
@@ -687,14 +723,36 @@
           display: flex;
           gap: 8px; /* Расстояние между звездами */
         }
-        
+        .icon-wrapper {
+          width: 20px;
+          height: 20px;
+          position: relative;
+          &.partial-fill::before {
+            content: ''; /* Добавляем контент в псевдоэлемент */
+            position: absolute; /* Абсолютное позиционирование для точного позиционирования */
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: calc(var(--fraction, 1) * 100%);
+            background-color: transparent;
+            z-index: -1; /* Помещаем псевдоэлемент под фоновое изображение */
+            background-image: url(../icons/one-filled-star.svg); /* Изображение, которое будет показываться только частично */
+            background-size: cover; /* Растягиваем изображение, чтобы оно занимало всю доступную область */
+            background-repeat: no-repeat; /* Отключаем повторение изображения */
+           
+          }
+            svg {
+              display: block;
+            }
+        }
         .star {
           fill: none;
-          stroke-width: 2;
+          stroke-width: 1;
+          width: 100%;
         }
         
         .filled {
-          fill: yellow; /* Заливка желтым цветом */
+          fill: #FDB601; /* Заливка желтым цветом */
         }
         
       }
@@ -911,44 +969,62 @@
         }
         .risk-free-badge {
           width: 100%;
-          padding: 4px 0;
+          padding: 4px 15px;
           border-radius: 10px;
           background: #F3FAF5;
           margin-bottom: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          @include media-breakpoint-down(md) {
+            width: calc(100% + 32px);
+            margin-left: -16px;
+          }
+          img {
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+          }
           .badge-title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            
             margin: 0;
             color: #007728;
             font-family: "LatoRegular";
-            font-size: 24px;
+            font-size: 18px;
             line-height: normal;
-            text-transform: uppercase;
-            img {
-              margin-right: 20px;
+            
+            
+            span {
+              text-transform: uppercase;
+              
             }
           }
           
         }
         .children-discount-badge {
           width: 100%;
-          padding: 4px 0;
+          padding: 4px 15px;
           border-radius: 10px;
           background: #FFF1EB;
           margin-bottom: 32px;
+          @include media-breakpoint-down(md) {
+            width: calc(100% + 32px);
+            margin-left: -16px;
+          }
           .badge-title {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             margin: 0;
             color: #F0500B;
             font-family: "LatoRegular";
-            font-size: 24px;
+            font-size: 18px;
             line-height: normal;
             text-transform: uppercase;
             img {
-              margin-right: 20px;
+              margin-right: 10px;
+              width: 40px;
+              height: 40px;
             }
           }
         }
@@ -959,9 +1035,9 @@
           background: #FFF;
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: flex-start;
           width: 100%;
-          padding: 20px 24px;
+          padding: 25px 24px;
           @include media-breakpoint-down(md) {
             border: none;
             padding: 0;
@@ -970,9 +1046,9 @@
             align-items: flex-start;
           }
           .img-wrapper {
-            width: 120px;
-            height: 120px;
-            margin-right: 24px;
+            width: 80px;
+            height: 80px;
+            margin-right: 16px;
             @include media-breakpoint-down(md) {
               width: 80px;
               height: 80px;
@@ -1004,7 +1080,7 @@
               line-height: 26px;
               color: #0F0F10;
               font-family: "LatoRegular";
-              padding-right: 50px;
+              padding-right: 15px;
               margin-bottom: 0;
               @include media-breakpoint-down(md) {
                 font-size: 14px;
@@ -1275,7 +1351,7 @@
                     background-repeat: no-repeat;
                     background-size: contain;
                     left: 0;
-                    top: 12px;
+                    top: 15px;
                     transform: translateY(-50%);
                     @include media-breakpoint-down(md) {
                       top: 0;
@@ -1287,7 +1363,10 @@
                   padding-left: 0;
                   list-style: none;
                   margin: 0;
-                  margin-top: 12px;
+                  
+                  @include media-breakpoint-down(md) {
+                    margin-top: 12px;
+                  }
                   li {
                     list-style: none !important;
                     padding-left: 38px;
@@ -1816,8 +1895,10 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    padding-bottom: 90px;
     @include media-breakpoint-down(md) {
       flex-direction: column-reverse;
+      padding-bottom: 20px;
     }
   }
   .left-col {
@@ -1865,6 +1946,7 @@
             font-family: "LatoRegular";
             color: #0F0F10;
             margin: 0;
+
           }
         }
         .review-stars-wrapper {
@@ -1906,6 +1988,7 @@
           font-family: "LatoRegular";
           color: #0F0F10;
           margin-bottom: 16px;
+          word-break: break-all;
           @include media-breakpoint-down(md) {
             font-size: 14px;
             line-height: 22px;
@@ -1970,6 +2053,11 @@
             &:checked + label {
                 &::before {
                   background-image: url(../icons/checked-star.svg);
+              }
+            }
+            &.highlighted + label {
+              &::before {
+                background-image: url(../icons/checked-star.svg);
               }
             }
           }

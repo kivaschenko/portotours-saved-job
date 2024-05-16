@@ -14,7 +14,7 @@ from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
 from purchases.models import Purchase
 from service_layer.bus_messages import handle
-from service_layer.events import StripePaymentIntentSucceeded, StripeChargeSucceeded, StripeCustomerCreated
+from service_layer.events import StripePaymentIntentSucceeded, StripePaymentIntentFailed, StripeChargeSucceeded, StripeCustomerCreated
 
 logger = logging.getLogger(__name__)
 
@@ -65,6 +65,32 @@ def stripe_webhook(request):
     except ValueError as e:
         # Invalid payload
         return HttpResponse(status=400)
+
+    if event.type == 'payment_intent.payment_failed':
+        payment_intent = event['data']['object']
+        logger.info(f"Received payment intent: {payment_intent.id} failed.\n")
+        error = payment_intent['last_payment_error']
+        logger.error(f'A payment failed due to {error["message"]}.')
+        billing_details = error['payment_method']['billing_details']
+        handlers = []
+        payment_intent_event = StripePaymentIntentFailed(
+            payment_intent_id=payment_intent.id,
+            stripe_customer_id=payment_intent.customer,
+            error_code=error['code'],
+            error_message=error['message'],
+            name=billing_details.name,
+            email=billing_details.email,
+            phone=billing_details.phone,
+            address_city=billing_details['address']['city'],
+            address_country=billing_details['address']['country'],
+            address_line1=billing_details['address']['line1'],
+            address_line2=billing_details['address']['line2'],
+            address_postal_code=billing_details['address']['postal_code'],
+            address_state=billing_details['address']['state']
+        )
+        handlers.append(payment_intent_event)
+        for handler in handlers:
+            handle(handler)
 
     if event.type == 'payment_intent.succeeded':
         payment_intent = event['data']['object']
