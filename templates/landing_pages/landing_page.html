@@ -299,7 +299,7 @@
                 <h2>{% if object.title_related_landing_pages %}{{ object.title_related_landing_pages }}{% else %}{{ object.title }}{% endif %}</h2>
                 <ul>
                     {% for land_page in object.related_landing_pages.all %}
-                        <li><a href="{% url "landing-page" lang=land_page.language.code.lower slug=land_page.slug %}">{{ land_page.title }}</a></li>
+                        <li><a href="{% url " landing-page" lang=land_page.language.code.lower slug=land_page.slug %}">{{ land_page.title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
