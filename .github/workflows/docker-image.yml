@@ -41,11 +41,16 @@ jobs:
           docker push portotours/portotours:latest
       - name: SSH into Digital Ocean Droplet and deploy
         uses: appleboy/ssh-action@master
+      - name: Debug Information
+        run: |
+          echo "DROPLET_IP: ${{ secrets.DROPLET_IP }}"
+          echo "DROPLET_USERNAME: ${{ secrets.DROPLET_USERNAME }}"
+          echo "SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}"
         with:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
-          run: |
+          script: |
             docker pull portotours/portotours:latest
             docker stop django-portotours || true
             docker rm django-portotours || true
@@ -53,3 +58,4 @@ jobs:
             docker run -d --name django-portotours -p 8000:8000 portotours/portotours:latest
             docker rmi $(docker images -q --filter "dangling=true") || true
             systemctl reload nginx
+          debug: true
