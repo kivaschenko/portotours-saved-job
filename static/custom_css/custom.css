@@ -11908,7 +11908,7 @@ html.off-scroll body {
           font-family: "LatoRegular";
           font-size: 18px;
           line-height: normal;
-          text-transform: uppercase; }
+          text-transform: none; }
           .experience-info .container .experience-info-inner-wrapper .left-col .children-discount-badge .badge-title img {
             margin-right: 10px;
             width: 40px;

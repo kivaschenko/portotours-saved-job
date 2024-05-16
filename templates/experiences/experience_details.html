@@ -253,7 +253,7 @@
                     <div class="children-discount-badge">
                         <h3 class="badge-title">
                             <img src="{% static 'icons/children-icon.svg' %}" alt="">
-                            price for children only from €{{ object.parent_experience.child_price }}
+                            Price for children only from €{{ object.parent_experience.child_price }}
                         </h3>
                     </div>
                     {% endif %}
@@ -446,12 +446,14 @@
                         {% for experience in object.experience_recommendations.all %}
                             <div class="also-interested-card">
                                 <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">
+                                    {% if experience.parent_experience.increase_percentage_old_price %}
                                     <div class="discount-banner-wrapper">
                                         <img src="{% static 'icons/discount-bg.svg' %}" alt="">
                                         <p class="discount">
                                             {{ experience.parent_experience.increase_percentage_old_price }}% discount
                                         </p>
                                     </div>
+                                    {% endif %}
                                     <img src="{{ experience.parent_experience.card_image.url }}" alt="{{ experience.name }} card image" class="also-interested-img">
                                 </a>
                                <div class="rating-info-wrapper">
@@ -502,24 +504,28 @@
                                         <p class="from-text">
                                             From
                                         </p>
+                                        {% if experience.parent_experience.increase_percentage_old_price %}
                                         <p class="old-price">
-                                            € 550.00
+                                            € {{ experience.parent_experience.old_price }}
                                         </p>
+                                        {% endif %}
                                         <div class="current-price">
-                                            € 50.00
+                                            € {{ experience.parent_experience.price_per_person }}
                                         </div>
                                         <p class="per-person">
                                             / per person
                                         </p>
                                     </div>
+                                    {% if experience.parent_experience.is_private %}
                                     <div class="private-tour">
                                         <p class="current-price">
-                                            € 400.00
+                                            € {{ experience.parent_experience.price }}
                                         </p>
                                         <p class="per-person">
                                             / per group (8 people maximum) 
                                         </p>
                                     </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         {% endfor %}
