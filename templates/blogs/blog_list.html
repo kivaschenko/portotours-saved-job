@@ -27,15 +27,20 @@
                     {% for object in object_list %}
                         <div class="blog-card">
                             <div class="img-wrapper">
-                                <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
+                                <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
+                                    <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
                             {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
+                                </a>
+                                
                             </div>
                             <div class="card-content-wrapper">
                                 <p class="card-date">
                                     {{ object.date_published|date }}
                                 </p>
                                 <h5 class="card-title">
-                                    {{ object.title }}
+                                    <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
+                                        {{ object.title }}
+                                    </a>
                                 </h5>
                                 <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}" class="card-link">
                                     read article
