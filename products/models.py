@@ -273,6 +273,17 @@ class ParentExperience(models.Model):
                 discount = 100
             self.child_discount = discount
 
+    @property
+    def price_per_person(self):
+        if self.price and self.max_participants:
+            if self.is_private:
+                from_price = round(self.price / self.max_participants, 2)
+            else:
+                from_price = self.price
+            return from_price
+        else:
+            return None
+
 
 class ExperienceActiveManager(models.Manager):
     def get_queryset(self):
