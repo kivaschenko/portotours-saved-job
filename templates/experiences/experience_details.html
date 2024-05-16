@@ -253,7 +253,7 @@
                     <div class="children-discount-badge">
                         <h3 class="badge-title">
                             <img src="{% static 'icons/children-icon.svg' %}" alt="">
-                            price for children only from €{{ object.parent_experience.child_price }}
+                            Price for children only from €{{ object.parent_experience.child_price }}
                         </h3>
                     </div>
                     {% endif %}
@@ -441,36 +441,101 @@
                 {{ object.recommendations_subtitle }}
             </p>
             <div class="swiper-also-interested">
-                <div class="swiper-wrapper also-interested-cards-wrapper">
+                <div class="also-interested-cards-wrapper">
                     {% if object.experience_recommendations.all %}
                         {% for experience in object.experience_recommendations.all %}
-                            <div class="also-interested-card swiper-slide">
+                            <div class="also-interested-card">
                                 <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">
+                                    {% if experience.parent_experience.increase_percentage_old_price %}
+                                    <div class="discount-banner-wrapper">
+                                        <img src="{% static 'icons/discount-bg.svg' %}" alt="">
+                                        <p class="discount">
+                                            {{ experience.parent_experience.increase_percentage_old_price }}% discount
+                                        </p>
+                                    </div>
+                                    {% endif %}
                                     <img src="{{ experience.parent_experience.card_image.url }}" alt="{{ experience.name }} card image" class="also-interested-img">
                                 </a>
-                               
-                                <p class="body-text-b2 also-interested-card-title">
+                               <div class="rating-info-wrapper">
+                                    {% if experience.average_rating %}
+                                    <div class="rating-block">
+                                        <p>{{ experience.average_rating }}</p>
+                                        <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
+                                           
+                                    </div>
+                                    {% else %}
+                                    <div class="rating-block">
+                                        <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
+                                    </div>
+                                    {% endif %}
+                                    <div class="duration-wrapper">
+                                        <img src="{% static 'icons/duration-icon.svg' %}" alt="">
+                                        {{ experience.display_duration }}
+                                    </div>
+                                    <div class="tour-type-wrapper">
+                                        {% if experience.parent_experience.is_private %}
+                                           
+                                                <img src="{% static 'icons/private-tour-icon.svg' %}" alt="">
+                                                Private experience 
+                                            
+                                        {% else %}
+                                            
+                                                <img src="{% static 'icons/group-tour-icon.svg' %}" alt="">
+                                                Small Group
+                                            
+                                        {% endif %}
+                                    </div>
+                               </div>
+                               <div class="book-banner-wrapper">
+                                    <a target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" class="tour-link btn-type-1">
+                                        Book now
+                                    </a>
+                                    {% if experience.parent_experience.free_cancellation %}
+                                    <p class="free-canc-title">
+                                        + free cancellation
+                                    </p>
+                                    {% endif %}
+                                </div>
+                                <p class="also-interested-card-title">
                                     <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
                                 </p>
-                                <p class="body-text-b3 also-interested-card-text">
-                                    {{ experience.short_description }}
-                                </p>
+                                <div class="tour-price-wrapper">
+                                    <div class="group-tour">
+                                        <p class="from-text">
+                                            From
+                                        </p>
+                                        {% if experience.parent_experience.increase_percentage_old_price %}
+                                        <p class="old-price">
+                                            € {{ experience.parent_experience.old_price }}
+                                        </p>
+                                        {% endif %}
+                                        <div class="current-price">
+                                            € {{ experience.parent_experience.price_per_person }}
+                                        </div>
+                                        <p class="per-person">
+                                            / per person
+                                        </p>
+                                    </div>
+                                    {% if experience.parent_experience.is_private %}
+                                    <div class="private-tour">
+                                        <p class="current-price">
+                                            € {{ experience.parent_experience.price }}
+                                        </p>
+                                        <p class="per-person">
+                                            / per group ({{ experience.parent_experience.max_participants }} people maximum) 
+                                        </p>
+                                    </div>
+                                    {% endif %}
+                                </div>
                             </div>
                         {% endfor %}
                     {% else %}
                         <p>No recommended experiences found.</p>
                     {% endif %}
                 </div>
-                <div class="swiper-pagination"></div>
+                
             </div>
-            <div class="also-interested-more-info-wrapper">
-                <h5 class="also-interested-more-info-title">
-                    {{ object.recommendations_slogan }}
-                </h5>
-                <a href="{% url 'experience-list' lang=object.language.code.lower %}" class="btn-type-2 also-interested-info-link">
-                    see more
-                </a>
-            </div>
+           
         </div>
     </section>
     <section class="reviews" id="reviews">
@@ -539,19 +604,6 @@
 
 
     <script>
-
-        if (window.innerWidth < 768) {
-            const swiperAlsoInterested = new Swiper(".swiper-also-interested", {
-                slidesPerView: 1.4,
-                speed: 1000,
-                spaceBetween: 14,
-                centeredSlides: true,
-                loop: true,
-                pagination: {
-                    el: '.swiper-pagination',
-                },
-            });
-        }
 
         const swiperTestimonials = new Swiper(".testimonials-slider", {
             speed: 5000,

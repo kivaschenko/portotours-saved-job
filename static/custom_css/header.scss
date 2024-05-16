@@ -14,6 +14,13 @@
         justify-content: space-between;
         @include media-breakpoint-down(md) {
             width: 100%;
+            &.empty {
+                flex-direction: column;
+                .secure-payment-title {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+            }
         }
     }
     &-left-col {
@@ -43,30 +50,51 @@
         justify-content: space-between;
         @include media-breakpoint-down(md) {
             flex-direction: row-reverse;
+            
         }
         .secure-payment-title {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            line-height: 30px;
-            color: #0F0F10;
+            font-size: 16px;
+            line-height: 28px;
+            color: #32364E;
             margin: 0;
             font-family: "LatoRegular";
+            span {
+                margin-left: 5px;
+                margin-right: 5px;
+                font-family: "LatoBold";
+                @include media-breakpoint-down(md) {
+                    margin-right: 3px;
+                    margin-left: 3px;
+                }
+            }
             @include media-breakpoint-down(md) {
                 font-size: 14px;
                 line-height: 18px;
                 width: 180px;
                 justify-content: flex-end;
             }
-            img {
+            > img {
                 margin-right: 12px;
                 width: 24px;
                 height: 24px;
                 @include media-breakpoint-down(md) {
                     width: 18px;
                     height: 18px;
-                    margin-right: 6px;
+                    margin-right: 4px;
+                }
+            }
+            img:last-child {
+                width: 145px;
+                height: 38px;
+                margin-left: 16px;
+                @include media-breakpoint-down(md) {
+                    width: 110px;
+                    height: 28px;
+                    margin-left: 8px;
+                    margin-right: 0;
                 }
             }
         }

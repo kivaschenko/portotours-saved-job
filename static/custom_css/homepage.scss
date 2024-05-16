@@ -445,8 +445,19 @@
               margin-right: 0px;
               margin-bottom: 18px;
               position: relative;
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
               @include media-breakpoint-down(md) {
               margin-bottom: 16px;
+              }
+              .rating-num {
+                font-family: "LatoRegular";
+                font-size: 14px;
+                line-height: 22px;
+                color: #0F0F10;
+                margin-right: 8px;
+                margin-bottom: 0;
               }
               img {
                 width: 132px;
@@ -549,12 +560,23 @@
               @include media-breakpoint-down(md) {
                 margin-bottom: 12px;
               }
+              
               span {
                 font-family: "LatoRegular";
                 font-size: 16px;
                 line-height: 26px;
                 margin-left: 10px;
                 color: #6d6d6d;
+              }
+              .old-price {
+                font-size: 18px;
+                line-height: 28px;
+                color: #6D6D6D;
+                margin-right: 6px;
+                margin-bottom: 0;
+                text-decoration: line-through;
+                font-family: "LatoRegular";
+                margin-left: 0;
               }
             }
             .book-banner-wrapper {

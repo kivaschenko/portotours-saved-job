@@ -82,12 +82,14 @@
                                 </a>
                             </div>
                             <div class="card-content-wrapper">
+                                {% if experience.parent_experience.increase_percentage_old_price %}
                                 <div class="discount-banner-wrapper">
                                     <img src="{% static 'icons/discount-bg.svg' %}" alt="">
                                     <p class="discount">
-                                        10% discount
+                                        {{ experience.parent_experience.increase_percentage_old_price }}% discount
                                     </p>
                                 </div>
+                                {% endif %}
                                 <div class="rating-wrapper body-text-b4">
                                     {% if object.average_rating %}
                                         <div class="rating-block">
@@ -121,15 +123,18 @@
 
                                             <li>
                                                 <img src="{% static 'icons/group-tour-icon.svg' %}" alt="">
-                                                Group experience
+                                                Small Group
                                             </li>
                                         {% endif %}
                                     </ul>
                                 </div>
                                 <div class="price-link-wrapper">
                                     <p class="tour-price">
-                                        € {{ experience.parent_experience.price }}<span>{% if experience.parent_experience.is_private %}{% else %}/ per
-                                        person{% endif %}</span>
+                                        {% if experience.parent_experience.increase_percentage_old_price %}
+                                        <span class="old-price">€ {{ experience.parent_experience.old_price }}</span>
+                                        {% endif %}
+                                        € {{ experience.parent_experience.price }}
+                                        <span>{% if experience.parent_experience.is_private %}{% else %}/ per person{% endif %}</span>
                                     </p>
                                     <div class="book-banner-wrapper">
                                         <a target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}"
@@ -187,9 +192,7 @@
                     </div>
                 {% endif %}
             </div>
-            <a href="{% url 'experience-list' lang=current_language %}" class="btn-type-2 mobile">
-                show more
-            </a>
+            
         </div>
     </section>
 
