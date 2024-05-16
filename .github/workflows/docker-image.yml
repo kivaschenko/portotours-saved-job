@@ -61,5 +61,8 @@ jobs:
             docker rm django-portotours || true
             docker volume rm $(docker volume ls -q) || true
             docker rmi $(docker images -q --filter "dangling=true") || true
-            docker run -d --name django-portotours -p 8000:8000 portotours/portotours:latest
+            docker run -d --name django-portotours \
+              -e STRIPE_PUBLIC_KEY=${{ secrets.STRIPE_PUBLIC_KEY }} \
+              -e STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }} \
+              -p 8000:8000 portotours/portotours:latest
             systemctl reload nginx
