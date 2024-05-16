@@ -3,7 +3,7 @@
 {% block title_suffix %}
     {{ object.page_title }}
 {% endblock title_suffix %}
-<!-- This is parent template -->
+<!-- This is child template -->
 {% block meta_tags %}
     <meta name="description" content={{ object.page_description }}>
 {% endblock meta_tags %}
@@ -15,7 +15,7 @@
             <img src="{% static 'images/destination-list-hero-img.png' %}">
         {% endif %}
         <div class="container">
-            <sm>parent template</sm>
+            <sm>child template</sm>
             <h1 class="destination-list-hero-title">
                 {{ object.title }} <span>with</span>
                 <img src="{% static 'icons/main-logo.svg' %}" alt="Destination logo">

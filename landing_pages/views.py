@@ -65,6 +65,8 @@ class LandingPageView(DetailView):
             experiences_paginated = paginator.page(paginator.num_pages)
         context['experiences'] = experiences_paginated
         context['testimonials'] = Testimonial.objects.all()[:6]
+        context['subscription_form'] = SubscriberForm()
+        context['experience_form'] = ExperienceSearchForm(lang)
         return context
 
 

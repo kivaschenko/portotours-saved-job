@@ -1,7 +1,3 @@
-import sys
-from io import BytesIO
-
-from PIL import Image
 from ckeditor.fields import RichTextField
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
