@@ -9856,19 +9856,12 @@ html.off-scroll body {
       @media (max-width: 767.98px) {
         .tour-type .container .tour-type-card .tour-type-title-btn-wrapper {
           padding: 0 20px;
-          bottom: 16px;
-          align-items: flex-end; } }
+          bottom: 16px; } }
       .tour-type .container .tour-type-card .tour-type-title-btn-wrapper .tour-type-title {
         color: white;
         margin-bottom: 0; }
-        @media (max-width: 767.98px) {
-          .tour-type .container .tour-type-card .tour-type-title-btn-wrapper .tour-type-title {
-            width: 30%; } }
       .tour-type .container .tour-type-card .tour-type-title-btn-wrapper a {
         padding: 12px 15px; }
-        @media (max-width: 767.98px) {
-          .tour-type .container .tour-type-card .tour-type-title-btn-wrapper a {
-            width: 60%; } }
         .tour-type .container .tour-type-card .tour-type-title-btn-wrapper a img {
           width: 24px;
           height: 24px; }
@@ -15039,3 +15032,5 @@ a {
       margin: 0 auto;
       display: block;
       text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */

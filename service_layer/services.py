@@ -278,7 +278,7 @@ def update_purchase_and_send_email_payment_intent_failed(payment_intent_id: str 
 
 def create_message_about_products(purchase: Purchase):
     products = purchase.products.all()
-    if not products.exists():
+    if not products:
         return None, None
 
     product_order_numbers = [product.random_order_number for product in products]
@@ -290,7 +290,7 @@ def create_message_about_products(purchase: Purchase):
                    f"\tProduct name: {product.full_name}\n"
                    f"\tNumber of passengers: {product.total_booked}\n"
                    f"\tLanguage: {product.language}\n"
-                   f"\tTotal sum: {product.total_price}\n")
+                   f"\tTotal sum: €{product.total_price}\n")
         body.append(message)
 
     return subject, '\n'.join(body)

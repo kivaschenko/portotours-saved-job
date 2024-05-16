@@ -16,18 +16,18 @@
                 <img src="{% static 'images/destination-list-hero-img.png' %}">
             {% endif %}
         </div>
-        
+
         <div class="container">
-            
+
             <h1 class="ppc-hero-title">
-                {{ object.title }} 
+                {{ object.title }}
             </h1>
         </div>
     </section>
 
     <section class="best-tours">
         <div class="container">
-            
+
             <div class="ppc-text">{{ object.display_content }}</div>
             <div class="title-btn-wrapper ppc-title-btn-wrapper">
                 <h2 class="best-tours-title">
@@ -68,7 +68,7 @@
                         </select>
                     </div>
                 </div>
-                
+
             </div>
             <div class="best-tours-cards-wrapper ppc-best-tours">
                 {% if experiences %}
@@ -149,41 +149,41 @@
                 {% endif %}
                 {% if experiences.has_other_pages %}
                     <div class="pagination-block ppc-pagination">
-                       
-                            {% if experiences.has_previous %}
-                                <button class="pagination-btn prev">
-                                    <a href="?page={{ experiences.previous_page_number }}">
-                                        <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
-                                    </a>
-                                </button>
-                            {% else %}
-                                <button class="pagination-btn prev">
-                                    <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
-                                </button>
-                            {% endif %}
-                            <ul class="pagination-list">
-                                {% for num in experiences.paginator.page_range %}
-        
-                                    {% if experiences.number == num %}
-                                        <li class="pagination-list-item active">{{ num }}</li>
-                                        {% elif num > experiences.number|add:'-5' and num < experiences.number|add:'5' %}
-                                        <li class="pagination-list-item"><a class="" href="?page={{ num }}">{{ num }}</a></li>
-                                    {% endif %}
-        
-                                {% endfor %}
-                            </ul>
-                            {% if experiences.has_next %}
-                                <button class="pagination-btn next">
-                                    <a href="?page={{ page_obj.next_page_number }}">
-                                        <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
-                                    </a>
-                                </button>
-                            {% else %}
-                                <button class="pagination-btn next">
-                                    <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
-                                </button>
-                            {% endif %}
-                        
+
+                        {% if experiences.has_previous %}
+                            <button class="pagination-btn prev">
+                                <a href="?page={{ experiences.previous_page_number }}">
+                                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                                </a>
+                            </button>
+                        {% else %}
+                            <button class="pagination-btn prev">
+                                <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+                            </button>
+                        {% endif %}
+                        <ul class="pagination-list">
+                            {% for num in experiences.paginator.page_range %}
+
+                                {% if experiences.number == num %}
+                                    <li class="pagination-list-item active">{{ num }}</li>
+                                {% elif num > experiences.number|add:'-5' and num < experiences.number|add:'5' %}
+                                    <li class="pagination-list-item"><a class="" href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+
+                            {% endfor %}
+                        </ul>
+                        {% if experiences.has_next %}
+                            <button class="pagination-btn next">
+                                <a href="?page={{ page_obj.next_page_number }}">
+                                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                                </a>
+                            </button>
+                        {% else %}
+                            <button class="pagination-btn next">
+                                <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+                            </button>
+                        {% endif %}
+
                     </div>
                 {% endif %}
             </div>
@@ -297,7 +297,7 @@
                 <h2>{% if object.title_related_landing_pages %}{{ object.title_related_landing_pages }}{% else %}{{ object.title }}{% endif %}</h2>
                 <ul>
                     {% for land_page in object.related_landing_pages.all %}
-                        <li><a href="{% url "landing-page" lang=land_page.language.code.lower slug=land_page.slug %}">{{ land_page.title }}</a></li>
+                        <li><a href="{% url " landing-page" lang=land_page.language.code.lower slug=land_page.slug %}">{{ land_page.title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
