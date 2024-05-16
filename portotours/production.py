@@ -333,3 +333,6 @@ CORS_ORIGIN_WHITELIST = [
     'https://www.onedaytours.pt',
     # Add other allowed origins here if needed
 ]
+
+print(f"STRIPE_PUBLIC_KEY: {os.getenv('STRIPE_PUBLIC_KEY')}")
+print(f"STRIPE_SECRET_KEY: {os.getenv('STRIPE_SECRET_KEY')}")
