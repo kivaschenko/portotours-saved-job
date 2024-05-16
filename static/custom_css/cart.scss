@@ -1396,8 +1396,8 @@
     width: 100%;
     background-color: #FFF1EB;
     .container {
-        padding-top: 24px;
-        padding-bottom: 24px;
+        padding-top: 16px;
+        padding-bottom: 16px;
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -1411,10 +1411,10 @@
     }
     .we-accept-title {
         margin: 0;
-        margin-right: 25px;
+        margin-right: 12px;
         font-family: "LatoRegular";
-        font-size: 20px;
-        line-height: 30px;
+        font-size: 12px;
+        line-height: 16px;
         color: #000;
         @include media-breakpoint-down(md) {
             margin-right: 0;
@@ -1437,7 +1437,7 @@
                 margin-right: 10px;
             }
             + li {
-                margin-left: 16px;
+                margin-left: 4px;
                 @include media-breakpoint-down(md) {
                     margin-left: 0;
                 }

@@ -1,6 +1,6 @@
 {% load static %}
 <div class="container">
-    <div class="header-top-row">
+    <div class="header-top-row empty">
         <div class="header-left-col">
             <div class="header-logo-wrapper">
                 <a href="{% url 'home' %}" class="logo-link" id="home-link">
@@ -11,8 +11,9 @@
 
         <div class="header-right-col">
             <h6 class="secure-payment-title">
-                <img src="{% static 'icons/lock-icon.svg' %}" alt="">
-                Secure payment
+                <img src="{% static 'icons/stripe-lock.svg' %}" alt="">
+                Guaranteed <span>safe & secure</span> checkout
+                <img src="{% static 'icons/powered-stripe.svg' %}" alt="">
             </h6>
         </div>
 

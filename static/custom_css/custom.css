@@ -7638,7 +7638,12 @@ html.off-scroll body {
   justify-content: space-between; }
   @media (max-width: 767.98px) {
     .header-top-row {
-      width: 100%; } }
+      width: 100%; }
+      .header-top-row.empty {
+        flex-direction: column; }
+        .header-top-row.empty .secure-payment-title {
+          width: 100%;
+          margin-bottom: 10px; } }
 @media (max-width: 767.98px) {
   .header-left-col {
     display: flex;
@@ -7666,26 +7671,44 @@ html.off-scroll body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    line-height: 30px;
-    color: #0F0F10;
+    font-size: 16px;
+    line-height: 28px;
+    color: #32364E;
     margin: 0;
     font-family: "LatoRegular"; }
+    .header-right-col .secure-payment-title span {
+      margin-left: 5px;
+      margin-right: 5px;
+      font-family: "LatoBold"; }
+      @media (max-width: 767.98px) {
+        .header-right-col .secure-payment-title span {
+          margin-right: 3px;
+          margin-left: 3px; } }
     @media (max-width: 767.98px) {
       .header-right-col .secure-payment-title {
         font-size: 14px;
         line-height: 18px;
         width: 180px;
         justify-content: flex-end; } }
-    .header-right-col .secure-payment-title img {
+    .header-right-col .secure-payment-title > img {
       margin-right: 12px;
       width: 24px;
       height: 24px; }
       @media (max-width: 767.98px) {
-        .header-right-col .secure-payment-title img {
+        .header-right-col .secure-payment-title > img {
           width: 18px;
           height: 18px;
-          margin-right: 6px; } }
+          margin-right: 4px; } }
+    .header-right-col .secure-payment-title img:last-child {
+      width: 145px;
+      height: 38px;
+      margin-left: 16px; }
+      @media (max-width: 767.98px) {
+        .header-right-col .secure-payment-title img:last-child {
+          width: 110px;
+          height: 28px;
+          margin-left: 8px;
+          margin-right: 0; } }
   .header-right-col .mobile-burger-wrapper {
     display: none; }
     @media (max-width: 767.98px) {
@@ -8901,8 +8924,7 @@ html.off-scroll body {
       .also-interested .container .swiper-also-interested {
         position: relative;
         overflow: hidden;
-        width: calc(100% + 32px);
-        margin-left: -16px; } }
+        width: 100%; } }
     .also-interested .container .swiper-pagination-bullet {
       background: var(--text-color-third); }
     .also-interested .container .also-interested-cards-wrapper {
@@ -8912,13 +8934,33 @@ html.off-scroll body {
       margin-bottom: 40px; }
       @media (max-width: 767.98px) {
         .also-interested .container .also-interested-cards-wrapper {
-          align-items: flex-start; } }
+          align-items: center;
+          flex-direction: column;
+          justify-content: center; } }
       .also-interested .container .also-interested-cards-wrapper .also-interested-card {
-        width: calc((100% - 48px)/3); }
+        width: calc((100% - 48px)/3);
+        position: relative; }
         @media (max-width: 767.98px) {
           .also-interested .container .also-interested-cards-wrapper .also-interested-card {
-            width: 100%; } }
-        .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-img {
+            width: 100%;
+            display: flex;
+            flex-direction: column; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card + .also-interested-card {
+              margin-top: 30px; } }
+        .also-interested .container .also-interested-cards-wrapper .also-interested-card > a .discount-banner-wrapper {
+          position: absolute;
+          right: 0;
+          top: 20px; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card > a .discount-banner-wrapper .discount {
+            position: absolute;
+            top: 3px;
+            right: 10px;
+            font-family: "LatoSemiBold";
+            font-size: 14px;
+            line-height: normal;
+            color: white;
+            text-transform: capitalize; }
+        .also-interested .container .also-interested-cards-wrapper .also-interested-card > a .also-interested-img {
           margin-bottom: 16px;
           display: block;
           width: 100%;
@@ -8927,26 +8969,186 @@ html.off-scroll body {
           border-radius: 26px;
           overflow: hidden; }
           @media (max-width: 767.98px) {
-            .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-img {
-              width: 100%; } }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card > a .also-interested-img {
+              width: 100%;
+              margin-bottom: 14px; } }
+        @media (max-width: 767.98px) {
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card > a {
+            order: 1; } }
+        .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          margin-bottom: 14px; }
+          @media (max-width: 767.98px) {
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper {
+              order: 3;
+              flex-wrap: wrap;
+              margin-bottom: 6px; } }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .rating-block {
+            margin-right: 20px; }
+            @media (max-width: 767.98px) {
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .rating-block {
+                width: 100%;
+                margin-bottom: 5px;
+                margin-right: 0; } }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .rating-block img {
+              max-width: 132px;
+              display: block; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .rating-block p {
+              margin-right: 8px;
+              margin-bottom: 0;
+              margin-top: 0;
+              color: #0F0F10;
+              font-size: 14px;
+              line-height: 22px;
+              font-family: 'LatoRegular'; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .duration-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .duration-wrapper p {
+              color: #6D6D6D !important;
+              font-size: 14px;
+              line-height: 20px;
+              font-family: 'LatoRegular';
+              margin-right: 20px;
+              margin-bottom: 0; }
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .duration-wrapper p span {
+                color: #6D6D6D !important; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .duration-wrapper img {
+              margin-right: 10px;
+              width: 20px;
+              height: 20px; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .tour-type-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            color: #6D6D6D;
+            font-size: 14px;
+            line-height: 20px;
+            font-family: 'LatoRegular';
+            margin-bottom: 0; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .tour-type-wrapper img {
+              margin-right: 10px;
+              width: 20px;
+              height: 20px; }
+        .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          margin-bottom: 16px; }
+          @media (max-width: 767.98px) {
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper {
+              order: 2;
+              flex-direction: column;
+              margin-bottom: 10px; } }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper .tour-link {
+            font-family: "LatoSemiBold";
+            font-size: 18px;
+            line-height: normal;
+            text-transform: uppercase;
+            text-decoration: none;
+            margin-top: 0;
+            padding: 19px 0px;
+            margin-right: 20px;
+            width: 200px; }
+            @media (max-width: 767.98px) {
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper .tour-link {
+                margin-right: 0;
+                width: 100%;
+                margin-bottom: 10px; } }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper .tour-link:hover {
+              text-decoration: none; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper .tour-link img {
+              margin-left: 16px; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper .free-canc-title {
+            color: #007728;
+            margin: 0;
+            font-family: "LatoBold";
+            font-size: 12px;
+            line-height: 22px;
+            text-transform: uppercase; }
+            @media (max-width: 767.98px) {
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper .free-canc-title {
+                font-size: 16px;
+                line-height: 22px;
+                margin-bottom: 0; } }
         .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-title {
           margin-top: 0;
-          margin-bottom: 10px; }
+          font-size: 26px;
+          line-height: 36px;
+          font-family: 'LatoMedium';
+          text-align: left;
+          text-transform: capitalize;
+          color: #0F0F10;
+          margin-bottom: 6px; }
           @media (max-width: 767.98px) {
             .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-title {
               font-size: 18px;
               line-height: 28px;
-              font-family: 'LatoSemiBold'; } }
+              font-family: 'LatoSemiBold';
+              order: 4; } }
           .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-title a {
             text-decoration: none; }
             .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-title a:hover {
               color: inherit; }
-        .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-text {
-          margin: 0; }
+        .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper {
+          display: flex;
+          flex-direction: column; }
           @media (max-width: 767.98px) {
-            .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-text {
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper {
+              order: 5; } }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .group-tour {
+            display: flex;
+            align-items: baseline;
+            justify-content: flex-start;
+            margin-bottom: 4px; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .group-tour .from-text {
+              color: #6D6D6D;
               font-size: 14px;
-              line-height: 22px; } }
+              line-height: 22px;
+              font-family: 'LatoRegular';
+              margin-bottom: 0;
+              margin-right: 10px; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .group-tour .old-price {
+              text-decoration: line-through;
+              color: #6D6D6D;
+              font-size: 16px;
+              line-height: normal;
+              font-family: 'LatoRegular';
+              margin-bottom: 0;
+              margin-right: 6px; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .group-tour .current-price {
+              color: #0F0F10;
+              font-size: 26px;
+              line-height: 36px;
+              font-family: 'LatoMedium';
+              margin-bottom: 0;
+              margin-right: 4px; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .group-tour .per-person {
+              color: #6D6D6D;
+              font-size: 14px;
+              line-height: 22px;
+              font-family: 'LatoRegular';
+              margin-bottom: 0; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .private-tour {
+            display: flex;
+            align-items: baseline;
+            justify-content: flex-start; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .private-tour .current-price {
+              color: #6D6D6D;
+              font-size: 20px;
+              line-height: 30px;
+              font-family: 'LatoRegular';
+              margin-bottom: 0;
+              margin-right: 4px; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .private-tour .per-person {
+              color: #6D6D6D;
+              font-size: 14px;
+              line-height: 22px;
+              font-family: 'LatoRegular';
+              margin-bottom: 0; }
     .also-interested .container .also-interested-more-info-wrapper {
       display: flex;
       align-items: center;
@@ -9638,10 +9840,20 @@ html.off-scroll body {
           .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper .rating-block {
             margin-right: 0px;
             margin-bottom: 18px;
-            position: relative; }
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; }
             @media (max-width: 767.98px) {
               .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper .rating-block {
                 margin-bottom: 16px; } }
+            .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper .rating-block .rating-num {
+              font-family: "LatoRegular";
+              font-size: 14px;
+              line-height: 22px;
+              color: #0F0F10;
+              margin-right: 8px;
+              margin-bottom: 0; }
             .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .rating-wrapper .rating-block img {
               width: 132px;
               height: 20px;
@@ -9731,6 +9943,15 @@ html.off-scroll body {
               line-height: 26px;
               margin-left: 10px;
               color: #6d6d6d; }
+            .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .price-link-wrapper .tour-price .old-price {
+              font-size: 18px;
+              line-height: 28px;
+              color: #6D6D6D;
+              margin-right: 6px;
+              margin-bottom: 0;
+              text-decoration: line-through;
+              font-family: "LatoRegular";
+              margin-left: 0; }
           .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .price-link-wrapper .book-banner-wrapper {
             display: flex;
             align-items: center;
@@ -11710,7 +11931,7 @@ html.off-scroll body {
           font-family: "LatoRegular";
           font-size: 18px;
           line-height: normal;
-          text-transform: uppercase; }
+          text-transform: none; }
           .experience-info .container .experience-info-inner-wrapper .left-col .children-discount-badge .badge-title img {
             margin-right: 10px;
             width: 40px;
@@ -12809,6 +13030,8 @@ html.off-scroll body {
       overflow: hidden;
       width: 100%;
       max-height: 400px; }
+      .blog-list .blog-cards-wrapper .blog-card .img-wrapper a {
+        display: block; }
       .blog-list .blog-cards-wrapper .blog-card .img-wrapper img {
         width: 100%;
         height: 100%;
@@ -12831,6 +13054,10 @@ html.off-scroll body {
         @media (max-width: 767.98px) {
           .blog-list .blog-cards-wrapper .blog-card .card-content-wrapper .card-title {
             margin-bottom: 60px; } }
+        .blog-list .blog-cards-wrapper .blog-card .card-content-wrapper .card-title a {
+          text-decoration: none; }
+          .blog-list .blog-cards-wrapper .blog-card .card-content-wrapper .card-title a:hover {
+            color: inherit; }
       .blog-list .blog-cards-wrapper .blog-card .card-content-wrapper .card-link {
         position: absolute;
         bottom: 24px;
@@ -14254,8 +14481,8 @@ html.off-scroll body {
   width: 100%;
   background-color: #FFF1EB; }
   .we-accept-wrapper .container {
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-top: 16px;
+    padding-bottom: 16px;
     display: flex;
     align-items: center;
     justify-content: flex-end; }
@@ -14268,10 +14495,10 @@ html.off-scroll body {
         padding-bottom: 6px; } }
   .we-accept-wrapper .we-accept-title {
     margin: 0;
-    margin-right: 25px;
+    margin-right: 12px;
     font-family: "LatoRegular";
-    font-size: 20px;
-    line-height: 30px;
+    font-size: 12px;
+    line-height: 16px;
     color: #000; }
     @media (max-width: 767.98px) {
       .we-accept-wrapper .we-accept-title {
@@ -14292,7 +14519,7 @@ html.off-scroll body {
         margin-bottom: 10px;
         margin-right: 10px; } }
     .we-accept-wrapper .we-accept-list li + li {
-      margin-left: 16px; }
+      margin-left: 4px; }
       @media (max-width: 767.98px) {
         .we-accept-wrapper .we-accept-list li + li {
           margin-left: 0; } }
@@ -15032,5 +15259,3 @@ a {
       margin: 0 auto;
       display: block;
       text-align: center; }
-
-/*# sourceMappingURL=custom.css.map */

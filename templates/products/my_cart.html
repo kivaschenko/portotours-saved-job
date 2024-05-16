@@ -320,7 +320,7 @@
             
             const minutes = Math.floor(timeDiff / 60);
             const seconds = Math.floor(timeDiff % 60);
-            document.getElementById('common-timer').innerText = `${minutes}MIN ${seconds}SEC.`;
+            document.getElementById('common-timer').innerText = `${minutes}:${seconds}`;
             
             // Check if the deadline has passed
             if (timeDiff <= 0) {

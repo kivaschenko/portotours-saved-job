@@ -141,6 +141,9 @@
                                 <img src="{% static 'icons/5-stars-icon.svg' %}" alt="">
                                </div>
                                {% endif %}
+                               <p class="average-rating" style="display: none;">
+                                    {{ object.average_rating }}
+                                </p>
                                 <a target="_blank" class="link" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
                                     <h5>
                                         {{ object.name }}
@@ -304,7 +307,7 @@
     let experienceCardList = document.querySelector('.experiences')
     let experienceCardListItems = experienceCardList.querySelectorAll('.experience-list-item');
     experienceCardListItems.forEach((item) => {
-        let averageRating = {{ object.average_rating }};
+    let averageRating = item.querySelector('.average-rating').textContent;
         console.log(averageRating)
         if (averageRating) {
             function fillStars(rating) {
