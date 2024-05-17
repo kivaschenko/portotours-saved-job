@@ -3,6 +3,7 @@ from django.forms import ModelForm
 
 from ckeditor.widgets import CKEditorWidget
 
+from products.models import Experience
 from blogs.models import *  # noqa
 
 
@@ -28,11 +29,25 @@ class BlockBlogInline(admin.TabularInline):
     }
 
 
+class BlogAdminForm(ModelForm):
+    class Meta:
+        model = Blog
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(BlogAdminForm, self).__init__(*args, **kwargs)
+        self.fields['experience_recommendations'].queryset = Experience.active.all()
+
+
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
+    form = BlogAdminForm
     exclude = ['updated_at']
     list_display = ['title', 'author', 'display_categories', 'views', 'date_published', 'is_active']
     list_filter = ['title', 'author', 'date_published', 'is_active']
+    search_fields = ['title', 'author', 'slug']
+    prepopulated_fields = {'slug': ('title',)}
+    list_per_page = 20
     inlines = [BlockBlogInline,]
 
     def display_categories(self, obj):
