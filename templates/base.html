@@ -40,7 +40,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block head %}
-        <title>{% block title_suffix %}{% endblock %} | One Day Tours Portugal</title>
+        <title>
+            {% block title %}Discover Lisbon & Portugal with One Day Tours Portugal{% endblock %}
+            {% block title_suffix %}{% endblock %}
+        </title>
         {% block meta_tags %}{% endblock %}
     {% endblock head %}
     <!-- Bootstrap 5 Custom CSS -->

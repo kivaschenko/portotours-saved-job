@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
-
-{% block title_suffix %}
+{% block title %}
     {{ object.page_title }}
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
 {% endblock title_suffix %}
-
 {% block meta_tags %}
     <meta name="description" content="{{ object.page_description }}">
     <meta name="keywords" content="{{ object.page_keywords }}">
