@@ -7,6 +7,7 @@ from django.utils.safestring import mark_safe
 from django.conf import settings
 
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 from products.models import Language, Experience
 
@@ -124,7 +125,7 @@ class Blog(models.Model):
 class BlockBlog(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name="blocks")
     title = models.CharField(max_length=255, help_text="title of text block including within Blog, max 255 characters", null=True, blank=True)
-    text = RichTextField(max_length=10000, help_text="maximum length of text block 10000 characters", null=True, blank=True)
+    text = RichTextUploadingField(max_length=20000, help_text="maximum length of text block 20000 characters", null=True, blank=True)
 
     def __str__(self):
         return self.title
