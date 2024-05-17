@@ -283,8 +283,8 @@ def create_message_about_products(purchase: Purchase):
 
     product_order_numbers = [product.random_order_number for product in products]
     subject = "Unsuccessful attempt of payment for order(s): " + ', '.join(product_order_numbers)
-
-    body = []
+    purchase_info = f"Purchase Id: {purchase.id}\n"
+    body = [purchase_info,]
     for product in products:
         message = (f"\nOrder ID: {product.random_order_number}\n"
                    f"\tProduct name: {product.full_name}\n"
