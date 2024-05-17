@@ -11668,44 +11668,63 @@ html.off-scroll body {
       line-height: normal;
       text-transform: capitalize;
       margin: 0;
-      margin-right: 13px;
+      margin-right: 20px;
       text-decoration: none;
-      display: block; }
-    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .rating {
-      display: flex;
-      gap: 8px;
-      /* Расстояние между звездами */ }
-    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper {
-      width: 20px;
-      height: 20px;
+      display: block;
       position: relative; }
-      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper.partial-fill::before {
-        content: '';
-        /* Добавляем контент в псевдоэлемент */
+      .sticky-container .sticky-block .reviews-rating-wrapper .reviews-count::after {
+        content: "";
         position: absolute;
-        /* Абсолютное позиционирование для точного позиционирования */
+        width: 1px;
+        height: 100%;
         top: 0;
-        left: 0;
-        bottom: 0;
-        width: calc(var(--fraction, 1) * 100%);
-        background-color: transparent;
-        z-index: -1;
-        /* Помещаем псевдоэлемент под фоновое изображение */
-        background-image: url(../icons/one-filled-star.svg);
-        /* Изображение, которое будет показываться только частично */
-        background-size: cover;
-        /* Растягиваем изображение, чтобы оно занимало всю доступную область */
-        background-repeat: no-repeat;
-        /* Отключаем повторение изображения */ }
-      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper svg {
-        display: block; }
-    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .star {
-      fill: none;
-      stroke-width: 1;
-      width: 100%; }
-    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .filled {
-      fill: #FDB601;
-      /* Заливка желтым цветом */ }
+        right: -10px;
+        background-color: #0F0F10; }
+    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper {
+      display: flex;
+      align-items: center; }
+      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .rating-num {
+        color: #0F0F10;
+        font-family: "LatoRegular";
+        font-size: 14px;
+        line-height: normal;
+        margin-bottom: 0;
+        margin-right: 8px; }
+      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .rating {
+        display: flex;
+        gap: 8px;
+        /* Расстояние между звездами */ }
+      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper {
+        width: 20px;
+        height: 20px;
+        position: relative; }
+        .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper.partial-fill::before {
+          content: '';
+          /* Добавляем контент в псевдоэлемент */
+          position: absolute;
+          /* Абсолютное позиционирование для точного позиционирования */
+          top: 0;
+          left: 0;
+          bottom: 0;
+          width: calc(var(--fraction, 1) * 100%);
+          background-color: transparent;
+          z-index: -1;
+          /* Помещаем псевдоэлемент под фоновое изображение */
+          background-image: url(../icons/one-filled-star.svg);
+          /* Изображение, которое будет показываться только частично */
+          background-size: cover;
+          /* Растягиваем изображение, чтобы оно занимало всю доступную область */
+          background-repeat: no-repeat;
+          /* Отключаем повторение изображения */ }
+        .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper svg {
+          display: block; }
+      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .star {
+        fill: none;
+        stroke-width: 1;
+        width: 100%; }
+      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .filled {
+        fill: #FDB601;
+        /* Заливка желтым цветом */ }
 
 .experience-hero {
   overflow: hidden; }
@@ -15259,3 +15278,5 @@ a {
       margin: 0 auto;
       display: block;
       text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */

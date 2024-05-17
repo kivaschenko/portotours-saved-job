@@ -80,6 +80,7 @@
                     </a>
                    
                     <div class="rating-img-wrapper">
+                        <p class="rating-num">{{ object.average_rating }}</p>
                         <div class="rating">
                             <div class="icon-wrapper">
                                 <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -113,6 +114,7 @@
                 {% else %}
                 <div class="reviews-rating-wrapper">
                     <div class="rating-img-wrapper">
+                        <p class="rating-num">5.0</p>
                         <img src="{% static 'icons/5-stars-icon.svg' %}" alt="">
                     </div>
                 </div>

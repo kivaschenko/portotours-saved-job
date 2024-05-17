@@ -714,11 +714,31 @@
         line-height: normal;
         text-transform: capitalize;
         margin: 0;
-        margin-right: 13px;
+        margin-right: 20px;
         text-decoration: none;
         display: block;
+        position: relative;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 1px;
+          height: 100%;
+          top: 0;
+          right: -10px;
+          background-color: #0F0F10;
+        }
       }
       .rating-img-wrapper {
+        display: flex;
+        align-items: center;
+        .rating-num {
+          color: #0F0F10;
+          font-family: "LatoRegular";
+          font-size: 14px;
+          line-height: normal;
+          margin-bottom: 0;
+          margin-right: 8px;
+        }
         .rating {
           display: flex;
           gap: 8px; /* Расстояние между звездами */
