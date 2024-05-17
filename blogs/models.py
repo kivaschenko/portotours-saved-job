@@ -7,8 +7,9 @@ from django.utils.safestring import mark_safe
 from django.conf import settings
 
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
-from products.models import Language
+from products.models import Language, Experience
 
 
 class Category(models.Model):
@@ -16,6 +17,8 @@ class Category(models.Model):
 
     class Meta:
         ordering = ('name',)
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
 
     def __str__(self):
         return self.name
@@ -67,6 +70,11 @@ class Blog(models.Model):
     read_time = models.IntegerField(default=0)  # in minutes
     date_published = models.DateTimeField(auto_now_add=True)
     middle_picture = models.ImageField(upload_to='blogs/middle_pictures', null=True, blank=True)
+    # Recommendations block
+    recommendations_title = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+    recommendations_subtitle = models.CharField(max_length=500, help_text="max 500 characters", null=True, blank=True)
+    experience_recommendations = models.ManyToManyField(Experience, blank=True)
+
     objects = models.Manager()
     active = BlogActiveManager()
 
@@ -117,7 +125,7 @@ class Blog(models.Model):
 class BlockBlog(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name="blocks")
     title = models.CharField(max_length=255, help_text="title of text block including within Blog, max 255 characters", null=True, blank=True)
-    text = RichTextField(max_length=3000, help_text="maximum length of text block 3000 characters", null=True, blank=True)
+    text = RichTextUploadingField(max_length=20000, help_text="maximum length of text block 20000 characters", null=True, blank=True)
 
     def __str__(self):
         return self.title
