@@ -45,6 +45,7 @@ class TestUpdatePurchaseAndSendEmail(TestCase):
         # Arrange
         mock_purchase_instance = MagicMock()
         mock_purchase.objects.get.return_value = mock_purchase_instance
+        mock_purchase_instance.id = 100
         mock_purchase_instance.products.all.return_value.exists.return_value = True
         mock_purchase_instance.products.all.return_value = [
             MagicMock(random_order_number='16G6-4AZQ-9WFN-XGAV', full_name='Sunset, Fado and Tapas Walking Tour', total_booked=5, language='English',
@@ -76,6 +77,7 @@ class TestUpdatePurchaseAndSendEmail(TestCase):
         mock_send_mail.assert_called_once()
         call_args = mock_send_mail.call_args[1]
         expected_message = (
+            "Purchase Id: 100\n\n"
             "\nOrder ID: 16G6-4AZQ-9WFN-XGAV\n"
             "\tProduct name: Sunset, Fado and Tapas Walking Tour\n"
             "\tNumber of passengers: 5\n"
@@ -100,7 +102,3 @@ class TestUpdatePurchaseAndSendEmail(TestCase):
         self.assertEqual(call_args['message'], expected_message)
         self.assertEqual(call_args['from_email'], settings.ORDER_EMAIL)
         self.assertEqual(call_args['recipient_list'], [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
-
-
-# if __name__ == '__main__':
-#     unittest.main()
