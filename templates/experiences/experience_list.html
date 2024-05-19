@@ -106,7 +106,7 @@
                                 <div class="image-wrapper">
                                     {% for object in object_list %}
                                         <a href="#"
-                                           onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'Experience List Card Image Click')">
+                                           onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'List of Experiences Card Image Click')">
                                             <img src="
                                                     {% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}"
                                                  alt="Card image for {{ object.name }}">
@@ -159,7 +159,7 @@
                                     {{ object.average_rating }}
                                 </p>
                                 <a href="#"
-                                   onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'Experience List Card Title Click')">
+                                   onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'List of Experiences Card Title Click')">
                                     <h5>
                                         {{ object.name }}
                                     </h5>
@@ -212,7 +212,7 @@
 
                                 <div class="btns-wrapper">
                                     <button type="button" class="experience-link-btn btn-type-1"
-                                            onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'Experience List Card Button Click')">
+                                            onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'List of Experiences Card Button Click')">
                                         Book now
                                     </button>
                                     {% if object.parent_experience.free_cancellation %}
