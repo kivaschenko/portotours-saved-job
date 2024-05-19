@@ -56,13 +56,13 @@
                     {% for experience in object.recommended_experiences.all %}
                         <div class="experience-card">
                             <a href="#"
-                               onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, 'Discover Portugal Card Image Click')">
+                               onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, '{{ object.name }} - Discover Portugal Card Image Click')">
                                 <img src="{{ experience.parent_experience.card_image.url }}" alt="card image for {{ experience.name }}" class="experience-card-img">
                             </a>
                             <p class="experience-card-title body-text-b3">{{ experience.name }}</p>
                             <p class="experience-card-text body-text-b4">{{ experience.short_description }}</p>
                             <a href="#"
-                               onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, 'Discover Portugal Card Button Click')">
+                               onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, '{{ object.name }} - Discover Portugal Card Button Click')">
                                 book now
                                 <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
                             </a>
