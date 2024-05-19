@@ -55,13 +55,14 @@
                 {% if object.recommended_experiences.all %}
                     {% for experience in object.recommended_experiences.all %}
                         <div class="experience-card">
-                            <a target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" class="">
+                            <a href="#"
+                               onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, '{{ object.name }} - Discover Portugal Card Image Click')">
                                 <img src="{{ experience.parent_experience.card_image.url }}" alt="card image for {{ experience.name }}" class="experience-card-img">
                             </a>
-                            
                             <p class="experience-card-title body-text-b3">{{ experience.name }}</p>
                             <p class="experience-card-text body-text-b4">{{ experience.short_description }}</p>
-                            <a target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" class="experience-card-link">
+                            <a href="#"
+                               onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, '{{ object.name }} - Discover Portugal Card Button Click')">
                                 book now
                                 <img src="{% static 'icons/experience-link-icon.svg' %}" alt="">
                             </a>
@@ -268,4 +269,5 @@
 
     </script>
     <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
+    <script src="{% static 'google_analytics/data_pusher.js' %}"></script>
 {% endblock %}

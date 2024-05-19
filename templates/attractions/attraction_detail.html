@@ -140,12 +140,15 @@
                     {% if object.recommendations_experiences.all %}
                         {% for experience in object.recommendations_experiences.all %}
                             <div class="also-interested-card swiper-slide">
-                                <a target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">
+                                <a href="#"
+                                   onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, '{{ object.name }} - Also be Interested Card Image Click')">
                                     <img src="{{ experience.parent_experience.card_image.url }}" alt="{{ experience.name }} card image" class="also-interested-img">
                                 </a>
-                                
                                 <p class="body-text-b2 also-interested-card-title">
-                                    <a target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
+                                    <a href="#"
+                                       onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, '{{ object.name }} - Also be Interested Card Title Click')">
+                                        {{ experience.name }}
+                                    </a>
                                 </p>
                                 <p class="body-text-b3 also-interested-card-text">
                                     {{ experience.short_description }}
@@ -155,7 +158,6 @@
                     {% else %}
                         <p>No recommended experiences found.</p>
                     {% endif %}
-
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -266,4 +268,5 @@
         }
     </script>
     <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
+    <script src="{% static 'google_analytics/data_pusher.js' %}"></script>
 {% endblock %}
