@@ -106,7 +106,6 @@ class ExperienceDetailView(DetailView):
         context.setdefault("view", self)
         if self.extra_context is not None:
             context.update(self.extra_context)
-        print(context)
         return context
 
     def get_object(self, queryset=None):
@@ -121,6 +120,7 @@ class ExperienceDetailView(DetailView):
                 lang = brother.language.code.lower()
                 url = brother.localized_url
                 self.extra_context['languages'].update({lang: url})
+        datalayer_items = []
         return obj
 
     def get(self, request, *args, **kwargs):
