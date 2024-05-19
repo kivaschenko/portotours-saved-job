@@ -112,7 +112,8 @@
                     {% for experience in experiences_top_year %}
                         <div class="best-tours-card">
                             <div class="img-wrapper">
-                                <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" target="_blank">
+                                <a href="#"
+                                   onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, 'Home - Top Experiences Card Image Click')">
                                     <img src="{% if experience.parent_experience.card_image %}
                                     {{ experience.parent_experience.card_image.url }}
                                     {% else %}{% endif %}" alt="card image for {{ experience.name }}">
@@ -144,7 +145,8 @@
                                     <div class="discount-block">
                                     </div>
                                 </div>
-                                <a class="title-link" target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">
+                                <a href="#"
+                                   onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, 'Home - Top Experiences Card Title Click')">
                                     <p class="best-tours-card-title body-text-b2">
                                         {{ experience.name }}
                                     </p>
@@ -177,7 +179,8 @@
                                         <span>{% if experience.parent_experience.is_private %}{% else %}/ per person{% endif %}</span>
                                     </p>
                                     <div class="book-banner-wrapper">
-                                        <a target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" class="tour-link btn-type-1">
+                                        <a href="#"
+                                           onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, 'Home - Top Experiences Card Button Book Click')">
                                             Book
                                         </a>
                                         {% if experience.parent_experience.free_cancellation %}
@@ -518,4 +521,5 @@
         }
     </script>
     <script src="{% static 'js/subscription.js' %}"></script>
+    <script src="{% static 'google_analytics/data_pusher.js' %}"></script>
 {% endblock %}
