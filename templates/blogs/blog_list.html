@@ -47,10 +47,7 @@
                                         {{ object.title }}
                                     </a>
                                 </h5>
-                                <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}" class="card-link">
-                                    read article
-                                    <img src="{% static 'icons/experience-link-icon.svg' %}" alt="link arrow">
-                                </a>
+                                
                             </div>
                         </div>
                     {% endfor %}
