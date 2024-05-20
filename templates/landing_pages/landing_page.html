@@ -95,11 +95,13 @@
                                 <div class="rating-wrapper body-text-b4">
                                     {% if object.average_rating %}
                                         <div class="rating-block">
+                                            <p class="rating-num">{{ experience.average_rating }}</p>
                                             <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
-                                            {{ experience.average_rating }}
+                                            
                                         </div>
                                     {% else %}
                                         <div class="rating-block">
+                                            <p class="rating-num">5.0</p>
                                             <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
                                         </div>
                                     {% endif %}

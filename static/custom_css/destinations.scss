@@ -682,7 +682,9 @@
                     text-transform: capitalize;
                     color: #0F0F10;
                     margin-bottom: 6px;
-
+                    &.destination-title {
+                        text-align: center;
+                    }
                     @include media-breakpoint-down(md) {
                         font-size: 18px;
                         line-height: 28px;
@@ -695,6 +697,11 @@
                         &:hover {
                             color: inherit;
                         }
+                    }
+                }
+                .also-interested-card-text {
+                    @include media-breakpoint-down(md) {
+                        order: 5;
                     }
                 }
                 .tour-price-wrapper {
