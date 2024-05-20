@@ -1,5 +1,5 @@
 .home-hero {
-  background-image: url(../images/homepage-hero-bg.png);
+  background-image: url(../images/homepage-hero-bg.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -7,19 +7,20 @@
     background: none;
   }
   .container {
-    padding-top: 70px;
-    padding-bottom: 230px;
+    padding-top: 150px;
+    padding-bottom: 215px;
     text-align: center;
     position: relative;
     @include media-breakpoint-down(md) {
-      
-      padding: 0;
+      padding: 32px 0;
     }
     .hero-title {
       color: white;
       font-family: "LatoSemiBold";
       font-size: 44px;
       line-height: 56px;
+      text-align: left;
+      padding-left: 24px;
       @include media-breakpoint-down(md) {
         background-image: url(../images/homepage-hero-bg-mob.jpg);
         background-position: center;
@@ -46,20 +47,20 @@
         }
       }
       img {
-        width: 260px;
+        
         @include media-breakpoint-down(md) {
-          width: 95px;
+          width: 270px;
         }
       }
     }
     .experience-list-hero-calendar {
       position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 26px 26px 0 0;
-      background-color: white;
-      padding: 37px 55px;
+      bottom: 40px;
+      left: 0;
+      border-radius: 90px;
+      background: rgba(255, 255, 255, 0.50);
+      backdrop-filter: blur(10px);
+      padding: 16px 16px;
       @include media-breakpoint-down(md) {
         position: relative;
         left: inherit;
@@ -76,9 +77,9 @@
           width: 100%;
         }
         .place-wrapper {
-          width: 360px;
+          width: 270px;
           position: relative;
-          margin-right: 40px;
+          margin-right: 8px;
           @include media-breakpoint-down(md) {
             width: 100%;
             margin-right: 0;
@@ -110,6 +111,7 @@
             top: -13px;
             left: 24px;
             z-index: 3;
+            display: none;
           }
           select {
             border-radius: 42px;
@@ -128,6 +130,7 @@
             background-position-y: 50%;
             background-repeat: no-repeat;
             color: #0F0F10;
+            background-color: white;
             &:invalid {
               color: #6d6d6d;
             }
@@ -137,9 +140,9 @@
           }
         }
         .date-wrapper {
-          width: 230px;
+          width: 190px;
           position: relative;
-          margin-right: 40px;
+          margin-right: 8px;
           @include media-breakpoint-down(md) {
             width: 100%;
             margin-right: 0;
@@ -173,6 +176,7 @@
             top: -13px;
             left: 24px;
             z-index: 3;
+            display: none;
           }
           input {
             border-radius: 42px;
@@ -192,7 +196,7 @@
           
         }
         .form-btn {
-          width: 240px;
+          width: 220px;
           display: flex;
           align-items: center;
           justify-content: center;
