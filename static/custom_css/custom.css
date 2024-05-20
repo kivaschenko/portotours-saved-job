@@ -8986,7 +8986,10 @@ html.off-scroll body {
               flex-wrap: wrap;
               margin-bottom: 6px; } }
           .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .rating-block {
-            margin-right: 20px; }
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; }
             @media (max-width: 767.98px) {
               .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .rating-block {
                 width: 100%;
@@ -9136,6 +9139,14 @@ html.off-scroll body {
             display: flex;
             align-items: baseline;
             justify-content: flex-start; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .private-tour .old-price {
+              color: #6D6D6D;
+              font-size: 16px;
+              line-height: normal;
+              font-family: 'LatoRegular';
+              margin-bottom: 0;
+              margin-right: 10px;
+              text-decoration: line-through; }
             .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .private-tour .current-price {
               color: #6D6D6D;
               font-size: 20px;
@@ -11342,7 +11353,8 @@ html.off-scroll body {
       border: 1px solid #d9d9d9; }
       @media (max-width: 767.98px) {
         .experience-list .container .experiences .experience-list-item {
-          flex-direction: column; } }
+          flex-direction: column;
+          position: relative; } }
       .experience-list .container .experiences .experience-list-item + .experience-list-item {
         margin-top: 24px; }
         @media (max-width: 767.98px) {
@@ -11377,47 +11389,88 @@ html.off-scroll body {
       .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper {
         width: calc(100% - 450px);
         padding: 24px 32px 32px 32px;
-        border-radius: 0 26px 26px 0; }
+        border-radius: 0 26px 26px 0;
+        position: relative; }
         @media (max-width: 767.98px) {
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper {
             width: 100%;
             padding: 14px;
-            border-radius: 0; } }
-        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .rating {
-          display: flex;
-          gap: 8px;
-          /* Расстояние между звездами */ }
-        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .icon-wrapper {
-          width: 20px;
-          height: 20px;
-          position: relative; }
-          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .icon-wrapper.partial-fill::before {
-            content: '';
-            /* Добавляем контент в псевдоэлемент */
-            position: absolute;
-            /* Абсолютное позиционирование для точного позиционирования */
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: calc(var(--fraction, 1) * 100%);
-            background-color: transparent;
-            z-index: -1;
-            /* Помещаем псевдоэлемент под фоновое изображение */
-            background-image: url(../icons/one-filled-star.svg);
-            /* Изображение, которое будет показываться только частично */
-            background-size: cover;
-            /* Растягиваем изображение, чтобы оно занимало всю доступную область */
-            background-repeat: no-repeat;
-            /* Отключаем повторение изображения */ }
-          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .icon-wrapper svg {
+            border-radius: 0;
+            position: static; } }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .best-seller-badge-wrapper {
+          position: absolute;
+          top: 0;
+          right: 40px;
+          width: 80px;
+          height: 80px; }
+          @media (max-width: 767.98px) {
+            .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .best-seller-badge-wrapper {
+              width: 60px;
+              height: 60px;
+              right: 20px; } }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .best-seller-badge-wrapper img {
+            width: 100%;
+            height: 100%;
             display: block; }
-        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .star {
-          fill: none;
-          stroke-width: 1;
-          width: 100%; }
-        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .filled {
-          fill: #FDB601;
-          /* Заливка желтым цветом */ }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          margin-bottom: 8px; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-wrapper p {
+            color: #0F0F10;
+            font-size: 14px;
+            line-height: normal;
+            font-family: "LatoRegular";
+            margin-right: 8px;
+            margin-bottom: 0; }
+        .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          margin-bottom: 8px; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper p {
+            color: #0F0F10;
+            font-size: 14px;
+            line-height: normal;
+            font-family: "LatoRegular";
+            margin-right: 8px;
+            margin-bottom: 0; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .rating {
+            display: flex;
+            gap: 8px;
+            /* Расстояние между звездами */ }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .icon-wrapper {
+            width: 20px;
+            height: 20px;
+            position: relative; }
+            .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .icon-wrapper.partial-fill::before {
+              content: '';
+              /* Добавляем контент в псевдоэлемент */
+              position: absolute;
+              /* Абсолютное позиционирование для точного позиционирования */
+              top: 0;
+              left: 0;
+              bottom: 0;
+              width: calc(var(--fraction, 1) * 100%);
+              background-color: transparent;
+              z-index: -1;
+              /* Помещаем псевдоэлемент под фоновое изображение */
+              background-image: url(../icons/one-filled-star.svg);
+              /* Изображение, которое будет показываться только частично */
+              background-size: cover;
+              /* Растягиваем изображение, чтобы оно занимало всю доступную область */
+              background-repeat: no-repeat;
+              /* Отключаем повторение изображения */ }
+            .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .icon-wrapper svg {
+              display: block; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .star {
+            fill: none;
+            stroke-width: 1;
+            width: 100%; }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .filled {
+            fill: #FDB601;
+            /* Заливка желтым цветом */ }
         .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .discount-banner {
           display: flex;
           align-items: center;
@@ -11459,17 +11512,32 @@ html.off-scroll body {
             list-style: none; }
             @media (max-width: 767.98px) {
               .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list {
-                flex-wrap: wrap; } }
+                flex-wrap: wrap;
+                justify-content: space-between; } }
             .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li {
               font-family: "LatoRegular";
               font-size: 14px;
               line-height: 22px;
-              color: #0F0F10;
-              padding: 5px 10px;
-              border-radius: 30px;
-              border: 1px solid #D6D6D6; }
+              color: #6D6D6D;
+              display: flex;
+              align-items: center;
+              justify-content: flex-start; }
+              @media (max-width: 767.98px) {
+                .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li {
+                  width: calc((100% - 20px)/2); } }
               .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li p {
-                display: inline; }
+                display: inline;
+                margin: 0;
+                font-family: "LatoRegular";
+                font-size: 14px;
+                line-height: 22px;
+                color: #6D6D6D !important; }
+                .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li p span {
+                  color: #6D6D6D !important; }
+              .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li img {
+                width: 20px;
+                height: 20px;
+                margin-right: 10px; }
               @media (max-width: 767.98px) {
                 .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li {
                   margin-bottom: 8px;
@@ -11668,44 +11736,63 @@ html.off-scroll body {
       line-height: normal;
       text-transform: capitalize;
       margin: 0;
-      margin-right: 13px;
+      margin-right: 20px;
       text-decoration: none;
-      display: block; }
-    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .rating {
-      display: flex;
-      gap: 8px;
-      /* Расстояние между звездами */ }
-    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper {
-      width: 20px;
-      height: 20px;
+      display: block;
       position: relative; }
-      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper.partial-fill::before {
-        content: '';
-        /* Добавляем контент в псевдоэлемент */
+      .sticky-container .sticky-block .reviews-rating-wrapper .reviews-count::after {
+        content: "";
         position: absolute;
-        /* Абсолютное позиционирование для точного позиционирования */
+        width: 1px;
+        height: 100%;
         top: 0;
-        left: 0;
-        bottom: 0;
-        width: calc(var(--fraction, 1) * 100%);
-        background-color: transparent;
-        z-index: -1;
-        /* Помещаем псевдоэлемент под фоновое изображение */
-        background-image: url(../icons/one-filled-star.svg);
-        /* Изображение, которое будет показываться только частично */
-        background-size: cover;
-        /* Растягиваем изображение, чтобы оно занимало всю доступную область */
-        background-repeat: no-repeat;
-        /* Отключаем повторение изображения */ }
-      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper svg {
-        display: block; }
-    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .star {
-      fill: none;
-      stroke-width: 1;
-      width: 100%; }
-    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .filled {
-      fill: #FDB601;
-      /* Заливка желтым цветом */ }
+        right: -10px;
+        background-color: #0F0F10; }
+    .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper {
+      display: flex;
+      align-items: center; }
+      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .rating-num {
+        color: #0F0F10;
+        font-family: "LatoRegular";
+        font-size: 14px;
+        line-height: normal;
+        margin-bottom: 0;
+        margin-right: 8px; }
+      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .rating {
+        display: flex;
+        gap: 8px;
+        /* Расстояние между звездами */ }
+      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper {
+        width: 20px;
+        height: 20px;
+        position: relative; }
+        .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper.partial-fill::before {
+          content: '';
+          /* Добавляем контент в псевдоэлемент */
+          position: absolute;
+          /* Абсолютное позиционирование для точного позиционирования */
+          top: 0;
+          left: 0;
+          bottom: 0;
+          width: calc(var(--fraction, 1) * 100%);
+          background-color: transparent;
+          z-index: -1;
+          /* Помещаем псевдоэлемент под фоновое изображение */
+          background-image: url(../icons/one-filled-star.svg);
+          /* Изображение, которое будет показываться только частично */
+          background-size: cover;
+          /* Растягиваем изображение, чтобы оно занимало всю доступную область */
+          background-repeat: no-repeat;
+          /* Отключаем повторение изображения */ }
+        .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper svg {
+          display: block; }
+      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .star {
+        fill: none;
+        stroke-width: 1;
+        width: 100%; }
+      .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .filled {
+        fill: #FDB601;
+        /* Заливка желтым цветом */ }
 
 .experience-hero {
   overflow: hidden; }
@@ -12618,6 +12705,149 @@ html.off-scroll body {
         .mobile-form-btn-wrapper .container .mobile-form-btn {
           width: 220px;
           text-align: center; } }
+.upsale-popup-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none; }
+  .upsale-popup-wrapper.opened {
+    display: block; }
+  .upsale-popup-wrapper .popup-inner-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1310px;
+    border-radius: 20px;
+    background-color: white;
+    z-index: 31;
+    overflow: hidden; }
+    .upsale-popup-wrapper .popup-inner-wrapper .close-popup-btn {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      background-color: #F8F8F8;
+      border: none; }
+    .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper {
+      padding: 40px 80px 32px;
+      background-color: #F8F8F8; }
+      .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .title-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; }
+        .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .title-wrapper img {
+          width: 54px;
+          height: 54px;
+          margin-right: 24px; }
+        .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .title-wrapper .popup-title {
+          color: #0F0F10;
+          font-size: 28px;
+          line-height: 36px;
+          font-family: "LatoRegular";
+          margin-top: 0;
+          margin-bottom: 0;
+          margin-right: 62px; }
+        .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .title-wrapper .link-to-cart {
+          width: 240px;
+          text-align: center; }
+      .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .booked-tour-info-wrapper .tour-name {
+        font-size: 20px;
+        line-height: 30px;
+        font-family: "LatoRegular";
+        color: #0F0F10;
+        margin-top: 0;
+        margin-bottom: 8px; }
+      .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .booked-tour-info-wrapper .tour-info-list {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 0;
+        list-style: none; }
+        .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .booked-tour-info-wrapper .tour-info-list li {
+          margin-right: 38px;
+          position: relative;
+          color: #0F0F10 !important;
+          font-size: 16px;
+          line-height: 26px;
+          font-family: "LatoRegular"; }
+          .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .booked-tour-info-wrapper .tour-info-list li * {
+            color: #0F0F10 !important;
+            font-size: 16px;
+            line-height: 26px;
+            font-family: "LatoRegular";
+            margin: 0; }
+          .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .booked-tour-info-wrapper .tour-info-list li:not(:last-child)::after {
+            position: absolute;
+            content: "";
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-color-third);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            right: -23px; }
+    .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper {
+      padding: 50px 80px 80px; }
+      .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-main-title {
+        color: #0F0F10;
+        font-size: 32px;
+        line-height: 42px;
+        font-family: "LatoSemibold";
+        margin-top: 0;
+        margin-bottom: 16px;
+        text-align: center; }
+      .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-subtitle {
+        color: #0F0F10;
+        font-size: 18px;
+        line-height: normal;
+        font-family: "LatoRegular";
+        margin-top: 0;
+        text-align: center;
+        margin-bottom: 40px; }
+      .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; }
+        .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card {
+          width: calc((100% - 24px) / 2);
+          height: 310px;
+          position: relative; }
+          @media (max-width: 767.98px) {
+            .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card {
+              width: 100%;
+              min-height: auto;
+              height: 200px; }
+              .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card + .tour-type-card {
+                margin-top: 20px; } }
+          .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card img {
+            width: 100%;
+            height: 100%; }
+          .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper {
+            position: absolute;
+            bottom: 28px;
+            left: 0;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            padding: 0 32px;
+            width: 100%; }
+            @media (max-width: 767.98px) {
+              .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper {
+                padding: 0 20px;
+                bottom: 16px; } }
+            .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper .tour-type-title {
+              color: white;
+              margin-bottom: 0; }
+            .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper a {
+              padding: 12px 15px; }
+              .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper a img {
+                width: 24px;
+                height: 24px; }
+
 .reviews .container {
   margin-top: 50px;
   margin-bottom: 50px; }
@@ -15133,19 +15363,18 @@ html.off-scroll body {
     padding-left: 0;
     list-style: none;
     margin: 0;
-    width: 840px;
+    width: 100%;
     display: flex;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-wrap: wrap; }
     @media (max-width: 767.98px) {
       .guided-tours .container ul {
         width: 100%;
         flex-direction: column; } }
     .guided-tours .container ul li {
-      width: calc((100% - 140px)/3);
-      margin-bottom: 20px;
-      margin-right: 70px; }
+      width: calc((100% - 70px)/2);
+      margin-bottom: 20px; }
       @media (max-width: 767.98px) {
         .guided-tours .container ul li {
           width: 100%; } }
@@ -15154,8 +15383,8 @@ html.off-scroll body {
           margin-bottom: 10px; } }
       .guided-tours .container ul li a {
         text-decoration: none;
-        font-size: 26px;
-        line-height: 36px;
+        font-size: 20px;
+        line-height: 24px;
         font-family: "LatoMedium";
         text-transform: capitalize; }
         @media (max-width: 767.98px) {
@@ -15259,3 +15488,5 @@ a {
       margin: 0 auto;
       display: block;
       text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */
