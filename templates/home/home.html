@@ -5,14 +5,9 @@
 
     <section class="home-hero">
         <div class="container">
-            <h2 class="hero-title">
-                Experience <br>
-                <span>
-                    Lisbon & Portugal
-                </span>
-                with
-                <img src="{% static 'icons/main-logo.svg' %}" alt="logo">
-            </h2>
+            <h1 class="hero-title">
+                <img src="{% static 'images/homepage-title.svg' %}" alt="logo">
+            </h1>
             <div class="experience-list-hero-calendar">
                 <form action="{% url 'experience-list' lang=current_language %}" method="get">
                     <div class="place-wrapper">
@@ -112,7 +107,7 @@
                     {% for experience in experiences_top_year %}
                         <div class="best-tours-card">
                             <div class="img-wrapper">
-                                <a href="#"
+                                <a href="javascript:void(0)"
                                    onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, 'Home - Top Experiences Card Image Click')">
                                     <img src="{% if experience.parent_experience.card_image %}
                                     {{ experience.parent_experience.card_image.url }}
@@ -145,7 +140,7 @@
                                     <div class="discount-block">
                                     </div>
                                 </div>
-                                <a href="#"
+                                <a href="javascript:void(0)" class="title-link"
                                    onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, 'Home - Top Experiences Card Title Click')">
                                     <p class="best-tours-card-title body-text-b2">
                                         {{ experience.name }}
@@ -179,7 +174,7 @@
                                         <span>{% if experience.parent_experience.is_private %}{% else %}/ per person{% endif %}</span>
                                     </p>
                                     <div class="book-banner-wrapper">
-                                        <a href="#"
+                                        <a href="javascript:void(0)" class="tour-link btn-type-1"
                                            onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, 'Home - Top Experiences Card Button Book Click')">
                                             Book
                                         </a>

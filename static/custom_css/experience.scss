@@ -357,6 +357,13 @@
             width: 100%;
             height: 250px;
           }
+          .image-wrapper {
+            height: 100%;
+             a {
+              display: block;
+              height: 100%;
+             }
+          }
           .img-label {
             position: absolute;
             top: 0;
@@ -1974,20 +1981,20 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 1310px;
+    width: 1200px;
     border-radius: 20px;
     background-color: white;
     z-index: 31;
     overflow: hidden;
     .close-popup-btn {
       position: absolute;
-      top: 40px;
-      right: 40px;
+      top: 20px;
+      right: 20px;
       background-color: #F8F8F8;
       border: none;
     }
     .popup-top-wrapper {
-      padding: 40px 80px 32px;
+      padding: 34px 40px 24px;
       background-color: #F8F8F8;
       .title-wrapper {
         display: flex;
@@ -2060,7 +2067,7 @@
       }
     }
     .popup-bottom-wrapper {
-      padding: 50px 80px 80px;
+      padding: 24px 40px 40px;
       .popup-main-title {
         color: #0F0F10;
         font-size: 32px;

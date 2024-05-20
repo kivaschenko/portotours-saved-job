@@ -104,14 +104,14 @@
                                 {% else %}
                                 {% endif %}
                                 <div class="image-wrapper">
-                                    {% for object in object_list %}
-                                        <a href="#"
+                                    
+                                        <a href="javascript:void(0)" class="link"
                                            onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'List of Experiences Card Image Click')">
                                             <img src="
                                                     {% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}"
                                                  alt="Card image for {{ object.name }}">
                                         </a>
-                                    {% endfor %}
+                                    
                                 </div>
                             </div>
                             <div class="experience-list-content-wrapper">
@@ -160,7 +160,7 @@
                                <p class="average-rating" style="display: none;">
                                     {{ object.average_rating }}
                                 </p>
-                                <a href="#"
+                                <a href="javascript:void(0)" class="link"
                                    onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'List of Experiences Card Title Click')">
                                     <h5>
                                         {{ object.name }}
