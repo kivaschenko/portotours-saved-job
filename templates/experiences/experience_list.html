@@ -110,8 +110,14 @@
                                 </a>
                             </div>
                             <div class="experience-list-content-wrapper">
+                                {% if object.parent_experience.is_hot_deals %}
+                                <div class="best-seller-badge-wrapper">
+                                    <img src="{% static 'icons/best-seller-icon.svg' %}" alt="best seller">
+                                </div>
+                                {% endif %}
                                 {% if object.review_set.count > 0 %} 
                                 <div class="rating-img-wrapper">
+                                    <p>{{ object.average_rating }}</p>
                                     <div class="rating">
                                         <div class="icon-wrapper">
                                             <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -138,10 +144,11 @@
                                                 <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
                                             </svg>
                                         </div>
-                                      </div>
+                                    </div>
                                 </div>
                                {% else %}
                                <div class="rating-wrapper">
+                                <p>5.0</p>
                                 <img src="{% static 'icons/5-stars-icon.svg' %}" alt="">
                                </div>
                                {% endif %}
@@ -165,26 +172,34 @@
 
                                     <ul class="main-info-list">
                                         <li>
-                                            Duration: {% if object.duration %}{{ object.duration|safe }}{% else %}{% endif %}
+                                            <img src="{% static 'icons/duration-icon.svg' %}" alt="">
+                                            {% if object.duration %}{{ object.duration|safe }}{% else %}{% endif %}
                                         </li>
                                         {% if object.parent_experience.is_private %}
                                             <li>
+                                                <img src="{% static 'icons/private-tour-icon.svg' %}" alt="">
                                                 Private Tour
                                             </li>
+                                        {% else %}
+                                            <li>
+                                                <img src="{% static 'icons/group-tour-icon.svg' %}" alt="">
+                                                Small Group
+                                            </li>
                                         {% endif %}
+                                        <li>
+                                            <img src="{% static 'icons/pick-up-icon.svg' %}" alt="">
+                                            Hotel Pick Up    
+                                        </li>
                                         {% if object.parent_experience.skip_the_line %}
                                             <li>
-                                                Skip-The-Line
+                                                <img src="{% static 'icons/skip-line-icon.svg' %}" alt="">
+                                                Skip-The-Line   
                                             </li>
                                         {% endif %}
-                                        {% if object.parent_experience.likely_to_sell_out %}
-                                            <li>Likely to sell out</li>
-                                        {% endif %}
-                                        {% if object.parent_experience.is_hot_deals %}
-                                            <li>
-                                                Hot Deal
-                                            </li>
-                                        {% endif %}
+                                        
+                                           
+                                        
+                                        
                                     </ul>
                                 </div>
                                 <p class="experience-list-item-text">

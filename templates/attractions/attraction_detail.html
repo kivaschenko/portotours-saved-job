@@ -160,6 +160,7 @@
                                     </div>
                                     {% else %}
                                     <div class="rating-block">
+                                        <p>5.0</p>
                                         <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
                                     </div>
                                     {% endif %}
@@ -200,9 +201,12 @@
                                             From
                                         </p>
                                         {% if experience.parent_experience.increase_percentage_old_price %}
-                                        <p class="old-price">
-                                            € {{ experience.parent_experience.old_price }}
-                                        </p>
+                                            {% if experience.parent_experience.is_private %}
+                                            {% else %}
+                                            <p class="old-price">
+                                                € {{ experience.parent_experience.old_price }}
+                                            </p>
+                                            {% endif %}
                                         {% endif %}
                                         <div class="current-price">
                                             € {{ experience.parent_experience.price_per_person }}
@@ -213,6 +217,11 @@
                                     </div>
                                     {% if experience.parent_experience.is_private %}
                                     <div class="private-tour">
+                                        {% if experience.parent_experience.increase_percentage_old_price %}
+                                        <p class="old-price">
+                                            € {{ experience.parent_experience.old_price }}
+                                        </p>
+                                        {% endif %}
                                         <p class="current-price">
                                             € {{ experience.parent_experience.price }}
                                         </p>

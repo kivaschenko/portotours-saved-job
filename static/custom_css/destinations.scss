@@ -564,6 +564,9 @@
                     }
                     .rating-block {
                         margin-right: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
                         @include media-breakpoint-down(md) {
                             width: 100%;
                             margin-bottom: 5px;
@@ -744,6 +747,15 @@
                         display: flex;
                         align-items: baseline;
                         justify-content: flex-start;
+                        .old-price {
+                            color: #6D6D6D;
+                            font-size: 16px;
+                            line-height: normal;
+                            font-family: 'LatoRegular';
+                            margin-bottom: 0;
+                            margin-right: 10px;
+                            text-decoration: line-through;
+                        }
                         .current-price {
                             color: #6D6D6D;
                             font-size: 20px;

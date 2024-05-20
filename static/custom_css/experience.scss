@@ -339,6 +339,7 @@
         border: 1px solid #d9d9d9;
         @include media-breakpoint-down(md) {
           flex-direction: column;
+          position: relative;
         }
         + .experience-list-item {
           margin-top: 24px;
@@ -379,12 +380,57 @@
           width: calc(100% - 450px);
           padding: 24px 32px 32px 32px;
           border-radius: 0 26px 26px 0;
+          position: relative;
           @include media-breakpoint-down(md) {
             width: 100%;
             padding: 14px;
             border-radius: 0;
+            position: static;
+          }
+          .best-seller-badge-wrapper {
+            position: absolute;
+            top: 0;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            @include media-breakpoint-down(md) {
+              width: 60px;
+              height: 60px;
+              right: 20px;
+            }
+            img {
+              width: 100%;
+              height: 100%;
+              display: block;
+            }
+          }
+          .rating-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 8px;
+            p {
+              color: #0F0F10;
+              font-size: 14px;
+              line-height: normal;
+              font-family: "LatoRegular";
+              margin-right: 8px;
+              margin-bottom: 0;
+            }
           }
           .rating-img-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 8px;
+            p {
+              color: #0F0F10;
+              font-size: 14px;
+              line-height: normal;
+              font-family: "LatoRegular";
+              margin-right: 8px;
+              margin-bottom: 0;
+            }
             .rating {
               display: flex;
               gap: 8px; /* Расстояние между звездами */
@@ -470,17 +516,34 @@
               list-style: none;
               @include media-breakpoint-down(md) {
                 flex-wrap: wrap;
+                justify-content: space-between;
               }
               li {
                 font-family: "LatoRegular";
                 font-size: 14px;
                 line-height: 22px;
-                color: #0F0F10;
-                padding: 5px 10px;
-                border-radius: 30px;
-                border: 1px solid #D6D6D6;
+                color: #6D6D6D;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                @include media-breakpoint-down(md) {
+                  width: calc((100% - 20px)/2);
+                }
                  p {
                   display: inline;
+                  margin: 0;
+                  font-family: "LatoRegular";
+                  font-size: 14px;
+                  line-height: 22px;
+                  color: #6D6D6D !important;
+                  span {
+                    color: #6D6D6D !important;
+                  }
+                 }
+                 img {
+                  width: 20px;
+                  height: 20px;
+                  margin-right: 10px;
                  }
                 @include media-breakpoint-down(md) {
                   margin-bottom: 8px;
@@ -1894,7 +1957,178 @@
     }
   }
 }
-
+.upsale-popup-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  &.opened {
+    display: block;
+  }
+  .popup-inner-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1310px;
+    border-radius: 20px;
+    background-color: white;
+    z-index: 31;
+    overflow: hidden;
+    .close-popup-btn {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      background-color: #F8F8F8;
+      border: none;
+    }
+    .popup-top-wrapper {
+      padding: 40px 80px 32px;
+      background-color: #F8F8F8;
+      .title-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        img {
+          width: 54px;
+          height: 54px;
+          margin-right: 24px;
+        }
+        .popup-title {
+          color: #0F0F10;
+          font-size: 28px;
+          line-height: 36px;
+          font-family: "LatoRegular";
+          margin-top: 0;
+          margin-bottom: 0;
+          margin-right: 62px;
+        }
+        .link-to-cart {
+          width: 240px;
+          text-align: center;
+        }
+      }
+      .booked-tour-info-wrapper {
+        .tour-name {
+          font-size: 20px;
+            line-height: 30px;
+            font-family: "LatoRegular";
+            color: #0F0F10;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .tour-info-list {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          padding-left: 0;
+          list-style: none;
+          li {
+              margin-right: 38px;
+              position: relative;
+              color: #0F0F10 !important;
+                font-size: 16px;
+                line-height: 26px;
+                font-family: "LatoRegular";
+              & * {
+                color: #0F0F10 !important;
+                font-size: 16px;
+                line-height: 26px;
+                font-family: "LatoRegular";
+                margin: 0;
+              }
+              &:not(:last-child) {
+                &::after {
+                  position: absolute;
+                  content: "";
+                  width: 8px;
+                  height: 8px;
+                  background-color: var(--text-color-third);
+                  border-radius: 50%;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  right: -23px;
+                }
+              }
+             
+          }
+        }
+      }
+    }
+    .popup-bottom-wrapper {
+      padding: 50px 80px 80px;
+      .popup-main-title {
+        color: #0F0F10;
+        font-size: 32px;
+        line-height: 42px;
+        font-family: "LatoSemibold";
+        margin-top: 0;
+        margin-bottom: 16px;
+        text-align: center;
+      }
+      .popup-subtitle {
+        color: #0F0F10;
+        font-size: 18px;
+        line-height: normal;
+        font-family: "LatoRegular";
+        margin-top: 0;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .popup-tour-cards-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .tour-type-card {
+          width: calc((100% - 24px) / 2);
+          height: 310px;
+          position: relative;
+          @include media-breakpoint-down(md) {
+            width: 100%;
+            min-height: auto;
+            height: 200px;
+            + .tour-type-card {
+              margin-top: 20px;
+            }
+          }
+          img {
+            width: 100%;
+            height: 100%;
+          }
+          .tour-type-title-btn-wrapper {
+            position: absolute;
+            bottom: 28px;
+            left: 0;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            padding: 0 32px;
+            width: 100%;
+            @include media-breakpoint-down(md) {
+              padding: 0 20px;
+              bottom: 16px;
+            }
+            .tour-type-title {
+              color: white;
+              margin-bottom: 0;
+            }
+            a {
+              padding: 12px 15px;
+              img {
+                width: 24px;
+                height: 24px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 .reviews {
   .container {
     margin-top: 50px;
