@@ -421,7 +421,7 @@ class Experience(models.Model):
         destinations = self.destinations.values_list('name', flat=True)
         if destinations:
             categories = {}
-            for i, dest_name in enumerate(destinations, start=1):
+            for i, dest_name in enumerate(destinations, start=2):
                 key = "item_category" + str(i)
                 categories[key] = dest_name
             items.update(categories)
@@ -451,6 +451,23 @@ class ExperienceEvent(Event):
             self.title,
             self.start.strftime("%d/%m/%Y %H:%M"),
             self.end.strftime("%d/%m/%Y %H:%M"),
+        )
+
+    def __repr__(self):
+        line =("<ExperienceEvent(id={id} start={start} end={end} title={title} max_participants={max_participants} booked_participants={booked_participants} "
+               "remaining_participants={remaining_participants} special_price={special_price} child_special_price={child_special_price} "
+               "total_price={total_price})>")
+        return line.format(
+            id=self.id,
+            start=self.start.strftime("%d/%m/%Y %H:%M"),
+            end=self.end.strftime("%d/%m/%Y %H:%M"),
+            title=self.title,
+            max_participants=self.max_participants,
+            booked_participants=self.booked_participants,
+            remaining_participants=self.remaining_participants,
+            special_price=self.special_price,
+            child_special_price=self.child_special_price,
+            total_price=self.total_price,
         )
 
     def save(self, *args, **kwargs):
