@@ -102,12 +102,17 @@
                                 {% if object.parent_experience.is_exclusive %}
                                     <span class="img-label">Popular! Last booked 2 hours ago</span>
                                 {% else %}
-
                                 {% endif %}
-                                <a target="_blank" class="link" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
-                                    <img src="{% if object.parent_experience.card_image %}
-                                    {{ object.parent_experience.card_image.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
-                                </a>
+                                <div class="image-wrapper">
+                                    {% for object in object_list %}
+                                        <a href="#"
+                                           onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'List of Experiences Card Image Click')">
+                                            <img src="
+                                                    {% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}"
+                                                 alt="Card image for {{ object.name }}">
+                                        </a>
+                                    {% endfor %}
+                                </div>
                             </div>
                             <div class="experience-list-content-wrapper">
                                 {% if object.parent_experience.is_hot_deals %}
@@ -155,7 +160,8 @@
                                <p class="average-rating" style="display: none;">
                                     {{ object.average_rating }}
                                 </p>
-                                <a target="_blank" class="link" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}">
+                                <a href="#"
+                                   onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'List of Experiences Card Title Click')">
                                     <h5>
                                         {{ object.name }}
                                     </h5>
@@ -165,7 +171,7 @@
                                     <span>
                                         {{ object.parent_experience.increase_percentage_old_price }}% discount
                                     </span>
-                                   
+
                                 </div>
 
                                 <div class="experience-type-list-wrapper">
@@ -213,19 +219,20 @@
                                         € {{ object.parent_experience.price }}
                                     </p>
                                 </div>
-                                
+
                                 <div class="btns-wrapper">
-                                    <a target="_blank" href="{% url 'experience-detail'  lang=object.language.code.lower slug=object.slug %}"
-                                        class="experience-link-btn btn-type-1">
+                                    <button type="button" class="experience-link-btn btn-type-1"
+                                            onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'List of Experiences Card Button Click')">
                                         Book now
-                                    </a>
+                                    </button>
                                     {% if object.parent_experience.free_cancellation %}
                                         <p class="free-cancelation-label">
                                             + free cancellation
                                         </p>
                                     {% endif %}
+
                                 </div>
-                                
+
                             </div>
                         </li>
                     {% endfor %}
@@ -286,10 +293,8 @@
                 // Добавляем новые параметры
                 urlParams.set('tour_type', tourType);
                 urlParams.set('filter_by', filterBy);
-
                 // Обновляем URL с параметрами
                 window.history.replaceState(null, null, window.location.pathname + '?' + urlParams.toString());
-
                 // Перезагружаем страницу
                 window.location.reload();
             }
@@ -297,7 +302,6 @@
             // Добавляем обработчики событий для изменений в теге <select>
             document.getElementById('tour_type').addEventListener('change', updateURL);
             document.getElementById('filter_by').addEventListener('change', updateURL);
-
             // Проверяем, есть ли уже параметры в URL, если нет, то добавляем по умолчанию
             var urlParams = new URLSearchParams(window.location.search);
             if (!urlParams.has('tour_type') || !urlParams.has('filter_by')) {
@@ -308,8 +312,6 @@
                 document.getElementById('tour_type').value = tourTypeValue;
                 document.getElementById('filter_by').value = filterByValue;
             }
-
-
             const resetBtn = document.getElementById('reset-btn');
             if (resetBtn) {
                 resetBtn.addEventListener('click', function () {
@@ -320,37 +322,30 @@
             }
         });
     </script>
+    <script>
+        let experienceCardList = document.querySelector('.experiences')
+        let experienceCardListItems = experienceCardList.querySelectorAll('.experience-list-item');
+        experienceCardListItems.forEach((item) => {
+            let averageRating = item.querySelector('.average-rating').textContent;
+            if (averageRating) {
+                function fillStars(rating) {
+                    const iconWrappers = document.querySelectorAll('.icon-wrapper');
+                    const filledStars = Math.floor(rating);
+                    const fraction = rating - filledStars;
 
-<script>
-        
-    let experienceCardList = document.querySelector('.experiences')
-    let experienceCardListItems = experienceCardList.querySelectorAll('.experience-list-item');
-    experienceCardListItems.forEach((item) => {
-    let averageRating = item.querySelector('.average-rating').textContent;
-        console.log(averageRating)
-        if (averageRating) {
-            function fillStars(rating) {
-                const iconWrappers = document.querySelectorAll('.icon-wrapper');
-                const filledStars = Math.floor(rating); 
-                const fraction = rating - filledStars; 
+                    iconWrappers.forEach((iconWrapper, index) => {
+                        if (index < filledStars) {
+                            iconWrapper.querySelector('.star').classList.add('filled');
+                        } else if (index === filledStars) {
+                            iconWrapper.style.setProperty('--fraction', fraction);
+                            iconWrapper.classList.add('partial-fill');
+                        }
+                    });
+                }
 
-                iconWrappers.forEach((iconWrapper, index) => {
-                    if (index < filledStars) {
-                        iconWrapper.querySelector('.star').classList.add('filled'); 
-                    } else if (index === filledStars) {
-                        iconWrapper.style.setProperty('--fraction', fraction); 
-                        iconWrapper.classList.add('partial-fill'); 
-                    }
-                });
+                fillStars(averageRating);
             }
-            fillStars(averageRating);
-        }
-    });
-
-
-
-    
-    
-
-</script>
+        });
+    </script>
+    <script src="{% static 'google_analytics/data_pusher.js' %}"></script>
 {% endblock %}

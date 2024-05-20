@@ -106,7 +106,6 @@ class ExperienceDetailView(DetailView):
         context.setdefault("view", self)
         if self.extra_context is not None:
             context.update(self.extra_context)
-        print(context)
         return context
 
     def get_object(self, queryset=None):
@@ -121,6 +120,7 @@ class ExperienceDetailView(DetailView):
                 lang = brother.language.code.lower()
                 url = brother.localized_url
                 self.extra_context['languages'].update({lang: url})
+        datalayer_items = []
         return obj
 
     def get(self, request, *args, **kwargs):
@@ -607,19 +607,19 @@ def update_private_product(request):
 # 404, 500 ERRORS HANDLERS
 
 def custom_page_not_found_view(request, exception):
-    return render(request, "errors/404.html", {})
+    return render(request, "errors/404.html", {}, status=404)
 
 
 def custom_error_view(request, exception=None):
-    return render(request, "errors/500.html", {})
+    return render(request, "errors/500.html", {}, status=500)
 
 
 def custom_permission_denied_view(request, exception=None):
-    return render(request, "errors/403.html", {})
+    return render(request, "errors/403.html", {}, status=403)
 
 
 def custom_bad_request_view(request, exception=None):
-    return render(request, "errors/400.html", {})
+    return render(request, "errors/400.html", {}, status=400)
 
 
 # PDF Generator

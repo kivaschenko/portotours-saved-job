@@ -815,7 +815,6 @@
             function renderReviews(reviewsData) {
                 const reviewsList = document.getElementById('reviewsList');
                 reviewsList.innerHTML = ''; // Clear existing reviews
-                console.log('Got reviews data: ', reviewsData);
                 reviewsData.forEach(review => {
                     // Create HTML elements for each review and append them to reviewsList
                     const reviewItem = document.createElement('li');

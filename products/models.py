@@ -365,12 +365,12 @@ class Experience(models.Model):
         super(Experience, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('products:experience-detail', kwargs={'lang': self.language.code.lower(),
+        return reverse('experience-detail', kwargs={'lang': self.language.code.lower(),
                                                              'slug': self.slug})
 
     @property
     def localized_url(self):
-        return f"/experiences/{self.language.code.lower()}/{self.slug}/"
+        return f"/{self.language.code.lower()}/experiences/{self.slug}/"
 
     def display_full_description(self):
         return mark_safe(self.full_description)
@@ -407,6 +407,25 @@ class Experience(models.Model):
         else:
             # if no reviews then return None to avoid error in template
             return 0
+
+    @property
+    def ecommerce_items(self):
+        type_of_tour = 'Group tour' if self.parent_experience.is_private else 'Private tour'
+        items = {
+            'item_id': self.id,
+            'item_name': self.name,
+            'item_category': type_of_tour,
+            'item_language': self.language.code,
+            "item_list_name": 'Experience'
+        }
+        destinations = self.destinations.values_list('name', flat=True)
+        if destinations:
+            categories = {}
+            for i, dest_name in enumerate(destinations, start=1):
+                key = "item_category" + str(i)
+                categories[key] = dest_name
+            items.update(categories)
+        return items
 
 
 class ExperienceEvent(Event):
