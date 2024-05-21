@@ -13,11 +13,11 @@ WORKDIR /app/
 
 # Add GDAL libs
 RUN apt-get update \
-    && apt-get install -y sudo \
-    && sudo apt-get install -y binutils libgdal-dev \
-    && sudo apt-get install -y redis-server \
-    && sudo apt-get clean \
-    && sudo rm -rf /var/lib/apt/lists/*
+    && apt-get install -y binutils libgdal-dev \
+    && apt-get install -y graphviz graphviz-dev \
+    && apt-get install -y redis-server \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
 COPY requirements.txt /app/
@@ -31,7 +31,7 @@ RUN mkdir -p /app/log && touch /app/log/portotours.log
 
 # Collect static files and migrate database
 RUN python manage.py collectstatic --noinput
-#RUN python manage.py migrate
+# RUN python manage.py migrate
 
 # Expose the port that Django will run on
 EXPOSE 8000

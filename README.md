@@ -6,10 +6,34 @@ Under development still...
 # Installation
 
 ## Development mode
+### Linux
 This project uses PostGis extension for Postgresql DB because you should install
 [GDAL libraries](https://docs.djangoproject.com/en/5.0/ref/contrib/gis/gdal/) to your local machine, for Linux example:
 ```
 sudo apt-get install binutils libproj-dev gdal-bin
+```
+
+And for using django-extensions lib:
+```
+sudo apt-get install graphviz graphviz-dev
+```
+
+### macOS
+We recommend installing Graphviz using the Homebrew package manager or MacPorts for macOS.
+
+```
+brew install graphviz
+pip install pygraphviz
+```
+Graphviz may be installed in a location that is not on the default search path. In this case, it may be necessary to manually specify 
+the path to the graphviz include and/or library directories, e.g.
+
+[PyGraphviz docs](https://pygraphviz.github.io/documentation/stable/install.html)
+```
+pip install --config-settings="--global-option=build_ext" \
+            --config-settings="--global-option=-I$(brew --prefix graphviz)/include/" \
+            --config-settings="--global-option=-L$(brew --prefix graphviz)/lib/" \
+            pygraphviz
 ```
 
 Go to root directory:
