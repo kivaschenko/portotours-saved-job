@@ -21,7 +21,7 @@ class ExperienceSearchForm(forms.Form):
 
     def __init__(self, lang, *args, initial_data=None, **kwargs):
         super(ExperienceSearchForm, self).__init__(*args, **kwargs)
-        self.fields['place'] = forms.ChoiceField(choices=(('', 'Choose place'),), required=False)
+        self.fields['place'] = forms.ChoiceField(choices=(('', 'Choose destination'),), required=False)
         destinations = cache.get('destinations_{}'.format(lang))
         if not destinations:
             all_active_experiences = Experience.active.all()

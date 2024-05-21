@@ -4,10 +4,10 @@ from accounts.models import Profile
 from products.models import ParentExperience, Experience
 
 
-
 class ApprovedReviewManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(approved=True)
+
 
 class Review(models.Model):
     experience = models.ForeignKey(Experience, on_delete=models.SET_NULL, null=True, blank=True)
@@ -28,6 +28,7 @@ class Review(models.Model):
 
     objects = models.Manager()
     approved_only = ApprovedReviewManager()
+
     class Meta:
         ordering = ('-created_at',)
 
@@ -46,7 +47,7 @@ class Testimonial(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('-updated_at', )
+        ordering = ('-updated_at',)
 
     def __str__(self):
         return f'{self.id} - {self.profile}'

@@ -33,8 +33,8 @@ class ParentAttraction(models.Model):
     card image and link between attraction details page languages.
     """
     parent_name = models.CharField(max_length=60, unique=True, db_index=True)
-    priority_number = models.IntegerField(null=True, blank=True, default=0,
-                                          help_text="number for ordering in list on page by default")
+    priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
+                                          help_text="The higher the value of the priority number, the higher it appears in the list")
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
     tags = models.ManyToManyField(TagAttraction)
     slider_image_1 = models.FileField(upload_to='media/sliders/', null=True, blank=True)
@@ -51,7 +51,7 @@ class ParentAttraction(models.Model):
         return self.parent_name
 
     class Meta:
-        ordering = ('parent_name',)
+        ordering = ('-priority_number',)
         verbose_name = 'Parent Attraction'
         verbose_name_plural = 'Parent Attractions'
 

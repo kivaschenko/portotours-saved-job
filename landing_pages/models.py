@@ -33,7 +33,8 @@ class LandingPage(models.Model):
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True,
                               help_text="Banner image, this image will be cropped and scaled max width: 1920 and max height: 460")
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
-    priority_number = models.IntegerField(null=True, blank=True, default=0)
+    priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
+                                          help_text="The higher the value of the priority number, the higher it appears in the list")
     is_active = models.BooleanField(default=True)
     show_in_navbar = models.BooleanField(default=False, help_text="Include in the navbar")
     title_related_landing_pages = models.CharField(max_length=255, blank=True, null=True, help_text="Title of the landing page, max 255 characters",)

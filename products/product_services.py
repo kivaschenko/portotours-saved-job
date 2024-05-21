@@ -164,3 +164,9 @@ def search_experience_by_place_start_lang(place: str, start_date: str, current_l
 
     return experiences
 
+
+def get_actual_experience_events_from_current_day(parent_experience: ParentExperience) -> QuerySet:
+    events = ExperienceEvent.objects.get_for_object(parent_experience).filter(start__gt=timezone.now()).filter(remaining_participants__gt=0)
+    return events
+
+

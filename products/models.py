@@ -190,8 +190,8 @@ class ParentExperience(models.Model):
     slug = models.SlugField(unique=True, db_index=True, editable=True, max_length=255, blank=True, help_text='Unique, max 255 characters.')
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
-    priority_number = models.IntegerField(null=True, blank=True, default=0,
-                                          help_text="Priority number using for ordering in recommendation queue")
+    priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
+                                          help_text="The higher the value of the priority number, the higher it appears in the list")
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0, help_text="Price for this experience: if it's private then whole total price else "
                                                                                       "- base adult price will be.")
     child_discount = models.PositiveSmallIntegerField(null=True, blank=True, default=33,
@@ -245,7 +245,7 @@ class ParentExperience(models.Model):
         return self.parent_name
 
     class Meta:
-        ordering = ('parent_name',)
+        ordering = ('-priority_number',)
         verbose_name_plural = 'Parent Experiences'
 
     def save(self, *args, **kwargs):
@@ -476,6 +476,10 @@ class ExperienceEvent(Event):
         if not self.creator_id:
             self.creator_id = 1
         super().save(*args, **kwargs)
+
+    @property
+    def hours(self):
+        return float(self.seconds) / 3600
 
     @property
     def start_date(self):
