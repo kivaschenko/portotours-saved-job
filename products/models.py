@@ -478,6 +478,10 @@ class ExperienceEvent(Event):
         super().save(*args, **kwargs)
 
     @property
+    def hours(self):
+        return float(self.seconds) / 3600
+
+    @property
     def start_date(self):
         return self.start.strftime("%Y-%m-%d")
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'corsheaders',
+    'django_extensions',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',

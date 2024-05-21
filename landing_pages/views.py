@@ -1,7 +1,8 @@
 from django.views.generic import DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils import timezone
 
-from products.models import Experience, ParentExperience
+from products.models import Experience, ParentExperience, ExperienceEvent
 from reviews.models import Testimonial
 from destinations.models import Destination
 
@@ -41,6 +42,17 @@ class LandingPageView(DetailView):
                 }.get(sort_by)
                 if order_by_field:
                     experiences_queryset = experiences_queryset.order_by(order_by_field)
+            time_of_day = self.request.GET.get('time_of_day', 'all')
+            if time_of_day != 'all':
+                queryset_events = ExperienceEvent.objects.filter(start__day__ge=timezone.now()).filter(remaining_participants__gte=1)
+                if time_of_day == 'morning':
+                    queryset_events = queryset_events.filter(start__hour__lt=12)
+                elif time_of_day == 'afternoon':
+                    queryset_events = queryset_events.filter(start__hour__gte=12, start__hour__lt=17)
+                elif time_of_day == 'evening':
+                    queryset_events = queryset_events.filter(start__hour__gte=17)
+                events_idx = queryset_events.values_list('id', flat=True)
+
             if self.object.destinations.all():
                 experiences_queryset = experiences_queryset.filter(destinations__in=self.object.destinations.all())
                 destinations = self.object.destinations.values_list('slug', 'name')
