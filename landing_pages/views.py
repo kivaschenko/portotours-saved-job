@@ -82,9 +82,9 @@ class LandingPageView(DetailView):
                 experiences_to_remove = []
                 duration_filters = {
                     '0-1': {'duration__lte': timedelta(hours=1)},
-                    '1-4': {'duration__gt': timedelta(hours=1), 'duration__lte': 4},
-                    '4-10': {'duration__gt': timedelta(hours=4), 'duration__lte': 10},
-                    '24-72': {'duration__gt': timedelta(hours=24), 'duration__lte': 72},
+                    '1-4': {'duration__gt': timedelta(hours=1), 'duration__lte': timedelta(hours=4)},
+                    '4-10': {'duration__gt': timedelta(hours=4), 'duration__lte': timedelta(hours=10)},
+                    '24-72': {'duration__gt': timedelta(hours=24), 'duration__lte': timedelta(hours=72)},
                 }
                 duration_filter = duration_filters.get(duration, {})
                 for experience in experiences_queryset:
