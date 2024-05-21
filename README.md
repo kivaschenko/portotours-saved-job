@@ -12,6 +12,11 @@ This project uses PostGis extension for Postgresql DB because you should install
 sudo apt-get install binutils libproj-dev gdal-bin
 ```
 
+And for using django-extensions lib:
+```
+sudo apt-get install graphviz graphviz-dev
+```
+
 Go to root directory:
 ```
 cd portotours
