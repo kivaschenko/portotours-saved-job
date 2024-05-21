@@ -15,6 +15,7 @@ WORKDIR /app/
 RUN apt-get update \
     && apt-get install -y sudo \
     && sudo apt-get install -y binutils libgdal-dev \
+    && sudo apt-get install graphviz graphviz-dev \
     && sudo apt-get install -y redis-server \
     && sudo apt-get clean \
     && sudo rm -rf /var/lib/apt/lists/*
