@@ -5,6 +5,8 @@ from django.views.generic import DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 
+from schedule.models import EventRelation
+
 from products.models import Experience, ParentExperience, ExperienceEvent
 from reviews.models import Testimonial
 from destinations.models import Destination
@@ -33,11 +35,10 @@ class LandingPageView(DetailView):
             experiences_queryset = Experience.objects.filter(
                 pk__in=[exp.pk for exp in experiences]
             )
-
             tour_type = self.request.GET.get('tour_type', 'all')
             if tour_type in ['private', 'group']:
                 experiences_queryset = experiences_queryset.filter(
-                    parent_experience__is_private=(tour_type=='private')
+                    parent_experience__is_private=(tour_type == 'private')
                 )
 
             sort_by = self.request.GET.get('filter_by', 'all')
@@ -51,28 +52,34 @@ class LandingPageView(DetailView):
                 if order_by_field:
                     experiences_queryset = experiences_queryset.order_by(order_by_field)
 
+            start = timezone.now()
+            end = start + timezone.timedelta(days=30)
+
             time_of_day = self.request.GET.get('time_of_day', 'all')
             if time_of_day != 'all':
+                experiences_to_remove = []
                 time_filters = {
                     'morning': {'start__hour__lt': 12},
                     'afternoon': {'start__hour__gte': 12, 'start__hour__lte': 17},
                     'evening': {'start__hour__lte': 17},
                 }
-                queryset_events = ExperienceEvent.objects.filter(
-                    start__gte=timezone.now(),
-                    remaining_participants__gte=1,
-                    **time_filters.get(time_of_day, {})
-                )
-                event_experience_ids = queryset_events.values_list('id', flat=True)
-                experiences_queryset = experiences_queryset.filter(id__in=event_experience_ids)
-            else:
-                queryset_events = ExperienceEvent.objects.filter(
-                    start__gte=timezone.now(),
-                    remaining_participants__gte=1,
-                )
+                for experience in experiences_queryset:
+                    events = EventRelation.objects.get_events_for_object(
+                        experience.parent_experience, distinction='experience event'
+                    ).filter(
+                        start__range=(start, end), experienceevent__remaining_participants__gte=1
+                    ).filter(
+                        **time_filters.get(time_of_day, {})
+                    )
+                    if not events.exists():
+                        experiences_to_remove.append(experience)
+
+                if experiences_to_remove:
+                    experiences_queryset = experiences_queryset.exclude(pk__in=[exp.pk for exp in experiences_to_remove])
 
             duration = self.request.GET.get('duration', 'all')
             if duration != 'all':
+                experiences_to_remove = []
                 duration_filters = {
                     '0-1': {'duration__lte': timedelta(hours=1)},
                     '1-4': {'duration__gt': timedelta(hours=1), 'duration__lte': 4},
@@ -80,11 +87,21 @@ class LandingPageView(DetailView):
                     '24-72': {'duration__gt': timedelta(hours=24), 'duration__lte': 72},
                 }
                 duration_filter = duration_filters.get(duration, {})
-                queryset_events = queryset_events.annotate(
-                    duration=ExpressionWrapper(F('end') - F('start'), output_field=DurationField())
-                ).filter(**duration_filter)
-                event_experience_ids = queryset_events.values_list('experience_id', flat=True)
-                experiences_queryset = experiences_queryset.filter(id__in=event_experience_ids)
+                for experience in experiences_queryset:
+                    events = EventRelation.objects.get_events_for_object(
+                        experience.parent_experience, distinction='experience event'
+                    ).filter(
+                        start__range=(start, end), experienceevent__remaining_participants__gte=1
+                    ).annotate(
+                        duration=ExpressionWrapper(F('end') - F('start'), output_field=DurationField())
+                    ).filter(
+                        **duration_filter
+                    )
+                    if not events.exists():
+                        experiences_to_remove.append(experience)
+
+                if experiences_to_remove:
+                    experiences_queryset = experiences_queryset.exclude(pk__in=[exp.pk for exp in experiences_to_remove])
 
             if self.object.destinations.all():
                 experiences_queryset = experiences_queryset.filter(destinations__in=self.object.destinations.all())
@@ -111,5 +128,3 @@ class LandingPageView(DetailView):
         context['experiences'] = experiences_paginated
         context['testimonials'] = Testimonial.objects.all()[:6]
         return context
-
-
