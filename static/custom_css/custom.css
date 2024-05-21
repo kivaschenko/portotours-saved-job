@@ -9488,7 +9488,7 @@ html.off-scroll body {
     position: relative; }
     @media (max-width: 767.98px) {
       .home-hero .container {
-        padding: 32px 0; } }
+        padding: 0; } }
     .home-hero .container .hero-title {
       color: white;
       font-family: "LatoSemiBold";
@@ -9502,8 +9502,8 @@ html.off-scroll body {
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover;
-          padding-top: 50px;
-          padding-bottom: 45px;
+          padding-top: 32px;
+          padding-bottom: 32px;
           font-size: 18px;
           line-height: normal;
           margin-bottom: 0; } }
@@ -9520,9 +9520,15 @@ html.off-scroll body {
             line-height: normal;
             margin-bottom: 4px;
             margin-top: 2px; } }
+      .home-hero .container .hero-title img.logo-mobile {
+        display: none; }
       @media (max-width: 767.98px) {
         .home-hero .container .hero-title img {
-          width: 270px; } }
+          width: 270px; }
+          .home-hero .container .hero-title img.logo-desktop {
+            display: none; }
+          .home-hero .container .hero-title img.logo-mobile {
+            display: block; } }
     .home-hero .container .experience-list-hero-calendar {
       position: absolute;
       bottom: 40px;
@@ -9581,6 +9587,9 @@ html.off-scroll body {
             left: 24px;
             z-index: 3;
             display: none; }
+            @media (max-width: 767.98px) {
+              .home-hero .container .experience-list-hero-calendar form .place-wrapper label {
+                display: block; } }
           .home-hero .container .experience-list-hero-calendar form .place-wrapper select {
             border-radius: 42px;
             border: 1px solid #d9d9d9;
@@ -9641,6 +9650,9 @@ html.off-scroll body {
             left: 24px;
             z-index: 3;
             display: none; }
+            @media (max-width: 767.98px) {
+              .home-hero .container .experience-list-hero-calendar form .date-wrapper label {
+                display: block; } }
           .home-hero .container .experience-list-hero-calendar form .date-wrapper input {
             border-radius: 42px;
             border: 1px solid #d9d9d9;
@@ -15521,3 +15533,5 @@ a {
       margin: 0 auto;
       display: block;
       text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */
