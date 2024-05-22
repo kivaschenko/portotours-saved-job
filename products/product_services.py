@@ -155,18 +155,14 @@ def search_experience_by_place_start_lang(place: str, start_date: str, current_l
         start = timezone.datetime.strptime(start_date, "%Y-%m-%d") - timezone.timedelta(days=2)
         end = start + timezone.timedelta(days=30)
         for experience in experiences:
-            events = EventRelation.objects.get_events_for_object(experience.parent_experience, distinction='experience event').filter(start__range=(start, end),
-                                                                                                                                      experienceevent__remaining_participants__gte=1)
+            events = EventRelation.objects.get_events_for_object(
+                experience.parent_experience, distinction='experience event'
+            ).filter(
+                start__range=(start, end), experienceevent__remaining_participants__gte=1
+            )
             if not events.exists():
                 experiences_to_remove.append(experience)
     if experiences_to_remove:
         experiences = experiences.exclude(pk__in=[exp.pk for exp in experiences_to_remove])
 
     return experiences
-
-
-def get_actual_experience_events_from_current_day(parent_experience: ParentExperience) -> QuerySet:
-    events = ExperienceEvent.objects.get_for_object(parent_experience).filter(start__gt=timezone.now()).filter(remaining_participants__gt=0)
-    return events
-
-

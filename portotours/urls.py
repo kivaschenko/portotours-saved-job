@@ -1,11 +1,9 @@
 from django.contrib import admin
-from django.urls import path, include, reverse_lazy
-from django.views.generic import RedirectView
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
-import reviews
 from accounts import views as accounts_views
 from destinations import views as destinations_views
 from attractions import views as attractions_views
