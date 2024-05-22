@@ -183,7 +183,7 @@ def checkout_payment_intent_view(request):
             "currency": "eur",
             "payment_method_types": [
                 "card",
-                # "apple_pay",
+                "apple_pay",
                 # "google_pay",
                 "paypal",
                 "klarna"
@@ -192,9 +192,9 @@ def checkout_payment_intent_view(request):
                 "card": {
                     "request_three_d_secure": "automatic"
                 },
-                # "apple_pay": {
-                #     # Apple Pay specific options if needed
-                # },
+                "apple_pay": {
+                    # Apple Pay specific options if needed
+                },
                 # "google_pay": {
                 #     # Google Pay specific options if needed
                 # },
