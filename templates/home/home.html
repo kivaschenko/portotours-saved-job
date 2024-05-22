@@ -6,7 +6,8 @@
     <section class="home-hero">
         <div class="container">
             <h1 class="hero-title">
-                <img src="{% static 'images/homepage-title.svg' %}" alt="logo">
+                <img class="logo-desktop" src="{% static 'images/homepage-title.svg' %}" alt="logo">
+                <img class="logo-mobile" src="{% static 'images/homepage-title-mob.svg' %}" alt="logo">
             </h1>
             <div class="experience-list-hero-calendar">
                 <form action="{% url 'experience-list' lang=current_language %}" method="get">
@@ -160,7 +161,7 @@
                                         {% else %}
                                             <li>
                                                 <img src="{% static 'icons/group-tour-icon.svg' %}" alt="">
-                                                Small Group
+                                                Small Groups
                                             </li>
                                         {% endif %}
                                     </ul>
@@ -217,7 +218,7 @@
             <div class="tour-type-card">
                 <img src="{% static 'images/tour-type-img1.png' %}" alt="">
                 <div class="tour-type-title-btn-wrapper">
-                    <h4 class="tour-type-title">Small Group</h4>
+                    <h4 class="tour-type-title">Small Groups</h4>
                     <a href="#" target="_blank" class="btn-type-3" onclick="addTypeIsGroupAndNavigate(event, '{{ current_language }}')">
                         Learn more
                         <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="">
@@ -482,34 +483,25 @@
         });
     </script>
     <script>
-        // Получаем элемент input
         const dateInput = document.getElementById('id_date');
     
-        // Получаем сегодняшнюю дату
         const today = new Date();
     
-        // Получаем день, месяц и год
-        const day = today.getDate().toString().padStart(2, '0'); // Добавляем ведущий ноль, если число однозначное
-        const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Месяцы начинаются с 0
+        const day = today.getDate().toString().padStart(2, '0'); 
+        const month = (today.getMonth() + 1).toString().padStart(2, '0'); 
         const year = today.getFullYear();
     
-        // Форматируем дату в формате dd.MM.yyyy
         const formattedDate = `${year}-${month}-${day}`;
     
-        // Устанавливаем значение элементу input
         dateInput.value = formattedDate;
-      </script>
+    </script>
     <script>
-        // Here functions for complex navigation links with query params
         function addTypeIsGroupAndNavigate(event, lang) {
-            // Redirection to the experiences list filtered by is_private=False
-            event.preventDefault(); // Prevent default link behavior
+            event.preventDefault(); 
             const url = `/${lang}/experiences/?tour_type=group&filter_by=all`;
-            window.location.href = url; // Navigate to the URL with added parameters
+            window.location.href = url; 
         }
-
         function addTypeIsPrivateAndNavigate(event, lang) {
-            // Redirection to the experiences list filtered by is_private=True
             event.preventDefault();
             const url = `/${lang}/experiences/?tour_type=private&filter_by=all`;
             window.location.href = url;

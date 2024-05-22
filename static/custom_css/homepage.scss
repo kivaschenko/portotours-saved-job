@@ -12,7 +12,7 @@
     text-align: center;
     position: relative;
     @include media-breakpoint-down(md) {
-      padding: 32px 0;
+      padding:0;
     }
     .hero-title {
       color: white;
@@ -26,8 +26,8 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        padding-top: 50px;
-        padding-bottom: 45px;
+        padding-top: 32px;
+        padding-bottom: 32px;
         font-size: 18px;
         line-height: normal;
         margin-bottom: 0;
@@ -47,9 +47,17 @@
         }
       }
       img {
-        
+        &.logo-mobile {
+          display: none;
+        }
         @include media-breakpoint-down(md) {
           width: 270px;
+          &.logo-desktop {
+            display: none;
+          }
+          &.logo-mobile {
+            display: block;
+          }
         }
       }
     }
@@ -112,6 +120,9 @@
             left: 24px;
             z-index: 3;
             display: none;
+            @include media-breakpoint-down(md) {
+              display: block;
+            }
           }
           select {
             border-radius: 42px;
@@ -177,6 +188,9 @@
             left: 24px;
             z-index: 3;
             display: none;
+            @include media-breakpoint-down(md) {
+              display: block;
+            }
           }
           input {
             border-radius: 42px;
@@ -268,7 +282,7 @@
     
   }
   .container {
-    padding-top: 20px;
+    padding-top: 70px;
     padding-bottom: 46px;
     text-align: center;
     @include media-breakpoint-down(md) {
@@ -282,7 +296,7 @@
       }
     }
     .why-subtitle {
-      margin-bottom: 20px;
+      margin-bottom: 40px;
       @include media-breakpoint-down(md) {
         margin-bottom: 24px;
         font-size: 14px;
@@ -348,7 +362,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 60px;
+      margin-bottom: 50px;
       @include media-breakpoint-down(md) {
         flex-direction: column;
         margin-bottom: 24px;
@@ -757,7 +771,7 @@
 
 .top-attractions-slider-section {
   .container {
-    padding-top: 40px;
+    padding-top: 60px;
     padding-bottom: 20px;
     text-align: center;
     max-width: 100%;
@@ -965,7 +979,7 @@
 
 .homepage-top-destinations {
   .container {
-    padding-top: 40px;
+    padding-top: 60px;
     padding-bottom: 0px;
     @include media-breakpoint-down(md) {
       padding-top: 0;
@@ -1100,7 +1114,7 @@
     }
   }
   .container {
-    padding-top: 40px;
+    padding-top: 70px;
     padding-bottom: 70px;
     text-align: center;
     @include media-breakpoint-down(md) {
