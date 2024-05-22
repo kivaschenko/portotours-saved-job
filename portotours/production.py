@@ -335,3 +335,4 @@ CORS_ORIGIN_WHITELIST = [
     'https://www.onedaytours.pt',
     # Add other allowed origins here if needed
 ]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

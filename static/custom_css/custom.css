@@ -8733,7 +8733,7 @@ html.off-scroll body {
       padding: 19px 0; } }
 .all-about .container {
   max-width: 1090px;
-  padding-top: 0px;
+  padding-top: 50px;
   padding-bottom: 0px;
   text-align: center; }
   @media (max-width: 767.98px) {
@@ -8931,7 +8931,7 @@ html.off-scroll body {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      margin-bottom: 40px; }
+      margin-bottom: 0px; }
       @media (max-width: 767.98px) {
         .also-interested .container .also-interested-cards-wrapper {
           align-items: center;
@@ -9293,13 +9293,13 @@ html.off-scroll body {
 
 @media (max-width: 767.98px) {
   .destination-list-hero {
-    background-image: url(../images/destination-list-hero-img-mob.png);
+    background-image: url(../images/destination-list-hero-img-mob.jpeg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat; } }
 
 .destination-list-hero .container {
-  background-image: url(../images/destination-list-hero-img.png);
+  background-image: url(../images/experience-hero.png);
   overflow: hidden;
   background-position: center;
   background-size: cover;
@@ -9488,7 +9488,7 @@ html.off-scroll body {
     position: relative; }
     @media (max-width: 767.98px) {
       .home-hero .container {
-        padding: 32px 0; } }
+        padding: 0; } }
     .home-hero .container .hero-title {
       color: white;
       font-family: "LatoSemiBold";
@@ -9502,8 +9502,8 @@ html.off-scroll body {
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover;
-          padding-top: 50px;
-          padding-bottom: 45px;
+          padding-top: 32px;
+          padding-bottom: 32px;
           font-size: 18px;
           line-height: normal;
           margin-bottom: 0; } }
@@ -9520,9 +9520,15 @@ html.off-scroll body {
             line-height: normal;
             margin-bottom: 4px;
             margin-top: 2px; } }
+      .home-hero .container .hero-title img.logo-mobile {
+        display: none; }
       @media (max-width: 767.98px) {
         .home-hero .container .hero-title img {
-          width: 270px; } }
+          width: 270px; }
+          .home-hero .container .hero-title img.logo-desktop {
+            display: none; }
+          .home-hero .container .hero-title img.logo-mobile {
+            display: block; } }
     .home-hero .container .experience-list-hero-calendar {
       position: absolute;
       bottom: 40px;
@@ -9581,6 +9587,9 @@ html.off-scroll body {
             left: 24px;
             z-index: 3;
             display: none; }
+            @media (max-width: 767.98px) {
+              .home-hero .container .experience-list-hero-calendar form .place-wrapper label {
+                display: block; } }
           .home-hero .container .experience-list-hero-calendar form .place-wrapper select {
             border-radius: 42px;
             border: 1px solid #d9d9d9;
@@ -9641,6 +9650,9 @@ html.off-scroll body {
             left: 24px;
             z-index: 3;
             display: none; }
+            @media (max-width: 767.98px) {
+              .home-hero .container .experience-list-hero-calendar form .date-wrapper label {
+                display: block; } }
           .home-hero .container .experience-list-hero-calendar form .date-wrapper input {
             border-radius: 42px;
             border: 1px solid #d9d9d9;
@@ -9701,7 +9713,7 @@ html.off-scroll body {
       margin-top: 10px; }
 
 .why .container {
-  padding-top: 20px;
+  padding-top: 70px;
   padding-bottom: 46px;
   text-align: center; }
   @media (max-width: 767.98px) {
@@ -9714,7 +9726,7 @@ html.off-scroll body {
       .why .container .why-title {
         margin-bottom: 14px; } }
   .why .container .why-subtitle {
-    margin-bottom: 20px; }
+    margin-bottom: 40px; }
     @media (max-width: 767.98px) {
       .why .container .why-subtitle {
         margin-bottom: 24px;
@@ -9771,7 +9783,7 @@ html.off-scroll body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 60px; }
+    margin-bottom: 50px; }
     @media (max-width: 767.98px) {
       .best-tours .container .title-btn-wrapper {
         flex-direction: column;
@@ -10107,7 +10119,7 @@ html.off-scroll body {
           height: 24px; }
 
 .top-attractions-slider-section .container {
-  padding-top: 40px;
+  padding-top: 60px;
   padding-bottom: 20px;
   text-align: center;
   max-width: 100%; }
@@ -10279,7 +10291,7 @@ html.off-scroll body {
       height: 14px; }
 
 .homepage-top-destinations .container {
-  padding-top: 40px;
+  padding-top: 60px;
   padding-bottom: 0px; }
   @media (max-width: 767.98px) {
     .homepage-top-destinations .container {
@@ -10388,7 +10400,7 @@ html.off-scroll body {
     padding-top: 25px; } }
 
 .testimonials-slider-section .container {
-  padding-top: 40px;
+  padding-top: 70px;
   padding-bottom: 70px;
   text-align: center; }
   @media (max-width: 767.98px) {
@@ -10777,7 +10789,7 @@ html.off-scroll body {
 
 @media (max-width: 767.98px) {
   .attraction-list-hero {
-    background-image: url(../images/destination-list-hero-img-mob.png);
+    background-image: url(../images/destination-list-hero-img-mob.jpeg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat; } }
@@ -10785,7 +10797,7 @@ html.off-scroll body {
 .attraction-list-hero .container {
   padding-top: 115px;
   padding-bottom: 80px;
-  background-image: url(../images/destination-list-hero-img.png);
+  background-image: url(../images/experience-hero.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -11096,7 +11108,7 @@ html.off-scroll body {
     text-transform: capitalize; }
     @media (max-width: 767.98px) {
       .experience-list-hero .container .experience-list-hero-title {
-        background-image: url(../images/destination-list-hero-img-mob.png);
+        background-image: url(../images/destination-list-hero-img-mob.jpeg);
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
@@ -13113,7 +13125,7 @@ html.off-scroll body {
   max-width: 100%; }
   @media (max-width: 767.98px) {
     .blog-hero .container {
-      background-image: url(../images/destination-list-hero-img-mob.png);
+      background-image: url(../images/destination-list-hero-img-mob.jpeg);
       padding-top: 81px;
       padding-bottom: 81px;
       margin-top: 0; } }
@@ -13328,6 +13340,15 @@ html.off-scroll body {
   overflow: hidden;
   padding: 285px 87px 60px;
   max-width: 100%; }
+  .blog-detail-hero .container::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 0.3); }
   @media (max-width: 767.98px) {
     .blog-detail-hero .container {
       margin-top: 0;
@@ -15339,26 +15360,29 @@ html.off-scroll body {
         width: 100%; } }
   .best-tours .title-btn-wrapper.ppc-title-btn-wrapper .filter-wrapper {
     display: flex;
-    align-items: center;
-    justify-content: space-between; }
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column; }
     @media (max-width: 767.98px) {
       .best-tours .title-btn-wrapper.ppc-title-btn-wrapper .filter-wrapper {
-        width: 100%; }
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between; }
         .best-tours .title-btn-wrapper.ppc-title-btn-wrapper .filter-wrapper:first-child .experience-filter-title {
           margin-right: 43px; } }
     .best-tours .title-btn-wrapper.ppc-title-btn-wrapper .filter-wrapper + .filter-wrapper {
-      margin-left: 40px; }
+      margin-left: 24px; }
       @media (max-width: 767.98px) {
         .best-tours .title-btn-wrapper.ppc-title-btn-wrapper .filter-wrapper + .filter-wrapper {
           margin-left: 0;
           margin-top: 18px; } }
     .best-tours .title-btn-wrapper.ppc-title-btn-wrapper .filter-wrapper .experience-filter-title {
       margin-right: 24px;
-      font-size: 18px;
-      line-height: 28px;
+      font-size: 16px;
+      line-height: 26px;
       font-family: "LatoRegular";
-      color: #0f0f10;
-      margin-bottom: 0; }
+      color: #6D6D6D;
+      margin-bottom: 6px; }
     .best-tours .title-btn-wrapper.ppc-title-btn-wrapper .filter-wrapper select {
       padding: 9px 50px 9px 16px;
       border-radius: 6px;

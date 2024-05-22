@@ -322,7 +322,7 @@ if DEBUG is True:
     # Check if the platform is macOS
     if current_platform == 'Darwin':
         print("The current operating system is macOS. Using another path for GDAL support.")
-        GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', '/opt/homebrew/Cellar/gdal/3.8.5/lib/libgdal.dylib')
+        GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', '/opt/homebrew/Cellar/gdal/3.9.0_1/lib/libgdal.dylib')
         GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', '/opt/homebrew/Cellar/geos/3.12.1/lib/libgeos_c.dylib')
     else:
         print("The current operating system is not macOS.")

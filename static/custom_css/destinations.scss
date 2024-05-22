@@ -250,7 +250,7 @@
 .all-about {
     .container {
         max-width: 1090px;
-        padding-top: 0px;
+        padding-top: 50px;
         padding-bottom: 0px;
         text-align: center;
         @include media-breakpoint-down(md) {
@@ -500,7 +500,7 @@
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
-            margin-bottom: 40px;
+            margin-bottom: 0px;
             @include media-breakpoint-down(md) {
                 align-items: center;
                 flex-direction: column;
@@ -941,13 +941,13 @@
 
 .destination-list-hero {
     @include media-breakpoint-down(md) {
-        background-image: url(../images/destination-list-hero-img-mob.png);
+        background-image: url(../images/destination-list-hero-img-mob.jpeg);
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
     }
     .container {
-        background-image: url(../images/destination-list-hero-img.png);
+        background-image: url(../images/experience-hero.png);
         overflow: hidden;
         background-position: center;
         background-size: cover;

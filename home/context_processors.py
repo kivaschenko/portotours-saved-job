@@ -49,4 +49,6 @@ def canonical_url(request):
     match = resolve(request.path_info)
     canonical_path = reverse(match.view_name, args=match.args, kwargs=match.kwargs)
     url = request.build_absolute_uri(canonical_path)
+    # Ensure the URL uses HTTPS
+    url = url.replace('http://', 'https://')
     return {'canonical_url': url}

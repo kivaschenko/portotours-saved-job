@@ -11,7 +11,7 @@
     overflow: hidden;
     max-width: 100%;
     @include media-breakpoint-down(md) {
-     background-image: url(../images/destination-list-hero-img-mob.png);
+     background-image: url(../images/destination-list-hero-img-mob.jpeg);
      padding-top: 81px;
      padding-bottom: 81px;
      margin-top: 0;
@@ -287,6 +287,16 @@
     overflow: hidden;
     padding: 285px 87px 60px;
     max-width: 100%;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      z-index: -1;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
     @include media-breakpoint-down(md) {
         margin-top: 0;
         margin-bottom: 24px;
