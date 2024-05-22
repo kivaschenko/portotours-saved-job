@@ -25,13 +25,13 @@ class LandingPageView(DetailView):
         context['current_language'] = lang
         parent_experiences = ParentExperience.objects.filter(categories=self.object.category)
 
-        experiences = parent_experiences.prefetch_related(
-            'child_experiences').filter(
-            child_experiences__is_active=True,
-            child_experiences__language__code=lang.upper()
-        ).distinct()
+        experiences = []
+        for par_exp in parent_experiences:
+            found_experience = par_exp.child_experiences.filter(is_active=True, language__code=lang.upper()).first()
+            if found_experience:
+                experiences.append(found_experience)
 
-        if experiences.exists():
+        if experiences:
             experiences_queryset = Experience.objects.filter(
                 pk__in=[exp.pk for exp in experiences]
             )

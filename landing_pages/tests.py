@@ -23,7 +23,7 @@ class LandingPageViewTest(TestCase):
         self.lang_en = Language.objects.filter(code='EN').first()
         self.wine_category = ExperienceCategory.objects.create(name='Wine Tasting Porto')
         self.walking_category = ExperienceCategory.objects.create(name='Walking Adventures')
-        self.lisbon = Destination.objects.get(id=1)
+        self.lisbon = Destination.objects.filter(slug="lisbon-test-destination-en-lang").first()
 
         self.wine_parent_experience = ParentExperience(
             parent_name="Wine Tour from Lisbon Test",
@@ -78,7 +78,7 @@ class LandingPageViewTest(TestCase):
         self.event_wine_morning_6_hours = ExperienceEvent.objects.create(
             calendar=self.wine_calendar,
             start=morning_start,
-            end=morning_start + timedelta(days=1, hours=6),
+            end=morning_start + timedelta(hours=6),
             max_participants=10,
             remaining_participants=5,
             special_price=Decimal('50.00'),
@@ -105,10 +105,9 @@ class LandingPageViewTest(TestCase):
             end=evening_start + timedelta(hours=3),
             max_participants=10,
             remaining_participants=5,
-            special_price=Decimal('50.00'),
         )
 
-        self.event_walk_evening_3_hours = ExperienceEvent(
+        self.event_walk_evening_3_hours = ExperienceEvent.objects.create(
             calendar=self.walk_calendar,
             start=evening_start,
             end=evening_start + timedelta(hours=3),
@@ -131,7 +130,7 @@ class LandingPageViewTest(TestCase):
 
     def test_get_context_data_filter_evening_3_hours_lisbon(self):
         request = self.factory.get(reverse('landing-page', kwargs={'slug': 'test-landing-page', 'lang': 'en'}), {
-            'destination': 'lisbon',
+            'destination': "lisbon-test-destination-en-lang",
             'tour_type': 'all',
             'time_of_day': 'evening',
             'duration': '1-4',
@@ -154,13 +153,13 @@ class LandingPageViewTest(TestCase):
         # Check if destinations are included
         self.assertIn('destinations', context)
         self.assertEqual(len(context['destinations']), 1)
-        self.assertEqual(context['destinations'][0][0], 'lisbon')
+        self.assertEqual(context['destinations'][0][0], 'lisbon-test-destination-en-lang')
 
-    def test_get_context_data_filter_morning_6_hours(self):
+    def test_get_context_data_filter_duration_6_hours(self):
         request = self.factory.get(reverse('landing-page', kwargs={'slug': 'test-landing-page', 'lang': 'en'}), {
             'destination': 'all',
             'tour_type': 'all',
-            'time_of_day': 'morning',
+            'time_of_day': 'all',
             'duration': '4-10',
             'filter_by': 'all',
         })
@@ -173,12 +172,12 @@ class LandingPageViewTest(TestCase):
         self.assertEqual(len(context['experiences']), 1)
         self.assertEqual(context['experiences'][0], self.experience_wine)
 
-    def test_get_context_data_filter_wine_afternoon_30_hours(self):
+    def test_get_context_data_filter_afternoon(self):
         request = self.factory.get(reverse('landing-page', kwargs={'slug': 'test-landing-page', 'lang': 'en'}), {
-            'destination': 'all',
+            'destination': "lisbon-test-destination-en-lang",
             'tour_type': 'all',
             'time_of_day': 'afternoon',
-            'duration': '24-72',
+            'duration': 'all',
             'filter_by': 'all',
         })
 
