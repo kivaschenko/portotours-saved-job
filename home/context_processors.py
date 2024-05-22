@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.cache import cache
+from django.urls import resolve, reverse
 
 from destinations.models import Destination
 from attractions.models import Attraction
@@ -42,3 +43,10 @@ def navbar_context(request, lang=None, **kwargs):
     }
     cache.set(cache_key, context, timeout=settings.NAVBAR_CONTEXT_CACHE_TIMEOUT)
     return context
+
+
+def canonical_url(request):
+    match = resolve(request.path_info)
+    canonical_path = reverse(match.view_name, args=match.args, kwargs=match.kwargs)
+    url = request.build_absolute_uri(canonical_path)
+    return {'canonical_url': url}
