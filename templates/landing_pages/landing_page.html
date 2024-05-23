@@ -325,6 +325,61 @@
         </div>
     </section>
 
+
+    {% if object.blogs.all %}
+        <section class="blog-list">
+            <div class="container">
+                <h3>{{ object.blogs_title }}</h3>
+                <div class="blog-cards-wrapper">
+                        {% for object in object.blogs.all %}
+                            <div class="blog-card">
+                                <div class="img-wrapper">
+                                    <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
+                                        <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
+                            {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
+                                    </a>
+
+                                </div>
+                                <div class="card-content-wrapper">
+                                    <p class="card-date">
+                                        {{ object.date_published|date }}
+                                    </p>
+                                    <h5 class="card-title">
+                                        <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
+                                            {{ object.title }}
+                                        </a>
+                                    </h5>
+
+                                </div>
+                            </div>
+                        {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+
+    {% if object.faq_landing_list.all %}
+    <section class="faq">
+        <div class="container">
+            <h2 class="faq-title">
+                {{ object.faq_title }}
+            </h2>
+            <p class="faq-subtitle">
+                {{ object.faq_subtitle }}
+            </p>
+                {% for record in object.faq_landing_list.all %}
+                    <div class="faq-block">
+                        <p class="faq-question">{{ record.question }}</p>
+                        <div>{{ record.display_answer }}</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No FAQ yet written...</p>
+        </div>
+    </section>
+    {% endif %}
+    
     <section class="guided-tours">
         {% if object.related_landing_pages.all %}
             <div class="container">
