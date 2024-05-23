@@ -225,7 +225,7 @@
         </div>
     </section>
 
-    <section class="why">
+    <section class="why landing-page">
         <div class="container">
             <h2 class="why-title">
                 Why book with OneDayTours?
@@ -325,12 +325,11 @@
         </div>
     </section>
 
-
-    {% if object.blogs.all %}
-        <section class="blog-list">
+   {% if object.blogs.all %}
+        <section class="blog-articles">
             <div class="container">
-                <h3>{{ object.blogs_title }}</h3>
-                <div class="blog-cards-wrapper">
+                <h2 class="blog-article-title">{{ object.blogs_title }}</h2>
+                <div class="blog-article-cards-wrapper">
                         {% for object in object.blogs.all %}
                             <div class="blog-card">
                                 <div class="img-wrapper">
@@ -358,10 +357,23 @@
         </section>
     {% endif %}
 
+    <section class="text-block">
+        <div class="container">
+            <h2 class="text-block-title">
+                frequently asked questions
+            </h2>
+            <div class="text-block-content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida neque convallis a cras semper auctor neque vitae tempus. Urna neque viverra justo nec. Ultricies tristique nulla aliquet enim. Diam donec adipiscing tristique risus nec feugiat in fermentum. Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Aenean sed adipiscing diam donec adipiscing. At erat pellentesque adipiscing commodo elit. Massa massa ultricies mi quis. Sed elementum tempus egestas sed. In eu mi bibendum neque. Pulvinar etiam non quam lacus suspendisse faucibus. Dolor sit amet consectetur adipiscing elit. Tortor consequat id porta nibh venenatis cras sed felis eget.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida neque convallis a cras semper auctor neque vitae tempus. Urna neque viverra justo nec. Ultricies tristique nulla aliquet enim. Diam donec adipiscing tristique risus nec feugiat in fermentum. Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Aenean sed adipiscing diam donec adipiscing. At erat pellentesque adipiscing commodo elit. Massa massa ultricies mi quis. Sed elementum tempus egestas sed. In eu mi bibendum neque. Pulvinar etiam non quam lacus suspendisse faucibus. Dolor sit amet consectetur adipiscing elit. Tortor consequat id porta nibh venenatis cras sed felis eget.
+            </div>
+        </div>
+    </section>
+    
 
     {% if object.faq_landing_list.all %}
     <section class="faq">
         <div class="container">
+            
             <h2 class="faq-title">
                 {{ object.faq_title }}
             </h2>
@@ -374,11 +386,16 @@
                         <div>{{ record.display_answer }}</div>
                     </div>
                 {% endfor %}
-            {% else %}
-                <p>No FAQ yet written...</p>
+            
         </div>
     </section>
     {% endif %}
+
+
+    
+
+
+    
     
     <section class="guided-tours">
         {% if object.related_landing_pages.all %}

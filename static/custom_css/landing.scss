@@ -162,7 +162,141 @@
         
     }
 }
-
+.blog-articles {
+    .container {
+        padding-bottom: 20px;
+        .blog-article-title {
+            margin-bottom: 40px;
+            color: #0F0F10;
+            text-align: center;
+            text-transform: capitalize;
+            @include media-breakpoint-down(md) {
+                margin-bottom: 24px;
+            }
+        }
+        .blog-article-cards-wrapper {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            @include media-breakpoint-down(md) {
+                flex-direction: column;
+            }
+            .blog-card {
+                width: calc((100% - 48px) / 3);
+                border-radius: 26px;
+                overflow: hidden;
+                border: 1px solid #d9d9d9;
+                background: #fff;
+                margin-bottom: 40px;
+                position: relative;
+                margin-right: 24px;
+                &:nth-child(3n) {
+                  margin-right: 0; 
+                }
+                
+                @include media-breakpoint-down(md) {
+                  width: 100%;
+                  margin-bottom: 20px;
+                }
+                .img-wrapper {
+                  border-radius: 26px;
+                  overflow: hidden;
+                  width: 100%;
+                  max-height: 400px;
+                  @include media-breakpoint-down(md) {
+          
+                  }
+                  a {
+                    display: block;
+                    &:hover {
+                      img {
+                        transform: scale(1.2);
+                        transition: 0.3s ease;
+                      }
+                    }
+                  }
+                  img {
+                    width: 100%;
+                    height: 100%;
+                    max-height: 400px;
+                    object-fit: cover;
+                    transition: 0.3s ease;
+                  }
+                }
+                .card-content-wrapper {
+                  padding: 20px;
+                  @include media-breakpoint-down(md) {
+                      padding: 14px 16px 14px;
+                  }
+                  .card-date {
+                    font-size: 14px;
+                    line-height: 22px;
+                    color: #6d6d6d;
+                    margin-top: 0;
+                    margin-bottom: 10px;
+                    font-family: "LatoRegular";
+                  }
+                  .card-title {
+                    margin-bottom: 20px;
+                    @include media-breakpoint-down(md) {
+                      margin-bottom: 10px;
+          
+                    }
+                    a {
+                      text-decoration: none;
+                      &:hover {
+                        color: inherit;
+                      }
+                    }
+                  }
+                  .card-link {
+                    position: absolute;
+                    bottom: 24px;
+                    left: 20px;
+                    display: flex;
+                    align-items: center;
+                    color: var(--text-color-third);
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    font-size: 18px;
+                    line-height: normal;
+                    font-family: "LatoSemiBold";
+                    img {
+                      margin-left: 16px;
+                    }
+                  }
+                }
+              }
+        }
+    }
+}
+.text-block {
+    .container {
+        padding-bottom: 30px;
+        .text-block-title {
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: capitalize;
+            @include media-breakpoint-down(md) {
+                margin-bottom: 24px;
+            }
+        }
+        .text-block-content {
+            color: #0F0F10;
+                font-size: 16px;
+                line-height: 26px;
+                margin: 0;
+                font-family: "LatoRegular";
+            & > * {
+                color: #0F0F10;
+                font-size: 16px;
+                line-height: 26px;
+                margin: 0;
+                font-family: "LatoRegular";
+            }
+        }
+    }
+}
 .guided-tours {
     .container {
         padding-bottom: 50px;
@@ -215,6 +349,12 @@
             }
         }
     }
+}
+.why.landing-page {
+    .container {
+        padding-top: 0;
+    }
+   
 }
 .refund-banner.ppc-page {
     margin-top: 0;
