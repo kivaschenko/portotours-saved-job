@@ -166,3 +166,59 @@ def search_experience_by_place_start_lang(place: str, start_date: str, current_l
         experiences = experiences.exclude(pk__in=[exp.pk for exp in experiences_to_remove])
 
     return experiences
+
+"""
+dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+dataLayer.push({
+  event: "begin_checkout",
+  ecommerce: {
+    currency: "EUR",
+    value: "",
+    items: [
+ {
+     item_id: "", // Передаємо код туру
+      item_name: "Sintra & Cascais Group Tour", // Передаємо назву товару
+      item_category: "Sintra", // Передаємо Destination 
+      item_category2: "Cascais",  // Передаємо Destination
+      item_category3: "", // Передаємо Destination 
+      item_category4: "",  // Передаємо Destination
+      item_category5: "Group tour",  // Передаємо тип туру (Group/Private)    
+  item_list_name: "", // Передаємо місце на сайті з якого користувач перейшов на картку товара. Перелік списків нижче
+      currency: "EUR",
+      price: "" ,
+      quantity: "1",
+      item_variant: "" // Тут відображається яку мову вибрав клієнт
+
+    },
+      {
+      item_id: "", // Передаємо код туру
+      item_name: "Sunset, Fado and Tapas Walking Tour", // Передаємо назву товару
+      item_category: "", // Передаємо Destination 
+      item_category2: "",  // Передаємо Destination
+      item_category3: "", // Передаємо Destination 
+      item_category4: "",  // Передаємо Destination
+      item_category5: "Group tour",  // Передаємо тип туру
+  item_list_name: "", // Передаємо місце на сайті з якого користувач перейшов на картку товара. Перелік списків нижче
+      currency: "EUR" ,
+      price: "" , // Вже сформований прайс
+      quantity: "1" ,
+      item_variant: "" // Тут відображається яку мову вибрав клієнт
+      }
+    ]
+  }
+});
+"""
+
+
+def prepare_google_items_for_cart(products_queryset: QuerySet) -> list[dict]:
+    items = []
+    if products_queryset.exists():
+        for product in products_queryset:
+            experience = product.parent_experience.child_experiences.filter(language=product.language).first()
+            item = experience.ecommerce.items
+            item['currency'] = "EUR"
+            item['price'] = product.total_price
+            item['quantity'] = product.total_booked
+            item['item_variant'] = product.language.code.upper()
+            items.append(item)
+    return items
