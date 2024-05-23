@@ -32,7 +32,9 @@
     <section class="best-tours">
         <div class="container">
 
+            {% if object.content %}
             <div class="ppc-text">{{ object.display_content }}</div>
+            {% endif %}
             <div class="title-btn-wrapper ppc-title-btn-wrapper">
                 
                 <div class="filters-wrapper">
