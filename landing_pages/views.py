@@ -118,7 +118,7 @@ class LandingPageView(DetailView):
             experiences_queryset = Experience.objects.none()
 
         page = self.request.GET.get('page', 1)
-        paginator = Paginator(experiences_queryset, 10)
+        paginator = Paginator(experiences_queryset, 20)
         try:
             experiences_paginated = paginator.page(page)
         except PageNotAnInteger:
