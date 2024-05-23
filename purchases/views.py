@@ -12,6 +12,7 @@ from django.db.models import Sum
 
 from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
+from products.product_services import prepare_google_items_for_cart
 from purchases.models import Purchase
 from service_layer.bus_messages import handle
 from service_layer.events import StripePaymentIntentSucceeded, StripePaymentIntentFailed, StripeChargeSucceeded, StripeCustomerCreated
@@ -154,6 +155,7 @@ class ConfirmationView(TemplateView):
             if purchase:
                 object_list = purchase.products.all()
                 context.update({'purchase': purchase, 'object_list': object_list})
+                context.update({'ecommerce_items': prepare_google_items_for_cart(object_list)})
         return context
 
     def dispatch(self, request, *args, **kwargs):

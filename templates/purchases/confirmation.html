@@ -122,6 +122,44 @@
         </div>
     </div>
 
-    <!-- For language selector -->
-    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+<!-- Google tracker data pusher -->
+<script>
+    // Function to check if the data has already been pushed
+    function isDataPushed() {
+        return localStorage.getItem('isDataPushed') === 'true';
+    }
+
+    // Function to mark the data as pushed
+    function markDataAsPushed() {
+        localStorage.setItem('isDataPushed', 'true');
+    }
+
+    // Ensure `ecommerce_items` is properly converted to a JavaScript array
+    const itemsArray = {{ ecommerce_items|safe }};
+
+    // Ensure the dataLayer is defined
+    window.dataLayer = window.dataLayer || [];
+
+    // Push the data only if it hasn't been pushed yet
+    if (!isDataPushed()) {
+        // Clear the previous ecommerce object.
+        window.dataLayer.push({ ecommerce: null });
+
+        // Push the new ecommerce data
+        window.dataLayer.push({
+            event: "purchase",
+            ecommerce: {
+                transaction_id: `{{ purchase.id }}`,
+                coupon: "",
+                currency: "EUR",
+                value: "",
+                items: itemsArray,
+            }
+        });
+
+        // Mark the data as pushed
+        markDataAsPushed();
+    }
+</script>
+
 {% endblock %}
