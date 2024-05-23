@@ -46,6 +46,8 @@
         </title>
         {% block meta_tags %}{% endblock %}
     {% endblock head %}
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ canonical_url }}">
     <!-- Bootstrap 5 Custom CSS -->
     <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css"/>
     <!-- Icons -->

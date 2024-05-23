@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
+from blogs.models import Blog
 from destinations.models import Destination
 from products.models import Language, ExperienceCategory
 
@@ -37,7 +38,10 @@ class LandingPage(models.Model):
                                           help_text="The higher the value of the priority number, the higher it appears in the list")
     is_active = models.BooleanField(default=True)
     show_in_navbar = models.BooleanField(default=False, help_text="Include in the navbar")
-    title_related_landing_pages = models.CharField(max_length=255, blank=True, null=True, help_text="Title of the landing page, max 255 characters",)
+    blogs_title = models.CharField('Featured Articles Title', max_length=255, help_text="Title above Featured Articles section, max 255 characters",
+                                   blank=True, null=True)
+    blogs = models.ManyToManyField(Blog, blank=True)
+    title_related_landing_pages = models.CharField(max_length=255, blank=True, null=True, help_text="Title of the landing page, max 255 characters", )
     related_landing_pages = models.ManyToManyField('LandingPage', blank=True)
 
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
@@ -85,3 +89,36 @@ class LandingPage(models.Model):
         img.save(buffer, format='JPEG')
         self.banner = InMemoryUploadedFile(buffer, None, f"{self.banner.name.split('.')[0]}_resized.jpg", 'image/jpeg',
                                            sys.getsizeof(buffer), None)
+
+
+class FAQLandingPageManager(models.Manager):
+    def get_queryset(self):
+        return super(FAQLandingPageManager, self).get_queryset().filter(is_active=True)
+
+
+class FAQLandingPage(models.Model):
+    landing_page = models.ForeignKey(LandingPage, on_delete=models.SET_NULL, null=True, blank=True, related_name='faq_landing_list')
+    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
+    question = models.CharField(max_length=255, help_text="max 255 characters")
+    answer = RichTextField(max_length=3000, help_text="max 3000 characters", null=True, blank=True)
+    priority_number = models.IntegerField(null=True, blank=True, default=0)
+    is_active = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # Get only active FAQ queryset by default
+    objects = FAQLandingPageManager()
+
+    class Meta:
+        db_table = 'faq_landing_page'
+        verbose_name = 'Frequently Asked Questions for Landing Page'
+        verbose_name_plural = 'Frequently Asked Questions for Landing Page'
+        ordering = ('-priority_number',)
+
+    def __str__(self):
+        return self.question
+
+    def __repr__(self):
+        return (f'<FAQLandingPage(id={self.id} landing_page={self.landing_page} '
+                f'language={self.language} question={self.question}...)>')
+
+    def display_answer(self):
+        return mark_safe(self.answer)

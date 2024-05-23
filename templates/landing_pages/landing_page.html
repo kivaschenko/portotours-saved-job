@@ -32,7 +32,9 @@
     <section class="best-tours">
         <div class="container">
 
+            {% if object.content %}
             <div class="ppc-text">{{ object.display_content }}</div>
+            {% endif %}
             <div class="title-btn-wrapper ppc-title-btn-wrapper">
                 
                 <div class="filters-wrapper">
@@ -177,7 +179,7 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    No top Expirience found
+                    No experiences found based on your search criteria
                 {% endif %}
                 {% if experiences.has_other_pages %}
                     <div class="pagination-block ppc-pagination">
@@ -223,7 +225,7 @@
         </div>
     </section>
 
-    <section class="why">
+    <section class="why landing-page">
         <div class="container">
             <h2 class="why-title">
                 Why book with OneDayTours?
@@ -322,66 +324,39 @@
             {% endif %}
         </div>
     </section>
-    <section class="blog-articles">
-        <div class="container">
-            <h2 class="blog-article-title">
-                Featured articles
-            </h2>
-            <div class="blog-article-cards-wrapper">
-                <div class="blog-card">
-                    <div class="img-wrapper">
-                        <a href="">
-                            <img src="{% static 'images/blog-card-example.jpg' %}">
-                        </a>
-                    </div>
-                    <div class="card-content-wrapper">
-                        <p class="card-date">
-                            MM/DD/YYYY
-                        </p>
-                        <h5 class="card-title">
-                            <a href="#">
-                                Porto: Spiritus multimedia show admission ticket
-                            </a>
-                        </h5>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="img-wrapper">
-                        <a href="">
-                            <img src="{% static 'images/blog-card-example.jpg' %}">
-                        </a>
-                    </div>
-                    <div class="card-content-wrapper">
-                        <p class="card-date">
-                            MM/DD/YYYY
-                        </p>
-                        <h5 class="card-title">
-                            <a href="#">
-                                Porto: Spiritus multimedia show admission ticket
-                            </a>
-                        </h5>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="img-wrapper">
-                        <a href="">
-                            <img src="{% static 'images/blog-card-example.jpg' %}">
-                        </a>
-                    </div>
-                    <div class="card-content-wrapper">
-                        <p class="card-date">
-                            MM/DD/YYYY
-                        </p>
-                        <h5 class="card-title">
-                            <a href="#">
-                                Porto: Spiritus multimedia show admission ticket
-                            </a>
-                        </h5>
-                    </div>
+
+   {% if object.blogs.all %}
+        <section class="blog-articles">
+            <div class="container">
+                <h2 class="blog-article-title">{{ object.blogs_title }}</h2>
+                <div class="blog-article-cards-wrapper">
+                        {% for object in object.blogs.all %}
+                            <div class="blog-card">
+                                <div class="img-wrapper">
+                                    <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
+                                        <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
+                            {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
+                                    </a>
+
+                                </div>
+                                <div class="card-content-wrapper">
+                                    <p class="card-date">
+                                        {{ object.date_published|date }}
+                                    </p>
+                                    <h5 class="card-title">
+                                        <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
+                                            {{ object.title }}
+                                        </a>
+                                    </h5>
+
+                                </div>
+                            </div>
+                        {% endfor %}
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {% endif %}
+
     <section class="text-block">
         <div class="container">
             <h2 class="text-block-title">
@@ -393,28 +368,35 @@
             </div>
         </div>
     </section>
+    
+
+    {% if object.faq_landing_list.all %}
     <section class="faq">
         <div class="container">
+            
             <h2 class="faq-title">
-                frequently asked questions
+                {{ object.faq_title }}
             </h2>
             <p class="faq-subtitle">
-                Get clear and useful information for the most common queries about OneDayTours in Lisbon
+                {{ object.faq_subtitle }}
             </p>
-            <div class="faq-block" bis_skin_checked="1">
-                <p class="faq-question">What is the best way to get to Tomar from Lisbon?</p>
-                <div bis_skin_checked="1"><p>Train is the most convenient way to reach Tomar from Lisbon. The departure time can be seen on the timetable. The train departs regularly from Lisbon's Santa Apolónia station and takes approximately 2 hours to reach Tomar.</p></div>
-            </div>
-            <div class="faq-block" bis_skin_checked="1">
-                <p class="faq-question">What is the best way to get to Tomar from Lisbon?</p>
-                <div bis_skin_checked="1"><p>Train is the most convenient way to reach Tomar from Lisbon. The departure time can be seen on the timetable. The train departs regularly from Lisbon's Santa Apolónia station and takes approximately 2 hours to reach Tomar.</p></div>
-            </div>
-            <div class="faq-block" bis_skin_checked="1">
-                <p class="faq-question">What is the best way to get to Tomar from Lisbon?</p>
-                <div bis_skin_checked="1"><p>Train is the most convenient way to reach Tomar from Lisbon. The departure time can be seen on the timetable. The train departs regularly from Lisbon's Santa Apolónia station and takes approximately 2 hours to reach Tomar.</p></div>
-            </div>
+                {% for record in object.faq_landing_list.all %}
+                    <div class="faq-block">
+                        <p class="faq-question">{{ record.question }}</p>
+                        <div>{{ record.display_answer }}</div>
+                    </div>
+                {% endfor %}
+            
         </div>
     </section>
+    {% endif %}
+
+
+    
+
+
+    
+    
     <section class="guided-tours">
         {% if object.related_landing_pages.all %}
             <div class="container">

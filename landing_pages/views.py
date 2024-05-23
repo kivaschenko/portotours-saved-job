@@ -25,13 +25,13 @@ class LandingPageView(DetailView):
         context['current_language'] = lang
         parent_experiences = ParentExperience.objects.filter(categories=self.object.category)
 
-        experiences = parent_experiences.prefetch_related(
-            'child_experiences').filter(
-            child_experiences__is_active=True,
-            child_experiences__language__code=lang.upper()
-        ).distinct()
+        experiences = []
+        for par_exp in parent_experiences:
+            found_experience = par_exp.child_experiences.filter(is_active=True, language__code=lang.upper()).first()
+            if found_experience:
+                experiences.append(found_experience)
 
-        if experiences.exists():
+        if experiences:
             experiences_queryset = Experience.objects.filter(
                 pk__in=[exp.pk for exp in experiences]
             )
@@ -45,8 +45,8 @@ class LandingPageView(DetailView):
             if sort_by in ['price_low', 'price_high', 'discount', 'hot_deals']:
                 order_by_field = {
                     'price_low': 'parent_experience__price',
-                    'price_high': 'parent_experience__price',
-                    'discount': 'parent_experience__increase_percentage_old_price',
+                    'price_high': '-parent_experience__price',
+                    'discount': '-parent_experience__increase_percentage_old_price',
                     'hot_deals': '-parent_experience__is_hot_deals',
                 }.get(sort_by)
                 if order_by_field:
@@ -82,9 +82,9 @@ class LandingPageView(DetailView):
                 experiences_to_remove = []
                 duration_filters = {
                     '0-1': {'duration__lte': timedelta(hours=1)},
-                    '1-4': {'duration__gt': timedelta(hours=1), 'duration__lte': 4},
-                    '4-10': {'duration__gt': timedelta(hours=4), 'duration__lte': 10},
-                    '24-72': {'duration__gt': timedelta(hours=24), 'duration__lte': 72},
+                    '1-4': {'duration__gt': timedelta(hours=1), 'duration__lte': timedelta(hours=4)},
+                    '4-10': {'duration__gt': timedelta(hours=4), 'duration__lte': timedelta(hours=10)},
+                    '24-72': {'duration__gt': timedelta(hours=24), 'duration__lte': timedelta(hours=72)},
                 }
                 duration_filter = duration_filters.get(duration, {})
                 for experience in experiences_queryset:
@@ -118,7 +118,7 @@ class LandingPageView(DetailView):
             experiences_queryset = Experience.objects.none()
 
         page = self.request.GET.get('page', 1)
-        paginator = Paginator(experiences_queryset, 10)
+        paginator = Paginator(experiences_queryset, 20)
         try:
             experiences_paginated = paginator.page(page)
         except PageNotAnInteger:

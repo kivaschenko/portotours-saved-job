@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     # 3rd parties
     'dotenv',
     'sass_processor',
@@ -116,6 +117,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'home.context_processors.navbar_context',
+                'home.context_processors.canonical_url',
             ],
         },
     },
@@ -334,3 +336,4 @@ CORS_ORIGIN_WHITELIST = [
     'https://www.onedaytours.pt',
     # Add other allowed origins here if needed
 ]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

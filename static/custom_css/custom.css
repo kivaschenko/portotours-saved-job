@@ -15490,7 +15490,7 @@ html.off-scroll body {
             margin-left: 16px; }
 
 .text-block .container {
-  padding-bottom: 0px; }
+  padding-bottom: 30px; }
   .text-block .container .text-block-title {
     text-align: center;
     margin-bottom: 30px;
@@ -15556,6 +15556,9 @@ html.off-scroll body {
             line-height: 28px; } }
         .guided-tours .container ul li a:hover {
           color: inherit; }
+
+.why.landing-page .container {
+  padding-top: 0; }
 
 .refund-banner.ppc-page {
   margin-top: 0;

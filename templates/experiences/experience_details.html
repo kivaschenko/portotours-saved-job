@@ -669,6 +669,9 @@
         const sessionKey = `{{ session_key }}`;  // from response extra_context
         // Define ParentExperience id
         const parentExperienceId = {{ object.parent_experience_id }};  // from response extra_context
+    
+        // Google tracker info
+        const ecommerceItems = {{ object.ecommerce_items|safe }};
     </script>
 
     {% if object.parent_experience.is_private %}
@@ -956,4 +959,26 @@
     </script>
 
     <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
+
+    <!-- Google tracker data pusher -->
+    <script>
+        // Ensure `object.ecommerce_items` is properly converted to a JavaScript array
+        const itemsArray = {{ object.ecommerce_items|safe }};
+
+        // Ensure the dataLayer is defined
+        window.dataLayer = window.dataLayer || [];
+
+        // Clear the previous ecommerce object.
+        window.dataLayer.push({ ecommerce: null });
+
+        // Push the new ecommerce data
+        window.dataLayer.push({
+            event: "view_item",
+            ecommerce: {
+                items: itemsArray,
+            }
+        });
+    </script>
+
+
 {% endblock %}
