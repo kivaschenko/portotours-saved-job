@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+from django.contrib.sitemaps.views import sitemap
 
 from accounts import views as accounts_views
 from destinations import views as destinations_views
@@ -13,7 +14,22 @@ from blogs import views as blogs_views
 from reviews import views as reviews_views
 from home import views as home_views
 from landing_pages import views as landing_pages_views
+from attractions.sitemaps import AttractionSitemap
+from destinations.sitemaps import DestinationSitemap
+from blogs.sitemaps import BlogSitemap
+from products.sitemaps import ExperienceSitemap
+from home.sitemaps import PageSitemap
+from .sitemaps import ListSitemap
 
+
+sitemaps = {
+    'attractions': AttractionSitemap,
+    'destinations': DestinationSitemap,
+    'blogs': BlogSitemap,
+    'experiences': ExperienceSitemap,
+    'pages': PageSitemap,
+    'lists': ListSitemap,
+}
 
 # 404, 500 ERRORS
 handler404 = 'products.views.custom_page_not_found_view'
@@ -139,3 +155,9 @@ urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # Add static URL mapping for serving media files from DigitalOcean Spaces
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Sitemap
+urlpatterns += [
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('robots.txt', home_views.robots_txt),
+]
