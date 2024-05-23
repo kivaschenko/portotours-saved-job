@@ -14,7 +14,12 @@ from weasyprint import HTML
 
 from home.forms import ExperienceSearchForm
 from products.models import *  # noqa
-from products.product_services import get_actual_events_for_experience, update_experience_event_booking, search_experience_by_place_start_lang
+from products.product_services import (
+    get_actual_events_for_experience,
+    update_experience_event_booking,
+    search_experience_by_place_start_lang,
+    prepare_google_items_for_cart,
+)
 from reviews.forms import ReviewForm
 from reviews.models import Review
 
@@ -220,7 +225,7 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
         context['total_price_sum'] = queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum'] or 0
         context['old_price_sum'] = queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum'] or 0
         context['discounted_price_sum'] = round(context['old_price_sum'] - context['total_price_sum'], 2)
-
+        context['ecommerce_items'] = prepare_google_items_for_cart(queryset)
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         return context
 

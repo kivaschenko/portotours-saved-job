@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.http import HttpResponse
 from django.views.generic import TemplateView, DetailView
 from django.utils.translation import activate
 
@@ -58,3 +59,16 @@ class HomeView(TemplateView):
 
 class PageDetailView(DetailView):
     model = Page
+
+
+
+def robots_txt(request):
+    lines = [
+        "User-agent: *",
+        "Disallow: /odt-admin/",
+        "Disallow: /en/accounts/",
+        "Allow: /",
+        "",
+        "Sitemap: https://onedaytours.pt/sitemap.xml",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")

@@ -158,7 +158,7 @@ class FAQDestination(models.Model):
         db_table = 'faq_destination'
         verbose_name = 'Frequently Asked Questions for Destination'
         verbose_name_plural = 'Frequently Asked Questions for Destination'
-        ordering = ('priority_number',)
+        ordering = ('-priority_number',)
 
     def __str__(self):
         return self.question

@@ -366,5 +366,28 @@
             }
         });
     </script>
+
+    <!-- Google tracker data pusher -->
+    <script>
+        // Ensure `ecommerce_items` is properly converted to a JavaScript array
+        const itemsArray = {{ ecommerce_items|safe }};
+
+        // Ensure the dataLayer is defined
+        window.dataLayer = window.dataLayer || [];
+
+        // Clear the previous ecommerce object.
+        window.dataLayer.push({ ecommerce: null });
+
+        // Push the new ecommerce data
+        window.dataLayer.push({
+            event: "begin_checkout",
+            ecommerce: {
+                currency: "EUR",
+                value: "",
+                items: itemsArray,
+            }
+        });
+    </script>
+
 {% endblock %}
 {% block footer_columns %}{% endblock %}

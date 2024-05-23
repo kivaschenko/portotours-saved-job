@@ -33,8 +33,8 @@ class Page(models.Model):
     def __str__(self):
         return self.title
 
-    def absolute_url(self):
-        return reverse('pages/en/', kwargs={'slug': self.slug})
+    def get_absolute_url(self):
+        return reverse('page_detail', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:

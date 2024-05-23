@@ -12,6 +12,7 @@ from django.db.models import Sum
 
 from products.models import Product
 from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
+from products.product_services import prepare_google_items_for_cart
 from purchases.models import Purchase
 from service_layer.bus_messages import handle
 from service_layer.events import StripePaymentIntentSucceeded, StripePaymentIntentFailed, StripeChargeSucceeded, StripeCustomerCreated
@@ -154,6 +155,7 @@ class ConfirmationView(TemplateView):
             if purchase:
                 object_list = purchase.products.all()
                 context.update({'purchase': purchase, 'object_list': object_list})
+                context.update({'ecommerce_items': prepare_google_items_for_cart(object_list)})
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -178,20 +180,29 @@ def checkout_payment_intent_view(request):
         for product in products:
             total_amount += product.stripe_price
 
+        # Define the payment method types you support and have enabled
+        payment_method_types = ["card", "apple_pay", "google_pay", "paypal", "klarna"]
+
         intent_data = {
             "amount": total_amount,
             "currency": "eur",
-            "payment_method_types": [
-                "card",
-                "apple_pay",
-                # "google_pay",
-                "paypal",
-                "klarna"
-            ],
+            "payment_method_types": payment_method_types,
             "payment_method_options": {
                 "card": {
                     "request_three_d_secure": "automatic"
                 },
+                "apple_pay": {
+                    # Apple Pay specific options if needed
+                },
+                "google_pay": {
+                    # Google Pay specific options if needed
+                },
+                "paypal": {
+                    # PayPal specific options if needed
+                },
+                "klarna": {
+                    # Klarna specific options if needed
+                }
             },
             "metadata": {
                 "product_ids": str(product_ids),
@@ -237,3 +248,6 @@ def checkout_payment_intent_view(request):
         return JsonResponse({'clientSecret': payment_intent.client_secret, 'customerData': customer_data, 'paymentAmount': payment_intent.amount})
     except json.JSONDecodeError as e:
         return HttpResponseBadRequest('Invalid JSON data')
+    except stripe.error.InvalidRequestError as e:
+        logger.error(f"Stripe error: {e.user_message}")
+        return HttpResponseBadRequest(f"Stripe error: {e.user_message}")

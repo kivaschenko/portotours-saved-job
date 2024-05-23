@@ -45,8 +45,8 @@ class LandingPageView(DetailView):
             if sort_by in ['price_low', 'price_high', 'discount', 'hot_deals']:
                 order_by_field = {
                     'price_low': 'parent_experience__price',
-                    'price_high': 'parent_experience__price',
-                    'discount': 'parent_experience__increase_percentage_old_price',
+                    'price_high': '-parent_experience__price',
+                    'discount': '-parent_experience__increase_percentage_old_price',
                     'hot_deals': '-parent_experience__is_hot_deals',
                 }.get(sort_by)
                 if order_by_field:
@@ -118,7 +118,7 @@ class LandingPageView(DetailView):
             experiences_queryset = Experience.objects.none()
 
         page = self.request.GET.get('page', 1)
-        paginator = Paginator(experiences_queryset, 10)
+        paginator = Paginator(experiences_queryset, 20)
         try:
             experiences_paginated = paginator.page(page)
         except PageNotAnInteger:

@@ -120,7 +120,7 @@ class Attraction(models.Model):
         return f"<Attraction(id={self.id} name={self.name} parent={self.parent_attraction} language={self.language})>"
 
     def get_absolute_url(self):
-        return reverse("attractions:attraction-detail", kwargs={"lang": self.language, "slug": self.slug})
+        return reverse("attraction-detail", kwargs={"lang": self.language.code.lower(), "slug": self.slug})
 
     @property
     def localized_url(self):
