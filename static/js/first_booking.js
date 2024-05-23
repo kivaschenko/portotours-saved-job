@@ -309,8 +309,10 @@ const controller = {
 
                 // Update submit button text
                 const totalPrice = totalAdultPrice + totalChildPrice;
+
                 // Update price in Google data
                 model.googleItems.price = totalPrice;
+
                 submitBtn.textContent = `€${totalPrice.toFixed(2)} add to cart`;
             } else {
                 console.error('Selected event not found.');

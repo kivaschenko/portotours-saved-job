@@ -11,7 +11,11 @@ const model = {
         'event_id': null,
         'parent_experience_id': parentExperienceId, // from page scope
     },
-    'selectedDate': null
+    'selectedDate': null,
+    'googleItems': Object.assign(
+        ecommerceItems,
+        {'currency': 'EUR', 'price': 1.0, 'quantity': 1, 'item_variant': "EN"}
+    ),
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
@@ -194,9 +198,18 @@ const controller = {
                 console.log('Booking submitted successfully.');
                      // Extract the language slug from the current URL
                     const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
-                    
+
+                    // Push data to Google analytics
+                    window.dataLayer.push({ecommerce: null});
+                    window.dataLayer.push({
+                        event: "add_to_cart",
+                        ecommerce: [model.googleItems],
+                    });
+                    setTimeout(() => {
+                        window.open(`/my-cart/${languageSlug}/`)
+                    }, 200);
                     // Redirect to the cart page after successful submission
-                    window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
+                    // window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
             } else {
                 // Handle error response
                 console.error('Error submitting booking:', response.statusText);
@@ -284,12 +297,15 @@ const controller = {
                 const adultCount = parseInt(document.getElementById('adultTicketCount').value);
                 const childCount = parseInt(document.getElementById('childTicketCount').value);
 
-               
-
-                
+                // update quantity for Google data
+                model.googleItems.quantity = adultCount + childCount;
 
                 // Update submit button text
-                const totalPrice = selectedEvent.total_price
+                const totalPrice = selectedEvent.total_price;
+
+                // Update price in Google data
+                model.googleItems.price = totalPrice;
+
                 submitBtn.textContent = `€${totalPrice.toFixed(2)} add to cart`;
             } else {
                 console.error('Selected event not found.');
