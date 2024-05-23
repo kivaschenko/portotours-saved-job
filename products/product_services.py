@@ -174,9 +174,11 @@ def prepare_google_items_for_cart(products_queryset: QuerySet) -> list[dict]:
         for product in products_queryset:
             experience = product.parent_experience.child_experiences.filter(language=product.language).first()
             item = experience.ecommerce_items
-            item['currency'] = "EUR"
-            item['price'] = product.total_price
-            item['quantity'] = product.total_booked
-            item['item_variant'] = product.language.code.upper()
+            item.update({
+                'currency': "EUR",
+                'price': float(product.total_price),
+                'quantity': product.total_booked,
+                'item_variant': product.language.code.upper(),
+            })
             items.append(item)
     return items
