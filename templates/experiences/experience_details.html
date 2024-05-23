@@ -669,6 +669,9 @@
         const sessionKey = `{{ session_key }}`;  // from response extra_context
         // Define ParentExperience id
         const parentExperienceId = {{ object.parent_experience_id }};  // from response extra_context
+    
+        // Google tracker info
+        const ecommerceItems = {{ object.ecommerce_items|safe }};
     </script>
 
     {% if object.parent_experience.is_private %}

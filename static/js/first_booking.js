@@ -12,6 +12,10 @@ const model = {
         'parent_experience_id': parentExperienceId, // from page scope
     },
     'selectedDate': null,
+    'googleItems': Object.assign(
+        ecommerceItems,
+        {'currency': 'EUR', 'price': 1.0, 'quantity': 1, 'item_variant': "EN"}
+    ),
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
@@ -183,7 +187,7 @@ const controller = {
     handleFormSubmit: async function () {
         // Get the booking data from the model
         const bookingData = model.bookingData;
-    
+        console.log('bookingData:', bookingData);
         const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
     
         try {
@@ -201,10 +205,21 @@ const controller = {
             if (response.ok) {
                 // Handle successful response
                 console.log('Booking submitted successfully.');
+                console.log([model.googleItems]);
                 const languageSlug = model.bookingData.language_code.toLowerCase();
-            // Redirect to the cart page after successful submission
-            window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
-            } else {
+
+                // Push data to Google analytics
+                window.dataLayer.push({ecommerce: null});
+                window.dataLayer.push({
+                    event: "add_to_cart",
+                    ecommerce: [model.googleItems],
+                });
+                setTimeout(() => {
+                    window.open(`/my-cart/${languageSlug}/`)
+                }, 200);
+                // Redirect to the cart page after successful submission
+                // window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
+                } else {
                 // Handle error response
                 console.error('Error submitting booking:', response.statusText);
             }
@@ -277,6 +292,9 @@ const controller = {
                 const adultCount = parseInt(document.getElementById('adultTicketCount').value);
                 const childCount = parseInt(document.getElementById('childTicketCount').value);
 
+                // update quantity for Google data
+                model.googleItems.quantity = adultCount + childCount;
+
                 // Update total prices display
                 const totalAdultPrice = adultPrice * adultCount;
                 const totalChildPrice = childPrice * childCount;
@@ -291,6 +309,8 @@ const controller = {
 
                 // Update submit button text
                 const totalPrice = totalAdultPrice + totalChildPrice;
+                // Update price in Google data
+                model.googleItems.price = totalPrice;
                 submitBtn.textContent = `€${totalPrice.toFixed(2)} add to cart`;
             } else {
                 console.error('Selected event not found.');
@@ -480,6 +500,10 @@ const controller = {
         model.bookingData.event_id = null;
     },
 
+    updateGoogleData: function () {
+        model.googleItems['currency'] = "EUR";
+        model.googleItems['price'] = 100;
+    },
 };
 
 // Function to fetch JSON data using AJAX
@@ -512,6 +536,7 @@ function handleEventData(data) {
         view.renderCalendar(currentDate);
     }
 }
+
 
 document.addEventListener('DOMContentLoaded', async function () {
     // Fetch event data and wait for it to complete
