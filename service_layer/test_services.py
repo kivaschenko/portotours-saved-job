@@ -101,14 +101,16 @@ class TestEventHandlers(TestCase):
             address_postal_code='12345',
             address_state='State'
         )
-        handle(event)
+        with patch.dict('service_layer.bus_messages.HANDLERS', {StripeChargeSucceeded: [mock_handler]}):
+            handle(event)
         mock_handler.assert_called_once_with(event)
 
     @patch('service_layer.services.update_purchase_by_payment_intent_id')
     def test_handle_stripe_payment_intent_succeeded(self, mock_handler):
         event = StripePaymentIntentSucceeded(payment_intent_id='pi_123')
-        handle(event)
-        mock_handler.assert_called_once_with(payment_intent_id='pi_123')
+        with patch.dict('service_layer.bus_messages.HANDLERS', {StripePaymentIntentSucceeded: [mock_handler]}):
+            handle(event)
+        mock_handler.assert_called_once_with(StripePaymentIntentSucceeded(payment_intent_id='pi_123', customer_id=None))
 
     @patch('service_layer.services.update_purchase_and_send_email_payment_intent_failed')
     def test_handle_stripe_payment_intent_failed(self, mock_handler):
@@ -127,8 +129,9 @@ class TestEventHandlers(TestCase):
             address_postal_code='12345',
             address_state='State'
         )
-        handle(event)
-        mock_handler.assert_called_once_with(event)
+        with patch.dict('service_layer.bus_messages.HANDLERS', {StripePaymentIntentFailed: [mock_handler]}):
+            handle(event)
+        mock_handler.assert_called_once_with(StripePaymentIntentFailed(payment_intent_id='pi_123', stripe_customer_id='cus_123', error_code='card_declined', error_message='Card was declined', name='John Doe', email='john@example.com', phone='1234567890', address_city='City', address_country='Country', address_line1='123 Street', address_line2='Apt 1', address_postal_code='12345', address_state='State'))
 
     @patch('service_layer.services.create_profile_and_generate_password')
     def test_handle_stripe_customer_created(self, mock_handler):
@@ -144,8 +147,9 @@ class TestEventHandlers(TestCase):
             address_postal_code='12345',
             address_state='State'
         )
-        handle(event)
-        mock_handler.assert_called_once_with(event)
+        with patch.dict('service_layer.bus_messages.HANDLERS', {StripeCustomerCreated: [mock_handler]}):
+            handle(event)
+        mock_handler.assert_called_once_with(StripeCustomerCreated( stripe_customer_id='cus_123', name='John Doe', email='john@example.com', phone='1234567890', address_city='City', address_country='Country', address_line1='123 Street', address_line2='Apt 1', address_postal_code='12345', address_state='State'))
 
 
 class TestServiceFunctions(TestCase):
