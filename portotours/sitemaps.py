@@ -4,8 +4,8 @@ from django.urls import reverse
 
 
 class ListSitemap(Sitemap):
-    changefreq = "weekly"
-    priority = 0.7
+    # changefreq = "weekly"
+    # priority = 0.7
 
     def items(self):
         return [

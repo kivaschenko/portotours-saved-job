@@ -3,8 +3,8 @@ from .models import Experience, Product
 
 
 class ProductSitemap(Sitemap):
-    changefreq = 'always'
-    priority = 0.7
+    # changefreq = 'always'
+    # priority = 0.7
 
     def items(self):
         return Product.active.all()
@@ -14,8 +14,8 @@ class ProductSitemap(Sitemap):
 
 
 class ExperienceSitemap(Sitemap):
-    changefreq = 'daily'
-    priority = 0.8
+    # changefreq = 'daily'
+    # priority = 0.8
 
     def items(self):
         return Experience.active.all()

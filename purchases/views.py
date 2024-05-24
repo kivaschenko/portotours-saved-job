@@ -3,8 +3,7 @@ import logging
 
 import stripe
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseBadRequest
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, TemplateView
@@ -25,7 +24,6 @@ BASE_ENDPOINT = settings.BASE_ENDPOINT
 
 
 class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
-    """View for listing all products for current user (session) only."""
     model = Product
     template_name = 'purchases/checkout.html'
     extra_context = {'current_language': 'en'}
@@ -36,20 +34,13 @@ class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Fetch all products
         products = self.get_queryset()
-
-        # Calculate total sum of total_price for all products
         total_sum = products.aggregate(total_sum=Sum('total_price'))['total_sum']
         context['total_sum'] = total_sum if total_sum else 0
-
-        # Other context data
         context['product_ids'] = [product.pk for product in products]
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         return_path = reverse_lazy("payment-form", kwargs={'lang': 'en'})
         context['return_url'] = f'{BASE_ENDPOINT}{return_path}'
-
         return context
 
 
@@ -62,86 +53,93 @@ def stripe_webhook(request):
         event = stripe.Event.construct_from(
             json.loads(payload), stripe.api_key
         )
-        logger.info(f"Received event: {event.id}.\n")
-    except ValueError as e:
-        # Invalid payload
+        logger.info(f"Received event: {event.id}.")
+    except ValueError:
         return HttpResponse(status=400)
 
-    if event.type == 'payment_intent.payment_failed':
-        payment_intent = event['data']['object']
-        logger.info(f"Received payment intent: {payment_intent.id} failed.\n")
-        error = payment_intent['last_payment_error']
-        logger.error(f'A payment failed due to {error["message"]}.')
-        billing_details = error['payment_method']['billing_details']
-        handlers = []
-        payment_intent_event = StripePaymentIntentFailed(
-            payment_intent_id=payment_intent.id,
-            stripe_customer_id=payment_intent.customer,
-            error_code=error['code'],
-            error_message=error['message'],
-            name=billing_details.name,
-            email=billing_details.email,
-            phone=billing_details.phone,
-            address_city=billing_details['address']['city'],
-            address_country=billing_details['address']['country'],
-            address_line1=billing_details['address']['line1'],
-            address_line2=billing_details['address']['line2'],
-            address_postal_code=billing_details['address']['postal_code'],
-            address_state=billing_details['address']['state']
-        )
-        handlers.append(payment_intent_event)
-        for handler in handlers:
-            handle(handler)
+    event_type_handlers = {
+        'payment_intent.payment_failed': handle_payment_intent_failed,
+        'payment_intent.succeeded': handle_payment_intent_succeeded,
+        'charge.succeeded': handle_charge_succeeded,
+        'customer.created': handle_customer_created
+    }
 
-    if event.type == 'payment_intent.succeeded':
-        payment_intent = event['data']['object']
-        logger.info(f"PaymentIntent {payment_intent.id} succeeded.")
-        handlers = []
-        payment_intent_event = StripePaymentIntentSucceeded(payment_intent_id=payment_intent.id)
-        handlers.append(payment_intent_event)
-        for handler in handlers:
-            handle(handler)
+    handler = event_type_handlers.get(event.type, handle_unhandled_event)
+    handler(event)
 
-    if event.type == 'charge.succeeded':
-        charge = event['data']['object']
-        logger.info(f"Charge {charge.id} succeeded.")
-        billing_details = charge.billing_details
-
-        charge_event = StripeChargeSucceeded(
-            payment_intent_id=charge.payment_intent,
-            name=billing_details.name,
-            email=billing_details.email,
-            phone=billing_details.phone,
-            address_city=billing_details['address']['city'],
-            address_country=billing_details['address']['country'],
-            address_line1=billing_details['address']['line1'],
-            address_line2=billing_details['address']['line2'],
-            address_postal_code=billing_details['address']['postal_code'],
-            address_state=billing_details['address']['state']
-        )
-        handle(charge_event)
-
-    if event.type == 'customer.created':
-        customer = event['data']['object']
-        logger.info(f"Stripe customer {customer.id} created.")
-        logger.info(f"Start creation of Profile {customer.id}.")
-        stripe_customer_created_event = StripeCustomerCreated(
-            stripe_customer_id=customer.id,
-            name=customer.name,
-            email=customer.email,
-            phone=customer.phone,
-            address_city=customer['address']['city'],
-            address_country=customer['address']['country'],
-            address_line1=customer['address']['line1'],
-            address_line2=customer['address']['line2'],
-            address_postal_code=customer['address']['postal_code'],
-            address_state=customer['address']['state']
-        )
-        handle(stripe_customer_created_event)
-
-    else:
-        logger.info('Unhandled event type {}'.format(event['type']))
     return HttpResponse(status=200)
+
+
+def handle_payment_intent_failed(event):
+    payment_intent = event['data']['object']
+    logger.info(f"Received payment intent: {payment_intent.id} failed.")
+    error = payment_intent['last_payment_error']
+    logger.error(f'A payment failed due to {error["message"]}.')
+    billing_details = error['payment_method']['billing_details']
+    payment_intent_event = StripePaymentIntentFailed(
+        payment_intent_id=payment_intent.id,
+        stripe_customer_id=payment_intent.customer,
+        error_code=error['code'],
+        error_message=error['message'],
+        name=billing_details.name,
+        email=billing_details.email,
+        phone=billing_details.phone,
+        address_city=billing_details['address']['city'],
+        address_country=billing_details['address']['country'],
+        address_line1=billing_details['address']['line1'],
+        address_line2=billing_details['address']['line2'],
+        address_postal_code=billing_details['address']['postal_code'],
+        address_state=billing_details['address']['state']
+    )
+    handle(payment_intent_event)
+
+
+def handle_payment_intent_succeeded(event):
+    payment_intent = event['data']['object']
+    logger.info(f"PaymentIntent {payment_intent.id} succeeded.")
+    payment_intent_event = StripePaymentIntentSucceeded(payment_intent_id=payment_intent.id)
+    handle(payment_intent_event)
+
+
+def handle_charge_succeeded(event):
+    charge = event['data']['object']
+    logger.info(f"Charge {charge.id} succeeded.")
+    billing_details = charge.billing_details
+    charge_event = StripeChargeSucceeded(
+        payment_intent_id=charge.payment_intent,
+        name=billing_details.name,
+        email=billing_details.email,
+        phone=billing_details.phone,
+        address_city=billing_details['address']['city'],
+        address_country=billing_details['address']['country'],
+        address_line1=billing_details['address']['line1'],
+        address_line2=billing_details['address']['line2'],
+        address_postal_code=billing_details['address']['postal_code'],
+        address_state=billing_details['address']['state']
+    )
+    handle(charge_event)
+
+
+def handle_customer_created(event):
+    customer = event['data']['object']
+    logger.info(f"Stripe customer {customer.id} created.")
+    stripe_customer_created_event = StripeCustomerCreated(
+        stripe_customer_id=customer.id,
+        name=customer.name,
+        email=customer.email,
+        phone=customer.phone,
+        address_city=customer['address']['city'],
+        address_country=customer['address']['country'],
+        address_line1=customer['address']['line1'],
+        address_line2=customer['address']['line2'],
+        address_postal_code=customer['address']['postal_code'],
+        address_state=customer['address']['state']
+    )
+    handle(stripe_customer_created_event)
+
+
+def handle_unhandled_event(event):
+    logger.info(f'Unhandled event type {event.type}')
 
 
 class ConfirmationView(TemplateView):
@@ -176,12 +174,15 @@ def checkout_payment_intent_view(request):
         product_ids = [int(pk) for pk in product_ids]
         products = Product.active.filter(id__in=product_ids)
 
-        total_amount = 0
-        for product in products:
-            total_amount += product.stripe_price
+        total_amount = sum(product.stripe_price for product in products)
 
-        # Define the payment method types you support and have enabled
-        payment_method_types = ["card", "apple_pay", "google_pay", "paypal", "klarna"]
+        payment_method_types = [
+            "card",
+            # "apple_pay",
+            # "google_pay",
+            # "paypal",
+            "klarna",
+        ]
 
         intent_data = {
             "amount": total_amount,
@@ -191,23 +192,16 @@ def checkout_payment_intent_view(request):
                 "card": {
                     "request_three_d_secure": "automatic"
                 },
-                "apple_pay": {
-                    # Apple Pay specific options if needed
-                },
-                "google_pay": {
-                    # Google Pay specific options if needed
-                },
-                "paypal": {
-                    # PayPal specific options if needed
-                },
-                "klarna": {
-                    # Klarna specific options if needed
-                }
+                # "apple_pay": {},
+                # "google_pay": {},
+                # "paypal": {},
+                "klarna": {}
             },
             "metadata": {
                 "product_ids": str(product_ids),
             }
         }
+
         customer_data = {
             'name': '',
             'email': '',
@@ -221,9 +215,10 @@ def checkout_payment_intent_view(request):
                 'state': ''
             }
         }
+
         if user.is_authenticated:
             purchase = Purchase.objects.create(user=user, stripe_price=total_amount, stripe_customer_id=user.profile.stripe_customer_id)
-            intent_data.update({'customer': user.profile.stripe_customer_id})  # Update customer directly as a string
+            intent_data.update({'customer': user.profile.stripe_customer_id})
             customer_data.update(
                 {
                     'name': user.profile.name,
@@ -246,7 +241,7 @@ def checkout_payment_intent_view(request):
         purchase.stripe_payment_intent_id = payment_intent.id
         purchase.save()
         return JsonResponse({'clientSecret': payment_intent.client_secret, 'customerData': customer_data, 'paymentAmount': payment_intent.amount})
-    except json.JSONDecodeError as e:
+    except json.JSONDecodeError:
         return HttpResponseBadRequest('Invalid JSON data')
     except stripe.error.InvalidRequestError as e:
         logger.error(f"Stripe error: {e.user_message}")

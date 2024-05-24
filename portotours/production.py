@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.redirects',
     'django.contrib.sitemaps',
     # 3rd parties
     'dotenv',
@@ -61,6 +63,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'corsheaders.middleware.CorsMiddleware',  # Place CORS middleware here
     'django.middleware.common.CommonMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -296,6 +299,7 @@ ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')
 MANAGER_EMAIL = os.environ.get('MANAGER_EMAIL')
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 SITE_NAME = 'www.onedaytours.pt'
+SITE_ID = 1
 PROTOCOL = 'https'
 DOMAIN = os.environ.get('DOMAIN_NAME', 'localhost:8000')
 NAVBAR_CONTEXT_CACHE_TIMEOUT = 3600
