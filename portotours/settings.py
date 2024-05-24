@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.redirects',
     'django.contrib.sitemaps',
     # 3rd parties
     'dotenv',
@@ -80,6 +82,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -412,7 +415,7 @@ ORDER_EMAIL = 'orders@portotours.pt'
 
 # Set your site name
 SITE_NAME = 'OneDayTours.com'
-
+SITE_ID = 1
 # Set the protocol (http or https)
 PROTOCOL = 'http'
 
