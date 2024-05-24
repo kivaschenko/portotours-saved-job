@@ -1,13 +1,13 @@
 from django.contrib.sitemaps import Sitemap
-from .models import Attraction
+from .models import LandingPage
 
 
-class AttractionSitemap(Sitemap):
+class LandingPageSitemap(Sitemap):
     # changefreq = 'monthly'
-    # priority = 0.6
+    # priority = 0.5
 
     def items(self):
-        return Attraction.active.all()
+        return LandingPage.active.all()
 
     def lastmod(self, obj):
         return obj.updated_at
