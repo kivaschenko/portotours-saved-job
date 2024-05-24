@@ -43,6 +43,10 @@ class LandingPage(models.Model):
     blogs = models.ManyToManyField(Blog, blank=True)
     title_related_landing_pages = models.CharField(max_length=255, blank=True, null=True, help_text="Title of the landing page, max 255 characters", )
     related_landing_pages = models.ManyToManyField('LandingPage', blank=True)
+    # FAQ block
+    faq_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    faq_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
+
 
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
 
