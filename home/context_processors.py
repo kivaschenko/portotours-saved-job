@@ -1,8 +1,8 @@
 import logging
 from django.conf import settings
 from django.core.cache import cache
-from django.urls import resolve, reverse
-from django.urls.exceptions import Resolver404
+from django.urls import resolve, reverse, Resolver404
+from django.http import Http404
 
 from destinations.models import Destination
 from attractions.models import Attraction
@@ -60,6 +60,5 @@ def canonical_url(request):
         return {'canonical_url': url}
     except Resolver404:
         logger.error(f"URL could not be resolved: {request.path_info}")
-        # Handle the error gracefully, e.g., by returning an empty string or a default value
-        return {'canonical_url': ''}
+        raise Http404('Page not found')
 
