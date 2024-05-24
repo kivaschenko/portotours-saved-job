@@ -60,5 +60,6 @@ def canonical_url(request):
         return {'canonical_url': url}
     except Resolver404:
         logger.error(f"URL could not be resolved: {request.path_info}")
-        raise Http404('Page not found')
+        # raise Http404('Page not found')
+        return {'canonical_url': ''}
 
