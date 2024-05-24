@@ -21,7 +21,7 @@ class LandingPageActiveManager(models.Manager):
 
 class LandingPage(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True, help_text="The name of the landing page, views in main header")
-    content = RichTextField(max_length=20000, blank=True, null=True, help_text="The content of the landing page, max 20 000 characters")
+    content = RichTextField(max_length=20000, blank=True, null=True, help_text="The content under banner place, max 20 000 characters")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, editable=True, blank=True,
                             help_text="max 255 characters, exactly url tail that is unique")
     page_title = models.CharField(max_length=255, help_text="seo title for header in search list, max 255 characters",
@@ -41,12 +41,14 @@ class LandingPage(models.Model):
     blogs_title = models.CharField('Featured Articles Title', max_length=255, help_text="Title above Featured Articles section, max 255 characters",
                                    blank=True, null=True)
     blogs = models.ManyToManyField(Blog, blank=True)
+    seo_title = models.CharField(max_length=255, help_text="seo title for text block above FAQ, max 255 characters", null=True, blank=True)
+    seo_text = RichTextField(max_length=20000, blank=True, null=True,
+                             help_text="The content of the landing page between Featured Articles and FAQ, max 20 000 characters")
     title_related_landing_pages = models.CharField(max_length=255, blank=True, null=True, help_text="Title of the landing page, max 255 characters", )
     related_landing_pages = models.ManyToManyField('LandingPage', blank=True)
     # FAQ block
     faq_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
     faq_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
-
 
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
 
@@ -74,6 +76,9 @@ class LandingPage(models.Model):
 
     def display_content(self):
         return mark_safe(self.content)
+
+    def display_seo_text(self):
+        return mark_safe(self.seo_text)
 
     def resize_banner(self):
         img = Image.open(self.banner)
