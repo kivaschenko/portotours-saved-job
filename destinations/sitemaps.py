@@ -3,8 +3,8 @@ from .models import Destination
 
 
 class DestinationSitemap(Sitemap):
-    changefreq = 'monthly'
-    priority = 0.6
+    # changefreq = 'monthly'
+    # priority = 0.6
 
     def items(self):
         return Destination.active.all()
