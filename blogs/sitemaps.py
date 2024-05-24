@@ -3,8 +3,8 @@ from .models import Blog
 
 
 class BlogSitemap(Sitemap):
-    changefreq = 'monthly'
-    priority = 0.6
+    # changefreq = 'monthly'
+    # priority = 0.6
 
     def items(self):
         return Blog.active.all()

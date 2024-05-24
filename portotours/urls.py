@@ -19,6 +19,7 @@ from destinations.sitemaps import DestinationSitemap
 from blogs.sitemaps import BlogSitemap
 from products.sitemaps import ExperienceSitemap
 from home.sitemaps import PageSitemap
+from landing_pages.sitemaps import LandingPageSitemap
 from .sitemaps import ListSitemap
 
 
@@ -28,6 +29,7 @@ sitemaps = {
     'blogs': BlogSitemap,
     'experiences': ExperienceSitemap,
     'pages': PageSitemap,
+    'landing_pages': LandingPageSitemap,
     'lists': ListSitemap,
 }
 
