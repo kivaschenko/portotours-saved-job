@@ -1,11 +1,16 @@
+import logging
 from django.conf import settings
 from django.core.cache import cache
 from django.urls import resolve, reverse
+from django.urls.exceptions import Resolver404
 
 from destinations.models import Destination
 from attractions.models import Attraction
 from products.models import Experience, Product
 from landing_pages.models import LandingPage
+
+
+logger = logging.getLogger(__name__)
 
 
 def navbar_context(request, lang=None, **kwargs):
@@ -46,9 +51,15 @@ def navbar_context(request, lang=None, **kwargs):
 
 
 def canonical_url(request):
-    match = resolve(request.path_info)
-    canonical_path = reverse(match.view_name, args=match.args, kwargs=match.kwargs)
-    url = request.build_absolute_uri(canonical_path)
-    # Ensure the URL uses HTTPS
-    url = url.replace('http://', 'https://')
-    return {'canonical_url': url}
+    try:
+        match = resolve(request.path_info)
+        canonical_path = reverse(match.view_name, args=match.args, kwargs=match.kwargs)
+        url = request.build_absolute_uri(canonical_path)
+        # Ensure the URL uses HTTPS
+        url = url.replace('http://', 'https://')
+        return {'canonical_url': url}
+    except Resolver404:
+        logger.error(f"URL could not be resolved: {request.path_info}")
+        # Handle the error gracefully, e.g., by returning an empty string or a default value
+        return {'canonical_url': ''}
+
