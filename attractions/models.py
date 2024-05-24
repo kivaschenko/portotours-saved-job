@@ -103,7 +103,7 @@ class Attraction(models.Model):
                                               null=True, blank=True)
     # FAQ block
     faq_title = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
-    faq_subtitle = models.CharField(max_length=120, help_text="max 120 characters", null=True, blank=True)
+    faq_subtitle = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
 
     objects = models.Manager()
     active = AttractionActiveManager()
