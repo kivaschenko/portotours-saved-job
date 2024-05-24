@@ -2,42 +2,25 @@ import unittest
 from unittest.mock import patch, MagicMock
 
 from django.conf import settings
-from service_layer.services import update_purchase_and_send_email_payment_intent_failed
-
 from django.core import mail
 from django.test import TestCase
 
-
-class EmailTest(TestCase):
-    def test_update_purchase_and_send_email_payment_intent_failed(self):
-        # Call your function with test data
-        update_purchase_and_send_email_payment_intent_failed(
-            payment_intent_id='test_intent_id',
-            stripe_customer_id='test_customer_id',
-            error_code='card_declined',
-            error_message='Your card was declined.',
-            name='Ben Affleck',
-            email='ben@example.com',
-            phone='+12124656000'
-        )
-
-        # Check that one email was sent
-        self.assertEqual(len(mail.outbox), 1)
-
-        # Check the subject of the email
-        self.assertEqual(mail.outbox[0].subject, 'New Order payment failed: test_intent_id, card_declined')
-
-        # Check the email body content
-        expected_body_content = [
-            # "Order ID:", "Product name:", "Number of passengers:", "Language:", "Total sum:",
-            "Client info:", "Stripe ID:", "Name:", "Email:", "Phone:",
-            "Error info:", "Error code: card_declined", "Error message: Your card was declined."
-        ]
-        for content in expected_body_content:
-            self.assertIn(content, mail.outbox[0].body)
+from service_layer.services import (
+    update_purchase_and_send_email_payment_intent_failed,
+    update_purchase_by_payment_intent_id,
+    create_new_stripe_customer_id,
+    set_real_user_in_purchase
+)
+from service_layer.events import (
+    StripePaymentIntentFailed,
+    StripePaymentIntentSucceeded,
+    StripeChargeSucceeded,
+    StripeCustomerCreated
+)
+from service_layer.bus_messages import handle
 
 
-class TestUpdatePurchaseAndSendEmail(TestCase):
+class TestUpdatePurchaseAndSendEmailPaymentIntentFailed(TestCase):
 
     @patch('service_layer.services.send_mail')
     @patch('service_layer.services.Purchase')  # Mock the Purchase model to avoid database interactions
@@ -48,10 +31,8 @@ class TestUpdatePurchaseAndSendEmail(TestCase):
         mock_purchase_instance.id = 100
         mock_purchase_instance.products.all.return_value.exists.return_value = True
         mock_purchase_instance.products.all.return_value = [
-            MagicMock(random_order_number='16G6-4AZQ-9WFN-XGAV', full_name='Sunset, Fado and Tapas Walking Tour', total_booked=5, language='English',
-                      total_price=229.95),
-            MagicMock(random_order_number='W6MQ-6IHO-JYVY-VILR', full_name='Wine Experience at José Maria da Fonseca parent', total_booked=5,
-                      language='English', total_price=399.99)
+            MagicMock(random_order_number='16G6-4AZQ-9WFN-XGAV', full_name='Sunset, Fado and Tapas Walking Tour', total_booked=5, language='English', total_price=229.95),
+            MagicMock(random_order_number='W6MQ-6IHO-JYVY-VILR', full_name='Wine Experience at José Maria da Fonseca parent', total_booked=5, language='English', total_price=399.99)
         ]
 
         payment_intent_id = 'test_payment_intent_id'
@@ -102,3 +83,120 @@ class TestUpdatePurchaseAndSendEmail(TestCase):
         self.assertEqual(call_args['message'], expected_message)
         self.assertEqual(call_args['from_email'], settings.ORDER_EMAIL)
         self.assertEqual(call_args['recipient_list'], [settings.ADMIN_EMAIL, settings.MANAGER_EMAIL])
+
+
+class TestEventHandlers(TestCase):
+
+    @patch('service_layer.bus_messages.handle_stripe_charge_success')
+    def test_handle_stripe_charge_succeeded(self, mock_handler):
+        event = StripeChargeSucceeded(
+            payment_intent_id='pi_123',
+            name='John Doe',
+            email='john@example.com',
+            phone='1234567890',
+            address_city='City',
+            address_country='Country',
+            address_line1='123 Street',
+            address_line2='Apt 1',
+            address_postal_code='12345',
+            address_state='State'
+        )
+        handle(event)
+        mock_handler.assert_called_once_with(event)
+
+    @patch('service_layer.services.update_purchase_by_payment_intent_id')
+    def test_handle_stripe_payment_intent_succeeded(self, mock_handler):
+        event = StripePaymentIntentSucceeded(payment_intent_id='pi_123')
+        handle(event)
+        mock_handler.assert_called_once_with(payment_intent_id='pi_123')
+
+    @patch('service_layer.services.update_purchase_and_send_email_payment_intent_failed')
+    def test_handle_stripe_payment_intent_failed(self, mock_handler):
+        event = StripePaymentIntentFailed(
+            payment_intent_id='pi_123',
+            stripe_customer_id='cus_123',
+            error_code='card_declined',
+            error_message='Card was declined',
+            name='John Doe',
+            email='john@example.com',
+            phone='1234567890',
+            address_city='City',
+            address_country='Country',
+            address_line1='123 Street',
+            address_line2='Apt 1',
+            address_postal_code='12345',
+            address_state='State'
+        )
+        handle(event)
+        mock_handler.assert_called_once_with(event)
+
+    @patch('service_layer.services.create_profile_and_generate_password')
+    def test_handle_stripe_customer_created(self, mock_handler):
+        event = StripeCustomerCreated(
+            stripe_customer_id='cus_123',
+            name='John Doe',
+            email='john@example.com',
+            phone='1234567890',
+            address_city='City',
+            address_country='Country',
+            address_line1='123 Street',
+            address_line2='Apt 1',
+            address_postal_code='12345',
+            address_state='State'
+        )
+        handle(event)
+        mock_handler.assert_called_once_with(event)
+
+
+class TestServiceFunctions(TestCase):
+
+    @patch('service_layer.services.Purchase')
+    def test_update_purchase_by_payment_intent_id(self, mock_purchase):
+        mock_purchase_instance = MagicMock()
+        mock_purchase.objects.filter().first.return_value = mock_purchase_instance
+
+        update_purchase_by_payment_intent_id(payment_intent_id='pi_123', customer_id='cus_123')
+
+        mock_purchase_instance.save.assert_called()
+        self.assertEqual(mock_purchase_instance.completed, True)
+        self.assertEqual(mock_purchase_instance.stripe_customer_id, 'cus_123')
+
+    @patch('service_layer.services.stripe.Customer.create')
+    def test_create_new_stripe_customer_id(self, mock_stripe_customer_create):
+        mock_customer = MagicMock(id='cus_123')
+        mock_stripe_customer_create.return_value = mock_customer
+
+        customer = create_new_stripe_customer_id(
+            name='John Doe',
+            email='john@example.com',
+            phone='1234567890',
+            address_city='City',
+            address_country='Country',
+            address_line1='123 Street',
+            address_line2='Apt 1',
+            address_postal_code='12345',
+            address_state='State'
+        )
+
+        self.assertEqual(customer.id, 'cus_123')
+        mock_stripe_customer_create.assert_called_once()
+
+
+class TestSetRealUserInPurchase(TestCase):
+
+    @patch('service_layer.services.Profile')
+    @patch('service_layer.services.Purchase')
+    def test_set_real_user_in_purchase(self, mock_purchase, mock_profile):
+        mock_profile_instance = MagicMock(user=MagicMock(id=1))
+        mock_profile.objects.get.return_value = mock_profile_instance
+        mock_purchase_instance = MagicMock(user_id=1)
+        mock_purchase.last24hours_manager.filter.return_value = [mock_purchase_instance]
+
+        set_real_user_in_purchase(payment_intent_id='pi_123', customer_id='cus_123')
+
+        mock_purchase_instance.save.assert_called()
+        mock_profile.objects.get.assert_called_once_with(stripe_customer_id='cus_123')
+
+
+if __name__ == '__main__':
+    unittest.main()
