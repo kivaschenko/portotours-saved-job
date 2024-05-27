@@ -209,6 +209,8 @@ class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()  # Call the superclass method to get the filtered queryset
+        # Add validation or filtering to remove any None values or invalid objects
+        queryset = queryset.exclude(experience__isnull=True)
         return queryset
 
     def get_context_data(self, **kwargs):

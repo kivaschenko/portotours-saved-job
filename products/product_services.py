@@ -172,7 +172,7 @@ def prepare_google_items_for_cart(products_queryset: QuerySet) -> list[dict]:
     items = []
     if products_queryset.exists():
         for product in products_queryset:
-            experience = product.parent_experience.child_experiences.filter(language=product.language).first()
+            experience = product.parent_experience.child_experiences.first()
             item = experience.ecommerce_items
             item.update({
                 'currency': "EUR",
