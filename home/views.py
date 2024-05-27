@@ -67,7 +67,7 @@ def robots_txt(request):
         "User-agent: *",
         "Disallow: /odt-admin/",
         "Disallow: /en/accounts/",
-        "Allow: /",
+        # "Allow: /",
         "",
         "Sitemap: https://onedaytours.pt/sitemap.xml",
     ]
