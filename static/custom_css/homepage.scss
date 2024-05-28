@@ -592,6 +592,9 @@
                 background: #f3faf5;
                 overflow: hidden;
                 margin-bottom: 4px;
+                @include media-breakpoint-down(md) {
+                  width: fit-content;
+                }
                 .top-discount-label {
                   display: flex;
                   align-items: center;
