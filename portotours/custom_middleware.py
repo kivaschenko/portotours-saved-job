@@ -1,6 +1,9 @@
-# middleware.py
-from django.conf import settings
-from django.http import HttpRequest
+import logging
+
+from django.core.exceptions import DisallowedHost
+from django.http import HttpResponseBadRequest, HttpRequest
+
+logger = logging.getLogger(__name__)
 
 
 class ExcludeAdminFromAnalyticsMiddleware:
@@ -21,4 +24,17 @@ class ExcludeAdminFromAnalyticsMiddleware:
 
                 gtag('config', 'G-9X9P4D6080');
             </script>'''
+        return response
+
+
+class IgnoreDisallowedHostMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        try:
+            response = self.get_response(request)
+        except DisallowedHost as e:
+            logger.warning(f"DisallowedHost exception: {e}")
+            return HttpResponseBadRequest("Bad Request (Invalid Host)")
         return response

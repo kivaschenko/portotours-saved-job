@@ -53,7 +53,7 @@ class LandingPageView(DetailView):
                     experiences_queryset = experiences_queryset.order_by(order_by_field)
 
             start = timezone.now()
-            end = start + timezone.timedelta(days=30)
+            end = start + timezone.timedelta(days=60)
 
             time_of_day = self.request.GET.get('time_of_day', 'all')
             if time_of_day != 'all':

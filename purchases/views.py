@@ -176,7 +176,13 @@ def checkout_payment_intent_view(request):
 
         total_amount = sum(product.stripe_price for product in products)
 
-        payment_method_types = ["card", "apple_pay", "google_pay", "paypal", "klarna"]
+        payment_method_types = [
+            "card",
+            # "apple_pay",
+            # "google_pay",
+            # "paypal",
+            "klarna",
+        ]
 
         intent_data = {
             "amount": total_amount,
@@ -186,9 +192,9 @@ def checkout_payment_intent_view(request):
                 "card": {
                     "request_three_d_secure": "automatic"
                 },
-                "apple_pay": {},
-                "google_pay": {},
-                "paypal": {},
+                # "apple_pay": {},
+                # "google_pay": {},
+                # "paypal": {},
                 "klarna": {}
             },
             "metadata": {
