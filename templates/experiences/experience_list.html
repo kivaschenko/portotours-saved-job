@@ -106,7 +106,7 @@
                                 <div class="image-wrapper">
                                     
                                         <a href="javascript:void(0)" class="link"
-                                           onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'List of Experiences Card Image Click')">
+                                           onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }})">
                                             <img src="
                                                     {% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}"
                                                  alt="Card image for {{ object.name }}">
@@ -161,7 +161,7 @@
                                     {{ object.average_rating }}
                                 </p>
                                 <a href="javascript:void(0)" class="link"
-                                   onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'List of Experiences Card Title Click')">
+                                   onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }})">
                                     <h5>
                                         {{ object.name }}
                                     </h5>
@@ -222,7 +222,7 @@
 
                                 <div class="btns-wrapper">
                                     <button type="button" class="experience-link-btn btn-type-1"
-                                            onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }}, 'List of Experiences Card Button Click')">
+                                            onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }})">
                                         Book now
                                     </button>
                                     {% if object.parent_experience.free_cancellation %}
