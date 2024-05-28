@@ -107,9 +107,9 @@
             <div class="best-tours-cards-wrapper">
                     {% for experience in experiences_top_year %}
                         {% if cart_not_empty %}
-                        {% include 'include/best_tours_cards_applied.html' %}
+                            {% include 'include/best_tours_cards_applied.html' %}
                         {% else %}
-                        {% include 'include/best_tours_cards.html' %}
+                            {% include 'include/best_tours_cards.html' %}
                         {% endif %}
                     {% endfor %}
             </div>
