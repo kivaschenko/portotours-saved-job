@@ -100,7 +100,11 @@
             <div class="best-tours-cards-wrapper ppc-best-tours">
                 {% if experiences %}
                     {% for experience in experiences %}
-                        {% include 'include/best_tours_cards.html' %}
+                        {% if cart_not_empty %}
+                            {% include 'include/best_tours_cards_applied.html' %}
+                        {% else %}
+                            {% include 'include/best_tours_cards.html' %}
+                        {% endif %}
                     {% endfor %}
                 {% else %}
                     No experiences found based on your search criteria
