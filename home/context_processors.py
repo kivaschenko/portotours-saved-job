@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 def navbar_context(request, lang=None, **kwargs):
     session_key = request.session.session_key
+    cart_not_empty = Product.pending.filter(session_key=session_key).order_by('created_at').exists()
     user = request.user
     if lang is None:
         lang_code = 'EN'
@@ -30,7 +31,7 @@ def navbar_context(request, lang=None, **kwargs):
             number_of_products = Product.pending.filter(session_key=session_key).count()
     cached_data = cache.get(cache_key)
     if cached_data:
-        cached_data.update({'number_of_products': number_of_products})
+        cached_data.update({'number_of_products': number_of_products, 'cart_not_empty': cart_not_empty})
         return cached_data
     top_destinations = Destination.active.filter(language__code=lang_code).order_by('-parent_destination__priority_number')[:10]
     top_attractions = Attraction.active.filter(language__code=lang_code).order_by('-parent_attraction__priority_number')[:10]
@@ -45,6 +46,7 @@ def navbar_context(request, lang=None, **kwargs):
         'most_popular_experiences': most_popular_experiences,
         'number_of_products': number_of_products,
         'landing_pages': landing_pages,
+        'cart_not_empty': cart_not_empty,
     }
     cache.set(cache_key, context, timeout=settings.NAVBAR_CONTEXT_CACHE_TIMEOUT)
     return context
