@@ -1994,77 +1994,96 @@
       border: none;
     }
     .popup-top-wrapper {
-      padding: 34px 40px 24px;
+      padding: 34px 100px 24px 40px;
       background-color: #F8F8F8;
-      .title-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        img {
-          width: 54px;
-          height: 54px;
-          margin-right: 24px;
-        }
-        .popup-title {
-          color: #0F0F10;
-          font-size: 28px;
-          line-height: 36px;
-          font-family: "LatoRegular";
-          margin-top: 0;
-          margin-bottom: 0;
-          margin-right: 62px;
-        }
-        .link-to-cart {
-          width: 240px;
-          text-align: center;
-        }
-      }
-      .booked-tour-info-wrapper {
-        .tour-name {
-          font-size: 20px;
-            line-height: 30px;
-            font-family: "LatoRegular";
-            color: #0F0F10;
-            margin-top: 0;
-            margin-bottom: 8px;
-        }
-        .tour-info-list {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .left-col {
+        width: calc(100% - 240px - 74px);
+        .title-wrapper {
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          padding-left: 0;
-          list-style: none;
-          li {
-              margin-right: 38px;
-              position: relative;
-              color: #0F0F10 !important;
-                font-size: 16px;
-                line-height: 26px;
-                font-family: "LatoRegular";
-              & * {
+          img {
+            width: 54px;
+            height: 54px;
+            margin-right: 24px;
+          }
+          .popup-title {
+            color: #0F0F10;
+            font-size: 28px;
+            line-height: 36px;
+            font-family: "LatoRegular";
+            margin-top: 0;
+            margin-bottom: 0;
+            
+          }
+          
+        }
+        .booked-tour-info-wrapper {
+          padding-left: 78px;
+          .tour-name {
+            font-size: 20px;
+              line-height: 30px;
+              font-family: "LatoRegular";
+              color: #0F0F10;
+              margin-top: 0;
+              margin-bottom: 8px;
+          }
+          .tour-info-list {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 0;
+            list-style: none;
+            li {
+                margin-right: 38px;
+                position: relative;
                 color: #0F0F10 !important;
-                font-size: 16px;
-                line-height: 26px;
-                font-family: "LatoRegular";
-                margin: 0;
-              }
-              &:not(:last-child) {
-                &::after {
-                  position: absolute;
-                  content: "";
-                  width: 8px;
-                  height: 8px;
-                  background-color: var(--text-color-third);
-                  border-radius: 50%;
-                  top: 50%;
-                  transform: translateY(-50%);
-                  right: -23px;
+                  font-size: 16px;
+                  line-height: 26px;
+                  font-family: "LatoRegular";
+                & * {
+                  color: #0F0F10 !important;
+                  font-size: 16px;
+                  line-height: 26px;
+                  font-family: "LatoRegular";
+                  margin: 0;
                 }
-              }
-             
+                &:not(:last-child) {
+                  &::after {
+                    position: absolute;
+                    content: "";
+                    width: 8px;
+                    height: 8px;
+                    background-color: var(--text-color-third);
+                    border-radius: 50%;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    right: -23px;
+                  }
+                }
+               
+            }
           }
         }
       }
+      .right-col {
+        width: 240px;
+        display: flex;
+        flex-direction: column;
+        .link-to-cart {
+          width: 100%;
+          text-align: center;
+          padding: 18px 0;
+          &.btn-type-1 {
+            margin-bottom: 12px;
+          }
+        }
+      }
+      
+      
     }
     .popup-bottom-wrapper {
       padding: 24px 40px 40px;

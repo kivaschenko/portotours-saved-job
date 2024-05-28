@@ -1,7 +1,9 @@
-function trackButtonClick(url, items, clickPlace) {
+function trackButtonClick(url, items) {
+    // Capture the current URL at the time of the click
+    let clickPlace = window.location.href;
     items['item_list_name'] = clickPlace;
+
     let itemsArray = [items];
-    console.log('items', items);
     window.dataLayer.push({ecommerce: null});  // Clear the previous ecommerce object.
     window.dataLayer.push({
         event: "select_item",
@@ -9,7 +11,10 @@ function trackButtonClick(url, items, clickPlace) {
             items: itemsArray,
         }
     });
+
     setTimeout(function () {
         window.open(url, '_blank');
     }, 200);
 }
+
+

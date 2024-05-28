@@ -216,7 +216,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="cart-wrapper body-text-b3 hide">
+            <div class="cart-wrapper body-text-b3">
                 <a href="{% url 'my-cart' lang='en' %}">
                     <img src="{% static 'icons/cart-icon.svg' %}" alt="">
                     {% if number_of_products > 0 %}
@@ -224,6 +224,9 @@
                             {% else %}
                         {% endif %}
                     <span>Cart</span>
+                    <span class="text-mobile">
+                        Checkout now
+                    </span>
                 </a>
             </div>
             <div class="login-btn-wrapper">
@@ -240,7 +243,22 @@
         </div>
 
     </div>
-    
+</div>
+{% if cart_not_empty %}
+<div class="turbo-sale-banner">
+    <div class="container"> 
+        <img src="{% static 'icons/gift-box.svg' %}" alt="gift icon">
+        <p>
+            Your experience reservation has earned you <span>extra discount</span> from One Day Tours Portugal, use it for your next experiences and book faster!
+        </p>
+        <a href="{% url 'my-cart' lang='en' %}" class="btn-type-1">
+            Checkout cart
+        </a>
+    </div>
+</div>
+{% endif %}
+
+
     <!-- Home page language -->
     <script>
        //  document.addEventListener('DOMContentLoaded', function () {
@@ -259,8 +277,6 @@
        //  });
     </script>
 
-    
-
     <script>
         let languageBtn = document.querySelector('.language-switcher .default-language');
         languageBtn.addEventListener('click', () => {
@@ -275,7 +291,7 @@
 
         let burgerMobileMenuBtn = document.querySelector('.burger');
         let burgerMobileCloseMenuBtn = document.querySelector('.burger-close');
-        let cartBtn = document.querySelector('.cart-wrapper');
+        
         let dropdownMenus = document.querySelectorAll('.dropdown-menu');
 
 
@@ -285,14 +301,14 @@
             burgerMobileMenuBtn.classList.toggle('hide')
             burgerMobileCloseMenuBtn.classList.toggle('hide')
             document.documentElement.classList.add('overflow');
-            cartBtn.classList.toggle('hide')
+            
         })
         burgerMobileCloseMenuBtn.addEventListener('click', () => {
             navbar.classList.toggle('opened');
             burgerMobileCloseMenuBtn.classList.toggle('hide')
             burgerMobileMenuBtn.classList.toggle('hide')
             document.documentElement.classList.remove('overflow');
-            cartBtn.classList.toggle('hide')
+           
         })
 
         dropdownMenus.forEach((menu) => {
@@ -302,4 +318,4 @@
             })
         })
     </script>
-</div>
+

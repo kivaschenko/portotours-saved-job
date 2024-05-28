@@ -214,7 +214,7 @@ class ParentExperience(models.Model):
                                               "then old total price will be")
     child_old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
                                           help_text="For marketing purposes, this child old price will be higher than the new one.")
-    second_purchase_discount = models.PositiveSmallIntegerField(verbose_name='Applied Price', null=True, blank=True, default=20,
+    second_purchase_discount = models.PositiveSmallIntegerField(verbose_name='2ND PRODUCT DISCOUNT', null=True, blank=True, default=20,
                                                                 help_text="Secondary purchase discount in EUR from price for secondary products")
     meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
                                       on_delete=models.SET_NULL, null=True, blank=True,
@@ -302,8 +302,23 @@ class ParentExperience(models.Model):
         if self.second_purchase_discount and self.price and self.old_price:
             applied_price = self.price - self.second_purchase_discount
             if applied_price > 0:
-                discount = int(round((1 - applied_price / self.second_purchase_discount) * 100, 0))
+                discount = int(round((1 - applied_price / self.old_price) * 100, 0))
         return discount
+
+    @property
+    def applied_price_per_person(self):
+        if self.price and self.max_participants and self.second_purchase_discount:
+            if self.is_private:
+                price = self.price - self.second_purchase_discount
+                if price > 0:
+                    from_price = round(price / self.max_participants, 2)
+                else:
+                    from_price = self.price
+            else:
+                from_price = self.price
+            return from_price
+        else:
+            return None
 
 
 class ExperienceActiveManager(models.Manager):
