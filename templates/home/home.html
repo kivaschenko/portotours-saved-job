@@ -167,13 +167,30 @@
                                     </ul>
                                 </div>
                                 <div class="price-link-wrapper">
-                                    <p class="tour-price">
+                                    <div class="tour-price turbo-sale">
+                                        <div class="top-discount-label">
+                                            <img src="{% static 'icons/green-gift-icon.svg' %}" alt="gift">
+                                            <p>
+                                                -€20 applied
+                                            </p>
+                                        </div>
+                                        <div class="bottom-discount-label">
+                                            <p class="discount-info-text">
+                                                Experience is eligable for special discount. 
+                                            </p>
+                                            <p class="price">
+                                                <span class="old-price">€ {{ experience.parent_experience.old_price }}</span>
+                                                € {{ experience.parent_experience.price }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- <p class="tour-price">
                                         {% if experience.parent_experience.increase_percentage_old_price %}
-                                       <span class="old-price">€ {{ experience.parent_experience.old_price }}</span>
+                                            <span class="old-price">€ {{ experience.parent_experience.old_price }}</span>
                                        {% endif %}
                                         € {{ experience.parent_experience.price }}
                                         <span>{% if experience.parent_experience.is_private %}{% else %}/ per person{% endif %}</span>
-                                    </p>
+                                    </p> -->
                                     <div class="book-banner-wrapper">
                                         <a href="javascript:void(0)" class="tour-link btn-type-1"
                                            onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }}, 'Home - Top Experiences Card Button Book Click')">
