@@ -76,7 +76,7 @@
                     <div class="tour-type-card">
                         <img src="{% static 'images/tour-type-img1.png' %}" alt="">
                         <div class="tour-type-title-btn-wrapper">
-                            <h4 class="tour-type-title">Small Groups</h4>
+                            <h4 class="tour-type-title">Small Group</h4>
                             <a href="#" target="_blank" class="btn-type-3">
                                 Learn more
                                 <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="">
@@ -240,7 +240,7 @@
                                     Type of experience
                                 </p>
                                 <p class="card-text">
-                                    {% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}
+                                    {% if object.parent_experience.is_private %}Private{% else %}Small Group{% endif %}
                                 </p>
                             </div>
                         </div>
