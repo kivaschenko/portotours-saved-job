@@ -206,14 +206,15 @@ class ParentExperience(models.Model):
     price_changed_timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
     use_auto_increase_old_price = models.BooleanField(default=False,
                                                       help_text="If true, the old price is automatically increased")
-    increase_percentage_old_price = models.IntegerField(null=True, blank=True, default=33,
-                                                        help_text="The percentage to increase old price automatically.")
+    increase_percentage_old_price = models.IntegerField(verbose_name='Discount ',
+                                                        null=True, blank=True, default=33,
+                                                        help_text="The percentage between old price and price.")
     old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
                                     help_text="For marketing purposes, this adult old price will be higher than the new one. If it's private - "
                                               "then old total price will be")
     child_old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
                                           help_text="For marketing purposes, this child old price will be higher than the new one.")
-    second_purchase_discount = models.PositiveSmallIntegerField(null=True, blank=True, default=20,
+    second_purchase_discount = models.PositiveSmallIntegerField(verbose_name='Applied Price', null=True, blank=True, default=20,
                                                                 help_text="Secondary purchase discount in EUR from price for secondary products")
     meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
                                       on_delete=models.SET_NULL, null=True, blank=True,
@@ -285,6 +286,24 @@ class ParentExperience(models.Model):
             return from_price
         else:
             return None
+
+    @property
+    def applied_price(self):
+        if self.price and self.second_purchase_discount:
+            res = self.price - self.second_purchase_discount
+            if res <= 0:
+                return self.price
+            else:
+                return res
+
+    @property
+    def applied_discount(self):
+        discount = self.increase_percentage_old_price
+        if self.second_purchase_discount and self.price and self.old_price:
+            applied_price = self.price - self.second_purchase_discount
+            if applied_price > 0:
+                discount = int(round((1 - applied_price / self.second_purchase_discount) * 100, 0))
+        return discount
 
 
 class ExperienceActiveManager(models.Manager):

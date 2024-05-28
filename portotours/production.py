@@ -62,8 +62,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',  # Place CORS middleware here
     'django.middleware.common.CommonMiddleware',
-    'portotours.portotours.custom_middleware.IgnoreDisallowedHostMiddleware',  # Add your custom middleware here
-    'portotours.portotours.custom_middleware.ExcludeAdminFromAnalyticsMiddleware',
+    'portotours.custom_middleware.IgnoreDisallowedHostMiddleware',  # Add your custom middleware here
+    'portotours.custom_middleware.ExcludeAdminFromAnalyticsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

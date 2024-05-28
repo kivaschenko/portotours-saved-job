@@ -83,8 +83,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-    'portotours.portotours.custom_middleware.IgnoreDisallowedHostMiddleware',  # Add your custom middleware here
-    'portotours.portotours.custom_middleware.ExcludeAdminFromAnalyticsMiddleware',
+    'portotours.custom_middleware.IgnoreDisallowedHostMiddleware',  # Add your custom middleware here
+    'portotours.custom_middleware.ExcludeAdminFromAnalyticsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
