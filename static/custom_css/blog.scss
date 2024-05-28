@@ -209,6 +209,7 @@
         overflow: hidden;
         width: 100%;
         max-height: 400px;
+        will-change: transform;
         @include media-breakpoint-down(md) {
 
         }

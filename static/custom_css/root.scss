@@ -158,14 +158,17 @@ h5 {
 }
 .btn-type-2 {
     border-radius: 40px;
-    border: 1.5px solid var(--text-color-third);
+    border: 1px solid var(--text-color-third);
     background: var(--text-color-second);
     color: var(--text-color-third);
-    padding: 19px 62px;
+    padding: 18px 62px;
     width: fit-content;
     font-family: 'LatoSemiBold';
     text-transform: uppercase;
     text-align: center;
+    font-family: 'LatoSemiBold';
+    font-size: 18px;
+    line-height: normal;
     display: block;
     text-decoration: none;
     @include media-breakpoint-down(md) {
