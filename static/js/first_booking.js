@@ -205,7 +205,6 @@ const controller = {
             if (response.ok) {
                 // Handle successful response
                 console.log('Booking submitted successfully.');
-                console.log([model.googleItems]);
                 const languageSlug = model.bookingData.language_code.toLowerCase();
 
                 // Push data to Google analytics
@@ -215,10 +214,9 @@ const controller = {
                     ecommerce: [model.googleItems],
                 });
                 setTimeout(() => {
-                    window.open(`/my-cart/${languageSlug}/`)
+                    // window.open(`/my-cart/${languageSlug}/`)
+                    window.location.href = `/my-cart/${languageSlug}/`;
                 }, 200);
-                // Redirect to the cart page after successful submission
-                // window.location.href = `/my-cart/${languageSlug}/`; // Replace '/my-cart/' with the URL of your cart page
                 } else {
                 // Handle error response
                 console.error('Error submitting booking:', response.statusText);

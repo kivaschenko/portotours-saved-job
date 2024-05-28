@@ -1,0 +1,94 @@
+
+{% load static %}
+<div class="best-tours-card">
+    <div class="img-wrapper">
+        <a href="javascript:void(0)"
+           onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }})">
+            <img src="{% if experience.parent_experience.card_image %}
+                                    {{ experience.parent_experience.card_image.url }}
+                                    {% else %}{% endif %}" alt="card image for {{ experience.name }}">
+        </a>
+    </div>
+    <div class="card-content-wrapper">
+        {% if experience.parent_experience.increase_percentage_old_price %}
+            <div class="discount-banner-wrapper">
+                <img src="{% static 'icons/discount-bg.svg' %}" alt="">
+                <p class="discount">
+                    {{ experience.parent_experience.applied_discount }}% discount
+                </p>
+            </div>
+        {% endif %}
+        <div class="rating-wrapper body-text-b4">
+            {% if experience.average_rating %}
+                <div class="rating-block">
+                    <p class="rating-num">{{ experience.average_rating }}</p>
+                    <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
+
+                </div>
+            {% else %}
+                <div class="rating-block">
+                    <p class="rating-num">5.0</p>
+                    <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
+
+                </div>
+            {% endif %}
+            <div class="discount-block">
+            </div>
+        </div>
+        <a href="javascript:void(0)" class="title-link"
+           onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }})">
+            <p class="best-tours-card-title body-text-b2">
+                {{ experience.name }}
+            </p>
+        </a>
+        <div class="tour-info-wrapper">
+            <ul class="tour-info-list">
+                <li>
+                    <img src="{% static 'icons/duration-icon.svg' %}" alt="">
+                    {{ experience.display_duration }}
+                </li>
+                {% if experience.parent_experience.is_private %}
+                    <li>
+                        <img src="{% static 'icons/private-tour-icon.svg' %}" alt="">
+                        Private experience
+                    </li>
+                {% else %}
+                    <li>
+                        <img src="{% static 'icons/group-tour-icon.svg' %}" alt="">
+                        Small Group
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="price-link-wrapper">
+            <div class="tour-price turbo-sale">
+                <div class="top-discount-label">
+                    <img src="{% static 'icons/green-gift-icon.svg' %}" alt="gift">
+                    <p>
+                        -€{{ experience.parent_experience.second_purchase_discount }} applied
+                    </p>
+                </div>
+                <div class="bottom-discount-label">
+                    <p class="discount-info-text">
+                        Experience is eligable for special discount.
+                    </p>
+                    <p class="price">
+                        <span class="old-price">€ {{ experience.parent_experience.old_price }}</span>
+                        € {{ experience.parent_experience.applied_price }}
+                    </p>
+                </div>
+            </div>
+            <div class="book-banner-wrapper">
+                <a href="javascript:void(0)" class="tour-link btn-type-1"
+                   onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }})">
+                    Book
+                </a>
+                {% if experience.parent_experience.free_cancellation %}
+                    <p class="free-canc-title">
+                        + free cancellation
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

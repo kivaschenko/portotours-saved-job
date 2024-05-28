@@ -302,7 +302,7 @@ class ParentExperience(models.Model):
         if self.second_purchase_discount and self.price and self.old_price:
             applied_price = self.price - self.second_purchase_discount
             if applied_price > 0:
-                discount = int(round((1 - applied_price / self.second_purchase_discount) * 100, 0))
+                discount = int(round((1 - applied_price / self.old_price) * 100, 0))
         return discount
 
 
