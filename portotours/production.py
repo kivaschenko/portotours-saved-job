@@ -60,14 +60,17 @@ MIDDLEWARE = [
     # Add whitenoise middleware after the security middleware
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'corsheaders.middleware.CorsMiddleware',  # Place CORS middleware here
     'django.middleware.common.CommonMiddleware',
+    'portotours.portotours.custom_middleware.IgnoreDisallowedHostMiddleware',  # Add your custom middleware here
+    'portotours.portotours.custom_middleware.ExcludeAdminFromAnalyticsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 # Cache to store session data if using the cache session backend.
 SESSION_CACHE_ALIAS = "default"
 # Cookie name. This can be whatever you want.
