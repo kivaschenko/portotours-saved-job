@@ -213,6 +213,8 @@ class ParentExperience(models.Model):
                                               "then old total price will be")
     child_old_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True,
                                           help_text="For marketing purposes, this child old price will be higher than the new one.")
+    second_purchase_discount = models.PositiveSmallIntegerField(null=True, blank=True, default=20,
+                                                                help_text="Secondary purchase discount in EUR from price for secondary products")
     meeting_point = models.ForeignKey(MeetingPoint, help_text="meeting point for this experience",
                                       on_delete=models.SET_NULL, null=True, blank=True,
                                       verbose_name='Starting location', related_name='meeting_point')
