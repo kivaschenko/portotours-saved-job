@@ -211,6 +211,49 @@
                                 <p class="experience-list-item-text">
                                     {{ object.short_description }}
                                 </p>
+                                {% if cart_not_empty %}
+                                    {% if object.parent_experience.second_purchase_discount > 0 %}
+                                    <div class="price-wrapper turbo-sale">
+                                        <div class="top-discount-label">
+                                            <img src="{% static 'icons/green-gift-icon.svg' %}" alt="gift">
+                                            <p>
+                                                -€{{ object.parent_experience.second_purchase_discount }} applied
+                                            </p>
+                                        </div>
+                                        <div class="bottom-discount-label">
+                                            <p class="discount-info-text">
+                                                Experience is eligable for special discount.
+                                            </p>
+                                            <div class="price">
+                                                <p class="old-price">
+                                                    € {{ object.parent_experience.old_price }}
+                                                </p>
+                                                <p class="new-price">
+                                                    € {{ object.parent_experience.price }}
+                                                </p>
+                                                {% if object.parent_experience.is_private %}
+                                                {% else %}
+                                                <p class="per-person">
+                                                    / per person
+                                                </p>
+                                                {% endif %}
+                                                
+                                            </div>
+                                           
+                                        </div>
+                                        
+                                    </div>
+                                    {% else %}
+                                    <div class="price-wrapper">
+                                        <p class="old-price">
+                                            € {{ object.parent_experience.old_price }}
+                                        </p>
+                                        <p class="new-price">
+                                            € {{ object.parent_experience.price }}
+                                        </p>
+                                    </div>
+                                    {% endif %}
+                                {% else %}
                                 <div class="price-wrapper">
                                     <p class="old-price">
                                         € {{ object.parent_experience.old_price }}
@@ -219,7 +262,7 @@
                                         € {{ object.parent_experience.price }}
                                     </p>
                                 </div>
-
+                                {% endif %}  
                                 <div class="btns-wrapper">
                                     <button type="button" class="experience-link-btn btn-type-1"
                                             onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }})">

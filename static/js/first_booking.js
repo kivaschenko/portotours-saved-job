@@ -227,7 +227,7 @@ const controller = {
                     if (result && result.tourName && result.tourInfo) {
                         // Fill the popup data
                         fillPopupData(result);
-
+                        
                         // Open the popup
                         openPopup();
                     }
@@ -549,7 +549,9 @@ function handleEventData(data) {
 
 // Function to open the popup
 function openPopup() {
+    
     const popupWrapper = document.querySelector('.upsale-popup-wrapper');
+    console.log(popupWrapper)
     popupWrapper.classList.add('opened');
 }
 
