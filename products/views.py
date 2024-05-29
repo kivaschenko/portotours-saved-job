@@ -701,8 +701,19 @@ def create_group_product_without_booking(request):
         occurrence.save()
         new_product.occurrence = occurrence
         new_product.save()
+        data = {
+            'tourName': new_product.full_name,
+            'tourInfo': [
+                new_product.date_of_start,
+                new_product.time_of_start,
+                f'{new_product.adults_count} Adult',
+                f'{new_product.child_count} Children',
+                new_product.language.name,
+            ],
+            'message': 'Product created successfully'
+        }
         # Return a JSON response indicating success
-        return JsonResponse({'message': 'Product created successfully'}, status=201)
+        return JsonResponse(data, status=201)
     # If the request method is not POST, return an error response
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
