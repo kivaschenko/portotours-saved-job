@@ -16,6 +16,7 @@ const model = {
         ecommerceItems,
         {'currency': 'EUR', 'price': 1.0, 'quantity': 1, 'item_variant': "EN"}
     ),
+    'cart_not_empty': cartNotEmpty,
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
@@ -61,7 +62,7 @@ const view = {
         } else {
             prevMonthBtn.disabled = false;
         }
-        
+
 
         prevMonthBtn.addEventListener('click', function () {
             const prevMonth = new Date(date.getFullYear(), date.getMonth() - 1, 1);
@@ -85,8 +86,8 @@ const view = {
                 }
             }
         });
-        
-       
+
+
 
         const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
         const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -108,7 +109,7 @@ const view = {
             const isoDate = calendarGrid.children[index].dataset.date; // Получаем дату из data-атрибута
             const eventsForDate = model.events.filter(event => event.date === isoDate); // Фильтруем события по дате
 
-            
+
             if (eventsForDate.length > 0) {
                 const minPrice = Math.min(...eventsForDate.map(event => event.adult_price)); // Находим минимальную цену
 
@@ -189,7 +190,7 @@ const controller = {
         const bookingData = model.bookingData;
         console.log('bookingData:', bookingData);
         const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-    
+
         try {
             // Send the booking data to the server using fetch or another AJAX method
             const response = await fetch('/create-group-product-without-booking/', {
@@ -200,7 +201,7 @@ const controller = {
                 },
                 body: JSON.stringify(bookingData)
             });
-            
+
             // Check if response is successful
             if (response.ok) {
                 // Handle successful response
@@ -264,12 +265,12 @@ const controller = {
                     console.log('test')
                     controller.updateTotalPrice(selectedDate.dataset.date, this.value);
                 }
-                
+
             })
         })
     },
 
-    
+
     updateTotalPrice: function () {
         // Find the selected date and time
         const selectedDateElement = document.querySelector('.calendar-day.selected-date');
@@ -351,7 +352,7 @@ const controller = {
                 controller.resetPricesAndButton(); // Reset prices and submit button text
             }
 
-            
+
 
             // If there are events for the clicked date
             if (eventsForDate.length > 0) {
@@ -396,9 +397,9 @@ const controller = {
                         controller.performValidation(); // Call validation function when radio button changes
                     });
                 });
-                
+
             }
-           
+
             } else {
                 // If no events are available for the clicked date, display a message
                 const noEventsMessage = document.createElement('p');
@@ -423,7 +424,7 @@ const controller = {
         const submitBtn = document.getElementById('submitBtn');
         const ticketSelection = document.querySelector('.ticket-selection');
         const languageSelection = document.querySelector('.language-selection');
-        
+
         // Enable ticket selection if date and time are selected
         if (selectedDateElement && selectedTimeInput) {
             ticketSelection.classList.remove('disabled');
@@ -436,7 +437,7 @@ const controller = {
 
         // Enable language selection if adult ticket count is greater than 0
         if (parseInt(adultTicketCount) > 0) {
-            
+
             languageSelection.classList.remove('disabled');
         } else {
             languageSelection.classList.add('disabled');
@@ -507,9 +508,9 @@ const controller = {
 };
 
 // Function to fetch JSON data using AJAX
-async function fetchEventData(parentExperienceId) {
+async function fetchEventData(parentExperienceId, url) {
     try {
-        const response = await fetch(`/actual-experience-events/${parentExperienceId}/`);
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -530,24 +531,31 @@ function handleEventData(data) {
         // Show calendar
         const currentDate = new Date(); // Or you can pass the date from the controller
         view.renderCalendar(currentDate);
-       
+
     } else {
-        const currentDate = new Date(); 
+        const currentDate = new Date();
         view.renderCalendar(currentDate);
     }
 }
 
 
 document.addEventListener('DOMContentLoaded', async function () {
+    let fetchUrl;
+    if (cartNotEmpty) {
+        fetchUrl = `/actual-experience-events-with-discount/${parentExperienceId}/`
+    }else{
+        fetchUrl = `/actual-experience-events/${parentExperienceId}/`;
+    }
+    console.log(fetchUrl);
     // Fetch event data and wait for it to complete
-    await fetchEventData(parentExperienceId);
+    await fetchEventData(parentExperienceId, fetchUrl);
 
 
      // Disable submit button, ticket selection, and language selection blocks on page load
      const submitBtn = document.getElementById('submitBtn');
      const ticketSelection = document.querySelector('.ticket-selection');
      const languageSelection = document.querySelector('.language-selection');
- 
+
      submitBtn.disabled = true;
      ticketSelection.classList.add('disabled');
      languageSelection.classList.add('disabled');
@@ -577,13 +585,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     // Add event listener to time selection inputs to perform validation when time is selected
-    
+
     document.querySelectorAll('input[name="time"]').forEach(input => {
         input.addEventListener('change', controller.performValidation);
     });
 
     // Add event listener to adult ticket count input to perform validation
-    
+
     document.getElementById('adultTicketCount').addEventListener('input', controller.performValidation);
 
 
@@ -606,7 +614,7 @@ document.addEventListener('DOMContentLoaded', async function () {
          console.error('Current date not found in the calendar.');
      }
 
-    
+
 
 });
 
