@@ -16,6 +16,7 @@ const model = {
         ecommerceItems,
         {'currency': 'EUR', 'price': 1.0, 'quantity': 1, 'item_variant': "EN"}
     ),
+    'cart_not_empty': cartNotEmpty,
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
@@ -506,9 +507,9 @@ const controller = {
 };
 
 // Function to fetch JSON data using AJAX
-async function fetchEventData(parentExperienceId) {
+async function fetchEventData(parentExperienceId, url) {
     try {
-        const response = await fetch(`/actual-experience-events/${parentExperienceId}/`);
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -539,8 +540,15 @@ function handleEventData(data) {
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
+    let fetchUrl;
+    if (cartNotEmpty) {
+        fetchUrl = `/actual-experience-events-with-discount/${parentExperienceId}/`
+    }else{
+        fetchUrl = `/actual-experience-events/${parentExperienceId}/`;
+    }
+    console.log(fetchUrl);
     // Fetch event data and wait for it to complete
-    await fetchEventData(parentExperienceId);
+    await fetchEventData(parentExperienceId, fetchUrl);
 
 
      // Disable submit button, ticket selection, and language selection blocks on page load

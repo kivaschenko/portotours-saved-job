@@ -28,75 +28,75 @@
                 check availability
             </a>
         </div>
-    </div>
-    <div class="upsale-popup-wrapper">
-        <div class="popup-inner-wrapper">
-            <button type="button" class="close-popup-btn">
-                <img src="{% static 'icons/icon-close.svg' %}" alt="green check">
-            </button>
-            <div class="popup-top-wrapper">
-                <div class="left-col">
-                    <div class="title-wrapper">
-                        <img src="{% static 'icons/icon-check-green.svg' %}" alt="green check">
-                        <h4 class="popup-title">
-                            Done! The experience was successfully added to cart.
-                        </h4>
-                        
-                    </div>
-                    <div class="booked-tour-info-wrapper">
-                        <h5 class="tour-name">
-                            Experience name long-long-long  long-long-long  long-long-long    
-                        </h5>
-                        <ul class="tour-info-list">
-                            <li>MM/DD/YYYY</li>
-                            <li>11:10 AM</li>
-                            <li>2 Adult</li>
-                            <li>3 Children</li>
-                            <li>English</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="right-col">
-                    <a href="" class="link-to-cart btn-type-1">
-                        Checkout cart
-                    </a>
-                    <a href="" class="link-to-cart btn-type-2">
-                        continue shopping
-                    </a>
-                </div>
-            </div>
-            <div class="popup-bottom-wrapper">
-                <h2 class="popup-main-title">
-                    Enjoy your special discount for all additional experiences!
-                </h2>
-                <p class="popup-subtitle">
-                    Now private and small group experiences are available to you at a special price
-                </p>
-                <div class="popup-tour-cards-wrapper">
-                    <div class="tour-type-card">
-                        <img src="{% static 'images/tour-type-img1.png' %}" alt="">
-                        <div class="tour-type-title-btn-wrapper">
-                            <h4 class="tour-type-title">Small Group</h4>
-                            <a href="#" target="_blank" class="btn-type-3">
-                                Learn more
-                                <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="">
-                            </a>
+        
+        <div class="upsale-popup-wrapper">
+            <div class="popup-inner-wrapper">
+                <button type="button" class="close-popup-btn">
+                    <img src="{% static 'icons/icon-close.svg' %}" alt="green check">
+                </button>
+                <div class="popup-top-wrapper">
+                    <div class="left-col">
+                        <div class="title-wrapper">
+                            <img src="{% static 'icons/icon-check-green.svg' %}" alt="green check">
+                            <h4 class="popup-title">
+                                Done! The experience was successfully added to cart.
+                            </h4>
+
+                        </div>
+                        <div class="booked-tour-info-wrapper">
+                            <h5 class="tour-name">
+                                {{ object.name }}
+                            </h5>
+                            <ul class="tour-info-list">
+                                <li>MM/DD/YYYY</li>
+                                <li>11:10 AM</li>
+                                <li>2 Adult</li>
+                                <li>3 Children</li>
+                                <li>English</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="tour-type-card">
-                        <img src="{% static 'images/tour-type-img2.png' %}" alt="">
-                        <div class="tour-type-title-btn-wrapper">
-                            <h4 class="tour-type-title">Private Experiences</h4>
-                            <a href="#" target="_blank" class="btn-type-3" >
-                                Learn more
-                                <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="">
-                            </a>
+                    <div class="right-col">
+                        <a href="{% url 'my-cart' lang='en' %}" class="link-to-cart btn-type-1">
+                            Checkout cart
+                        </a>
+                        <a href="{% url 'experience-list' lang='en' %}" class="link-to-cart btn-type-2">
+                            continue shopping
+                        </a>
+                    </div>
+                </div>
+                <div class="popup-bottom-wrapper">
+                    <h2 class="popup-main-title">
+                        Enjoy your special discount for all additional experiences!
+                    </h2>
+                    <p class="popup-subtitle">
+                        Now private and small group experiences are available to you at a special price
+                    </p>
+                    <div class="popup-tour-cards-wrapper">
+                        <div class="tour-type-card">
+                            <img src="{% static 'images/tour-type-img1.png' %}" alt="">
+                            <div class="tour-type-title-btn-wrapper">
+                                <h4 class="tour-type-title">Small Groups</h4>
+                                <a href="#" target="_blank" class="btn-type-3" onclick="addTypeIsGroupAndNavigate(event, '{{ current_language }}')">
+                                    Learn more
+                                    <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="tour-type-card">
+                            <img src="{% static 'images/tour-type-img2.png' %}" alt="">
+                            <div class="tour-type-title-btn-wrapper">
+                                <h4 class="tour-type-title">Private Experiences</h4>
+                                <a href="#" target="_blank" class="btn-type-3" onclick="addTypeIsPrivateAndNavigate(event, '{{ current_language }}')">
+                                    Learn more
+                                    <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="">
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
     </div>
     <div class="container">
         <div class="experience-hero-info">
@@ -240,7 +240,7 @@
                                     Type of experience
                                 </p>
                                 <p class="card-text">
-                                    {% if object.parent_experience.is_private %}Private{% else %}Small Group{% endif %}
+                                    {% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}
                                 </p>
                             </div>
                         </div>
@@ -587,9 +587,12 @@
         const sessionKey = `{{ session_key }}`;  // from response extra_context
         // Define ParentExperience id
         const parentExperienceId = {{ object.parent_experience_id }};  // from response extra_context
-    
         // Google tracker info
         const ecommerceItems = {{ object.ecommerce_items|safe }};
+        // Cart has product(s)
+        const cartNotEmpty = {% if cart_not_empty %}true{% else %}false{% endif %};
+        // grab second purchase discount
+        const secondPurchaseDiscount = {{ object.parent_experience.second_purchase_discount }};
     </script>
 
     {% if object.parent_experience.is_private %}
@@ -898,5 +901,17 @@
         });
     </script>
 
+    <script>
+        function addTypeIsGroupAndNavigate(event, lang) {
+            event.preventDefault();
+            const url = `/${lang}/experiences/?tour_type=group&filter_by=all`;
+            window.location.href = url;
+        }
+        function addTypeIsPrivateAndNavigate(event, lang) {
+            event.preventDefault();
+            const url = `/${lang}/experiences/?tour_type=private&filter_by=all`;
+            window.location.href = url;
+        }
+    </script>
 
 {% endblock %}

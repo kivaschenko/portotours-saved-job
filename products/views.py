@@ -19,6 +19,7 @@ from products.product_services import (
     update_experience_event_booking,
     search_experience_by_place_start_lang,
     prepare_google_items_for_cart,
+    get_actual_events_for_experience_with_second_purchase_discount,
 )
 from reviews.forms import ReviewForm
 from reviews.models import Review
@@ -275,6 +276,14 @@ class CancelProductView(DeleteView):
 def get_actual_experience_events(request, parent_experience_id):
     try:
         result = get_actual_events_for_experience(parent_experience_id)
+        return JsonResponse({'result': result}, status=200)
+    except json.decoder.JSONDecodeError as exp:
+        return HttpResponseBadRequest('Invalid JSON data')
+
+
+def get_actual_experience_events_with_discount(request, parent_experience_id):
+    try:
+        result = get_actual_events_for_experience_with_second_purchase_discount(parent_experience_id)
         return JsonResponse({'result': result}, status=200)
     except json.decoder.JSONDecodeError as exp:
         return HttpResponseBadRequest('Invalid JSON data')
@@ -692,8 +701,19 @@ def create_group_product_without_booking(request):
         occurrence.save()
         new_product.occurrence = occurrence
         new_product.save()
+        data = {
+            'tourName': new_product.full_name,
+            'tourInfo': [
+                new_product.date_of_start,
+                new_product.time_of_start,
+                f'{new_product.adults_count} Adult',
+                f'{new_product.child_count} Children',
+                new_product.language.name,
+            ],
+            'message': 'Product created successfully'
+        }
         # Return a JSON response indicating success
-        return JsonResponse({'message': 'Product created successfully'}, status=201)
+        return JsonResponse(data, status=201)
     # If the request method is not POST, return an error response
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 

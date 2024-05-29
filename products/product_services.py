@@ -182,3 +182,41 @@ def prepare_google_items_for_cart(products_queryset: QuerySet) -> list[dict]:
             })
             items.append(item)
     return items
+
+
+# Second purchase discount logic
+def get_actual_events_for_experience_with_second_purchase_discount(parent_experience_id: int) -> dict:
+    result = {}
+    if not ParentExperience.objects.filter(id=parent_experience_id).exists():
+        return result
+    parent_experience = ParentExperience.objects.get(id=parent_experience_id)
+    languages_queryset = parent_experience.allowed_languages.values_list('code', flat=True)
+    result['languages'] = list(languages_queryset)
+    actual_events_list = []
+    now = datetime.utcnow()
+    try:
+        calendar = Calendar.objects.get_calendars_for_object(parent_experience).first()
+        actual_events = calendar.events.filter(start__gte=now, experienceevent__remaining_participants__gt=0)
+
+        if len(actual_events) > 0:
+            for event in actual_events:
+                adult_price = float(0)
+                child_price = float(0)
+                total_price = float(0)
+                if event.experienceevent.total_price is not None:
+                    total_price = float(event.experienceevent.total_price - parent_experience.second_purchase_discount)
+                if event.experienceevent.special_price is not None:
+                    adult_price = float(event.experienceevent.special_price - parent_experience.second_purchase_discount)
+                if event.experienceevent.child_special_price is not None:
+                    child_price = float(event.experienceevent.child_special_price)
+                actual_events_list.append(
+                    {'date': event.experienceevent.start_date, 'time': event.experienceevent.start_time, 'adult_price': adult_price, 'child_price': child_price,
+                     'max_participants': event.experienceevent.max_participants, 'booked_participants': event.experienceevent.booked_participants,
+                     'remaining_participants': event.experienceevent.remaining_participants, 'experience_event_id': event.experienceevent.id,
+                     'is_private': parent_experience.is_private, 'total_price': total_price, })
+            result['events'] = actual_events_list
+    except EventRelation.DoesNotExist:
+        logger.error(f'No events found for ParentExperience id={parent_experience_id}')
+    finally:
+        return result
+
