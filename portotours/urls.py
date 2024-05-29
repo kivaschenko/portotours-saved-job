@@ -1,27 +1,26 @@
-from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.contrib.sitemaps.views import sitemap
+from django.urls import path, include
 
 from accounts import views as accounts_views
-from destinations import views as destinations_views
 from attractions import views as attractions_views
-from products import views as products_views
-from purchases import views as purchases_views
-from blogs import views as blogs_views
-from reviews import views as reviews_views
-from home import views as home_views
-from landing_pages import views as landing_pages_views
 from attractions.sitemaps import AttractionSitemap
-from destinations.sitemaps import DestinationSitemap
+from blogs import views as blogs_views
 from blogs.sitemaps import BlogSitemap
-from products.sitemaps import ExperienceSitemap
+from destinations import views as destinations_views
+from destinations.sitemaps import DestinationSitemap
+from home import views as home_views
 from home.sitemaps import PageSitemap
+from landing_pages import views as landing_pages_views
 from landing_pages.sitemaps import LandingPageSitemap
+from products import views as products_views
+from products.sitemaps import ExperienceSitemap
+from purchases import views as purchases_views
+from reviews import views as reviews_views
 from .sitemaps import ListSitemap
-
 
 sitemaps = {
     'attractions': AttractionSitemap,
@@ -72,7 +71,6 @@ urlpatterns += [
     path('stripe-webhook/', purchases_views.stripe_webhook, name='stripe-webhook'),
 ]
 
-
 # HOME & ADMIN
 urlpatterns += [
     path('odt-admin/', admin.site.urls),
@@ -94,8 +92,10 @@ urlpatterns += [
     path('en/reset/<uidb64>/<token>/', accounts_views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('en/reset/done/', accounts_views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     # Password change
-    path('en/password_change/', auth_views.PasswordChangeView.as_view(template_name='registration/customized/password_change_form.html'), name='password_change'),
-    path('en/password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/customized/password_change_done.html'), name='password_change_done'),
+    path('en/password_change/', auth_views.PasswordChangeView.as_view(template_name='registration/customized/password_change_form.html'),
+         name='password_change'),
+    path('en/password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/customized/password_change_done.html'),
+         name='password_change_done'),
     # Profile
     path("en/accounts/profile/", accounts_views.ProfileView.as_view(), name="profile"),
     path("en/accounts/profile/update-address/", accounts_views.AddressUpdateView.as_view(), name="address-update"),
@@ -125,6 +125,8 @@ urlpatterns += [
     path('actual-experience-events/<int:parent_experience_id>/', products_views.get_actual_experience_events, name='actual-experience-events'),
     path('experience-event-data/<int:event_id>/', products_views.get_event_booking_data, name='experience-event-data'),
     path('private-experience-event-data/<int:event_id>/', products_views.get_private_event_booking_data, name='private-experience-event-data'),
+    path('actual-experience-events-with-discount/<int:parent_experience_id>/', products_views.get_actual_experience_events_with_discount,
+         name='actual-experience-events-with-discount'),
 ]
 
 # BLOGS
@@ -141,13 +143,12 @@ urlpatterns += [
 ]
 
 # LANDING PAGES
-urlpatterns += [path('<str:lang>/tour-type/<slug:slug>/', landing_pages_views.LandingPageView.as_view(), name='landing-page'),]
+urlpatterns += [path('<str:lang>/tour-type/<slug:slug>/', landing_pages_views.LandingPageView.as_view(), name='landing-page'), ]
 
 # Scheduler urls
 urlpatterns += [
     path("", include('schedule.urls'))
 ]
-
 
 # Add static file serving during development
 if settings.DEBUG:

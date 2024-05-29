@@ -19,6 +19,7 @@ from products.product_services import (
     update_experience_event_booking,
     search_experience_by_place_start_lang,
     prepare_google_items_for_cart,
+    get_actual_events_for_experience_with_second_purchase_discount,
 )
 from reviews.forms import ReviewForm
 from reviews.models import Review
@@ -275,6 +276,14 @@ class CancelProductView(DeleteView):
 def get_actual_experience_events(request, parent_experience_id):
     try:
         result = get_actual_events_for_experience(parent_experience_id)
+        return JsonResponse({'result': result}, status=200)
+    except json.decoder.JSONDecodeError as exp:
+        return HttpResponseBadRequest('Invalid JSON data')
+
+
+def get_actual_experience_events_with_discount(request, parent_experience_id):
+    try:
+        result = get_actual_events_for_experience_with_second_purchase_discount(parent_experience_id)
         return JsonResponse({'result': result}, status=200)
     except json.decoder.JSONDecodeError as exp:
         return HttpResponseBadRequest('Invalid JSON data')
