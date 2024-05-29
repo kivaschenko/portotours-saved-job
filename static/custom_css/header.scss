@@ -126,8 +126,9 @@
       @include media-breakpoint-down(md) {
         margin-right: 20px;
         margin-left: 0;
-        &.hide {
-          display: none;
+        display: none;
+        &.show-mobile {
+          display: flex;
         }
       }
       a {

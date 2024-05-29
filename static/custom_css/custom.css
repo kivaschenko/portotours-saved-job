@@ -7736,9 +7736,10 @@ html.off-scroll body {
     @media (max-width: 767.98px) {
       .header-right-col .cart-wrapper {
         margin-right: 20px;
-        margin-left: 0; }
-        .header-right-col .cart-wrapper.hide {
-          display: none; } }
+        margin-left: 0;
+        display: none; }
+        .header-right-col .cart-wrapper.show-mobile {
+          display: flex; } }
     .header-right-col .cart-wrapper a {
       display: flex;
       align-items: center;
@@ -9609,8 +9610,8 @@ html.off-scroll body {
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover;
-          padding-top: 32px;
-          padding-bottom: 32px;
+          padding-top: 43px;
+          padding-bottom: 43px;
           font-size: 18px;
           line-height: normal;
           margin-bottom: 0; } }
@@ -11774,11 +11775,11 @@ html.off-scroll body {
             border-radius: 6px;
             background: #f3faf5;
             overflow: hidden;
-            margin-bottom: 4px;
+            margin-bottom: 10px;
             width: fit-content; }
             @media (max-width: 767.98px) {
               .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale {
-                width: fit-content; } }
+                width: 100%; } }
             .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .top-discount-label {
               display: flex;
               align-items: center;
@@ -11802,6 +11803,9 @@ html.off-scroll body {
                 text-transform: uppercase; }
             .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label {
               padding: 4px 10px 2px; }
+              @media (max-width: 767.98px) {
+                .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label {
+                  width: 100%; } }
               .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .discount-info-text {
                 font-family: "LatoSemiBold";
                 font-size: 8px;
@@ -11810,15 +11814,16 @@ html.off-scroll body {
                 margin-bottom: 0; }
               .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .price {
                 display: flex;
-                align-items: flex-end;
+                align-items: baseline;
                 justify-content: flex-start; }
                 .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .price .old-price {
                   text-decoration: line-through;
                   color: #6d6d6d;
-                  font-family: "LatoMedium";
-                  font-size: 26px;
-                  line-height: 42px;
-                  margin-right: 16px; }
+                  font-family: "LatoRegular";
+                  font-size: 18px;
+                  line-height: normal;
+                  margin-right: 6px;
+                  margin-bottom: 0; }
                   @media (max-width: 767.98px) {
                     .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .price .old-price {
                       font-size: 18px;
@@ -11826,13 +11831,21 @@ html.off-scroll body {
                       margin-right: 10px; } }
                 .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .price .new-price {
                   color: #0f0f10;
-                  font-family: "LatoSemiBold";
-                  font-size: 40px;
-                  line-height: 48px; }
+                  font-family: "LatoMedium";
+                  font-size: 26px;
+                  line-height: normal;
+                  margin-right: 6px;
+                  margin-bottom: 0; }
                   @media (max-width: 767.98px) {
                     .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .price .new-price {
                       font-size: 22px;
                       line-height: 32px; } }
+                .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .price .per-person {
+                  color: #6d6d6d;
+                  font-family: "LatoRegular";
+                  font-size: 16px;
+                  line-height: 26px;
+                  margin: 0; }
         .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .btns-wrapper {
           display: flex;
           align-items: center;
@@ -12975,20 +12988,34 @@ html.off-scroll body {
     background-color: white;
     z-index: 31;
     overflow: hidden; }
+    @media (max-width: 767.98px) {
+      .upsale-popup-wrapper .popup-inner-wrapper {
+        width: calc(100% - 32px); } }
     .upsale-popup-wrapper .popup-inner-wrapper .close-popup-btn {
       position: absolute;
       top: 20px;
       right: 20px;
       background-color: #F8F8F8;
       border: none; }
+      @media (max-width: 767.98px) {
+        .upsale-popup-wrapper .popup-inner-wrapper .close-popup-btn {
+          top: 16px;
+          right: 16px; } }
     .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper {
       padding: 34px 100px 24px 40px;
       background-color: #F8F8F8;
       display: flex;
       align-items: center;
       justify-content: space-between; }
+      @media (max-width: 767.98px) {
+        .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper {
+          padding: 30px 16px 20px;
+          flex-direction: column; } }
       .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col {
         width: calc(100% - 240px - 74px); }
+        @media (max-width: 767.98px) {
+          .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col {
+            width: 100%; } }
         .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .title-wrapper {
           display: flex;
           align-items: center;
@@ -12997,6 +13024,9 @@ html.off-scroll body {
             width: 54px;
             height: 54px;
             margin-right: 24px; }
+            @media (max-width: 767.98px) {
+              .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .title-wrapper img {
+                margin-right: 8px; } }
           .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .title-wrapper .popup-title {
             color: #0F0F10;
             font-size: 28px;
@@ -13004,8 +13034,17 @@ html.off-scroll body {
             font-family: "LatoRegular";
             margin-top: 0;
             margin-bottom: 0; }
+            @media (max-width: 767.98px) {
+              .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .title-wrapper .popup-title {
+                font-size: 20px;
+                line-height: 28px;
+                font-family: "LatoSemiBold"; } }
         .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper {
           padding-left: 78px; }
+          @media (max-width: 767.98px) {
+            .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper {
+              padding-left: 0;
+              margin-top: 10px; } }
           .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-name {
             font-size: 20px;
             line-height: 30px;
@@ -13013,12 +13052,21 @@ html.off-scroll body {
             color: #0F0F10;
             margin-top: 0;
             margin-bottom: 8px; }
+            @media (max-width: 767.98px) {
+              .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-name {
+                font-size: 16px;
+                line-height: 24px; } }
           .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-info-list {
             display: flex;
             align-items: center;
             justify-content: flex-start;
             padding-left: 0;
             list-style: none; }
+            @media (max-width: 767.98px) {
+              .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-info-list {
+                flex-wrap: wrap;
+                max-width: 275px;
+                margin-bottom: 12px; } }
             .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-info-list li {
               margin-right: 38px;
               position: relative;
@@ -13026,12 +13074,21 @@ html.off-scroll body {
               font-size: 16px;
               line-height: 26px;
               font-family: "LatoRegular"; }
+              @media (max-width: 767.98px) {
+                .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-info-list li {
+                  font-size: 14px;
+                  line-height: 22px;
+                  margin-bottom: 4px; } }
               .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-info-list li * {
                 color: #0F0F10 !important;
                 font-size: 16px;
                 line-height: 26px;
                 font-family: "LatoRegular";
                 margin: 0; }
+                @media (max-width: 767.98px) {
+                  .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-info-list li * {
+                    font-size: 14px;
+                    line-height: 22px; } }
               .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-info-list li:not(:last-child)::after {
                 position: absolute;
                 content: "";
@@ -13046,6 +13103,9 @@ html.off-scroll body {
         width: 240px;
         display: flex;
         flex-direction: column; }
+        @media (max-width: 767.98px) {
+          .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .right-col {
+            width: 100%; } }
         .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .right-col .link-to-cart {
           width: 100%;
           text-align: center;
@@ -13054,6 +13114,9 @@ html.off-scroll body {
             margin-bottom: 12px; }
     .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper {
       padding: 24px 40px 40px; }
+      @media (max-width: 767.98px) {
+        .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper {
+          padding: 20px 16px 28px; } }
       .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-main-title {
         color: #0F0F10;
         font-size: 32px;
@@ -13062,6 +13125,12 @@ html.off-scroll body {
         margin-top: 0;
         margin-bottom: 16px;
         text-align: center; }
+        @media (max-width: 767.98px) {
+          .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-main-title {
+            font-size: 18px;
+            line-height: 28px;
+            margin-bottom: 6px;
+            padding: 0 25px; } }
       .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-subtitle {
         color: #0F0F10;
         font-size: 18px;
@@ -13070,10 +13139,19 @@ html.off-scroll body {
         margin-top: 0;
         text-align: center;
         margin-bottom: 40px; }
+        @media (max-width: 767.98px) {
+          .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-subtitle {
+            font-size: 14px;
+            line-height: 22px;
+            margin-bottom: 20px;
+            padding: 0 25px; } }
       .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between; }
+        @media (max-width: 767.98px) {
+          .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper {
+            flex-direction: column; } }
         .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card {
           width: calc((100% - 24px) / 2);
           height: 310px;
@@ -13088,6 +13166,19 @@ html.off-scroll body {
           .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card img {
             width: 100%;
             height: 100%; }
+          .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .discount-label {
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            width: 80px;
+            height: 80px; }
+            @media (max-width: 767.98px) {
+              .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .discount-label {
+                top: 10px;
+                left: inherit;
+                right: 10px;
+                width: 60px;
+                height: 60px; } }
           .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper {
             position: absolute;
             bottom: 28px;
@@ -13099,11 +13190,19 @@ html.off-scroll body {
             width: 100%; }
             @media (max-width: 767.98px) {
               .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper {
-                padding: 0 20px;
-                bottom: 16px; } }
+                padding: 0 10px;
+                bottom: 10px;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start; } }
             .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper .tour-type-title {
               color: white;
               margin-bottom: 0; }
+              @media (max-width: 767.98px) {
+                .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper .tour-type-title {
+                  font-size: 26px;
+                  line-height: 36px;
+                  margin-bottom: 20px; } }
             .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper a {
               padding: 12px 15px; }
               .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper a img {

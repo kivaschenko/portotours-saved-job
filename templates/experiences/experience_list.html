@@ -231,6 +231,13 @@
                                                 <p class="new-price">
                                                     € {{ object.parent_experience.price }}
                                                 </p>
+                                                {% if object.parent_experience.is_private %}
+                                                {% else %}
+                                                <p class="per-person">
+                                                    / per person
+                                                </p>
+                                                {% endif %}
+                                                
                                             </div>
                                            
                                         </div>

@@ -224,7 +224,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="cart-wrapper body-text-b3">
+            <div class="cart-wrapper body-text-b3 {% if cart_not_empty %}show-mobile{% endif %}">
                 <a href="{% url 'my-cart' lang='en' %}">
                     <img src="{% static 'icons/cart-icon.svg' %}" alt="">
                     {% if number_of_products > 0 %}
@@ -257,7 +257,7 @@
     <div class="container"> 
         <img src="{% static 'icons/gift-box.svg' %}" alt="gift icon">
         <p>
-            Your experience reservation has earned you <span>extra discount</span> from One Day Tours Portugal, use it for your next experiences and book faster!
+            Your experience reservation has earned you <span>extra discount</span> from One Day Tours Portugal, use it to book more experiences with us!
         </p>
         <a href="{% url 'my-cart' lang='en' %}" class="btn-type-1">
             Checkout cart
