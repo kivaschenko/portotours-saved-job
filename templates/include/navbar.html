@@ -24,7 +24,9 @@
                                         Lisbon Things To Do
                                     </h2>
                                     <h3 class="dropdown-title">
-                                        Top experiences
+                                        <a href="{% url 'experience-list' lang='en' %}">
+                                            Top experiences
+                                        </a>
                                     </h3>
                                     {% for experience in top_experiences %}
                                         <a class="dropdown-item"
@@ -38,7 +40,9 @@
                                 <li>
     
                                     <h3 class="dropdown-title">
-                                        Top Attractions
+                                        <a href="{% url 'attraction-list' lang='en' %}">
+                                            Top Attractions
+                                        </a>
                                     </h3>
                                     {% for attraction in top_attractions %}
                                         <a class="dropdown-item"
@@ -61,7 +65,9 @@
                                         Out Of Lisbon Things To Do
                                     </h2>
                                     <h3 class="dropdown-title">
-                                        Top Destinations
+                                        <a href="{% url 'destination-list' lang='en' %}">
+                                            Top Destinations
+                                        </a>
                                     </h3>
                                     {% for destination in top_destinations %}
                                         <a class="dropdown-item"
@@ -75,7 +81,9 @@
                                 <li>
     
                                     <h3 class="dropdown-title">
-                                        Most Popular Experiences
+                                        <a href="{% url 'experience-list' lang='en' %}">
+                                            Most Popular Experiences
+                                        </a>
                                     </h3>
                                     {% for experience in most_popular_experiences %}
                                     <a class="dropdown-item"

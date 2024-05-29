@@ -7957,6 +7957,11 @@ html.off-scroll body {
           margin-bottom: 8px;
           font-family: "LatoSemiBold";
           text-transform: capitalize; }
+          .header .navbar .navbar-nav .dropdown-menu li .dropdown-title a {
+            color: inherit;
+            text-decoration: none; }
+            .header .navbar .navbar-nav .dropdown-menu li .dropdown-title a:hover {
+              color: var(--text-color-third); }
         .header .navbar .navbar-nav .dropdown-menu li .dropdown-item {
           padding: 0;
           white-space: inherit;
@@ -8985,7 +8990,6 @@ html.off-scroll body {
     @media (max-width: 767.98px) {
       .also-interested .container .swiper-also-interested {
         position: relative;
-        overflow: hidden;
         width: 100%; } }
     .also-interested .container .swiper-pagination-bullet {
       background: var(--text-color-third); }
@@ -9227,6 +9231,47 @@ html.off-scroll body {
               line-height: 22px;
               font-family: 'LatoRegular';
               margin-bottom: 0; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale {
+            display: flex;
+            flex-direction: column;
+            border-radius: 6px;
+            background: #FFF;
+            overflow: hidden;
+            margin-bottom: 4px; }
+            @media (max-width: 767.98px) {
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale {
+                width: calc(100% + 32px);
+                margin-left: -16px;
+                overflow: auto; } }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale .top-discount-label {
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              background-image: url(../icons/turbo-sale-badge-bg.svg);
+              background-size: cover;
+              background-repeat: no-repeat;
+              background-position: bottom;
+              padding: 5px 10px 6px; }
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale .top-discount-label img {
+                width: 18px;
+                height: 18px;
+                margin-right: 7px; }
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale .top-discount-label p {
+                color: white;
+                font-family: "LatoSemiBold";
+                font-size: 14px;
+                line-height: 16px;
+                margin: 0;
+                text-transform: uppercase; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale .bottom-discount-label {
+              padding: 4px 10px 2px; }
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale .bottom-discount-label .discount-info-text {
+                font-family: "LatoSemiBold";
+                font-size: 8px;
+                color: #007728;
+                line-height: 16px;
+                margin-bottom: 0;
+                text-align: left; }
     .also-interested .container .also-interested-more-info-wrapper {
       display: flex;
       align-items: center;
@@ -10059,11 +10104,11 @@ html.off-scroll body {
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
-                background-image: url(../icons/turbo-sale-badge-bg.png);
+                background-image: url(../icons/turbo-sale-badge-bg.svg);
                 background-size: cover;
                 background-repeat: no-repeat;
-                background-position: center;
-                padding: 5px 10px; }
+                background-position: bottom;
+                padding: 5px 10px 6px; }
                 .best-tours .container .best-tours-cards-wrapper .best-tours-card .card-content-wrapper .price-link-wrapper .tour-price.turbo-sale .top-discount-label img {
                   width: 18px;
                   height: 18px;
@@ -11723,6 +11768,71 @@ html.off-scroll body {
               .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper .new-price {
                 font-size: 22px;
                 line-height: 32px; } }
+          .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale {
+            display: flex;
+            flex-direction: column;
+            border-radius: 6px;
+            background: #f3faf5;
+            overflow: hidden;
+            margin-bottom: 4px;
+            width: fit-content; }
+            @media (max-width: 767.98px) {
+              .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale {
+                width: fit-content; } }
+            .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .top-discount-label {
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              background-image: url(../icons/turbo-sale-badge-bg.svg);
+              background-size: cover;
+              background-repeat: no-repeat;
+              background-position: bottom;
+              padding: 5px 10px 6px;
+              width: 100%; }
+              .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .top-discount-label img {
+                width: 18px;
+                height: 18px;
+                margin-right: 7px; }
+              .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .top-discount-label p {
+                color: white;
+                font-family: "LatoSemiBold";
+                font-size: 14px;
+                line-height: 16px;
+                margin: 0;
+                text-transform: uppercase; }
+            .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label {
+              padding: 4px 10px 2px; }
+              .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .discount-info-text {
+                font-family: "LatoSemiBold";
+                font-size: 8px;
+                color: #007728;
+                line-height: 16px;
+                margin-bottom: 0; }
+              .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .price {
+                display: flex;
+                align-items: flex-end;
+                justify-content: flex-start; }
+                .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .price .old-price {
+                  text-decoration: line-through;
+                  color: #6d6d6d;
+                  font-family: "LatoMedium";
+                  font-size: 26px;
+                  line-height: 42px;
+                  margin-right: 16px; }
+                  @media (max-width: 767.98px) {
+                    .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .price .old-price {
+                      font-size: 18px;
+                      line-height: 28px;
+                      margin-right: 10px; } }
+                .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .price .new-price {
+                  color: #0f0f10;
+                  font-family: "LatoSemiBold";
+                  font-size: 40px;
+                  line-height: 48px; }
+                  @media (max-width: 767.98px) {
+                    .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper.turbo-sale .bottom-discount-label .price .new-price {
+                      font-size: 22px;
+                      line-height: 32px; } }
         .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .btns-wrapper {
           display: flex;
           align-items: center;
@@ -11827,20 +11937,20 @@ html.off-scroll body {
     .sticky-container .sticky-block .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper {
       display: flex;
       align-items: center;
-      width: calc(100% - 730px - 50px); }
+      width: calc(100% - 730px - 25px); }
       @media (max-width: 767.98px) {
         .sticky-container .sticky-block .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper {
           display: none; } }
       .sticky-container .sticky-block .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .price-wrapper {
         display: flex;
         align-items: center;
-        margin-right: 32px; }
+        margin-right: 18px; }
         .sticky-container .sticky-block .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .price-wrapper .price-title {
           font-family: "LatoRegular";
           font-size: 18px;
           line-height: 28px;
           margin-bottom: 0;
-          margin-right: 18px;
+          margin-right: 10px;
           color: #6d6d6d; }
         .sticky-container .sticky-block .experience-hero-title-wrapper .expreriece-hero-price-btn-wrapper .price-wrapper .old-price-amount {
           font-family: "LatoRegular";
@@ -13413,17 +13523,19 @@ html.off-scroll body {
       width: 100%;
       max-height: 400px;
       will-change: transform; }
+      .blog-list .blog-cards-wrapper .blog-card .img-wrapper:hover a img {
+        transform: scale(1.2);
+        transition: 0.7s all;
+        border-radius: 26px;
+        overflow: hidden; }
       .blog-list .blog-cards-wrapper .blog-card .img-wrapper a {
         display: block; }
-        .blog-list .blog-cards-wrapper .blog-card .img-wrapper a:hover img {
-          transform: scale(1.2);
-          transition: 0.5s all; }
       .blog-list .blog-cards-wrapper .blog-card .img-wrapper img {
         width: 100%;
         height: 100%;
         max-height: 400px;
         object-fit: cover;
-        transition: 0.5s all; }
+        transition: 0.7s all; }
     .blog-list .blog-cards-wrapper .blog-card .card-content-wrapper {
       padding: 20px; }
       @media (max-width: 767.98px) {
