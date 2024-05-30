@@ -49,7 +49,6 @@ def navbar_context(request, lang=None, **kwargs):
         'cart_not_empty': cart_not_empty,
     }
     cache.set(cache_key, context, timeout=settings.NAVBAR_CONTEXT_CACHE_TIMEOUT)
-    print('context:\n\t', context)
     return context
 
 
