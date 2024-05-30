@@ -187,7 +187,7 @@ const controller = {
     handleFormSubmit: async function () {
         // Get the booking data from the model
         const bookingData = model.bookingData;
-        console.log('bookingData:', bookingData);
+
         const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
         try {
