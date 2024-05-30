@@ -10,7 +10,6 @@
     background-position: center;
     text-align: center;
     overflow: hidden;
-    margin-top: 10px;
     position: relative;
     max-width: 100%;
     @include media-breakpoint-down(md) {
@@ -749,6 +748,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 0;
+  margin-top: 10px;
   @include media-breakpoint-down(md) {
     margin-bottom: 0px;
     flex-wrap: wrap;
@@ -2105,7 +2105,7 @@
       align-items: center;
       justify-content: space-between;
       @include media-breakpoint-down(md) {
-        padding: 30px 16px 20px;
+        padding: 16px;
         flex-direction: column;
       }
       .left-col {
@@ -2122,7 +2122,9 @@
             height: 54px;
             margin-right: 24px;
             @include media-breakpoint-down(md) {
-              margin-right: 8px;
+              margin-right: 12px;
+              width: 40px;
+              height: 40px;
             }
           }
           .popup-title {
@@ -2133,8 +2135,8 @@
             margin-top: 0;
             margin-bottom: 0;
             @include media-breakpoint-down(md) {
-              font-size: 20px;
-              line-height: 28px;
+              font-size: 16px;
+              line-height: 20px;
               font-family: "LatoSemiBold";
             }
           }
@@ -2154,8 +2156,9 @@
               margin-top: 0;
               margin-bottom: 8px;
               @include media-breakpoint-down(md) {
-                font-size: 16px;
-                line-height: 24px;
+                font-size: 14px;
+                line-height: normal;
+                margin-bottom: 6px;
               }
           }
           .tour-info-list {
@@ -2223,6 +2226,9 @@
           padding: 18px 0;
           &.btn-type-1 {
             margin-bottom: 12px;
+            @include media-breakpoint-down(md) {
+              margin-bottom: 10px;
+            }
           }
         }
       }
@@ -2232,7 +2238,7 @@
     .popup-bottom-wrapper {
       padding: 24px 40px 40px;
       @include media-breakpoint-down(md) {
-        padding: 20px 16px 28px;
+        padding: 16px;
       }
       .popup-main-title {
         color: #0F0F10;
@@ -2243,9 +2249,9 @@
         margin-bottom: 16px;
         text-align: center;
         @include media-breakpoint-down(md) {
-          font-size: 18px;
-          line-height: 28px;
-          margin-bottom: 6px;
+          font-size: 14px;
+          line-height: normal;
+          margin-bottom: 8px;
           padding: 0 25px;
         }
       }
@@ -2258,9 +2264,9 @@
         text-align: center;
         margin-bottom: 40px;
         @include media-breakpoint-down(md) {
-          font-size: 14px;
-          line-height: 22px;
-          margin-bottom: 20px;
+          font-size: 12px;
+          line-height: normal;
+          margin-bottom: 14px;
           padding: 0 25px;
         }
       }
@@ -2279,9 +2285,9 @@
           @include media-breakpoint-down(md) {
             width: 100%;
             min-height: auto;
-            height: 200px;
+            height: 160px;
             + .tour-type-card {
-              margin-top: 20px;
+              margin-top: 16px;
             }
           }
           img {
@@ -2322,9 +2328,9 @@
               color: white;
               margin-bottom: 0;
               @include media-breakpoint-down(md) {
-                font-size: 26px;
-                line-height: 36px;
-                margin-bottom: 20px;
+                font-size: 24px;
+                line-height: normal;
+                margin-bottom: 10px;
               }
             }
             a {
