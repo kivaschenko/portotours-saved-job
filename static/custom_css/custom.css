@@ -11302,12 +11302,13 @@ html.off-scroll body {
           margin: 16px auto 0; } }
   .experience-list-hero .container .experience-list-hero-calendar {
     position: absolute;
-    bottom: 0;
+    bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
-    border-radius: 26px 26px 0 0;
-    background-color: white;
-    padding: 37px 55px; }
+    border-radius: 90px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 16px; }
     @media (max-width: 767.98px) {
       .experience-list-hero .container .experience-list-hero-calendar {
         position: relative;
@@ -11325,9 +11326,9 @@ html.off-scroll body {
           flex-direction: column;
           width: 100%; } }
       .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper {
-        width: 360px;
+        width: 270px;
         position: relative;
-        margin-right: 40px; }
+        margin-right: 8px; }
         @media (max-width: 767.98px) {
           .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper {
             width: 100%;
@@ -11357,7 +11358,11 @@ html.off-scroll body {
           text-transform: capitalize;
           top: -13px;
           left: 24px;
-          z-index: 3; }
+          z-index: 3;
+          display: none; }
+          @media (max-width: 767.98px) {
+            .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper label {
+              display: block; } }
         .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper select {
           border-radius: 42px;
           border: 1px solid #d9d9d9;
@@ -11369,7 +11374,7 @@ html.off-scroll body {
           position: relative;
           -webkit-appearance: none;
           -moz-appearance: none;
-          background: transparent;
+          background: white;
           color: #0F0F10;
           background-image: url(../images/language-arrow.png);
           background-position-x: calc(100% - 16px);
@@ -11381,9 +11386,9 @@ html.off-scroll body {
             .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper select {
               width: 100%; } }
       .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper {
-        width: 230px;
+        width: 185px;
         position: relative;
-        margin-right: 40px; }
+        margin-right: 8px; }
         @media (max-width: 767.98px) {
           .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper {
             width: 100%;
@@ -11415,7 +11420,11 @@ html.off-scroll body {
           text-transform: capitalize;
           top: -13px;
           left: 24px;
-          z-index: 3; }
+          z-index: 3;
+          display: none; }
+          @media (max-width: 767.98px) {
+            .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper label {
+              display: block; } }
         .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper input {
           border-radius: 42px;
           border: 1px solid #d9d9d9;
@@ -11434,7 +11443,7 @@ html.off-scroll body {
         .experience-list-hero .container .experience-list-hero-calendar form .button-wrapper {
           width: 100%; } }
       .experience-list-hero .container .experience-list-hero-calendar form .button-wrapper .form-btn {
-        width: 240px;
+        width: 220px;
         display: flex;
         align-items: center;
         justify-content: center; }
@@ -15993,3 +16002,5 @@ a {
       margin: 0 auto;
       display: block;
       text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */
