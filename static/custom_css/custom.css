@@ -7735,7 +7735,7 @@ html.off-scroll body {
     margin-left: 38px; }
     @media (max-width: 767.98px) {
       .header-right-col .cart-wrapper {
-        margin-right: 20px;
+        margin-right: 12px;
         margin-left: 0;
         display: none; }
         .header-right-col .cart-wrapper.show-mobile {
@@ -8134,9 +8134,11 @@ html.off-scroll body {
           font-size: 14px;
           line-height: normal; } }
 .header .turbo-sale-banner {
-  margin-bottom: -60px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(15px); }
+  background: #DAEAFF;
+  backdrop-filter: blur(15px);
+  display: none; }
+  .header .turbo-sale-banner.show {
+    display: block; }
   @media (max-width: 767.98px) {
     .header .turbo-sale-banner {
       position: relative;
@@ -8146,39 +8148,68 @@ html.off-scroll body {
     padding-bottom: 10px;
     display: flex;
     align-items: center;
-    justify-content: center; }
+    justify-content: space-between; }
     @media (max-width: 767.98px) {
       .header .turbo-sale-banner .container {
         padding-top: 8px;
         padding-bottom: 8px;
         justify-content: flex-start;
         align-items: flex-start; } }
-    .header .turbo-sale-banner .container > img {
-      margin-right: 12px; }
-      @media (max-width: 767.98px) {
-        .header .turbo-sale-banner .container > img {
-          width: 32px;
-          height: 32px;
-          margin-right: 10px; } }
-    .header .turbo-sale-banner .container p {
-      color: #0f0f10;
-      font-size: 17px;
-      line-height: normal;
-      margin: 0;
-      font-family: "LatoRegular";
-      margin-right: 50px; }
-      @media (max-width: 767.98px) {
-        .header .turbo-sale-banner .container p {
-          font-size: 12px; } }
-      .header .turbo-sale-banner .container p span {
-        font-family: "LatoSemiBold"; }
-    .header .turbo-sale-banner .container .btn-type-1 {
-      width: 182px;
-      text-align: center;
-      padding: 8px 0; }
-      @media (max-width: 767.98px) {
-        .header .turbo-sale-banner .container .btn-type-1 {
-          display: none; } }
+    .header .turbo-sale-banner .container .left-col {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; }
+      .header .turbo-sale-banner .container .left-col > img {
+        margin-right: 12px; }
+        @media (max-width: 767.98px) {
+          .header .turbo-sale-banner .container .left-col > img {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px; } }
+      .header .turbo-sale-banner .container .left-col p {
+        color: #0f0f10;
+        font-size: 17px;
+        line-height: normal;
+        margin: 0;
+        font-family: "LatoRegular";
+        margin-right: 50px; }
+        @media (max-width: 767.98px) {
+          .header .turbo-sale-banner .container .left-col p {
+            font-size: 12px; } }
+        .header .turbo-sale-banner .container .left-col p span {
+          font-family: "LatoSemiBold"; }
+    .header .turbo-sale-banner .container .right-col {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end; }
+      .header .turbo-sale-banner .container .right-col .turbo-sale-btn {
+        color: var(--text-color-third);
+        font-size: 18px;
+        line-height: normal;
+        margin: 0;
+        font-family: "LatoSemiBold";
+        text-transform: uppercase;
+        margin-right: 40px;
+        display: block;
+        text-decoration: none; }
+        .header .turbo-sale-banner .container .right-col .turbo-sale-btn:hover {
+          text-decoration: none;
+          color: var(--text-color-third); }
+        @media (max-width: 767.98px) {
+          .header .turbo-sale-banner .container .right-col .turbo-sale-btn {
+            display: none; } }
+      .header .turbo-sale-banner .container .right-col .close-icon {
+        margin: 0;
+        display: block;
+        cursor: pointer; }
+        .header .turbo-sale-banner .container .right-col .close-icon img {
+          width: 24px;
+          height: 24px;
+          display: block; }
+          @media (max-width: 767.98px) {
+            .header .turbo-sale-banner .container .right-col .close-icon img {
+              width: 14px;
+              height: 14px; } }
 .footer {
   background-color: #0F0F10; }
   .footer .container {
@@ -9414,7 +9445,6 @@ html.off-scroll body {
   background-repeat: no-repeat;
   padding-top: 118px;
   padding-bottom: 78px;
-  margin-top: 10px;
   max-width: 100%; }
   @media (max-width: 767.98px) {
     .destination-list-hero .container {
@@ -10961,7 +10991,6 @@ html.off-scroll body {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  margin-top: 10px;
   overflow: hidden;
   margin-bottom: 50px;
   max-width: 100%; }
@@ -11244,7 +11273,6 @@ html.off-scroll body {
   background-position: center;
   text-align: center;
   overflow: hidden;
-  margin-top: 10px;
   position: relative;
   max-width: 100%; }
   @media (max-width: 767.98px) {
@@ -11302,12 +11330,13 @@ html.off-scroll body {
           margin: 16px auto 0; } }
   .experience-list-hero .container .experience-list-hero-calendar {
     position: absolute;
-    bottom: 0;
+    bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
-    border-radius: 26px 26px 0 0;
-    background-color: white;
-    padding: 37px 55px; }
+    border-radius: 90px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 16px; }
     @media (max-width: 767.98px) {
       .experience-list-hero .container .experience-list-hero-calendar {
         position: relative;
@@ -11325,9 +11354,9 @@ html.off-scroll body {
           flex-direction: column;
           width: 100%; } }
       .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper {
-        width: 360px;
+        width: 270px;
         position: relative;
-        margin-right: 40px; }
+        margin-right: 8px; }
         @media (max-width: 767.98px) {
           .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper {
             width: 100%;
@@ -11357,7 +11386,11 @@ html.off-scroll body {
           text-transform: capitalize;
           top: -13px;
           left: 24px;
-          z-index: 3; }
+          z-index: 3;
+          display: none; }
+          @media (max-width: 767.98px) {
+            .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper label {
+              display: block; } }
         .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper select {
           border-radius: 42px;
           border: 1px solid #d9d9d9;
@@ -11369,7 +11402,7 @@ html.off-scroll body {
           position: relative;
           -webkit-appearance: none;
           -moz-appearance: none;
-          background: transparent;
+          background: white;
           color: #0F0F10;
           background-image: url(../images/language-arrow.png);
           background-position-x: calc(100% - 16px);
@@ -11381,9 +11414,9 @@ html.off-scroll body {
             .experience-list-hero .container .experience-list-hero-calendar form .place-wrapper select {
               width: 100%; } }
       .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper {
-        width: 230px;
+        width: 185px;
         position: relative;
-        margin-right: 40px; }
+        margin-right: 8px; }
         @media (max-width: 767.98px) {
           .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper {
             width: 100%;
@@ -11415,7 +11448,11 @@ html.off-scroll body {
           text-transform: capitalize;
           top: -13px;
           left: 24px;
-          z-index: 3; }
+          z-index: 3;
+          display: none; }
+          @media (max-width: 767.98px) {
+            .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper label {
+              display: block; } }
         .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper input {
           border-radius: 42px;
           border: 1px solid #d9d9d9;
@@ -11434,7 +11471,7 @@ html.off-scroll body {
         .experience-list-hero .container .experience-list-hero-calendar form .button-wrapper {
           width: 100%; } }
       .experience-list-hero .container .experience-list-hero-calendar form .button-wrapper .form-btn {
-        width: 240px;
+        width: 220px;
         display: flex;
         align-items: center;
         justify-content: center; }
@@ -11881,7 +11918,8 @@ html.off-scroll body {
 .experience-hero-info {
   display: flex;
   align-items: center;
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  margin-top: 10px; }
   @media (max-width: 767.98px) {
     .experience-hero-info {
       margin-bottom: 0px;
@@ -13009,7 +13047,7 @@ html.off-scroll body {
       justify-content: space-between; }
       @media (max-width: 767.98px) {
         .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper {
-          padding: 30px 16px 20px;
+          padding: 16px;
           flex-direction: column; } }
       .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col {
         width: calc(100% - 240px - 74px); }
@@ -13026,7 +13064,9 @@ html.off-scroll body {
             margin-right: 24px; }
             @media (max-width: 767.98px) {
               .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .title-wrapper img {
-                margin-right: 8px; } }
+                margin-right: 12px;
+                width: 40px;
+                height: 40px; } }
           .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .title-wrapper .popup-title {
             color: #0F0F10;
             font-size: 28px;
@@ -13036,8 +13076,8 @@ html.off-scroll body {
             margin-bottom: 0; }
             @media (max-width: 767.98px) {
               .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .title-wrapper .popup-title {
-                font-size: 20px;
-                line-height: 28px;
+                font-size: 16px;
+                line-height: 20px;
                 font-family: "LatoSemiBold"; } }
         .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper {
           padding-left: 78px; }
@@ -13054,8 +13094,9 @@ html.off-scroll body {
             margin-bottom: 8px; }
             @media (max-width: 767.98px) {
               .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-name {
-                font-size: 16px;
-                line-height: 24px; } }
+                font-size: 14px;
+                line-height: normal;
+                margin-bottom: 6px; } }
           .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-info-list {
             display: flex;
             align-items: center;
@@ -13112,11 +13153,14 @@ html.off-scroll body {
           padding: 18px 0; }
           .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .right-col .link-to-cart.btn-type-1 {
             margin-bottom: 12px; }
+            @media (max-width: 767.98px) {
+              .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .right-col .link-to-cart.btn-type-1 {
+                margin-bottom: 10px; } }
     .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper {
       padding: 24px 40px 40px; }
       @media (max-width: 767.98px) {
         .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper {
-          padding: 20px 16px 28px; } }
+          padding: 16px; } }
       .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-main-title {
         color: #0F0F10;
         font-size: 32px;
@@ -13127,9 +13171,9 @@ html.off-scroll body {
         text-align: center; }
         @media (max-width: 767.98px) {
           .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-main-title {
-            font-size: 18px;
-            line-height: 28px;
-            margin-bottom: 6px;
+            font-size: 14px;
+            line-height: normal;
+            margin-bottom: 8px;
             padding: 0 25px; } }
       .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-subtitle {
         color: #0F0F10;
@@ -13141,9 +13185,9 @@ html.off-scroll body {
         margin-bottom: 40px; }
         @media (max-width: 767.98px) {
           .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-subtitle {
-            font-size: 14px;
-            line-height: 22px;
-            margin-bottom: 20px;
+            font-size: 12px;
+            line-height: normal;
+            margin-bottom: 14px;
             padding: 0 25px; } }
       .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper {
         display: flex;
@@ -13160,9 +13204,9 @@ html.off-scroll body {
             .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card {
               width: 100%;
               min-height: auto;
-              height: 200px; }
+              height: 160px; }
               .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card + .tour-type-card {
-                margin-top: 20px; } }
+                margin-top: 16px; } }
           .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card img {
             width: 100%;
             height: 100%; }
@@ -13200,9 +13244,9 @@ html.off-scroll body {
               margin-bottom: 0; }
               @media (max-width: 767.98px) {
                 .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper .tour-type-title {
-                  font-size: 26px;
-                  line-height: 36px;
-                  margin-bottom: 20px; } }
+                  font-size: 24px;
+                  line-height: normal;
+                  margin-bottom: 10px; } }
             .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper a {
               padding: 12px 15px; }
               .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-tour-cards-wrapper .tour-type-card .tour-type-title-btn-wrapper a img {
@@ -13454,7 +13498,6 @@ html.off-scroll body {
   background-repeat: no-repeat;
   background-position: center;
   text-align: center;
-  margin-top: 10px;
   padding-top: 114px;
   padding-bottom: 114px;
   overflow: hidden;
@@ -13672,10 +13715,9 @@ html.off-scroll body {
           margin-left: 16px; }
 
 .blog-detail-hero .container {
-  margin-top: 10px;
   margin-bottom: 40px;
   position: relative;
-  height: 465px;
+  min-height: 465px;
   overflow: hidden;
   padding: 285px 87px 60px;
   max-width: 100%; }

@@ -5,7 +5,6 @@
     background-repeat: no-repeat;
     background-position: center;
     text-align: center;
-    margin-top: 10px;
     padding-top: 114px;
     padding-bottom: 114px;
     overflow: hidden;
@@ -284,10 +283,9 @@
 
 .blog-detail-hero {
   .container {
-    margin-top: 10px;
     margin-bottom: 40px;
     position: relative;
-    height: 465px;
+    min-height: 465px;
     overflow: hidden;
     padding: 285px 87px 60px;
     max-width: 100%;
