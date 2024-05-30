@@ -120,15 +120,12 @@
                                 {% else %}
                                 {% endif %}
                                 <div class="image-wrapper">
-
                                     <a href="javascript:void(0)" class="link"
                                        onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }})">
                                         <img src="
-                                                    
                                                 {% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}"
                                              alt="Card image for {{ object.name }}">
                                     </a>
-
                                 </div>
                             </div>
                             <div class="experience-list-content-wrapper">
@@ -190,14 +187,18 @@
                                 </a>
                                 <div class="discount-banner">
                                     <img src="{% static 'icons/fire-icon.svg' %}" alt="fire icon">
-                                    <span>
-                                        {{ object.parent_experience.increase_percentage_old_price }}% discount
-                                    </span>
-
+                                    {% if object.remaining_participants and object.remaining_participants < 6 %}
+                                        <span>
+                                            We have only {{ object.remaining_participants }} left at this price
+                                        </span>
+                                    {% else %}
+                                        <span>
+                                            {{ object.parent_experience.increase_percentage_old_price }}% discount
+                                        </span>
+                                    {% endif %}
                                 </div>
 
                                 <div class="experience-type-list-wrapper">
-
                                     <ul class="main-info-list">
                                         <li>
                                             <img src="{% static 'icons/duration-icon.svg' %}" alt="">
@@ -224,8 +225,6 @@
                                                 Skip-The-Line
                                             </li>
                                         {% endif %}
-
-
                                     </ul>
                                 </div>
                                 <p class="experience-list-item-text">

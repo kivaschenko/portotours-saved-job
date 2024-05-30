@@ -121,6 +121,19 @@ class ExperienceListView(ListView):
                 queryset_for_category = queryset.filter(parent_experience__categories__slug=category)
                 # Intersect the querysets to include only experiences related to all categories
                 queryset = queryset & queryset_for_category
+        # Add remaining_participants attribute to the queryset
+        for experience in queryset:
+            events = EventRelation.objects.get_events_for_object(
+                experience.parent_experience, distinction='experience event'
+            ).filter(
+                start__range=(start, end), experienceevent__remaining_participants__gte=1
+            )
+            if events.exists():
+                first_event = events.first()
+                remaining_participants = first_event.experienceevent.remaining_participants
+                experience.remaining_participants = remaining_participants
+            else:
+                experience.remaining_participants = 0
 
         return queryset
 
