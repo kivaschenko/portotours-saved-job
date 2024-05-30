@@ -126,8 +126,9 @@
       @include media-breakpoint-down(md) {
         margin-right: 20px;
         margin-left: 0;
-        &.hide {
-          display: none;
+        display: none;
+        &.show-mobile {
+          display: flex;
         }
       }
       a {
@@ -401,6 +402,13 @@
             margin-bottom: 8px;
             font-family: "LatoSemiBold";
             text-transform: capitalize;
+            a {
+              color: inherit;
+              text-decoration: none;
+              &:hover {
+                color: var(--text-color-third);
+              }
+            }
           }
           .dropdown-item {
             padding: 0;

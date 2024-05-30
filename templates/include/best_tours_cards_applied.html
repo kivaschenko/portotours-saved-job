@@ -1,5 +1,6 @@
 
 {% load static %}
+{% if experience.parent_experience.second_purchase_discount > 0 %}
 <div class="best-tours-card">
     <div class="img-wrapper">
         <a href="javascript:void(0)"
@@ -92,3 +93,82 @@
         </div>
     </div>
 </div>
+{% else %}
+<div class="best-tours-card">
+    <div class="img-wrapper">
+        <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" target="_blank">
+            <img src="{% if experience.parent_experience.card_image %}
+                                    {{ experience.parent_experience.card_image.url }}
+                                    {% else %}{% endif %}" alt="card image for {{ experience.name }}">
+        </a>
+    </div>
+    <div class="card-content-wrapper">
+        {% if experience.parent_experience.increase_percentage_old_price %}
+            <div class="discount-banner-wrapper">
+                <img src="{% static 'icons/discount-bg.svg' %}" alt="">
+                <p class="discount">
+                    {{ experience.parent_experience.increase_percentage_old_price }}% discount
+                </p>
+            </div>
+        {% endif %}
+        <div class="rating-wrapper body-text-b4">
+            {% if object.average_rating %}
+                <div class="rating-block">
+                    <p class="rating-num">{{ experience.average_rating }}</p>
+                    <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
+
+                </div>
+            {% else %}
+                <div class="rating-block">
+                    <p class="rating-num">5.0</p>
+                    <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
+                </div>
+            {% endif %}
+        </div>
+        <a class="title-link" target="_blank"
+           href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">
+            <p class="best-tours-card-title body-text-b2">
+                {{ experience.name }}
+            </p>
+        </a>
+        <div class="tour-info-wrapper">
+            <ul class="tour-info-list">
+                <li>
+                    <img src="{% static 'icons/duration-icon.svg' %}" alt="">
+                    {{ experience.display_duration }}
+                </li>
+                {% if experience.parent_experience.is_private %}
+                    <li>
+                        <img src="{% static 'icons/private-tour-icon.svg' %}" alt="">
+                        Private experience
+                    </li>
+                {% else %}
+
+                    <li>
+                        <img src="{% static 'icons/group-tour-icon.svg' %}" alt="">
+                        Small Group
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="price-link-wrapper">
+            <p class="tour-price">
+                {% if experience.parent_experience.increase_percentage_old_price %}
+                    <span class="old-price">€ {{ experience.parent_experience.old_price }}</span>
+                {% endif %}
+                € {{ experience.parent_experience.price }}
+                <span>{% if experience.parent_experience.is_private %}{% else %}/ per person{% endif %}</span>
+            </p>
+            <div class="book-banner-wrapper">
+                <a target="_blank" href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}"
+                   class="tour-link btn-type-1">
+                    Book
+                </a>
+                <p class="free-canc-title">
+                    + free cancellation
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

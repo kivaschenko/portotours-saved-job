@@ -34,7 +34,7 @@ class LandingPageView(DetailView):
         if experiences:
             experiences_queryset = Experience.objects.filter(
                 pk__in=[exp.pk for exp in experiences]
-            )
+            ).distinct()
             tour_type = self.request.GET.get('tour_type', 'all')
             if tour_type in ['private', 'group']:
                 experiences_queryset = experiences_queryset.filter(

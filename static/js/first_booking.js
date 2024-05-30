@@ -16,6 +16,7 @@ const model = {
         ecommerceItems,
         {'currency': 'EUR', 'price': 1.0, 'quantity': 1, 'item_variant': "EN"}
     ),
+    'cart_not_empty': cartNotEmpty,
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
@@ -61,7 +62,7 @@ const view = {
         } else {
             prevMonthBtn.disabled = false;
         }
-        
+
 
         prevMonthBtn.addEventListener('click', function () {
             const prevMonth = new Date(date.getFullYear(), date.getMonth() - 1, 1);
@@ -85,8 +86,7 @@ const view = {
                 }
             }
         });
-        
-       
+
 
         const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
         const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -108,7 +108,7 @@ const view = {
             const isoDate = calendarGrid.children[index].dataset.date; // Получаем дату из data-атрибута
             const eventsForDate = model.events.filter(event => event.date === isoDate); // Фильтруем события по дате
 
-            
+
             if (eventsForDate.length > 0) {
                 const minPrice = Math.min(...eventsForDate.map(event => event.adult_price)); // Находим минимальную цену
 
@@ -187,9 +187,9 @@ const controller = {
     handleFormSubmit: async function () {
         // Get the booking data from the model
         const bookingData = model.bookingData;
-        console.log('bookingData:', bookingData);
+
         const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-    
+
         try {
             // Send the booking data to the server using fetch or another AJAX method
             const response = await fetch('/create-group-product-without-booking/', {
@@ -200,24 +200,39 @@ const controller = {
                 },
                 body: JSON.stringify(bookingData)
             });
-            
+
             // Check if response is successful
             if (response.ok) {
-                // Handle successful response
-                console.log('Booking submitted successfully.');
-                const languageSlug = model.bookingData.language_code.toLowerCase();
+                if (model.cart_not_empty) {
+                    // Handle successful response
+                    console.log('Booking submitted successfully.');
+                    const languageSlug = model.bookingData.language_code.toLowerCase();
 
-                // Push data to Google analytics
-                window.dataLayer.push({ecommerce: null});
-                window.dataLayer.push({
-                    event: "add_to_cart",
-                    ecommerce: [model.googleItems],
-                });
-                setTimeout(() => {
-                    // window.open(`/my-cart/${languageSlug}/`)
-                    window.location.href = `/my-cart/${languageSlug}/`;
-                }, 200);
+                    // Push data to Google analytics
+                    window.dataLayer.push({ecommerce: null});
+                    window.dataLayer.push({
+                        event: "add_to_cart",
+                        ecommerce: [model.googleItems],
+                    });
+                    setTimeout(() => {
+                        // window.open(`/my-cart/${languageSlug}/`)
+                        window.location.href = `/my-cart/${languageSlug}/`;
+                    }, 200);
+
                 } else {
+                    const result = await response.json();
+                    console.log(result); // For debugging
+
+                    // Check if the response contains the expected data
+                    if (result && result.tourName && result.tourInfo) {
+                        // Fill the popup data
+                        fillPopupData(result);
+                        
+                        // Open the popup
+                        openPopup();
+                    }
+                }
+            } else {
                 // Handle error response
                 console.error('Error submitting booking:', response.statusText);
             }
@@ -264,12 +279,12 @@ const controller = {
                     console.log('test')
                     controller.updateTotalPrice(selectedDate.dataset.date, this.value);
                 }
-                
+
             })
         })
     },
 
-    
+
     updateTotalPrice: function () {
         // Find the selected date and time
         const selectedDateElement = document.querySelector('.calendar-day.selected-date');
@@ -351,54 +366,53 @@ const controller = {
                 controller.resetPricesAndButton(); // Reset prices and submit button text
             }
 
-            
 
             // If there are events for the clicked date
             if (eventsForDate.length > 0) {
-                 // If there is only one event, automatically select its time slot
-            if (eventsForDate.length === 1) {
-                // Create radio button for the only available time
-                const timeInput = document.createElement('input');
-                timeInput.type = 'radio';
-                timeInput.id = eventsForDate[0].experience_event_id; // Using event ID as radio button ID
-                timeInput.name = 'time'; // Ensure the radio buttons are part of the same group
-                timeInput.value = eventsForDate[0].time; // Assign the time value
-                timeInput.checked = true; // Automatically select this time slot
-
-                // Create label for the radio button
-                const timeLabel = document.createElement('label');
-                timeLabel.htmlFor = eventsForDate[0].experience_event_id;
-                timeLabel.textContent = eventsForDate[0].time;
-
-                // Append the radio button and label to the time selection area
-                timeSelection.appendChild(timeInput);
-                timeSelection.appendChild(timeLabel);
-            } else {
-                // Create time selection options for each event
-                eventsForDate.forEach(event => {
-                    // Create radio button for each time
+                // If there is only one event, automatically select its time slot
+                if (eventsForDate.length === 1) {
+                    // Create radio button for the only available time
                     const timeInput = document.createElement('input');
                     timeInput.type = 'radio';
-                    timeInput.id = event.experience_event_id;
-                    timeInput.name = 'time';
-                    timeInput.value = event.time;
+                    timeInput.id = eventsForDate[0].experience_event_id; // Using event ID as radio button ID
+                    timeInput.name = 'time'; // Ensure the radio buttons are part of the same group
+                    timeInput.value = eventsForDate[0].time; // Assign the time value
+                    timeInput.checked = true; // Automatically select this time slot
 
                     // Create label for the radio button
                     const timeLabel = document.createElement('label');
-                    timeLabel.htmlFor = event.experience_event_id;
-                    timeLabel.textContent = event.time;
+                    timeLabel.htmlFor = eventsForDate[0].experience_event_id;
+                    timeLabel.textContent = eventsForDate[0].time;
 
                     // Append the radio button and label to the time selection area
                     timeSelection.appendChild(timeInput);
                     timeSelection.appendChild(timeLabel);
+                } else {
+                    // Create time selection options for each event
+                    eventsForDate.forEach(event => {
+                        // Create radio button for each time
+                        const timeInput = document.createElement('input');
+                        timeInput.type = 'radio';
+                        timeInput.id = event.experience_event_id;
+                        timeInput.name = 'time';
+                        timeInput.value = event.time;
 
-                    timeInput.addEventListener('change', function () {
-                        controller.performValidation(); // Call validation function when radio button changes
+                        // Create label for the radio button
+                        const timeLabel = document.createElement('label');
+                        timeLabel.htmlFor = event.experience_event_id;
+                        timeLabel.textContent = event.time;
+
+                        // Append the radio button and label to the time selection area
+                        timeSelection.appendChild(timeInput);
+                        timeSelection.appendChild(timeLabel);
+
+                        timeInput.addEventListener('change', function () {
+                            controller.performValidation(); // Call validation function when radio button changes
+                        });
                     });
-                });
-                
-            }
-           
+
+                }
+
             } else {
                 // If no events are available for the clicked date, display a message
                 const noEventsMessage = document.createElement('p');
@@ -416,14 +430,14 @@ const controller = {
             controller.handleTimeSelection()
         }
     },
-     performValidation: function() {
+    performValidation: function () {
         const selectedDateElement = document.querySelector('.calendar-day.selected-date');
         const selectedTimeInput = document.querySelector('input[name="time"]:checked');
         const adultTicketCount = document.getElementById('adultTicketCount').value;
         const submitBtn = document.getElementById('submitBtn');
         const ticketSelection = document.querySelector('.ticket-selection');
         const languageSelection = document.querySelector('.language-selection');
-        
+
         // Enable ticket selection if date and time are selected
         if (selectedDateElement && selectedTimeInput) {
             ticketSelection.classList.remove('disabled');
@@ -436,7 +450,7 @@ const controller = {
 
         // Enable language selection if adult ticket count is greater than 0
         if (parseInt(adultTicketCount) > 0) {
-            
+
             languageSelection.classList.remove('disabled');
         } else {
             languageSelection.classList.add('disabled');
@@ -499,17 +513,12 @@ const controller = {
         model.bookingData.language_code = null;
         model.bookingData.event_id = null;
     },
-
-    updateGoogleData: function () {
-        model.googleItems['currency'] = "EUR";
-        model.googleItems['price'] = 100;
-    },
 };
 
 // Function to fetch JSON data using AJAX
-async function fetchEventData(parentExperienceId) {
+async function fetchEventData(parentExperienceId, url) {
     try {
-        const response = await fetch(`/actual-experience-events/${parentExperienceId}/`);
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -530,27 +539,76 @@ function handleEventData(data) {
         // Show calendar
         const currentDate = new Date(); // Or you can pass the date from the controller
         view.renderCalendar(currentDate);
-       
+
     } else {
-        const currentDate = new Date(); 
+        const currentDate = new Date();
         view.renderCalendar(currentDate);
     }
 }
 
 
+// Function to open the popup
+function openPopup() {
+    
+    const popupWrapper = document.querySelector('.upsale-popup-wrapper');
+    console.log(popupWrapper)
+    popupWrapper.classList.add('opened');
+}
+
+// Function to close the popup
+function closePopup() {
+    const popupWrapper = document.querySelector('.upsale-popup-wrapper');
+    popupWrapper.classList.remove('opened');
+}
+
+// Function to fill popup data
+function fillPopupData(data) {
+    const popupWrapper = document.querySelector('.upsale-popup-wrapper');
+    const tourNameElement = popupWrapper.querySelector('.tour-name');
+    const tourInfoListElement = popupWrapper.querySelector('.tour-info-list');
+
+    // Fill tour name
+    tourNameElement.textContent = data.tourName;
+
+    // Clear existing tour info list items
+    tourInfoListElement.innerHTML = '';
+
+    // Fill tour info list
+    data.tourInfo.forEach(info => {
+        const listItem = document.createElement('li');
+        listItem.textContent = info;
+        tourInfoListElement.appendChild(listItem);
+    });
+
+    // Fill other popup elements if necessary
+    // Example:
+    // const popupTitle = popupWrapper.querySelector('.popup-title');
+    // popupTitle.textContent = data.popupTitle;
+}
+
+// Event listeners
+document.querySelector('.close-popup-btn').addEventListener('click', closePopup);
+
 document.addEventListener('DOMContentLoaded', async function () {
+    let fetchUrl;
+    if (cartNotEmpty) {
+        fetchUrl = `/actual-experience-events-with-discount/${parentExperienceId}/`
+    } else {
+        fetchUrl = `/actual-experience-events/${parentExperienceId}/`;
+    }
+    console.log(fetchUrl);
     // Fetch event data and wait for it to complete
-    await fetchEventData(parentExperienceId);
+    await fetchEventData(parentExperienceId, fetchUrl);
 
 
-     // Disable submit button, ticket selection, and language selection blocks on page load
-     const submitBtn = document.getElementById('submitBtn');
-     const ticketSelection = document.querySelector('.ticket-selection');
-     const languageSelection = document.querySelector('.language-selection');
- 
-     submitBtn.disabled = true;
-     ticketSelection.classList.add('disabled');
-     languageSelection.classList.add('disabled');
+    // Disable submit button, ticket selection, and language selection blocks on page load
+    const submitBtn = document.getElementById('submitBtn');
+    const ticketSelection = document.querySelector('.ticket-selection');
+    const languageSelection = document.querySelector('.language-selection');
+
+    submitBtn.disabled = true;
+    ticketSelection.classList.add('disabled');
+    languageSelection.classList.add('disabled');
 
     // Call the handleIncrementClick and handleDecrementClick functions
     controller.handleIncrementClick();
@@ -567,6 +625,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         // Call a function to handle form submission
         controller.handleFormSubmit();
+        // fillPopupData(response.json());
+        // openPopup(); // Uncomment this line to open the popup when the page loads or under certain conditions
     });
 
     // Add event listener to the calendar to reset booking data on date selection change
@@ -577,36 +637,35 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     // Add event listener to time selection inputs to perform validation when time is selected
-    
+
     document.querySelectorAll('input[name="time"]').forEach(input => {
         input.addEventListener('change', controller.performValidation);
     });
 
     // Add event listener to adult ticket count input to perform validation
-    
+
     document.getElementById('adultTicketCount').addEventListener('input', controller.performValidation);
 
 
     document.querySelectorAll('input[name="language"]').forEach(input => {
         input.addEventListener('change', controller.performValidation);
     });
-     // Get the current date
-     const currentDate = new Date();
+    // Get the current date
+    const currentDate = new Date();
 
-     // Simulate a click on the current date in the calendar
-     const currentDay = document.querySelector(`[data-date="${currentDate.toISOString().split('T')[0]}"]`);
-     if (currentDay) {
-         const clickEvent = new MouseEvent('click', {
-             bubbles: true,
-             cancelable: true,
-             view: window
-         });
-         currentDay.dispatchEvent(clickEvent);
-     } else {
-         console.error('Current date not found in the calendar.');
-     }
+    // Simulate a click on the current date in the calendar
+    const currentDay = document.querySelector(`[data-date="${currentDate.toISOString().split('T')[0]}"]`);
+    if (currentDay) {
+        const clickEvent = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window
+        });
+        currentDay.dispatchEvent(clickEvent);
+    } else {
+        console.error('Current date not found in the calendar.');
+    }
 
-    
 
 });
 

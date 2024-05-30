@@ -16,6 +16,7 @@ const model = {
         ecommerceItems,
         {'currency': 'EUR', 'price': 1.0, 'quantity': 1, 'item_variant': "EN"}
     ),
+    'cart_not_empty': cartNotEmpty,
 };
 
 // The view object has functions that are responsible for changing the data in certain HTML blocks
@@ -194,10 +195,10 @@ const controller = {
             
             // Check if response is successful
             if (response.ok) {
-                // Handle successful response
-                console.log('Booking submitted successfully.');
-                     // Extract the language slug from the current URL
-                    const languageSlug = window.location.pathname.split('/')[2]; // Assuming the language slug is the third part of the URL path
+                if (model.cart_not_empty) {
+                    // Handle successful response
+                    console.log('Booking submitted successfully.');
+                    const languageSlug = model.bookingData.language_code.toLowerCase();
 
                     // Push data to Google analytics
                     window.dataLayer.push({ecommerce: null});
@@ -209,6 +210,20 @@ const controller = {
                         // window.open(`/my-cart/${languageSlug}/`)
                         window.location.href = `/my-cart/${languageSlug}/`;
                     }, 200);
+
+                } else {
+                    const result = await response.json();
+                    console.log(result); // For debugging
+
+                    // Check if the response contains the expected data
+                    if (result && result.tourName && result.tourInfo) {
+                        // Fill the popup data
+                        fillPopupData(result);
+
+                        // Open the popup
+                        openPopup();
+                    }
+                }
             } else {
                 // Handle error response
                 console.error('Error submitting booking:', response.statusText);
@@ -506,9 +521,9 @@ const controller = {
 };
 
 // Function to fetch JSON data using AJAX
-async function fetchEventData(parentExperienceId) {
+async function fetchEventData(parentExperienceId, url) {
     try {
-        const response = await fetch(`/actual-experience-events/${parentExperienceId}/`);
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -538,9 +553,59 @@ function handleEventData(data) {
     }
 }
 
+
+// Function to open the popup
+function openPopup() {
+
+    const popupWrapper = document.querySelector('.upsale-popup-wrapper');
+    console.log(popupWrapper)
+    popupWrapper.classList.add('opened');
+}
+
+// Function to close the popup
+function closePopup() {
+    const popupWrapper = document.querySelector('.upsale-popup-wrapper');
+    popupWrapper.classList.remove('opened');
+}
+
+// Function to fill popup data
+function fillPopupData(data) {
+    const popupWrapper = document.querySelector('.upsale-popup-wrapper');
+    const tourNameElement = popupWrapper.querySelector('.tour-name');
+    const tourInfoListElement = popupWrapper.querySelector('.tour-info-list');
+
+    // Fill tour name
+    tourNameElement.textContent = data.tourName;
+
+    // Clear existing tour info list items
+    tourInfoListElement.innerHTML = '';
+
+    // Fill tour info list
+    data.tourInfo.forEach(info => {
+        const listItem = document.createElement('li');
+        listItem.textContent = info;
+        tourInfoListElement.appendChild(listItem);
+    });
+
+    // Fill other popup elements if necessary
+    // Example:
+    // const popupTitle = popupWrapper.querySelector('.popup-title');
+    // popupTitle.textContent = data.popupTitle;
+}
+
+// Event listeners
+document.querySelector('.close-popup-btn').addEventListener('click', closePopup);
+
 document.addEventListener('DOMContentLoaded', async function () {
+    let fetchUrl;
+    if (cartNotEmpty) {
+        fetchUrl = `/actual-experience-events-with-discount/${parentExperienceId}/`
+    }else{
+        fetchUrl = `/actual-experience-events/${parentExperienceId}/`;
+    }
+    console.log(fetchUrl);
     // Fetch event data and wait for it to complete
-    await fetchEventData(parentExperienceId);
+    await fetchEventData(parentExperienceId, fetchUrl);
 
 
      // Disable submit button, ticket selection, and language selection blocks on page load
