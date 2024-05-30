@@ -8,7 +8,7 @@ from attractions.models import Attraction
 from products.models import Experience
 from reviews.models import Testimonial
 
-from .models import Page
+from .models import Page, AboutUsPage
 
 from .forms import SubscriberForm, ExperienceSearchForm
 
@@ -72,3 +72,9 @@ def robots_txt(request):
         "Sitemap: https://onedaytours.pt/sitemap.xml",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+# About Us
+
+class AboutUsDetailView(DetailView):
+    model = AboutUsPage

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ object.page_title }}
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block meta_tags %}
+    <meta name="description" content="{{ object.page_description }}">
+    <meta name="keywords" content="{{ object.page_keywords }}">
+{% endblock meta_tags %}
+
+{% block content %}
+    <div class="container">
+        <!-- Title and intro text -->
+        <div>
+            <h2>
+                {{ object.title }}
+            </h2>
+            {% if object.intro_text %}
+                {{ object.intro_text }}
+            {% endif %}
+        </div>
+
+        <div>
+            <!-- If desktop show desktop image -->
+            {% if object.main_image_desktop %}
+                <img src="{{ object.main_image_desktop.url }}">
+            {% endif %}
+            <!-- If mobile show mobile image -->
+            {% if object.main_image_mobile %}
+                <img src="{{ object.main_image_mobile.url }}">
+            {% endif %}
+        </div>
+
+        <div>
+            <!-- Our Mission -->
+            {% if object.our_mission_title %}
+                {{ object.our_mission_title }}
+            {% endif %}
+            {% if object.our_mission_text %}
+                {{ object.our_mission_text }}
+            {% endif %}
+        </div>
+
+        {% if object.our_values.all %}
+            <div>
+                <!-- Our Values -->
+                {% if object.our_values_title %}
+                    {{ object.our_values_title }}
+                {% endif %}
+                {% for value in object.our_values.all %}
+                    <card>
+                        {% if value.icon_img %}
+                            <img src="{{ value.icon_img.url }}">
+                        {% endif %}
+                        {{ value.value_title }}
+                        {{ value.value_text }}
+                    </card>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if object.staff.all %}
+            <div>
+                <!-- Staff -->
+                {% for person in object.staff.all %}
+                    <card>
+                        {% if person.photo %}
+                            <img src="{{ person.photo.url }}">
+                        {% endif %}
+                        {{ person.full_name }}
+                        {{ person.position }}
+                        {{ person.description }}
+                    </card>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+
+
+    <!-- Local JS -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+{% endblock %}
