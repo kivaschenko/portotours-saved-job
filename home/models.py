@@ -76,7 +76,7 @@ class AboutUsPage(models.Model):
         return f'{self.title} ({self.language})'
 
     def get_absolute_url(self):
-        return reverse('company', kwargs={'lang': self.language.code.lower(), 'slug': self.slug})
+        return reverse('about-us', kwargs={'lang': self.language.code.lower(), 'slug': self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:
