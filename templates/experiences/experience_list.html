@@ -53,11 +53,7 @@
                             <img src="{% static 'icons/search.svg' %}" alt="">
                             Search
                         </button>
-                        <!-- <button id="reset-btn" type="reset" class="form-btn btn-type-2">
-                            Reset
-                        </button> -->
                     </div>
-
                 </form>
             </div>
         </div>
@@ -65,9 +61,6 @@
     <section class="experience-list">
         <div class="container">
             <div class="title-filter-wrapper">
-                <h3 class="experience-list-title">
-                    List of experiences
-                </h3>
                 <div class="filters-wrapper">
                     <div class="filter-wrapper">
                         <p class="experience-filter-title">
@@ -77,6 +70,29 @@
                             <option value="all">All</option>
                             <option value="private">Private</option>
                             <option value="group">Group</option>
+                        </select>
+                    </div>
+                    <div class="filter-wrapper">
+                        <p class="experience-filter-title">
+                            Time of Day
+                        </p>
+                        <select name="experience filter" id="time_of_day">
+                            <option value="all">All</option>
+                            <option value="morning">Morning (Before 12PM)</option>
+                            <option value="afternoon">Afternoon (After 12PM)</option>
+                            <option value="evening">Evening and night (After 5PM)</option>
+                        </select>
+                    </div>
+                    <div class="filter-wrapper">
+                        <p class="experience-filter-title">
+                            Duration
+                        </p>
+                        <select name="experience filter" id="duration">
+                            <option value="all">All</option>
+                            <option value="0-1">Up to 1 hour</option>
+                            <option value="1-4">1 to 4 hours</option>
+                            <option value="4-10">4 to 10 hours</option>
+                            <option value="24-72">1 to 3 days</option>
                         </select>
                     </div>
                     <div class="filter-wrapper">
@@ -104,60 +120,63 @@
                                 {% else %}
                                 {% endif %}
                                 <div class="image-wrapper">
-                                    
-                                        <a href="javascript:void(0)" class="link"
-                                           onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }})">
-                                            <img src="
-                                                    {% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}"
-                                                 alt="Card image for {{ object.name }}">
-                                        </a>
-                                    
+                                    <a href="javascript:void(0)" class="link"
+                                       onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }})">
+                                        <img src="
+                                                {% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}"
+                                             alt="Card image for {{ object.name }}">
+                                    </a>
                                 </div>
                             </div>
                             <div class="experience-list-content-wrapper">
                                 {% if object.parent_experience.is_hot_deals %}
-                                <div class="best-seller-badge-wrapper">
-                                    <img src="{% static 'icons/best-seller-icon.svg' %}" alt="best seller">
-                                </div>
+                                    <div class="best-seller-badge-wrapper">
+                                        <img src="{% static 'icons/best-seller-icon.svg' %}" alt="best seller">
+                                    </div>
                                 {% endif %}
-                                {% if object.review_set.count > 0 %} 
-                                <div class="rating-img-wrapper">
-                                    <p>{{ object.average_rating }}</p>
-                                    <div class="rating">
-                                        <div class="icon-wrapper">
-                                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
-                                            </svg>
-                                        </div>
-                                        <div class="icon-wrapper">
-                                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
-                                            </svg>
-                                        </div>
-                                        <div class="icon-wrapper">
-                                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
-                                            </svg>
-                                        </div>
-                                        <div class="icon-wrapper">
-                                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
-                                            </svg>
-                                        </div>
-                                        <div class="icon-wrapper">
-                                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
-                                            </svg>
+                                {% if object.review_set.count > 0 %}
+                                    <div class="rating-img-wrapper">
+                                        <p>{{ object.average_rating }}</p>
+                                        <div class="rating">
+                                            <div class="icon-wrapper">
+                                                <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                                          stroke="#FDB601"/>
+                                                </svg>
+                                            </div>
+                                            <div class="icon-wrapper">
+                                                <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                                          stroke="#FDB601"/>
+                                                </svg>
+                                            </div>
+                                            <div class="icon-wrapper">
+                                                <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                                          stroke="#FDB601"/>
+                                                </svg>
+                                            </div>
+                                            <div class="icon-wrapper">
+                                                <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                                          stroke="#FDB601"/>
+                                                </svg>
+                                            </div>
+                                            <div class="icon-wrapper">
+                                                <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                                          stroke="#FDB601"/>
+                                                </svg>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                               {% else %}
-                               <div class="rating-wrapper">
-                                <p>5.0</p>
-                                <img src="{% static 'icons/5-stars-icon.svg' %}" alt="">
-                               </div>
-                               {% endif %}
-                               <p class="average-rating" style="display: none;">
+                                {% else %}
+                                    <div class="rating-wrapper">
+                                        <p>5.0</p>
+                                        <img src="{% static 'icons/5-stars-icon.svg' %}" alt="">
+                                    </div>
+                                {% endif %}
+                                <p class="average-rating" style="display: none;">
                                     {{ object.average_rating }}
                                 </p>
                                 <a href="javascript:void(0)" class="link"
@@ -168,14 +187,18 @@
                                 </a>
                                 <div class="discount-banner">
                                     <img src="{% static 'icons/fire-icon.svg' %}" alt="fire icon">
-                                    <span>
-                                        {{ object.parent_experience.increase_percentage_old_price }}% discount
-                                    </span>
-
+                                    {% if object.remaining_participants and object.remaining_participants < 6 %}
+                                        <span>
+                                            We have only {{ object.remaining_participants }} left at this price
+                                        </span>
+                                    {% else %}
+                                        <span>
+                                            {{ object.parent_experience.increase_percentage_old_price }}% discount
+                                        </span>
+                                    {% endif %}
                                 </div>
 
                                 <div class="experience-type-list-wrapper">
-
                                     <ul class="main-info-list">
                                         <li>
                                             <img src="{% static 'icons/duration-icon.svg' %}" alt="">
@@ -194,18 +217,14 @@
                                         {% endif %}
                                         <li>
                                             <img src="{% static 'icons/pick-up-icon.svg' %}" alt="">
-                                            Hotel Pick Up    
+                                            Hotel Pick Up
                                         </li>
                                         {% if object.parent_experience.skip_the_line %}
                                             <li>
                                                 <img src="{% static 'icons/skip-line-icon.svg' %}" alt="">
-                                                Skip-The-Line   
+                                                Skip-The-Line
                                             </li>
                                         {% endif %}
-                                        
-                                           
-                                        
-                                        
                                     </ul>
                                 </div>
                                 <p class="experience-list-item-text">
@@ -213,37 +232,47 @@
                                 </p>
                                 {% if cart_not_empty %}
                                     {% if object.parent_experience.second_purchase_discount > 0 %}
-                                    <div class="price-wrapper turbo-sale">
-                                        <div class="top-discount-label">
-                                            <img src="{% static 'icons/green-gift-icon.svg' %}" alt="gift">
-                                            <p>
-                                                -€{{ object.parent_experience.second_purchase_discount }} applied
-                                            </p>
-                                        </div>
-                                        <div class="bottom-discount-label">
-                                            <p class="discount-info-text">
-                                                Experience is eligable for special discount.
-                                            </p>
-                                            <div class="price">
-                                                <p class="old-price">
-                                                    € {{ object.parent_experience.old_price }}
+                                        <div class="price-wrapper turbo-sale">
+                                            <div class="top-discount-label">
+                                                <img src="{% static 'icons/green-gift-icon.svg' %}" alt="gift">
+                                                <p>
+                                                    -€{{ object.parent_experience.second_purchase_discount }} applied
                                                 </p>
-                                                <p class="new-price">
-                                                    € {{ object.parent_experience.price }}
-                                                </p>
-                                                {% if object.parent_experience.is_private %}
-                                                {% else %}
-                                                <p class="per-person">
-                                                    / per person
-                                                </p>
-                                                {% endif %}
-                                                
                                             </div>
-                                           
+                                            <div class="bottom-discount-label">
+                                                <p class="discount-info-text">
+                                                    Experience is eligable for special discount.
+                                                </p>
+                                                <div class="price">
+                                                    <p class="old-price">
+                                                        € {{ object.parent_experience.old_price }}
+                                                    </p>
+                                                    <p class="new-price">
+                                                        € {{ object.parent_experience.price }}
+                                                    </p>
+                                                    {% if object.parent_experience.is_private %}
+                                                    {% else %}
+                                                        <p class="per-person">
+                                                            / per person
+                                                        </p>
+                                                    {% endif %}
+
+                                                </div>
+
+                                            </div>
+
                                         </div>
-                                        
-                                    </div>
                                     {% else %}
+                                        <div class="price-wrapper">
+                                            <p class="old-price">
+                                                € {{ object.parent_experience.old_price }}
+                                            </p>
+                                            <p class="new-price">
+                                                € {{ object.parent_experience.price }}
+                                            </p>
+                                        </div>
+                                    {% endif %}
+                                {% else %}
                                     <div class="price-wrapper">
                                         <p class="old-price">
                                             € {{ object.parent_experience.old_price }}
@@ -252,17 +281,7 @@
                                             € {{ object.parent_experience.price }}
                                         </p>
                                     </div>
-                                    {% endif %}
-                                {% else %}
-                                <div class="price-wrapper">
-                                    <p class="old-price">
-                                        € {{ object.parent_experience.old_price }}
-                                    </p>
-                                    <p class="new-price">
-                                        € {{ object.parent_experience.price }}
-                                    </p>
-                                </div>
-                                {% endif %}  
+                                {% endif %}
                                 <div class="btns-wrapper">
                                     <button type="button" class="experience-link-btn btn-type-1"
                                             onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }})">
@@ -326,44 +345,73 @@
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-
-            // Функция для обновления URL страницы с параметрами
             function updateURL() {
-                var urlParams = new URLSearchParams(window.location.search);
-                var tourType = document.getElementById('tour_type').value;
-                var filterBy = document.getElementById('filter_by').value;
+                let urlParams = new URLSearchParams(window.location.search);
+                let tourType = document.getElementById('tour_type').value;
+                let filterBy = document.getElementById('filter_by').value;
+                let time_of_day = document.getElementById('time_of_day').value;
+                let duration = document.getElementById('duration').value;
 
-                // Добавляем новые параметры
-                urlParams.set('tour_type', tourType);
-                urlParams.set('filter_by', filterBy);
-                // Обновляем URL с параметрами
-                window.history.replaceState(null, null, window.location.pathname + '?' + urlParams.toString());
-                // Перезагружаем страницу
+                let hasChanged = false;
+
+                if (time_of_day !== 'all') {
+                    urlParams.set('time_of_day', time_of_day);
+                    hasChanged = true;
+                } else {
+                    urlParams.delete('time_of_day');
+                }
+
+                if (duration !== 'all') {
+                    urlParams.set('duration', duration);
+                } else {
+                    urlParams.delete('duration');
+                }
+
+                if (tourType !== 'all') {
+                    urlParams.set('tour_type', tourType);
+                    hasChanged = true;
+                } else {
+                    urlParams.delete('tour_type');
+                }
+
+                if (filterBy !== 'all') {
+                    urlParams.set('filter_by', filterBy);
+                    hasChanged = true;
+                } else {
+                    urlParams.delete('filter_by');
+                }
+
+                if (hasChanged) {
+                    window.history.replaceState(null, null, window.location.pathname + '?' + urlParams.toString());
+                } else {
+                    window.history.replaceState(null, null, window.location.pathname);
+                }
+
                 window.location.reload();
             }
 
-            // Добавляем обработчики событий для изменений в теге <select>
             document.getElementById('tour_type').addEventListener('change', updateURL);
             document.getElementById('filter_by').addEventListener('change', updateURL);
-            // Проверяем, есть ли уже параметры в URL, если нет, то добавляем по умолчанию
-            var urlParams = new URLSearchParams(window.location.search);
-            if (!urlParams.has('tour_type') || !urlParams.has('filter_by')) {
-                updateURL(); // Если параметры отсутствуют, добавляем их по умолчанию
-            } else {
-                var tourTypeValue = urlParams.get('tour_type');
-                var filterByValue = urlParams.get('filter_by');
-                document.getElementById('tour_type').value = tourTypeValue;
-                document.getElementById('filter_by').value = filterByValue;
-            }
-            const resetBtn = document.getElementById('reset-btn');
-            if (resetBtn) {
-                resetBtn.addEventListener('click', function () {
-                    document.getElementById("experience-search-form").reset();
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                    window.location.reload();
-                });
+            document.getElementById('time_of_day').addEventListener('change', updateURL);
+            document.getElementById('duration').addEventListener('change', updateURL);
+
+            let urlParams = new URLSearchParams(window.location.search);
+            let tourTypeValue = urlParams.get('tour_type') || 'all';
+            let filterByValue = urlParams.get('filter_by') || 'all';
+            let timeOfDayValue = urlParams.get('time_of_day') || 'all';
+            let durationValue = urlParams.get('duration') || 'all';
+
+            document.getElementById('tour_type').value = tourTypeValue;
+            document.getElementById('filter_by').value = filterByValue;
+            document.getElementById('time_of_day').value = timeOfDayValue;
+            document.getElementById('duration').value = durationValue;
+
+            // Clean the URL if all parameters are default
+            if (tourTypeValue === 'all' && filterByValue === 'all' && timeOfDayValue === 'all' && durationValue === 'all') {
+                window.history.replaceState(null, null, window.location.pathname);
             }
         });
+
     </script>
     <script>
         let experienceCardList = document.querySelector('.experiences')

@@ -1,6 +1,6 @@
 from django.contrib.sessions.models import Session
 from django.db import transaction
-from django.db.models import Sum
+from django.db.models import Sum, ExpressionWrapper, F, DurationField
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
@@ -9,8 +9,9 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, ListView, DeleteView
 from django.views.generic import View
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from weasyprint import HTML
+from schedule.models import EventRelation
 
 from home.forms import ExperienceSearchForm
 from products.models import *  # noqa
@@ -35,7 +36,7 @@ class ExperienceListView(ListView):
     template_name = 'experiences/experience_list.html'
     extra_context = {}
     queryset = Experience.active.all()
-    paginate_by = 10
+    paginate_by = 20
 
     def get_queryset(self):
         current_language = Language.objects.get(code=self.kwargs['lang'].upper())
@@ -60,6 +61,58 @@ class ExperienceListView(ListView):
             }.get(sort_by)
             if order_by_field:
                 queryset = queryset.order_by(order_by_field)
+        if date:
+            start = timezone.datetime.strptime(date, "%Y-%m-%d")
+        else:
+            start = timezone.now()
+        end = start + timezone.timedelta(days=60)
+        time_of_day = self.request.GET.get('time_of_day', 'all')
+        if time_of_day != 'all':
+            experiences_to_remove = []
+            time_filters = {
+                'morning': {'start__hour__lt': 12},
+                'afternoon': {'start__hour__gte': 12, 'start__hour__lte': 17},
+                'evening': {'start__hour__lte': 17},
+            }
+            for experience in queryset:
+                events = EventRelation.objects.get_events_for_object(
+                    experience.parent_experience, distinction='experience event'
+                ).filter(
+                    start__range=(start, end), experienceevent__remaining_participants__gte=1
+                ).filter(
+                    **time_filters.get(time_of_day, {})
+                )
+                if not events.exists():
+                    experiences_to_remove.append(experience)
+
+            if experiences_to_remove:
+                queryset = queryset.exclude(pk__in=[exp.pk for exp in experiences_to_remove])
+
+        duration = self.request.GET.get('duration', 'all')
+        if duration != 'all':
+            experiences_to_remove = []
+            duration_filters = {
+                '0-1': {'duration__lte': timedelta(hours=1)},
+                '1-4': {'duration__gt': timedelta(hours=1), 'duration__lte': timedelta(hours=4)},
+                '4-10': {'duration__gt': timedelta(hours=4), 'duration__lte': timedelta(hours=10)},
+                '24-72': {'duration__gt': timedelta(hours=24), 'duration__lte': timedelta(hours=72)},
+            }
+            duration_filter = duration_filters.get(duration, {})
+            for experience in queryset:
+                events = EventRelation.objects.get_events_for_object(
+                    experience.parent_experience, distinction='experience event'
+                ).filter(
+                    start__range=(start, end), experienceevent__remaining_participants__gte=1
+                ).annotate(
+                    duration=ExpressionWrapper(F('end') - F('start'), output_field=DurationField())
+                ).filter(
+                    **duration_filter
+                )
+                if not events.exists():
+                    experiences_to_remove.append(experience)
+
+            if experiences_to_remove:
+                queryset = queryset.exclude(pk__in=[exp.pk for exp in experiences_to_remove])
 
         selected_categories = self.request.GET.getlist('categories')
         if selected_categories:
@@ -68,6 +121,19 @@ class ExperienceListView(ListView):
                 queryset_for_category = queryset.filter(parent_experience__categories__slug=category)
                 # Intersect the querysets to include only experiences related to all categories
                 queryset = queryset & queryset_for_category
+        # Add remaining_participants attribute to the queryset
+        for experience in queryset:
+            events = EventRelation.objects.get_events_for_object(
+                experience.parent_experience, distinction='experience event'
+            ).filter(
+                start__range=(start, end), experienceevent__remaining_participants__gte=1
+            )
+            if events.exists():
+                first_event = events.first()
+                remaining_participants = first_event.experienceevent.remaining_participants
+                experience.remaining_participants = remaining_participants
+            else:
+                experience.remaining_participants = 0
 
         return queryset
 
