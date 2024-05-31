@@ -1,4 +1,13 @@
 from decimal import Decimal
+from django.test import TestCase, RequestFactory
+from django.urls import reverse
+from django.utils import timezone
+from datetime import datetime
+from products.models import Experience, ParentExperience, ExperienceEvent, Language
+from schedule.models import Event, Calendar, EventRelation
+from products.views import ExperienceListView
+
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.urls import reverse, resolve
 
@@ -97,18 +106,66 @@ class ParentExperienceModelTest(TestCase):
         parent_experience.delete()
 
 
-# class ExperienceViewTest(TestCase):
-#     fixtures = [
-#         'products/fixtures/testing/languages.json',
-#         'products/fixtures/testing/experiences.json',
-#     ]
+# class ExperienceListViewTest(TestCase):
+#     fixtures = ['accounts/fixtures/testing/users.json']
 #
-#     def test_experiences_list_view(self):
-#         response = self.client.get(reverse('experiences-list', kwargs={'lang': 'en'}))
-#         self.assertEqual(response.status_code, 200)
-#         print(response.content)
+#     def setUp(self):
+#         # Create a Language instance
+#         self.language = Language.objects.create(code='EN', name='English')
 #
-#     def test_experiences_details_view(self):
-#         response = self.client.get(reverse('experiences-details', kwargs={'lang': 'en', 'slug': 'attractive-private-tour-about-lisbon'}))
+#         # Create a ParentExperience instance
+#         self.parent_experience = ParentExperience.objects.create(
+#             parent_name='Parent Experience Test',
+#             price=100,
+#             is_private=False,
+#         )
+#         self.parent_experience.allowed_languages.add(self.language)
+#
+#         # Create an Experience instance
+#         self.experience = Experience.objects.create(
+#             name='Experience Test',
+#             parent_experience=self.parent_experience,
+#             language=self.language,
+#         )
+#
+#         # Create a Calendar instance
+#         self.calendar = Calendar.objects.get_calendars_for_object(self.parent_experience).first()
+#
+#         # Create an ExperienceEvent instance
+#         start_datetime = timezone.now() + timezone.timedelta(days=5)
+#         end_datetime = start_datetime + timezone.timedelta(hours=2)
+#         self.event = ExperienceEvent.objects.create(
+#             start=start_datetime,
+#             end=end_datetime,
+#             title='Test Event',
+#             remaining_participants=10,
+#             calendar=self.calendar,
+#         )
+#
+#         self.factory = RequestFactory()
+#
+#     def tearDown(self):
+#         self.language.delete()
+#         self.parent_experience.delete()
+#         self.experience.delete()
+#         self.event.delete()
+#
+#     def test_experience_list_view(self):
+#         search_date = timezone.now() + timezone.timedelta(days=3)
+#         # Create a request
+#         request = self.factory.get(reverse('experience-list', kwargs={'lang': 'en'}), {'place': '', 'date': search_date.strftime('%Y-%m-%d')})
+#
+#         # Get the response
+#         response = ExperienceListView.as_view()(request)
+#
+#         # Check the response status code
 #         self.assertEqual(response.status_code, 200)
-#         print(response.content)
+#
+#         # Check if the remaining_participants attribute is in the context data
+#         self.assertIn('object_list', response.context_data)
+#         object_list = response.context_data['object_list']
+#         self.assertTrue(len(object_list) > 0)
+#
+#         experience = object_list[0]
+#         self.assertTrue(hasattr(experience, 'remaining_participants'))
+#         self.assertEqual(experience.remaining_participants, 10)
