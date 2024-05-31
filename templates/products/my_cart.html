@@ -323,7 +323,12 @@
             
             const minutes = Math.floor(timeDiff / 60);
             const seconds = Math.floor(timeDiff % 60);
-            document.getElementById('common-timer').innerText = `${minutes}:${seconds}`;
+            
+            // Format minutes and seconds with leading zeros if needed
+            const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+            const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+            
+            document.getElementById('common-timer').innerText = `${formattedMinutes}:${formattedSeconds}`;
             
             // Check if the deadline has passed
             if (timeDiff <= 0) {

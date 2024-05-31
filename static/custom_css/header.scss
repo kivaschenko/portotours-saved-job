@@ -124,7 +124,7 @@
       justify-content: flex-start;
       margin-left: 38px;
       @include media-breakpoint-down(md) {
-        margin-right: 20px;
+        margin-right: 12px;
         margin-left: 0;
         display: none;
         &.show-mobile {
@@ -620,9 +620,12 @@
     }
   }
   .turbo-sale-banner {
-    margin-bottom: -60px;
-    background: rgba(255, 255, 255, 0.7);
+    background: #DAEAFF;
     backdrop-filter: blur(15px);
+    &.show{
+      display: block;
+    }
+    display: none;
     @include media-breakpoint-down(md) {
       position: relative;
       z-index: 2;
@@ -632,43 +635,79 @@
       padding-bottom: 10px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       @include media-breakpoint-down(md) {
         padding-top: 8px;
         padding-bottom: 8px;
         justify-content: flex-start;
         align-items: flex-start;
       }
-      > img {
-        margin-right: 12px;
-        @include media-breakpoint-down(md) {
-          width: 32px;
-          height: 32px;
-          margin-right: 10px;
+      .left-col {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        > img {
+          margin-right: 12px;
+          @include media-breakpoint-down(md) {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+          }
+        }
+        p {
+          color: #0f0f10;
+          font-size: 17px;
+          line-height: normal;
+          margin: 0;
+          font-family: "LatoRegular";
+          margin-right: 50px;
+          @include media-breakpoint-down(md) {
+            font-size: 12px;
+          }
+          span {
+            font-family: "LatoSemiBold";
+          }
         }
       }
-      p {
-        color: #0f0f10;
-        font-size: 17px;
-        line-height: normal;
-        margin: 0;
-        font-family: "LatoRegular";
-        margin-right: 50px;
-        @include media-breakpoint-down(md) {
-          font-size: 12px;
-        }
-        span {
+      .right-col {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        .turbo-sale-btn {
+          color: var(--text-color-third);
+          font-size: 18px;
+          line-height: normal;
+          margin: 0;
           font-family: "LatoSemiBold";
+          text-transform: uppercase;
+          margin-right: 40px;
+          display: block;
+          text-decoration: none;
+          &:hover {
+            text-decoration: none;
+            color: var(--text-color-third);
+          }
+          
+          @include media-breakpoint-down(md) {
+            display: none;
+          }
+        }
+        .close-icon {
+          margin: 0;
+          display: block;
+          cursor: pointer;
+          img {
+            width: 24px;
+            height: 24px;
+            display: block;
+            @include media-breakpoint-down(md) {
+              width: 14px;
+              height: 14px;
+            }
+          }
         }
       }
-      .btn-type-1 {
-        width: 182px;
-        text-align: center;
-        padding: 8px 0;
-        @include media-breakpoint-down(md) {
-          display: none;
-        }
-      }
+      
     }
   }
 }
