@@ -1,7 +1,9 @@
 from django.contrib import admin
+from django import forms
 from django.utils.html import format_html
 
 from .models import *  # noqa
+from .forms import SVGAndImageFormField
 
 
 @admin.register(Subscriber)
@@ -18,8 +20,17 @@ class PageAdmin(admin.ModelAdmin):
     search_fields = ['title']
 
 
+class OurValuesAdminForm(forms.ModelForm):
+    icon_img = SVGAndImageFormField()
+
+    class Meta:
+        model = OurValues
+        fields = '__all__'
+
+
 @admin.register(OurValues)
 class OurValuesAdmin(admin.ModelAdmin):
+    form = OurValuesAdminForm
     list_display = ['id', 'value_title', 'display_icon']
 
     def display_icon(self, obj):

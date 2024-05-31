@@ -189,6 +189,7 @@ class ProductAdmin(admin.ModelAdmin):
         'adults_count',
         'child_count',
         'total_price',
+        'price_is_special',
         'old_total_price',
         'customer',
         'reported',

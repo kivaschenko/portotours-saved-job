@@ -26,15 +26,15 @@ class HomeView(TemplateView):
         context['destinations_top_year'] = Destination.active.filter(
             parent_destination__show_on_home_page=True,
             language__code=lang.upper(),
-        ).order_by('parent_destination__priority_number')[:6]
+        ).order_by('-parent_destination__priority_number')[:6]
         context['attractions_top_year'] = Attraction.active.filter(
             parent_attraction__show_on_home_page=True,
             language__code=lang.upper(),
-        ).order_by('parent_attraction__priority_number')[:6]
+        ).order_by('-parent_attraction__priority_number')[:6]
         context['experiences_top_year'] = Experience.active.filter(
             parent_experience__show_on_home_page=True,
             language__code=lang.upper(),
-        ).order_by('parent_experience__priority_number')[:6]
+        ).order_by('-parent_experience__priority_number')[:6]
         context['testimonials'] = Testimonial.objects.all()[:6]
         context['subscription_form'] = SubscriberForm()
         context['experience_form'] = ExperienceSearchForm(lang)
@@ -59,7 +59,6 @@ class HomeView(TemplateView):
 
 class PageDetailView(DetailView):
     model = Page
-
 
 
 def robots_txt(request):

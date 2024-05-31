@@ -7,6 +7,7 @@ from django.utils.html import strip_tags
 from ckeditor.fields import RichTextField
 from products.models import Language
 
+from home.fields import SVGAndImageField
 
 class Subscriber(models.Model):
     email = models.EmailField(unique=True)
@@ -54,10 +55,11 @@ class AboutUsPage(models.Model):
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     main_image_desktop = models.ImageField(upload_to="about_us/", null=True, blank=True)
     main_image_mobile = models.ImageField(upload_to="about_us/", null=True, blank=True)
-    title = models.CharField(max_length=120, unique=True, help_text="Title of the page, max 120 characters, for example 'About Us' text",)
+    title = models.CharField(max_length=120, unique=True, help_text="Title of the page, max 120 characters, for example 'About Us' text", )
     intro_text = models.TextField(max_length=1000, help_text="Under title text block markdown content of the page, max 1000 characters", blank=True, null=True)
     our_mission_title = models.CharField(max_length=120, help_text="max 120 characters", blank=True, null=True)
-    our_mission_text = models.TextField(max_length=1000, help_text="Under Our Mission title text block markdown content of the page, max 1000 characters", blank=True, null=True)
+    our_mission_text = models.TextField(max_length=1000, help_text="Under Our Mission title text block markdown content of the page, max 1000 characters",
+                                        blank=True, null=True)
     our_values_title = models.CharField(max_length=120, help_text="max 120 characters", blank=True, null=True)
     our_team_title = models.CharField(max_length=120, help_text="max 120 characters", blank=True, null=True)
     our_team_text = models.TextField(max_length=1000, help_text="max 1000 characters", blank=True, null=True)
@@ -90,12 +92,13 @@ class AboutUsPage(models.Model):
 
 class OurValues(models.Model):
     about_us_page = models.ForeignKey(AboutUsPage, on_delete=models.SET_NULL, null=True, blank=True, related_name='our_values')
-    icon_img = models.ImageField(upload_to='about_us/icons/', null=True, blank=True)
+    icon_img = models.FileField(upload_to='about_us/icons/', null=True, blank=True)
     value_title = models.CharField(max_length=120, help_text="max 120 characters", unique=True)
-    value_text = models.TextField(max_length=1000, help_text="max 1000 characters",)
+    value_text = models.TextField(max_length=1000, help_text="max 1000 characters", )
 
     class Meta:
         verbose_name_plural = 'our values'
+
     def __str__(self):
         return self.value_title
 
