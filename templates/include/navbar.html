@@ -303,7 +303,7 @@
         }
     
         // Проверяем localStorage при загрузке страницы
-        document.addEventListener('DOMContentLoaded', () => {
+        
             if (localStorage.getItem('turboSaleBannerHidden') === 'true') {
                 hideBanner();
             }
@@ -316,7 +316,7 @@
                     localStorage.setItem('turboSaleBannerHidden', 'true');
                 });
             }
-        });
+       
     </script>
     <script>
         let languageBtn = document.querySelector('.language-switcher .default-language');

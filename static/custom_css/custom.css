@@ -8134,11 +8134,13 @@ html.off-scroll body {
           font-size: 14px;
           line-height: normal; } }
 .header .turbo-sale-banner {
-  background: #DAEAFF;
-  backdrop-filter: blur(15px);
+  opacity: 0;
   display: none; }
   .header .turbo-sale-banner.show {
-    display: block; }
+    display: block;
+    opacity: 1;
+    background: #DAEAFF;
+    backdrop-filter: blur(15px); }
   @media (max-width: 767.98px) {
     .header .turbo-sale-banner {
       position: relative;
@@ -16313,5 +16315,3 @@ a {
       margin: 0 auto;
       display: block;
       text-align: center; }
-
-/*# sourceMappingURL=custom.css.map */
