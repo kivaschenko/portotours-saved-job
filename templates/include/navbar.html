@@ -253,15 +253,24 @@
     </div>
 </div>
 {% if cart_not_empty %}
-<div class="turbo-sale-banner">
+<div class="turbo-sale-banner show">
     <div class="container"> 
-        <img src="{% static 'icons/gift-box.svg' %}" alt="gift icon">
-        <p>
-            Your experience reservation has earned you <span>extra discount</span> from One Day Tours Portugal, use it to book more experiences with us!
-        </p>
-        <a href="{% url 'my-cart' lang='en' %}" class="btn-type-1">
-            Checkout cart
-        </a>
+        <div class="left-col">
+            <img src="{% static 'icons/gift-box.svg' %}" alt="gift icon">
+            <p>
+                Your experience reservation has earned you <span>extra discount</span> from One Day Tours Portugal, use it to book more experiences with us!
+            </p>
+        </div>
+        <div class="right-col">
+            <a href="{% url 'my-cart' lang='en' %}" class="turbo-sale-btn">
+                Checkout
+            </a>
+            <span class="close-icon">
+                <img src="{% static 'icons/icon-close.svg' %}" alt="close">
+            </span>
+            
+        </div>
+        
     </div>
 </div>
 {% endif %}
@@ -284,7 +293,31 @@
        //      homeLink.href = '/' + defaultLanguage + '/';
        //  });
     </script>
-
+    <script>
+        // Функция для скрытия баннера
+        function hideBanner() {
+            let turboSaleBanner = document.querySelector('.turbo-sale-banner');
+            if (turboSaleBanner) {
+                turboSaleBanner.classList.remove('show');
+            }
+        }
+    
+        // Проверяем localStorage при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('turboSaleBannerHidden') === 'true') {
+                hideBanner();
+            }
+    
+            let turboSaleBanner = document.querySelector('.turbo-sale-banner');
+            if (turboSaleBanner) {
+                let closeBannerIcon = turboSaleBanner.querySelector('.close-icon');
+                closeBannerIcon.addEventListener('click', () => {
+                    hideBanner();
+                    localStorage.setItem('turboSaleBannerHidden', 'true');
+                });
+            }
+        });
+    </script>
     <script>
         let languageBtn = document.querySelector('.language-switcher .default-language');
         languageBtn.addEventListener('click', () => {

@@ -78,6 +78,7 @@ urlpatterns += [
     # path('<str:lang>/', home_views.HomeView.as_view(), name='home'),
     path('', home_views.HomeView.as_view(), name='home'),
     path('en/pages/<slug:slug>/', home_views.PageDetailView.as_view(), name='page_detail'),
+    path('<str:lang>/company/<slug:slug>/', home_views.AboutUsDetailView.as_view(), name='about-us'),
 ]
 
 # ACCOUNTS & PROFILES

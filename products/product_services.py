@@ -151,9 +151,12 @@ def search_experience_by_place_start_lang(place: str, start_date: str, current_l
         else:
             experiences = experiences.filter(destinations=destination)
     if start_date:
-        # Convert the start date to datetime object
-        start = timezone.datetime.strptime(start_date, "%Y-%m-%d") - timezone.timedelta(days=2)
-        end = start + timezone.timedelta(days=30)
+        # Convert the start date to a timezone-aware datetime object
+        start = timezone.make_aware(datetime.strptime(start_date, "%Y-%m-%d"))
+        start = start - timezone.timedelta(days=2)
+        if start < timezone.now():
+            start = timezone.now()
+        end = start + timezone.timedelta(days=60)
         for experience in experiences:
             events = EventRelation.objects.get_events_for_object(
                 experience.parent_experience, distinction='experience event'
@@ -219,4 +222,5 @@ def get_actual_events_for_experience_with_second_purchase_discount(parent_experi
         logger.error(f'No events found for ParentExperience id={parent_experience_id}')
     finally:
         return result
+
 

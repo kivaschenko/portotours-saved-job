@@ -114,6 +114,7 @@ class LandingPageView(DetailView):
             destination_slug = self.request.GET.get('destination', 'all')
             if destination_slug != 'all':
                 experiences_queryset = experiences_queryset.filter(destinations__slug=destination_slug)
+            experiences_queryset = experiences_queryset.order_by('-parent_experience__priority_number')
         else:
             experiences_queryset = Experience.objects.none()
 

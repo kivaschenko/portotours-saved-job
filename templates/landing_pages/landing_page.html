@@ -24,7 +24,7 @@
         <div class="container">
 
             <h1 class="ppc-hero-title">
-                {{ object.title }}
+                {% if object.title %}{{ object.title }}{% endif %}
             </h1>
         </div>
     </section>
@@ -33,10 +33,10 @@
         <div class="container">
 
             {% if object.content %}
-            <div class="ppc-text">{{ object.display_content }}</div>
+                <div class="ppc-text">{{ object.display_content }}</div>
             {% endif %}
             <div class="title-btn-wrapper ppc-title-btn-wrapper">
-                
+
                 <div class="filters-wrapper">
                     <div class="filter-wrapper">
                         <p class="experience-filter-title">
@@ -95,7 +95,7 @@
                         </select>
                     </div>
                 </div>
-                
+
             </div>
             <div class="best-tours-cards-wrapper ppc-best-tours">
                 {% if experiences %}
@@ -112,44 +112,44 @@
                 {% if experiences.has_other_pages %}
                     <div class="pagination-block ppc-pagination">
 
-                            {% if experiences.has_previous %}
-                                <button class="pagination-btn prev">
-                                    <a href="?page={{ experiences.previous_page_number }}">
-                                        <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
-                                    </a>
-                                </button>
-                            {% else %}
-                                <button class="pagination-btn prev">
-                                    <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
-                                </button>
-                            {% endif %}
-                            <ul class="pagination-list">
-                                {% for num in experiences.paginator.page_range %}
+                        {% if experiences.has_previous %}
+                            <button class="pagination-btn prev">
+                                <a href="?page={{ experiences.previous_page_number }}">
+                                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                                </a>
+                            </button>
+                        {% else %}
+                            <button class="pagination-btn prev">
+                                <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+                            </button>
+                        {% endif %}
+                        <ul class="pagination-list">
+                            {% for num in experiences.paginator.page_range %}
 
-                                    {% if experiences.number == num %}
-                                        <li class="pagination-list-item active">{{ num }}</li>
-                                        {% elif num > experiences.number|add:'-5' and num < experiences.number|add:'5' %}
-                                        <li class="pagination-list-item"><a class="" href="?page={{ num }}">{{ num }}</a></li>
-                                    {% endif %}
+                                {% if experiences.number == num %}
+                                    <li class="pagination-list-item active">{{ num }}</li>
+                                {% elif num > experiences.number|add:'-5' and num < experiences.number|add:'5' %}
+                                    <li class="pagination-list-item"><a class="" href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
 
-                                {% endfor %}
-                            </ul>
-                            {% if experiences.has_next %}
-                                <button class="pagination-btn next">
-                                    <a href="?page={{ page_obj.next_page_number }}">
-                                        <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
-                                    </a>
-                                </button>
-                            {% else %}
-                                <button class="pagination-btn next">
-                                    <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
-                                </button>
-                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                        {% if experiences.has_next %}
+                            <button class="pagination-btn next">
+                                <a href="?page={{ page_obj.next_page_number }}">
+                                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                                </a>
+                            </button>
+                        {% else %}
+                            <button class="pagination-btn next">
+                                <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+                            </button>
+                        {% endif %}
 
                     </div>
                 {% endif %}
             </div>
-            
+
         </div>
     </section>
 
@@ -216,15 +216,16 @@
             </div>
         </div>
     </section>
-    <section class="testimonials-slider-section">
-        <div class="container">
-            <h2 class="testimonials-title">
-                testimonials
-            </h2>
-            <p class="testimonials-subtitle body-text-b1">
-                Read the reviews of our clients about their experience with our service
-            </p>
-            {% if testimonials %}
+
+    {% if testimonials %}
+        <section class="testimonials-slider-section">
+            <div class="container">
+                <h2 class="testimonials-title">
+                    testimonials
+                </h2>
+                <p class="testimonials-subtitle body-text-b1">
+                    Read the reviews of our clients about their experience with our service
+                </p>
                 <div class="testimonials-slider">
                     <div class="swiper-wrapper">
                         {% for testimonial in testimonials %}
@@ -247,87 +248,77 @@
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
                 </div>
-            {% else %}
-                <p>No any testimonials yet...</p>
-            {% endif %}
-        </div>
-    </section>
+            </div>
+        </section>
+    {% endif %}
 
-   {% if object.blogs.all %}
+    {% if object.blogs.all %}
         <section class="blog-articles">
             <div class="container">
                 <h2 class="blog-article-title">{{ object.blogs_title }}</h2>
                 <div class="blog-article-cards-wrapper">
-                        {% for object in object.blogs.all %}
-                            <div class="blog-card">
-                                <div class="img-wrapper">
-                                    <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
-                                        <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
+                    {% for object in object.blogs.all %}
+                        <div class="blog-card">
+                            <div class="img-wrapper">
+                                <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
+                                    <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
                             {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
-                                    </a>
+                                </a>
 
-                                </div>
-                                <div class="card-content-wrapper">
-                                    <p class="card-date">
-                                        {{ object.date_published|date }}
-                                    </p>
-                                    <h5 class="card-title">
-                                        <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
-                                            {{ object.title }}
-                                        </a>
-                                    </h5>
-
-                                </div>
                             </div>
-                        {% endfor %}
+                            <div class="card-content-wrapper">
+                                <p class="card-date">
+                                    {{ object.date_published|date }}
+                                </p>
+                                <h5 class="card-title">
+                                    <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
+                                        {{ object.title }}
+                                    </a>
+                                </h5>
+
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
     {% endif %}
 
-    {% if object.seo_text %}
-    <section class="text-block">
-        <div class="container">
-            <h2 class="text-block-title">
-                {{ object.seo_title }}
-            </h2>
-            <div class="text-block-content">
-                {{ object.display_seo_text }}
+    {% if object.seo_title and object.seo_text %}
+        <section class="text-block">
+            <div class="container">
+                <h2 class="text-block-title">
+                    {{ object.seo_title }}
+                </h2>
+                <div class="text-block-content">
+                    {{ object.display_seo_text }}
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
     {% endif %}
-    
+
 
     {% if object.faq_landing_list.all %}
-    <section class="faq">
-        <div class="container">
-            
-            <h2 class="faq-title">
-                {{ object.faq_title }}
-            </h2>
-            <p class="faq-subtitle">
-                {{ object.faq_subtitle }}
-            </p>
+        <section class="faq">
+            <div class="container">
+                <h2 class="faq-title">
+                    {% if object.faq_title %}{{ object.faq_title }}{% endif %}
+                </h2>
+                <p class="faq-subtitle">
+                    {% if object.faq_subtitle %}{{ object.faq_subtitle }}{% endif %}
+                </p>
                 {% for record in object.faq_landing_list.all %}
                     <div class="faq-block">
                         <p class="faq-question">{{ record.question }}</p>
                         <div>{{ record.display_answer }}</div>
                     </div>
                 {% endfor %}
-            
-        </div>
-    </section>
+            </div>
+        </section>
     {% endif %}
 
-
-    
-
-
-    
-    
-    <section class="guided-tours">
-        {% if object.related_landing_pages.all %}
+    {% if object.related_landing_pages.all %}
+        <section class="guided-tours">
             <div class="container">
                 <h2>{% if object.title_related_landing_pages %}{{ object.title_related_landing_pages }}{% else %}{{ object.title }}{% endif %}</h2>
                 <ul>
@@ -336,8 +327,8 @@
                     {% endfor %}
                 </ul>
             </div>
-        {% endif %}
-    </section>
+        </section>
+    {% endif %}
 
     <!-- Custom JS import -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
@@ -356,12 +347,10 @@
                 200: {
                     slidesPerView: 1,
                     spaceBetween: 10,
-
                 },
                 767: {
                     slidesPerView: 3,
                     spaceBetween: 24,
-
                 }
             },
             // Navigation arrows

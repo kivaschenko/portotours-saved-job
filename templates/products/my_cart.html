@@ -31,7 +31,7 @@
                                 My experiences
                             </p>
                         </div>
-                        
+
                     </li>
                     <li class="cart-step-item">
                         <div class="img-wrapper">
@@ -47,7 +47,7 @@
                                 Billing details
                             </p>
                         </div>
-                        
+
                     </li>
                     <li class="cart-step-item">
                         <div class="img-wrapper">
@@ -55,7 +55,7 @@
                             <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
                             <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
                         </div>
-                        
+
                         <div class="text-wrapper">
                             <p class="step-text body-text-b4">
                                 3 Step
@@ -64,7 +64,7 @@
                                 Confirmation
                             </p>
                         </div>
-                        
+
                     </li>
                 </ul>
             </div>
@@ -74,7 +74,7 @@
                         Please review your order
                     </h2>
                     <p class="cart-title-info">
-                       
+
                         <!-- Add a span element for the common timer -->
                         <strong> <img src="{% static 'icons/cart-info-icon.svg' %}" alt=""> <span id="common-timer" style="margin-right: 1rem;"></span></strong>
                         We've reserved a place in the experience for you. Please review your order and make payment to keep it.
@@ -92,7 +92,7 @@
                                 </p>
                                 <div class="img-wrapper">
                                     <p class="card-img-badge">
-                                        {{ object.parent_experience.increase_percentage_old_price }}% discount 
+                                        {{ object.parent_experience.increase_percentage_old_price }}% discount
                                     </p>
                                     <img src="{{ object.parent_experience.card_image.url }}" class="card-img"
                                          alt="card image preview for {{ object.parent_experience }}">
@@ -164,12 +164,24 @@
 
                                         </div>
                                         <div class="card-col">
+                                            {% if object.price_is_special %}
+                                                <p class="card-col-title">
+                                                Special price
+                                                </p>
+                                                <p class="card-col-text">
+                                                    €{{ object.total_price }}
+                                                </p>
+                                                <span><sm>Here must be green badge
+                                                -€{{ object.parent_experience.second_purchase_discount }} APPLIED
+                                                </sm></span>
+                                            {% else %}
                                             <p class="card-col-title">
                                                 Price
                                             </p>
                                             <p class="card-col-text">
                                                 €{{ object.total_price }}
                                             </p>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="hover-block">
@@ -185,26 +197,21 @@
                                                     <img src="{% static 'icons/cart-remove-icon.svg' %}" alt="remove">
                                                     <span>Delete</span>
                                                 </a>
-
                                             </li>
                                         </ul>
                                     </div>
                                     {% if object.free_cancellation_datetime %}
-                                    <div class="risk-free-banner">
-                                        <img src="{% static 'icons/risk-free-icon.svg' %}" alt="risk free icon">
-                                        <span>
+                                        <div class="risk-free-banner">
+                                            <img src="{% static 'icons/risk-free-icon.svg' %}" alt="risk free icon">
+                                            <span>
                                             Risk free!
                                         </span>
-                                        
-                                        <p class="risk-free-text">
-                                            Free cancellation before  {{ object.free_cancellation_datetime }}
-                                        </p>
-                                        
-                                    </div>
+                                            <p class="risk-free-text">
+                                                Free cancellation before {{ object.free_cancellation_datetime }}
+                                            </p>
+                                        </div>
                                     {% endif %}
                                 </div>
-
-
                             </div>
                         {% endfor %}
                     </div>
@@ -223,16 +230,26 @@
                             </span>
                             </p>
                             {% if discounted_price_sum %}
-                            <div class="price discount">
-                                <div class="icon-wrapper">
-                                    <img src="{% static 'icons/flash-icon.svg' %}" alt="">
-                                    Instant discount - €{{ discounted_price_sum }}
+                                <div class="price discount">
+                                    <div class="icon-wrapper">
+                                        <img src="{% static 'icons/flash-icon.svg' %}" alt="">
+                                        Instant discount - €{{ discounted_price_sum }}
+                                    </div>
+                                    <span>
+                                     APPLIED
+                                    </span>
                                 </div>
-                                
-                                <span>
-                                 APPLIED
-                                </span>
-                            </div>
+                            {% endif %}
+                            {% if total_second_discount %}
+                                <div class="price discount">
+                                    <div class="icon-wrapper">
+                                        <img src="{% static 'icons/flash-icon.svg' %}" alt="">
+                                        Special offer discount - €{{ total_second_discount }}
+                                    </div>
+                                    <span>
+                                     APPLIED
+                                    </span>
+                                </div>
                             {% endif %}
                             <p class="total-price">
                                 Total
@@ -242,7 +259,7 @@
                             </p>
                             <div class="price-match-banner">
                                 <img src="{% static 'icons/info-icon.svg' %}" alt="info icon">
-                                We price match. Find it for less, and we’ll match it! 
+                                We price match. Find it for less, and we’ll match it!
                             </div>
                             <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
                                 Checkout
@@ -283,16 +300,11 @@
                             <li>Personal and accident insurance</li>
                             <li>Discount for children</li>
                             <li>Award-winning customer support</li>
-
                         </ul>
-
                     </div>
                 </div>
-
-
                 </div>
             {% endif %}
-
     </div>
     {% if object_list %}
     {% else %}
@@ -315,16 +327,21 @@
         let commonTimer;
         let createdAt; // Variable to store the createdAt value
         let deadline; // Variable to store the deadline value
-        
+
         // Function to update the common timer
         function updateCommonTimer() {
             const now = new Date();
             const timeDiff = (deadline - now) / 1000; // Time difference in seconds
-            
+
             const minutes = Math.floor(timeDiff / 60);
             const seconds = Math.floor(timeDiff % 60);
-            document.getElementById('common-timer').innerText = `${minutes}:${seconds}`;
-            
+
+            // Format minutes and seconds with leading zeros if needed
+            const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+            const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+            document.getElementById('common-timer').innerText = `${formattedMinutes}:${formattedSeconds}`;
+
             // Check if the deadline has passed
             if (timeDiff <= 0) {
                 clearInterval(commonTimer); // Stop the timer
@@ -336,7 +353,7 @@
                 updateCommonTimer();
             }
         }
-        
+
         // Function to start the common timer with the provided createdAt value
         function startCommonTimer() {
             // Parse the createdAt string into a Date object in UTC
@@ -344,22 +361,22 @@
             const [year, month, day] = dateStr.split('-').map(Number);
             const [hour, minute, second] = timeStr.split(':').map(Number);
             const createdAtDate = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
-            
+
             // Set the deadline to 30 minutes after the createdAt time
             deadline = new Date(createdAtDate.getTime() + (30 * 60 * 1000)); // 30 minutes in milliseconds
-            
+
             // Update the timer every second
             commonTimer = setInterval(updateCommonTimer, 1000);
-            
+
             // Update the timer immediately
             updateCommonTimer();
         }
-    
+
         // Call the function to start the common timer after the DOM has fully loaded
         document.addEventListener("DOMContentLoaded", function () {
             // Get the createdAt value from the template variable
             createdAt = '{{ last_created_at|date:"Y-m-d H:i:s" }}';
-            
+
             if (createdAt) {
                 // Start the common timer with the provided createdAt value
                 startCommonTimer();
@@ -376,7 +393,7 @@
         window.dataLayer = window.dataLayer || [];
 
         // Clear the previous ecommerce object.
-        window.dataLayer.push({ ecommerce: null });
+        window.dataLayer.push({ecommerce: null});
 
         // Push the new ecommerce data
         window.dataLayer.push({

@@ -8,7 +8,7 @@ from attractions.models import Attraction
 from products.models import Experience
 from reviews.models import Testimonial
 
-from .models import Page
+from .models import Page, AboutUsPage
 
 from .forms import SubscriberForm, ExperienceSearchForm
 
@@ -26,15 +26,15 @@ class HomeView(TemplateView):
         context['destinations_top_year'] = Destination.active.filter(
             parent_destination__show_on_home_page=True,
             language__code=lang.upper(),
-        ).order_by('parent_destination__priority_number')[:6]
+        ).order_by('-parent_destination__priority_number')[:6]
         context['attractions_top_year'] = Attraction.active.filter(
             parent_attraction__show_on_home_page=True,
             language__code=lang.upper(),
-        ).order_by('parent_attraction__priority_number')[:6]
+        ).order_by('-parent_attraction__priority_number')[:6]
         context['experiences_top_year'] = Experience.active.filter(
             parent_experience__show_on_home_page=True,
             language__code=lang.upper(),
-        ).order_by('parent_experience__priority_number')[:6]
+        ).order_by('-parent_experience__priority_number')[:6]
         context['testimonials'] = Testimonial.objects.all()[:6]
         context['subscription_form'] = SubscriberForm()
         context['experience_form'] = ExperienceSearchForm(lang)
@@ -61,7 +61,6 @@ class PageDetailView(DetailView):
     model = Page
 
 
-
 def robots_txt(request):
     lines = [
         "User-agent: *",
@@ -72,3 +71,9 @@ def robots_txt(request):
         "Sitemap: https://onedaytours.pt/sitemap.xml",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+# About Us
+
+class AboutUsDetailView(DetailView):
+    model = AboutUsPage

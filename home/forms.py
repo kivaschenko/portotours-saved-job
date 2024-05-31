@@ -1,5 +1,6 @@
 from django import forms
 from django.core.cache import cache
+from django.core.exceptions import ValidationError
 
 from destinations.models import Destination
 from products.models import Experience
@@ -38,3 +39,13 @@ class ExperienceSearchForm(forms.Form):
             self.initial = initial_data
 
 
+class SVGAndImageFormField(forms.FileField):
+    def to_python(self, data):
+        if data and hasattr(data, 'name') and data.name.endswith('.svg'):
+            return data
+        return super().to_python(data)
+
+    def validate(self, value):
+        if value and hasattr(value, 'name') and value.name.endswith('.svg'):
+            return  # Skip validation for SVG files
+        super().validate(value)
