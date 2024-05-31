@@ -84,11 +84,12 @@ def apply_second_purchase_discount(sender, instance, created, **kwargs):
         logger.info(f"Added second purchase discount: {discount} to Product: {instance}")
 
 
+@receiver(post_delete, sender=Product)
 def adjust_prices_after_delete(sender, instance, **kwargs):
     session_key = instance.session_key
 
     if session_key:
-        products = Product.objects.filter(session_key=session_key).order_by('created_at')
+        products = Product.pending.filter(session_key=session_key).order_by('created_at')
 
         # Reset discounts for all products
         for product in products:

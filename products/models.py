@@ -14,7 +14,7 @@ from django.contrib.gis.db import models as gis_models
 from django.contrib.gis.geos import fromstr
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
-from django.db.models import Avg, Sum
+from django.db.models import Avg, Sum, F
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
@@ -773,11 +773,18 @@ class Product(models.Model):
 
     @staticmethod
     def aggregate_total_second_discount(session_key):
-        res = Product.pending.filter(
-            price_is_special=True,
-            session_key=session_key,
-        ).aggregate(total_discount=Sum('parent_experience__second_purchase_discount'))
-        return res
+        private_discounts = Product.pending.filter(
+            price_is_special=True, session_key=session_key, parent_experience__is_private=True
+        ).aggregate(private_total_discount=Sum('parent_experience__second_purchase_discount'))
+
+        non_private_discounts = Product.pending.filter(
+            price_is_special=True, session_key=session_key, parent_experience__is_private=False
+        ).aggregate(non_private_total_discount=Sum(F('parent_experience__second_purchase_discount') * F('adults_count')))
+
+        private_total_discount = private_discounts.get('private_total_discount') or Decimal('0.00')
+        non_private_total_discount = non_private_discounts.get('non_private_total_discount') or Decimal('0.00')
+        total_discount = private_total_discount + non_private_total_discount
+        return total_discount
 
     @staticmethod
     def get_products_count(session_key):
