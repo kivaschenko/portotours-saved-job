@@ -14,7 +14,7 @@ from django.contrib.gis.db import models as gis_models
 from django.contrib.gis.geos import fromstr
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
-from django.db.models import Avg
+from django.db.models import Avg, Sum
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
@@ -402,7 +402,7 @@ class Experience(models.Model):
 
     def get_absolute_url(self):
         return reverse('experience-detail', kwargs={'lang': self.language.code.lower(),
-                                                             'slug': self.slug})
+                                                    'slug': self.slug})
 
     @property
     def localized_url(self):
@@ -490,9 +490,9 @@ class ExperienceEvent(Event):
         )
 
     def __repr__(self):
-        line =("<ExperienceEvent(id={id} start={start} end={end} title={title} max_participants={max_participants} booked_participants={booked_participants} "
-               "remaining_participants={remaining_participants} special_price={special_price} child_special_price={child_special_price} "
-               "total_price={total_price})>")
+        line = ("<ExperienceEvent(id={id} start={start} end={end} title={title} max_participants={max_participants} booked_participants={booked_participants} "
+                "remaining_participants={remaining_participants} special_price={special_price} child_special_price={child_special_price} "
+                "total_price={total_price})>")
         return line.format(
             id=self.id,
             start=self.start.strftime("%d/%m/%Y %H:%M"),
@@ -659,6 +659,7 @@ class Product(models.Model):
                               ])
     random_order_number = models.CharField(max_length=30, null=True, blank=True)
     reported = models.BooleanField(default=False)
+    price_is_special = models.BooleanField(default=False)
     # Stripe data
     stripe_product_id = models.CharField(max_length=220, null=True, blank=True)
     stripe_price = models.IntegerField(null=True, blank=True)  # 100 * experience.price
@@ -678,11 +679,11 @@ class Product(models.Model):
                 f"start_datetime={self.start_datetime}...)>")
 
     class Meta:
-        ordering = ('-created_at', '-total_price')
+        ordering = ('-created_at',)
         get_latest_by = 'created_at'
 
     def save(self, *args, **kwargs):
-        # recount each time during save because might be different numer of participants
+        # recount each time during save because might be different number of participants
         if self.adults_price and self.child_price:
             self.total_price = self._count_new_total_price()
         self.old_total_price = self._count_old_total_price()
@@ -762,6 +763,29 @@ class Product(models.Model):
                 return 0
             else:
                 return res
+
+    @property
+    def second_purchase_discount(self):
+        if self.price_is_special:
+            return self.parent_experience.second_purchase_discount
+        else:
+            return 0
+
+    @staticmethod
+    def aggregate_total_second_discount(session_key):
+        res = Product.pending.filter(
+            price_is_special=True,
+            session_key=session_key,
+        ).aggregate(total_discount=Sum('parent_experience__second_purchase_discount'))
+        return res
+
+    @staticmethod
+    def get_products_count(session_key):
+        return Product.pending.filter(session_key=session_key).count()
+
+    @staticmethod
+    def get_first_product(session_key):
+        return Product.pending.filter(session_key=session_key).order_by('created_at').first()
 
 
 def generate_random_code():
