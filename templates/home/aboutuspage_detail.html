@@ -14,73 +14,106 @@
 {% endblock meta_tags %}
 
 {% block content %}
-    <div class="container">
-        <!-- Title and intro text -->
-        <div>
-            <h2>
-                {{ object.title }}
-            </h2>
-            {% if object.intro_text %}
-                {{ object.intro_text }}
-            {% endif %}
-        </div>
 
-        <div>
-            <!-- If desktop show desktop image -->
-            {% if object.main_image_desktop %}
-                <img src="{{ object.main_image_desktop.url }}">
-            {% endif %}
-            <!-- If mobile show mobile image -->
-            {% if object.main_image_mobile %}
-                <img src="{{ object.main_image_mobile.url }}">
-            {% endif %}
-        </div>
-
-        <div>
-            <!-- Our Mission -->
-            {% if object.our_mission_title %}
-                {{ object.our_mission_title }}
-            {% endif %}
-            {% if object.our_mission_text %}
-                {{ object.our_mission_text }}
-            {% endif %}
-        </div>
-
-        {% if object.our_values.all %}
-            <div>
-                <!-- Our Values -->
-                {% if object.our_values_title %}
-                    {{ object.our_values_title }}
+    <section class="about-us-text-image">
+        <div class="container">
+            <div class="left-col">
+                
+                <h2 class="left-col-title">
+                    <img src="{% static 'icons/about-us-icon.svg' %}" alt="" class="left-col-icon">
+                    {{ object.title }}
+                </h2>
+                {% if object.intro_text %}
+                    <p class="left-col-text">
+                        {{ object.intro_text }}
+                    </p>
                 {% endif %}
-                {% for value in object.our_values.all %}
-                    <card>
-                        {% if value.icon_img %}
-                            <img src="{{ value.icon_img.url }}">
-                        {% endif %}
-                        {{ value.value_title }}
-                        {{ value.value_text }}
-                    </card>
-                {% endfor %}
             </div>
-        {% endif %}
-
-        {% if object.staff.all %}
-            <div>
-                <!-- Staff -->
+            <div class="right-col">
+                <img class="image-desktop" src="{{ object.main_image_desktop.url }}" alt="about us image">
+                <img class="image-mobile" src="{{ object.main_image_mobile.url }}" alt="about us image">
+            </div>
+        </div>
+    </section>
+    <section class="about-us-text-image about-us-text-image--reversed">
+        <div class="container">
+            <div class="left-col">
+                
+                <h2 class="left-col-title">
+                    <img src="{% static 'icons/mission-icon.svg' %}" alt="" class="left-col-icon">
+                    {{ object.our_mission_title }}
+                </h2>
+                {% if object.our_mission_text %}
+                    <p class="left-col-text">
+                        {{ object.our_mission_text }}
+                    </p>
+                {% endif %}
+            </div>
+            <div class="right-col">
+                <img class="image-desktop" src="{% static 'images/about-mission-img.png' %}" alt="about us image">
+                <img class="image-mobile" src="{% static 'images/about-mission-img-mob.png' %}" alt="about us image">
+            </div>
+        </div>
+    </section>
+    {% if object.our_values.all %}
+    <section class="values">
+        <div class="container">
+            <div class="values-card title-card">
+                
+                {% if object.our_values_title %}
+                <h3 class="section-title">
+                    <img src="{% static 'icons/values-icon.svg' %}" alt="values icon" class="title-card-icon">
+                    {{ object.our_values_title }}
+                </h3>
+                {% endif %}
+            </div>
+            {% for value in object.our_values.all %}
+            <div class="values-card">
+                {% if value.icon_img %}
+                <img src="{{ value.icon_img.url }}" alt="values card icon">
+                {% endif %}
+                <h5 class="card-title">
+                    {{ value.value_title }}
+                </h5>
+                <p class="card-text">
+                    {{ value.value_text }}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    {% if object.staff.all %}
+    <section class="team">
+        <div class="container">
+            <h2 class="team-title">
+                <img src="{% static 'icons/team-icon.svg' %}" alt="icon" class="team-icon">
+                Our Team
+            </h2>
+            <p class="team-info">
+                We've assembled our company of travel experts and enthusiasts to radically change the classical time-consuming approach to travel planning.
+            </p>
+            <div class="team-cards-wrapper">
                 {% for person in object.staff.all %}
-                    <card>
+                    <div class="team-card">
                         {% if person.photo %}
                             <img src="{{ person.photo.url }}">
                         {% endif %}
-                        {{ person.full_name }}
-                        {{ person.position }}
-                        {{ person.description }}
-                    </card>
+                        <h5 class="name">
+                            {{ person.full_name }}
+                        </h5>
+                        <p class="position">
+                            {{ person.position }}
+                        </p>
+                        <p class="info-text">
+                            {{ person.description }}
+                        </p>
+                    </div>
                 {% endfor %}
             </div>
-        {% endif %}
-
-    </div>
+        </div>
+    </section>
+    {% endif %}
 
 
     <!-- Local JS -->
