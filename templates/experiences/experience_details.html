@@ -109,10 +109,12 @@
                     free cancellation
                 </p>
             {% endif %}
+            {% if object.parent_experience.hotel_pick_up %}
             <p class="experience-hero-info-text">
                 <img src="{% static 'icons/pickup-icon.svg' %}" alt="">
                 hotel pick up 
             </p>
+            {% endif %}
             {% if object.parent_experience.recommended_by_locals %}
                 <p class="experience-hero-info-text">
                     <img src="{% static 'icons/green-thumb.svg' %}" alt="">
