@@ -270,6 +270,7 @@
                                             <p class="new-price">
                                                 € {{ object.parent_experience.price }}
                                             </p>
+                                            
                                         </div>
                                     {% endif %}
                                 {% else %}
@@ -280,6 +281,11 @@
                                         <p class="new-price">
                                             € {{ object.parent_experience.price }}
                                         </p>
+                                        {% if object.parent_experience.is_private %}
+                                        <p class="per-person">
+                                            / per group ({{ object.parent_experience.max_participants }} people maximum)
+                                        </p>
+                                        {% endif %}
                                     </div>
                                 {% endif %}
                                 <div class="btns-wrapper">

@@ -536,6 +536,7 @@
               @include media-breakpoint-down(md) {
                 flex-wrap: wrap;
                 justify-content: space-between;
+                width: 100%;
               }
               li {
                 font-family: "LatoRegular";
@@ -616,6 +617,14 @@
                 font-size: 22px;
                 line-height: 32px;
               }
+            }
+            .per-person {
+              color: #6D6D6D;
+              font-size: 18px;
+              line-height: 22px;
+              font-family: 'LatoMedium';
+              margin-bottom: 0;
+              margin-left: 10px;
             }
             &.turbo-sale {
               display: flex;
