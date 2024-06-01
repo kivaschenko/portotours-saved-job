@@ -228,6 +228,7 @@ class ParentExperience(models.Model):
                                                               "of participants as one purchase will be")
     is_exclusive = models.BooleanField(default=False, help_text="If this experience is exclusive then competition will propose.")
     is_hot_deals = models.BooleanField(default=False, help_text="If this experience is hot deals will show first queue.")
+    hotel_pick_up = models.BooleanField(default=False, help_text="If this experience has hotel pick up service.")
     allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
     categories = models.ManyToManyField(ExperienceCategory, help_text="list of categories this experience")
     free_cancellation = models.BooleanField(default=False, help_text="Free Cancellation is allowed.", null=True)

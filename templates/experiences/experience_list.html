@@ -215,10 +215,12 @@
                                                 Small Group
                                             </li>
                                         {% endif %}
+                                        {% if object.parent_experience.hotel_pick_up %}
                                         <li>
                                             <img src="{% static 'icons/pick-up-icon.svg' %}" alt="">
                                             Hotel Pick Up
                                         </li>
+                                        {% endif %}
                                         {% if object.parent_experience.skip_the_line %}
                                             <li>
                                                 <img src="{% static 'icons/skip-line-icon.svg' %}" alt="">
