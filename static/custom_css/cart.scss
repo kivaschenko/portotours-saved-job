@@ -323,16 +323,25 @@
                         justify-content: start;
                         @include media-breakpoint-down(md) {
                             justify-content: space-between;
+                            flex-wrap: wrap;
                         }
                         .card-col {
                             + .card-col {
-                                padding-left: 32px;
-                                margin-left: 32px;
+                                padding-left: 24px;
+                                margin-left: 24px;
                                 border-left: 1px solid #D9D9D9;
                                 @include media-breakpoint-down(md) {
                                     border: none;
                                     padding-left: 0;
                                     margin-left: 0;
+                                }
+                            }
+                            &.special-price {
+                                @include media-breakpoint-down(md) {
+                                    display: flex;
+                                    align-items: flex-start;
+                                    justify-content: flex-start;
+                                    margin-top: 10px;
                                 }
                             }
                             .card-col-title {
@@ -341,6 +350,12 @@
                                 font-size: 16px;
                                 line-height: 26px;
                                 margin-bottom: 10px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: flex-start;
+                                img {
+                                    margin-right: 6px;
+                                }
                                 @include media-breakpoint-down(md) {
                                     font-size: 14px;
                                     line-height: 22px;
@@ -362,6 +377,57 @@
                                     margin-bottom: 0;
                                 }
                             }
+                            .turbo-mode-banner {
+                                display: flex;
+                                flex-direction: column;
+                                width: fit-content;
+                                border-radius: 6px;
+                                background: #f3faf5;
+                                margin-top: 9px;
+                                margin-bottom: 0;
+                                overflow: hidden;
+                                @include media-breakpoint-down(md) {
+                                    margin-top: 0;
+                                    margin-left: 40px;
+                                }
+                                .top-discount-label {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: flex-start;
+                                    background-image: url(../icons/turbo-sale-badge-bg.svg);
+                                    background-size: cover;
+                                    background-repeat: no-repeat;
+                                    background-position: bottom;
+                                    padding: 5px 10px 6px;
+                                    width: 100%;
+                                    img {
+                                    width: 18px;
+                                    height: 18px;
+                                    margin-right: 7px;
+                                    }
+                                    p {
+                                    color: white;
+                                    font-family: "LatoSemiBold";
+                                    font-size: 14px;
+                                    line-height: 16px;
+                                    margin: 0;
+                                    text-transform: uppercase;
+                                    }
+                                }
+                                .bottom-discount-label {
+                                    padding: 4px 10px 2px;
+                                    @include media-breakpoint-down(md) {
+                                      width: 100%;
+                                    }
+                                    .discount-info-text {
+                                      font-family: "LatoSemiBold";
+                                      font-size: 8px;
+                                      color: #007728;
+                                      line-height: 16px;
+                                      margin-bottom: 0;
+                                    }
+                                }
+                            }
                         }
                     }
                     .hover-block {
@@ -374,7 +440,7 @@
                             display: block;
                             position: static;
                             transform: translateY(0);
-                            margin-top: 24px;
+                            margin-top: 10px;
                         }
                         .hover-block-btns-list {
                             display: flex;
@@ -441,6 +507,7 @@
                         @include media-breakpoint-down(md) {
                             position: static;
                             margin-top: 16px;
+                            flex-wrap: wrap;
                         }
                         img {
                             width: 24px;

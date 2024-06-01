@@ -146,6 +146,7 @@
                                             <p class="card-col-text">
                                                 {% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}
                                             </p>
+                                            {% if object.child_count > 0 %}
                                             {% if object.parent_experience.is_private %}
                                                 <p class="card-col-title">
                                                     Children
@@ -161,19 +162,35 @@
                                                     {{ object.child_count }} x €{{ object.child_price }}
                                                 </p>
                                             {% endif %}
-
+                                            {% endif %}
                                         </div>
-                                        <div class="card-col">
+                                        <div class="card-col {% if object.price_is_special %}special-price{% endif %}">
                                             {% if object.price_is_special %}
-                                                <p class="card-col-title">
-                                                Special price
-                                                </p>
-                                                <p class="card-col-text">
-                                                    €{{ object.total_price }}
-                                                </p>
-                                                <span><sm>Here must be green badge
-                                                -€{{ object.parent_experience.second_purchase_discount }} APPLIED
-                                                </sm></span>
+                                                <div class="">
+                                                    <p class="card-col-title">
+                                                        <img src="{% static 'icons/info-icon-cart.svg' %}" alt="">
+                                                        Special price  
+                                                    </p>
+                                                    <p class="card-col-text">
+                                                        €{{ object.total_price }}
+                                                    </p>
+                                                </div>
+                                                
+                                                <div class="turbo-mode-banner">
+                                                    <div class="top-discount-label">
+                                                        <img src="{% static 'icons/green-gift-icon.svg' %}" alt="gift">
+                                                        <p>
+                                                            -€{{ object.parent_experience.second_purchase_discount }} APPLIED
+                                                        </p>
+                                                    </div>
+                                                    <div class="bottom-discount-label">
+                                                        <p class="discount-info-text">
+                                                            Experience is eligable for special discount. 
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                
+                                               
                                             {% else %}
                                             <p class="card-col-title">
                                                 Price
@@ -243,7 +260,7 @@
                             {% if total_second_discount %}
                                 <div class="price discount">
                                     <div class="icon-wrapper">
-                                        <img src="{% static 'icons/flash-icon.svg' %}" alt="">
+                                        <img src="{% static 'icons/black-gift.svg' %}" alt="">
                                         Special offer discount - €{{ total_second_discount }}
                                     </div>
                                     <span>

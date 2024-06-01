@@ -268,7 +268,7 @@
                 display: block;
                 width: 100%;
                 @include media-breakpoint-down(md) {
-                    height: 360px;
+                    height: auto;
                     margin-bottom: 16px;
                 }
             }
