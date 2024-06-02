@@ -135,6 +135,8 @@ class Language(models.Model):
 class ExperienceCategory(models.Model):
     name = models.CharField(max_length=60, unique=True, blank=True, help_text="Category name max 60 characters")
     slug = models.SlugField(max_length=60, unique=True, blank=True, help_text="Category name max 60 characters, if empty will be auto-generated from name")
+    card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    card_image_mobile = models.FileField(upload_to='media/cards/', null=True, blank=True)
 
     class Meta:
         ordering = ('name',)
@@ -189,7 +191,9 @@ class ParentExperience(models.Model):
     parent_name = models.CharField(max_length=160, unique=True, db_index=True)
     slug = models.SlugField(unique=True, db_index=True, editable=True, max_length=255, blank=True, help_text='Unique, max 255 characters.')
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
+    banner_mobile = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    card_image_mobile = models.FileField(upload_to='media/cards/', null=True, blank=True)
     priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
                                           help_text="The higher the value of the priority number, the higher it appears in the list")
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0, help_text="Price for this experience: if it's private then whole total price else "
@@ -550,6 +554,7 @@ class ExperienceSchedule(models.Model):
 class ExperienceImage(models.Model):
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name='images')
     slider_image = models.FileField(upload_to='experience_images/')
+    slider_image_mobile = models.FileField(upload_to='experience_images/', null=True, blank=True)
 
     # You can add more fields if needed, like a caption or description
 
