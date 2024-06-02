@@ -620,12 +620,15 @@
     }
   }
   .turbo-sale-banner {
-    background: #DAEAFF;
-    backdrop-filter: blur(15px);
+    
+    opacity: 0;
+    display: none;
     &.show{
       display: block;
+      opacity: 1;
+      background: #DAEAFF;
+      backdrop-filter: blur(15px);
     }
-    display: none;
     @include media-breakpoint-down(md) {
       position: relative;
       z-index: 2;

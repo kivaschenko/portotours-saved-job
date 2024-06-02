@@ -284,10 +284,12 @@
       }
       .filter-wrapper {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
+        flex-direction: column;
         @include media-breakpoint-down(md) {
           width: 100%;
+          flex-direction: row;
           &:first-child {
             .experience-filter-title {
               margin-right: 43px;
@@ -304,12 +306,13 @@
           }
         }
         .experience-filter-title {
-          margin-right: 24px;
-          font-size: 18px;
-          line-height: 28px;
+          margin-right: 0px;
+          margin-bottom: 6px;
+          font-size: 16px;
+          line-height: 26px;
           font-family: "LatoRegular";
-          color: #0f0f10;
-          margin-bottom: 0;
+          color: #6D6D6D;
+          
         }
         select {
           padding: 9px 50px 9px 16px;
@@ -533,6 +536,7 @@
               @include media-breakpoint-down(md) {
                 flex-wrap: wrap;
                 justify-content: space-between;
+                width: 100%;
               }
               li {
                 font-family: "LatoRegular";
@@ -613,6 +617,14 @@
                 font-size: 22px;
                 line-height: 32px;
               }
+            }
+            .per-person {
+              color: #6D6D6D;
+              font-size: 18px;
+              line-height: 22px;
+              font-family: 'LatoMedium';
+              margin-bottom: 0;
+              margin-left: 10px;
             }
             &.turbo-sale {
               display: flex;
@@ -972,7 +984,7 @@
           content: "";
           left: -24px;
           top: -1px;
-          width: 315px;
+          width: 361px;
           height: 55px;
           background-image: url(../icons/best-seller-badge.svg);
           background-position: center;
