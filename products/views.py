@@ -244,7 +244,7 @@ class ExperienceDetailView(DetailView):
 
 # Products
 
-class UserIsAuthentiacedOrSessionKeyRequiredMixin(View):
+class UserIsAuthenticatedOrSessionKeyRequiredMixin(View):
     def dispatch(self, request, *args, **kwargs):
         user = request.user
         session_key = request.session.session_key
@@ -268,7 +268,7 @@ class UserIsAuthentiacedOrSessionKeyRequiredMixin(View):
         return super().dispatch(request, *args, **kwargs)
 
 
-class ProductCartView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
+class ProductCartView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
     """View for listing all products for current user (session) only."""
     model = Product
     template_name = 'products/my_cart.html'

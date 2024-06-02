@@ -36,6 +36,7 @@ class ParentAttraction(models.Model):
     priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
                                           help_text="The higher the value of the priority number, the higher it appears in the list")
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    card_image_mobile = models.FileField(upload_to='media/cards/', null=True, blank=True)
     tags = models.ManyToManyField(TagAttraction)
     slider_image_1 = models.FileField(upload_to='media/sliders/', null=True, blank=True)
     slider_image_2 = models.FileField(upload_to='media/sliders/', null=True, blank=True)
@@ -43,6 +44,12 @@ class ParentAttraction(models.Model):
     slider_image_4 = models.FileField(upload_to='media/sliders/', null=True, blank=True)
     slider_image_5 = models.FileField(upload_to='media/sliders/', null=True, blank=True)
     slider_image_6 = models.FileField(upload_to='media/sliders/', null=True, blank=True)
+    slider_image_1_mobile = models.FileField(upload_to='media/sliders/', null=True, blank=True)
+    slider_image_2_mobile = models.FileField(upload_to='media/sliders/', null=True, blank=True)
+    slider_image_3_mobile = models.FileField(upload_to='media/sliders/', null=True, blank=True)
+    slider_image_4_mobile = models.FileField(upload_to='media/sliders/', null=True, blank=True)
+    slider_image_5_mobile = models.FileField(upload_to='media/sliders/', null=True, blank=True)
+    slider_image_6_mobile = models.FileField(upload_to='media/sliders/', null=True, blank=True)
 
     show_on_home_page = models.BooleanField(default=False, help_text="Include in the top Attractions on the home page")
     updated_at = models.DateTimeField(auto_now=True)

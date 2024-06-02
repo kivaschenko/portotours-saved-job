@@ -302,6 +302,7 @@ AUTH_USER_MODEL = 'accounts.User'
 # Redirect URLs after login/logout
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login'
 
 # Bootstrap Sass
 STATICFILES_FINDERS = (
