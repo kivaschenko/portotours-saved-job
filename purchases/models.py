@@ -15,7 +15,7 @@ class PurchaseLast24HoursManager(models.Manager):
 
 
 class Purchase(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     products = models.ManyToManyField(Product, blank=True)
     stripe_customer_id = models.CharField(max_length=60, null=True, blank=True)
     stripe_payment_intent_id = models.CharField(max_length=220, null=True, blank=True)
