@@ -2,6 +2,7 @@ import os
 import base64
 
 from django.core.mail import EmailMultiAlternatives
+from django.http import Http404
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, LoginView
@@ -79,28 +80,45 @@ class ProfileView(LoginRequiredMixin, DetailView):
     model = User
 
     def get_object(self, queryset=None):
-        # Get the user from the request
-        return self.request.user
+        try:
+            obj = Profile.objects.get(user=self.request.user)
+        except Profile.DoesNotExist:
+            raise Http404(
+                "No %(verbose_name)s found matching the query" % {"verbose_name": 'Profile'}
+            )
+        return obj
 
 
-class AddressUpdateView(UpdateView):
+class AddressUpdateView(LoginRequiredMixin, UpdateView):
     model = Profile
     form_class = AddressForm
     template_name = 'profile/address_form.html'
     success_url = reverse_lazy('profile')
 
     def get_object(self, queryset=None):
-        return self.request.user.profile
+        try:
+            obj = Profile.objects.get(user=self.request.user)
+        except Profile.DoesNotExist:
+            raise Http404(
+                "No %(verbose_name)s found matching the query" % {"verbose_name": 'Profile'}
+            )
+        return obj
 
 
-class ProfileInfoUpdateView(UpdateView):
+class ProfileInfoUpdateView(LoginRequiredMixin, UpdateView):
     model = Profile
     form_class = ProfileInfoForm
     template_name = 'profile/info_form.html'
     success_url = reverse_lazy('profile')
 
     def get_object(self, queryset=None):
-        return self.request.user.profile
+        try:
+            obj = Profile.objects.get(user=self.request.user)
+        except Profile.DoesNotExist:
+            raise Http404(
+                "No %(verbose_name)s found matching the query" % {"verbose_name": 'Profile'}
+            )
+        return obj
 
 
 # --------------
@@ -145,8 +163,6 @@ class CustomPasswordResetView(PasswordResetView):
         context['protocol'] = settings.PROTOCOL
         context['domain'] = settings.DOMAIN
         return context
-
-
 
 
 class CustomPasswordResetDoneView(PasswordResetDoneView):
