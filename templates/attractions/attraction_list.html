@@ -36,11 +36,11 @@
                     <button type="submit" class="btn btn-submit">Apply</button>
                     <button type="button" class="btn btn-reset" onclick="resetForm()">Reset</button>
                 </div>
-                
+
             </form>
-            
-            <ul class="attractions">
-                {% if object_list %}
+
+            {% if object_list %}
+                <ul class="attractions">
                     {% for object in object_list %}
                         <li class="attraction-list-item">
                             <div class="list-item-img-wrapper">
@@ -77,8 +77,8 @@
                             </div>
                         </li>
                     {% endfor %}
-                {% endif %}
-            </ul>
+                </ul>
+            {% endif %}
             <div class="pagination-block">
                 {% if is_paginated %}
                     {% if page_obj.has_previous %}

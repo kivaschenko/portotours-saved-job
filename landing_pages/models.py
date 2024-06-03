@@ -33,7 +33,9 @@ class LandingPage(models.Model):
     destinations = models.ManyToManyField(Destination, blank=True)
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True,
                               help_text="Banner image, this image will be cropped and scaled max width: 1920 and max height: 460")
+    banner_mobile = models.FileField(upload_to='media/banners/', null=True, blank=True,)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    card_image_mobile = models.FileField(upload_to='media/cards/', null=True, blank=True)
     priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
                                           help_text="The higher the value of the priority number, the higher it appears in the list")
     is_active = models.BooleanField(default=True)

@@ -13,7 +13,7 @@ from blogs.sitemaps import BlogSitemap
 from destinations import views as destinations_views
 from destinations.sitemaps import DestinationSitemap
 from home import views as home_views
-from home.sitemaps import PageSitemap
+from home.sitemaps import PageSitemap, AboutUsSitemap
 from landing_pages import views as landing_pages_views
 from landing_pages.sitemaps import LandingPageSitemap
 from products import views as products_views
@@ -28,6 +28,7 @@ sitemaps = {
     'blogs': BlogSitemap,
     'experiences': ExperienceSitemap,
     'pages': PageSitemap,
+    'company': AboutUsSitemap,
     'landing_pages': LandingPageSitemap,
     'lists': ListSitemap,
 }
@@ -83,24 +84,24 @@ urlpatterns += [
 
 # ACCOUNTS & PROFILES
 urlpatterns += [
-    path('en/accounts/signup/', accounts_views.RegistrationView.as_view(), name='signup'),
-    path("en/login/", accounts_views.CustomLoginView.as_view(), name='login'),
-    path("en/logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path('accounts/signup/', accounts_views.RegistrationView.as_view(), name='signup'),
+    path("accounts/login/", accounts_views.CustomLoginView.as_view(), name='login'),
+    path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
     # path("accounts/", include("django.contrib.auth.urls")),
     # Password reset
-    path('en/password_reset/', accounts_views.CustomPasswordResetView.as_view(), name='password_reset'),
-    path('en/password_reset/done/', accounts_views.CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('en/reset/<uidb64>/<token>/', accounts_views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('en/reset/done/', accounts_views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('password_reset/', accounts_views.CustomPasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', accounts_views.CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', accounts_views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', accounts_views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     # Password change
-    path('en/password_change/', auth_views.PasswordChangeView.as_view(template_name='registration/customized/password_change_form.html'),
+    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='registration/customized/password_change_form.html'),
          name='password_change'),
-    path('en/password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/customized/password_change_done.html'),
+    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/customized/password_change_done.html'),
          name='password_change_done'),
     # Profile
-    path("en/accounts/profile/", accounts_views.ProfileView.as_view(), name="profile"),
-    path("en/accounts/profile/update-address/", accounts_views.AddressUpdateView.as_view(), name="address-update"),
-    path("en/accounts/profile/update-info/", accounts_views.ProfileInfoUpdateView.as_view(), name="profile-info-update"),
+    path("accounts/profile/", accounts_views.ProfileView.as_view(), name="profile"),
+    path("accounts/profile/update-address/", accounts_views.AddressUpdateView.as_view(), name="address-update"),
+    path("accounts/profile/update-info/", accounts_views.ProfileInfoUpdateView.as_view(), name="profile-info-update"),
 ]
 
 # Django ckeditor: https://github.com/django-ckeditor/django-ckeditor

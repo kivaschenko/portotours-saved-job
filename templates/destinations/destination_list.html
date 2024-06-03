@@ -23,10 +23,10 @@
         </div>
     </section>
 
-    <section class="destinations-list">
-        <div class="container">
-            <ul class="destinations">
-                {% if object_list %}
+    {% if object_list %}
+        <section class="destinations-list">
+            <div class="container">
+                <ul class="destinations">
                     {% for object in object_list %}
                         <li class="destinations-list-item">
                             <div class="list-item-img-wrapper">
@@ -45,12 +45,6 @@
                                         {{ object.name }}
                                     </h4>
                                 </a>
-                                <!-- <ul class="main-info-list">
-                                    <li>40 minutes</li>
-                                    <li>Small group</li>
-                                    <li>Small group</li>
-                                    <li>Small group</li>
-                                </ul> -->
                                 <p class="destination-list-item-text">
                                     {{ object.short_introduction_text }}
                                 </p>
@@ -62,11 +56,10 @@
                             </div>
                         </li>
                     {% endfor %}
-                {% endif %}
-            </ul>
-            
-            <div class="pagination-block">
-                {% if is_paginated %}
+                </ul>
+
+                <div class="pagination-block">
+                    {% if is_paginated %}
                         {% if page_obj.has_previous %}
                             <button class="pagination-btn prev">
                                 <a href="?page={{ page_obj.previous_page_number }}">
@@ -75,19 +68,19 @@
                             </button>
                         {% else %}
                             <button class="pagination-btn prev">
-                                    <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+                                <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
                             </button>
                         {% endif %}
                         <ul class="pagination-list">
-                        {% for num in page_obj.paginator.page_range %}
-                            
-                            {% if page_obj.number == num %}
-                                <li class="pagination-list-item active">{{ num }}</li>
-                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                                <li class="pagination-list-item"><a class="" href="?page={{ num }}">{{ num }}</a></li>
-                            {% endif %}
-                            
-                        {% endfor %}
+                            {% for num in page_obj.paginator.page_range %}
+
+                                {% if page_obj.number == num %}
+                                    <li class="pagination-list-item active">{{ num }}</li>
+                                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                    <li class="pagination-list-item"><a class="" href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+
+                            {% endfor %}
                         </ul>
                         {% if page_obj.has_next %}
                             <button class="pagination-btn next">
@@ -95,17 +88,17 @@
                                     <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
                                 </a>
                             </button>
-                            {% else %}
+                        {% else %}
                             <button class="pagination-btn next">
                                 <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
                             </button>
                         {% endif %}
                     {% endif %}
+                </div>
             </div>
-        </div>
-    </section>
-
-
+        </section>
+    {% endif %}
+    
     <!-- Custom JS import -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 {% endblock %}

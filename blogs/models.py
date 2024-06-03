@@ -32,7 +32,9 @@ class ParentBlog(models.Model):
     parent_name = models.CharField(max_length=60, unique=True, db_index=True)
     priority_number = models.IntegerField(null=True, blank=True, default=0, help_text="number for ordering in list on page by default")
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
+    banner_mobile = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    card_image_mobile = models.FileField(upload_to='media/cards/', null=True, blank=True)
 
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -70,6 +72,7 @@ class Blog(models.Model):
     read_time = models.IntegerField(default=0)  # in minutes
     date_published = models.DateTimeField(auto_now_add=True)
     middle_picture = models.ImageField(upload_to='blogs/middle_pictures', null=True, blank=True)
+    middle_picture_mobile = models.ImageField(upload_to='blogs/middle_pictures', null=True, blank=True)
     # Recommendations block
     recommendations_title = models.CharField(max_length=255, help_text="max 255 characters", null=True, blank=True)
     recommendations_subtitle = models.CharField(max_length=500, help_text="max 500 characters", null=True, blank=True)
@@ -89,7 +92,7 @@ class Blog(models.Model):
         return f"<Blog(id={self.id} title={self.title}...>"
 
     def get_absolute_url(self):
-        return reverse("blog-detail", kwargs={"slug": self.slug, "lang": self.language})
+        return reverse("blog-detail", kwargs={"slug": self.slug, "lang": self.language.code.lower()})
 
     def save(self, *args, **kwargs):
         if not self.slug:

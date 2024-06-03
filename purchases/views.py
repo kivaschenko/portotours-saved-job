@@ -10,7 +10,7 @@ from django.views.generic import ListView, TemplateView
 from django.db.models import Sum
 
 from products.models import Product
-from products.views import UserIsAuthentiacedOrSessionKeyRequiredMixin
+from products.views import UserIsAuthenticatedOrSessionKeyRequiredMixin
 from products.product_services import prepare_google_items_for_cart
 from purchases.models import Purchase
 from service_layer.bus_messages import handle
@@ -23,7 +23,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 BASE_ENDPOINT = settings.BASE_ENDPOINT
 
 
-class BillingDetailView(UserIsAuthentiacedOrSessionKeyRequiredMixin, ListView):
+class BillingDetailView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
     model = Product
     template_name = 'purchases/checkout.html'
     extra_context = {'current_language': 'en'}

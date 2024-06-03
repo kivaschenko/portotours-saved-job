@@ -21,7 +21,9 @@ class ParentDestination(models.Model):
     """
     parent_name = models.CharField(max_length=60, unique=True, db_index=True)
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
+    banner_mobile = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    card_image_mobile = models.FileField(upload_to='media/cards/', null=True, blank=True)
     priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
                                           help_text="The higher the value of the priority number, the higher it appears in the list")
     show_on_home_page = models.BooleanField(default=False, help_text="Include in the top Destinations on the home page")

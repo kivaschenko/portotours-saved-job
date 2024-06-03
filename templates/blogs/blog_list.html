@@ -27,8 +27,8 @@
                     <button type="button" class="btn btn-reset" onclick="resetForm()">Reset</button>
                 </div>
             </form>
-            <div class="blog-cards-wrapper">
-                {% if object_list %}
+            {% if object_list %}
+                <div class="blog-cards-wrapper">
                     {% for object in object_list %}
                         <div class="blog-card">
                             <div class="img-wrapper">
@@ -38,7 +38,6 @@
                                     <img class="img-mobile" src="{% if object.parent_blog.card_image_mobile %}{{ object.parent_blog.card_image_mobile.url }}
                                         {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
                                 </a>
-                                
                             </div>
                             <div class="card-content-wrapper">
                                 <p class="card-date">
@@ -49,12 +48,11 @@
                                         {{ object.title }}
                                     </a>
                                 </h5>
-                                
                             </div>
                         </div>
                     {% endfor %}
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
         </div>
     </section>
 

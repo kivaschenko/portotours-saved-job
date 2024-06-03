@@ -4,7 +4,7 @@
     {{ object.page_title }}
 {% endblock %}
 {% block title_suffix %}
-     | One Day Tours Portugal
+    | One Day Tours Portugal
 {% endblock title_suffix %}
 
 {% block meta_tags %}
@@ -13,15 +13,17 @@
 {% endblock meta_tags %}
 
 {% block content %}
-    
+
     <section class="attraction-hero">
         <div class="container">
-            <h2 class="attraction-hero-title">
-                {{ object.introduction_title }}
-
-            </h2>
-
-            {{ object.display_introduction_text_above_slider }}
+            {% if object.introduction_title %}
+                <h2 class="attraction-hero-title">
+                    {{ object.introduction_title }}
+                </h2>
+            {% endif %}
+            {% if object.introduction_text_above_slider %}
+                {{ object.display_introduction_text_above_slider }}
+            {% endif %}
 
             <div class="attraction-hero-slider">
                 <div class="swiper-wrapper">
@@ -77,85 +79,88 @@
 
                 </div>
                 <div class="swiper-pagination"></div>
-                <!-- If we need navigation buttons -->
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
             </div>
-
-            {{ object.display_introduction_text_below_slider }}
-
+            {% if object.introduction_text_below_slider %}
+                {{ object.display_introduction_text_below_slider }}
+            {% endif %}
         </div>
     </section>
 
     <section class="attraction-info-cards">
         <div class="container">
-            <h2 class="attraction-info-cards-title">
-                {{ object.info_title }}
-            </h2>
-            <p class="body-text-b3 attraction-info-cards-subtitle">
-                {{ object.info_subtitle }}
-            </p>
+            {% if object.info_title %}
+                <h2 class="attraction-info-cards-title">
+                    {{ object.info_title }}
+                </h2>
+            {% endif %}
+            {% if object.info_subtitle %}
+                <p class="body-text-b3 attraction-info-cards-subtitle">
+                    {{ object.info_subtitle }}
+                </p>
+            {% endif %}
             <div class="attraction-info-cards-wrapper">
-                <div class="attraction-info-card">
-                    <img src="{% static 'icons/attraction-info-card-img1.svg' %}" alt="" class="attraction-info-card-img">
-                    <p class="body-text-b2 attraction-info-card-title">
-                        Time of work
-                    </p>
-
-                    {{ object.display_time_of_work|safe }}
-
-                </div>
-                <div class="attraction-info-card">
-                    <img src="{% static 'icons/attraction-info-card-img2.svg' %}" alt="" class="attraction-info-card-img">
-                    <p class="body-text-b2 attraction-info-card-title">
-                        Address
-                    </p>
-
-                    {{ object.display_address }}
-
-                </div>
-                <div class="attraction-info-card">
-                    <img src="{% static 'icons/attraction-info-card-img3.svg' %}" alt="" class="attraction-info-card-img">
-                    <p class="body-text-b2 attraction-info-card-title">
-                        Price
-                    </p>
-
-                    {{ object.display_price }}
-
-                </div>
-                <div class="attraction-info-card">
-                    <img src="{% static 'icons/attraction-info-card-img4.svg' %}" alt="" class="attraction-info-card-img">
-                    <p class="body-text-b2 attraction-info-card-title">
-                        Accessibility
-                    </p>
-
-                    {{ object.display_accessibility }}
-
-                </div>
-                <div class="attraction-info-card">
-                    <img src="{% static 'icons/attraction-info-card-img5.svg' %}" alt="" class="attraction-info-card-img">
-                    <p class="body-text-b2 attraction-info-card-title">
-                        Possibility
-                    </p>
-
-                    {{ object.display_possibility }}
-
-                </div>
-            </div>
+                {% if object.time_of_work %}
+                    <div class="attraction-info-card">
+                        <img src="{% static 'icons/attraction-info-card-img1.svg' %}" alt="" class="attraction-info-card-img">
+                        <p class="body-text-b2 attraction-info-card-title">
+                            Time of work
+                        </p>
+                        {{ object.display_time_of_work|safe }}
+                    </div>
+                {% endif %}
+                {% if object.address %}
+                    <div class="attraction-info-card">
+                        <img src="{% static 'icons/attraction-info-card-img2.svg' %}" alt="" class="attraction-info-card-img">
+                        <p class="body-text-b2 attraction-info-card-title">
+                            Address
+                        </p>
+                        {{ object.display_address }}
+                    </div>
+                {% endif %}
+                {% if object.price %}
+                    <div class="attraction-info-card">
+                        <img src="{% static 'icons/attraction-info-card-img3.svg' %}" alt="" class="attraction-info-card-img">
+                        <p class="body-text-b2 attraction-info-card-title">
+                            Price
+                        </p>
+                        {{ object.display_price }}
+                    </div>
+                {% endif %}
+                {% if object.accessibility %}
+                    <div class="attraction-info-card">
+                        <img src="{% static 'icons/attraction-info-card-img4.svg' %}" alt="" class="attraction-info-card-img">
+                        <p class="body-text-b2 attraction-info-card-title">
+                            Accessibility
+                        </p>
+                        {{ object.display_accessibility }}
+                    </div>
+                {% endif %}
+                {% if object.possibility %}
+                    <div class="attraction-info-card">
+                        <img src="{% static 'icons/attraction-info-card-img5.svg' %}" alt="" class="attraction-info-card-img">
+                        <p class="body-text-b2 attraction-info-card-title">
+                            Possibility
+                        </p>
+                        {{ object.display_possibility }}
+                    </div>
+                    </div>
+                {% endif %}
         </div>
     </section>
 
     {% if object.recommendations_experiences.all %}
-    <section class="also-interested">
-        <div class="container">
-            <h2 class="also-interested-title">
-                {{ object.recommendations_title }}
-            </h2>
-            <p class="also-interested-subtitle body-text-b2">
-                {{ object.recommendations_subtitle }}
-            </p>
-            <div class="swiper-also-interested">
-                <div class="also-interested-cards-wrapper">
+        <section class="also-interested">
+            <div class="container">
+                <h2 class="also-interested-title">
+                    {{ object.recommendations_title }}
+                </h2>
+                <p class="also-interested-subtitle body-text-b2">
+                    {{ object.recommendations_subtitle }}
+                </p>
+                <div class="swiper-also-interested">
+                    <div class="also-interested-cards-wrapper">
                         {% for experience in object.recommendations_experiences.all %}
                             {% if cart_not_empty %}
                                 {% include 'include/also_interested_cards_applied.html' %}
@@ -163,32 +168,30 @@
                                 {% include 'include/also_interested_cards.html' %}
                             {% endif %}
                         {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     {% endif %}
 
-    <section class="faq">
-        <div class="container">
-            <h2 class="faq-title">
-                {{ object.faq_title }}
-            </h2>
-            <p class="faq-subtitle">
-                {{ object.faq_subtitle }}
-            </p>
-            {% if object.faqattraction_set.all %}
+    {% if object.faqattraction_set.all %}
+        <section class="faq">
+            <div class="container">
+                <h2 class="faq-title">
+                    {{ object.faq_title }}
+                </h2>
+                <p class="faq-subtitle">
+                    {{ object.faq_subtitle }}
+                </p>
                 {% for record in object.faqattraction_set.all %}
                     <div class="faq-block">
                         <p class="faq-question">{{ record.question }}</p>
                         <div>{{ record.display_answer }}</div>
                     </div>
                 {% endfor %}
-            {% else %}
-                <p>No FAQ yet written...</p>
-            {% endif %}
-        </div>
-    </section>
+            </div>
+        </section>
+    {% endif %}
 
     <script>
         const swiper = new Swiper(".swiper-attractions", {

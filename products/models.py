@@ -132,9 +132,13 @@ class Language(models.Model):
         return f"<Language(id={self.id}, name={self.name})>"
 
 
+# Experiences Categories
+
 class ExperienceCategory(models.Model):
     name = models.CharField(max_length=60, unique=True, blank=True, help_text="Category name max 60 characters")
     slug = models.SlugField(max_length=60, unique=True, blank=True, help_text="Category name max 60 characters, if empty will be auto-generated from name")
+    card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    card_image_mobile = models.FileField(upload_to='media/cards/', null=True, blank=True)
 
     class Meta:
         ordering = ('name',)
@@ -151,6 +155,37 @@ class ExperienceCategory(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super(ExperienceCategory, self).save(*args, **kwargs)
+
+
+# Experience Options
+
+class OptionsActiveManager(models.Manager):
+    def get_queryset(self):
+        return super(OptionsActiveManager, self).get_queryset().filter(is_active=True)
+
+
+class ExperienceOption(models.Model):
+    name = models.CharField(max_length=60, help_text="Option name max 60 characters")
+    description = models.CharField(max_length=255, blank=True, help_text="Option description max 255 characters")
+    priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
+                                          help_text="The higher the value of the priority number, the higher it appears in the list")
+    price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
+    active = OptionsActiveManager()
+
+    class Meta:
+        ordering = ('-priority_number',)
+        unique_together = ('name', 'language',)
+
+    def __str__(self):
+        return f'{self.name} {self.language}'
+
+    def __repr__(self):
+        return f"<Option(id={self.id}, name={self.name} language={self.language})>"
 
 
 # -----------
@@ -189,7 +224,9 @@ class ParentExperience(models.Model):
     parent_name = models.CharField(max_length=160, unique=True, db_index=True)
     slug = models.SlugField(unique=True, db_index=True, editable=True, max_length=255, blank=True, help_text='Unique, max 255 characters.')
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
+    banner_mobile = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
+    card_image_mobile = models.FileField(upload_to='media/cards/', null=True, blank=True)
     priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
                                           help_text="The higher the value of the priority number, the higher it appears in the list")
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0, help_text="Price for this experience: if it's private then whole total price else "
@@ -229,6 +266,7 @@ class ParentExperience(models.Model):
     is_exclusive = models.BooleanField(default=False, help_text="If this experience is exclusive then competition will propose.")
     is_hot_deals = models.BooleanField(default=False, help_text="If this experience is hot deals will show first queue.")
     hotel_pick_up = models.BooleanField(default=False, help_text="If this experience has hotel pick up service.")
+    allowed_options = models.ManyToManyField(ExperienceOption, help_text="Options for this experience")
     allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
     categories = models.ManyToManyField(ExperienceCategory, help_text="list of categories this experience")
     free_cancellation = models.BooleanField(default=False, help_text="Free Cancellation is allowed.", null=True)
@@ -540,6 +578,9 @@ class ExperienceSchedule(models.Model):
     name_stop = models.CharField(max_length=255, null=True, blank=True, help_text="Name of stop max 255 character length.")
     description = models.TextField(max_length=600, null=True, blank=True, help_text="Description of stop max 600 characters.")
 
+    class Meta:
+        ordering = ("time",)
+
     def __str__(self):
         return f'{self.time} {self.name_stop}'
 
@@ -550,6 +591,7 @@ class ExperienceSchedule(models.Model):
 class ExperienceImage(models.Model):
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name='images')
     slider_image = models.FileField(upload_to='experience_images/')
+    slider_image_mobile = models.FileField(upload_to='experience_images/', null=True, blank=True)
 
     # You can add more fields if needed, like a caption or description
 
@@ -680,7 +722,7 @@ class Product(models.Model):
                 f"start_datetime={self.start_datetime}...)>")
 
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ('created_at',)
         get_latest_by = 'created_at'
 
     def save(self, *args, **kwargs):
