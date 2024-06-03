@@ -313,6 +313,24 @@
                                 </div>
                             </div>
                         {% endif %}
+                    {% if object.parent_experience.allowed_options.all %}
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon5.svg' %}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Options
+                                </p>
+                                <p class="card-text">
+                                    {% for option in object.parent_experience.allowed_options.all %}
+                                        <span>{{ option.name }} {% if option.description %}<sm>{{ option.description }}</sm>{% endif %} - {{ option.price }}
+                                            {% if not forloop.last %},{% endif %}</span>
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
                         {% if object.parent_experience.pick_up_location %}
                             <div class="experience-card">
                                 <div class="img-wrapper">
