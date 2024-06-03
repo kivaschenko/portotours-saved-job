@@ -28,32 +28,50 @@
                     <!-- Slides -->
                     <div class="swiper-slide">
                         {% if object.parent_attraction.slider_image_1 %}
-                            <img src="{{ object.parent_attraction.slider_image_1.url }}" alt="Image for slider 1">
+                            <img class="img-desktop" src="{{ object.parent_attraction.slider_image_1.url }}" alt="Image for slider 1">
+                        {% endif %}
+                        {% if object.parent_attraction.slider_image_1_mobile %}
+                            <img class="img-mobile" src="{{ object.parent_attraction.slider_image_1_mobile.url }}" alt="Mobile Image for slider 1">
                         {% endif %}
                     </div>
                     <div class="swiper-slide">
                         {% if object.parent_attraction.slider_image_2 %}
-                            <img src="{{ object.parent_attraction.slider_image_2.url }}" alt="Image for slider 1">
+                            <img class="img-desktop" src="{{ object.parent_attraction.slider_image_2.url }}" alt="Image for slider 2">
+                        {% endif %}
+                        {% if object.parent_attraction.slider_image_2_mobile %}
+                            <img class="img-mobile" src="{{ object.parent_attraction.slider_image_2_mobile.url }}" alt="Mobile Image for slider 2">
                         {% endif %}
                     </div>
                     <div class="swiper-slide">
                         {% if object.parent_attraction.slider_image_3 %}
-                            <img src="{{ object.parent_attraction.slider_image_3.url }}" alt="Image for slider 1">
+                            <img class="img-desktop" src="{{ object.parent_attraction.slider_image_3.url }}" alt="Image for slider 1">
+                        {% endif %}
+                        {% if object.parent_attraction.slider_image_3_mobile %}
+                            <img class="img-mobile" src="{{ object.parent_attraction.slider_image_3_mobile.url }}" alt="Mobile Image for slider 3">
                         {% endif %}
                     </div>
                     <div class="swiper-slide">
                         {% if object.parent_attraction.slider_image_4 %}
-                            <img src="{{ object.parent_attraction.slider_image_4.url }}" alt="Image for slider 1">
+                            <img class="img-desktop" src="{{ object.parent_attraction.slider_image_4.url }}" alt="Image for slider 1">
+                        {% endif %}
+                        {% if object.parent_attraction.slider_image_4_mobile %}
+                            <img class="img-mobile" src="{{ object.parent_attraction.slider_image_4_mobile.url }}" alt="Mobile Image for slider 4">
                         {% endif %}
                     </div>
                     <div class="swiper-slide">
                         {% if object.parent_attraction.slider_image_5 %}
-                            <img src="{{ object.parent_attraction.slider_image_5.url }}" alt="Image for slider 1">
+                            <img class="img-desktop" src="{{ object.parent_attraction.slider_image_5.url }}" alt="Image for slider 1">
+                        {% endif %}
+                        {% if object.parent_attraction.slider_image_5_mobile %}
+                            <img class="img-mobile" src="{{ object.parent_attraction.slider_image_5_mobile.url }}" alt="Mobile Image for slider 5">
                         {% endif %}
                     </div>
                     <div class="swiper-slide">
                         {% if object.parent_attraction.slider_image_6 %}
-                            <img src="{{ object.parent_attraction.slider_image_6.url }}" alt="Image for slider 1">
+                            <img class="img-desktop" src="{{ object.parent_attraction.slider_image_6.url }}" alt="Image for slider 1">
+                        {% endif %}
+                        {% if object.parent_attraction.slider_image_6_mobile %}
+                            <img class="img-mobile" src="{{ object.parent_attraction.slider_image_6_mobile.url }}" alt="Mobile Image for slider 6">
                         {% endif %}
                     </div>
 

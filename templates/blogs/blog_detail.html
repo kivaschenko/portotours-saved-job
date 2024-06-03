@@ -16,7 +16,8 @@
 
     <section class="blog-detail-hero">
         <div class="container">
-            <img src="{% if object.parent_blog.banner %}{{ object.parent_blog.banner.url }}{% else %}{% endif %}" alt="{{ object.parent_blog.banner.name }}">
+            <img class="img-desktop" src="{% if object.parent_blog.banner %}{{ object.parent_blog.banner.url }}{% else %}{% endif %}" alt="{{ object.parent_blog.banner.name }}">
+            <img class="img-mobile"  src="{% if object.parent_blog.banner_mobile %}{{ object.parent_blog.banner_mobile.url }}{% else %}{% endif %}" alt="{{ object.parent_blog.banner_mobile.name }}">
             <h2 class="blog-detail-hero-title">
                 {{ object.title }}
             </h2>

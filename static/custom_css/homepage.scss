@@ -469,6 +469,42 @@
                 margin-right: 8px;
                 margin-bottom: 0;
               }
+              .rating {
+                display: flex;
+                gap: 8px; /* Расстояние между звездами */
+              }
+              .icon-wrapper {
+                width: 20px;
+                height: 20px;
+                position: relative;
+                z-index: 2;
+                &.partial-fill::before {
+                  content: ''; /* Добавляем контент в псевдоэлемент */
+                  position: absolute; /* Абсолютное позиционирование для точного позиционирования */
+                  top: 0;
+                  left: 0;
+                  bottom: 0;
+                  width: calc(var(--fraction, 1) * 100%);
+                  background-color: transparent;
+                  z-index: -1; /* Помещаем псевдоэлемент под фоновое изображение */
+                  background-image: url(../icons/one-filled-star.svg); /* Изображение, которое будет показываться только частично */
+                  background-size: cover; /* Растягиваем изображение, чтобы оно занимало всю доступную область */
+                  background-repeat: no-repeat; /* Отключаем повторение изображения */
+                 
+                }
+                  svg {
+                    display: block;
+                  }
+              }
+              .star {
+                fill: none;
+                stroke-width: 1;
+                width: 100%;
+              }
+              
+              .filled {
+                fill: #FDB601; /* Заливка желтым цветом */
+              }
               img {
                 width: 132px;
                 height: 20px;

@@ -17,8 +17,10 @@
 
     <section class="destination-hero">
         <div class="destination-banner">
-            <img src="{% if object.parent_destination.banner %}{{ object.parent_destination.banner.url }}{% else %}{% endif %}"
+            <img class="img-desktop" src="{% if object.parent_destination.banner %}{{ object.parent_destination.banner.url }}{% else %}{% endif %}"
                  alt="{{ object.parent_destination.banner.name }}">
+            <img class="img-mobile" src="{% if object.parent_destination.banner_mobile %}{{ object.parent_destination.banner_mobile.url }}{% else %}{% endif %}"
+                 alt="{{ object.parent_destination.banner_mobile.name }}">
         </div>
         <div class="destination-container container">
 
@@ -132,7 +134,11 @@
                             <!-- Slides -->
                             <div class="swiper-slide">
                                 <img src="{{ attraction.parent_attraction.card_image.url }}" alt="card image for {{ attraction.name }}"
-                                     class="attraction-image">
+                                     class="attraction-image img-desktop">
+                                     {% if attraction.parent_attraction.card_image_mobile %}
+                                        <img src="{{ attraction.parent_attraction.card_image_mobile.url }}" alt="card image for {{ attraction.name }}"
+                                            class="attraction-image img-mobile">
+                                     {% endif %}
                                 <a href="{% url 'attraction-detail' lang=attraction.language.code.lower slug=attraction.slug %}">
                                     {{ attraction.name }}
                                 </a>
