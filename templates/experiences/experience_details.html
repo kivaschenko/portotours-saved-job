@@ -28,8 +28,8 @@
                 check availability
             </a>
         </div>
-        
-        
+
+
     </div>
     <div class="upsale-popup-wrapper">
         <div class="popup-inner-wrapper">
@@ -110,10 +110,10 @@
                 </p>
             {% endif %}
             {% if object.parent_experience.hotel_pick_up %}
-            <p class="experience-hero-info-text">
-                <img src="{% static 'icons/pickup-icon.svg' %}" alt="">
-                hotel pick up 
-            </p>
+                <p class="experience-hero-info-text">
+                    <img src="{% static 'icons/pickup-icon.svg' %}" alt="">
+                    hotel pick up
+                </p>
             {% endif %}
             {% if object.parent_experience.recommended_by_locals %}
                 <p class="experience-hero-info-text">
@@ -121,7 +121,6 @@
                     recommended by locals
                 </p>
             {% endif %}
-            
         </div>
     </div>
 
@@ -138,7 +137,7 @@
                                 From
                             </p>
                             <p class="old-price-amount">
-                                €{{object.parent_experience.old_price}}
+                                €{{ object.parent_experience.old_price }}
                             </p>
                             <p class="price-amount">
                                 €{{ object.parent_experience.price }}
@@ -149,90 +148,93 @@
                         </a>
                     </div>
                 </div>
-                {% if approved_reviews_count > 0 %} 
-                <div class="reviews-rating-wrapper">
-                    
-                    <a href="#reviews" class="reviews-count">
-                        {{ approved_reviews_count }} reviews
-                    </a>
-                   
-                    <div class="rating-img-wrapper">
-                        <p class="rating-num">{{ object.average_rating }}</p>
-                        <div class="rating">
-                            <div class="icon-wrapper">
-                                <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
-                                </svg>
+                {% if approved_reviews_count > 0 %}
+                    <div class="reviews-rating-wrapper">
+                        <a href="#reviews" class="reviews-count">
+                            {{ approved_reviews_count }} reviews
+                        </a>
+                        <div class="rating-img-wrapper">
+                            <p class="rating-num">{{ object.average_rating }}</p>
+                            <div class="rating">
+                                <div class="icon-wrapper">
+                                    <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                              stroke="#FDB601"/>
+                                    </svg>
+                                </div>
+                                <div class="icon-wrapper">
+                                    <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                              stroke="#FDB601"/>
+                                    </svg>
+                                </div>
+                                <div class="icon-wrapper">
+                                    <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                              stroke="#FDB601"/>
+                                    </svg>
+                                </div>
+                                <div class="icon-wrapper">
+                                    <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                              stroke="#FDB601"/>
+                                    </svg>
+                                </div>
+                                <div class="icon-wrapper">
+                                    <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                              stroke="#FDB601"/>
+                                    </svg>
+                                </div>
                             </div>
-                            <div class="icon-wrapper">
-                                <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
-                                </svg>
-                            </div>
-                            <div class="icon-wrapper">
-                                <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
-                                </svg>
-                            </div>
-                            <div class="icon-wrapper">
-                                <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
-                                </svg>
-                            </div>
-                            <div class="icon-wrapper">
-                                <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z" stroke="#FDB601"/>
-                                </svg>
-                            </div>
-                          </div>
+                        </div>
                     </div>
-                   
-                </div>
                 {% else %}
-                <div class="reviews-rating-wrapper">
-                    <div class="rating-img-wrapper">
-                        <p class="rating-num">5.0</p>
-                        <img src="{% static 'icons/5-stars-icon.svg' %}" alt="">
+                    <div class="reviews-rating-wrapper">
+                        <div class="rating-img-wrapper">
+                            <p class="rating-num">5.0</p>
+                            <img src="{% static 'icons/5-stars-icon.svg' %}" alt="">
+                        </div>
                     </div>
-                </div>
                 {% endif %}
             </div>
-
         </div>
-        <section class="experience-hero">
-            <div class="container">
-                <div class="experience-hero-swiper">
-                    <!-- Additional required wrapper -->
-                    <div class="swiper-wrapper">
-                        <!-- Slides -->
-                        {% if object.images.all %}
+        {% if object.images.all %}
+            <section class="experience-hero">
+                <div class="container">
+                    <div class="experience-hero-swiper">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper">
+                            <!-- Slides -->
                             {% for image in object.images.all %}
                                 <div class="swiper-slide">
                                     <img src="{% if image.slider_image.url %}{{ image.slider_image.url }}{% endif %}" alt="slider image"
                                          class="attraction-image">
                                 </div>
                             {% endfor %}
-                        {% endif %}
+                        </div>
+                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-pagination"></div>
                     </div>
-
-                    <!-- If we need navigation buttons -->
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-pagination"></div>
                 </div>
-            </div>
-        </section>
-        
+            </section>
+        {% endif %}
     </div>
 
     <section class="experience-info">
         <div class="container">
-            <h2 class="experience-info-title">
-                {{ object.info_title }}
-            </h2>
-            <p class="experience-info-subtitle" id="goToForm">
-                {{ object.info_subtitle }}
-            </p>
+            {% if object.info_title %}
+                <h2 class="experience-info-title">
+                    {{ object.info_title }}
+                </h2>
+            {% endif %}
+            {% if object.info_subtitle %}
+                <p class="experience-info-subtitle" id="goToForm">
+                    {{ object.info_subtitle }}
+                </p>
+            {% endif %}
             <div class="experience-info-inner-wrapper">
                 <div class="left-col">
                     <div class="experience-cards">
@@ -249,115 +251,123 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="experience-card">
-                            <div class="img-wrapper">
-                                <img src="{% static 'icons/experience-card-icon2.svg' %}" alt="">
+                        {% if object.duration %}
+                            <div class="experience-card">
+                                <div class="img-wrapper">
+                                    <img src="{% static 'icons/experience-card-icon2.svg' %}" alt="">
+                                </div>
+                                <div class="card-content">
+                                    <p class="card-title">
+                                        Duration
+                                    </p>
+                                    <p class="card-text">
+                                        {{ object.display_duration }}
+                                    </p>
+                                </div>
                             </div>
-                            <div class="card-content">
-                                <p class="card-title">
-                                    Duration
-                                </p>
-                                <p class="card-text">
-                                    {{ object.display_duration }}
-                                </p>
+                        {% endif %}
+                        {% if object.accessibility %}
+                            <div class="experience-card">
+                                <div class="img-wrapper">
+                                    <img src="{% static 'icons/experience-card-icon3.svg' %}" alt="">
+                                </div>
+                                <div class="card-content">
+                                    <p class="card-title">
+                                        Accessibility
+                                    </p>
+                                    <p class="card-text">
+                                        {{ object.display_accessibility }}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="experience-card">
-                            <div class="img-wrapper">
-                                <img src="{% static 'icons/experience-card-icon3.svg' %}" alt="">
+                        {% endif %}
+                        {% if object.possibility %}
+                            <div class="experience-card">
+                                <div class="img-wrapper">
+                                    <img src="{% static 'icons/experience-card-icon4.svg' %}" alt="">
+                                </div>
+                                <div class="card-content">
+                                    <p class="card-title">
+                                        Possibility
+                                    </p>
+                                    <p class="card-text">
+                                        {{ object.display_possibility }}
+                                    </p>
+                                </div>
                             </div>
-                            <div class="card-content">
-                                <p class="card-title">
-                                    Accessibility
-                                </p>
-                                <p class="card-text">
-                                    {{ object.display_accessibility }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="experience-card">
-                            <div class="img-wrapper">
-                                <img src="{% static 'icons/experience-card-icon4.svg' %}" alt="">
-                            </div>
-                            <div class="card-content">
-                                <p class="card-title">
-                                    Possibility
-                                </p>
-                                <p class="card-text">
-                                    {{ object.display_possibility }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="experience-card">
-                            <div class="img-wrapper">
-                                <img src="{% static 'icons/experience-card-icon5.svg' %}" alt="">
-                            </div>
-                            <div class="card-content">
-                                <p class="card-title">
-                                    Languages
-                                </p>
-                                <p class="card-text">
-                                    {% if object.parent_experience.allowed_languages.all %}
+                        {% endif %}
+                        {% if object.parent_experience.allowed_languages.all %}
+                            <div class="experience-card">
+                                <div class="img-wrapper">
+                                    <img src="{% static 'icons/experience-card-icon5.svg' %}" alt="">
+                                </div>
+                                <div class="card-content">
+                                    <p class="card-title">
+                                        Languages
+                                    </p>
+                                    <p class="card-text">
                                         {% for language in object.parent_experience.allowed_languages.all %}
                                             <span>{{ language.name }}{% if not forloop.last %},{% endif %}</span>
                                         {% endfor %}
-                                    {% endif %}
-                                </p>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="experience-card">
-                            <div class="img-wrapper">
-                                <img src="{% static 'icons/experience-card-icon6.svg' %}" alt="">
-                            </div>
-                            <div class="card-content">
-                                <p class="card-title">
-                                    Pick Up Location
-                                </p>
-                                <p class="card-text">
-                                    {% if object.parent_experience.pick_up_location %}
+                        {% endif %}
+                        {% if object.parent_experience.pick_up_location %}
+                            <div class="experience-card">
+                                <div class="img-wrapper">
+                                    <img src="{% static 'icons/experience-card-icon6.svg' %}" alt="">
+                                </div>
+                                <div class="card-content">
+                                    <p class="card-title">
+                                        Pick Up Location
+                                    </p>
+                                    <p class="card-text">
                                         {{ object.parent_experience.pick_up_location }}
-                                    {% endif %}
-                                </p>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
                     <div class="risk-free-badge">
                         <img src="{% static 'icons/shield-icon.svg' %}" alt="">
                         <h3 class="badge-title">
-                            
                             <span>risk free!</span> Cancellation is available up to 24 hours before your trip starts
                         </h3>
                     </div>
                     {% if not object.parent_experience.is_private and object.parent_experience.child_price < object.parent_experience.price %}
-                    <div class="children-discount-badge">
-                        <h3 class="badge-title">
-                            <img src="{% static 'icons/children-icon.svg' %}" alt="">
-                            Price for children only from €{{ object.parent_experience.child_price }}
-                        </h3>
-                    </div>
+                        <div class="children-discount-badge">
+                            <h3 class="badge-title">
+                                <img src="{% static 'icons/children-icon.svg' %}" alt="">
+                                Price for children only from €{{ object.parent_experience.child_price }}
+                            </h3>
+                        </div>
                     {% endif %}
-                    
-                    <div class="experience-description">
-
-
-                        <h5 class="description-title">
-                            {{ object.title_description }}
-                        </h5>
-                        <p>
-                            {{ object.display_full_description }}
-                        </p>
-                    </div>
-                    <div class="experience-timeline">
-                        <h5 class="experience-timeline-title">
-                            {{ object.schedule_title }}
-                        </h5>
-                        <div class="experience-timeline-inner">
-                            {% if object.schedule.all %}
+                    {% if object.full_description %}
+                        <div class="experience-description">
+                            {% if object.title_description %}
+                                <h5 class="description-title">
+                                    {{ object.title_description }}
+                                </h5>
+                            {% endif %}
+                            <p>
+                                {{ object.display_full_description }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if object.schedule.all %}
+                        <div class="experience-timeline">
+                            {% if object.schedule_title %}
+                                <h5 class="experience-timeline-title">
+                                    {{ object.schedule_title }}
+                                </h5>
+                            {% endif %}
+                            <div class="experience-timeline-inner">
                                 {% for schedule_item in object.schedule.all %}
                                     <div class="timeline-block">
                                         <div class="time-title-wrapper">
                                             <p class="time">
-                                                {{ schedule_item.time|time }}
+                                                {{ schedule_item.time|time:"h:i A" }}
                                             </p>
                                             <p class="timeline-title">
                                                 {{ schedule_item.name_stop }}
@@ -368,12 +378,13 @@
                                         </p>
                                     </div>
                                 {% endfor %}
-                            {% endif %}
+                            </div>
+                            <btn class="timeline-btn-open btn-type-2">
+                                See all
+                            </btn>
                         </div>
-                        <btn class="timeline-btn-open btn-type-2">
-                            See all
-                        </btn>
-                    </div>
+                    {% endif %}
+
                     {% if object.parent_experience.clean_and_safe %}
                         <div class="clean-safe-badge">
                             <div class="img-wrapper">
@@ -387,19 +398,25 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div class="experience-info-block experience-include">
-                        <h5>{{ object.includes_title }}</h5>
-                        <!-- What included and NOT included lists -->
-                        <div class="info-block-inner">
-                            {{ object.display_includes_text }}
-                            {{ object.display_not_includes_text }}
+
+                    {% if object.includes_text or object.not_includes_text %}
+                        <div class="experience-info-block experience-include">
+                            {% if object.includes_title %}
+                                <h5>{{ object.includes_title }}</h5>
+                            {% endif %}
+                            <!-- What included and NOT included lists -->
+                            <div class="info-block-inner">
+                                {{ object.display_includes_text }}
+                                {{ object.display_not_includes_text }}
+                            </div>
                         </div>
-                        
-                    </div>
-                    <div class="experience-info-block travel-tips">
-                        <h5>{{ object.traveler_tips_title }}</h5>
-                        {{ object.display_traveler_tips_text }}
-                    </div>
+                    {% endif %}
+                    {% if object.traveler_tips_text %}
+                        <div class="experience-info-block travel-tips">
+                            <h5>{{ object.traveler_tips_title }}</h5>
+                            {{ object.display_traveler_tips_text }}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="aside-form">
                     <div class="booking-form-wrapper">
@@ -425,14 +442,19 @@
             </div>
         </div>
     </section>
+
     <section class="why experience-page why-slider">
         <div class="container">
-            <h2 class="why-title">
-                {{ object.why_title }}
-            </h2>
-            <p class="why-subtitle body-text-b1">
-                {{ object.why_subtitle }}
-            </p>
+            {% if object.why_title %}
+                <h2 class="why-title">
+                    {{ object.why_title }}
+                </h2>
+            {% endif %}
+            {% if object.why_subtitle %}
+                <p class="why-subtitle body-text-b1">
+                    {{ object.why_subtitle }}
+                </p>
+            {% endif %}
             <div class="why-cards-wrapper">
                 <div class="swiper-wrapper">
                     <div class="why-card swiper-slide">
@@ -493,7 +515,6 @@
                                 Enjoy the flexibility with free cancellation, don't worry about additional costs, and feel free to adjust your plans.
                             </p>
                         </div>
-
                     </div>
                     <div class="why-card swiper-slide">
                         <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
@@ -505,24 +526,23 @@
                                 Be confident with our reliable and protected service as your online safety at every step is our priority.
                             </p>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     {% if object.experience_recommendations.all %}
-    <section class="also-interested">
-        <div class="container">
-            <h2 class="also-interested-title">
-                {{ object.recommendations_title }}
-            </h2>
-            <p class="also-interested-subtitle body-text-b2">
-                {{ object.recommendations_subtitle }}
-            </p>
-            <div class="swiper-also-interested">
-                <div class="also-interested-cards-wrapper">
+        <section class="also-interested">
+            <div class="container">
+                <h2 class="also-interested-title">
+                    {{ object.recommendations_title }}
+                </h2>
+                <p class="also-interested-subtitle body-text-b2">
+                    {{ object.recommendations_subtitle }}
+                </p>
+                <div class="swiper-also-interested">
+                    <div class="also-interested-cards-wrapper">
                         {% for experience in object.experience_recommendations.all %}
                             {% if cart_not_empty %}
                                 {% include 'include/also_interested_cards_applied.html' %}
@@ -530,12 +550,12 @@
                                 {% include 'include/also_interested_cards.html' %}
                             {% endif %}
                         {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     {% endif %}
-    
+
     <section class="reviews" id="reviews">
         <div class="container">
             <h2 class="reviews-title">
@@ -698,13 +718,13 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var radios = document.querySelectorAll('input[type=radio][name="rating"]');
 
-            radios.forEach(function(radio) {
-                radio.addEventListener('click', function() {
+            radios.forEach(function (radio) {
+                radio.addEventListener('click', function () {
                     var selectedIndex = parseInt(this.value) - 1; // Индекс выбранной кнопки (отсчет с 0)
-                    radios.forEach(function(r, index) {
+                    radios.forEach(function (r, index) {
                         if (index < selectedIndex) {
                             r.classList.add('highlighted');
                         } else {
@@ -721,61 +741,61 @@
         document.addEventListener('DOMContentLoaded', () => {
             const reviewContainer = document.getElementById('reviewContainer');
             const paginationContainer = document.getElementById('paginationContainer');
-            
+
 
             {% if object.review_set.count > 0 %}
-            // Function to fetch reviews with pagination
-            async function fetchReviews(pageNumber) {
-                try {
-                    const response = await fetch(`/reviews/${experienceId}/?page=${pageNumber}`);
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch reviews');
+                // Function to fetch reviews with pagination
+                async function fetchReviews(pageNumber) {
+                    try {
+                        const response = await fetch(`/reviews/${experienceId}/?page=${pageNumber}`);
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch reviews');
+                        }
+                        return await response.json();
+                    } catch (error) {
+                        console.error('Error fetching reviews:', error);
+                        return {reviews: [], has_next: false, has_previous: false};
                     }
-                    return await response.json();
-                } catch (error) {
-                    console.error('Error fetching reviews:', error);
-                    return {reviews: [], has_next: false, has_previous: false};
                 }
-            }
             {% endif %}
 
             {% if object.review_set.count > 0 %}
-            // Function to render reviews
-            function renderReviews(reviewsData) {
-                const reviewsList = document.getElementById('reviewsList');
-                reviewsList.innerHTML = ''; // Clear existing reviews
-                reviewsData.forEach(review => {
-                    // Create HTML elements for each review and append them to reviewsList
-                    const reviewItem = document.createElement('li');
-                    reviewItem.classList.add('reviews-list-item');
-                    const starsWrapper = document.createElement('div');
-                    starsWrapper.classList.add('review-stars-wrapper');
-                    starsWrapper.classList.add(`star-${review.rating}`);
-                    starsWrapper.innerHTML = `
+                // Function to render reviews
+                function renderReviews(reviewsData) {
+                    const reviewsList = document.getElementById('reviewsList');
+                    reviewsList.innerHTML = ''; // Clear existing reviews
+                    reviewsData.forEach(review => {
+                        // Create HTML elements for each review and append them to reviewsList
+                        const reviewItem = document.createElement('li');
+                        reviewItem.classList.add('reviews-list-item');
+                        const starsWrapper = document.createElement('div');
+                        starsWrapper.classList.add('review-stars-wrapper');
+                        starsWrapper.classList.add(`star-${review.rating}`);
+                        starsWrapper.innerHTML = `
                         <img class="star3" src="{% static 'icons/3-stars-icon.svg' %}" alt="3 start review">
                         <img class="star4" src="{% static 'icons/4-stars-icon.svg' %}" alt="4 start review">
                         <img class="star5" src="{% static 'icons/5-stars-icon.svg' %}" alt="5 start review">
                     `;
-                    const reviewTitle = document.createElement('h4');
-                    reviewTitle.classList.add('review-title');
-                    reviewTitle.textContent = review.title;
-                    const reviewText = document.createElement('p');
-                    reviewText.classList.add('review-text');
-                    reviewText.textContent = review.short_text;
-                    const reviewAuthor = document.createElement('p');
-                    reviewAuthor.classList.add('review-author');
-                    reviewAuthor.textContent = review.full_name;
+                        const reviewTitle = document.createElement('h4');
+                        reviewTitle.classList.add('review-title');
+                        reviewTitle.textContent = review.title;
+                        const reviewText = document.createElement('p');
+                        reviewText.classList.add('review-text');
+                        reviewText.textContent = review.short_text;
+                        const reviewAuthor = document.createElement('p');
+                        reviewAuthor.classList.add('review-author');
+                        reviewAuthor.textContent = review.full_name;
 
-                    // Append elements to reviewItem
-                    reviewItem.appendChild(starsWrapper);
-                    reviewItem.appendChild(reviewTitle);
-                    reviewItem.appendChild(reviewText);
-                    reviewItem.appendChild(reviewAuthor);
+                        // Append elements to reviewItem
+                        reviewItem.appendChild(starsWrapper);
+                        reviewItem.appendChild(reviewTitle);
+                        reviewItem.appendChild(reviewText);
+                        reviewItem.appendChild(reviewAuthor);
 
-                    // Append reviewItem to reviewsList
-                    reviewsList.appendChild(reviewItem);
-                });
-            }
+                        // Append reviewItem to reviewsList
+                        reviewsList.appendChild(reviewItem);
+                    });
+                }
             {% else %}
                 const reviewsList = document.getElementById('reviewsList');
                 const emptyReviewItem = document.createElement('li');
@@ -786,20 +806,20 @@
                     <img class="empty-review-img" src="{% static 'icons/empty-review-img.svg' %}" alt="empty review">
                     <p class="empty-review-text"> There are no reviews for this experience yet. <br/> Be the first one to write one. </p>
                     `;
-                    
+
                 emptyReviewItem.appendChild(emptyReviewBlock);
                 reviewsList.appendChild(emptyReviewItem);
-                    
+
 
             {% endif %}
             {% if object.review_set.count > 5 %}
-            // Function to render pagination controls
-            function renderPaginationControls(paginationData) {
-                paginationContainer.innerHTML = ''; // Clear existing pagination controls
+                // Function to render pagination controls
+                function renderPaginationControls(paginationData) {
+                    paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
-                const {has_next, has_previous, next_page_number, previous_page_number, total_pages, current_page_number} = paginationData;
+                    const {has_next, has_previous, next_page_number, previous_page_number, total_pages, current_page_number} = paginationData;
 
-                // Render previous page button
+                    // Render previous page button
                     const prevButton = document.createElement('button');
                     prevButton.innerHTML = `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
                     prevButton.classList.add('pagination-btn', 'prev')
@@ -811,76 +831,77 @@
                     const paginationList = document.createElement('ul')
                     paginationContainer.appendChild(paginationList)
                     paginationList.classList.add('pagination-list')
-                // Render page numbers
-                for (let i = 1; i <= total_pages; i++) {
-                    const pageButton = document.createElement('button');
-                    pageButton.classList.add('pagination-list-item')
-                    pageButton.textContent = i;
-                    if (i === current_page_number) {
-                        pageButton.disabled = true;
+                    // Render page numbers
+                    for (let i = 1; i <= total_pages; i++) {
+                        const pageButton = document.createElement('button');
+                        pageButton.classList.add('pagination-list-item')
+                        pageButton.textContent = i;
+                        if (i === current_page_number) {
+                            pageButton.disabled = true;
+                        }
+                        pageButton.addEventListener('click', () => handlePaginationClick(i));
+                        paginationList.appendChild(pageButton);
                     }
-                    pageButton.addEventListener('click', () => handlePaginationClick(i));
-                    paginationList.appendChild(pageButton);
-                }
 
-                // Render next page button
+                    // Render next page button
                     const nextButton = document.createElement('button');
-                    nextButton.innerHTML = 
-                    `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
+                    nextButton.innerHTML =
+                        `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
                     nextButton.classList.add('pagination-btn', 'next')
                     nextButton.addEventListener('click', () => handlePaginationClick(next_page_number));
                     paginationContainer.appendChild(nextButton);
                     if (has_next) {
                         nextButton.innerHTML = `<img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">`
                     }
-            }
+                }
             {% endif %}
 
             {% if object.review_set.count > 0 %}
-            // Function to handle pagination click event
-            function handlePaginationClick(pageNumber) {
-                fetchReviews(pageNumber)
-                    .then(data => {
-                        renderReviews(data.reviews);
-                        {% if object.review_set.count > 5 %}
-                        renderPaginationControls(data);
-                        {% endif %}
-                    })
-                    .catch(error => {
-                        console.error('Error fetching reviews:', error);
-                    });
-            }
+                // Function to handle pagination click event
+                function handlePaginationClick(pageNumber) {
+                    fetchReviews(pageNumber)
+                        .then(data => {
+                            renderReviews(data.reviews);
+                            {% if object.review_set.count > 5 %}
+                                renderPaginationControls(data);
+                            {% endif %}
+                        })
+                        .catch(error => {
+                            console.error('Error fetching reviews:', error);
+                        });
+                }
             {% endif %}
             // Fetch reviews for the first page when the page loads
 
             {% if object.review_set.count > 0 %}
-            handlePaginationClick(1);
+                handlePaginationClick(1);
             {% else %}
 
             {% endif %}
         });
     </script>
     <script>
-        
+
         let averageRating = {{object.average_rating}};
         if (averageRating) {
             function fillStars(rating) {
                 const iconWrappers = document.querySelectorAll('.icon-wrapper');
-                const filledStars = Math.floor(rating); 
-                const fraction = rating - filledStars; 
+                const filledStars = Math.floor(rating);
+                const fraction = rating - filledStars;
 
                 iconWrappers.forEach((iconWrapper, index) => {
                     if (index < filledStars) {
-                        iconWrapper.querySelector('.star').classList.add('filled'); 
+                        iconWrapper.querySelector('.star').classList.add('filled');
                     } else if (index === filledStars) {
-                        iconWrapper.style.setProperty('--fraction', fraction); 
-                        iconWrapper.classList.add('partial-fill'); 
+                        iconWrapper.style.setProperty('--fraction', fraction);
+                        iconWrapper.classList.add('partial-fill');
                     }
                 });
             }
+
             fillStars(averageRating);
         }
-        
+
 
     </script>
 
@@ -895,7 +916,7 @@
         window.dataLayer = window.dataLayer || [];
 
         // Clear the previous ecommerce object.
-        window.dataLayer.push({ ecommerce: null });
+        window.dataLayer.push({ecommerce: null});
 
         // Push the new ecommerce data
         window.dataLayer.push({
@@ -912,6 +933,7 @@
             const url = `/${lang}/experiences/?tour_type=group&filter_by=all`;
             window.location.href = url;
         }
+
         function addTypeIsPrivateAndNavigate(event, lang) {
             event.preventDefault();
             const url = `/${lang}/experiences/?tour_type=private&filter_by=all`;

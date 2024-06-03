@@ -15,10 +15,13 @@
 
 {% block content %}
     <div class="container">
+        {% if object.title %}
         <h2>{{ object.title }}</h2>
+        {% endif %}
+    {% if object.content %}
         {{ object.display_content }}
+    {% endif %}
     </div>
-
 
     <!-- Local JS -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>

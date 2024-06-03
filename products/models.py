@@ -544,6 +544,9 @@ class ExperienceSchedule(models.Model):
     name_stop = models.CharField(max_length=255, null=True, blank=True, help_text="Name of stop max 255 character length.")
     description = models.TextField(max_length=600, null=True, blank=True, help_text="Description of stop max 600 characters.")
 
+    class Meta:
+        ordering = ("time",)
+
     def __str__(self):
         return f'{self.time} {self.name_stop}'
 
@@ -685,7 +688,7 @@ class Product(models.Model):
                 f"start_datetime={self.start_datetime}...)>")
 
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ('created_at',)
         get_latest_by = 'created_at'
 
     def save(self, *args, **kwargs):
