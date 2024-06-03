@@ -311,7 +311,6 @@
                                         {% endfor %}
                                     </p>
                                 </div>
-<<<<<<< developer
                             </div>
                         {% endif %}
                     {% if object.parent_experience.allowed_options.all %}
@@ -346,24 +345,6 @@
                                     </p>
                                 </div>
                             </div>
-=======
-                            </div>
-                        {% endif %}
-                        {% if object.parent_experience.pick_up_location %}
-                            <div class="experience-card">
-                                <div class="img-wrapper">
-                                    <img src="{% static 'icons/experience-card-icon6.svg' %}" alt="">
-                                </div>
-                                <div class="card-content">
-                                    <p class="card-title">
-                                        Pick Up Location
-                                    </p>
-                                    <p class="card-text">
-                                        {{ object.parent_experience.pick_up_location }}
-                                    </p>
-                                </div>
-                            </div>
->>>>>>> master
                         {% endif %}
                     </div>
                     <div class="risk-free-badge">
@@ -446,7 +427,6 @@
                                 {{ object.display_includes_text }}
                                 {{ object.display_not_includes_text }}
                             </div>
-<<<<<<< developer
                         </div>
                     {% endif %}
                     {% if object.traveler_tips_text %}
@@ -455,16 +435,6 @@
                             {{ object.display_traveler_tips_text }}
                         </div>
                     {% endif %}
-=======
-                        </div>
-                    {% endif %}
-                    {% if object.traveler_tips_text %}
-                        <div class="experience-info-block travel-tips">
-                            <h5>{{ object.traveler_tips_title }}</h5>
-                            {{ object.display_traveler_tips_text }}
-                        </div>
-                    {% endif %}
->>>>>>> master
                 </div>
                 <div class="aside-form">
                     <div class="booking-form-wrapper">
