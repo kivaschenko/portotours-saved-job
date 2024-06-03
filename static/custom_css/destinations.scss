@@ -19,6 +19,17 @@
                 img {
                     height: 100%;
                     width: 100%;
+                    &.img-desktop {
+                        @include media-breakpoint-down(md) {
+                            display: none;
+                        }
+                    }
+                    &.img-mobile {
+                        display: none;
+                        @include media-breakpoint-down(md) {
+                            display: block;
+                        }
+                    }
                 }
                 @include media-breakpoint-down(md) {
                     height: 240px;
@@ -393,6 +404,17 @@
                     @include media-breakpoint-down(md) {
                         width: 100%;
                         margin-bottom: 14px;
+                    }
+                    &.img-desktop {
+                        @include media-breakpoint-down(md) {
+                            display: none;
+                        }
+                    }
+                    &.img-mobile {
+                        display: none;
+                        @include media-breakpoint-down(md) {
+                            display: block;
+                        }
                     }
                 }
                 a {
@@ -1100,6 +1122,17 @@
                         width: 100%;
                         display: block;
                         height: 100%;
+                        &.img-desktop {
+                            @include media-breakpoint-down(md) {
+                                display: none;
+                            }
+                        }
+                        &.img-mobile {
+                            display: none;
+                            @include media-breakpoint-down(md) {
+                                display: block;
+                            }
+                        }
                     }
                 }
                 .destination-list-content-wrapper {

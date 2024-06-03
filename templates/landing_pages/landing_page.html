@@ -15,9 +15,13 @@
     <section class="ppc-hero">
         <div class="img-hero-wrapper">
             {% if object.banner %}
-                <img src="{{ object.banner.url }}">
+                <img class="img-desktop" src="{{ object.banner.url }}">
+               
             {% else %}
                 <img src="{% static 'images/destination-list-hero-img.png' %}">
+            {% endif %}
+            {% if object.banner_mobile %}
+                <img class="img-mobile" src="{{ object.banner_mobile.url }}">
             {% endif %}
         </div>
 
@@ -261,8 +265,12 @@
                         <div class="blog-card">
                             <div class="img-wrapper">
                                 <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
-                                    <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
+                                    <img class="img-desktop" src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
                             {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
+                            {% if object.parent_blog.card_image_mobile %}
+                                    <img class="img-mobile" src="{% if object.parent_blog.card_image_mobile %}{{ object.parent_blog.card_image_mobile.url }}
+                            {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
+                            {% endif %}
                                 </a>
 
                             </div>
@@ -362,6 +370,30 @@
                 el: '.swiper-pagination',
                 clickable: true,
             },
+        });
+    </script>
+    <script>
+        let experienceCardList = document.querySelector('.best-tours-cards-wrapper')
+        let experienceCardListItems = experienceCardList.querySelectorAll('.best-tours-card');
+        experienceCardListItems.forEach((item) => {
+            let averageRating = item.querySelector('.rating-num').textContent;
+            if (averageRating) {
+                function fillStars(rating) {
+                    const iconWrappers = item.querySelectorAll('.icon-wrapper');
+                    const filledStars = Math.floor(rating);
+                    const fraction = rating - filledStars;
+                    iconWrappers.forEach((iconWrapper, index) => {
+                        if (index < filledStars) {
+                            iconWrapper.querySelector('.star').classList.add('filled');
+                        } else if (index === filledStars) {
+                            iconWrapper.style.setProperty('--fraction', fraction);
+                            iconWrapper.classList.add('partial-fill');
+                        }
+                    });
+                }
+
+                fillStars(averageRating);
+            }
         });
     </script>
 {% endblock %}

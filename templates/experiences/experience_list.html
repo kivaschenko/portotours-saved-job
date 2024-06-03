@@ -122,9 +122,18 @@
                                 <div class="image-wrapper">
                                     <a href="javascript:void(0)" class="link"
                                        onclick="trackButtonClick('{{ object.get_absolute_url }}', {{ object.ecommerce_items|safe }})">
-                                        <img src="
+                                        <img class="img-desktop" src="
                                                 {% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}"
                                              alt="Card image for {{ object.name }}">
+                                             {% if object.parent_experience.card_image_mobile %}
+                                        <img class="img-mobile" src="
+                                             {% if object.parent_experience.card_image_mobile %}{{ object.parent_experience.card_image_mobile.url }}{% else %}{% endif %}"
+                                          alt="Card image for {{ object.name }}">
+                                          {% else %}
+                                          <img class="img-mobile" src="
+                                                {% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}"
+                                             alt="Card image for {{ object.name }}">
+                                          {% endif %}
                                     </a>
                                 </div>
                             </div>
@@ -287,6 +296,10 @@
                                         <p class="per-person">
                                             / per group ({{ object.parent_experience.max_participants }} people maximum)
                                         </p>
+                                        {% else %}
+                                        <p class="per-person">
+                                            / per person
+                                        </p>
                                         {% endif %}
                                     </div>
                                 {% endif %}
@@ -426,10 +439,9 @@
             let averageRating = item.querySelector('.average-rating').textContent;
             if (averageRating) {
                 function fillStars(rating) {
-                    const iconWrappers = document.querySelectorAll('.icon-wrapper');
+                    const iconWrappers = item.querySelectorAll('.icon-wrapper');
                     const filledStars = Math.floor(rating);
                     const fraction = rating - filledStars;
-
                     iconWrappers.forEach((iconWrapper, index) => {
                         if (index < filledStars) {
                             iconWrapper.querySelector('.star').classList.add('filled');

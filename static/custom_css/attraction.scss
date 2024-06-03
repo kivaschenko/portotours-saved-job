@@ -63,6 +63,17 @@
             img {
                 display: block;
                 width: 100%;
+                &.img-desktop {
+                    @include media-breakpoint-down(md) {
+                        display: none;
+                    }
+                }
+                &.img-mobile {
+                    display: none;
+                    @include media-breakpoint-down(md) {
+                        display: block;
+                    }
+                }
             }
         }
         .swiper-slide.swiper-slide-active {
@@ -437,6 +448,17 @@
                     img {
                         width: 100%;
                         height: 100%;
+                        &.img-desktop {
+                            @include media-breakpoint-down(md) {
+                                display: none;
+                            }
+                        }
+                        &.img-mobile {
+                            display: none;
+                            @include media-breakpoint-down(md) {
+                                display: block;
+                            }
+                        }
                     }
                 }
                 .attraction-list-content-wrapper {
