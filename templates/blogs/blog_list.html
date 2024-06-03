@@ -18,16 +18,16 @@
             </p>
         </div>
     </section>
-    {% if object_list %}
-        <section class="blog-list">
-            <div class="container">
-                <form method="GET" class="attraction-filter-form">
-                    {{ filter_form }}
-                    <div class="form-btns-wrapper">
-                        <button type="submit" class="btn btn-submit">Apply</button>
-                        <button type="button" class="btn btn-reset" onclick="resetForm()">Reset</button>
-                    </div>
-                </form>
+    <section class="blog-list">
+        <div class="container">
+            <form method="GET" class="attraction-filter-form">
+                {{ filter_form }}
+                <div class="form-btns-wrapper">
+                    <button type="submit" class="btn btn-submit">Apply</button>
+                    <button type="button" class="btn btn-reset" onclick="resetForm()">Reset</button>
+                </div>
+            </form>
+            {% if object_list %}
                 <div class="blog-cards-wrapper">
                     {% for object in object_list %}
                         <div class="blog-card">
@@ -50,9 +50,9 @@
                         </div>
                     {% endfor %}
                 </div>
-            </div>
-        </section>
-    {% endif %}
+            {% endif %}
+        </div>
+    </section>
 
     <section class="offers-banner">
         <div class="container">
