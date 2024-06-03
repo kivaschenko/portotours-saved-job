@@ -291,11 +291,11 @@ class ProductCartView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
             # Set last_created_at to None if queryset is empty
             context['last_created_at'] = False
         context['product_ids'] = [product.pk for product in queryset]
-        context['total_price_sum'] = queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum'] or 0
         context['old_price_sum'] = queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum'] or 0
-        context['discounted_price_sum'] = round(context['old_price_sum'] - context['total_price_sum'], 2)
+        context['total_price_sum'] = queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum'] or 0
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         context['total_second_discount'] = Product.aggregate_total_second_discount(self.request.session.session_key)
+        context['discounted_price_sum'] = round(context['old_price_sum'] - context['total_price_sum'], 2) - context['total_second_discount']
         return context
 
 

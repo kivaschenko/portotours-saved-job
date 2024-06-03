@@ -347,17 +347,17 @@
                             {{ object.display_full_description }}
                         </p>
                     </div>
+                    {% if object.schedule.all %}
                     <div class="experience-timeline">
                         <h5 class="experience-timeline-title">
                             {{ object.schedule_title }}
                         </h5>
                         <div class="experience-timeline-inner">
-                            {% if object.schedule.all %}
                                 {% for schedule_item in object.schedule.all %}
                                     <div class="timeline-block">
                                         <div class="time-title-wrapper">
                                             <p class="time">
-                                                {{ schedule_item.time|time }}
+                                                {{ schedule_item.time|time:"h:i A" }}
                                             </p>
                                             <p class="timeline-title">
                                                 {{ schedule_item.name_stop }}
@@ -368,12 +368,12 @@
                                         </p>
                                     </div>
                                 {% endfor %}
-                            {% endif %}
                         </div>
                         <btn class="timeline-btn-open btn-type-2">
                             See all
                         </btn>
                     </div>
+                    {% endif %}
                     {% if object.parent_experience.clean_and_safe %}
                         <div class="clean-safe-badge">
                             <div class="img-wrapper">
