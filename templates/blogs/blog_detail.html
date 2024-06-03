@@ -17,54 +17,62 @@
     <section class="blog-detail-hero">
         <div class="container">
             <img src="{% if object.parent_blog.banner %}{{ object.parent_blog.banner.url }}{% else %}{% endif %}" alt="{{ object.parent_blog.banner.name }}">
-            <h2 class="blog-detail-hero-title">
-                {{ object.title }}
-            </h2>
+            {% if object.title %}
+                <h2 class="blog-detail-hero-title">
+                    {{ object.title }}
+                </h2>
+            {% endif %}
             <div class="blog-detail-hero-info-wrapper">
                 <div class="left-col">
-                    <div class="publication-info">
-                        <div class="img-wrapper">
-                            <img src="{% static 'icons/blog-calendat-icon.svg' %}" alt="">
+                    {% if object.date_published %}
+                        <div class="publication-info">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/blog-calendat-icon.svg' %}" alt="">
+                            </div>
+                            <div class="content-wrapper">
+                                <p class="content-title">
+                                    Publication
+                                </p>
+                                <p class="content-text">
+                                    {{ object.date_published|date }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="content-wrapper">
-                            <p class="content-title">
-                                Publication
-                            </p>
-                            <p class="content-text">
-                                {{ object.date_published|date }}
-                            </p>
+                    {% endif %}
+                    {% if object.read_time %}
+                        <div class="publication-info">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/blog-read-icon.svg' %}" alt="">
+                            </div>
+                            <div class="content-wrapper">
+                                <p class="content-title">
+                                    Reading time
+                                </p>
+                                <p class="content-text">
+                                    {{ object.read_time }} minutes
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="publication-info">
-                        <div class="img-wrapper">
-                            <img src="{% static 'icons/blog-read-icon.svg' %}" alt="">
-                        </div>
-                        <div class="content-wrapper">
-                            <p class="content-title">
-                                Reading time
-                            </p>
-                            <p class="content-text">
-                                {{ object.read_time }} minutes
-                            </p>
-                        </div>
-                    </div>
+                    {% endif %}
                 </div>
                 <div class="right-col">
-                    <div class="publication-author">
-                        <div class="img-wrapper">
-                            {% if object.author.profile.avatar %}
-                                <img src="{{ object.author.profile.avatar.url }}" alt="author avatar">
-                            {% endif %}
+                    {% if object.author.profile.name %}
+                        <div class="publication-author">
+                            <div class="img-wrapper">
+                                {% if object.author.profile.avatar %}
+                                    <img src="{{ object.author.profile.avatar.url }}" alt="author avatar">
+                                {% endif %}
+                            </div>
+                            <div class="content-wrapper">
+                                <p class="content-title">
+                                    Author
+                                </p>
+                                <p class="content-text">
+                                    {{ object.author.profile.name }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="content-wrapper">
-                            <p class="content-title">
-                                Author
-                            </p>
-                            <p class="content-text">
-                                {{ object.author.profile.name }}
-                            </p>
-                        </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -72,8 +80,10 @@
     <section class="blog-content">
         <div class="container">
             <div class="left-col">
-                <p>{{ object.short_description }}</p>
                 {% if object.blocks.all %}
+                    {% if object.short_description %}
+                        <p>{{ object.short_description }}</p>
+                    {% endif %}
                     {% for block in object.blocks.all %}
                         <h3 id="{{ block.pk }}">{{ block.title }}</h3>
                         {{ block.display_text }}
@@ -83,43 +93,31 @@
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                {% else %}
-                    <p>No Blocks of Blog written yet...</p>
                 {% endif %}
             </div>
             <div class="right-col">
-                <div class="categories-wrapper">
-                    <h5 class="blog-categories-title">
-                        Categories
-                    </h5>
-                    {% if object.categories.all %}
+                {% if object.categories.all %}
+                    <div class="categories-wrapper">
+                        <h5 class="blog-categories-title">
+                            Categories
+                        </h5>
                         {% for category in object.categories.all %}
                             <button type="button" class="btn btn-light">{{ category }}</button>
                         {% endfor %}
-                    {% else %}
-                        <h5 class="blog-categories-title">
-                            No categories yet...
-                        </h5>
-
-                    {% endif %}
-                </div>
-                <div class="aside-block">
-                    <h3 class="aside-block-title">
-                        Table of Contents
-                    </h3>
-                    <ul class="aside-block-list">
-                        {% if object.blocks.all %}
+                    </div>
+                {% endif %}
+                {% if object.blocks.all %}
+                    <div class="aside-block">
+                        <h3 class="aside-block-title">
+                            Table of Contents
+                        </h3>
+                        <ul class="aside-block-list">
                             {% for block in object.blocks.all %}
                                 <li><a href="#{{ block.pk }}">{{ block.title }}</a></li>
                             {% endfor %}
-                        {% else %}
-                            <p>No Blocks of Blog written yet...</p>
-                        {% endif %}
-                    </ul>
-
-
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -146,6 +144,7 @@
             </div>
         </section>
     {% endif %}
+    
     <section class="offers-banner blog">
         <div class="container">
             <h2 class="offers-banner-title">

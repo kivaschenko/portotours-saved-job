@@ -18,17 +18,17 @@
             </p>
         </div>
     </section>
-    <section class="blog-list">
-        <div class="container">
-            <form method="GET" class="attraction-filter-form">
-                {{ filter_form }}
-                <div class="form-btns-wrapper">
-                    <button type="submit" class="btn btn-submit">Apply</button>
-                    <button type="button" class="btn btn-reset" onclick="resetForm()">Reset</button>
-                </div>
-            </form>
-            <div class="blog-cards-wrapper">
-                {% if object_list %}
+    {% if object_list %}
+        <section class="blog-list">
+            <div class="container">
+                <form method="GET" class="attraction-filter-form">
+                    {{ filter_form }}
+                    <div class="form-btns-wrapper">
+                        <button type="submit" class="btn btn-submit">Apply</button>
+                        <button type="button" class="btn btn-reset" onclick="resetForm()">Reset</button>
+                    </div>
+                </form>
+                <div class="blog-cards-wrapper">
                     {% for object in object_list %}
                         <div class="blog-card">
                             <div class="img-wrapper">
@@ -36,7 +36,6 @@
                                     <img src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
                             {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
                                 </a>
-                                
                             </div>
                             <div class="card-content-wrapper">
                                 <p class="card-date">
@@ -47,14 +46,13 @@
                                         {{ object.title }}
                                     </a>
                                 </h5>
-                                
                             </div>
                         </div>
                     {% endfor %}
-                {% endif %}
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {% endif %}
 
     <section class="offers-banner">
         <div class="container">
