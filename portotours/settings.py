@@ -42,6 +42,7 @@ BASE_ENDPOINT = 'http://127.0.0.1:8000'  # debug mode for stripe confirmation
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.gis',
