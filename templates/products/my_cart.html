@@ -5,6 +5,7 @@
     <!-- End Navbar -->
 {% endblock %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}
     My Cart
@@ -227,19 +228,20 @@
                                     {% endif %}
                                 </div>
                                 {% if object.options.all %}
-                                <div class="option-extras">
-                                    <p class="card-col-text">Optional 4 extras added to your experience: </p>
-                                <ul>
-                                    {% for item in object.options.all %}
-                                        {% if item.quantity > 0 %}
-                                       <li>{{ item.quantity }} x {{ item.experience_option }} 
-                                           {% if item.experience_option.description %}<sm>{{ item.experience_option.description }}</sm>{% endif %}
-                                            {% if item.price %}{{ item.price }}{% else %}free{% endif %}
-                                       </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                                </div>
+                                    <div class="option-extras">
+                                        <p class="card-col-text">Optional 4 extras added to your experience: €{{ object.optional.all|sum_prices }}</p>
+                                        <ul>
+                                            {% for item in object.options.all %}
+                                                {% if item.quantity > 0 %}
+                                                    <li>{{ item.quantity }} x {{ item.experience_option }}
+                                                        {% if item.experience_option.description %}
+                                                            <sm>{{ item.experience_option.description }}</sm>{% endif %}
+                                                        {% if item.price %}€{{ item.price }}{% else %}free{% endif %}
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
                                 {% endif %}
                             </div>
                         {% endfor %}
@@ -252,6 +254,13 @@
                                 €{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %}
                             </span>
                             </p>
+                            {% if optional_extras %}
+                            <p class="price">
+                                Optional extras
+                                <span>
+                                €{{ optional_extras }}
+                            </p>
+                            {% endif %}
                             <p class="price">
                                 Processing fees
                                 <span>
