@@ -302,21 +302,39 @@
             }
         }
     
-        // Проверяем localStorage при загрузке страницы
-        
-            if (localStorage.getItem('turboSaleBannerHidden') === 'true') {
-                hideBanner();
-            }
-    
+        // Функция для показа баннера
+        function showBanner() {
             let turboSaleBanner = document.querySelector('.turbo-sale-banner');
             if (turboSaleBanner) {
-                let closeBannerIcon = turboSaleBanner.querySelector('.close-icon');
-                closeBannerIcon.addEventListener('click', () => {
-                    hideBanner();
-                    localStorage.setItem('turboSaleBannerHidden', 'true');
-                });
+                turboSaleBanner.classList.add('show');
             }
-       
+        }
+    
+        // Получаем значение переменной cart_not_empty из Django
+        const cartNoEmpty = {{ cart_not_empty|lower }};
+
+        console.log(cartNoEmpty)
+    
+        // Проверяем значение переменной cart_not_empty при загрузке страницы
+        if (!cartNoEmpty) {
+            localStorage.removeItem('turboSaleBannerHidden');
+        }
+    
+        // Проверяем localStorage при загрузке страницы
+        if (localStorage.getItem('turboSaleBannerHidden') === 'true') {
+            hideBanner();
+        } else {
+            showBanner();
+        }
+    
+        let turboSaleBanner = document.querySelector('.turbo-sale-banner');
+        if (turboSaleBanner) {
+            let closeBannerIcon = turboSaleBanner.querySelector('.close-icon');
+            closeBannerIcon.addEventListener('click', () => {
+                hideBanner();
+                localStorage.setItem('turboSaleBannerHidden', 'true');
+            });
+        }
     </script>
     <script>
         let languageBtn = document.querySelector('.language-switcher .default-language');

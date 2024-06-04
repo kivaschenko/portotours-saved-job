@@ -170,6 +170,9 @@
                                                 <div class="">
                                                     <p class="card-col-title">
                                                         <img src="{% static 'icons/info-icon-cart.svg' %}" alt="">
+                                                        <span class="special-price-text">
+                                                            Your experience reservation has earned extra discount from One Day Tours Portugal.
+                                                        </span>
                                                         Special price
                                                     </p>
                                                     <p class="card-col-text">
@@ -209,7 +212,8 @@
                                             </li>
                                             <li class="hover-block-item">
                                                 <a href="{% url 'delete-product' object.pk %}">
-                                                    <img src="{% static 'icons/cart-remove-icon.svg' %}" alt="remove">
+                                                    <img class="default-img" src="{% static 'icons/cart-remove-icon.svg' %}" alt="remove">
+                                                    <img class="red-img" src="{% static 'icons/red-trash-icon.svg' %}" alt="remove">
                                                     <span>Delete</span>
                                                 </a>
                                             </li>
@@ -297,6 +301,9 @@
                             </p>
                             <div class="price-match-banner">
                                 <img src="{% static 'icons/info-icon.svg' %}" alt="info icon">
+                                <p class="hidden-text">
+                                    If you find a better price on any similar product available from another travel company operating in Portugal, we'll be happy to match it!
+                                </p>
                                 We price match. Find it for less, and we’ll match it!
                             </div>
                             <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
