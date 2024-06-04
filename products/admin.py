@@ -178,8 +178,8 @@ class ExperienceAdmin(admin.ModelAdmin):
     list_per_page = 20
 
 
-class ExperienceOptionInline(admin.TabularInline):
-    model = ExperienceOption
+class ProductOptionInline(admin.TabularInline):
+    model = ProductOption
     extra = 0
     list_display = ['experience_option', 'price', 'quantity', 'total_sum']
 
@@ -208,7 +208,7 @@ class ProductAdmin(admin.ModelAdmin):
                        'random_order_number', 'reported', 'created_at',
                        'session_key', 'expired_time']
     list_per_page = 20
-    inlines = [ExperienceOptionInline]
+    inlines = [ProductOptionInline]
 
 
 class ExperienceEventInline(admin.TabularInline):
