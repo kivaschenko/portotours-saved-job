@@ -845,3 +845,22 @@ def generate_random_code():
         code += ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
         code += '-'
     return code[:-1]  # Remove the last hyphen
+
+
+class ProductOption(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='options')
+    experience_option = models.OneToOneField(ExperienceOption, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    quantity = models.PositiveIntegerField(default=0)
+    total_sum = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['experience_option']
+        unique_together = ('product', 'experience_option')
+
+    def save(self, *args, **kwargs):
+        if not self.price:
+            self.price = self.experience_option.price
+        self.total_sum = self.price * self.quantity
+        super(ProductOption, self).save(*args, **kwargs)
