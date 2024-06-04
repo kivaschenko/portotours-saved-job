@@ -849,7 +849,7 @@ def generate_random_code():
 
 class ProductOption(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='options')
-    experience_option = models.OneToOneField(ExperienceOption, on_delete=models.CASCADE)
+    experience_option = models.ForeignKey(ExperienceOption, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=0)
     total_sum = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
@@ -857,7 +857,6 @@ class ProductOption(models.Model):
 
     class Meta:
         ordering = ['experience_option']
-        unique_together = ('product', 'experience_option')
 
     def save(self, *args, **kwargs):
         if not self.price:
