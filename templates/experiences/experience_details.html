@@ -233,18 +233,18 @@
     <section class="experience-info">
         <div class="container">
             {% if object.info_title %}
-                <h2 class="experience-info-title">
+                <h2 class="experience-info-title" id="goToForm">
                     {{ object.info_title }}
                 </h2>
             {% endif %}
             {% if object.info_subtitle %}
-                <p class="experience-info-subtitle" id="goToForm">
+                <p class="experience-info-subtitle" >
                     {{ object.info_subtitle }}
                 </p>
             {% endif %}
             <div class="experience-info-inner-wrapper">
                 <div class="left-col">
-                    <div class="experience-cards">
+                    <div class="experience-cards" >
                         <div class="experience-card">
                             <div class="img-wrapper">
                                 <img src="{% static 'icons/experience-card-icon1.svg' %}" alt="">
@@ -320,24 +320,6 @@
                                 </div>
                             </div>
                         {% endif %}
-                    {% if object.parent_experience.allowed_options.all %}
-                        <div class="experience-card">
-                            <div class="img-wrapper">
-                                <img src="{% static 'icons/experience-card-icon5.svg' %}" alt="">
-                            </div>
-                            <div class="card-content">
-                                <p class="card-title">
-                                    Options
-                                </p>
-                                <p class="card-text">
-                                    {% for option in object.parent_experience.allowed_options.all %}
-                                        <span>{{ option.name }} {% if option.description %}<sm>{{ option.description }}</sm>{% endif %} - {{ option.price }}
-                                            {% if not forloop.last %},{% endif %}</span>
-                                    {% endfor %}
-                                </p>
-                            </div>
-                        </div>
-                    {% endif %}
                         {% if object.parent_experience.pick_up_location %}
                             <div class="experience-card">
                                 <div class="img-wrapper">
@@ -379,6 +361,21 @@
                                 {{ object.display_full_description }}
                             </p>
                         </div>
+                    {% endif %}
+                    {% if object.parent_experience.allowed_options.all %}
+                    <div class="optional-extras-wrapper">
+                        <h4 class="optional-extras-title">
+                            optional extras available
+                        </h4>
+                        <ul>
+                            {% for option in object.parent_experience.allowed_options.all %}
+                            <li>
+                                {{ option.name }} 
+                                <!-- {% if option.description %}<sm>{{ option.description }}</sm>{% endif %} - {{ option.price }} -->
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                     {% endif %}
                     {% if object.schedule.all %}
                         <div class="experience-timeline">
@@ -608,8 +605,8 @@
     <script>
         let openFullBtn = document.querySelector('.timeline-btn-open');
         let experienceTimelineWrapper = document.querySelector('.experience-timeline-inner');
-
-        openFullBtn.addEventListener('click', (e) => {
+        if (openFullBtn) {
+            openFullBtn.addEventListener('click', (e) => {
             e.preventDefault()
             experienceTimelineWrapper.classList.toggle('opened')
             if (experienceTimelineWrapper.classList.contains('opened')) {
@@ -619,6 +616,8 @@
             }
 
         })
+        }
+        
     </script>
 
     <!--Review list with pagination -->

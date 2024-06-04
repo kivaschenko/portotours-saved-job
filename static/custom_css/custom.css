@@ -11651,7 +11651,8 @@ html.off-scroll body {
       @media (max-width: 767.98px) {
         .experience-list .container .experiences .experience-list-item {
           flex-direction: column;
-          position: relative; } }
+          position: relative;
+          border: none; } }
       .experience-list .container .experiences .experience-list-item + .experience-list-item {
         margin-top: 24px; }
         @media (max-width: 767.98px) {
@@ -11704,7 +11705,7 @@ html.off-scroll body {
         @media (max-width: 767.98px) {
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper {
             width: 100%;
-            padding: 14px;
+            padding: 10px 0;
             border-radius: 0;
             position: static; } }
         .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .best-seller-badge-wrapper {
@@ -11727,6 +11728,9 @@ html.off-scroll body {
           align-items: center;
           justify-content: flex-start;
           margin-bottom: 8px; }
+          @media (max-width: 767.98px) {
+            .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-wrapper {
+              justify-content: center; } }
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-wrapper p {
             color: #0F0F10;
             font-size: 14px;
@@ -12493,10 +12497,10 @@ html.off-scroll body {
                 line-height: 22px;
                 padding-right: 0; } }
       .experience-info .container .experience-info-inner-wrapper .left-col .experience-description {
-        margin-bottom: 40px; }
+        margin-bottom: 24px; }
         @media (max-width: 767.98px) {
           .experience-info .container .experience-info-inner-wrapper .left-col .experience-description {
-            margin-bottom: 32px; } }
+            margin-bottom: 18px; } }
         .experience-info .container .experience-info-inner-wrapper .left-col .experience-description .description-title {
           margin-bottom: 24px; }
           @media (max-width: 767.98px) {
@@ -12511,6 +12515,35 @@ html.off-scroll body {
             .experience-info .container .experience-info-inner-wrapper .left-col .experience-description p {
               font-size: 14px;
               line-height: 22px; } }
+      .experience-info .container .experience-info-inner-wrapper .left-col .optional-extras-wrapper {
+        margin-bottom: 14px;
+        margin-top: 0; }
+        .experience-info .container .experience-info-inner-wrapper .left-col .optional-extras-wrapper .optional-extras-title {
+          font-family: "LatoSemiBold";
+          font-size: 18px;
+          line-height: 28px;
+          margin-bottom: 10px;
+          text-transform: capitalize;
+          color: #0F0F10; }
+        .experience-info .container .experience-info-inner-wrapper .left-col .optional-extras-wrapper ul {
+          padding-left: 0;
+          margin-bottom: 0;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          list-style: none; }
+          .experience-info .container .experience-info-inner-wrapper .left-col .optional-extras-wrapper ul li {
+            color: #0F0F10;
+            font-family: "LatoRegular";
+            font-size: 14px;
+            line-height: 22px;
+            margin-bottom: 10px;
+            margin-right: 8px;
+            border-radius: 33px;
+            border: 1px solid #F0500B;
+            background: #FFF;
+            padding: 2px 10px; }
       .experience-info .container .experience-info-inner-wrapper .left-col .experience-timeline {
         margin-bottom: 60px; }
         @media (max-width: 767.98px) {
@@ -16523,3 +16556,5 @@ a {
       margin: 0 auto;
       display: block;
       text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */
