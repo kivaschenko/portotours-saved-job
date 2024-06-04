@@ -58,7 +58,7 @@
             </div>
         </div>
     </section>
-    
+
     <section class="experience-list">
         <div class="container">
             <div class="title-filter-wrapper">
@@ -111,7 +111,7 @@
                 </div>
             </div>
             {% if object_list %}
-            <ul class="experiences">
+                <ul class="experiences">
                     {% for object in object_list %}
                         <li class="experience-list-item">
                             <div class="list-item-img-wrapper">
@@ -125,15 +125,15 @@
                                         <img class="img-desktop" src="
                                                 {% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}"
                                              alt="Card image for {{ object.name }}">
-                                             {% if object.parent_experience.card_image_mobile %}
-                                        <img class="img-mobile" src="
-                                             {% if object.parent_experience.card_image_mobile %}{{ object.parent_experience.card_image_mobile.url }}{% else %}{% endif %}"
-                                          alt="Card image for {{ object.name }}">
-                                          {% else %}
-                                          <img class="img-mobile" src="
+                                        {% if object.parent_experience.card_image_mobile %}
+                                            <img class="img-mobile" src="
+                                                    {% if object.parent_experience.card_image_mobile %}{{ object.parent_experience.card_image_mobile.url }}{% else %}{% endif %}"
+                                                 alt="Card image for {{ object.name }}">
+                                        {% else %}
+                                            <img class="img-mobile" src="
                                                 {% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}"
-                                             alt="Card image for {{ object.name }}">
-                                          {% endif %}
+                                                 alt="Card image for {{ object.name }}">
+                                        {% endif %}
                                     </a>
                                 </div>
                             </div>
@@ -225,10 +225,10 @@
                                             </li>
                                         {% endif %}
                                         {% if object.parent_experience.hotel_pick_up %}
-                                        <li>
-                                            <img src="{% static 'icons/pick-up-icon.svg' %}" alt="">
-                                            Hotel Pick Up
-                                        </li>
+                                            <li>
+                                                <img src="{% static 'icons/pick-up-icon.svg' %}" alt="">
+                                                Hotel Pick Up
+                                            </li>
                                         {% endif %}
                                         {% if object.parent_experience.skip_the_line %}
                                             <li>
@@ -281,7 +281,7 @@
                                             <p class="new-price">
                                                 € {{ object.parent_experience.price }}
                                             </p>
-                                            
+
                                         </div>
                                     {% endif %}
                                 {% else %}
@@ -293,13 +293,13 @@
                                             € {{ object.parent_experience.price }}
                                         </p>
                                         {% if object.parent_experience.is_private %}
-                                        <p class="per-person">
-                                            / per group ({{ object.parent_experience.max_participants }} people maximum)
-                                        </p>
+                                            <p class="per-person">
+                                                / per group ({{ object.parent_experience.max_participants }} people maximum)
+                                            </p>
                                         {% else %}
-                                        <p class="per-person">
-                                            / per person
-                                        </p>
+                                            <p class="per-person">
+                                                / per person
+                                            </p>
                                         {% endif %}
                                     </div>
                                 {% endif %}
@@ -317,7 +317,7 @@
                             </div>
                         </li>
                     {% endfor %}
-            </ul>
+                </ul>
             {% endif %}
 
             <div class="pagination-block">

@@ -46,7 +46,7 @@
                             <div class="list-item-img-wrapper">
                                 <a class="link" href="{% url 'attraction-detail'  lang=object.language.code.lower slug=object.slug %}">
                                     <img class="img-desktop" src="{% if object.parent_attraction.card_image %}{{ object.parent_attraction.card_image.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
-                                    <img class="img-mobile" src="{% if object.parent_attraction.card_image %}{{ object.parent_attraction.card_image.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
+                                    <img class="img-mobile" src="{% if object.parent_attraction.card_image_mobile %}{{ object.parent_attraction.card_image_mobile.url }}{% else %}{% endif %}" alt="Card image for {{ object.name }}">
                                 </a>
                             </div>
                             <div class="attraction-list-content-wrapper">

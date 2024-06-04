@@ -226,6 +226,21 @@
                                         </div>
                                     {% endif %}
                                 </div>
+                                {% if object.options.all %}
+                                <div class="option-extras">
+                                    <p class="card-col-text">Optional 4 extras added to your experience: </p>
+                                <ul>
+                                    {% for item in object.options.all %}
+                                        {% if item.quantity > 0 %}
+                                       <li>{{ item.quantity }} x {{ item.experience_option }} 
+                                           {% if item.experience_option.description %}<sm>{{ item.experience_option.description }}</sm>{% endif %}
+                                            {% if item.price %}{{ item.price }}{% else %}free{% endif %}
+                                       </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                                </div>
+                                {% endif %}
                             </div>
                         {% endfor %}
                     </div>
