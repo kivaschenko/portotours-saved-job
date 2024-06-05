@@ -294,13 +294,15 @@
                     img {
                         display: block;
                         width: 100%;
-                        height: 250px;
+                        height: 300px;
                         object-fit: cover;
                     }
                 }
                 .card-content-wrapper {
                     width: calc(100% - 300px - 32px);
                     position: relative;
+                    display: flex;
+                    flex-direction: column;
                     @include media-breakpoint-down(md) {
                         width: 100%;
                     }
@@ -327,9 +329,9 @@
                         }
                         .card-col {
                             + .card-col {
-                                padding-left: 24px;
-                                margin-left: 24px;
-                                border-left: 1px solid #D9D9D9;
+                               
+                                margin-left: 40px;
+                                
                                 @include media-breakpoint-down(md) {
                                     border: none;
                                     padding-left: 0;
@@ -427,7 +429,7 @@
                                 width: fit-content;
                                 border-radius: 6px;
                                 background: #f3faf5;
-                                margin-top: 9px;
+                                margin-top: 16px;
                                 margin-bottom: 0;
                                 overflow: hidden;
                                 @include media-breakpoint-down(md) {
@@ -469,6 +471,94 @@
                                       color: #007728;
                                       line-height: 16px;
                                       margin-bottom: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .optional-extras-block {
+                        display: flex;
+                        flex-direction: column;
+                        border-radius: 16px;
+                        border: 1px solid  #D9D9D9;
+                        padding: 10px 16px;
+                        margin-top: 16px;
+                        margin-bottom: 16px;
+                        max-height: 50px;
+                        overflow: hidden;
+                        &.opened {
+                            max-height: 100%;
+                        }
+                        .title-wrapper {
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;
+                            position: relative;
+                            margin-bottom: 10px;
+                            .edit-extras-btn {
+                                border: none;
+                                
+                                margin-right: 15px;
+                                text-decoration: none;
+                                &:hover {
+                                    text-decoration: none;
+                                    color: inherit;
+                                }
+                                img {
+                                    width: 24px;
+                                    height: 24px;
+                                    display: block;
+                                   
+                                }
+                            }
+
+                            .extras-title {
+                                font-size: 16px;
+                                line-height: 26px;
+                                font-family: "LatoRegular";
+                                color: #0F0F10;
+                                margin: 0;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                width: 100%;
+                                padding-right: 50px;
+                                img {
+                                    cursor: pointer;
+                                    position: absolute;
+                                    top: 50%;
+                                    right: 0px;
+                                    transform: translateY(-50%);
+                                    &.opened {
+                                        transform: translateY(-50%) scaleY(-1);
+                                    }
+                                }
+                            }
+                        }
+                        .options-list {
+                            margin: 0;
+                            padding-left: 0;
+                            list-style: none;
+                            padding-right: 50px;
+                            li {
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                + li {
+                                    margin-top: 3px;
+                                }
+                                 p {
+                                    color: #0F0F10;
+                                    font-size: 14px;
+                                    line-height: 22px;
+                                    font-family: "LatoRegular";
+                                    margin-bottom: 0;
+                                    text-transform: capitalize;
+                                    span {
+                                        color: #6D6D6D;
+                                        font-size: 12px;
+                                        line-height: 16px;
+                                        font-family: "LatoRegular";
                                     }
                                 }
                             }
@@ -554,9 +644,7 @@
                         }
                     }
                     .risk-free-banner {
-                        position: absolute;
-                        bottom: -65px;
-                        left: 0;
+                        
                         display: flex;
                         align-items: center;
                         justify-content: flex-start;
