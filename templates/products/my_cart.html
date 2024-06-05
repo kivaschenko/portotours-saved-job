@@ -145,7 +145,7 @@
                                                 Experience type
                                             </p>
                                             <p class="card-col-text">
-                                                {% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}
+                                                {% if object.parent_experience.is_private %}Private{% else %}Small Group{% endif %}
                                             </p>
                                             {% if object.child_count > 0 %}
                                                 {% if object.parent_experience.is_private %}
@@ -202,6 +202,40 @@
                                             {% endif %}
                                         </div>
                                     </div>
+                                    <div class="optional-extras-block">
+                                        <div class="title-wrapper">
+                                            <a href="{% url 'edit-product' object.pk %}" class="edit-extras-btn">
+                                                <img src="{% static 'icons/edit-extras-icon.svg' %}" alt="">
+                                            </a>
+                                            <h2 class="extras-title">
+                                                {% if object.options.all %}
+                                                    Optional 4 extras added to your experience:
+                                                    <span>€{{ object.optional.all|sum_prices }}</span> 
+                                                    <img src="{% static 'icons/options-arrow.svg' %}" alt="arrow">
+                                                {% else %}
+                                                No optional extras added to your experience
+                                                {% endif %}
+                                            </h2>
+                                        </div>
+                                        <ul class="options-list">
+                                            {% for item in object.options.all %}
+                                            {% if item.quantity > 0 %}
+                                                <li>
+                                                    <p>
+                                                        {{ item.quantity }} x {{ item.experience_option }}
+                                                        {% if item.experience_option.description %}
+                                                        <span>{{ item.experience_option.description }}</span>
+                                                        {% endif %}
+                                                    </p>
+                                                    <p>
+                                                        {% if item.price %}€{{ item.price }}{% else %}free{% endif %}
+                                                    </p>
+                                                    
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
                                     <div class="hover-block">
                                         <ul class="hover-block-btns-list">
                                             <li class="hover-block-item">
@@ -231,22 +265,7 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                                {% if object.options.all %}
-                                    <div class="option-extras">
-                                        <p class="card-col-text">Optional 4 extras added to your experience: €{{ object.optional.all|sum_prices }}</p>
-                                        <ul>
-                                            {% for item in object.options.all %}
-                                                {% if item.quantity > 0 %}
-                                                    <li>{{ item.quantity }} x {{ item.experience_option }}
-                                                        {% if item.experience_option.description %}
-                                                            <sm>{{ item.experience_option.description }}</sm>{% endif %}
-                                                        {% if item.price %}€{{ item.price }}{% else %}free{% endif %}
-                                                    </li>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                {% endif %}
+                               
                             </div>
                         {% endfor %}
                     </div>
@@ -447,6 +466,19 @@
                 items: itemsArray,
             }
         });
+    </script>
+    <script>
+        let cartCard = document.querySelectorAll('.cart-card');
+        cartCard.forEach((card) => {
+            let optionsWrapper = card.querySelector('.optional-extras-block')
+            let arrowIcon = card.querySelector('.extras-title img');
+            if (arrowIcon) {
+                arrowIcon.addEventListener('click', () => {
+                    arrowIcon.classList.toggle('opened');
+                    optionsWrapper.classList.toggle('opened');
+                })
+            }
+        })
     </script>
 
 {% endblock %}
