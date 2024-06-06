@@ -93,7 +93,11 @@
                                 </p>
                                 <div class="img-wrapper">
                                     <p class="card-img-badge">
+                                        {% if object.second_purchase_discount %}
+                                        {{ object.second_purchase_discount }}% discount
+                                        {% else %}
                                         {{ object.parent_experience.increase_percentage_old_price }}% discount
+                                        {% endif %}
                                     </p>
                                     <img src="{{ object.parent_experience.card_image.url }}" class="card-img"
                                          alt="card image preview for {{ object.parent_experience }}">

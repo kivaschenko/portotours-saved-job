@@ -13825,14 +13825,6 @@ html.off-scroll body {
         transition: 0.7s all;
         border-radius: 26px;
         overflow: hidden; }
-        @media (max-width: 767.98px) {
-          .blog-list .blog-cards-wrapper .blog-card .img-wrapper:hover a img.img-desktop {
-            display: none; } }
-        .blog-list .blog-cards-wrapper .blog-card .img-wrapper:hover a img.img-mobile {
-          display: none; }
-          @media (max-width: 767.98px) {
-            .blog-list .blog-cards-wrapper .blog-card .img-wrapper:hover a img.img-mobile {
-              display: block; } }
       .blog-list .blog-cards-wrapper .blog-card .img-wrapper a {
         display: block; }
       .blog-list .blog-cards-wrapper .blog-card .img-wrapper img {
@@ -13841,6 +13833,14 @@ html.off-scroll body {
         max-height: 400px;
         object-fit: cover;
         transition: 0.7s all; }
+        @media (max-width: 767.98px) {
+          .blog-list .blog-cards-wrapper .blog-card .img-wrapper img.img-desktop {
+            display: none; } }
+        .blog-list .blog-cards-wrapper .blog-card .img-wrapper img.img-mobile {
+          display: none; }
+          @media (max-width: 767.98px) {
+            .blog-list .blog-cards-wrapper .blog-card .img-wrapper img.img-mobile {
+              display: block; } }
     .blog-list .blog-cards-wrapper .blog-card .card-content-wrapper {
       padding: 20px; }
       @media (max-width: 767.98px) {
@@ -14410,6 +14410,9 @@ html.off-scroll body {
             width: 100%;
             height: 300px;
             object-fit: cover; }
+            @media (max-width: 767.98px) {
+              .cart .cart-cards-info .cart-card-col .cart-card .img-wrapper img {
+                height: 200px; } }
         .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper {
           width: calc(100% - 300px - 32px);
           position: relative;
@@ -14572,6 +14575,13 @@ html.off-scroll body {
             margin-bottom: 16px;
             max-height: 50px;
             overflow: hidden; }
+            @media (max-width: 767.98px) {
+              .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block {
+                border: none;
+                padding: 0;
+                max-height: 25px;
+                margin-bottom: 0;
+                border-radius: 0; } }
             .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block.opened {
               max-height: 100%; }
             .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .title-wrapper {
@@ -14580,6 +14590,9 @@ html.off-scroll body {
               justify-content: flex-start;
               position: relative;
               margin-bottom: 10px; }
+              @media (max-width: 767.98px) {
+                .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .title-wrapper {
+                  margin-bottom: 0; } }
               .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .title-wrapper .edit-extras-btn {
                 border: none;
                 margin-right: 15px;
@@ -14591,6 +14604,10 @@ html.off-scroll body {
                   width: 24px;
                   height: 24px;
                   display: block; }
+                  @media (max-width: 767.98px) {
+                    .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .title-wrapper .edit-extras-btn img {
+                      width: 18px;
+                      height: 18px; } }
               .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .title-wrapper .extras-title {
                 font-size: 16px;
                 line-height: 26px;
@@ -14602,6 +14619,10 @@ html.off-scroll body {
                 justify-content: space-between;
                 width: 100%;
                 padding-right: 50px; }
+                @media (max-width: 767.98px) {
+                  .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .title-wrapper .extras-title {
+                    font-size: 12px;
+                    line-height: 16px; } }
                 .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .title-wrapper .extras-title img {
                   cursor: pointer;
                   position: absolute;
@@ -14610,11 +14631,19 @@ html.off-scroll body {
                   transform: translateY(-50%); }
                   .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .title-wrapper .extras-title img.opened {
                     transform: translateY(-50%) scaleY(-1); }
+                  @media (max-width: 767.98px) {
+                    .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .title-wrapper .extras-title img {
+                      width: 18px;
+                      height: 18px; } }
             .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .options-list {
               margin: 0;
               padding-left: 0;
               list-style: none;
               padding-right: 50px; }
+              @media (max-width: 767.98px) {
+                .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .options-list {
+                  margin-top: 10px;
+                  padding-right: 0; } }
               .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .options-list li {
                 display: flex;
                 align-items: center;
@@ -14628,11 +14657,19 @@ html.off-scroll body {
                   font-family: "LatoRegular";
                   margin-bottom: 0;
                   text-transform: capitalize; }
+                  @media (max-width: 767.98px) {
+                    .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .options-list li p {
+                      width: 85%;
+                      font-size: 12px;
+                      line-height: 16px; } }
                   .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .options-list li p span {
                     color: #6D6D6D;
                     font-size: 12px;
                     line-height: 16px;
                     font-family: "LatoRegular"; }
+                  .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .optional-extras-block .options-list li p + p {
+                    width: 12%;
+                    text-align: left; }
           .cart .cart-cards-info .cart-card-col .cart-card .card-content-wrapper .hover-block {
             position: absolute;
             right: -20px;
@@ -15207,11 +15244,11 @@ html.off-scroll body {
       .empty-cart-wrapper .container .empty-cart-btn {
         width: 100%; } }
 .edit-cart-item-wrapper .container {
-  max-width: 760px;
   margin: 0 auto;
   padding-top: 40px;
   padding-bottom: 140px;
-  text-align: center; }
+  text-align: center;
+  max-width: 1210px; }
   @media (max-width: 767.98px) {
     .edit-cart-item-wrapper .container {
       width: 100%;
@@ -15262,7 +15299,7 @@ html.off-scroll body {
         .edit-cart-item-wrapper #editBookingForm .right-col .calendar-selection-title {
           margin-bottom: 8px; } }
   .edit-cart-item-wrapper #editBookingForm .left-col {
-    width: calc(100% - 365px - 32px); }
+    width: 365px; }
     @media (max-width: 767.98px) {
       .edit-cart-item-wrapper #editBookingForm .left-col {
         width: 100%; } }
@@ -15520,6 +15557,68 @@ html.off-scroll body {
       border: none;
       text-transform: uppercase;
       padding: 0; }
+  .edit-cart-item-wrapper #editBookingForm .optional-extras-col {
+    width: calc(100% - 365px - 365px - 120px); }
+    @media (max-width: 767.98px) {
+      .edit-cart-item-wrapper #editBookingForm .optional-extras-col {
+        width: 100%; } }
+    .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-title {
+      text-transform: capitalize;
+      text-align: left;
+      margin-bottom: 12px; }
+    .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-list {
+      padding-left: 0;
+      list-style: none;
+      margin: 0; }
+      .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-list li {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; }
+        .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-list li + li {
+          margin-top: 8px; }
+          @media (max-width: 767.98px) {
+            .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-list li + li {
+              margin-top: 10px; } }
+        .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-list li .extras-title {
+          font-family: "LatoRegular";
+          font-size: 14px;
+          line-height: 22px;
+          color: #0F0F10;
+          margin-bottom: 4px; }
+          .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-list li .extras-title span {
+            color: #6D6D6D;
+            font-size: 12px;
+            line-height: 16px; }
+        .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-list li .extras-input-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%; }
+          .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-list li .extras-input-wrapper .input-block {
+            display: flex;
+            align-items: center; }
+            .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-list li .extras-input-wrapper .input-block button {
+              border: none;
+              outline: none;
+              width: 18px;
+              height: 18px;
+              background: none;
+              padding: 0; }
+              .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-list li .extras-input-wrapper .input-block button img {
+                display: block; }
+            .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-list li .extras-input-wrapper .input-block input {
+              background: none;
+              border: none;
+              outline: none;
+              width: 26px;
+              margin: 0;
+              text-align: center; }
+          .edit-cart-item-wrapper #editBookingForm .optional-extras-col .extras-list li .extras-input-wrapper .price {
+            margin: 0;
+            font-family: "LatoRegular";
+            font-size: 14px;
+            line-height: 22px;
+            color: #0F0F10; }
 
 .we-accept-wrapper {
   position: absolute;
@@ -16707,3 +16806,5 @@ a {
       margin: 0 auto;
       display: block;
       text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */
