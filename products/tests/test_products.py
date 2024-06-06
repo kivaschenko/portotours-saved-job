@@ -6,7 +6,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from schedule.models import Calendar
 
-from products.models import Product, ParentExperience, ExperienceEvent, Language, Occurrence, MeetingPoint
+from products.models import Product, ParentExperience, ExperienceEvent, Language, Occurrence, ProductOption, ExperienceOption
 
 
 class TestProductLogic(TestCase):
@@ -365,6 +365,7 @@ class TestProductLogic(TestCase):
         self.assertEqual(cancelled_event.remaining_participants, 8)
         self.assertTrue(cancelled_occurrence.cancelled)
 
+
 # -------------------------
 # Fake booking products test
 
@@ -403,6 +404,20 @@ class TestFakeBookingProductLogic(TestCase):
         # calendars
         self.group_calendar = Calendar.objects.get_calendars_for_object(self.group_parent_experience).first()
         self.private_calendar = Calendar.objects.get_calendars_for_object(self.private_parent_experience).first()
+
+        self.option_first = ExperienceOption.objects.create(
+            name='test_option_first',
+            price=Decimal('5.00'),
+        )
+        self.option_second = ExperienceOption.objects.create(
+            name='test_option_second',
+            price=Decimal('10.00'),
+        )
+        self.option_unused = ExperienceOption.objects.create(
+            name='test_option_unused',
+            price=Decimal('3.00'),
+        )
+
 
     def test_create_group_product_without_booking_post(self):
         tomorrow = datetime.utcnow() + timedelta(days=1)
@@ -706,3 +721,90 @@ class TestFakeBookingProductLogic(TestCase):
             Product.objects.get(pk=product.pk)
         with self.assertRaises(Occurrence.DoesNotExist):
             Occurrence.objects.get(pk=occur_pk)
+
+    def test_create_group_product_with_options_but_without_booking_post(self):
+        tomorrow = datetime.utcnow() + timedelta(days=1)
+        end_date = tomorrow + timedelta(hours=1)
+        tomorrow_group_event = ExperienceEvent.objects.create(
+            title='Test Group Event',
+            start=tomorrow,
+            end=end_date,
+            special_price=Decimal('50.00'),
+            child_special_price=Decimal('25.00'),
+            calendar=self.group_calendar,
+        )
+        data = {
+            'adults': 2,
+            'children': 1,
+            'language_code': 'EN',
+            'customer_id': 1,
+            'session_key': 'session123',
+            'event_id': tomorrow_group_event.id,
+            'parent_experience_id': self.group_parent_experience.id,
+            'options': [
+                {'id': self.option_first.id, 'quantity': 1, 'price': float(self.option_first.price)},
+                {'id': self.option_second.id, 'quantity': 2, 'price': float(self.option_second.price)},
+            ],
+        }
+        response = self.client.post(reverse('create-group-product-without-booking'),
+                                    data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(Product.objects.count(), 1)
+        new_product = Product.objects.first()
+        self.assertEqual(new_product.start_datetime.replace(tzinfo=None), tomorrow.replace(tzinfo=None))
+        self.assertEqual(str(new_product.adults_price), "50.00")
+        self.assertEqual(new_product.adults_count, 2)
+        self.assertEqual(str(new_product.child_price), "25.00")
+        self.assertEqual(new_product.stripe_price, 12500)
+        self.assertEqual(new_product.child_count, 1)
+        self.assertEqual(new_product.status, 'Pending')
+        self.assertEqual(Occurrence.objects.count(), 1)
+        product_options = new_product.options.all().order_by('quantity')
+        self.assertEqual(len(product_options), 2)
+        self.assertEqual(product_options.first().quantity, 1)
+        self.assertEqual(product_options.first().total_sum, 5.00)
+        self.assertEqual(product_options.last().quantity, 2)
+        self.assertEqual(product_options.last().total_sum, 20.00)
+
+    def test_create_group_product_without_booking_get(self):
+        response = self.client.get(reverse('create-product'))
+        self.assertEqual(response.status_code, 405)
+
+    def test_all_group_actual_events(self):
+        yesterday = datetime.utcnow() - timedelta(days=1)
+        end_yesterday = yesterday + timedelta(hours=1)
+        tomorrow = datetime.utcnow() + timedelta(days=1)
+        end_date = tomorrow + timedelta(hours=1)
+        yesterday_group_event = ExperienceEvent.objects.create(
+            title='Test Yesterday Group Event',
+            start=yesterday,
+            end=end_yesterday,
+            special_price=Decimal('49.99'),
+            child_special_price=Decimal('24.99'),
+            calendar=self.group_calendar,
+        )
+        tomorrow_group_event = ExperienceEvent.objects.create(
+            title='Test Group Event',
+            start=tomorrow,
+            end=end_date,
+            special_price=Decimal('50.00'),
+            child_special_price=Decimal('25.00'),
+            calendar=self.group_calendar,
+        )
+        tomorrow_group_event_2 = ExperienceEvent.objects.create(
+            title='Test Group Event 2',
+            start=tomorrow,
+            end=end_date,
+            special_price=Decimal('67.99'),
+            child_special_price=Decimal('33.99'),
+            calendar=self.group_calendar,
+        )
+        response = self.client.get(reverse('actual-experience-events', args=[self.group_parent_experience.id]))
+        self.assertEqual(response.status_code, 200)
+        result = response.json()['result']
+        self.assertEqual(result['languages'], ['EN', 'ES', 'FR'])
+        current_date = datetime.today().date()
+        for event in result['events']:
+            date_string = event['date']
+            date_object = datetime.strptime(date_string, '%Y-%m-%d').date()
+            self.assertGreaterEqual(date_object, current_date)
