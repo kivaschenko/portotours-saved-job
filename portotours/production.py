@@ -18,6 +18,7 @@ ALLOWED_HOSTS = [*os.environ.get("ALLOWED_HOSTS").split(',')]
 # ALLOWED_HOSTS += ['localhost', '127.0.0.1', '[::1]']
 BASE_ENDPOINT = os.environ.get('BASE_ENDPOINT')
 INSTALLED_APPS = [
+    # 'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.gis',

@@ -1,6 +1,7 @@
 from django.contrib.sessions.models import Session
 from django.db import transaction
 from django.db.models import Sum, ExpressionWrapper, F, DurationField
+from django.db.models.functions.text import Concat
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
@@ -184,6 +185,16 @@ class ExperienceDetailView(DetailView):
         obj = super(ExperienceDetailView, self).get_object(queryset=queryset)
         self.extra_context['approved_reviews_count'] = obj.review_set.filter(approved=True).count()
         self.extra_context['current_language'] = obj.language.code.lower()
+
+        # Get options for current Experience
+        options_dict = {}
+        options = obj.parent_experience.allowed_options.all()
+        if options:
+            for option in options:
+                temp = {'name': option.name, 'description': option.description, 'price': option.price}
+                options_dict.update({option.id: temp})
+        self.extra_context['options'] = options_dict
+
         # find all other languages
         brothers = obj.parent_experience.child_experiences.all()
         # create local urls
@@ -290,6 +301,13 @@ class ProductCartView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
         else:
             # Set last_created_at to None if queryset is empty
             context['last_created_at'] = False
+
+        # Annotate each Product with the sum of the total_sum of its options
+        products_with_total_sum = queryset.annotate(total_sum=Sum('options__total_sum'))
+        # Calculate the sum of all products' total_sum
+        overall_total_sum = products_with_total_sum.aggregate(overall_sum=Sum('total_sum'))
+        context['optional_extras'] = overall_total_sum['overall_sum'] or 0
+
         context['product_ids'] = [product.pk for product in queryset]
         context['old_price_sum'] = queryset.aggregate(old_price_sum=Sum('old_total_price'))['old_price_sum'] or 0
         context['total_price_sum'] = queryset.aggregate(total_price_sum=Sum('total_price'))['total_price_sum'] or 0

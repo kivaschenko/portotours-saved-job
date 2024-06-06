@@ -115,7 +115,8 @@ class CheckboxSelectMultipleField(ModelMultipleChoiceField):
         self.widget = CheckboxSelectMultiple()
 
 
-class LanguageCategoryModelForm(ModelForm):
+class OptionLanguageCategoryModelForm(ModelForm):
+    allowed_options = CheckboxSelectMultipleField(queryset=ExperienceOption.active.all())
     allowed_languages = CheckboxSelectMultipleField(queryset=Language.objects.all())
     categories = CheckboxSelectMultipleField(queryset=ExperienceCategory.objects.all())
 
@@ -127,7 +128,7 @@ class LanguageCategoryModelForm(ModelForm):
 
 @admin.register(ParentExperience)
 class ParentExperienceAdmin(admin.ModelAdmin):
-    form = LanguageCategoryModelForm
+    form = OptionLanguageCategoryModelForm
     exclude = ['updated_at', 'slug', 'meeting_point', 'drop_point', 'use_child_discount', 'use_auto_increase_old_price']
     list_display = ['id', 'parent_name', 'currency', 'price', 'old_price', 'child_price', 'child_old_price', 'second_purchase_discount',
                     'max_participants', 'is_private', 'is_exclusive', 'priority_number', 'show_on_home_page', 'rating', 'is_hot_deals']
@@ -177,6 +178,12 @@ class ExperienceAdmin(admin.ModelAdmin):
     list_per_page = 20
 
 
+class ProductOptionInline(admin.TabularInline):
+    model = ProductOption
+    extra = 0
+    list_display = ['experience_option', 'price', 'quantity', 'total_sum']
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = [
@@ -201,6 +208,7 @@ class ProductAdmin(admin.ModelAdmin):
                        'random_order_number', 'reported', 'created_at',
                        'session_key', 'expired_time']
     list_per_page = 20
+    inlines = [ProductOptionInline]
 
 
 class ExperienceEventInline(admin.TabularInline):
@@ -276,3 +284,11 @@ class ExperienceOccurrenceAdmin(admin.ModelAdmin):
             if product.customer is not None:
                 return product.customer
         return None
+
+
+@admin.register(ExperienceOption)
+class ExperienceOptionAdmin(admin.ModelAdmin):
+    readonly_fields = ('updated_at',)
+    list_display = ['id', 'name', 'price', 'language', 'priority_number', 'is_active']
+    list_filter = ('name', 'language', 'is_active')
+    list_per_page = 20

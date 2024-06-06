@@ -400,6 +400,30 @@
         });
     </script>
     <script>
+        let experienceCardList = document.querySelector('.best-tours-cards-wrapper')
+        let experienceCardListItems = experienceCardList.querySelectorAll('.best-tours-card');
+        experienceCardListItems.forEach((item) => {
+            let averageRating = item.querySelector('.rating-num').textContent;
+            if (averageRating) {
+                function fillStars(rating) {
+                    const iconWrappers = item.querySelectorAll('.icon-wrapper');
+                    const filledStars = Math.floor(rating);
+                    const fraction = rating - filledStars;
+                    iconWrappers.forEach((iconWrapper, index) => {
+                        if (index < filledStars) {
+                            iconWrapper.querySelector('.star').classList.add('filled');
+                        } else if (index === filledStars) {
+                            iconWrapper.style.setProperty('--fraction', fraction);
+                            iconWrapper.classList.add('partial-fill');
+                        }
+                    });
+                }
+
+                fillStars(averageRating);
+            }
+        });
+    </script>
+    <script>
         const dateInput = document.getElementById('id_date');
 
         const today = new Date();

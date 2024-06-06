@@ -218,6 +218,17 @@
             transition: 0.7s all;
             border-radius: 26px;
             overflow: hidden;
+            &.img-desktop {
+              @include media-breakpoint-down(md) {
+                display: none;
+              }
+            }
+            &.img-mobile {
+              display: none;
+              @include media-breakpoint-down(md) {
+                display: block;
+              }
+            }
           }
         }
         a {
@@ -315,6 +326,17 @@
       width: 100%;
       height: 100%;
       z-index: -1;
+      &.img-desktop {
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
+      }
+      &.img-mobile {
+        display: none;
+        @include media-breakpoint-down(md) {
+          display: block;
+        }
+      }
     }
     .blog-detail-hero-title {
       color: var(--text-color-second);

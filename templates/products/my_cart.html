@@ -5,6 +5,7 @@
     <!-- End Navbar -->
 {% endblock %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}
     My Cart
@@ -144,7 +145,7 @@
                                                 Experience type
                                             </p>
                                             <p class="card-col-text">
-                                                {% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}
+                                                {% if object.parent_experience.is_private %}Private{% else %}Small Group{% endif %}
                                             </p>
                                             {% if object.child_count > 0 %}
                                                 {% if object.parent_experience.is_private %}
@@ -169,6 +170,9 @@
                                                 <div class="">
                                                     <p class="card-col-title">
                                                         <img src="{% static 'icons/info-icon-cart.svg' %}" alt="">
+                                                        <span class="special-price-text">
+                                                            Your experience reservation has earned extra discount from One Day Tours Portugal.
+                                                        </span>
                                                         Special price
                                                     </p>
                                                     <p class="card-col-text">
@@ -198,6 +202,40 @@
                                             {% endif %}
                                         </div>
                                     </div>
+                                    <div class="optional-extras-block">
+                                        <div class="title-wrapper">
+                                            <a href="{% url 'edit-product' object.pk %}" class="edit-extras-btn">
+                                                <img src="{% static 'icons/edit-extras-icon.svg' %}" alt="">
+                                            </a>
+                                            <h2 class="extras-title">
+                                                {% if object.options.all %}
+                                                    Optional 4 extras added to your experience:
+                                                    <span>€{{ object.optional.all|sum_prices }}</span> 
+                                                    <img src="{% static 'icons/options-arrow.svg' %}" alt="arrow">
+                                                {% else %}
+                                                No optional extras added to your experience
+                                                {% endif %}
+                                            </h2>
+                                        </div>
+                                        <ul class="options-list">
+                                            {% for item in object.options.all %}
+                                            {% if item.quantity > 0 %}
+                                                <li>
+                                                    <p>
+                                                        {{ item.quantity }} x {{ item.experience_option }}
+                                                        {% if item.experience_option.description %}
+                                                        <span>{{ item.experience_option.description }}</span>
+                                                        {% endif %}
+                                                    </p>
+                                                    <p>
+                                                        {% if item.price %}€{{ item.price }}{% else %}free{% endif %}
+                                                    </p>
+                                                    
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
                                     <div class="hover-block">
                                         <ul class="hover-block-btns-list">
                                             <li class="hover-block-item">
@@ -208,7 +246,8 @@
                                             </li>
                                             <li class="hover-block-item">
                                                 <a href="{% url 'delete-product' object.pk %}">
-                                                    <img src="{% static 'icons/cart-remove-icon.svg' %}" alt="remove">
+                                                    <img class="default-img" src="{% static 'icons/cart-remove-icon.svg' %}" alt="remove">
+                                                    <img class="red-img" src="{% static 'icons/red-trash-icon.svg' %}" alt="remove">
                                                     <span>Delete</span>
                                                 </a>
                                             </li>
@@ -226,6 +265,7 @@
                                         </div>
                                     {% endif %}
                                 </div>
+                               
                             </div>
                         {% endfor %}
                     </div>
@@ -237,6 +277,13 @@
                                 €{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %}
                             </span>
                             </p>
+                            {% if optional_extras %}
+                            <p class="price">
+                                Optional extras
+                                <span>
+                                €{{ optional_extras }}
+                            </p>
+                            {% endif %}
                             <p class="price">
                                 Processing fees
                                 <span>
@@ -273,6 +320,9 @@
                             </p>
                             <div class="price-match-banner">
                                 <img src="{% static 'icons/info-icon.svg' %}" alt="info icon">
+                                <p class="hidden-text">
+                                    If you find a better price on any similar product available from another travel company operating in Portugal, we'll be happy to match it!
+                                </p>
                                 We price match. Find it for less, and we’ll match it!
                             </div>
                             <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
@@ -416,6 +466,19 @@
                 items: itemsArray,
             }
         });
+    </script>
+    <script>
+        let cartCard = document.querySelectorAll('.cart-card');
+        cartCard.forEach((card) => {
+            let optionsWrapper = card.querySelector('.optional-extras-block')
+            let arrowIcon = card.querySelector('.extras-title img');
+            if (arrowIcon) {
+                arrowIcon.addEventListener('click', () => {
+                    arrowIcon.classList.toggle('opened');
+                    optionsWrapper.classList.toggle('opened');
+                })
+            }
+        })
     </script>
 
 {% endblock %}
