@@ -179,7 +179,31 @@
 
     <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
     <div class="elfsight-app-b438fb34-232c-48eb-905c-988c0575c85a" data-elfsight-app-lazy></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                // Assuming you have some initialization logic here
+                elfsightWidgetInit(); // Replace with actual initialization code
+            } catch (error) {
+                if (error.message.includes("APP_VIEWS_LIMIT_REACHED")) {
+                    console.error("Widget initialization failed: Views limit reached. Please upgrade your plan.");
+                } else {
+                    console.error("Widget initialization failed:", error);
+                }
+            }
+        });
 
+        function elfsightWidgetInit() {
+            // Example of initialization logic, replace with actual code
+            const widgetDiv = document.querySelector('.elfsight-app-b438fb34-232c-48eb-905c-988c0575c85a');
+            if (widgetDiv) {
+                // Your widget initialization code goes here
+                console.log('Initializing Elfsight widget...');
+            } else {
+                throw new Error('Widget element not found');
+            }
+        }
+    </script>
 
 <script>
     // Here functions for complex navigation links with query params
