@@ -23,10 +23,10 @@
         </div>
         <div class="calendar-grid" id="calendarGrid"></div>
     </div>
-    
+
     <div class="time-selection"></div>
     <div class="ticket-selection">
-        
+
         <div class="ticket-type">
             <p class="ticket-type-title">Adults</p>
             <button class="decrement" type="button">
@@ -55,7 +55,7 @@
         </div>
     </div>
 
-    
+
     <div class="language-selection">
         <div class="input-wrapper" id="lang_PT" style="display: none">
             <input type="radio" id="lang1" name="language" value="PT">
@@ -82,6 +82,19 @@
             </label>
         </div>
     </div>
+
+    <!-- Form for options -->
+    <p>Add optional extras to your experience</p>
+    {% for option in options %}
+    <div class="form-group">
+        <label for="option_{{ option.id }}">{{ option.name }}</label>
+        <div class="quantity">
+            <button type="button" class="btn-decrement" onclick="controller.changeOptionQuantity({{ option.id }}, -1)">-</button>
+            <input type="number" id="option_{{ option.id }}" name="option_{{ option.id }}" value="{{ option.quantity }}" readonly>
+            <button type="button" class="btn-increment" onclick="controller.changeOptionQuantity({{ option.id }}, 1)">+</button>
+        </div>
+    </div>
+    {% endfor %}
 
     <button type="submit" class="btn-type-1" id="submitBtn">add to cart</button>
     <p class="free-canc-text">

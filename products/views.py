@@ -187,13 +187,14 @@ class ExperienceDetailView(DetailView):
         self.extra_context['current_language'] = obj.language.code.lower()
 
         # Get options for current Experience
-        options_dict = {}
+        options_list = []
         options = obj.parent_experience.allowed_options.all()
         if options:
             for option in options:
-                temp = {'name': option.name, 'description': option.description, 'price': option.price}
-                options_dict.update({option.id: temp})
-        self.extra_context['options'] = options_dict
+                temp = {'id': option.id, 'name': option.name, 'description': option.description, 'price': float(option.price), 'quantity': 0}
+                options_list.append(temp)
+                print(options_list)
+        self.extra_context['options'] = options_list
 
         # find all other languages
         brothers = obj.parent_experience.child_experiences.all()
@@ -203,7 +204,6 @@ class ExperienceDetailView(DetailView):
                 lang = brother.language.code.lower()
                 url = brother.localized_url
                 self.extra_context['languages'].update({lang: url})
-        datalayer_items = []
         return obj
 
     def get(self, request, *args, **kwargs):
@@ -314,6 +314,7 @@ class ProductCartView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         context['total_second_discount'] = Product.aggregate_total_second_discount(self.request.session.session_key)
         context['discounted_price_sum'] = round(context['old_price_sum'] - context['total_price_sum'], 2) - context['total_second_discount']
+        context['total_price_sum'] += context['optional_extras']
         return context
 
 
@@ -755,6 +756,7 @@ def create_group_product_without_booking(request):
         session_key = data.get('session_key')
         event_id = data.get('event_id')
         parent_experience_id = data.get('parent_experience_id')
+        options = data.get('options', False)
         # Get ExperienceEvent obj
         exp_event = ExperienceEvent.objects.get(id=event_id)
         # Get language
@@ -786,6 +788,17 @@ def create_group_product_without_booking(request):
         occurrence.save()
         new_product.occurrence = occurrence
         new_product.save()
+
+        # Check options extras
+        if options:
+            for item in options:
+                ProductOption.objects.create(
+                    product=new_product,
+                    experience_option_id=item['id'],
+                    quantity=item['quantity'],
+                    price=item['price'],
+                )
+
         data = {
             'tourName': new_product.full_name,
             'tourInfo': [
@@ -794,6 +807,9 @@ def create_group_product_without_booking(request):
                 f'{new_product.adults_count} Adult',
                 f'{new_product.child_count} Children',
                 new_product.language.name,
+            ],
+            'options': [
+                f'{option.experience_option.name} x {option.quantity} = {option.total_sum}' for option in new_product.options.filter(quantity__gt=0)
             ],
             'message': 'Product created successfully'
         }

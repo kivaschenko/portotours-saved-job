@@ -10,6 +10,7 @@ const model = {
         'session_key': sessionKey, // from page scope
         'event_id': null,
         'parent_experience_id': parentExperienceId, // from page scope
+        'options': optionExtras,
     },
     'selectedDate': null,
     'googleItems': Object.assign(
@@ -178,6 +179,14 @@ const view = {
             adultTotalPriceElement.textContent = `€${totalAdultPrice.toFixed(2)}`;
             childTotalPriceElement.textContent = `€${totalChildPrice.toFixed(2)}`;
         }
+    },
+    
+    // Function to update the quantity display for an option
+    updateOptionQuantityDisplay: function (optionId, quantity) {
+        const input = document.getElementById(`option_${optionId}`);
+        if (input) {
+            input.value = quantity;
+        }
     }
 };
 
@@ -283,7 +292,6 @@ const controller = {
             })
         })
     },
-
 
     updateTotalPrice: function () {
         // Find the selected date and time
@@ -430,6 +438,7 @@ const controller = {
             controller.handleTimeSelection()
         }
     },
+
     performValidation: function () {
         const selectedDateElement = document.querySelector('.calendar-day.selected-date');
         const selectedTimeInput = document.querySelector('input[name="time"]:checked');
@@ -466,6 +475,16 @@ const controller = {
             return;
         }
     },
+    
+    // Function to change the quantity of an option
+    changeOptionQuantity: function (optionId, amount) {
+        const option = model.bookingData.options.find(opt => opt.id === optionId);
+        if (option) {
+            option.quantity = Math.max(0, option.quantity + amount);
+            view.updateOptionQuantityDisplay(optionId, option.quantity);
+        }
+    },
+    
     // Function to update the model booking data
     updateBookingData: function () {
         // Get the selected date and time

@@ -210,7 +210,7 @@
                                             <h2 class="extras-title">
                                                 {% if object.options.all %}
                                                     Optional 4 extras added to your experience:
-                                                    <span>€{{ object.optional.all|sum_prices }}</span> 
+                                                    <span>€{{ object.options.all|sum_prices }}</span> 
                                                     <img src="{% static 'icons/options-arrow.svg' %}" alt="arrow">
                                                 {% else %}
                                                 No optional extras added to your experience
@@ -230,7 +230,6 @@
                                                     <p>
                                                         {% if item.price %}€{{ item.price }}{% else %}free{% endif %}
                                                     </p>
-                                                    
                                                 </li>
                                             {% endif %}
                                         {% endfor %}
