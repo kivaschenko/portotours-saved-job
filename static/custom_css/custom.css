@@ -10883,6 +10883,12 @@ html.off-scroll body {
     .attraction-hero .container {
       padding-top: 24px;
       padding-bottom: 24px; } }
+  .attraction-hero .container .attraction-hero-title {
+    font-size: 44px;
+    line-height: 56px;
+    text-transform: capitalize;
+    margin-top: 0;
+    margin-bottom: 40px; }
   .attraction-hero .container p {
     text-align: left;
     margin-bottom: 16px;
@@ -12807,10 +12813,7 @@ html.off-scroll body {
                       transform: none; } }
     .experience-info .container .experience-info-inner-wrapper .aside-form {
       width: 445px;
-      position: relative;
-      position: sticky;
-      left: 0;
-      top: 50px; }
+      position: relative; }
       @media (max-width: 767.98px) {
         .experience-info .container .experience-info-inner-wrapper .aside-form {
           display: none; } }
@@ -13072,7 +13075,7 @@ html.off-scroll body {
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection-title {
             margin-bottom: 12px; }
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .language-selection {
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -13120,7 +13123,7 @@ html.off-scroll body {
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm #submitBtn {
             width: 100%;
             display: block;
-            margin: 0 auto; }
+            margin: 20px auto 0; }
             .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm #submitBtn:disabled {
               background-color: #FBCAB6; }
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .free-canc-text {
@@ -13131,6 +13134,79 @@ html.off-scroll body {
             text-align: center;
             margin-top: 10px;
             margin-bottom: 0; }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            cursor: pointer; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-title-wrapper.opened img.close {
+              display: block; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-title-wrapper.opened img.open {
+              display: none; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-title-wrapper img {
+              margin-right: 12px;
+              width: 24px;
+              height: 24px;
+              display: block; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-title-wrapper img.close {
+                display: none; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-title-wrapper p {
+              font-family: "LatoRegular";
+              font-size: 16px;
+              line-height: 26px;
+              color: #0F0F10;
+              margin: 0; }
+          .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper {
+            margin-top: 14px;
+            display: none; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper.opened {
+              display: block; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group {
+              display: flex;
+              flex-direction: column; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group + .form-group {
+                margin-top: 6px; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group label {
+                font-size: 14px;
+                line-height: 22px;
+                font-family: "LatoRegular";
+                margin-bottom: 4px; }
+              .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group .count-price-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group .count-price-wrapper .quantity {
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-start; }
+                  .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group .count-price-wrapper .quantity button {
+                    border: none;
+                    outline: none;
+                    width: 18px;
+                    height: 18px;
+                    background: none;
+                    padding: 0; }
+                    .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group .count-price-wrapper .quantity button img {
+                      display: block; }
+                      .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group .count-price-wrapper .quantity button img.disabled {
+                        display: none; }
+                  .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group .count-price-wrapper .quantity input {
+                    background: none;
+                    border: none;
+                    outline: none;
+                    width: 26px;
+                    margin: 0;
+                    text-align: center;
+                    font-size: 14px;
+                    line-height: 22px;
+                    color: #0F0F10;
+                    padding: 0; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group .count-price-wrapper .price {
+                  font-size: 14px;
+                  line-height: 22px;
+                  font-family: "LatoRegular";
+                  color: #0f0f10;
+                  margin: 0; }
 
 .mobile-form-btn-wrapper {
   display: none; }
@@ -16806,3 +16882,5 @@ a {
       margin: 0 auto;
       display: block;
       text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */
