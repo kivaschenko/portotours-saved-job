@@ -810,7 +810,10 @@ class Product(models.Model):
     @property
     def second_purchase_discount(self):
         if self.price_is_special:
-            return self.parent_experience.second_purchase_discount
+            if self.parent_experience.is_private:
+                return self.parent_experience.second_purchase_discount
+            else:
+                return self.parent_experience.second_purchase_discount * self.adults_count
         else:
             return 0
 
@@ -836,6 +839,10 @@ class Product(models.Model):
     @staticmethod
     def get_first_product(session_key):
         return Product.pending.filter(session_key=session_key).order_by('created_at').first()
+
+    @property
+    def number_added_options(self):
+        return self.options.filter(quantity__gt=0).count()
 
 
 def generate_random_code():
