@@ -218,17 +218,7 @@
             transition: 0.7s all;
             border-radius: 26px;
             overflow: hidden;
-            &.img-desktop {
-              @include media-breakpoint-down(md) {
-                display: none;
-              }
-            }
-            &.img-mobile {
-              display: none;
-              @include media-breakpoint-down(md) {
-                display: block;
-              }
-            }
+            
           }
         }
         a {
@@ -241,6 +231,17 @@
           max-height: 400px;
           object-fit: cover;
           transition: 0.7s all;
+          &.img-desktop {
+            @include media-breakpoint-down(md) {
+              display: none;
+            }
+          }
+          &.img-mobile {
+            display: none;
+            @include media-breakpoint-down(md) {
+              display: block;
+            }
+          }
         }
       }
       .card-content-wrapper {

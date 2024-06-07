@@ -201,9 +201,15 @@
                                             We have only {{ object.remaining_participants }} left at this price
                                         </span>
                                     {% else %}
+                                        {% if object.parent_experience.applied_discount %}
+                                        <span>
+                                            {{ object.parent_experience.applied_discount }}% discount
+                                        </span>
+                                        {% else %}
                                         <span>
                                             {{ object.parent_experience.increase_percentage_old_price }}% discount
                                         </span>
+                                        {% endif %}
                                     {% endif %}
                                 </div>
 
