@@ -1694,10 +1694,6 @@
       .aside-form {
         width: 445px;
         position: relative;
-        position: sticky;
-        left: 0;
-        top: 50px;
-        
         @include media-breakpoint-down(md) {
           display: none;
         }
@@ -2032,7 +2028,7 @@
               margin-bottom: 12px;
             }
             .language-selection {
-              margin-bottom: 24px;
+              margin-bottom: 16px;
               display: flex;
               align-items: center;
               justify-content: flex-start;
@@ -2100,7 +2096,7 @@
             #submitBtn {
               width: 100%;
               display: block;
-              margin: 0 auto;
+              margin: 20px auto 0;
               &:disabled {
                 background-color: #FBCAB6;
               }
@@ -2113,6 +2109,101 @@
               text-align: center;
               margin-top: 10px;
               margin-bottom: 0;
+            }
+            .options-title-wrapper {
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              cursor: pointer;
+              &.opened {
+                img.close {
+                  display: block;
+                }
+                img.open {
+                  display: none;
+                }
+              }
+              img {
+                margin-right: 12px;
+                width: 24px;
+                height: 24px;
+                display: block;
+                &.close {
+                  display: none;
+                }
+              }
+              p {
+                font-family: "LatoRegular";
+                  font-size: 16px;
+                  line-height: 26px;
+                  color: #0F0F10;
+                  margin: 0;
+
+              }
+            }
+            .options-inputs-wrapper {
+              margin-top: 14px;
+              display: none;
+              &.opened {
+                display: block;
+              }
+              .form-group {
+                display: flex;
+                flex-direction: column;
+                + .form-group {
+                  margin-top: 6px;
+                }
+                label {
+                  font-size: 14px;
+                  line-height: 22px;
+                  font-family: "LatoRegular";
+                  margin-bottom: 4px;
+                }
+                .count-price-wrapper {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  .quantity {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    button {
+                      border: none;
+                      outline: none;
+                      width: 18px;
+                      height: 18px;
+                      background: none;
+                      padding: 0;
+                      img {
+                        display: block;
+                        &.disabled {
+                          display: none;
+                        }
+                      }
+                    }
+                    input {
+                      background: none;
+                      border: none;
+                      outline: none;
+                      width: 26px;
+                      margin: 0;
+                      text-align: center;
+                      font-size: 14px;
+                      line-height: 22px;
+                      color: #0F0F10;
+                      padding: 0;
+                    }
+                  }
+                  .price {
+                    font-size: 14px;
+                    line-height: 22px;
+                    font-family: "LatoRegular";
+                    color: #0f0f10;
+                    margin: 0;
+                  }
+                }
+                
+              }
             }
           }
         }

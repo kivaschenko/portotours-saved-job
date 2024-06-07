@@ -328,8 +328,13 @@ const controller = {
                     childTotalPriceElement.textContent = `€${totalChildPrice.toFixed(2)}`;
                 }
 
+                let totalOptionPrice = 0;
+                model.bookingData.options.forEach(option => {
+                    totalOptionPrice += option.price * option.quantity;
+                });
+
                 // Update submit button text
-                const totalPrice = totalAdultPrice + totalChildPrice;
+                const totalPrice = totalAdultPrice + totalChildPrice + totalOptionPrice;
 
                 // Update price in Google data
                 model.googleItems.price = totalPrice;
@@ -479,10 +484,18 @@ const controller = {
     // Function to change the quantity of an option
     changeOptionQuantity: function (optionId, amount) {
         const option = model.bookingData.options.find(opt => opt.id === optionId);
+        const price = document.getElementById(`option_price_${optionId}`);
+        
         if (option) {
             option.quantity = Math.max(0, option.quantity + amount);
             view.updateOptionQuantityDisplay(optionId, option.quantity);
+            if (option.price > 0) {
+                price.innerHTML = `€${option.price * option.quantity}`
+            } else {
+                price.innerHTML = 'FREE'
+            }
         }
+        controller.updateTotalPrice();
     },
     
     // Function to update the model booking data
@@ -579,6 +592,8 @@ function closePopup() {
     const popupWrapper = document.querySelector('.upsale-popup-wrapper');
     popupWrapper.classList.remove('opened');
 }
+
+
 
 // Function to fill popup data
 function fillPopupData(data) {
@@ -687,6 +702,15 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 });
+
+
+
+let optionsWrapper = document.querySelector('.options-inputs-wrapper');
+let optionsTitle = document.querySelector('.options-title-wrapper');
+optionsTitle.addEventListener('click', () => {
+    optionsWrapper.classList.toggle('opened')
+    optionsTitle.classList.toggle('opened')
+})
 
 
 // -----------

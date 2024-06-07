@@ -318,8 +318,14 @@ const controller = {
                 // update quantity for Google data
                 model.googleItems.quantity = adultCount + childCount;
 
+
+                let totalOptionPrice = 0;
+                model.bookingData.options.forEach(option => {
+                    totalOptionPrice += option.price * option.quantity;
+                });
+
                 // Update submit button text
-                const totalPrice = selectedEvent.total_price;
+                const totalPrice = selectedEvent.total_price + totalOptionPrice;
 
                 // Update price in Google data
                 model.googleItems.price = totalPrice;
@@ -470,10 +476,18 @@ const controller = {
     // Function to change the quantity of an option
     changeOptionQuantity: function (optionId, amount) {
         const option = model.bookingData.options.find(opt => opt.id === optionId);
+        const price = document.getElementById(`option_price_${optionId}`);
+        
         if (option) {
             option.quantity = Math.max(0, option.quantity + amount);
             view.updateOptionQuantityDisplay(optionId, option.quantity);
+            if (option.price > 0) {
+                price.innerHTML = `€${option.price * option.quantity}`
+            } else {
+                price.innerHTML = 'FREE'
+            }
         }
+        controller.updateTotalPrice();
     },
 
     // Function to update the model booking data
@@ -675,6 +689,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     
 
 });
+
+
+let optionsWrapper = document.querySelector('.options-inputs-wrapper');
+let optionsTitle = document.querySelector('.options-title-wrapper');
+optionsTitle.addEventListener('click', () => {
+    optionsWrapper.classList.toggle('opened')
+    optionsTitle.classList.toggle('opened')
+})
 
 
 // -----------
