@@ -893,6 +893,7 @@ def update_group_product_without_booking(request):
             for item in options:
                 product_option = ProductOption.objects.get(product=product, experience_option__id=item['id'])
                 product_option.quantity = item['quantity']
+                product_option.total_sum = item['quantity'] * product_option.price
                 product_option.save()
 
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
@@ -1036,6 +1037,7 @@ def update_private_product_without_booking(request):
             for item in options:
                 product_option = ProductOption.objects.get(product=product, experience_option__id=item['id'])
                 product_option.quantity = item['quantity']
+                product_option.total_sum = item['quantity'] * product_option.price
                 product_option.save()
 
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
