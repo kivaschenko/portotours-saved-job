@@ -8,6 +8,7 @@ const model = {
         'language_code': null,
         'event_id': null,
         'product_id': productId, // from page scope
+        'options': optionExtras,  // from page scope
     },
     'selectedDate': null,
     'current_event': {},
@@ -58,6 +59,7 @@ const view = {
         const childTotalPrice = productData.childCount * productData.childPrice;
         document.getElementById('childTotalPrice').textContent = '€' + childTotalPrice.toFixed(2);
         document.getElementById("adultTotalPrice").textContent = '€' + adultTotalPrice.toFixed(2);
+
     },
 
     // Check if model.languages exists and is an array before proceeding
@@ -206,6 +208,22 @@ const view = {
             childTotalPriceElement.textContent = `€${totalChildPrice.toFixed(2)}`;
         }
     },
+
+    // Function to update the quantity display for an option
+    updateOptionQuantityDisplay: function (optionId, quantity) {
+        const input = document.getElementById(`option_${optionId}`);
+        if (input) {
+            input.value = quantity;
+        }
+    },
+
+    // First seed for options from model
+    seedOptionData: function () {
+        model.bookingData.options.forEach( item => {
+            console.log(item);
+            this.updateOptionQuantityDisplay(item.id, item.quantity);
+        })
+    }
 
 };
 
@@ -456,6 +474,16 @@ const controller = {
             return;
         }
     },
+
+    // Function to change the quantity of an option
+    changeOptionQuantity: function (optionId, amount) {
+        const option = model.bookingData.options.find(opt => opt.id === optionId);
+        if (option) {
+            option.quantity = Math.max(0, option.quantity + amount);
+            view.updateOptionQuantityDisplay(optionId, option.quantity);
+        }
+    },
+
     // Function to update the model booking data
     updateBookingData: function () {
         // Get the selected date and time
@@ -640,4 +668,5 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // seed form data
     view.seedDataToForm();
+    // view.seedOptionData();
 });

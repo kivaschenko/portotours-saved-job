@@ -1,7 +1,6 @@
 from django.contrib.sessions.models import Session
 from django.db import transaction
 from django.db.models import Sum, ExpressionWrapper, F, DurationField
-from django.db.models.functions.text import Concat
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
@@ -550,6 +549,21 @@ class EditProductView(DetailView):
     queryset = Product.objects.all()
     extra_context = {}
 
+    def get_object(self, queryset=None):
+        obj = super(EditProductView, self).get_object(queryset=queryset)
+
+        # Get options for current Experience
+        options_list = []
+        options = obj.options.all()
+        if options:
+            for option in options:
+                temp = {'id': option.experience_option.id, 'name': option.experience_option.name, 'description': option.experience_option.description,
+                        'price': float(option.experience_option.price), 'quantity': option.quantity}
+                options_list.append(temp)
+        self.extra_context['options'] = options_list
+
+        return obj
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
@@ -832,6 +846,7 @@ def update_group_product_without_booking(request):
             language_code = data.get('language_code')
             event_id = data.get('event_id')
             product_id = data.get('product_id')
+            options = data.get('options', False)
         except json.JSONDecodeError as e:
             return JsonResponse({'error': 'Invalid JSON format'}, status=400)
 
@@ -873,6 +888,13 @@ def update_group_product_without_booking(request):
                 product.language = language
             product.save()
         logger.info(f"Product {product.id} was updated.")
+
+        if options:
+            for item in options:
+                product_option = ProductOption.objects.get(product=product, experience_option__id=item['id'])
+                product_option.quantity = item['quantity']
+                product_option.save()
+
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
 
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)

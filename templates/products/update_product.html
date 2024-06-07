@@ -60,7 +60,7 @@
         const startTime = `{{ object.time_of_start }}`;
         const totalPrice = {{ object.total_price }};
         const languageProduct = `{{ object.language.code }}`;
-        
+        const optionExtras = {{ options|safe }};
     </script>
 
     {% if object.parent_experience.is_private %}
