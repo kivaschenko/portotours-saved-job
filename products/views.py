@@ -1,6 +1,7 @@
 from django.contrib.sessions.models import Session
 from django.db import transaction
 from django.db.models import Sum, ExpressionWrapper, F, DurationField
+from django.db.models.functions.text import Concat
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404

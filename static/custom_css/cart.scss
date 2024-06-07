@@ -489,6 +489,7 @@
                         margin-bottom: 16px;
                         max-height: 50px;
                         overflow: hidden;
+
                         @include media-breakpoint-down(md) {
                             border: none;
                             padding: 0;
@@ -496,6 +497,7 @@
                             margin-bottom: 0;
                             border-radius: 0;
                         }
+
                         &.opened {
                             max-height: 100%;
                         }
@@ -508,6 +510,7 @@
                             @include media-breakpoint-down(md) {
                                 margin-bottom: 0;
                             }
+
                             .edit-extras-btn {
                                 border: none;
                                 
@@ -543,6 +546,7 @@
                                     font-size: 12px;
                                     line-height: 16px;
                                 }
+                              
                                 img {
                                     cursor: pointer;
                                     position: absolute;
@@ -568,7 +572,7 @@
                                 margin-top: 10px;
                                 padding-right: 0;
                             }
-
+                          
                             li {
                                 display: flex;
                                 align-items: center;
@@ -598,6 +602,7 @@
                                         width: 12%;
                                         text-align: left;
                                     }
+
                                 }
                             }
                         }
