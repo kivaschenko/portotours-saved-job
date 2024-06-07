@@ -8,6 +8,7 @@ const model = {
         'language_code': null,
         'event_id': null,
         'product_id': productId, // from page scope
+        'options': optionExtras,  // from page scope
     },
     'selectedDate': null,
     'current_event': {},
@@ -201,7 +202,21 @@ const view = {
         return `${month} ${year}`;
     },
 
-    
+    // Function to update the quantity display for an option
+    updateOptionQuantityDisplay: function (optionId, quantity) {
+        const input = document.getElementById(`option_${optionId}`);
+        if (input) {
+            input.value = quantity;
+        }
+    },
+
+    // First seed for options from model
+    seedOptionData: function () {
+        model.bookingData.options.forEach( item => {
+            console.log(item);
+            this.updateOptionQuantityDisplay(item.id, item.quantity);
+        })
+    }
 };
 
 // The controller has functions that respond to events in HTML blocks, forms, buttons
@@ -466,6 +481,16 @@ const controller = {
             return;
         }
     },
+
+    // Function to change the quantity of an option
+    changeOptionQuantity: function (optionId, amount) {
+        const option = model.bookingData.options.find(opt => opt.id === optionId);
+        if (option) {
+            option.quantity = Math.max(0, option.quantity + amount);
+            view.updateOptionQuantityDisplay(optionId, option.quantity);
+        }
+    },
+
     // Function to update the model booking data
     updateBookingData: function () {
         // Get the selected date and time

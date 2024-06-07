@@ -993,6 +993,7 @@ def update_private_product_without_booking(request):
             language_code = data.get('language_code')
             event_id = data.get('event_id')
             product_id = data.get('product_id')
+            options = data.get('options', False)
         except json.JSONDecodeError as e:
             return JsonResponse({'error': 'Invalid JSON format'}, status=400)
         if None in (adults, children, language_code, event_id, product_id):
@@ -1030,5 +1031,12 @@ def update_private_product_without_booking(request):
                 product.language = language
             product.save()
         logger.info(f"Product {product.id} was updated.")
+
+        if options:
+            for item in options:
+                product_option = ProductOption.objects.get(product=product, experience_option__id=item['id'])
+                product_option.quantity = item['quantity']
+                product_option.save()
+
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
