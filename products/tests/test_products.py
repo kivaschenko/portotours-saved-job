@@ -808,3 +808,109 @@ class TestFakeBookingProductLogic(TestCase):
             date_string = event['date']
             date_object = datetime.strptime(date_string, '%Y-%m-%d').date()
             self.assertGreaterEqual(date_object, current_date)
+    def test_update_group_product_with_options_without_booking(self):
+        tomorrow = datetime.utcnow() + timedelta(days=1)
+        end_date = tomorrow + timedelta(hours=1)
+        tomorrow_group_event = ExperienceEvent.objects.create(
+            title='Test Group Event',
+            start=tomorrow,
+            end=end_date,
+            special_price=Decimal('50.00'),
+            child_special_price=Decimal('25.00'),
+            calendar=self.group_calendar,
+        )
+        tomorrow_group_event_2 = ExperienceEvent.objects.create(
+            title='Test Group Event 2',
+            start=tomorrow,
+            end=end_date,
+            special_price=Decimal('67.99'),
+            child_special_price=Decimal('33.99'),
+            calendar=self.group_calendar,
+        )
+        data = {
+            'adults': 2,
+            'children': 1,
+            'language_code': 'EN',
+            'customer_id': 1,
+            'session_key': 'session123',
+            'event_id': tomorrow_group_event.id,
+            'parent_experience_id': self.group_parent_experience.id,
+            'options': [
+                {'id': self.option_first.id, 'quantity': 1, 'price': float(self.option_first.price)},
+                {'id': self.option_second.id, 'quantity': 2, 'price': float(self.option_second.price)},
+                {'id': self.option_unused.id, 'quantity': 0, 'price': float(self.option_unused.price)},
+            ],
+        }
+        response = self.client.post(reverse('create-group-product-without-booking'),
+                                    data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+        product = Product.objects.first()
+        update_data = {
+            'adults': 3,
+            'children': 2,
+            'language_code': 'ES',
+            'event_id': tomorrow_group_event_2.id,
+            'product_id': product.id,
+            'options': [
+                {'id': self.option_first.id, 'quantity': 0, 'price': float(self.option_first.price)},
+                {'id': self.option_second.id, 'quantity': 3, 'price': float(self.option_second.price)},
+                {'id': self.option_unused.id, 'quantity': 4, 'price': float(self.option_unused.price)},
+            ],
+        }
+        response = self.client.post(reverse('update-group-product-without-booking'), data=json.dumps(update_data), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+        updated_product = Product.objects.get(id=product.id)
+        self.assertEqual(updated_product.adults_count, 3)
+        self.assertEqual(updated_product.child_count, 2)
+        self.assertEqual(updated_product.language.code, 'ES')
+        self.assertEqual(updated_product.start_datetime.replace(tzinfo=None), tomorrow_group_event_2.start.replace(tzinfo=None))
+        self.assertEqual(updated_product.adults_price, tomorrow_group_event_2.special_price)
+        self.assertEqual(updated_product.child_price, tomorrow_group_event_2.child_special_price)
+
+        product_options = product.options.all().order_by('quantity')
+
+        self.assertEqual(product_options.count(), 3)
+
+        self.assertEqual(product_options[0].quantity, 0)
+        self.assertEqual(product_options[1].quantity, 3)
+        self.assertEqual(product_options[2].quantity, 4)
+
+        self.assertEqual(product_options[2].total_sum, Decimal('12.00'))
+
+
+    def test_create_private_product_with_options_without_booking_post(self):
+        tomorrow = datetime.utcnow() + timedelta(days=1)
+        end_date = tomorrow + timedelta(hours=1)
+        tomorrow_private_event = ExperienceEvent.objects.create(
+            title='Test Private Event',
+            start=tomorrow,
+            end=end_date,
+            total_price=Decimal('500.00'),
+            calendar=self.private_calendar,
+        )
+        data = {
+            'adults': 2,
+            'children': 0,
+            'language_code': 'EN',
+            'customer_id': 1,
+            'session_key': 'session123',
+            'event_id': tomorrow_private_event.id,
+            'parent_experience_id': self.private_parent_experience.id,
+            'options': [
+                {'id': self.option_first.id, 'quantity': 2, 'price': float(self.option_first.price)},
+            ],
+        }
+        response = self.client.post(reverse('create-private-product-without-booking'),
+                                    data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(Product.objects.count(), 1)
+        new_product = Product.objects.first()
+        self.assertEqual(new_product.start_datetime.replace(tzinfo=None), tomorrow.replace(tzinfo=None))
+        self.assertEqual(new_product.total_price, Decimal('500.00'))
+        self.assertEqual(new_product.adults_count, 2)
+
+        product_options = new_product.options.all()
+
+        self.assertEqual(product_options.count(), 1)
+        self.assertEqual(product_options[0].quantity, 2)
+        self.assertEqual(product_options[0].total_sum, 10.00)
