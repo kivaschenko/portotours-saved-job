@@ -896,6 +896,7 @@ def create_private_product_without_booking(request):
         session_key = data.get('session_key')
         event_id = data.get('event_id')
         parent_experience_id = data.get('parent_experience_id')
+        options = data.get('options', False)
         # Get ExperienceEvent obj
         exp_event = ExperienceEvent.objects.get(id=event_id)
         # Get language
@@ -926,6 +927,17 @@ def create_private_product_without_booking(request):
         occurrence.save()
         new_product.occurrence = occurrence
         new_product.save()
+
+        # Check options extras
+        if options:
+            for item in options:
+                ProductOption.objects.create(
+                    product=new_product,
+                    experience_option_id=item['id'],
+                    quantity=item['quantity'],
+                    price=item['price'],
+                )
+
         data = {
             'tourName': new_product.full_name,
             'tourInfo': [
@@ -934,6 +946,9 @@ def create_private_product_without_booking(request):
                 f'{new_product.adults_count} Adult',
                 f'{new_product.child_count} Children',
                 new_product.language.name,
+            ],
+            'options': [
+                f'{option.experience_option.name} x {option.quantity} = {option.total_sum}' for option in new_product.options.filter(quantity__gt=0)
             ],
             'message': 'Product created successfully'
         }

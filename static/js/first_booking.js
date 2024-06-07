@@ -10,7 +10,7 @@ const model = {
         'session_key': sessionKey, // from page scope
         'event_id': null,
         'parent_experience_id': parentExperienceId, // from page scope
-        'options': optionExtras,
+        'options': optionExtras,  // from page scope
     },
     'selectedDate': null,
     'googleItems': Object.assign(
