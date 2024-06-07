@@ -187,13 +187,14 @@ class ExperienceDetailView(DetailView):
         self.extra_context['current_language'] = obj.language.code.lower()
 
         # Get options for current Experience
-        options_dict = {}
+        options_list = []
         options = obj.parent_experience.allowed_options.all()
         if options:
             for option in options:
-                temp = {'name': option.name, 'description': option.description, 'price': option.price}
-                options_dict.update({option.id: temp})
-        self.extra_context['options'] = options_dict
+                temp = {'id': option.id, 'name': option.name, 'description': option.description, 'price': float(option.price), 'quantity': 0}
+                options_list.append(temp)
+                print(options_list)
+        self.extra_context['options'] = options_list
 
         # find all other languages
         brothers = obj.parent_experience.child_experiences.all()
@@ -203,7 +204,6 @@ class ExperienceDetailView(DetailView):
                 lang = brother.language.code.lower()
                 url = brother.localized_url
                 self.extra_context['languages'].update({lang: url})
-        datalayer_items = []
         return obj
 
     def get(self, request, *args, **kwargs):
@@ -314,6 +314,7 @@ class ProductCartView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
         context['total_second_discount'] = Product.aggregate_total_second_discount(self.request.session.session_key)
         context['discounted_price_sum'] = round(context['old_price_sum'] - context['total_price_sum'], 2) - context['total_second_discount']
+        context['total_price_sum'] += context['optional_extras']
         return context
 
 
@@ -549,6 +550,21 @@ class EditProductView(DetailView):
     queryset = Product.objects.all()
     extra_context = {}
 
+    def get_object(self, queryset=None):
+        obj = super(EditProductView, self).get_object(queryset=queryset)
+
+        # Get options for current Experience
+        options_list = []
+        options = obj.options.all()
+        if options:
+            for option in options:
+                temp = {'id': option.experience_option.id, 'name': option.experience_option.name, 'description': option.experience_option.description,
+                        'price': float(option.experience_option.price), 'quantity': option.quantity}
+                options_list.append(temp)
+        self.extra_context['options'] = options_list
+
+        return obj
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
@@ -755,6 +771,7 @@ def create_group_product_without_booking(request):
         session_key = data.get('session_key')
         event_id = data.get('event_id')
         parent_experience_id = data.get('parent_experience_id')
+        options = data.get('options', False)
         # Get ExperienceEvent obj
         exp_event = ExperienceEvent.objects.get(id=event_id)
         # Get language
@@ -786,6 +803,17 @@ def create_group_product_without_booking(request):
         occurrence.save()
         new_product.occurrence = occurrence
         new_product.save()
+
+        # Check options extras
+        if options:
+            for item in options:
+                ProductOption.objects.create(
+                    product=new_product,
+                    experience_option_id=item['id'],
+                    quantity=item['quantity'],
+                    price=item['price'],
+                )
+
         data = {
             'tourName': new_product.full_name,
             'tourInfo': [
@@ -794,6 +822,9 @@ def create_group_product_without_booking(request):
                 f'{new_product.adults_count} Adult',
                 f'{new_product.child_count} Children',
                 new_product.language.name,
+            ],
+            'options': [
+                f'{option.experience_option.name} x {option.quantity} = {option.total_sum}' for option in new_product.options.filter(quantity__gt=0)
             ],
             'message': 'Product created successfully'
         }
@@ -816,6 +847,7 @@ def update_group_product_without_booking(request):
             language_code = data.get('language_code')
             event_id = data.get('event_id')
             product_id = data.get('product_id')
+            options = data.get('options', False)
         except json.JSONDecodeError as e:
             return JsonResponse({'error': 'Invalid JSON format'}, status=400)
 
@@ -857,6 +889,14 @@ def update_group_product_without_booking(request):
                 product.language = language
             product.save()
         logger.info(f"Product {product.id} was updated.")
+
+        if options:
+            for item in options:
+                product_option = ProductOption.objects.get(product=product, experience_option__id=item['id'])
+                product_option.quantity = item['quantity']
+                product_option.total_sum = item['quantity'] * product_option.price
+                product_option.save()
+
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
 
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
@@ -880,6 +920,7 @@ def create_private_product_without_booking(request):
         session_key = data.get('session_key')
         event_id = data.get('event_id')
         parent_experience_id = data.get('parent_experience_id')
+        options = data.get('options', False)
         # Get ExperienceEvent obj
         exp_event = ExperienceEvent.objects.get(id=event_id)
         # Get language
@@ -910,6 +951,17 @@ def create_private_product_without_booking(request):
         occurrence.save()
         new_product.occurrence = occurrence
         new_product.save()
+
+        # Check options extras
+        if options:
+            for item in options:
+                ProductOption.objects.create(
+                    product=new_product,
+                    experience_option_id=item['id'],
+                    quantity=item['quantity'],
+                    price=item['price'],
+                )
+
         data = {
             'tourName': new_product.full_name,
             'tourInfo': [
@@ -918,6 +970,9 @@ def create_private_product_without_booking(request):
                 f'{new_product.adults_count} Adult',
                 f'{new_product.child_count} Children',
                 new_product.language.name,
+            ],
+            'options': [
+                f'{option.experience_option.name} x {option.quantity} = {option.total_sum}' for option in new_product.options.filter(quantity__gt=0)
             ],
             'message': 'Product created successfully'
         }
@@ -940,6 +995,7 @@ def update_private_product_without_booking(request):
             language_code = data.get('language_code')
             event_id = data.get('event_id')
             product_id = data.get('product_id')
+            options = data.get('options', False)
         except json.JSONDecodeError as e:
             return JsonResponse({'error': 'Invalid JSON format'}, status=400)
         if None in (adults, children, language_code, event_id, product_id):
@@ -977,5 +1033,13 @@ def update_private_product_without_booking(request):
                 product.language = language
             product.save()
         logger.info(f"Product {product.id} was updated.")
+
+        if options:
+            for item in options:
+                product_option = ProductOption.objects.get(product=product, experience_option__id=item['id'])
+                product_option.quantity = item['quantity']
+                product_option.total_sum = item['quantity'] * product_option.price
+                product_option.save()
+
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)

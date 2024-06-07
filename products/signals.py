@@ -121,3 +121,44 @@ def adjust_prices_after_delete(sender, instance, **kwargs):
 
             product.price_is_special = True
             product.save()
+
+
+@receiver(post_save, sender=Product)
+def adjust_prices_after_update_status_expired(sender, instance, created, **kwargs):
+    if created or instance.status != 'Expired':
+        return
+
+    session_key = instance.session_key
+
+    if session_key:
+        products = Product.pending.filter(session_key=session_key).order_by('created_at')
+
+        # Reset discounts for all products
+        for product in products:
+            if product.parent_experience.is_private:
+                product.total_price = product.parent_experience.price
+            else:
+                product.adults_price = product.parent_experience.price
+
+            product.price_is_special = False
+            product.save()
+
+        # Apply discounts to subsequent products
+        for i, product in enumerate(products):
+            if i == 0:
+                # Skip discount for the first product
+                continue
+
+            discount = product.parent_experience.second_purchase_discount
+            if not discount:
+                continue
+
+            if product.parent_experience.is_private:
+                new_total_price = product.total_price - discount
+                product.total_price = max(new_total_price, Decimal('0.00'))  # Ensure price doesn't go negative
+            else:
+                new_adult_price = product.adults_price - discount
+                product.adults_price = max(new_adult_price, Decimal('0.00'))  # Ensure price doesn't go negative
+
+            product.price_is_special = True
+            product.save()

@@ -93,7 +93,11 @@
                                 </p>
                                 <div class="img-wrapper">
                                     <p class="card-img-badge">
+                                        {% if object.second_purchase_discount %}
+                                        {{ object.second_purchase_discount }}% discount
+                                        {% else %}
                                         {{ object.parent_experience.increase_percentage_old_price }}% discount
+                                        {% endif %}
                                     </p>
                                     <img src="{{ object.parent_experience.card_image.url }}" class="card-img"
                                          alt="card image preview for {{ object.parent_experience }}">
@@ -183,7 +187,7 @@
                                                     <div class="top-discount-label">
                                                         <img src="{% static 'icons/green-gift-icon.svg' %}" alt="gift">
                                                         <p>
-                                                            -€{{ object.parent_experience.second_purchase_discount }} APPLIED
+                                                            -€{{ object.second_purchase_discount }} APPLIED
                                                         </p>
                                                     </div>
                                                     <div class="bottom-discount-label">
@@ -209,8 +213,10 @@
                                             </a>
                                             <h2 class="extras-title">
                                                 {% if object.options.all %}
-                                                    Optional 4 extras added to your experience:
-                                                    <span>€{{ object.optional.all|sum_prices }}</span> 
+
+                                                    Optional {{ object.number_added_options }} extras added to your experience:
+                                                    <span>€{{ object.options.all|sum_prices }}</span>
+
                                                     <img src="{% static 'icons/options-arrow.svg' %}" alt="arrow">
                                                 {% else %}
                                                 No optional extras added to your experience
@@ -230,7 +236,7 @@
                                                     <p>
                                                         {% if item.price %}€{{ item.price }}{% else %}free{% endif %}
                                                     </p>
-                                                    
+
                                                 </li>
                                             {% endif %}
                                         {% endfor %}

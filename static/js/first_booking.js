@@ -10,6 +10,7 @@ const model = {
         'session_key': sessionKey, // from page scope
         'event_id': null,
         'parent_experience_id': parentExperienceId, // from page scope
+        'options': optionExtras,  // from page scope
     },
     'selectedDate': null,
     'googleItems': Object.assign(
@@ -178,6 +179,14 @@ const view = {
             adultTotalPriceElement.textContent = `€${totalAdultPrice.toFixed(2)}`;
             childTotalPriceElement.textContent = `€${totalChildPrice.toFixed(2)}`;
         }
+    },
+    
+    // Function to update the quantity display for an option
+    updateOptionQuantityDisplay: function (optionId, quantity) {
+        const input = document.getElementById(`option_${optionId}`);
+        if (input) {
+            input.value = quantity;
+        }
     }
 };
 
@@ -284,7 +293,6 @@ const controller = {
         })
     },
 
-
     updateTotalPrice: function () {
         // Find the selected date and time
         const selectedDateElement = document.querySelector('.calendar-day.selected-date');
@@ -320,8 +328,13 @@ const controller = {
                     childTotalPriceElement.textContent = `€${totalChildPrice.toFixed(2)}`;
                 }
 
+                let totalOptionPrice = 0;
+                model.bookingData.options.forEach(option => {
+                    totalOptionPrice += option.price * option.quantity;
+                });
+
                 // Update submit button text
-                const totalPrice = totalAdultPrice + totalChildPrice;
+                const totalPrice = totalAdultPrice + totalChildPrice + totalOptionPrice;
 
                 // Update price in Google data
                 model.googleItems.price = totalPrice;
@@ -430,6 +443,7 @@ const controller = {
             controller.handleTimeSelection()
         }
     },
+
     performValidation: function () {
         const selectedDateElement = document.querySelector('.calendar-day.selected-date');
         const selectedTimeInput = document.querySelector('input[name="time"]:checked');
@@ -466,6 +480,24 @@ const controller = {
             return;
         }
     },
+    
+    // Function to change the quantity of an option
+    changeOptionQuantity: function (optionId, amount) {
+        const option = model.bookingData.options.find(opt => opt.id === optionId);
+        const price = document.getElementById(`option_price_${optionId}`);
+        
+        if (option) {
+            option.quantity = Math.max(0, option.quantity + amount);
+            view.updateOptionQuantityDisplay(optionId, option.quantity);
+            if (option.price > 0) {
+                price.innerHTML = `€${option.price * option.quantity}`
+            } else {
+                price.innerHTML = 'FREE'
+            }
+        }
+        controller.updateTotalPrice();
+    },
+    
     // Function to update the model booking data
     updateBookingData: function () {
         // Get the selected date and time
@@ -560,6 +592,8 @@ function closePopup() {
     const popupWrapper = document.querySelector('.upsale-popup-wrapper');
     popupWrapper.classList.remove('opened');
 }
+
+
 
 // Function to fill popup data
 function fillPopupData(data) {
@@ -668,6 +702,15 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 });
+
+
+
+let optionsWrapper = document.querySelector('.options-inputs-wrapper');
+let optionsTitle = document.querySelector('.options-title-wrapper');
+optionsTitle.addEventListener('click', () => {
+    optionsWrapper.classList.toggle('opened')
+    optionsTitle.classList.toggle('opened')
+})
 
 
 // -----------

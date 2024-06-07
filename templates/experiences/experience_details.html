@@ -128,9 +128,9 @@
         <div class="sticky-block">
             <div class="container">
                 <div class="experience-hero-title-wrapper">
-                    <h2 class="experience-hero-title">
+                    <h1 class="experience-hero-title">
                         {{ object.name }}
-                    </h2>
+                    </h1>
                     <div class="expreriece-hero-price-btn-wrapper">
                         <div class="price-wrapper">
                             <p class="price-title">
@@ -645,6 +645,8 @@
         const cartNotEmpty = {% if cart_not_empty %}true{% else %}false{% endif %};
         // grab second purchase discount
         const secondPurchaseDiscount = {{ object.parent_experience.second_purchase_discount }};
+        // Get all allowed extra options
+        const optionExtras = {{ options|safe }};
     </script>
 
     {% if object.parent_experience.is_private %}
@@ -908,7 +910,6 @@
         });
     </script>
     <script>
-
         let averageRating = {{object.average_rating}};
         if (averageRating) {
             function fillStars(rating) {
@@ -925,11 +926,8 @@
                     }
                 });
             }
-
             fillStars(averageRating);
         }
-
-
     </script>
 
     <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>

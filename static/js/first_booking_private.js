@@ -10,6 +10,7 @@ const model = {
         'session_key': sessionKey, // from page scope
         'event_id': null,
         'parent_experience_id': parentExperienceId, // from page scope
+        'options': optionExtras,  // from page scope
     },
     'selectedDate': null,
     'googleItems': Object.assign(
@@ -170,6 +171,13 @@ const view = {
         return `${month} ${year}`;
     },
 
+    // Function to update the quantity display for an option
+    updateOptionQuantityDisplay: function (optionId, quantity) {
+        const input = document.getElementById(`option_${optionId}`);
+        if (input) {
+            input.value = quantity;
+        }
+    }
     
 };
 
@@ -197,7 +205,6 @@ const controller = {
             if (response.ok) {
                 if (model.cart_not_empty) {
                     // Handle successful response
-                    console.log('Booking submitted successfully.');
                     const languageSlug = model.bookingData.language_code.toLowerCase();
 
                     // Push data to Google analytics
@@ -213,7 +220,6 @@ const controller = {
 
                 } else {
                     const result = await response.json();
-                    console.log(result); // For debugging
 
                     // Check if the response contains the expected data
                     if (result && result.tourName && result.tourInfo) {
@@ -277,7 +283,6 @@ const controller = {
     },
 
     handleTimeSelection: function () {
-        console.log("handleTimeSelection called");
         document.querySelectorAll('time-selection input[type="radio"]').forEach(input => {
             input.addEventListener('change', function () {
                 controller.performValidation();
@@ -290,7 +295,6 @@ const controller = {
         })
     },
 
-    
     updateTotalPrice: function () {
         // Find the selected date and time
         const selectedDateElement = document.querySelector('.calendar-day.selected-date');
@@ -314,8 +318,14 @@ const controller = {
                 // update quantity for Google data
                 model.googleItems.quantity = adultCount + childCount;
 
+
+                let totalOptionPrice = 0;
+                model.bookingData.options.forEach(option => {
+                    totalOptionPrice += option.price * option.quantity;
+                });
+
                 // Update submit button text
-                const totalPrice = selectedEvent.total_price;
+                const totalPrice = selectedEvent.total_price + totalOptionPrice;
 
                 // Update price in Google data
                 model.googleItems.price = totalPrice;
@@ -405,12 +415,9 @@ const controller = {
                     timeSelection.appendChild(timeLabel);
 
                     timeInput.addEventListener('change', function () {
-                        console.log('Radio button changed');
                         controller.performValidation(); // Call validation function when radio button changes
-                        
                     });
                 });
-                
             }
            
             } else {
@@ -465,6 +472,24 @@ const controller = {
             return;
         }
     },
+
+    // Function to change the quantity of an option
+    changeOptionQuantity: function (optionId, amount) {
+        const option = model.bookingData.options.find(opt => opt.id === optionId);
+        const price = document.getElementById(`option_price_${optionId}`);
+        
+        if (option) {
+            option.quantity = Math.max(0, option.quantity + amount);
+            view.updateOptionQuantityDisplay(optionId, option.quantity);
+            if (option.price > 0) {
+                price.innerHTML = `€${option.price * option.quantity}`
+            } else {
+                price.innerHTML = 'FREE'
+            }
+        }
+        controller.updateTotalPrice();
+    },
+
     // Function to update the model booking data
     updateBookingData: function () {
         // Get the selected date and time
@@ -502,9 +527,6 @@ const controller = {
             // If no language is selected, you may want to handle this case accordingly
             console.error('No language selected.');
         }
-
-        // Update other fields as needed
-        console.log('inside updateBookingData all steps done:', model.bookingData);
     },
 
 
@@ -515,7 +537,6 @@ const controller = {
         model.bookingData.language_code = null;
         model.bookingData.event_id = null;
         // Reset other fields as needed
-        console.log('inside resetBookingData:', model.bookingData);
     },
 
 };
@@ -537,28 +558,23 @@ async function fetchEventData(parentExperienceId, url) {
 
 // Function to handle the received JSON data
 function handleEventData(data) {
-    console.log('Got data from response:', data);
     if (data.hasOwnProperty('languages') && data.hasOwnProperty('events')) {
         model.languages = data.languages;
         model.events = data.events;
-        console.log('Updated model:', model);
         view.showOnlyAllowedLanguages();
+
         // Show calendar
         const currentDate = new Date(); // Or you can pass the date from the controller
         view.renderCalendar(currentDate);
-       
     } else {
         const currentDate = new Date(); 
         view.renderCalendar(currentDate);
     }
 }
 
-
 // Function to open the popup
 function openPopup() {
-
     const popupWrapper = document.querySelector('.upsale-popup-wrapper');
-    console.log(popupWrapper)
     popupWrapper.classList.add('opened');
 }
 
@@ -603,10 +619,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     }else{
         fetchUrl = `/actual-experience-events/${parentExperienceId}/`;
     }
-    console.log(fetchUrl);
+
     // Fetch event data and wait for it to complete
     await fetchEventData(parentExperienceId, fetchUrl);
-
 
      // Disable submit button, ticket selection, and language selection blocks on page load
      const submitBtn = document.getElementById('submitBtn');
@@ -674,6 +689,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     
 
 });
+
+
+let optionsWrapper = document.querySelector('.options-inputs-wrapper');
+let optionsTitle = document.querySelector('.options-title-wrapper');
+optionsTitle.addEventListener('click', () => {
+    optionsWrapper.classList.toggle('opened')
+    optionsTitle.classList.toggle('opened')
+})
 
 
 // -----------
