@@ -3,7 +3,7 @@
     <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">
         {% if experience.parent_experience.increase_percentage_old_price %}
             <div class="discount-banner-wrapper">
-                <img src="{% static 'icons/discount-bg.svg' %}" alt="">
+                <img src="{% static 'icons/discount-bg.svg' %}" alt="discount bg">
                 <p class="discount">
                     {{ experience.parent_experience.increase_percentage_old_price }}% discount
                 </p>
@@ -25,18 +25,18 @@
             </div>
         {% endif %}
         <div class="duration-wrapper">
-            <img src="{% static 'icons/duration-icon.svg' %}" alt="">
+            <img src="{% static 'icons/duration-icon.svg' %}" alt="duration icon">
             {{ experience.display_duration }}
         </div>
         <div class="tour-type-wrapper">
             {% if experience.parent_experience.is_private %}
 
-                <img src="{% static 'icons/private-tour-icon.svg' %}" alt="">
+                <img src="{% static 'icons/private-tour-icon.svg' %}" alt="private group icon">
                 Private experience
 
             {% else %}
 
-                <img src="{% static 'icons/group-tour-icon.svg' %}" alt="">
+                <img src="{% static 'icons/group-tour-icon.svg' %}" alt="group icon">
                 Small Group
 
             {% endif %}

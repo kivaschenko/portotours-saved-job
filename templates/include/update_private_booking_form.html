@@ -1,4 +1,5 @@
 {% load static %}
+
 <form id="editBookingForm" method="post">
     {% csrf_token %}
     <div class="right-col">
@@ -6,12 +7,12 @@
         <div class="calendar">
             <div class="month-controls">
                 <button id="prevMonth" type="button">
-                    <img src="{% static 'icons/calendar-month-arrow.svg' %}" alt="">
-                    <img class="icon-disabled" src="{% static 'icons/calendar-month-arrow-disabled.svg' %}" alt="">
+                    <img src="{% static 'icons/calendar-month-arrow.svg' %}" alt="calendar icon">
+                    <img class="icon-disabled" src="{% static 'icons/calendar-month-arrow-disabled.svg' %}" alt="calendar icon disabled">
                 </button>
                 <span id="currentMonth"></span>
                 <button id="nextMonth" type="button">
-                    <img src="{% static 'icons/calendar-month-arrow.svg' %}" alt="">
+                    <img src="{% static 'icons/calendar-month-arrow.svg' %}" alt="arrow next">
                 </button>
             </div>
             <div class="day-labels">
@@ -96,17 +97,7 @@
         </div>
 
 
-        <!-- Form for options -->
-        {% for option in options %}
-            <div class="form-group">
-                <label for="option_{{ option.id }}">{{ option.name }}</label>
-                <div class="quantity">
-                    <button type="button" class="btn-decrement" onclick="controller.changeOptionQuantity({{ option.id }}, -1)">-</button>
-                    <input type="number" id="option_{{ option.id }}" name="option_{{ option.id }}" value="{{ option.quantity }}" readonly>
-                    <button type="button" class="btn-increment" onclick="controller.changeOptionQuantity({{ option.id }}, 1)">+</button>
-                </div>
-            </div>
-        {% endfor %}
+       
 
         
         <div class="btns-wrapper">
@@ -115,4 +106,33 @@
         </div>
     </div>
 
+    <div class="optional-extras-col">
+        <p class="body-text-b3-sb extras-title">optional extras</p>
+    
+        <!-- Form for options -->
+        <ul class="extras-list">
+            {% for option in options %}
+            <li>
+                <label class="extras-title" for="option_{{ option.id }}">{{ option.name }}</label>
+                <div class="extras-input-wrapper">
+                    <div class="input-block">
+                        <button class="decrement" type="button" onclick="controller.changeOptionQuantity({{ option.id }}, -1)">
+                            <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
+                        </button>
+                        <input type="text" id="option_{{ option.id }}" name="option_{{ option.id }}" value="{{ option.quantity }}" readonly>
+                        <button class="increment" type="button" onclick="controller.changeOptionQuantity({{ option.id }}, 1)">
+                            <img src="{% static 'icons/increment-icon.svg' %}" alt="increment">
+                        </button>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        
+
+       
+    </div>
+
 </form>
+
+

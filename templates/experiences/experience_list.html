@@ -50,7 +50,7 @@
                     </div>
                     <div class="button-wrapper">
                         <button type="submit" class="form-btn btn-type-1">
-                            <img src="{% static 'icons/search.svg' %}" alt="">
+                            <img src="{% static 'icons/search.svg' %}" alt="search icon">
                             Search
                         </button>
                     </div>
@@ -182,7 +182,7 @@
                                 {% else %}
                                     <div class="rating-wrapper">
                                         <p>5.0</p>
-                                        <img src="{% static 'icons/5-stars-icon.svg' %}" alt="">
+                                        <img src="{% static 'icons/5-stars-icon.svg' %}" alt="star icon">
                                     </div>
                                 {% endif %}
                                 <p class="average-rating" style="display: none;">
@@ -216,29 +216,29 @@
                                 <div class="experience-type-list-wrapper">
                                     <ul class="main-info-list">
                                         <li>
-                                            <img src="{% static 'icons/duration-icon.svg' %}" alt="">
+                                            <img src="{% static 'icons/duration-icon.svg' %}" alt="duration">
                                             {% if object.duration %}{{ object.duration|safe }}{% else %}{% endif %}
                                         </li>
                                         {% if object.parent_experience.is_private %}
                                             <li>
-                                                <img src="{% static 'icons/private-tour-icon.svg' %}" alt="">
+                                                <img src="{% static 'icons/private-tour-icon.svg' %}" alt="private icon">
                                                 Private Experience
                                             </li>
                                         {% else %}
                                             <li>
-                                                <img src="{% static 'icons/group-tour-icon.svg' %}" alt="">
+                                                <img src="{% static 'icons/group-tour-icon.svg' %}" alt="small group">
                                                 Small Group
                                             </li>
                                         {% endif %}
                                         {% if object.parent_experience.hotel_pick_up %}
                                             <li>
-                                                <img src="{% static 'icons/pick-up-icon.svg' %}" alt="">
+                                                <img src="{% static 'icons/pick-up-icon.svg' %}" alt="hotel icon">
                                                 Hotel Pick Up
                                             </li>
                                         {% endif %}
                                         {% if object.parent_experience.skip_the_line %}
                                             <li>
-                                                <img src="{% static 'icons/skip-line-icon.svg' %}" alt="">
+                                                <img src="{% static 'icons/skip-line-icon.svg' %}" alt="skip lane icon">
                                                 Skip-The-Line
                                             </li>
                                         {% endif %}

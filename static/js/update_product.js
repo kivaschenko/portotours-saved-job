@@ -453,7 +453,7 @@ const controller = {
         } else {
             ticketSelection.classList.add('disabled');
             languageSelection.classList.add('disabled');
-            submitBtn.disabled = true;
+            // submitBtn.disabled = true;
             return;
         }
 
@@ -462,7 +462,7 @@ const controller = {
             languageSelection.classList.remove('disabled');
         } else {
             languageSelection.classList.add('disabled');
-            submitBtn.disabled = true;
+            // submitBtn.disabled = true;
             return;
         }
 
@@ -470,7 +470,7 @@ const controller = {
         if (document.querySelector('input[name="language"]:checked')) {
             submitBtn.disabled = false;
         } else {
-            submitBtn.disabled = true;
+            // submitBtn.disabled = true;
             return;
         }
     },
@@ -596,7 +596,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const ticketSelection = document.querySelector('.ticket-selection');
     const languageSelection = document.querySelector('.language-selection');
 
-    submitBtn.disabled = true;
+    // submitBtn.disabled = true;
     ticketSelection.classList.add('disabled');
     languageSelection.classList.add('disabled');
 

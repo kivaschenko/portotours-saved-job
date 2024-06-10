@@ -77,7 +77,7 @@
                     <p class="cart-title-info">
 
                         <!-- Add a span element for the common timer -->
-                        <strong> <img src="{% static 'icons/cart-info-icon.svg' %}" alt=""> <span id="common-timer" style="margin-right: 1rem;"></span></strong>
+                        <strong> <img src="{% static 'icons/cart-info-icon.svg' %}" alt="cart info icon"> <span id="common-timer" style="margin-right: 1rem;"></span></strong>
                         We've reserved a place in the experience for you. Please review your order and make payment to keep it.
                     </p>
                 </div>
@@ -173,7 +173,7 @@
                                             {% if object.price_is_special %}
                                                 <div class="">
                                                     <p class="card-col-title">
-                                                        <img src="{% static 'icons/info-icon-cart.svg' %}" alt="">
+                                                        <img src="{% static 'icons/info-icon-cart.svg' %}" alt="cart icon">
                                                         <span class="special-price-text">
                                                             Your experience reservation has earned extra discount from One Day Tours Portugal.
                                                         </span>
@@ -209,7 +209,7 @@
                                     <div class="optional-extras-block">
                                         <div class="title-wrapper">
                                             <a href="{% url 'edit-product' object.pk %}" class="edit-extras-btn">
-                                                <img src="{% static 'icons/edit-extras-icon.svg' %}" alt="">
+                                                <img src="{% static 'icons/edit-extras-icon.svg' %}" alt="edit icon">
                                             </a>
                                             <h2 class="extras-title">
                                                 {% if object.options.all %}
@@ -299,7 +299,7 @@
                             {% if discounted_price_sum %}
                                 <div class="price discount">
                                     <div class="icon-wrapper">
-                                        <img src="{% static 'icons/flash-icon.svg' %}" alt="">
+                                        <img src="{% static 'icons/flash-icon.svg' %}" alt="flash icon">
                                         Instant discount - €{{ discounted_price_sum }}
                                     </div>
                                     <span>
@@ -310,7 +310,7 @@
                             {% if total_second_discount %}
                                 <div class="price discount">
                                     <div class="icon-wrapper">
-                                        <img src="{% static 'icons/black-gift.svg' %}" alt="">
+                                        <img src="{% static 'icons/black-gift.svg' %}" alt="gift icon">
                                         Special offer discount - €{{ total_second_discount }}
                                     </div>
                                     <span>
@@ -335,7 +335,7 @@
                                 Checkout
                             </a>
                             <p class="secure-checkout">
-                                <img src="{% static 'icons/lock-icon.svg' %}" alt="">
+                                <img src="{% static 'icons/lock-icon.svg' %}" alt="lock icon">
                                 Secure Checkout
                             </p>
                         </div>
@@ -379,7 +379,7 @@
                         <h2 class="empty-cart-title">
                             your basket is empty
                         </h2>
-                        <img src="{% static 'images/empty-cart-icon.svg' %}" alt="" class="empty-cart-img">
+                        <img src="{% static 'images/empty-cart-icon.svg' %}" alt="empty cart icon" class="empty-cart-img">
                         <a href="{% url 'experience-list' lang='en' %}" class="btn-type-1 empty-cart-btn">List of experiences</a>
                     </div>
                 </div>
@@ -477,7 +477,7 @@
         let cartCard = document.querySelectorAll('.cart-card');
         cartCard.forEach((card) => {
             let optionsWrapper = card.querySelector('.optional-extras-block')
-            let arrowIcon = card.querySelector('.extras-title img');
+            let arrowIcon = card.querySelector('.extras-title');
             if (arrowIcon) {
                 arrowIcon.addEventListener('click', () => {
                     arrowIcon.classList.toggle('opened');
