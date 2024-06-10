@@ -178,8 +178,8 @@ def checkout_payment_intent_view(request):
 
         payment_method_types = [
             "card",
-            "apple_pay",
-            "google_pay",
+            # "apple_pay",
+            # "google_pay",
             # "paypal",
             "klarna",
         ]
@@ -192,8 +192,8 @@ def checkout_payment_intent_view(request):
                 "card": {
                     "request_three_d_secure": "automatic"
                 },
-                "apple_pay": {},
-                "google_pay": {},
+                # "apple_pay": {},
+                # "google_pay": {},
                 # "paypal": {},
                 "klarna": {}
             },
