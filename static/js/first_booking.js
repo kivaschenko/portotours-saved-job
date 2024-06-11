@@ -221,35 +221,48 @@ const controller = {
         }
     },
 
+    handleTicketsIncrementDecrement: function () {
+        document.querySelectorAll('.increment, .decrement').forEach(button => {
+            button.addEventListener('click', (event) => {
+                console.log('Button clicked:', event.target); // Debugging log
+                console.log('Button classes:', event.target.classList); // Debugging log
 
-    handleIncrementClick: function () {
-        document.querySelectorAll('.increment').forEach(button => {
-            button.addEventListener('click', function () {
-                const ticketCount = this.previousElementSibling;
-                let count = parseInt(ticketCount.value);
-                count++;
-                if (this.validateOptionLimits() && this.validateParticipantLimits()) {
-                    ticketCount.value = count;
+                const increment = event.target.classList.contains('increment') ? 1 : -1;
+                console.log('Increment value:', increment); // Debugging log
+
+                const input = event.target.closest('.ticket-type').querySelector('.ticket-count');
+                console.log('Input before change:', input.value); // Debugging log
+
+                input.value = Math.max(0, parseInt(input.value) + increment);
+
+                console.log('Input after change:', input.value); // Debugging log
+
+                if (!controller.validateParticipantLimits()) {
+                    input.value = Math.max(0, parseInt(input.value) - increment);
+                } else {
                     controller.updateTotalPrice();
                     controller.performValidation();
                 }
+
+                console.log('Final input value:', input.value); // Debugging log
             });
         });
     },
 
-    handleDecrementClick: function () {
-        document.querySelectorAll('.decrement').forEach(button => {
-            button.addEventListener('click', function () {
-                const ticketCount = this.nextElementSibling;
-                let count = parseInt(ticketCount.value);
-                if (count > 0) {
-                    count--;
-                    ticketCount.value = count;
-                    controller.updateTotalPrice();
-                    controller.performValidation();
+    handleOptionIncrementDecrement: function () {
+        document.querySelectorAll('.btn-increment, .btn-decrement').forEach(button => {
+            button.addEventListener('click', event => {
+                const input = event.target.closest('.quantity').querySelector('input');
+                const optionId = parseInt(input.id.replace('option_', ''));
+                const option = model.bookingData.options.find(opt => opt.id === optionId);
+                const increment = event.target.classList.contains('btn-increment') ? 1 : -1;
+                input.value = Math.max(0, parseInt(input.value) + increment);
+                if (parseInt(input.value) > option.max_quantity) {
+                    alert(`You cannot select more than ${option.max_quantity} of ${option.name}.`);
+                    input.value = option.max_quantity;
                 }
             });
-        });
+        })  ;
     },
 
     handleTimeSelection: function () {
@@ -508,14 +521,16 @@ document.addEventListener('DOMContentLoaded', async function () {
     ticketSelection.classList.add('disabled');
     languageSelection.classList.add('disabled');
 
-    controller.handleIncrementClick();
-    controller.handleDecrementClick();
+    controller.handleTicketsIncrementDecrement();
+    controller.handleOptionIncrementDecrement();
     controller.handleTimeSelection();
 
     document.getElementById('submitBtn').addEventListener('click', function (e) {
-        e.preventDefault();
-        controller.updateBookingData();
-        controller.handleFormSubmit();
+        if (!controller.validateParticipantLimits() || !controller.validateOptionLimits()) {
+            e.preventDefault();
+            controller.updateBookingData();
+            controller.handleFormSubmit();
+        }
     });
 
     document.getElementById('calendarGrid').addEventListener('click', function () {
