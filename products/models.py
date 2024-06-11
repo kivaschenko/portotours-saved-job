@@ -170,6 +170,7 @@ class ExperienceOption(models.Model):
     priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
                                           help_text="The higher the value of the priority number, the higher it appears in the list")
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    max_quantity = models.PositiveIntegerField(default=8)
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -855,7 +856,6 @@ class ProductOption(models.Model):
     experience_option = models.ForeignKey(ExperienceOption, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=0)
-    max_quantity = models.PositiveIntegerField(default=8)
     total_sum = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -133,9 +133,7 @@ class OptionLanguageCategoryModelForm(ModelForm):
 @admin.register(ParentExperience)
 class ParentExperienceAdmin(admin.ModelAdmin):
     form = OptionLanguageCategoryModelForm
-    exclude = ['updated_at', 'slug', 'meeting_point', 'drop_point', 'use_child_discount', 'use_auto_increase_old_price',
-               # 'banner', 'banner_mobile', 'happy_clients_number', 'rating',
-               ]
+    exclude = ['updated_at', 'slug', 'meeting_point', 'drop_point', 'use_child_discount', 'use_auto_increase_old_price']
     list_display = ['id', 'parent_name', 'currency', 'price', 'old_price', 'child_price', 'child_old_price', 'second_purchase_discount',
                     'max_participants', 'is_private', 'is_exclusive', 'priority_number', 'show_on_home_page', 'is_hot_deals', 'hotel_pick_up']
     list_filter = ['parent_name', 'max_participants', 'is_private', 'is_exclusive', 'show_on_home_page', ]
@@ -295,6 +293,6 @@ class ExperienceOccurrenceAdmin(admin.ModelAdmin):
 @admin.register(ExperienceOption)
 class ExperienceOptionAdmin(admin.ModelAdmin):
     readonly_fields = ('updated_at',)
-    list_display = ['id', 'name', 'price', 'language', 'priority_number', 'is_active']
+    list_display = ['id', 'name', 'price', 'max_quantity', 'language', 'priority_number', 'is_active']
     list_filter = ('name', 'language', 'is_active')
     list_per_page = 20
