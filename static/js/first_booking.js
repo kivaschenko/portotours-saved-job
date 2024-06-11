@@ -220,17 +220,16 @@ const controller = {
             console.error('Error submitting booking:', error);
         }
     },
-
+    
     handleTicketsIncrementDecrement: function () {
         document.querySelectorAll('.increment, .decrement').forEach(button => {
             button.addEventListener('click', (event) => {
-                console.log('Button clicked:', event.target); // Debugging log
-                console.log('Button classes:', event.target.classList); // Debugging log
+                const button = event.currentTarget; // Ensure we get the button element itself
+                const increment = button.classList.contains('increment') ? 1 : -1;
 
-                const increment = event.target.classList.contains('increment') ? 1 : -1;
+                const input = button.closest('.ticket-type').querySelector('.ticket-count');
+                console.log('Button clicked:', button); // Debugging log
                 console.log('Increment value:', increment); // Debugging log
-
-                const input = event.target.closest('.ticket-type').querySelector('.ticket-count');
                 console.log('Input before change:', input.value); // Debugging log
 
                 input.value = Math.max(0, parseInt(input.value) + increment);
