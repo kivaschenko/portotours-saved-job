@@ -223,8 +223,6 @@ class ParentExperience(models.Model):
     """
     parent_name = models.CharField(max_length=160, unique=True, db_index=True)
     slug = models.SlugField(unique=True, db_index=True, editable=True, max_length=255, blank=True, help_text='Unique, max 255 characters.')
-    banner = models.FileField(upload_to='media/banners/', null=True, blank=True)
-    banner_mobile = models.FileField(upload_to='media/banners/', null=True, blank=True)
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
     card_image_mobile = models.FileField(upload_to='media/cards/', null=True, blank=True)
     priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
@@ -273,12 +271,10 @@ class ParentExperience(models.Model):
     free_cancellation_hours = models.IntegerField(null=True, blank=True, default=24, help_text="How many hours the free cancellation period from payment.")
     skip_the_line = models.BooleanField(default=False, null=True, help_text='If this experience is private then it will skip the line')
     likely_to_sell_out = models.BooleanField(default=False, null=True, help_text='If this experience is private then it will likely sell the out')
-    happy_clients_number = models.IntegerField(default=0)
     recommended_by_locals = models.BooleanField(default=False, help_text="If this experience is recommended by locals", null=True)
     clean_and_safe = models.BooleanField(default=True, null=True,
                                          help_text="If this experience is clean_and_safe then the corresponding banner appears on the experience page")
     show_on_home_page = models.BooleanField(default=False, help_text="Include in the top Experiences on the home page")
-    rating = models.DecimalField(max_digits=2, decimal_places=1, default=Decimal('5.0'), help_text="for example: 4.8")
     updated_at = models.DateTimeField(auto_now=True)
     provider = models.ForeignKey(ExperienceProvider, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Provider',
                                  related_name='experience_provider', help_text='The company provider for current experience')
@@ -859,6 +855,7 @@ class ProductOption(models.Model):
     experience_option = models.ForeignKey(ExperienceOption, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=0)
+    max_quantity = models.PositiveIntegerField(default=8)
     total_sum = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 

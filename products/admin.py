@@ -134,9 +134,10 @@ class OptionLanguageCategoryModelForm(ModelForm):
 class ParentExperienceAdmin(admin.ModelAdmin):
     form = OptionLanguageCategoryModelForm
     exclude = ['updated_at', 'slug', 'meeting_point', 'drop_point', 'use_child_discount', 'use_auto_increase_old_price',
-               'banner', 'banner_mobile', 'happy_clients_number', 'rating']
+               # 'banner', 'banner_mobile', 'happy_clients_number', 'rating',
+               ]
     list_display = ['id', 'parent_name', 'currency', 'price', 'old_price', 'child_price', 'child_old_price', 'second_purchase_discount',
-                    'max_participants', 'is_private', 'is_exclusive', 'priority_number', 'show_on_home_page', 'rating', 'is_hot_deals']
+                    'max_participants', 'is_private', 'is_exclusive', 'priority_number', 'show_on_home_page', 'is_hot_deals', 'hotel_pick_up']
     list_filter = ['parent_name', 'max_participants', 'is_private', 'is_exclusive', 'show_on_home_page', ]
     search_fields = ['parent__name', ]
     list_per_page = 20
