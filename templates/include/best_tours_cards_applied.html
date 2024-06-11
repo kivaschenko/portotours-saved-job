@@ -13,7 +13,7 @@
     <div class="card-content-wrapper">
         {% if experience.parent_experience.increase_percentage_old_price %}
             <div class="discount-banner-wrapper">
-                <img src="{% static 'icons/discount-bg.svg' %}" alt="">
+                <img src="{% static 'icons/discount-bg.svg' %}" alt="discount bg">
                 <p class="discount">
                     {{ experience.parent_experience.applied_discount }}% discount
                 </p>
@@ -76,17 +76,17 @@
         <div class="tour-info-wrapper">
             <ul class="tour-info-list">
                 <li>
-                    <img src="{% static 'icons/duration-icon.svg' %}" alt="">
+                    <img src="{% static 'icons/duration-icon.svg' %}" alt="duration icon">
                     {{ experience.display_duration }}
                 </li>
                 {% if experience.parent_experience.is_private %}
                     <li>
-                        <img src="{% static 'icons/private-tour-icon.svg' %}" alt="">
+                        <img src="{% static 'icons/private-tour-icon.svg' %}" alt="private group icon">
                         Private experience
                     </li>
                 {% else %}
                     <li>
-                        <img src="{% static 'icons/group-tour-icon.svg' %}" alt="">
+                        <img src="{% static 'icons/group-tour-icon.svg' %}" alt="small group icon">
                         Small Group
                     </li>
                 {% endif %}
@@ -136,7 +136,7 @@
     <div class="card-content-wrapper">
         {% if experience.parent_experience.increase_percentage_old_price %}
             <div class="discount-banner-wrapper">
-                <img src="{% static 'icons/discount-bg.svg' %}" alt="">
+                <img src="{% static 'icons/discount-bg.svg' %}" alt="discount bg">
                 <p class="discount">
                     {{ experience.parent_experience.increase_percentage_old_price }}% discount
                 </p>
@@ -165,18 +165,18 @@
         <div class="tour-info-wrapper">
             <ul class="tour-info-list">
                 <li>
-                    <img src="{% static 'icons/duration-icon.svg' %}" alt="">
+                    <img src="{% static 'icons/duration-icon.svg' %}" alt="duration icon">
                     {{ experience.display_duration }}
                 </li>
                 {% if experience.parent_experience.is_private %}
                     <li>
-                        <img src="{% static 'icons/private-tour-icon.svg' %}" alt="">
+                        <img src="{% static 'icons/private-tour-icon.svg' %}" alt="private group icon">
                         Private experience
                     </li>
                 {% else %}
 
                     <li>
-                        <img src="{% static 'icons/group-tour-icon.svg' %}" alt="">
+                        <img src="{% static 'icons/group-tour-icon.svg' %}" alt="small group icon">
                         Small Group
                     </li>
                 {% endif %}

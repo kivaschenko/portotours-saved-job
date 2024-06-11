@@ -72,10 +72,8 @@ class ParentExperienceModelTest(TestCase):
             meeting_point_id=1,
             drop_point_id=2,
             is_exclusive=True,
-            happy_clients_number=50,
             free_cancellation=True,
             show_on_home_page=True,
-            rating=Decimal('4.8')
         )
         parent_experience.save()
         languages = Language.objects.filter(code__in=["EN", "FR", "PT"])
@@ -99,9 +97,7 @@ class ParentExperienceModelTest(TestCase):
         self.assertFalse(parent_experience.is_hot_deals)
         self.assertEqual(parent_experience.allowed_languages.count(), 3)
         self.assertTrue(parent_experience.free_cancellation)
-        self.assertEqual(parent_experience.happy_clients_number, 50)
         self.assertTrue(parent_experience.show_on_home_page)
-        self.assertEqual(parent_experience.rating, Decimal('4.8'))
 
         parent_experience.delete()
 

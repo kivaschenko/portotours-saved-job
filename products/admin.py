@@ -5,13 +5,17 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxSelectMultiple
 
 from ckeditor.widgets import CKEditorWidget
+from schedule.models import *  # noqa
 
 from products.models import *  # noqa
 from products.forms import ExperienceEventFormSet
 
 # Hide exceeded models from django-scheduler
 admin.site.unregister(Calendar)
+admin.site.unregister(CalendarRelation)
 admin.site.unregister(Occurrence)
+admin.site.unregister(Event)
+admin.site.unregister(EventRelation)
 
 
 # ------------
@@ -116,9 +120,9 @@ class CheckboxSelectMultipleField(ModelMultipleChoiceField):
 
 
 class OptionLanguageCategoryModelForm(ModelForm):
-    allowed_options = CheckboxSelectMultipleField(queryset=ExperienceOption.active.all())
+    allowed_options = CheckboxSelectMultipleField(queryset=ExperienceOption.active.all(), required=False)
     allowed_languages = CheckboxSelectMultipleField(queryset=Language.objects.all())
-    categories = CheckboxSelectMultipleField(queryset=ExperienceCategory.objects.all())
+    categories = CheckboxSelectMultipleField(queryset=ExperienceCategory.objects.all(), required=False)
 
     class Meta:
         model = ParentExperience
@@ -129,9 +133,11 @@ class OptionLanguageCategoryModelForm(ModelForm):
 @admin.register(ParentExperience)
 class ParentExperienceAdmin(admin.ModelAdmin):
     form = OptionLanguageCategoryModelForm
-    exclude = ['updated_at', 'slug', 'meeting_point', 'drop_point', 'use_child_discount', 'use_auto_increase_old_price']
+    exclude = ['updated_at', 'slug', 'meeting_point', 'drop_point', 'use_child_discount', 'use_auto_increase_old_price',
+               # 'banner', 'banner_mobile', 'happy_clients_number', 'rating',
+               ]
     list_display = ['id', 'parent_name', 'currency', 'price', 'old_price', 'child_price', 'child_old_price', 'second_purchase_discount',
-                    'max_participants', 'is_private', 'is_exclusive', 'priority_number', 'show_on_home_page', 'rating', 'is_hot_deals']
+                    'max_participants', 'is_private', 'is_exclusive', 'priority_number', 'show_on_home_page', 'is_hot_deals', 'hotel_pick_up']
     list_filter = ['parent_name', 'max_participants', 'is_private', 'is_exclusive', 'show_on_home_page', ]
     search_fields = ['parent__name', ]
     list_per_page = 20

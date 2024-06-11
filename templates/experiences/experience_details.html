@@ -76,24 +76,24 @@
                 </p>
                 <div class="popup-tour-cards-wrapper">
                     <div class="tour-type-card">
-                        <img src="{% static 'icons/10off-label.svg' %}" alt="" class="discount-label">
-                        <img src="{% static 'images/tour-type-img1.png' %}" alt="">
+                        <img src="{% static 'icons/10off-label.svg' %}" alt="label icon" class="discount-label">
+                        <img src="{% static 'images/tour-type-img1.png' %}" alt="tour type">
                         <div class="tour-type-title-btn-wrapper">
                             <h4 class="tour-type-title">Small Groups</h4>
                             <a href="#" target="_blank" class="btn-type-3" onclick="addTypeIsGroupAndNavigate(event, '{{ current_language }}')">
                                 Learn more
-                                <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="">
+                                <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="arrow">
                             </a>
                         </div>
                     </div>
                     <div class="tour-type-card">
-                        <img src="{% static 'icons/30off-label.svg' %}" alt="" class="discount-label">
-                        <img src="{% static 'images/tour-type-img2.png' %}" alt="">
+                        <img src="{% static 'icons/30off-label.svg' %}" alt="label icon" class="discount-label">
+                        <img src="{% static 'images/tour-type-img2.png' %}" alt="tour type">
                         <div class="tour-type-title-btn-wrapper">
                             <h4 class="tour-type-title">Private Experiences</h4>
                             <a href="#" target="_blank" class="btn-type-3" onclick="addTypeIsPrivateAndNavigate(event, '{{ current_language }}')">
                                 Learn more
-                                <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="">
+                                <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="arrow">
                             </a>
                         </div>
                     </div>
@@ -105,19 +105,19 @@
         <div class="experience-hero-info">
             {% if object.parent_experience.free_cancellation %}
                 <p class="experience-hero-info-text">
-                    <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="">
+                    <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="free cancellation icon">
                     free cancellation
                 </p>
             {% endif %}
             {% if object.parent_experience.hotel_pick_up %}
                 <p class="experience-hero-info-text">
-                    <img src="{% static 'icons/pickup-icon.svg' %}" alt="">
+                    <img src="{% static 'icons/pickup-icon.svg' %}" alt="hotel icon">
                     hotel pick up
                 </p>
             {% endif %}
             {% if object.parent_experience.recommended_by_locals %}
                 <p class="experience-hero-info-text">
-                    <img src="{% static 'icons/green-thumb.svg' %}" alt="">
+                    <img src="{% static 'icons/green-thumb.svg' %}" alt="green thumb icon">
                     recommended by locals
                 </p>
             {% endif %}
@@ -193,7 +193,7 @@
                     <div class="reviews-rating-wrapper">
                         <div class="rating-img-wrapper">
                             <p class="rating-num">5.0</p>
-                            <img src="{% static 'icons/5-stars-icon.svg' %}" alt="">
+                            <img src="{% static 'icons/5-stars-icon.svg' %}" alt="star icon">
                         </div>
                     </div>
                 {% endif %}
@@ -247,7 +247,7 @@
                     <div class="experience-cards" >
                         <div class="experience-card">
                             <div class="img-wrapper">
-                                <img src="{% static 'icons/experience-card-icon1.svg' %}" alt="">
+                                <img src="{% static 'icons/experience-card-icon1.svg' %}" alt="card icon">
                             </div>
                             <div class="card-content">
                                 <p class="card-title">
@@ -261,7 +261,7 @@
                         {% if object.duration %}
                             <div class="experience-card">
                                 <div class="img-wrapper">
-                                    <img src="{% static 'icons/experience-card-icon2.svg' %}" alt="">
+                                    <img src="{% static 'icons/experience-card-icon2.svg' %}" alt="card icon">
                                 </div>
                                 <div class="card-content">
                                     <p class="card-title">
@@ -276,7 +276,7 @@
                         {% if object.accessibility %}
                             <div class="experience-card">
                                 <div class="img-wrapper">
-                                    <img src="{% static 'icons/experience-card-icon3.svg' %}" alt="">
+                                    <img src="{% static 'icons/experience-card-icon3.svg' %}" alt="card icon">
                                 </div>
                                 <div class="card-content">
                                     <p class="card-title">
@@ -291,7 +291,7 @@
                         {% if object.possibility %}
                             <div class="experience-card">
                                 <div class="img-wrapper">
-                                    <img src="{% static 'icons/experience-card-icon4.svg' %}" alt="">
+                                    <img src="{% static 'icons/experience-card-icon4.svg' %}" alt="card icon">
                                 </div>
                                 <div class="card-content">
                                     <p class="card-title">
@@ -306,7 +306,7 @@
                         {% if object.parent_experience.allowed_languages.all %}
                             <div class="experience-card">
                                 <div class="img-wrapper">
-                                    <img src="{% static 'icons/experience-card-icon5.svg' %}" alt="">
+                                    <img src="{% static 'icons/experience-card-icon5.svg' %}" alt="card icon">
                                 </div>
                                 <div class="card-content">
                                     <p class="card-title">
@@ -323,7 +323,7 @@
                         {% if object.parent_experience.pick_up_location %}
                             <div class="experience-card">
                                 <div class="img-wrapper">
-                                    <img src="{% static 'icons/experience-card-icon6.svg' %}" alt="">
+                                    <img src="{% static 'icons/experience-card-icon6.svg' %}" alt="card icon">
                                 </div>
                                 <div class="card-content">
                                     <p class="card-title">
@@ -337,7 +337,7 @@
                         {% endif %}
                     </div>
                     <div class="risk-free-badge">
-                        <img src="{% static 'icons/shield-icon.svg' %}" alt="">
+                        <img src="{% static 'icons/shield-icon.svg' %}" alt="shield icon">
                         <h3 class="badge-title">
                             <span>risk free!</span> Cancellation is available up to 24 hours before your trip starts
                         </h3>
@@ -345,7 +345,7 @@
                     {% if not object.parent_experience.is_private and object.parent_experience.child_price < object.parent_experience.price %}
                         <div class="children-discount-badge">
                             <h3 class="badge-title">
-                                <img src="{% static 'icons/children-icon.svg' %}" alt="">
+                                <img src="{% static 'icons/children-icon.svg' %}" alt="children icon">
                                 Price for children only from €{{ object.parent_experience.child_price }}
                             </h3>
                         </div>
@@ -483,7 +483,7 @@
             <div class="why-cards-wrapper">
                 <div class="swiper-wrapper">
                     <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon1.svg' %}" alt="" class="why-card-img">
+                        <img src="{% static 'icons/why-icon1.svg' %}" alt="why icon" class="why-card-img">
                         <div class="why-card-inner-wrapper">
                             <p class="why-text">
                                 30+ Experiences in Portugal
@@ -495,7 +495,7 @@
 
                     </div>
                     <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon2.svg' %}" alt="" class="why-card-img">
+                        <img src="{% static 'icons/why-icon2.svg' %}" alt="why icon" class="why-card-img">
                         <div class="why-card-inner-wrapper">
                             <p class="why-text">
                                 Guided by local experts
@@ -507,7 +507,7 @@
 
                     </div>
                     <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon3.svg' %}" alt="" class="why-card-img">
+                        <img src="{% static 'icons/why-icon3.svg' %}" alt="why icon" class="why-card-img">
                         <div class="why-card-inner-wrapper">
                             <p class="why-text">
                                 Best price guarantee
@@ -519,7 +519,7 @@
 
                     </div>
                     <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon4.svg' %}" alt="" class="why-card-img">
+                        <img src="{% static 'icons/why-icon4.svg' %}" alt="why icon" class="why-card-img">
                         <div class="why-card-inner-wrapper">
                             <p class="why-text">
                                 No hidden fees
@@ -531,7 +531,7 @@
 
                     </div>
                     <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon5.svg' %}" alt="" class="why-card-img">
+                        <img src="{% static 'icons/why-icon5.svg' %}" alt="why icon" class="why-card-img">
                         <div class="why-card-inner-wrapper">
                             <p class="why-text">
                                 Free cancellation
@@ -542,7 +542,7 @@
                         </div>
                     </div>
                     <div class="why-card swiper-slide">
-                        <img src="{% static 'icons/why-icon6.svg' %}" alt="" class="why-card-img">
+                        <img src="{% static 'icons/why-icon6.svg' %}" alt="why icon" class="why-card-img">
                         <div class="why-card-inner-wrapper">
                             <p class="why-text">
                                 Safe and secure website
