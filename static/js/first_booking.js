@@ -184,7 +184,6 @@ const controller = {
         }
         return true;
     },
-
     handleFormSubmit: async function () {
         const bookingData = model.bookingData;
         const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
@@ -226,42 +225,54 @@ const controller = {
             button.addEventListener('click', (event) => {
                 const button = event.currentTarget; // Ensure we get the button element itself
                 const increment = button.classList.contains('increment') ? 1 : -1;
-
                 const input = button.closest('.ticket-type').querySelector('.ticket-count');
-                console.log('Button clicked:', button); // Debugging log
-                console.log('Increment value:', increment); // Debugging log
-                console.log('Input before change:', input.value); // Debugging log
-
                 input.value = Math.max(0, parseInt(input.value) + increment);
-
-                console.log('Input after change:', input.value); // Debugging log
-
                 if (!controller.validateParticipantLimits()) {
                     input.value = Math.max(0, parseInt(input.value) - increment);
                 } else {
                     controller.updateTotalPrice();
                     controller.performValidation();
                 }
-
-                console.log('Final input value:', input.value); // Debugging log
             });
         });
     },
-
     handleOptionIncrementDecrement: function () {
         document.querySelectorAll('.btn-increment, .btn-decrement').forEach(button => {
             button.addEventListener('click', event => {
-                const input = event.target.closest('.quantity').querySelector('input');
+                const button = event.currentTarget;
+                const input = button.closest('.quantity').querySelector('input');
                 const optionId = parseInt(input.id.replace('option_', ''));
                 const option = model.bookingData.options.find(opt => opt.id === optionId);
-                const increment = event.target.classList.contains('btn-increment') ? 1 : -1;
-                input.value = Math.max(0, parseInt(input.value) + increment);
-                if (parseInt(input.value) > option.max_quantity) {
+                const increment = button.classList.contains('btn-increment') ? 1 : -1;
+
+                // Ensure the input value is updated correctly first
+                const newValue = Math.max(0, parseInt(input.value) + increment);
+
+                // Ensure the input value does not exceed the max quantity
+                if (newValue > option.max_quantity) {
                     alert(`You cannot select more than ${option.max_quantity} of ${option.name}.`);
                     input.value = option.max_quantity;
+                } else {
+                    input.value = newValue;
                 }
+
+                // Update the option quantity in the model
+                option.quantity = parseInt(input.value);
+
+                // Update the display price for the option
+                const priceElement = document.getElementById(`option_price_${optionId}`);
+                if (priceElement) {
+                    if (option.price > 0) {
+                        priceElement.innerHTML = `€${option.price * option.quantity}`;
+                    } else {
+                        priceElement.innerHTML = 'FREE';
+                    }
+                }
+
+                // Recalculate the total price
+                controller.updateTotalPrice();
             });
-        })  ;
+        });
     },
 
     handleTimeSelection: function () {
@@ -406,20 +417,20 @@ const controller = {
         }
     },
 
-    changeOptionQuantity: function (optionId, amount) {
-        const option = model.bookingData.options.find(opt => opt.id === optionId);
-        const price = document.getElementById(`option_price_${optionId}`);
-        if (option) {
-            option.quantity = Math.max(0, option.quantity + amount);
-            view.updateOptionQuantityDisplay(optionId, option.quantity);
-            if (option.price > 0) {
-                price.innerHTML = `€${option.price * option.quantity}`;
-            } else {
-                price.innerHTML = 'FREE';
-            }
-        }
-        controller.updateTotalPrice();
-    },
+    // changeOptionQuantity: function (optionId, amount) {
+    //     const option = model.bookingData.options.find(opt => opt.id === optionId);
+    //     const price = document.getElementById(`option_price_${optionId}`);
+    //     if (option) {
+    //         option.quantity = Math.max(0, option.quantity + amount);
+    //         view.updateOptionQuantityDisplay(optionId, option.quantity);
+    //         if (option.price > 0) {
+    //             price.innerHTML = `€${option.price * option.quantity}`;
+    //         } else {
+    //             price.innerHTML = 'FREE';
+    //         }
+    //     }
+    //     controller.updateTotalPrice();
+    // },
 
     updateBookingData: function () {
         const selectedDateElement = document.querySelector('.calendar-day.selected-date');
