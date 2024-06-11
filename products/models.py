@@ -170,6 +170,7 @@ class ExperienceOption(models.Model):
     priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
                                           help_text="The higher the value of the priority number, the higher it appears in the list")
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    max_quantity = models.PositiveIntegerField(default=8)
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)

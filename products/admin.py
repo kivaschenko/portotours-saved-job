@@ -295,6 +295,6 @@ class ExperienceOccurrenceAdmin(admin.ModelAdmin):
 @admin.register(ExperienceOption)
 class ExperienceOptionAdmin(admin.ModelAdmin):
     readonly_fields = ('updated_at',)
-    list_display = ['id', 'name', 'price', 'language', 'priority_number', 'is_active']
+    list_display = ['id', 'name', 'price', 'max_quantity', 'language', 'priority_number', 'is_active']
     list_filter = ('name', 'language', 'is_active')
     list_per_page = 20
