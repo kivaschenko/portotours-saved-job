@@ -17,6 +17,60 @@ admin.site.unregister(Occurrence)
 admin.site.unregister(Event)
 admin.site.unregister(EventRelation)
 
+# ----------------------
+# Custom ExperienceEvent
+
+# admin.py
+from django.contrib import admin
+from django.urls import reverse
+from django.utils.html import format_html
+from django.contrib.admin import AdminSite
+from .models import ExperienceEvent
+from .forms import ExperienceEventForm
+from .admin_views import calendar_view, events_view
+from schedule.models import Rule
+
+
+class MyAdminSite(AdminSite):
+    site_header = "My Admin"
+    site_title = "Admin Portal"
+    index_title = "Welcome to the Admin Portal"
+
+    def get_urls(self):
+        from django.urls import path
+
+        urls = super().get_urls()
+        custom_urls = [
+            path('calendar/<int:event_id>/', self.admin_view(calendar_view), name='admin-calendar'),
+            path('events/', self.admin_view(events_view), name='admin-events'),
+        ]
+        return custom_urls + urls
+
+    def index(self, request, extra_context=None):
+        if extra_context is None:
+            extra_context = {}
+        extra_context['custom_links'] = [
+            {'url': reverse('admin-calendar', args=[1]), 'name': 'Calendar'},  # Change args as needed
+            {'url': reverse('admin-events'), 'name': 'Events'}
+        ]
+        return super().index(request, extra_context=extra_context)
+
+
+admin_site = MyAdminSite(name='myadmin')
+
+
+@admin.register(ExperienceEvent, site=admin_site)
+class ExperienceEventAdmin(admin.ModelAdmin):
+    form = ExperienceEventForm
+    list_display = ['id', 'title', 'start', 'end', 'rule', 'end_recurring_period', 'max_participants', 'booked_participants', 'remaining_participants',
+                    'special_price', 'child_special_price', 'total_price']
+    list_filter = ['start', 'rule', 'calendar']
+    search_fields = ['title', 'description']
+    list_per_page = 20
+
+
+# admin.site.register(Rule)
+
 
 # ------------
 # MeetingPoint
@@ -277,14 +331,14 @@ class ExperienceCalendarAdmin(admin.ModelAdmin):
     is_private.short_description = 'Parent Experience is'
 
 
-@admin.register(ExperienceEvent)
-class ExperienceEventAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'max_participants', 'booked_participants',
-                    'remaining_participants', 'special_price', 'child_special_price', 'total_price']
-    # readonly_fields = ['title', 'max_participants', 'booked_participants', 'remaining_participants']
-    search_fields = ['title', 'description', ]
-    list_filter = ['start', 'calendar']
-    list_per_page = 20
+# @admin.register(ExperienceEvent)
+# class ExperienceEventAdmin(admin.ModelAdmin):
+#     list_display = ['id', 'title', 'max_participants', 'booked_participants',
+#                     'remaining_participants', 'special_price', 'child_special_price', 'total_price']
+#     # readonly_fields = ['title', 'max_participants', 'booked_participants', 'remaining_participants']
+#     search_fields = ['title', 'description', ]
+#     list_filter = ['start', 'calendar']
+#     list_per_page = 20
 
 
 @admin.register(Occurrence)

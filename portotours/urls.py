@@ -78,6 +78,7 @@ urlpatterns += [
 urlpatterns += [
     path('grappelli/', include('grappelli.urls')),  # grappelli URLS
     path('odt-admin/', admin.site.urls),
+    path('odt-admin/', include('products.admin_urls')),
     # path('', RedirectView.as_view(url=reverse_lazy('home', kwargs={'lang': 'en'})), name='redirect_home'),
     # path('<str:lang>/', home_views.HomeView.as_view(), name='home'),
     path('', home_views.HomeView.as_view(), name='home'),
