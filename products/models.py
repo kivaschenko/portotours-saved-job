@@ -856,7 +856,6 @@ class ProductOption(models.Model):
     experience_option = models.ForeignKey(ExperienceOption, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=0)
-    max_quantity = models.PositiveIntegerField(default=8)
     total_sum = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
