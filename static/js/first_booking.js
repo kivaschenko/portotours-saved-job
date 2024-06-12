@@ -171,7 +171,6 @@ const controller = {
         const totalParticipants = controller.getTotalParticipants();
         console.log("Total participants:", totalParticipants);
         if (totalParticipants > selectedEvent.remaining_participants) {
-            alert('Total participants exceed the maximum allowed participants for this event.');
             return false;
         }
         return true;
@@ -185,7 +184,6 @@ const controller = {
             console.log("optionElement.value:", optionElement.value);
             console.log("option.max_quantity:", option.max_quantity);
             if (parseInt(optionElement.value) > option.max_quantity) {
-                alert(`Quantity for ${option.name} exceeds the maximum allowed quantity.`);
                 return false;
             }
         }
@@ -551,7 +549,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     controller.handleTimeSelection();
 
     document.getElementById('submitBtn').addEventListener('click', function (e) {
-        // TODO: Check this moment!
             e.preventDefault();
             controller.updateBookingData();
             controller.handleFormSubmit();

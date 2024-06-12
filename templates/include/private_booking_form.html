@@ -98,12 +98,12 @@
             <label for="option_{{ option.id }}">{{ option.name }}</label>
             <div class="count-price-wrapper">
                 <div class="quantity">
-                    <button type="button" class="btn-decrement" onclick="controller.changeOptionQuantity({{ option.id }}, -1, {{option.price}})">
+                    <button type="button" class="btn-decrement">
                         <img class="active" src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
                         <img class="disabled" src="{% static 'icons/decrement-icon-grey.svg' %}" alt="decrement">
                     </button>
                     <input type="text" id="option_{{ option.id }}" name="option_{{ option.id }}" value="{{ option.quantity }}" readonly>
-                    <button type="button" class="btn-increment" onclick="controller.changeOptionQuantity({{ option.id }}, 1, {{option.price}})">
+                    <button type="button" class="btn-increment">
                         <img class="active" src="{% static 'icons/increment-icon.svg' %}" alt="increment">
                         <img class="disabled" src="{% static 'icons/increment-icon-grey.svg' %}" alt="increment">
                     </button>
