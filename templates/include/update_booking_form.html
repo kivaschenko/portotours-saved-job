@@ -30,7 +30,7 @@
     <div class="left-col">
         <p class="body-text-b3-sb time-selection-title">Choose time</p>
         <div class="time-selection">
-           
+
         </div>
 
         <div class="ticket-selection">
@@ -95,32 +95,30 @@
             <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
             <button type="submit" class="btn btn-danger" id="submitBtn">Save</button>
         </div>
-
-
     </div>
-
     <div class="optional-extras-col">
-        <p class="body-text-b3-sb extras-title">optional extras</p>
-    
-        <!-- Form for options -->
-        <ul class="extras-list">
-            {% for option in options %}
-            <li>
-                <label class="extras-title" for="option_{{ option.id }}">{{ option.name }}</label>
-                <div class="extras-input-wrapper">
-                    <div class="input-block">
-                        <button class="decrement" type="button" onclick="controller.changeOptionQuantity({{ option.id }}, -1)">
-                            <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
-                        </button>
-                        <input type="text" id="option_{{ option.id }}" name="option_{{ option.id }}" value="{{ option.quantity }}" readonly>
-                        <button class="increment" type="button" onclick="controller.changeOptionQuantity({{ option.id }}, 1)">
-                            <img src="{% static 'icons/increment-icon.svg' %}" alt="increment">
-                        </button>
-                    </div>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
+        {% if options %}
+            <p class="body-text-b3-sb extras-title">optional extras</p>
+            <!-- Form for options -->
+            <ul class="extras-list">
+                {% for option in options %}
+                    <li>
+                        <label class="extras-title" for="option_{{ option.id }}">{{ option.name }}</label>
+                        <div class="extras-input-wrapper">
+                            <div class="input-block">
+                                <button class="decrement" type="button">
+                                    <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
+                                </button>
+                                <input type="text" id="option_{{ option.id }}" name="option_{{ option.id }}" value="{{ option.quantity }}" readonly>
+                                <button class="increment" type="button">
+                                    <img src="{% static 'icons/increment-icon.svg' %}" alt="increment">
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 </form>
 

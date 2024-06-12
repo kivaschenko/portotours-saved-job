@@ -165,24 +165,15 @@ const controller = {
     },
 
     validateParticipantLimits: function () {
-        console.log("Inside Participants validation:");
         const selectedEvent = model.events.find(event => event.date === model.selectedDate);
-        console.log("selectedEvent:", selectedEvent);
         const totalParticipants = controller.getTotalParticipants();
-        console.log("Total participants:", totalParticipants);
-        if (totalParticipants > selectedEvent.remaining_participants) {
-            return false;
-        }
-        return true;
+        return totalParticipants <= selectedEvent.remaining_participants;
+
     },
 
     validateOptionLimits: function () {
-        console.log("Inside Options validation:");
         for (const option of model.bookingData.options) {
             const optionElement = document.getElementById(`option_${option.id}`);
-            console.log("Current optionElement:", optionElement);
-            console.log("optionElement.value:", optionElement.value);
-            console.log("option.max_quantity:", option.max_quantity);
             if (parseInt(optionElement.value) > option.max_quantity) {
                 return false;
             }
@@ -191,7 +182,6 @@ const controller = {
     },
     
     handleFormSubmit: async function () {
-        console.log("Run submitting process...");
         if (!controller.validateParticipantLimits() || !controller.validateOptionLimits()) {
             return;
         }
@@ -281,8 +271,6 @@ const controller = {
                         priceElement.innerHTML = 'FREE';
                     }
                 }
-
-                // Recalculate the total price
                 controller.updateTotalPrice();
             });
         });
@@ -426,7 +414,6 @@ const controller = {
             submitBtn.disabled = false;
         } else {
             submitBtn.disabled = true;
-            return;
         }
     },
 

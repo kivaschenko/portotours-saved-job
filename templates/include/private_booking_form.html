@@ -93,32 +93,34 @@
         <p>Add optional extras to your experience!</p>
     </div>
     <div class="options-inputs-wrapper">
-        {% for option in options %}
-        <div class="form-group">
-            <label for="option_{{ option.id }}">{{ option.name }}</label>
-            <div class="count-price-wrapper">
-                <div class="quantity">
-                    <button type="button" class="btn-decrement">
-                        <img class="active" src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
-                        <img class="disabled" src="{% static 'icons/decrement-icon-grey.svg' %}" alt="decrement">
-                    </button>
-                    <input type="text" id="option_{{ option.id }}" name="option_{{ option.id }}" value="{{ option.quantity }}" readonly>
-                    <button type="button" class="btn-increment">
-                        <img class="active" src="{% static 'icons/increment-icon.svg' %}" alt="increment">
-                        <img class="disabled" src="{% static 'icons/increment-icon-grey.svg' %}" alt="increment">
-                    </button>
+        {% if options %}
+            {% for option in options %}
+                <div class="form-group">
+                    <label for="option_{{ option.id }}">{{ option.name }}</label>
+                    <div class="count-price-wrapper">
+                        <div class="quantity">
+                            <button type="button" class="btn-decrement">
+                                <img class="active" src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
+                                <img class="disabled" src="{% static 'icons/decrement-icon-grey.svg' %}" alt="decrement">
+                            </button>
+                            <input type="text" id="option_{{ option.id }}" name="option_{{ option.id }}" value="{{ option.quantity }}" readonly>
+                            <button type="button" class="btn-increment">
+                                <img class="active" src="{% static 'icons/increment-icon.svg' %}" alt="increment">
+                                <img class="disabled" src="{% static 'icons/increment-icon-grey.svg' %}" alt="increment">
+                            </button>
+                        </div>
+                        <p class="price" id="option_price_{{ option.id }}">
+                            {% if option.price > 0 %}
+                                €{{ option.price }}
+                            {% else %}
+                                FREE
+                            {% endif %}
+                        </p>
+                    </div>
+
                 </div>
-                <p class="price" id="option_price_{{ option.id }}">
-                    {% if option.price > 0 %}
-                        €{{ option.price }}
-                    {% else %}
-                        FREE
-                    {% endif %}
-                </p>
-            </div>
-            
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
     </div>
 
     <button type="submit" class="btn-type-1" id="submitBtn">add to cart</button>

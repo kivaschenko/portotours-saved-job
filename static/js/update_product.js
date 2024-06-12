@@ -219,7 +219,7 @@ const view = {
 
     // First seed for options from model
     seedOptionData: function () {
-        model.bookingData.options.forEach( item => {
+        model.bookingData.options.forEach(item => {
             console.log(item);
             this.updateOptionQuantityDisplay(item.id, item.quantity);
         })
@@ -229,8 +229,34 @@ const view = {
 
 // The controller has functions that respond to events in HTML blocks, forms, buttons
 const controller = {
+    getTotalParticipants: function () {
+        const adultCount = parseInt(document.getElementById('adultTicketCount').value);
+        const childCount = parseInt(document.getElementById('childTicketCount').value);
+        return adultCount + childCount;
+    },
+
+    validateParticipantLimits: function () {
+        const selectedEvent = model.events.find(event => event.date === model.selectedDate);
+        const totalParticipants = controller.getTotalParticipants();
+        return totalParticipants <= selectedEvent.remaining_participants;
+
+    },
+
+    validateOptionLimits: function () {
+        for (const option of model.bookingData.options) {
+            const optionElement = document.getElementById(`option_${option.id}`);
+            if (parseInt(optionElement.value) > option.max_quantity) {
+                return false;
+            }
+        }
+        return true;
+    },
+
     // Function to handle form submission
     handleFormSubmit: async function () {
+        if (!controller.validateParticipantLimits() || !controller.validateOptionLimits()) {
+            return;
+        }
         // Get the booking data from the model
         const bookingData = model.bookingData;
 
@@ -263,32 +289,53 @@ const controller = {
             console.error('Error submitting update of booking:', error);
         }
     },
-
-    handleIncrementClick: function () {
-        document.querySelectorAll('.increment').forEach(button => {
-            button.addEventListener('click', function () {
-                const ticketCount = this.previousElementSibling;
-                const priceDisplay = this.nextElementSibling.nextElementSibling;
-                let count = parseInt(ticketCount.value);
-                count++;
-                ticketCount.value = count;
-                controller.updateTotalPrice(); // Update total price when incrementing
-                controller.performValidation();
+    handleTicketsIncrementDecrement: function () {
+        document.querySelectorAll('.increment, .decrement').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const button = event.currentTarget; // Ensure we get the button element itself
+                const increment = button.classList.contains('increment') ? 1 : -1;
+                const input = button.closest('.ticket-type').querySelector('.ticket-count');
+                input.value = Math.max(0, parseInt(input.value) + increment);
+                if (!controller.validateParticipantLimits()) {
+                    input.value = Math.max(0, parseInt(input.value) - increment);
+                } else {
+                    controller.updateTotalPrice();
+                    controller.performValidation();
+                }
             });
         });
     },
-    handleDecrementClick: function () {
-        document.querySelectorAll('.decrement').forEach(button => {
-            button.addEventListener('click', function () {
-                const ticketCount = this.nextElementSibling;
-                const priceDisplay = this.nextElementSibling.nextElementSibling;
-                let count = parseInt(ticketCount.value);
-                if (count > 0) {
-                    count--;
-                    ticketCount.value = count;
-                    controller.updateTotalPrice(); // Update total price when decrementing
-                    controller.performValidation();
+    handleOptionIncrementDecrement: function () {
+        document.querySelectorAll('.btn-increment, .btn-decrement').forEach(button => {
+            button.addEventListener('click', event => {
+                const button = event.currentTarget;
+                console.log("button:", button);
+                const input = button.closest('.quantity').querySelector('input');
+                console.log("input:", input);
+                const optionId = parseInt(input.id.replace('option_', ''));
+                const option = model.bookingData.options.find(opt => opt.id === optionId);
+                const increment = button.classList.contains('btn-increment') ? 1 : -1;
+                // Ensure the input value is updated correctly first
+                const newValue = Math.max(0, parseInt(input.value) + increment);
+                // Ensure the input value does not exceed the max quantity
+                if (newValue > option.max_quantity) {
+                    input.value = option.max_quantity;
+                } else {
+                    input.value = newValue;
                 }
+                // Update the option quantity in the model
+                option.quantity = parseInt(input.value);
+
+                // Update the display price for the option
+                const priceElement = document.getElementById(`option_price_${optionId}`);
+                if (priceElement) {
+                    if (option.price > 0) {
+                        priceElement.innerHTML = `€${option.price * option.quantity}`;
+                    } else {
+                        priceElement.innerHTML = 'FREE';
+                    }
+                }
+                controller.updateTotalPrice();
             });
         });
     },
@@ -349,12 +396,9 @@ const controller = {
     },
 
     resetPricesAndButton: function () {
-        // Reset adult and child total prices to $0
         document.getElementById('adultTotalPrice').textContent = '€0';
         document.getElementById('childTotalPrice').textContent = '€0';
         document.querySelector('.total-price-wrapper span').innerHTML = '0'
-
-        // Reset submit button text
         submitBtn.textContent = 'Save';
     },
 
@@ -366,8 +410,6 @@ const controller = {
         // Clear the time selection area
         const timeSelection = document.querySelector('.time-selection');
         timeSelection.innerHTML = '';
-
-        
 
         if (clickedDate) {
             const eventsForDate = model.events.filter(event => event.date === clickedDate);
@@ -446,13 +488,16 @@ const controller = {
         const submitBtn = document.getElementById('submitBtn');
         const ticketSelection = document.querySelector('.ticket-selection');
         const languageSelection = document.querySelector('.language-selection');
+        const optionTitle = document.querySelector('.options-title-wrapper');
+        const optionSelection = document.querySelector('.options-inputs-wrapper');
 
-        // Enable ticket selection if date and time are selected
         if (selectedDateElement && selectedTimeInput) {
             ticketSelection.classList.remove('disabled');
         } else {
             ticketSelection.classList.add('disabled');
             languageSelection.classList.add('disabled');
+            optionTitle.classList.add('disabled');
+            optionSelection.classList.add('disabled');
             // submitBtn.disabled = true;
             return;
         }
@@ -471,18 +516,17 @@ const controller = {
             submitBtn.disabled = false;
         } else {
             // submitBtn.disabled = true;
-            return;
         }
     },
 
     // Function to change the quantity of an option
-    changeOptionQuantity: function (optionId, amount) {
-        const option = model.bookingData.options.find(opt => opt.id === optionId);
-        if (option) {
-            option.quantity = Math.max(0, option.quantity + amount);
-            view.updateOptionQuantityDisplay(optionId, option.quantity);
-        }
-    },
+    // changeOptionQuantity: function (optionId, amount) {
+    //     const option = model.bookingData.options.find(opt => opt.id === optionId);
+    //     if (option) {
+    //         option.quantity = Math.max(0, option.quantity + amount);
+    //         view.updateOptionQuantityDisplay(optionId, option.quantity);
+    //     }
+    // },
 
     // Function to update the model booking data
     updateBookingData: function () {
@@ -559,7 +603,7 @@ function handleEventData(data) {
         view.renderCalendar(currentDate);
 
     } else {
-        const currentDate = new Date(); 
+        const currentDate = new Date();
         view.renderCalendar(currentDate);
     }
 };
@@ -600,38 +644,29 @@ document.addEventListener('DOMContentLoaded', async function () {
     ticketSelection.classList.add('disabled');
     languageSelection.classList.add('disabled');
 
-    // Call the handleIncrementClick and handleDecrementClick functions
-    controller.handleIncrementClick();
-    controller.handleDecrementClick();
-
-    // Call handleTimeSelection function to add event listeners to time selection inputs
+    controller.handleTicketsIncrementDecrement();
+    controller.handleOptionIncrementDecrement();
     controller.handleTimeSelection();
 
     // Add event listeners to form inputs to update booking data
     document.getElementById('submitBtn').addEventListener('click', function (e) {
         e.preventDefault()
-        // Gather form data and update the model
-        controller.updateBookingData(); // This function should be updated to gather all form data
-
-        // Call a function to handle form submission
+        controller.updateBookingData();
         controller.handleFormSubmit();
     });
 
     // Add event listener to the calendar to reset booking data on date selection change
     document.getElementById('calendarGrid').addEventListener('click', function () {
-        // Reset booking data and perform validation when date is selected
         controller.resetBookingData();
         controller.performValidation();
     });
 
     // Add event listener to time selection inputs to perform validation when time is selected
-
     document.querySelectorAll('input[name="time"]').forEach(input => {
         input.addEventListener('change', controller.performValidation);
     });
 
     // Add event listener to adult ticket count input to perform validation
-
     document.getElementById('adultTicketCount').addEventListener('input', controller.performValidation);
 
 
@@ -639,32 +674,29 @@ document.addEventListener('DOMContentLoaded', async function () {
         input.addEventListener('change', controller.performValidation);
     });
 
-    
-     // Simulate a click on the current date in the calendar
-     const [tourMonth, tourDay, tourYear] = model.current_product.startDate.split('/');
-     const tourStartDate = new Date(`${tourYear}-${tourMonth}-${tourDay}`);
-     const tourStartYear = tourStartDate.getFullYear(); // Получаем год начала тура
-     const tourStartMonth = tourStartDate.getMonth(); // Получаем номер месяца начала тура
+    // Simulate a click on the current date in the calendar
+    const [tourMonth, tourDay, tourYear] = model.current_product.startDate.split('/');
+    const tourStartDate = new Date(`${tourYear}-${tourMonth}-${tourDay}`);
+    const tourStartYear = tourStartDate.getFullYear();
+    const tourStartMonth = tourStartDate.getMonth();
 
-     const [month, day, year] = model.current_product.startDate.split('/');
- 
-     // Рендер календаря для месяца и года начала тура
-     view.renderCalendar(new Date(tourStartYear, tourStartMonth, 1));
- 
-     // Добавление класса selected-date к дате текущего тура
-     const currentDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-     const currentDay = document.querySelector(`[data-date="${currentDate}"]`);
-     if (currentDay) {
-         currentDay.classList.add('selected-date');
-         const clickEvent = new MouseEvent('click', {
-             bubbles: true,
-             cancelable: true,
-             view: window
-         });
-         currentDay.dispatchEvent(clickEvent);
-     } else {
-         console.error('Current date not found in the calendar.');
-     }
+    const [month, day, year] = model.current_product.startDate.split('/');
+
+    view.renderCalendar(new Date(tourStartYear, tourStartMonth, 1));
+
+    const currentDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    const currentDay = document.querySelector(`[data-date="${currentDate}"]`);
+    if (currentDay) {
+        currentDay.classList.add('selected-date');
+        const clickEvent = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window
+        });
+        currentDay.dispatchEvent(clickEvent);
+    } else {
+        console.error('Current date not found in the calendar.');
+    }
 
     // seed form data
     view.seedDataToForm();
