@@ -1,7 +1,7 @@
 from django.contrib.sessions.models import Session
+from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import Sum, ExpressionWrapper, F, DurationField
-from django.db.models.functions.text import Concat
+from django.db.models import ExpressionWrapper, DurationField
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
@@ -10,9 +10,8 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, ListView, DeleteView
 from django.views.generic import View
-from django.core.paginator import Paginator
-from weasyprint import HTML
 from schedule.models import EventRelation
+from weasyprint import HTML
 
 from home.forms import ExperienceSearchForm
 from products.models import *  # noqa
@@ -191,9 +190,15 @@ class ExperienceDetailView(DetailView):
         options = obj.parent_experience.allowed_options.all()
         if options:
             for option in options:
-                temp = {'id': option.id, 'name': option.name, 'description': option.description, 'price': float(option.price), 'quantity': 0}
+                temp = {
+                    'id': option.id,
+                    'name': option.name,
+                    'description': option.description,
+                    'price': float(option.price),
+                    'quantity': 0,
+                    'max_quantity': option.max_quantity,
+                }
                 options_list.append(temp)
-                print(options_list)
         self.extra_context['options'] = options_list
 
         # find all other languages
@@ -210,7 +215,7 @@ class ExperienceDetailView(DetailView):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
         context['review_form'] = ReviewForm()
-        
+
         if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
             page_obj = self.get_paginated_reviews()
             reviews_html = render_to_string('reviews/review_list.html', {'page_obj': page_obj})

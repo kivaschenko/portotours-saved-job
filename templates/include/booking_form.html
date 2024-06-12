@@ -85,39 +85,47 @@
 
     <!-- Form for options -->
     <div class="options-title-wrapper">
-        <img class="open" src="{% static 'icons/options-form-icon.svg' %}" alt="form icon">
-        <img class="close" src="{% static 'icons/options-close-icon.svg' %}" alt="close icon">
-        <p>Add optional extras to your experience</p>
+        {% if options %}
+            <img class="open" src="{% static 'icons/options-form-icon.svg' %}" alt="form icon">
+            <img class="close" src="{% static 'icons/options-close-icon.svg' %}" alt="close icon">
+            <p>Add optional extras to your experience</p>
+        {% endif %}
     </div>
     <div class="options-inputs-wrapper">
-        {% for option in options %}
-        <div class="form-group">
-            <label for="option_{{ option.id }}">{{ option.name }}</label>
-            <div class="count-price-wrapper">
-                <div class="quantity">
-                    <button type="button" class="btn-decrement" onclick="controller.changeOptionQuantity({{ option.id }}, -1, {{option.price}})">
-                        <img class="active" src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
-                        <img class="disabled" src="{% static 'icons/decrement-icon-grey.svg' %}" alt="decrement">
-                    </button>
-                    <input type="text" id="option_{{ option.id }}" name="option_{{ option.id }}" value="{{ option.quantity }}" readonly>
-                    <button type="button" class="btn-increment" onclick="controller.changeOptionQuantity({{ option.id }}, 1, {{option.price}})">
-                        <img class="active" src="{% static 'icons/increment-icon.svg' %}" alt="increment">
-                        <img class="disabled" src="{% static 'icons/increment-icon-grey.svg' %}" alt="increment">
-                    </button>
+        {% if options %}
+            {% for option in options %}
+                <div class="form-group">
+                    <label for="option_{{ option.id }}">
+                        {{ option.name }}
+                        {% if option.description %}
+                            <span><sm>{{ option.description }}</sm></span>
+                        {% endif %}
+                    </label>
+                    <div class="count-price-wrapper">
+                        <div class="quantity">
+                            <button type="button" class="btn-decrement">
+                                <img class="active" src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
+                                <img class="disabled" src="{% static 'icons/decrement-icon-grey.svg' %}" alt="decrement">
+                            </button>
+                            <input type="text" id="option_{{ option.id }}" name="option_{{ option.id }}" value="{{ option.quantity }}" readonly>
+                            <button type="button" class="btn-increment">
+                                <img class="active" src="{% static 'icons/increment-icon.svg' %}" alt="increment">
+                                <img class="disabled" src="{% static 'icons/increment-icon-grey.svg' %}" alt="increment">
+                            </button>
+                        </div>
+                        <p class="price" id="option_price_{{ option.id }}">
+                            {% if option.price > 0 %}
+                                €{{ option.price }}
+                            {% else %}
+                                FREE
+                            {% endif %}
+                        </p>
+                    </div>
                 </div>
-                <p class="price" id="option_price_{{ option.id }}">
-                    {% if option.price > 0 %}
-                        €{{ option.price }}
-                    {% else %}
-                        FREE
-                    {% endif %}
-                </p>
-            </div>
-            
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
     </div>
-   
+
 
     <button type="submit" class="btn-type-1" id="submitBtn">add to cart</button>
     <p class="free-canc-text">
