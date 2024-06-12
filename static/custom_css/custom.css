@@ -11395,7 +11395,7 @@ html.off-scroll body {
       margin-right: 0;
       font-size: 36px;
       line-height: 36px;
-      font-family: 'LatoSemiBold';
+      font-family: "LatoSemiBold";
       margin-top: 60px;
       display: inline-block; }
       @media (max-width: 767.98px) {
@@ -11487,7 +11487,7 @@ html.off-scroll body {
           -webkit-appearance: none;
           -moz-appearance: none;
           background: white;
-          color: #0F0F10;
+          color: #0f0f10;
           background-image: url(../images/language-arrow.png);
           background-position-x: calc(100% - 16px);
           background-position-y: 50%;
@@ -11547,7 +11547,7 @@ html.off-scroll body {
           line-height: normal;
           position: relative;
           background-color: white;
-          color: #0F0F10;
+          color: #0f0f10;
           -webkit-appearance: none; }
           .experience-list-hero .container .experience-list-hero-calendar form .date-wrapper input::placeholder {
             color: #6d6d6d; }
@@ -11625,7 +11625,7 @@ html.off-scroll body {
         font-size: 16px;
         line-height: 26px;
         font-family: "LatoRegular";
-        color: #6D6D6D; }
+        color: #6d6d6d; }
       .experience-list .container .title-filter-wrapper .filter-wrapper select {
         padding: 9px 50px 9px 16px;
         border-radius: 6px;
@@ -11738,7 +11738,7 @@ html.off-scroll body {
             .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-wrapper {
               justify-content: center; } }
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-wrapper p {
-            color: #0F0F10;
+            color: #0f0f10;
             font-size: 14px;
             line-height: normal;
             font-family: "LatoRegular";
@@ -11753,7 +11753,7 @@ html.off-scroll body {
             .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper {
               justify-content: center; } }
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper p {
-            color: #0F0F10;
+            color: #0f0f10;
             font-size: 14px;
             line-height: normal;
             font-family: "LatoRegular";
@@ -11768,7 +11768,7 @@ html.off-scroll body {
             height: 20px;
             position: relative; }
             .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .icon-wrapper.partial-fill::before {
-              content: '';
+              content: "";
               /* Добавляем контент в псевдоэлемент */
               position: absolute;
               /* Абсолютное позиционирование для точного позиционирования */
@@ -11792,7 +11792,7 @@ html.off-scroll body {
             stroke-width: 1;
             width: 100%; }
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .rating-img-wrapper .filled {
-            fill: #FDB601;
+            fill: #fdb601;
             /* Заливка желтым цветом */ }
         .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .discount-banner {
           display: flex;
@@ -11803,7 +11803,7 @@ html.off-scroll body {
             .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .discount-banner {
               margin-bottom: 8px; } }
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .discount-banner span {
-            color: #E90505;
+            color: #e90505;
             font-size: 16px;
             line-height: 22px;
             text-transform: uppercase;
@@ -11842,22 +11842,22 @@ html.off-scroll body {
               font-family: "LatoRegular";
               font-size: 14px;
               line-height: 22px;
-              color: #6D6D6D;
+              color: #6d6d6d;
               display: flex;
               align-items: center;
               justify-content: flex-start; }
               @media (max-width: 767.98px) {
                 .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li {
-                  width: calc((100% - 20px)/2); } }
+                  width: calc((100% - 20px) / 2); } }
               .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li p {
                 display: inline;
                 margin: 0;
                 font-family: "LatoRegular";
                 font-size: 14px;
                 line-height: 22px;
-                color: #6D6D6D !important; }
+                color: #6d6d6d !important; }
                 .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li p span {
-                  color: #6D6D6D !important; }
+                  color: #6d6d6d !important; }
               .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .experience-type-list-wrapper .main-info-list li img {
                 width: 20px;
                 height: 20px;
@@ -11910,10 +11910,10 @@ html.off-scroll body {
                 font-size: 18px;
                 line-height: 28px; } }
           .experience-list .container .experiences .experience-list-item .experience-list-content-wrapper .price-wrapper .per-person {
-            color: #6D6D6D;
+            color: #6d6d6d;
             font-size: 14px;
             line-height: 22px;
-            font-family: 'LatoRegular';
+            font-family: "LatoRegular";
             margin-bottom: 0;
             margin-left: 10px; }
             @media (max-width: 767.98px) {
@@ -12045,7 +12045,7 @@ html.off-scroll body {
     font-family: "LatoRegular";
     font-size: 16px;
     line-height: 26px;
-    color: #0C692C;
+    color: #0c692c;
     text-transform: capitalize;
     margin-bottom: 0; }
     @media (max-width: 767.98px) {
@@ -12122,7 +12122,7 @@ html.off-scroll body {
           font-family: "LatoRegular";
           font-size: 24px;
           line-height: normal;
-          color: #6D6D6D;
+          color: #6d6d6d;
           text-decoration: line-through;
           margin-bottom: 0;
           margin-right: 12px; }
@@ -12145,7 +12145,7 @@ html.off-scroll body {
       .sticky-container .sticky-block .reviews-rating-wrapper {
         justify-content: center; } }
     .sticky-container .sticky-block .reviews-rating-wrapper .reviews-count {
-      color: #0F0F10;
+      color: #0f0f10;
       font-family: "LatoRegular";
       font-size: 14px;
       line-height: normal;
@@ -12162,12 +12162,12 @@ html.off-scroll body {
         height: 100%;
         top: 0;
         right: -10px;
-        background-color: #0F0F10; }
+        background-color: #0f0f10; }
     .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper {
       display: flex;
       align-items: center; }
       .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .rating-num {
-        color: #0F0F10;
+        color: #0f0f10;
         font-family: "LatoRegular";
         font-size: 14px;
         line-height: normal;
@@ -12182,7 +12182,7 @@ html.off-scroll body {
         height: 20px;
         position: relative; }
         .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .icon-wrapper.partial-fill::before {
-          content: '';
+          content: "";
           /* Добавляем контент в псевдоэлемент */
           position: absolute;
           /* Абсолютное позиционирование для точного позиционирования */
@@ -12206,7 +12206,7 @@ html.off-scroll body {
         stroke-width: 1;
         width: 100%; }
       .sticky-container .sticky-block .reviews-rating-wrapper .rating-img-wrapper .filled {
-        fill: #FDB601;
+        fill: #fdb601;
         /* Заливка желтым цветом */ }
 
 .experience-hero {
@@ -12357,7 +12357,7 @@ html.off-scroll body {
           .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards {
             flex-direction: column; } }
         .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards .experience-card {
-          width: calc((100% - 66px)/3);
+          width: calc((100% - 66px) / 3);
           display: flex;
           align-items: flex-start;
           justify-content: flex-start;
@@ -12388,20 +12388,22 @@ html.off-scroll body {
               @media (max-width: 767.98px) {
                 .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards .experience-card .card-content .card-title {
                   line-height: 24px; } }
-            .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards .experience-card .card-content .card-text, .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards .experience-card .card-content p {
+            .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards .experience-card .card-content .card-text,
+            .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards .experience-card .card-content p {
               font-family: "LatoRegular";
               font-size: 14px;
               line-height: 22px;
               margin-bottom: 0; }
               @media (max-width: 767.98px) {
-                .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards .experience-card .card-content .card-text, .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards .experience-card .card-content p {
+                .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards .experience-card .card-content .card-text,
+                .experience-info .container .experience-info-inner-wrapper .left-col .experience-cards .experience-card .card-content p {
                   font-size: 16px;
                   line-height: 24px; } }
       .experience-info .container .experience-info-inner-wrapper .left-col .risk-free-badge {
         width: 100%;
         padding: 4px 15px;
         border-radius: 10px;
-        background: #F3FAF5;
+        background: #f3faf5;
         margin-bottom: 14px;
         display: flex;
         align-items: center;
@@ -12426,7 +12428,7 @@ html.off-scroll body {
         width: 100%;
         padding: 4px 15px;
         border-radius: 10px;
-        background: #FFF1EB;
+        background: #fff1eb;
         margin-bottom: 32px; }
         @media (max-width: 767.98px) {
           .experience-info .container .experience-info-inner-wrapper .left-col .children-discount-badge {
@@ -12437,7 +12439,7 @@ html.off-scroll body {
           align-items: center;
           justify-content: flex-start;
           margin: 0;
-          color: #F0500B;
+          color: #f0500b;
           font-family: "LatoRegular";
           font-size: 18px;
           line-height: normal;
@@ -12449,8 +12451,8 @@ html.off-scroll body {
       .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge {
         margin-bottom: 24px;
         border-radius: 26px;
-        border: 1px solid #D9D9D9;
-        background: #FFF;
+        border: 1px solid #d9d9d9;
+        background: #fff;
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -12482,7 +12484,7 @@ html.off-scroll body {
           .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge .content-wrapper .badge-title {
             font-size: 18px;
             line-height: 28px;
-            color: #0F0F10;
+            color: #0f0f10;
             font-family: "LatoSemiBold";
             text-transform: capitalize;
             margin-top: 0;
@@ -12493,7 +12495,7 @@ html.off-scroll body {
           .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge .content-wrapper .badge-text {
             font-size: 16px;
             line-height: 26px;
-            color: #0F0F10;
+            color: #0f0f10;
             font-family: "LatoRegular";
             padding-right: 15px;
             margin-bottom: 0; }
@@ -12530,7 +12532,7 @@ html.off-scroll body {
           line-height: 28px;
           margin-bottom: 10px;
           text-transform: capitalize;
-          color: #0F0F10; }
+          color: #0f0f10; }
         .experience-info .container .experience-info-inner-wrapper .left-col .optional-extras-wrapper ul {
           padding-left: 0;
           margin-bottom: 0;
@@ -12540,15 +12542,15 @@ html.off-scroll body {
           flex-wrap: wrap;
           list-style: none; }
           .experience-info .container .experience-info-inner-wrapper .left-col .optional-extras-wrapper ul li {
-            color: #0F0F10;
+            color: #0f0f10;
             font-family: "LatoRegular";
             font-size: 14px;
             line-height: 22px;
             margin-bottom: 10px;
             margin-right: 8px;
             border-radius: 33px;
-            border: 1px solid #F0500B;
-            background: #FFF;
+            border: 1px solid #f0500b;
+            background: #fff;
             padding: 2px 10px; }
       .experience-info .container .experience-info-inner-wrapper .left-col .experience-timeline {
         margin-bottom: 60px; }
@@ -12562,7 +12564,7 @@ html.off-scroll body {
               margin-bottom: 8px; } }
         .experience-info .container .experience-info-inner-wrapper .left-col .experience-timeline .experience-timeline-subtitle {
           margin-bottom: 16px;
-          color: #6D6D6D;
+          color: #6d6d6d;
           font-size: 12px;
           line-height: 16px;
           font-family: "LatoRegular"; }
@@ -12584,7 +12586,7 @@ html.off-scroll body {
             bottom: 0;
             left: 0;
             z-index: 2;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 32.52%, #FFF 100%); }
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 32.52%, #fff 100%); }
             @media (max-width: 767.98px) {
               .experience-info .container .experience-info-inner-wrapper .left-col .experience-timeline .experience-timeline-inner::after {
                 height: 50px; } }
@@ -12672,8 +12674,8 @@ html.off-scroll body {
       .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block {
         padding: 32px;
         border-radius: 26px;
-        border: 1px solid #D9D9D9;
-        background: #FFF; }
+        border: 1px solid #d9d9d9;
+        background: #fff; }
         @media (max-width: 767.98px) {
           .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block {
             padding: 0;
@@ -12687,21 +12689,26 @@ html.off-scroll body {
         .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block h5, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block .h5 {
           margin-bottom: 14px;
           color: #000; }
-        .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol {
+        .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul,
+        .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol {
           padding-left: 0;
           margin: 0; }
-          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li {
+          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li,
+          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li {
             padding-left: 38px;
             list-style: none !important;
             position: relative; }
             @media (max-width: 767.98px) {
-              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li {
+              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li,
+              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li {
                 padding-left: 34px;
                 font-size: 14px;
                 line-height: 22px; } }
-            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li + li, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li + li {
+            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li + li,
+            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li + li {
               margin-top: 8px; }
-            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li::before, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li::before {
+            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li::before,
+            .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li::before {
               content: "";
               position: absolute;
               width: 24px;
@@ -12715,7 +12722,8 @@ html.off-scroll body {
               top: 0;
               transform: translateY(0); }
               @media (max-width: 767.98px) {
-                .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li::before, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li::before {
+                .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ul li::before,
+                .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.travel-tips ol li::before {
                   top: 0px;
                   transform: none; } }
         .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner {
@@ -12727,13 +12735,15 @@ html.off-scroll body {
               flex-direction: column; } }
           .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner > p {
             display: none; }
-          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol {
-            width: calc((100% - 15px)/2);
+          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul,
+          .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol {
+            width: calc((100% - 15px) / 2);
             padding-left: 0;
             list-style: none;
             margin: 0; }
             @media (max-width: 767.98px) {
-              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul, .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol {
+              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul,
+              .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ol {
                 width: 100%; } }
           .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul {
             padding-left: 0;
@@ -12785,9 +12795,9 @@ html.off-scroll body {
                 line-height: 26px;
                 margin-bottom: 0;
                 position: relative;
-                color: #6D6D6D; }
+                color: #6d6d6d; }
                 .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li * {
-                  color: #6D6D6D !important; }
+                  color: #6d6d6d !important; }
                 @media (max-width: 767.98px) {
                   .experience-info .container .experience-info-inner-wrapper .left-col .experience-info-block.experience-include .info-block-inner ul + ul li {
                     padding-left: 34px;
@@ -12829,7 +12839,7 @@ html.off-scroll body {
       .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper {
         position: relative;
         border-radius: 26px;
-        background: #F8F8F8;
+        background: #f8f8f8;
         padding: 40px 40px 20px; }
         @media (max-width: 767.98px) {
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper {
@@ -12861,7 +12871,7 @@ html.off-scroll body {
           top: 0;
           left: 0;
           padding: 11px 40px 21px;
-          background-color: #FFF2D2;
+          background-color: #fff2d2;
           border-radius: 26px 26px 0 0;
           width: 100%; }
           @media (max-width: 767.98px) {
@@ -12879,7 +12889,7 @@ html.off-scroll body {
             margin-right: 8px; }
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper .form-text-wrapper .form-text-banner {
             margin: 0;
-            color: #F0500B;
+            color: #f0500b;
             font-size: 14px;
             line-height: 22px;
             font-family: "LatoMedium"; }
@@ -12897,7 +12907,7 @@ html.off-scroll body {
             text-align: center;
             margin-bottom: 16px;
             border-radius: 16px;
-            background: #FFF;
+            background: #fff;
             padding: 10px 20px; }
             .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .month-controls {
               display: flex;
@@ -12941,13 +12951,13 @@ html.off-scroll body {
                 font-family: "LatoRegular";
                 font-size: 14px;
                 line-height: 22px;
-                color: #6D6D6D;
+                color: #6d6d6d;
                 text-align: center; }
             .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid {
               display: grid;
               grid-template-columns: repeat(7, 1fr); }
               .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day {
-                color: #0F0F10;
+                color: #0f0f10;
                 font-family: "LatoRegular";
                 font-size: 16px;
                 line-height: normal;
@@ -12959,12 +12969,12 @@ html.off-scroll body {
                 padding-top: 5px;
                 justify-content: flex-start; }
                 .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.inactive {
-                  color: #D9D9D9; }
+                  color: #d9d9d9; }
                   .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.inactive span {
-                    color: #D9D9D9; }
+                    color: #d9d9d9; }
                 .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.selected-date {
                   border-radius: 6px;
-                  background: #F0500B;
+                  background: #f0500b;
                   color: white; }
                   .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .calendar .calendar-grid .calendar-day.selected-date span {
                     color: white; }
@@ -12974,7 +12984,7 @@ html.off-scroll body {
                   font-size: 12px;
                   line-height: normal;
                   margin-top: 2px;
-                  color: #6D6D6D;
+                  color: #6d6d6d;
                   /* Цвет текста для цены тура */
                   pointer-events: none; }
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .time-selection-title {
@@ -13026,7 +13036,7 @@ html.off-scroll body {
               .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type + .ticket-type {
                 margin-top: 10px; }
               .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .ticket-type .ticket-type-title {
-                color: #6D6D6D;
+                color: #6d6d6d;
                 font-family: "LatoRegular";
                 font-size: 16px;
                 line-height: 26px;
@@ -13057,7 +13067,7 @@ html.off-scroll body {
                 font-family: "LatoSemiBold";
                 font-size: 18px;
                 line-height: 28px;
-                color: #0F0F10; }
+                color: #0f0f10; }
             .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .ticket-selection .max-participants {
               margin-top: 15px;
               font-size: 14px;
@@ -13125,7 +13135,7 @@ html.off-scroll body {
             display: block;
             margin: 20px auto 0; }
             .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm #submitBtn:disabled {
-              background-color: #FBCAB6; }
+              background-color: #fbcab6; }
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .free-canc-text {
             color: #007728;
             font-size: 14px;
@@ -13139,6 +13149,9 @@ html.off-scroll body {
             align-items: center;
             justify-content: flex-start;
             cursor: pointer; }
+            .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-title-wrapper.disabled {
+              opacity: 0;
+              pointer-events: none; }
             .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-title-wrapper.opened img.close {
               display: block; }
             .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-title-wrapper.opened img.open {
@@ -13154,7 +13167,7 @@ html.off-scroll body {
               font-family: "LatoRegular";
               font-size: 16px;
               line-height: 26px;
-              color: #0F0F10;
+              color: #0f0f10;
               margin: 0; }
           .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper {
             margin-top: 14px;
@@ -13171,6 +13184,11 @@ html.off-scroll body {
                 line-height: 22px;
                 font-family: "LatoRegular";
                 margin-bottom: 4px; }
+                .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group label span {
+                  color: #6d6d6d;
+                  font-size: 12px;
+                  line-height: 16px;
+                  font-family: "LatoRegular"; }
               .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group .count-price-wrapper {
                 display: flex;
                 align-items: center;
@@ -13199,7 +13217,7 @@ html.off-scroll body {
                     text-align: center;
                     font-size: 14px;
                     line-height: 22px;
-                    color: #0F0F10;
+                    color: #0f0f10;
                     padding: 0; }
                 .experience-info .container .experience-info-inner-wrapper .aside-form .booking-form-wrapper #bookingForm .options-inputs-wrapper .form-group .count-price-wrapper .price {
                   font-size: 14px;
@@ -13216,7 +13234,7 @@ html.off-scroll body {
       position: fixed;
       bottom: 0;
       left: 0;
-      background-color: #FFF1EB;
+      background-color: #fff1eb;
       width: 100%;
       z-index: 20; }
       .mobile-form-btn-wrapper .container {
@@ -13264,7 +13282,7 @@ html.off-scroll body {
       position: absolute;
       top: 20px;
       right: 20px;
-      background-color: #F8F8F8;
+      background-color: #f8f8f8;
       border: none; }
       @media (max-width: 767.98px) {
         .upsale-popup-wrapper .popup-inner-wrapper .close-popup-btn {
@@ -13272,7 +13290,7 @@ html.off-scroll body {
           right: 16px; } }
     .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper {
       padding: 34px 100px 24px 40px;
-      background-color: #F8F8F8;
+      background-color: #f8f8f8;
       display: flex;
       align-items: center;
       justify-content: space-between; }
@@ -13299,7 +13317,7 @@ html.off-scroll body {
                 width: 40px;
                 height: 40px; } }
           .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .title-wrapper .popup-title {
-            color: #0F0F10;
+            color: #0f0f10;
             font-size: 28px;
             line-height: 36px;
             font-family: "LatoRegular";
@@ -13320,7 +13338,7 @@ html.off-scroll body {
             font-size: 20px;
             line-height: 30px;
             font-family: "LatoRegular";
-            color: #0F0F10;
+            color: #0f0f10;
             margin-top: 0;
             margin-bottom: 8px; }
             @media (max-width: 767.98px) {
@@ -13342,7 +13360,7 @@ html.off-scroll body {
             .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-info-list li {
               margin-right: 38px;
               position: relative;
-              color: #0F0F10 !important;
+              color: #0f0f10 !important;
               font-size: 16px;
               line-height: 26px;
               font-family: "LatoRegular"; }
@@ -13352,7 +13370,7 @@ html.off-scroll body {
                   line-height: 22px;
                   margin-bottom: 4px; } }
               .upsale-popup-wrapper .popup-inner-wrapper .popup-top-wrapper .left-col .booked-tour-info-wrapper .tour-info-list li * {
-                color: #0F0F10 !important;
+                color: #0f0f10 !important;
                 font-size: 16px;
                 line-height: 26px;
                 font-family: "LatoRegular";
@@ -13393,7 +13411,7 @@ html.off-scroll body {
         .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper {
           padding: 16px; } }
       .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-main-title {
-        color: #0F0F10;
+        color: #0f0f10;
         font-size: 32px;
         line-height: 42px;
         font-family: "LatoSemibold";
@@ -13407,7 +13425,7 @@ html.off-scroll body {
             margin-bottom: 8px;
             padding: 0 25px; } }
       .upsale-popup-wrapper .popup-inner-wrapper .popup-bottom-wrapper .popup-subtitle {
-        color: #0F0F10;
+        color: #0f0f10;
         font-size: 18px;
         line-height: normal;
         font-family: "LatoRegular";
@@ -13507,7 +13525,7 @@ html.off-scroll body {
       flex-direction: column-reverse;
       padding-bottom: 20px; } }
 .reviews .left-col {
-  width: calc((100% - 110px)/2);
+  width: calc((100% - 110px) / 2);
   position: relative; }
   @media (max-width: 767.98px) {
     .reviews .left-col {
@@ -13527,7 +13545,7 @@ html.off-scroll body {
         width: 100%;
         content: "";
         height: 1px;
-        background-color: #D9D9D9;
+        background-color: #d9d9d9;
         position: absolute;
         top: -16px;
         left: 0; }
@@ -13545,7 +13563,7 @@ html.off-scroll body {
         font-size: 20px;
         line-height: 30px;
         font-family: "LatoRegular";
-        color: #0F0F10;
+        color: #0f0f10;
         margin: 0; }
     .reviews .left-col .reviews-list .reviews-list-item .review-stars-wrapper {
       margin-bottom: 12px;
@@ -13563,7 +13581,7 @@ html.off-scroll body {
       font-size: 18px;
       line-height: 28px;
       font-family: "LatoSemiBold";
-      color: #0F0F10;
+      color: #0f0f10;
       margin-bottom: 8px; }
       @media (max-width: 767.98px) {
         .reviews .left-col .reviews-list .reviews-list-item .review-title {
@@ -13572,7 +13590,7 @@ html.off-scroll body {
       font-size: 18px;
       line-height: 28px;
       font-family: "LatoRegular";
-      color: #0F0F10;
+      color: #0f0f10;
       margin-bottom: 16px;
       word-break: break-all; }
       @media (max-width: 767.98px) {
@@ -13584,7 +13602,7 @@ html.off-scroll body {
       font-size: 18px;
       line-height: 28px;
       font-family: "LatoRegular";
-      color: #6D6D6D;
+      color: #6d6d6d;
       margin-bottom: 0; }
       @media (max-width: 767.98px) {
         .reviews .left-col .reviews-list .reviews-list-item .review-author {
@@ -13599,9 +13617,9 @@ html.off-scroll body {
       .reviews .left-col .pagination-block {
         bottom: -20px; } }
 .reviews .right-col {
-  width: calc((100% - 110px)/2);
+  width: calc((100% - 110px) / 2);
   border-radius: 26px;
-  background: #F8F8F8;
+  background: #f8f8f8;
   padding: 32px; }
   @media (max-width: 767.98px) {
     .reviews .right-col {
@@ -13623,10 +13641,10 @@ html.off-scroll body {
       justify-content: space-between; }
       .reviews .right-col #div_id_rating > div .form-check {
         padding-left: 0;
-        width: calc((100% - 70px)/5); }
+        width: calc((100% - 70px) / 5); }
         @media (max-width: 767.98px) {
           .reviews .right-col #div_id_rating > div .form-check {
-            width: calc((100% - 40px)/5); } }
+            width: calc((100% - 40px) / 5); } }
         .reviews .right-col #div_id_rating > div .form-check input {
           display: none; }
           .reviews .right-col #div_id_rating > div .form-check input:checked + label::before {
@@ -13679,12 +13697,12 @@ html.off-scroll body {
       font-size: 16px;
       line-height: normal;
       font-family: "LatoRegular";
-      color: #0F0F10;
+      color: #0f0f10;
       border: none; }
       .reviews .right-col #div_id_full_name input::placeholder,
       .reviews .right-col #div_id_title input::placeholder,
       .reviews .right-col #div_id_short_text input::placeholder {
-        color: #6D6D6D;
+        color: #6d6d6d;
         text-transform: capitalize; }
       .reviews .right-col #div_id_full_name input:focus,
       .reviews .right-col #div_id_title input:focus,
@@ -13703,12 +13721,12 @@ html.off-scroll body {
       font-size: 16px;
       line-height: normal;
       font-family: "LatoRegular";
-      color: #0F0F10;
+      color: #0f0f10;
       border: none; }
       .reviews .right-col #div_id_full_name textarea::placeholder,
       .reviews .right-col #div_id_title textarea::placeholder,
       .reviews .right-col #div_id_short_text textarea::placeholder {
-        color: #6D6D6D;
+        color: #6d6d6d;
         text-transform: capitalize; }
   .reviews .right-col .btn {
     width: 100%;
@@ -15753,8 +15771,8 @@ html.off-scroll body {
   padding-bottom: 40px; }
   .account-details .container .account-details-block {
     border-radius: 16px;
-    border: 1px solid #D9D9D9;
-    background: #FFF;
+    border: 1px solid #d9d9d9;
+    background: #fff;
     padding: 32px 64px 32px 73px;
     max-height: 92px;
     overflow: hidden; }
@@ -15798,22 +15816,22 @@ html.off-scroll body {
         align-items: center;
         justify-content: space-between; }
         .account-details .container .account-details-block .info-wrapper .block-content .input-wrapper {
-          width: calc((100% - 24px)/2);
+          width: calc((100% - 24px) / 2);
           margin-bottom: 40px; }
           .account-details .container .account-details-block .info-wrapper .block-content .input-wrapper .label {
-            color: #0F0F10;
+            color: #0f0f10;
             font-family: "LatoSemiBold";
             font-size: 16px;
             line-height: normal;
             margin-top: 0;
             margin-bottom: 8px; }
           .account-details .container .account-details-block .info-wrapper .block-content .input-wrapper .info-text {
-            color: #0F0F10;
+            color: #0f0f10;
             font-family: "LatoRegular";
             font-size: 16px;
             margin-bottom: 0; }
         .account-details .container .account-details-block .info-wrapper .block-content .avatar-wrapper {
-          width: calc((100% - 24px)/2); }
+          width: calc((100% - 24px) / 2); }
           .account-details .container .account-details-block .info-wrapper .block-content .avatar-wrapper img {
             width: 100px;
             height: 100px; }
@@ -15851,7 +15869,7 @@ html.off-scroll body {
       margin-top: 22px; }
       .account-details .container .account-details-block.orders .table thead th {
         font-family: "LatoSemiBold";
-        color: #0F0F10;
+        color: #0f0f10;
         font-size: 16px;
         line-height: 26px;
         text-transform: capitalize;
@@ -15876,7 +15894,7 @@ html.off-scroll body {
       justify-content: space-between;
       flex-wrap: wrap; }
       .account-details .container .account-details-block.change-details .block-content form #div_id_name {
-        width: calc((100% - 24px)/2);
+        width: calc((100% - 24px) / 2);
         margin-bottom: 33px !important;
         position: relative; }
         .account-details .container .account-details-block.change-details .block-content form #div_id_name label {
@@ -15894,14 +15912,14 @@ html.off-scroll body {
         .account-details .container .account-details-block.change-details .block-content form #div_id_name input {
           padding: 21px 24px;
           border-radius: 42px;
-          border: 1px solid #D9D9D9;
+          border: 1px solid #d9d9d9;
           font-family: "LatoRegular";
           font-size: 16px;
           line-height: normal; }
         .account-details .container .account-details-block.change-details .block-content form #div_id_name #id_name_helptext {
           display: none; }
       .account-details .container .account-details-block.change-details .block-content form #div_id_email {
-        width: calc((100% - 24px)/2);
+        width: calc((100% - 24px) / 2);
         margin-bottom: 33px !important;
         position: relative; }
         .account-details .container .account-details-block.change-details .block-content form #div_id_email label {
@@ -15919,10 +15937,10 @@ html.off-scroll body {
         .account-details .container .account-details-block.change-details .block-content form #div_id_email input {
           padding: 21px 24px;
           border-radius: 42px;
-          border: 1px solid #D9D9D9;
+          border: 1px solid #d9d9d9;
           font-family: "LatoRegular"; }
       .account-details .container .account-details-block.change-details .block-content form #div_id_phone {
-        width: calc((100% - 24px)/2);
+        width: calc((100% - 24px) / 2);
         margin-bottom: 40px !important;
         position: relative; }
         .account-details .container .account-details-block.change-details .block-content form #div_id_phone label {
@@ -15940,16 +15958,16 @@ html.off-scroll body {
         .account-details .container .account-details-block.change-details .block-content form #div_id_phone input {
           padding: 21px 24px;
           border-radius: 42px;
-          border: 1px solid #D9D9D9;
+          border: 1px solid #d9d9d9;
           font-family: "LatoRegular"; }
       .account-details .container .account-details-block.change-details .block-content form #div_id_avatar {
-        width: calc((100% - 24px)/2); }
+        width: calc((100% - 24px) / 2); }
         .account-details .container .account-details-block.change-details .block-content form #div_id_avatar .input-group.mb-2 {
           display: none; }
         .account-details .container .account-details-block.change-details .block-content form #div_id_avatar label {
           padding: 21px 24px;
           border-radius: 42px;
-          border: 1px solid #D9D9D9;
+          border: 1px solid #d9d9d9;
           font-family: "LatoRegular";
           width: 100%;
           cursor: pointer;
@@ -15986,7 +16004,7 @@ html.off-scroll body {
       justify-content: space-between;
       flex-wrap: wrap; }
       .account-details .container .account-details-block.change-address .block-content form #div_id_address_city {
-        width: calc((100% - 24px)/2);
+        width: calc((100% - 24px) / 2);
         margin-bottom: 33px !important;
         position: relative; }
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_city label {
@@ -16004,14 +16022,14 @@ html.off-scroll body {
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_city input {
           padding: 21px 24px;
           border-radius: 42px;
-          border: 1px solid #D9D9D9;
+          border: 1px solid #d9d9d9;
           font-family: "LatoRegular";
           font-size: 16px;
           line-height: normal; }
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_city #id_name_helptext {
           display: none; }
       .account-details .container .account-details-block.change-address .block-content form #div_id_address_country {
-        width: calc((100% - 24px)/2);
+        width: calc((100% - 24px) / 2);
         margin-bottom: 33px !important;
         position: relative; }
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_country label {
@@ -16029,14 +16047,14 @@ html.off-scroll body {
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_country input {
           padding: 21px 24px;
           border-radius: 42px;
-          border: 1px solid #D9D9D9;
+          border: 1px solid #d9d9d9;
           font-family: "LatoRegular";
           font-size: 16px;
           line-height: normal; }
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_country #id_address_country_helptext {
           display: none; }
       .account-details .container .account-details-block.change-address .block-content form #div_id_address_line1 {
-        width: calc((100% - 24px)/2);
+        width: calc((100% - 24px) / 2);
         margin-bottom: 40px !important;
         position: relative; }
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_line1 label {
@@ -16054,10 +16072,10 @@ html.off-scroll body {
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_line1 input {
           padding: 21px 24px;
           border-radius: 42px;
-          border: 1px solid #D9D9D9;
+          border: 1px solid #d9d9d9;
           font-family: "LatoRegular"; }
       .account-details .container .account-details-block.change-address .block-content form #div_id_address_line2 {
-        width: calc((100% - 24px)/2);
+        width: calc((100% - 24px) / 2);
         margin-bottom: 40px !important;
         position: relative; }
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_line2 label {
@@ -16075,10 +16093,10 @@ html.off-scroll body {
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_line2 input {
           padding: 21px 24px;
           border-radius: 42px;
-          border: 1px solid #D9D9D9;
+          border: 1px solid #d9d9d9;
           font-family: "LatoRegular"; }
       .account-details .container .account-details-block.change-address .block-content form #div_id_address_postal_code {
-        width: calc((100% - 24px)/2);
+        width: calc((100% - 24px) / 2);
         margin-bottom: 40px !important;
         position: relative; }
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_postal_code label {
@@ -16096,10 +16114,10 @@ html.off-scroll body {
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_postal_code input {
           padding: 21px 24px;
           border-radius: 42px;
-          border: 1px solid #D9D9D9;
+          border: 1px solid #d9d9d9;
           font-family: "LatoRegular"; }
       .account-details .container .account-details-block.change-address .block-content form #div_id_address_state {
-        width: calc((100% - 24px)/2);
+        width: calc((100% - 24px) / 2);
         margin-bottom: 40px !important;
         position: relative; }
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_state label {
@@ -16117,16 +16135,16 @@ html.off-scroll body {
         .account-details .container .account-details-block.change-address .block-content form #div_id_address_state input {
           padding: 21px 24px;
           border-radius: 42px;
-          border: 1px solid #D9D9D9;
+          border: 1px solid #d9d9d9;
           font-family: "LatoRegular"; }
       .account-details .container .account-details-block.change-address .block-content form #div_id_avatar {
-        width: calc((100% - 24px)/2); }
+        width: calc((100% - 24px) / 2); }
         .account-details .container .account-details-block.change-address .block-content form #div_id_avatar .input-group.mb-2 {
           display: none; }
         .account-details .container .account-details-block.change-address .block-content form #div_id_avatar label {
           padding: 21px 24px;
           border-radius: 42px;
-          border: 1px solid #D9D9D9;
+          border: 1px solid #d9d9d9;
           font-family: "LatoRegular";
           width: 100%;
           cursor: pointer;
@@ -16161,7 +16179,7 @@ html.off-scroll body {
       padding: 0;
       display: flex;
       align-items: center;
-      color: #0F0F10;
+      color: #0f0f10;
       font-family: "LatoRegular";
       font-size: 20px;
       line-height: 30px;

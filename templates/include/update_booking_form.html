@@ -26,7 +26,6 @@
             <div class="calendar-grid" id="calendarGrid"></div>
         </div>
     </div>
-
     <div class="left-col">
         <p class="body-text-b3-sb time-selection-title">Choose time</p>
         <div class="time-selection">
@@ -63,7 +62,6 @@
                 </p>
             </div>
         </div>
-
         <p class="body-text-b3-sb language-selection-title">Choose language</p>
         <div class="language-selection">
             <div class="input-wrapper" id="lang_PT" style="display: none">
@@ -106,14 +104,21 @@
                         <label class="extras-title" for="option_{{ option.id }}">{{ option.name }}</label>
                         <div class="extras-input-wrapper">
                             <div class="input-block">
-                                <button class="decrement" type="button">
+                                <button class="tn-decrement" type="button">
                                     <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
                                 </button>
                                 <input type="text" id="option_{{ option.id }}" name="option_{{ option.id }}" value="{{ option.quantity }}" readonly>
-                                <button class="increment" type="button">
+                                <button class="btn-increment" type="button">
                                     <img src="{% static 'icons/increment-icon.svg' %}" alt="increment">
                                 </button>
                             </div>
+                            <p class="price" id="option_price_{{ option.id }}">
+                                {% if option.price > 0 %}
+                                    €{{ option.price }}
+                                {% else %}
+                                    FREE
+                                {% endif %}
+                            </p>
                         </div>
                     </li>
                 {% endfor %}

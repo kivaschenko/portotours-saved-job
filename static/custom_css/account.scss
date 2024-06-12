@@ -1,526 +1,517 @@
 .account-details {
-    .container {
-        max-width: 1090px;
-        margin: 0 auto;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        .account-details-block {
-            border-radius: 16px;
-            border: 1px solid #D9D9D9;
-            background: #FFF;
-            padding: 32px 64px 32px 73px;
-            max-height: 92px;
-            overflow: hidden;
-            &.open {
-                max-height: 100%;
-                .title-wrapper {
-                    .account-details-title + img {
-                        transform: none;
-                    }
-                }
-            }
-            + .account-details-block {
-                margin-top: 32px;
-            }
-            .title-wrapper {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 0;
-                cursor: pointer;
-                .account-details-title {
-                    display: flex;
-                    align-items: center;
-                    justify-content: start;
-                    font-size: 20px;
-                    line-height: 30px;
-                    color: #000;
-                    font-family: "LatoRegular";
-                    margin-bottom: 0;
-                    img {
-                        width: 24px;
-                        height: 24px;
-                        display: block;
-                        margin-right: 16px;
-                    }
-                }
-                > img {
-                    transform: rotate(180deg);
-                }
-            }
-            .info-wrapper {
-                display: flex;
-                align-items: flex-start;
-                justify-content: space-between;
-                padding-top: 24px;
-                .block-content {
-                    width: calc(100% - 48px - 100px);
-                    display: flex;
-                    flex-wrap: wrap;
-                    align-items: center;
-                    justify-content: space-between;
-                    .input-wrapper {
-                        width: calc((100% - 24px)/2);
-                        margin-bottom: 40px;
-                        .label {
-                            color: #0F0F10;
-                            font-family: "LatoSemiBold";
-                            font-size: 16px;
-                            line-height: normal;
-                            margin-top: 0;
-                            margin-bottom: 8px;
-                        }
-                        .info-text {
-                            color: #0F0F10;
-                            font-family: "LatoRegular";
-                            font-size: 16px;
-                            margin-bottom: 0;
-                        }
-                    }
-                    .avatar-wrapper {
-                        width: calc((100% - 24px)/2);
-                        img {
-                            width: 100px;
-                            height: 100px;
-                        }
-                    }
-                    .btn-wrapper {
-                        display: block;
-                        width: 100%;
-                        a {
-                            width: fit-content;
-                            text-decoration: none;
-                            text-transform: uppercase;
-                            color: var(--text-color-third);
-                            font-family: "LatoSemiBold";
-                            font-size: 18px;
-                            line-height: normal;
-                        }
-                    }
-                    .edit-profile-btn {
-                        display: block;
-                        width: 100%;
-                    }
-                }
-                
-            }
-            &.change-password {
-                .change-password-btn {
-                    width: fit-content;
-                    text-decoration: none;
-                    text-transform: uppercase;
-                    color: var(--text-color-third);
-                    font-family: "LatoSemiBold";
-                    font-size: 18px;
-                    line-height: normal;
-                    background-color: transparent;
-                    border: none;
-                }
-            }
-            &.orders {
-                .table > :not(:last-child) > :last-child > * {
-                    border: none;
-                }
-                .table > :not(caption) > * > * {
-                    border: none;
-                    padding: 0;
-                }
-                .table {
-                    margin-bottom: 0;
-                    margin-top: 22px;
-                    thead {
-                        th {
-                            font-family: "LatoSemiBold";
-                            color: #0F0F10;
-                            font-size: 16px;
-                            line-height: 26px;
-                            text-transform: capitalize;
-                            padding: 0;
-                            padding-bottom: 12px;
-                        }
-                    }
-                    tbody {
-                        tr {
-                            vertical-align: middle;
-                        }
-                        tr td {
-                            font-size: 16px;
-                            line-height: 26px;
-                            font-family: "LatoRegular";
-                        }
-                        tr + tr td {
-                            padding-top: 10px;
-                            
-                        }
-                        .btn-type-2 {
-                            padding: 10px 15px;
-                            width: 100%;
-                        }
-                    }
-                }
-            }
-            &.change-details {
-                .block-content {
-                    form {
-                        margin: 0 !important;
-                        width: 100%;
-                        display: flex;
-                        align-items: flex-start;
-                        justify-content: space-between;
-                        flex-wrap: wrap;
-                        #div_id_name {
-                            width: calc((100% - 24px)/2);
-                            margin-bottom: 33px !important;
-                            position: relative;
-                            label {
-                                position: absolute;
-                                background-color: white;
-                                padding: 3px 5px;
-                                color: #0f0f10;
-                                font-family: "LatoMedium";
-                                font-size: 16px;
-                                line-height: normal;
-                                text-transform: capitalize;
-                                top: -13px;
-                                left: 20px;
-                                z-index: 3;
-                            }
-                            input {
-                                padding: 21px 24px;
-                                border-radius: 42px;
-                                border: 1px solid #D9D9D9;
-                                font-family: "LatoRegular";
-                                font-size: 16px;
-                                line-height: normal;
-                            }
-                            #id_name_helptext {
-                                display: none;
-                            }
-                        }
-                        #div_id_email {
-                            width: calc((100% - 24px)/2);
-                            margin-bottom: 33px !important;
-                            position: relative;
-                            label {
-                                position: absolute;
-                                background-color: white;
-                                padding: 3px 5px;
-                                color: #0f0f10;
-                                font-family: "LatoMedium";
-                                font-size: 16px;
-                                line-height: normal;
-                                text-transform: capitalize;
-                                top: -13px;
-                                left: 20px;
-                                z-index: 3;
-                            }
-                            input {
-                                padding: 21px 24px;
-                                border-radius: 42px;
-                                border: 1px solid #D9D9D9;
-                                font-family: "LatoRegular";
-                            }
-                        }
-                        #div_id_phone {
-                            width: calc((100% - 24px)/2);
-                            margin-bottom: 40px !important;
-                            position: relative;
-                            label {
-                                position: absolute;
-                                background-color: white;
-                                padding: 3px 5px;
-                                color: #0f0f10;
-                                font-family: "LatoMedium";
-                                font-size: 16px;
-                                line-height: normal;
-                                text-transform: capitalize;
-                                top: -13px;
-                                left: 20px;
-                                z-index: 3;
-
-                            }
-                            input {
-                                padding: 21px 24px;
-                                border-radius: 42px;
-                                border: 1px solid #D9D9D9;
-                                font-family: "LatoRegular";
-                            }
-                        }
-                        #div_id_avatar {
-                            width: calc((100% - 24px)/2);
-                            .input-group.mb-2 {
-                                display: none;
-                            }
-                            label {
-                                padding: 21px 24px;
-                                border-radius: 42px;
-                                border: 1px solid #D9D9D9;
-                                font-family: "LatoRegular";
-                                width: 100%;
-                                cursor: pointer;
-                                position: relative;
-                                &::before {
-                                    content: "Avatar";
-                                    position: absolute;
-                                    background-color: white;
-                                    padding: 3px 5px;
-                                    color: #0f0f10;
-                                    font-family: "LatoMedium";
-                                    font-size: 16px;
-                                    line-height: normal;
-                                    text-transform: capitalize;
-                                    top: -13px;
-                                    left: 20px;
-                                    z-index: 3;
-                                }
-                            }
-                            #id_avatar {
-                                
-                                display: none;
-                            }
-                        }
-                        .btn.btn-submit {
-                            padding: 0;
-                            background-color: white;
-                            border: none;
-                            font-family: "LatoSemiBold";
-                            color: var(--text-color-third);
-                            font-size: 18px;
-                            line-height: normal;
-                            text-transform: uppercase;
-                        }
-                    }
-                }
-            }
-            &.change-address {
-                .block-content {
-                    form {
-                        margin: 0 !important;
-                        width: 100%;
-                        display: flex;
-                        align-items: flex-start;
-                        justify-content: space-between;
-                        flex-wrap: wrap;
-                        #div_id_address_city {
-                            width: calc((100% - 24px)/2);
-                            margin-bottom: 33px !important;
-                            position: relative;
-                            label {
-                                position: absolute;
-                                background-color: white;
-                                padding: 3px 5px;
-                                color: #0f0f10;
-                                font-family: "LatoMedium";
-                                font-size: 16px;
-                                line-height: normal;
-                                text-transform: capitalize;
-                                top: -13px;
-                                left: 20px;
-                                z-index: 3;
-                            }
-                            input {
-                                padding: 21px 24px;
-                                border-radius: 42px;
-                                border: 1px solid #D9D9D9;
-                                font-family: "LatoRegular";
-                                font-size: 16px;
-                                line-height: normal;
-                            }
-                            #id_name_helptext {
-                                display: none;
-                            }
-                        }
-                        #div_id_address_country {
-                            width: calc((100% - 24px)/2);
-                            margin-bottom: 33px !important;
-                            position: relative;
-                            label {
-                                position: absolute;
-                                background-color: white;
-                                padding: 3px 5px;
-                                color: #0f0f10;
-                                font-family: "LatoMedium";
-                                font-size: 16px;
-                                line-height: normal;
-                                text-transform: capitalize;
-                                top: -13px;
-                                left: 20px;
-                                z-index: 3;
-                            }
-                            input {
-                                padding: 21px 24px;
-                                border-radius: 42px;
-                                border: 1px solid #D9D9D9;
-                                font-family: "LatoRegular";
-                                font-size: 16px;
-                                line-height: normal;
-                            }
-                            #id_address_country_helptext {
-                                display: none;
-                            }
-                        }
-                        #div_id_address_line1 {
-                            width: calc((100% - 24px)/2);
-                            margin-bottom: 40px !important;
-                            position: relative;
-                            label {
-                                position: absolute;
-                                background-color: white;
-                                padding: 3px 5px;
-                                color: #0f0f10;
-                                font-family: "LatoMedium";
-                                font-size: 16px;
-                                line-height: normal;
-                                text-transform: capitalize;
-                                top: -13px;
-                                left: 20px;
-                                z-index: 3;
-
-                            }
-                            input {
-                                padding: 21px 24px;
-                                border-radius: 42px;
-                                border: 1px solid #D9D9D9;
-                                font-family: "LatoRegular";
-                            }
-                        }
-                        #div_id_address_line2 {
-                            width: calc((100% - 24px)/2);
-                            margin-bottom: 40px !important;
-                            position: relative;
-                            label {
-                                position: absolute;
-                                background-color: white;
-                                padding: 3px 5px;
-                                color: #0f0f10;
-                                font-family: "LatoMedium";
-                                font-size: 16px;
-                                line-height: normal;
-                                text-transform: capitalize;
-                                top: -13px;
-                                left: 20px;
-                                z-index: 3;
-
-                            }
-                            input {
-                                padding: 21px 24px;
-                                border-radius: 42px;
-                                border: 1px solid #D9D9D9;
-                                font-family: "LatoRegular";
-                            }
-                        }
-                        #div_id_address_postal_code {
-                            width: calc((100% - 24px)/2);
-                            margin-bottom: 40px !important;
-                            position: relative;
-                            label {
-                                position: absolute;
-                                background-color: white;
-                                padding: 3px 5px;
-                                color: #0f0f10;
-                                font-family: "LatoMedium";
-                                font-size: 16px;
-                                line-height: normal;
-                                text-transform: capitalize;
-                                top: -13px;
-                                left: 20px;
-                                z-index: 3;
-
-                            }
-                            input {
-                                padding: 21px 24px;
-                                border-radius: 42px;
-                                border: 1px solid #D9D9D9;
-                                font-family: "LatoRegular";
-                            }
-                        }
-                        #div_id_address_state {
-                            width: calc((100% - 24px)/2);
-                            margin-bottom: 40px !important;
-                            position: relative;
-                            label {
-                                position: absolute;
-                                background-color: white;
-                                padding: 3px 5px;
-                                color: #0f0f10;
-                                font-family: "LatoMedium";
-                                font-size: 16px;
-                                line-height: normal;
-                                text-transform: capitalize;
-                                top: -13px;
-                                left: 20px;
-                                z-index: 3;
-
-                            }
-                            input {
-                                padding: 21px 24px;
-                                border-radius: 42px;
-                                border: 1px solid #D9D9D9;
-                                font-family: "LatoRegular";
-                            }
-                        }
-                        #div_id_avatar {
-                            width: calc((100% - 24px)/2);
-                            .input-group.mb-2 {
-                                display: none;
-                            }
-                            label {
-                                padding: 21px 24px;
-                                border-radius: 42px;
-                                border: 1px solid #D9D9D9;
-                                font-family: "LatoRegular";
-                                width: 100%;
-                                cursor: pointer;
-                                position: relative;
-                                &::before {
-                                    content: "Avatar";
-                                    position: absolute;
-                                    background-color: white;
-                                    padding: 3px 5px;
-                                    color: #0f0f10;
-                                    font-family: "LatoMedium";
-                                    font-size: 16px;
-                                    line-height: normal;
-                                    text-transform: capitalize;
-                                    top: -13px;
-                                    left: 20px;
-                                    z-index: 3;
-                                }
-                            }
-                            #id_avatar {
-                                
-                                display: none;
-                            }
-                        }
-                        .btn.btn-submit {
-                            padding: 0;
-                            background-color: white;
-                            border: none;
-                            font-family: "LatoSemiBold";
-                            color: var(--text-color-third);
-                            font-size: 18px;
-                            line-height: normal;
-                            text-transform: uppercase;
-                        }
-                    }
-                }
-            }
+  .container {
+    max-width: 1090px;
+    margin: 0 auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    .account-details-block {
+      border-radius: 16px;
+      border: 1px solid #d9d9d9;
+      background: #fff;
+      padding: 32px 64px 32px 73px;
+      max-height: 92px;
+      overflow: hidden;
+      &.open {
+        max-height: 100%;
+        .title-wrapper {
+          .account-details-title + img {
+            transform: none;
+          }
         }
-        .logout-wrapper {
-            margin-top: 28px;
-            .btn-logout {
-                padding: 0;
-                display: flex;
-                align-items: center;
-                color: #0F0F10;
-                font-family: "LatoRegular";
-                font-size: 20px;
-                line-height: 30px;
+      }
+      + .account-details-block {
+        margin-top: 32px;
+      }
+      .title-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0;
+        cursor: pointer;
+        .account-details-title {
+          display: flex;
+          align-items: center;
+          justify-content: start;
+          font-size: 20px;
+          line-height: 30px;
+          color: #000;
+          font-family: "LatoRegular";
+          margin-bottom: 0;
+          img {
+            width: 24px;
+            height: 24px;
+            display: block;
+            margin-right: 16px;
+          }
+        }
+        > img {
+          transform: rotate(180deg);
+        }
+      }
+      .info-wrapper {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding-top: 24px;
+        .block-content {
+          width: calc(100% - 48px - 100px);
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          .input-wrapper {
+            width: calc((100% - 24px) / 2);
+            margin-bottom: 40px;
+            .label {
+              color: #0f0f10;
+              font-family: "LatoSemiBold";
+              font-size: 16px;
+              line-height: normal;
+              margin-top: 0;
+              margin-bottom: 8px;
+            }
+            .info-text {
+              color: #0f0f10;
+              font-family: "LatoRegular";
+              font-size: 16px;
+              margin-bottom: 0;
+            }
+          }
+          .avatar-wrapper {
+            width: calc((100% - 24px) / 2);
+            img {
+              width: 100px;
+              height: 100px;
+            }
+          }
+          .btn-wrapper {
+            display: block;
+            width: 100%;
+            a {
+              width: fit-content;
+              text-decoration: none;
+              text-transform: uppercase;
+              color: var(--text-color-third);
+              font-family: "LatoSemiBold";
+              font-size: 18px;
+              line-height: normal;
+            }
+          }
+          .edit-profile-btn {
+            display: block;
+            width: 100%;
+          }
+        }
+      }
+      &.change-password {
+        .change-password-btn {
+          width: fit-content;
+          text-decoration: none;
+          text-transform: uppercase;
+          color: var(--text-color-third);
+          font-family: "LatoSemiBold";
+          font-size: 18px;
+          line-height: normal;
+          background-color: transparent;
+          border: none;
+        }
+      }
+      &.orders {
+        .table > :not(:last-child) > :last-child > * {
+          border: none;
+        }
+        .table > :not(caption) > * > * {
+          border: none;
+          padding: 0;
+        }
+        .table {
+          margin-bottom: 0;
+          margin-top: 22px;
+          thead {
+            th {
+              font-family: "LatoSemiBold";
+              color: #0f0f10;
+              font-size: 16px;
+              line-height: 26px;
+              text-transform: capitalize;
+              padding: 0;
+              padding-bottom: 12px;
+            }
+          }
+          tbody {
+            tr {
+              vertical-align: middle;
+            }
+            tr td {
+              font-size: 16px;
+              line-height: 26px;
+              font-family: "LatoRegular";
+            }
+            tr + tr td {
+              padding-top: 10px;
+            }
+            .btn-type-2 {
+              padding: 10px 15px;
+              width: 100%;
+            }
+          }
+        }
+      }
+      &.change-details {
+        .block-content {
+          form {
+            margin: 0 !important;
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            #div_id_name {
+              width: calc((100% - 24px) / 2);
+              margin-bottom: 33px !important;
+              position: relative;
+              label {
+                position: absolute;
+                background-color: white;
+                padding: 3px 5px;
+                color: #0f0f10;
+                font-family: "LatoMedium";
+                font-size: 16px;
+                line-height: normal;
                 text-transform: capitalize;
-                img {
-                    margin-right: 16px;
-                }
+                top: -13px;
+                left: 20px;
+                z-index: 3;
+              }
+              input {
+                padding: 21px 24px;
+                border-radius: 42px;
+                border: 1px solid #d9d9d9;
+                font-family: "LatoRegular";
+                font-size: 16px;
+                line-height: normal;
+              }
+              #id_name_helptext {
+                display: none;
+              }
             }
+            #div_id_email {
+              width: calc((100% - 24px) / 2);
+              margin-bottom: 33px !important;
+              position: relative;
+              label {
+                position: absolute;
+                background-color: white;
+                padding: 3px 5px;
+                color: #0f0f10;
+                font-family: "LatoMedium";
+                font-size: 16px;
+                line-height: normal;
+                text-transform: capitalize;
+                top: -13px;
+                left: 20px;
+                z-index: 3;
+              }
+              input {
+                padding: 21px 24px;
+                border-radius: 42px;
+                border: 1px solid #d9d9d9;
+                font-family: "LatoRegular";
+              }
+            }
+            #div_id_phone {
+              width: calc((100% - 24px) / 2);
+              margin-bottom: 40px !important;
+              position: relative;
+              label {
+                position: absolute;
+                background-color: white;
+                padding: 3px 5px;
+                color: #0f0f10;
+                font-family: "LatoMedium";
+                font-size: 16px;
+                line-height: normal;
+                text-transform: capitalize;
+                top: -13px;
+                left: 20px;
+                z-index: 3;
+              }
+              input {
+                padding: 21px 24px;
+                border-radius: 42px;
+                border: 1px solid #d9d9d9;
+                font-family: "LatoRegular";
+              }
+            }
+            #div_id_avatar {
+              width: calc((100% - 24px) / 2);
+              .input-group.mb-2 {
+                display: none;
+              }
+              label {
+                padding: 21px 24px;
+                border-radius: 42px;
+                border: 1px solid #d9d9d9;
+                font-family: "LatoRegular";
+                width: 100%;
+                cursor: pointer;
+                position: relative;
+                &::before {
+                  content: "Avatar";
+                  position: absolute;
+                  background-color: white;
+                  padding: 3px 5px;
+                  color: #0f0f10;
+                  font-family: "LatoMedium";
+                  font-size: 16px;
+                  line-height: normal;
+                  text-transform: capitalize;
+                  top: -13px;
+                  left: 20px;
+                  z-index: 3;
+                }
+              }
+              #id_avatar {
+                display: none;
+              }
+            }
+            .btn.btn-submit {
+              padding: 0;
+              background-color: white;
+              border: none;
+              font-family: "LatoSemiBold";
+              color: var(--text-color-third);
+              font-size: 18px;
+              line-height: normal;
+              text-transform: uppercase;
+            }
+          }
         }
+      }
+      &.change-address {
+        .block-content {
+          form {
+            margin: 0 !important;
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            #div_id_address_city {
+              width: calc((100% - 24px) / 2);
+              margin-bottom: 33px !important;
+              position: relative;
+              label {
+                position: absolute;
+                background-color: white;
+                padding: 3px 5px;
+                color: #0f0f10;
+                font-family: "LatoMedium";
+                font-size: 16px;
+                line-height: normal;
+                text-transform: capitalize;
+                top: -13px;
+                left: 20px;
+                z-index: 3;
+              }
+              input {
+                padding: 21px 24px;
+                border-radius: 42px;
+                border: 1px solid #d9d9d9;
+                font-family: "LatoRegular";
+                font-size: 16px;
+                line-height: normal;
+              }
+              #id_name_helptext {
+                display: none;
+              }
+            }
+            #div_id_address_country {
+              width: calc((100% - 24px) / 2);
+              margin-bottom: 33px !important;
+              position: relative;
+              label {
+                position: absolute;
+                background-color: white;
+                padding: 3px 5px;
+                color: #0f0f10;
+                font-family: "LatoMedium";
+                font-size: 16px;
+                line-height: normal;
+                text-transform: capitalize;
+                top: -13px;
+                left: 20px;
+                z-index: 3;
+              }
+              input {
+                padding: 21px 24px;
+                border-radius: 42px;
+                border: 1px solid #d9d9d9;
+                font-family: "LatoRegular";
+                font-size: 16px;
+                line-height: normal;
+              }
+              #id_address_country_helptext {
+                display: none;
+              }
+            }
+            #div_id_address_line1 {
+              width: calc((100% - 24px) / 2);
+              margin-bottom: 40px !important;
+              position: relative;
+              label {
+                position: absolute;
+                background-color: white;
+                padding: 3px 5px;
+                color: #0f0f10;
+                font-family: "LatoMedium";
+                font-size: 16px;
+                line-height: normal;
+                text-transform: capitalize;
+                top: -13px;
+                left: 20px;
+                z-index: 3;
+              }
+              input {
+                padding: 21px 24px;
+                border-radius: 42px;
+                border: 1px solid #d9d9d9;
+                font-family: "LatoRegular";
+              }
+            }
+            #div_id_address_line2 {
+              width: calc((100% - 24px) / 2);
+              margin-bottom: 40px !important;
+              position: relative;
+              label {
+                position: absolute;
+                background-color: white;
+                padding: 3px 5px;
+                color: #0f0f10;
+                font-family: "LatoMedium";
+                font-size: 16px;
+                line-height: normal;
+                text-transform: capitalize;
+                top: -13px;
+                left: 20px;
+                z-index: 3;
+              }
+              input {
+                padding: 21px 24px;
+                border-radius: 42px;
+                border: 1px solid #d9d9d9;
+                font-family: "LatoRegular";
+              }
+            }
+            #div_id_address_postal_code {
+              width: calc((100% - 24px) / 2);
+              margin-bottom: 40px !important;
+              position: relative;
+              label {
+                position: absolute;
+                background-color: white;
+                padding: 3px 5px;
+                color: #0f0f10;
+                font-family: "LatoMedium";
+                font-size: 16px;
+                line-height: normal;
+                text-transform: capitalize;
+                top: -13px;
+                left: 20px;
+                z-index: 3;
+              }
+              input {
+                padding: 21px 24px;
+                border-radius: 42px;
+                border: 1px solid #d9d9d9;
+                font-family: "LatoRegular";
+              }
+            }
+            #div_id_address_state {
+              width: calc((100% - 24px) / 2);
+              margin-bottom: 40px !important;
+              position: relative;
+              label {
+                position: absolute;
+                background-color: white;
+                padding: 3px 5px;
+                color: #0f0f10;
+                font-family: "LatoMedium";
+                font-size: 16px;
+                line-height: normal;
+                text-transform: capitalize;
+                top: -13px;
+                left: 20px;
+                z-index: 3;
+              }
+              input {
+                padding: 21px 24px;
+                border-radius: 42px;
+                border: 1px solid #d9d9d9;
+                font-family: "LatoRegular";
+              }
+            }
+            #div_id_avatar {
+              width: calc((100% - 24px) / 2);
+              .input-group.mb-2 {
+                display: none;
+              }
+              label {
+                padding: 21px 24px;
+                border-radius: 42px;
+                border: 1px solid #d9d9d9;
+                font-family: "LatoRegular";
+                width: 100%;
+                cursor: pointer;
+                position: relative;
+                &::before {
+                  content: "Avatar";
+                  position: absolute;
+                  background-color: white;
+                  padding: 3px 5px;
+                  color: #0f0f10;
+                  font-family: "LatoMedium";
+                  font-size: 16px;
+                  line-height: normal;
+                  text-transform: capitalize;
+                  top: -13px;
+                  left: 20px;
+                  z-index: 3;
+                }
+              }
+              #id_avatar {
+                display: none;
+              }
+            }
+            .btn.btn-submit {
+              padding: 0;
+              background-color: white;
+              border: none;
+              font-family: "LatoSemiBold";
+              color: var(--text-color-third);
+              font-size: 18px;
+              line-height: normal;
+              text-transform: uppercase;
+            }
+          }
+        }
+      }
     }
+    .logout-wrapper {
+      margin-top: 28px;
+      .btn-logout {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        color: #0f0f10;
+        font-family: "LatoRegular";
+        font-size: 20px;
+        line-height: 30px;
+        text-transform: capitalize;
+        img {
+          margin-right: 16px;
+        }
+      }
+    }
+  }
 }

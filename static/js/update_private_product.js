@@ -221,8 +221,44 @@ const view = {
 
 // The controller has functions that respond to events in HTML blocks, forms, buttons
 const controller = {
+    getTotalParticipants: function () {
+        const adultCount = parseInt(document.getElementById('adultTicketCount').value);
+        const childCount = parseInt(document.getElementById('childTicketCount').value);
+        return adultCount + childCount;
+    },
+
+    validateParticipantLimits: function () {
+        console.log("Inside Participants validation:");
+        const selectedEvent = model.events.find(event => event.date === model.selectedDate);
+        console.log("selectedEvent:", selectedEvent);
+        const totalParticipants = controller.getTotalParticipants();
+        console.log("Total participants:", totalParticipants);
+        if (totalParticipants > selectedEvent.remaining_participants) {
+            return false;
+        }
+        return true;
+    },
+
+    validateOptionLimits: function () {
+        console.log("Inside Options validation:");
+        for (const option of model.bookingData.options) {
+            const optionElement = document.getElementById(`option_${option.id}`);
+            console.log("Current optionElement:", optionElement);
+            console.log("optionElement.value:", optionElement.value);
+            console.log("option.max_quantity:", option.max_quantity);
+            if (parseInt(optionElement.value) > option.max_quantity) {
+                return false;
+            }
+        }
+        return true;
+    },
+
     // Function to handle form submission
     handleFormSubmit: async function () {
+
+        if (!controller.validateParticipantLimits() || !controller.validateOptionLimits()) {
+            return;
+        }
         // Get the booking data from the model
         const bookingData = model.bookingData;
 
@@ -295,6 +331,38 @@ const controller = {
                     controller.updateTotalPrice(); // Update total price when decrementing
                     controller.performValidation();
                 }
+            });
+        });
+    },
+    handleOptionIncrementDecrement: function () {
+        document.querySelectorAll('.btn-increment, .btn-decrement').forEach(button => {
+            button.addEventListener('click', event => {
+                const button = event.currentTarget;
+                const input = button.closest('.input-block').querySelector('input');
+                const optionId = parseInt(input.id.replace('option_', ''));
+                const option = model.bookingData.options.find(opt => opt.id === optionId);
+                const increment = button.classList.contains('btn-increment') ? 1 : -1;
+                // Ensure the input value is updated correctly first
+                const newValue = Math.max(0, parseInt(input.value) + increment);
+                // Ensure the input value does not exceed the max quantity
+                if (newValue > option.max_quantity) {
+                    input.value = option.max_quantity;
+                } else {
+                    input.value = newValue;
+                }
+                // Update the option quantity in the model
+                option.quantity = parseInt(input.value);
+
+                // Update the display price for the option
+                const priceElement = document.getElementById(`option_price_${optionId}`);
+                if (priceElement) {
+                    if (option.price > 0) {
+                        priceElement.innerHTML = `€${(option.price * option.quantity).toFixed(2)}`;
+                    } else {
+                        priceElement.innerHTML = 'FREE';
+                    }
+                }
+                controller.updateTotalPrice();
             });
         });
     },
@@ -571,7 +639,6 @@ function handleEventData(data) {
         view.renderCalendar(currentDate);
     }
 }
-
 // Function to fetch event data for the current event_id
 async function fetchEventDataForCurrentEvent(eventId) {
     try {
@@ -612,6 +679,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Call the handleIncrementClick and handleDecrementClick functions
     controller.handleIncrementClick();
     controller.handleDecrementClick();
+
+    controller.handleOptionIncrementDecrement();
 
     // Call handleTimeSelection function to add event listeners to time selection inputs
     controller.handleTimeSelection();
