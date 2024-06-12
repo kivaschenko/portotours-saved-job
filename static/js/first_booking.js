@@ -165,8 +165,11 @@ const controller = {
     },
 
     validateParticipantLimits: function () {
+        console.log("Inside Participants validation:");
         const selectedEvent = model.events.find(event => event.date === model.selectedDate);
+        console.log("selectedEvent:", selectedEvent);
         const totalParticipants = controller.getTotalParticipants();
+        console.log("Total participants:", totalParticipants);
         if (totalParticipants > selectedEvent.remaining_participants) {
             alert('Total participants exceed the maximum allowed participants for this event.');
             return false;
@@ -175,8 +178,12 @@ const controller = {
     },
 
     validateOptionLimits: function () {
+        console.log("Inside Options validation:");
         for (const option of model.bookingData.options) {
             const optionElement = document.getElementById(`option_${option.id}`);
+            console.log("Current optionElement:", optionElement);
+            console.log("optionElement.value:", optionElement.value);
+            console.log("option.max_quantity:", option.max_quantity);
             if (parseInt(optionElement.value) > option.max_quantity) {
                 alert(`Quantity for ${option.name} exceeds the maximum allowed quantity.`);
                 return false;
@@ -184,9 +191,16 @@ const controller = {
         }
         return true;
     },
+    
     handleFormSubmit: async function () {
+        console.log("Run submitting process...");
+        if (!controller.validateParticipantLimits() || !controller.validateOptionLimits()) {
+            return;
+        }
+
         const bookingData = model.bookingData;
         const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
         try {
             const response = await fetch('/create-group-product-without-booking/', {
                 method: 'POST',
@@ -196,10 +210,11 @@ const controller = {
                 },
                 body: JSON.stringify(bookingData)
             });
+
             if (response.ok) {
                 if (model.cart_not_empty) {
                     const languageSlug = model.bookingData.language_code.toLowerCase();
-                    window.dataLayer.push({ecommerce: null});
+                    window.dataLayer.push({ ecommerce: null });
                     window.dataLayer.push({
                         event: "add_to_cart",
                         ecommerce: [model.googleItems],
@@ -536,11 +551,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     controller.handleTimeSelection();
 
     document.getElementById('submitBtn').addEventListener('click', function (e) {
-        if (!controller.validateParticipantLimits() || !controller.validateOptionLimits()) {
+        // TODO: Check this moment!
             e.preventDefault();
             controller.updateBookingData();
             controller.handleFormSubmit();
-        }
     });
 
     document.getElementById('calendarGrid').addEventListener('click', function () {
