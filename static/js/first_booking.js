@@ -271,6 +271,7 @@ const controller = {
                         priceElement.innerHTML = 'FREE';
                     }
                 }
+
                 controller.updateTotalPrice();
             });
         });
