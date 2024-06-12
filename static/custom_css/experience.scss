@@ -2115,6 +2115,10 @@
               align-items: center;
               justify-content: flex-start;
               cursor: pointer;
+              &.disabled {
+                opacity: 0;
+                pointer-events: none;
+              }
               &.opened {
                 img.close {
                   display: block;
@@ -2158,6 +2162,12 @@
                   line-height: 22px;
                   font-family: "LatoRegular";
                   margin-bottom: 4px;
+                  span {
+                    color: #6D6D6D;
+                    font-size: 12px;
+                    line-height: 16px;
+                    font-family: "LatoRegular";
+                  }
                 }
                 .count-price-wrapper {
                   display: flex;

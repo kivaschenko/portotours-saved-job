@@ -310,11 +310,12 @@ const controller = {
             button.addEventListener('click', event => {
                 const button = event.currentTarget;
                 console.log("button:", button);
-                const input = button.closest('.quantity').querySelector('input');
+                const input = button.closest('.input-block').querySelector('input');
                 console.log("input:", input);
                 const optionId = parseInt(input.id.replace('option_', ''));
                 const option = model.bookingData.options.find(opt => opt.id === optionId);
                 const increment = button.classList.contains('btn-increment') ? 1 : -1;
+                console.log(option)
                 // Ensure the input value is updated correctly first
                 const newValue = Math.max(0, parseInt(input.value) + increment);
                 // Ensure the input value does not exceed the max quantity
@@ -330,7 +331,7 @@ const controller = {
                 const priceElement = document.getElementById(`option_price_${optionId}`);
                 if (priceElement) {
                     if (option.price > 0) {
-                        priceElement.innerHTML = `€${option.price * option.quantity}`;
+                        priceElement.innerHTML = `€${(option.price * option.quantity).toFixed(2)}`;
                     } else {
                         priceElement.innerHTML = 'FREE';
                     }
@@ -488,16 +489,14 @@ const controller = {
         const submitBtn = document.getElementById('submitBtn');
         const ticketSelection = document.querySelector('.ticket-selection');
         const languageSelection = document.querySelector('.language-selection');
-        const optionTitle = document.querySelector('.options-title-wrapper');
-        const optionSelection = document.querySelector('.options-inputs-wrapper');
+        
+        
 
         if (selectedDateElement && selectedTimeInput) {
             ticketSelection.classList.remove('disabled');
         } else {
             ticketSelection.classList.add('disabled');
             languageSelection.classList.add('disabled');
-            optionTitle.classList.add('disabled');
-            optionSelection.classList.add('disabled');
             // submitBtn.disabled = true;
             return;
         }

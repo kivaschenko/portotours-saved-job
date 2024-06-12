@@ -253,7 +253,7 @@ const controller = {
 
                 // Ensure the input value does not exceed the max quantity
                 if (newValue > option.max_quantity) {
-                    alert(`You cannot select more than ${option.max_quantity} of ${option.name}.`);
+                    
                     input.value = option.max_quantity;
                 } else {
                     input.value = newValue;
@@ -266,7 +266,7 @@ const controller = {
                 const priceElement = document.getElementById(`option_price_${optionId}`);
                 if (priceElement) {
                     if (option.price > 0) {
-                        priceElement.innerHTML = `€${option.price * option.quantity}`;
+                        priceElement.innerHTML = `€${(option.price * option.quantity).toFixed(2)}`;
                     } else {
                         priceElement.innerHTML = 'FREE';
                     }
