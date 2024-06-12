@@ -206,21 +206,18 @@
                                             {% endif %}
                                         </div>
                                     </div>
+                                    {% if object.number_added_options > 0 %}
                                     <div class="optional-extras-block">
                                         <div class="title-wrapper">
                                             <a href="{% url 'edit-product' object.pk %}" class="edit-extras-btn">
                                                 <img src="{% static 'icons/edit-extras-icon.svg' %}" alt="edit icon">
                                             </a>
                                             <h2 class="extras-title">
-                                                {% if object.options.all %}
 
                                                     Optional {{ object.number_added_options }} extras added to your experience:
                                                     <span>€{{ object.options.all|sum_prices }}</span>
 
                                                     <img src="{% static 'icons/options-arrow.svg' %}" alt="arrow">
-                                                {% else %}
-                                                No optional extras added to your experience
-                                                {% endif %}
                                             </h2>
                                         </div>
                                         <ul class="options-list">
@@ -242,6 +239,7 @@
                                         {% endfor %}
                                         </ul>
                                     </div>
+                                    {% endif %}
                                     <div class="hover-block">
                                         <ul class="hover-block-btns-list">
                                             <li class="hover-block-item">
