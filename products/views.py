@@ -565,11 +565,11 @@ class EditProductView(DetailView):
             for option in options:
                 temp = {
                     'id': option.id,
-                    'name': option.name,
-                    'description': option.description,
+                    'name': option.experience_option.name,
+                    'description': option.experience_option.description,
                     'price': float(option.price),
-                    'quantity': 0,
-                    'max_quantity': option.max_quantity,
+                    'quantity': option.quantity,
+                    'max_quantity': option.experience_option.max_quantity,
                 }
                 options_list.append(temp)
         self.extra_context['options'] = options_list
