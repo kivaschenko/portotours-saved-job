@@ -423,6 +423,11 @@
                             </div>
                         </div>
                     {% endif %}
+                
+                    {% if object.parent_experience.we_care_about_comfort %}
+                        <h3>We care about your comfort!</h3>
+                        <div>Here some pretty pictures will be...</div>
+                    {% endif %}
 
                     {% if object.includes_text or object.not_includes_text %}
                         <div class="experience-info-block experience-include">
