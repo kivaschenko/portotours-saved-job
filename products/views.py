@@ -564,7 +564,7 @@ class EditProductView(DetailView):
         if options:
             for option in options:
                 temp = {
-                    'id': option.id,
+                    'id': option.experience_option.id,
                     'name': option.experience_option.name,
                     'description': option.experience_option.description,
                     'price': float(option.price),
