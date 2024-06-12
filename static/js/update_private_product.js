@@ -643,7 +643,6 @@ function handleEventData(data) {
         view.renderCalendar(currentDate);
     }
 }
-
 // Function to fetch event data for the current event_id
 async function fetchEventDataForCurrentEvent(eventId) {
     try {
