@@ -181,6 +181,8 @@ class ExperienceOption(models.Model):
     class Meta:
         ordering = ('-priority_number',)
         unique_together = ('name', 'language',)
+        verbose_name_plural = 'Optional Extras'
+        verbose_name = 'Optional Extras'
 
     def __str__(self):
         return f'{self.name} {self.language}'
@@ -275,6 +277,7 @@ class ParentExperience(models.Model):
     recommended_by_locals = models.BooleanField(default=False, help_text="If this experience is recommended by locals", null=True)
     clean_and_safe = models.BooleanField(default=True, null=True,
                                          help_text="If this experience is clean_and_safe then the corresponding banner appears on the experience page")
+    we_care_about_comfort = models.BooleanField(default=False, null=True, help_text='If this experience is our own then it will cause the comfort.')
     show_on_home_page = models.BooleanField(default=False, help_text="Include in the top Experiences on the home page")
     updated_at = models.DateTimeField(auto_now=True)
     provider = models.ForeignKey(ExperienceProvider, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Provider',
@@ -721,6 +724,8 @@ class Product(models.Model):
     class Meta:
         ordering = ('created_at',)
         get_latest_by = 'created_at'
+        verbose_name_plural = 'Orders'
+        verbose_name = 'Order'
 
     def save(self, *args, **kwargs):
         # recount each time during save because might be different number of participants
@@ -861,6 +866,8 @@ class ProductOption(models.Model):
 
     class Meta:
         ordering = ['experience_option']
+        verbose_name_plural = 'Order Optional Extras'
+        verbose_name = 'Order Optional Extras'
 
     def save(self, *args, **kwargs):
         if not self.price:
