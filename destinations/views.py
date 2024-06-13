@@ -1,4 +1,5 @@
 from django.views.generic import DetailView, ListView
+from django.http import Http404
 
 from destinations.models import Destination
 from products.models import Language
@@ -15,7 +16,6 @@ class DestinationDetailView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super(DestinationDetailView, self).get_object(queryset=queryset)
-        self.extra_context['current_language'] = obj.language.code.lower()
         # find all other languages
         brothers = obj.parent_destination.child_destinations.all()
         # create local urls
@@ -26,6 +26,22 @@ class DestinationDetailView(DetailView):
                 self.extra_context['languages'].update({lang: url})
         return obj
 
+    def get_queryset(self):
+        queryset = super().get_queryset().filter(language__code=self.lang.upper())
+        if queryset.exists():
+            return queryset
+        else:
+            raise Http404
+
+    def setup(self, request, *args, **kwargs):
+        """Initialize attributes shared by all view methods."""
+        super().setup(request, *args, **kwargs)
+        lang = self.kwargs.get('lang')
+        if not Language.objects.filter(code=lang.upper()).exists():
+            raise Http404
+        self.lang = lang
+        self.extra_context.update({'current_language': lang})
+
 
 class DestinationListView(ListView):
     model = Destination
@@ -35,8 +51,17 @@ class DestinationListView(ListView):
     extra_context = {}
 
     def get_queryset(self):
-        queryset = super(DestinationListView, self).get_queryset()
-        current_language = Language.objects.get(code=self.kwargs["lang"].upper())
-        self.extra_context["current_language"] = current_language.code.lower()
-        filtered = queryset.filter(language=current_language)
-        return filtered
+        queryset = super().get_queryset().filter(language__code=self.lang.upper())
+        if queryset.exists():
+            return queryset
+        else:
+            raise Http404
+
+    def setup(self, request, *args, **kwargs):
+        """Initialize attributes shared by all view methods."""
+        super().setup(request, *args, **kwargs)
+        lang = self.kwargs.get('lang')
+        if not Language.objects.filter(code=lang.upper()).exists():
+            raise Http404
+        self.lang = lang
+        self.extra_context.update({'current_language': lang})

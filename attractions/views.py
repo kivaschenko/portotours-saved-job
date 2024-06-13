@@ -13,21 +13,29 @@ class AttractionListView(ListView):
     extra_context = {}
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        current_language = Language.objects.get(code=self.kwargs['lang'].upper())
-        self.extra_context['current_language'] = current_language.code.lower()
-        filtered = queryset.filter(language=current_language)
+        queryset = super().get_queryset().filter(language__code=self.lang.upper())
+        if not queryset.exists():
+            raise Http404
         selected_tags = self.request.GET.getlist('tags')
         if selected_tags:
             for tag_id in selected_tags:
-                filtered = filtered.filter(parent_attraction__tags__id=tag_id)
-        filtered = filtered.distinct()
+                queryset = queryset.filter(parent_attraction__tags__id=tag_id)
+        filtered = queryset.distinct()
         return filtered
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter_form'] = TagAttractionFilterForm(initial={'tags': self.request.GET.getlist('tags')})
         return context
+
+    def setup(self, request, *args, **kwargs):
+        """Initialize attributes shared by all view methods."""
+        super().setup(request, *args, **kwargs)
+        lang = self.kwargs.get('lang')
+        if not Language.objects.filter(code=lang.upper()).exists():
+            raise Http404
+        self.lang = lang
+        self.extra_context.update({'current_language': lang})
 
 
 class AttractionDetailView(DetailView):

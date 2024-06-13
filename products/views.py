@@ -166,8 +166,6 @@ class ExperienceDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        self.extra_context['current_language'] = self.object.language.code.lower()
-
         # Find all other languages
         brothers = self.object.parent_experience.child_experiences.all()
         if brothers.exists():
@@ -181,8 +179,6 @@ class ExperienceDetailView(DetailView):
     def get_object(self, queryset=None):
         obj = super(ExperienceDetailView, self).get_object(queryset=queryset)
         self.extra_context['approved_reviews_count'] = obj.review_set.filter(approved=True).count()
-        self.extra_context['current_language'] = obj.language.code.lower()
-
         # Get options for current Experience
         options_list = []
         options = obj.parent_experience.allowed_options.all()
