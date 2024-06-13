@@ -1,11 +1,10 @@
-from django.http import JsonResponse
-from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponse, Http404
 from django.views.generic import TemplateView, DetailView
 from django.utils.translation import activate
 
 from destinations.models import Destination
 from attractions.models import Attraction
-from products.models import Experience
+from products.models import Experience, Language
 from reviews.models import Testimonial
 
 from .models import Page, AboutUsPage
@@ -77,3 +76,21 @@ def robots_txt(request):
 
 class AboutUsDetailView(DetailView):
     model = AboutUsPage
+    extra_context = {'languages': {}}
+    queryset = AboutUsPage.objects.all()
+
+    def get_queryset(self):
+        queryset = super().get_queryset().filter(language__code=self.lang.upper())
+        if queryset.exists():
+            return queryset
+        else:
+            raise Http404
+
+    def setup(self, request, *args, **kwargs):
+        """Initialize attributes shared by all view methods."""
+        super().setup(request, *args, **kwargs)
+        lang = self.kwargs.get('lang')
+        if not Language.objects.filter(code=lang.upper()).exists():
+            raise Http404
+        self.lang = lang
+        self.extra_context.update({'current_language': lang})

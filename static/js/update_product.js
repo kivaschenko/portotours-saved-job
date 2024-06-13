@@ -309,13 +309,10 @@ const controller = {
         document.querySelectorAll('.btn-increment, .btn-decrement').forEach(button => {
             button.addEventListener('click', event => {
                 const button = event.currentTarget;
-                console.log("button:", button);
                 const input = button.closest('.input-block').querySelector('input');
-                console.log("input:", input);
                 const optionId = parseInt(input.id.replace('option_', ''));
                 const option = model.bookingData.options.find(opt => opt.id === optionId);
                 const increment = button.classList.contains('btn-increment') ? 1 : -1;
-                console.log(option)
                 // Ensure the input value is updated correctly first
                 const newValue = Math.max(0, parseInt(input.value) + increment);
                 // Ensure the input value does not exceed the max quantity
