@@ -4,10 +4,11 @@ from django.db.models import ExpressionWrapper, F, DurationField
 from django.views.generic import DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
+from django.http.response import Http404
 
 from schedule.models import EventRelation
 
-from products.models import Experience, ParentExperience, ExperienceEvent
+from products.models import Experience, ParentExperience, Language
 from reviews.models import Testimonial
 from destinations.models import Destination
 
@@ -18,16 +19,19 @@ class LandingPageView(DetailView):
     model = LandingPage
     template_name = 'landing_pages/landing_page.html'
     queryset = LandingPage.active.all()
+    extra_context = {}
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.lang = None
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        lang = self.kwargs.get('lang', 'en')
-        context['current_language'] = lang
         parent_experiences = ParentExperience.objects.filter(categories=self.object.category)
 
         experiences = []
         for par_exp in parent_experiences:
-            found_experience = par_exp.child_experiences.filter(is_active=True, language__code=lang.upper()).first()
+            found_experience = par_exp.child_experiences.filter(is_active=True, language__code=self.lang.upper()).first()
             if found_experience:
                 experiences.append(found_experience)
 
@@ -129,3 +133,19 @@ class LandingPageView(DetailView):
         context['experiences'] = experiences_paginated
         context['testimonials'] = Testimonial.objects.all()[:6]
         return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset().filter(language__code=self.lang.upper())
+        if queryset.exists():
+            return queryset
+        else:
+            raise Http404
+
+    def setup(self, request, *args, **kwargs):
+        """Initialize attributes shared by all view methods."""
+        super().setup(request, *args, **kwargs)
+        lang = self.kwargs.get('lang')
+        if not Language.objects.filter(code=lang.upper()).exists():
+            raise Http404
+        self.lang = lang
+        self.extra_context.update({'current_language': lang})
