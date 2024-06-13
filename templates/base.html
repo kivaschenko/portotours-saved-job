@@ -82,11 +82,16 @@
 <footer class="mt-auto footer">
     <div class="container">
         <div class="row">
-            <span class="footer-info">
-            <img src="{% static 'icons/main-logo.svg' %}" alt="main logo in footer">
-            </span>
             {% block footer_columns %}
                 <div class="footer-info">
+                    <img src="{% static 'icons/main-logo.svg' %}" alt="main logo in footer">
+                    <ul class="social-links-list">
+                        <li><a href=""><img src="{% static 'icons/fb.svg' %}" alt="social icon"></a></li>
+                        <li><a href=""><img src="{% static 'icons/ig.svg' %}" alt="social icon"></a></li>
+                        <li><a href=""><img src="{% static 'icons/tiktio.svg' %}" alt="social icon"></a></li>
+                        <li><a href=""><img src="{% static 'icons/link.svg' %}" alt="social icon"></a></li>
+                        <li><a href=""><img src="{% static 'icons/wup.svg' %}" alt="social icon"></a></li>
+                    </ul>
                     <p class="footer-contacts-title">
                         Contacts
                     </p>

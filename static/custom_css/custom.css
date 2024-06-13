@@ -8256,10 +8256,19 @@ html.off-scroll body {
         .footer .container .row .footer-info > img {
           max-width: 160px;
           display: block;
-          margin-bottom: 0; }
+          margin-bottom: 24px; }
           @media (max-width: 767.98px) {
             .footer .container .row .footer-info > img {
-              margin-bottom: 0px; } }
+              margin-bottom: 10px; } }
+        .footer .container .row .footer-info .social-links-list {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          padding-left: 0;
+          margin: 0;
+          margin-bottom: 32px; }
+          .footer .container .row .footer-info .social-links-list li + li {
+            margin-left: 32px; }
         .footer .container .row .footer-info .phone-wrapper,
         .footer .container .row .footer-info .address-wrapper,
         .footer .container .row .footer-info .email-wrapper {
@@ -8292,7 +8301,7 @@ html.off-scroll body {
         margin-bottom: 24px; }
         .footer .container .row .footer-block:last-child {
           margin-right: 0;
-          width: 370px; }
+          max-width: 570px; }
         @media (max-width: 767.98px) {
           .footer .container .row .footer-block {
             margin-right: 0;
@@ -15570,17 +15579,6 @@ html.off-scroll body {
       text-align: left; }
       .edit-cart-item-wrapper #editBookingForm .ticket-selection .max-participants span {
         font-weight: 600; }
-    .edit-cart-item-wrapper #editBookingForm .ticket-selection .total-price-wrapper {
-      text-align: left;
-      margin-top: 20px; }
-      .edit-cart-item-wrapper #editBookingForm .ticket-selection .total-price-wrapper .total {
-        display: flex;
-        align-items: center;
-        text-transform: uppercase;
-        color: var(--text-color-third);
-        font-family: "LatoSemiBold";
-        font-size: 18px;
-        line-height: 28px; }
   .edit-cart-item-wrapper #editBookingForm .language-selection-title {
     margin-bottom: 12px;
     text-align: left; }
@@ -15625,6 +15623,17 @@ html.off-scroll body {
         .edit-cart-item-wrapper #editBookingForm .language-selection .input-wrapper input:checked + label::before {
           background-image: url(../icons/custom-radiobtn-active.svg);
           z-index: 2; }
+  .edit-cart-item-wrapper #editBookingForm .total-price-wrapper {
+    text-align: left;
+    margin-top: 20px; }
+    .edit-cart-item-wrapper #editBookingForm .total-price-wrapper .total {
+      display: flex;
+      align-items: center;
+      text-transform: capitalize;
+      color: var(--text-color-third);
+      font-family: "LatoSemiBold";
+      font-size: 18px;
+      line-height: 28px; }
   .edit-cart-item-wrapper #editBookingForm .btns-wrapper {
     display: flex;
     align-items: center;
@@ -15714,6 +15723,17 @@ html.off-scroll body {
             font-size: 14px;
             line-height: 22px;
             color: #0F0F10; }
+    .edit-cart-item-wrapper #editBookingForm .optional-extras-col .total-price-extras-wrapper {
+      text-align: left;
+      margin-top: 20px; }
+      .edit-cart-item-wrapper #editBookingForm .optional-extras-col .total-price-extras-wrapper .total {
+        display: flex;
+        align-items: center;
+        text-transform: capitalize;
+        color: var(--text-color-third);
+        font-family: "LatoSemiBold";
+        font-size: 18px;
+        line-height: 28px; }
 
 .we-accept-wrapper {
   position: absolute;
@@ -16901,3 +16921,5 @@ a {
       margin: 0 auto;
       display: block;
       text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */
