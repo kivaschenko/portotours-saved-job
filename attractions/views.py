@@ -1,4 +1,5 @@
 from django.views.generic import DetailView, ListView
+from django.http import Http404
 
 from attractions.models import Attraction
 from attractions.forms import TagAttractionFilterForm
@@ -46,3 +47,19 @@ class AttractionDetailView(DetailView):
                 url = brother.localized_url
                 self.extra_context['languages'].update({lang: url})
         return obj
+
+    def get_queryset(self):
+        queryset = super().get_queryset().filter(language__code=self.lang.upper())
+        if queryset.exists():
+            return queryset
+        else:
+            raise Http404
+
+    def setup(self, request, *args, **kwargs):
+        """Initialize attributes shared by all view methods."""
+        super().setup(request, *args, **kwargs)
+        lang = self.kwargs.get('lang')
+        if not Language.objects.filter(code=lang.upper()).exists():
+            raise Http404
+        self.lang = lang
+        self.extra_context.update({'current_language': lang})

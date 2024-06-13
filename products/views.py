@@ -2,14 +2,12 @@ from django.contrib.sessions.models import Session
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import ExpressionWrapper, DurationField
-from django.http import HttpResponseBadRequest
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
+from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonResponse, HttpResponse, Http404
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import DetailView, ListView, DeleteView
-from django.views.generic import View
+from django.views.generic import DetailView, ListView, DeleteView, View
 from schedule.models import EventRelation
 from weasyprint import HTML
 
@@ -244,6 +242,13 @@ class ExperienceDetailView(DetailView):
             context['review_form'] = form
             return self.render_to_response(context)
 
+    def get_queryset(self):
+        queryset = super().get_queryset().filter(language__code=self.lang.upper())
+        if queryset.exists():
+            return queryset
+        else:
+            raise Http404
+
     def setup(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             self.extra_context.update({'customer_id': request.user.id})
@@ -255,6 +260,11 @@ class ExperienceDetailView(DetailView):
                 request.session.create()
             self.extra_context.update({'session_key': request.session.session_key})
         kwargs = super(ExperienceDetailView, self).setup(request, *args, **kwargs)
+        lang = self.kwargs.get('lang')
+        if not Language.objects.filter(code=lang.upper()).exists():
+            raise Http404
+        self.lang = lang
+        self.extra_context.update({'current_language': lang})
         return kwargs
 
 
