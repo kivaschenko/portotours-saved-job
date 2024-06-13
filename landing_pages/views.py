@@ -4,7 +4,7 @@ from django.db.models import ExpressionWrapper, F, DurationField
 from django.views.generic import DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
-from django.http.response import Http404
+from django.http import Http404
 
 from schedule.models import EventRelation
 
