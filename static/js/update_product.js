@@ -37,7 +37,9 @@ const view = {
         const languageInput = document.querySelector('input[type="radio"][value="' + startLanguage + '"]')
         const totalPrice = productData.totalPrice
         const totalPriceTextBlock = document.querySelector('.total-price-wrapper span')
+        // const totalPriceExtrasTextBlock = document.querySelector('.total-price-extras-wrapper span')
         totalPriceTextBlock.innerHTML = `${totalPrice}`
+        // totalPriceExtrasTextBlock.innerHTML = `${totalPrice}`
 
         // Enable the input if found
         if (input) {
