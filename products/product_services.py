@@ -239,4 +239,5 @@ def create_qrcode_for_product(product):
         url=url,
     )
     product_qrcode.save()
+    logger.info(f'Created QRCode for Product {product.random_order_number}')
     return product_qrcode
