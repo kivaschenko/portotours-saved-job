@@ -4,7 +4,7 @@ from django.views.generic import DetailView, ListView
 from django.utils.decorators import method_decorator
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 
 from blogs.models import Blog, Category
 from products.models import Language
@@ -32,7 +32,6 @@ class BlogDetailView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super(BlogDetailView, self).get_object(queryset=queryset)
-        self.extra_context['current_language'] = obj.language.code.lower()
         # find all other languages
         brothers = obj.parent_blog.child_blogs.all()
         # create local urls
@@ -49,7 +48,6 @@ class BlogDetailView(DetailView):
         context['subscription_form'] = SubscriberForm()
         return context
 
-
     def post(self, request, *args, **kwargs):
         lang = self.kwargs.get('lang', 'en')
         activate(lang)
@@ -62,6 +60,22 @@ class BlogDetailView(DetailView):
         else:
             # If form is not valid, return JSON response with errors
             return JsonResponse({'success': False, 'errors': form.errors})
+
+    def get_queryset(self):
+        queryset = super().get_queryset().filter(language__code=self.lang.upper())
+        if queryset.exists():
+            return queryset
+        else:
+            raise Http404
+
+    def setup(self, request, *args, **kwargs):
+        """Initialize attributes shared by all view methods."""
+        super().setup(request, *args, **kwargs)
+        lang = self.kwargs.get('lang')
+        if not Language.objects.filter(code=lang.upper()).exists():
+            raise Http404
+        self.lang = lang
+        self.extra_context.update({'current_language': lang})
 
 
 class BlogListView(ListView):
