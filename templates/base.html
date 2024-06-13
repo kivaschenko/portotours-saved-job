@@ -4,39 +4,43 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X9P4D6080"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+    {% block google %}
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X9P4D6080"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
 
-        gtag('config', 'G-9X9P4D6080');
-    </script>
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({
-            'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-        });
-        var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src =
-            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-PDPBPWJC');</script>
-    <!-- End Google Tag Manager -->
+            function gtag() {
+                dataLayer.push(arguments);
+            }
 
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PDPBPWJC"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
+            gtag('js', new Date());
+
+            gtag('config', 'G-9X9P4D6080');
+        </script>
+        <!-- Google Tag Manager -->
+        <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PDPBPWJC');</script>
+        <!-- End Google Tag Manager -->
+
+        <!-- Google Tag Manager (noscript) -->
+        <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PDPBPWJC"
+                    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+        <!-- End Google Tag Manager (noscript) -->
+    {% endblock google %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block head %}
@@ -46,24 +50,26 @@
         </title>
         {% block meta_tags %}{% endblock %}
     {% endblock head %}
-    <!-- Canonical URL -->
-    <link rel="canonical" href="{{ canonical_url }}">
-    <!-- Bootstrap 5 Custom CSS -->
-    <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css"/>
-    <!-- Icons -->
-    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
-    <!-- Favicons -->
-    <link rel="icon" sizes="16x16" href="{% static 'icons/Favicon_16x16.svg' %}">
-    <link rel="icon" sizes="32x32" href="{% static 'icons/Favicon_32x32.svg' %}">
-    <link rel="icon" sizes="32x32" href="{% static 'icons/Favicon32x32.png' %}">
-    <style>
-        #iubenda-cs-banner .iubenda-banner-content {
-            padding: 10px !important;
-        }
-    </style>
-    <!-- Swiper Slider -->
-    <link rel="stylesheet" href="{% static 'custom_css/swiper-bundle.min.css' %}"/>
-    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    {% block links_and_styles %}
+        <!-- Canonical URL -->
+        <link rel="canonical" href="{{ canonical_url }}">
+        <!-- Bootstrap 5 Custom CSS -->
+        <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css"/>
+        <!-- Icons -->
+        <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+        <!-- Favicons -->
+        <link rel="icon" sizes="16x16" href="{% static 'icons/Favicon_16x16.svg' %}">
+        <link rel="icon" sizes="32x32" href="{% static 'icons/Favicon_32x32.svg' %}">
+        <link rel="icon" sizes="32x32" href="{% static 'icons/Favicon32x32.png' %}">
+        <style>
+            #iubenda-cs-banner .iubenda-banner-content {
+                padding: 10px !important;
+            }
+        </style>
+        <!-- Swiper Slider -->
+        <link rel="stylesheet" href="{% static 'custom_css/swiper-bundle.min.css' %}"/>
+        <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    {% endblock links_and_styles %}
 </head>
 <body class="d-flex flex-column min-vh-100">
 <header class="header">
@@ -115,7 +121,23 @@
                         <li><a href="{% url 'page_detail' slug='price-match-policy' %}" class="footer-link">Price Match Policy</a></li>
                         <li><a href="{% url 'page_detail' slug='terms-and-conditions' %}" class="footer-link">Terms and conditions</a></li>
                         <li>
-                            <a href="https://www.iubenda.com/privacy-policy/97833443" class="iubenda-nostyle iubenda-noiframe iubenda-embed iub-legal-only iubenda-noiframe " title="Privacy Policy ">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+                            <a href="https://www.iubenda.com/privacy-policy/97833443"
+                               class="iubenda-nostyle iubenda-noiframe iubenda-embed iub-legal-only iubenda-noiframe " title="Privacy Policy ">Privacy
+                                Policy</a>
+                            <script type="text/javascript">(function (w, d) {
+                                var loader = function () {
+                                    var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0];
+                                    s.src = "https://cdn.iubenda.com/iubenda.js";
+                                    tag.parentNode.insertBefore(s, tag);
+                                };
+                                if (w.addEventListener) {
+                                    w.addEventListener("load", loader, false);
+                                } else if (w.attachEvent) {
+                                    w.attachEvent("onload", loader);
+                                } else {
+                                    w.onload = loader;
+                                }
+                            })(window, document);</script>
                         </li>
                         <li><a href="https://www.livroreclamacoes.pt/Inicio/" class="footer-link">Complaints Record Book</a></li>
                     </ul>
@@ -151,7 +173,7 @@
             <p>© One Day Tours Portugal, LDA <span class="currentYear"></span>. RNAAT 390/2024. Made in Portugal 🇵🇹</p>
         </div>
     </div>
-    
+
 </footer>
 <!-- Bootstrap 5 JS -->
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
@@ -162,48 +184,56 @@
         span.textContent = currentYear;
     });
 </script>
-
-
-
+{% block cookie_policy %}
 <script type="text/javascript">
     var _iub = _iub || [];
-    _iub.csConfiguration = {"askConsentAtCookiePolicyUpdate":true,"countryDetection":true,"enableFadp":true,"enableLgpd":true,"enableTcf":true,"enableUspr":true,"floatingPreferencesButtonDisplay":"anchored-bottom-left","googleAdditionalConsentMode":true,"lang":"en","lgpdAppliesGlobally":false,"perPurposeConsent":true,"preferenceCookie":{"expireAfter":180},"siteId":3650775,"tcfPurposes":{"2":"consent_only","7":"consent_only","8":"consent_only","9":"consent_only","10":"consent_only","11":"consent_only"},"usPreferencesWidgetDisplay":"inline-left","whitelabel":false,"cookiePolicyId":97833443, "banner":{ "acceptButtonCaptionColor":"#FFFFFF","acceptButtonColor":"#0073CE","acceptButtonDisplay":true,"backgroundColor":"#FFFFFF","closeButtonDisplay":false,"customizeButtonCaptionColor":"#4D4D4D","customizeButtonColor":"#DADADA","customizeButtonDisplay":true,"explicitWithdrawal":true,"fontSizeBody":"10px","listPurposes":true,"logo":null,"ownerName":"onedaytours.pt","position":"float-bottom-left","rejectButtonCaptionColor":"#FFFFFF","rejectButtonColor":"#0073CE","rejectButtonDisplay":true,"showTitle":false,"showTotalNumberOfProviders":true,"textColor":"#000000" }};
-    </script>
-    <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/3650775.js"></script>
-    <script type="text/javascript" src="//cdn.iubenda.com/cs/tcf/stub-v2.js"></script>
-    <script type="text/javascript" src="//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js"></script>
-    <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
-    <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
-
-<script>
-    // Here functions for complex navigation links with query params
-    // the first 2 funcs are used in home.html too
-    function addTypeIsGroupAndNavigate(event, lang) {
-        // Redirection to the experiences list filtered by is_private=False
-        event.preventDefault(); // Prevent default link behavior
-        const url = `/${lang}/experiences/?tour_type=group&filter_by=all`;
-        window.location.href = url; // Navigate to the URL with added parameters
-    }
-
-    function addTypeIsPrivateAndNavigate(event, lang) {
-        // Redirection to the experiences list filtered by is_private=True
-        event.preventDefault();
-        const url = `/${lang}/experiences/?tour_type=private&filter_by=all`;
-        window.location.href = url;
-    }
-
-    function addCategoryWalkingAdventures(event, lang) {
-        event.preventDefault();
-        const url = `/${lang}/experiences/?tour_type=all&filter_by=all&categories=walking-adventure`;
-        window.location.href = url;
-    }
-
-    function addCategoryAirportPickup(event, lang) {
-        event.preventDefault();
-        const url = `/${lang}/experiences/?tour_type=all&filter_by=all&categories=airport-pickup`;
-        window.location.href = url;
-    }
+    _iub.csConfiguration = {
+        "askConsentAtCookiePolicyUpdate": true,
+        "countryDetection": true,
+        "enableFadp": true,
+        "enableLgpd": true,
+        "enableTcf": true,
+        "enableUspr": true,
+        "floatingPreferencesButtonDisplay": "anchored-bottom-left",
+        "googleAdditionalConsentMode": true,
+        "lang": "en",
+        "lgpdAppliesGlobally": false,
+        "perPurposeConsent": true,
+        "preferenceCookie": {"expireAfter": 180},
+        "siteId": 3650775,
+        "tcfPurposes": {"2": "consent_only", "7": "consent_only", "8": "consent_only", "9": "consent_only", "10": "consent_only", "11": "consent_only"},
+        "usPreferencesWidgetDisplay": "inline-left",
+        "whitelabel": false,
+        "cookiePolicyId": 97833443,
+        "banner": {
+            "acceptButtonCaptionColor": "#FFFFFF",
+            "acceptButtonColor": "#0073CE",
+            "acceptButtonDisplay": true,
+            "backgroundColor": "#FFFFFF",
+            "closeButtonDisplay": false,
+            "customizeButtonCaptionColor": "#4D4D4D",
+            "customizeButtonColor": "#DADADA",
+            "customizeButtonDisplay": true,
+            "explicitWithdrawal": true,
+            "fontSizeBody": "10px",
+            "listPurposes": true,
+            "logo": null,
+            "ownerName": "onedaytours.pt",
+            "position": "float-bottom-left",
+            "rejectButtonCaptionColor": "#FFFFFF",
+            "rejectButtonColor": "#0073CE",
+            "rejectButtonDisplay": true,
+            "showTitle": false,
+            "showTotalNumberOfProviders": true,
+            "textColor": "#000000"
+        }
+    };
 </script>
-
+<script type="text/javascript" src="https://cs.iubenda.com/autoblocking/3650775.js"></script>
+<script type="text/javascript" src="//cdn.iubenda.com/cs/tcf/stub-v2.js"></script>
+<script type="text/javascript" src="//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js"></script>
+<script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
+<script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
+{% endblock cookie_policy %}
 </body>
 </html>
