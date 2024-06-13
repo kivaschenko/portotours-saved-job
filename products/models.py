@@ -7,11 +7,13 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 from io import BytesIO
 
+import qrcode
 from PIL import Image
 from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.contrib.gis.db import models as gis_models
 from django.contrib.gis.geos import fromstr
+from django.core.files import File
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.db.models import Avg, Sum, F
@@ -874,3 +876,37 @@ class ProductOption(models.Model):
             self.price = self.experience_option.price
         self.total_sum = self.price * self.quantity
         super(ProductOption, self).save(*args, **kwargs)
+
+
+class ProductQrcode(models.Model):
+    product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name='qrcode')
+    name = models.CharField(max_length=255, blank=True, null=True, help_text="Product random number.")
+    url = models.URLField(max_length=200)
+    qr_code = models.ImageField(upload_to='qrcodes/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        # Generate QR code based on the URL
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(self.url)
+        qr.make(fit=True)
+        img = qr.make_image(fill_color="black", back_color="white")
+
+        # Save QR code to an in-memory file
+        buffer = BytesIO()
+        img.save(buffer)
+        filename = f'product_{self.name}.png'
+        filebuffer = File(buffer, name=filename)
+
+        # Save the in-memory file to the ImageField
+        self.qr_code.save(filename, filebuffer, save=False)
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name

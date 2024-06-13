@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from schedule.models import Calendar, EventRelation
 
 from .models import ParentExperience, ExperienceEvent, Product
+from .product_services import create_qrcode_for_product
 
 logger = logging.getLogger(__name__)
 
@@ -162,3 +163,9 @@ def adjust_prices_after_update_status_expired(sender, instance, created, **kwarg
 
             product.price_is_special = True
             product.save()
+
+
+@receiver(post_save, sender=Product)
+def create_qrcode(sender, instance, created, **kwargs):
+    if created:
+        create_qrcode_for_product(instance)
