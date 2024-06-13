@@ -4,13 +4,15 @@ from typing import Any, Union
 
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import QuerySet
+from django.urls import reverse_lazy
 from django.utils import timezone
 from schedule.models import Event, EventRelation, Calendar, Rule
 
 from destinations.models import Destination
-from products.models import ParentExperience, ExperienceEvent, Experience, Language
+from products.models import ParentExperience, ExperienceEvent, Experience, Language, ProductQrcode
 
 logger = logging.getLogger(__name__)
+BASE_ENDPOINT = 'https://onedaytours.pt'
 
 
 # Handling ParentExperience and Event creating
@@ -224,3 +226,17 @@ def get_actual_events_for_experience_with_second_purchase_discount(parent_experi
         return result
 
 
+# ----------------
+# QRcode generator
+
+def create_qrcode_for_product(product):
+    return_url = reverse_lazy('check-experience', kwargs={'product_number': product.random_order_number})
+    url = f'{BASE_ENDPOINT}{return_url}'
+
+    product_qrcode = ProductQrcode(
+        product=product,
+        name=product.random_order_number,
+        url=url,
+    )
+    product_qrcode.save()
+    return product_qrcode
