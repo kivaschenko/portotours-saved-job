@@ -512,8 +512,8 @@
             <div class="right-col">
                 {% if product.qrcode.qr_code %}
                     <div class="order-qrcode">
-                        <div class="test-qr"></div>
-                        <!-- <img src="{{ product.qrcode.qr_code.url }}" alt="qr-code for {{ product.random_order_number }}"> -->
+                        <!-- <div class="test-qr"></div> -->
+                        <img src="{{ product.qrcode.qr_code.url }}" alt="qr-code for {{ product.random_order_number }}">
                         <p class="order-number">
                             {{ product.random_order_number }}
                         </p>
