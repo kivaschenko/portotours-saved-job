@@ -67,7 +67,7 @@
         }
         header p {
             color: white;
-            font-size: 16px;
+            font-size: 20px;
             line-height: 22px;
             font-family: 'LatoBold';
             font-weight: 700;
@@ -83,63 +83,114 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 24px;
-            margin-bottom: 20px;
+            margin-bottom: 4px;
             margin-top: 28px;
         }
         .title-wrapper .main-title {
             text-transform: capitalize;
-            color: #F0500B;
+            color: #0F0F10;
             font-size: 22px;
-            line-height: 30px;
+            line-height: normal;
             font-family: 'LatoMedium';
             font-weight: 600;
             margin: 0;
-            width: 640px;
+           
         }
-        .title-wrapper .price {
+        .info-wrapper .price {
             text-transform: capitalize;
-            color: #F0500B;
+            color: #0F0F10;
             font-size: 18px;
             line-height: normal;
             font-family: 'LatoBold';
             font-weight: 700;
             margin: 0;
+            margin-bottom: 30px;
         }
         .info-wrapper {
             padding: 0 24px;
-            margin-bottom: 28px;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            border-bottom: 1px dashed #D9D9D9;
         }
-        .info-wrapper .booked-by {
+        
+        .info-wrapper .left-col {
+            width: calc(100% - 185px - 40px);
+        }
+        .info-wrapper .right-col {
+            width: 185px;
+        }
+        .info-wrapper .right-col .order-qrcode {
+            width: 100%;
+            position: relative;
+        }
+        .info-wrapper .right-col .order-qrcode img {
+            width: 160px;
+            height: 160px;
+            display: block;
+            margin-right: 10px;
+        }
+        
+        .info-wrapper .right-col .order-qrcode .test-qr {
+            width: 160px;
+            height: 160px;
+            display: block;
+            margin-right: 10px;
+            background-color: #6D6D6D;
+        }
+        .info-wrapper .right-col .order-qrcode .order-number {
+            color: #0F0F10;
+            font-size: 12px;
+            line-height: normal;
+            font-family: 'LatoRegular';
+            font-weight: 400;
+            margin: 0;
+            position: absolute;
+            right: -70px;
+            top: 48%;
+            transform: rotate(-90deg) translateY(-50%);
+        }
+
+        .info-wrapper .left-col .booked-by {
             display: flex;
             align-items: center;
             justify-content: flex-start;
             margin-bottom: 16px;
+            width: 100%;
         }
-        .info-wrapper .booked-by .booked-by-title {
+        .info-wrapper .left-col .booked-by .booked-by-title {
             margin-right: 6px;
             color: #6D6D6D;
             font-size: 14px;
             line-height: 16px;
             font-family: 'LatoRegular';
             font-weight: 400;
+            width: 120px;
         }
 
-        .info-wrapper .booked-by .booked-by-name {
+        .info-wrapper .left-col .booked-by .booked-by-name {
             color: #0F0F10;
             font-size: 14px;
             line-height: 16px;
             font-family: 'LatoSemiBold';
             font-weight: 600;
+            width: 100%;
         }
-        .info-wrapper .order-info-list {
+        .info-wrapper .left-col .order-info-list {
             display: flex;
             align-items: center;
             justify-content: flex-start;
             list-style: none;
             padding-left: 0;
-            margin-bottom: 0;
+            margin-bottom: 10px;
+            margin-top: 0;
+            width: 345px;
+
         }
-        .info-wrapper .order-info-list li {
+        .info-wrapper .left-col .order-info-list li {
             font-size: 14px;
             line-height: normal;
             color: #0F0F10;
@@ -148,22 +199,22 @@
             font-weight: 400;
             position: relative;
         }
-        .info-wrapper .order-info-list li + li {
-            margin-left: 38px;
+        .info-wrapper .left-col .order-info-list li + li {
+            margin-left: 26px;
         }
-        .info-wrapper .order-info-list li + li::before {
+        .info-wrapper .left-col .order-info-list li + li::before {
             content: "";
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            left: -20px;
+            left: -15px;
             width: 4px;
             height: 4px;
             border-radius: 50%;
             background-color: #F0500B;
         }
         .location-wrapper {
-            margin-bottom: 40px;
+            margin-bottom: 32px;
             padding: 0 24px;
         }
         .location-wrapper .location-block {
@@ -197,180 +248,211 @@
             font-size: 12px;
             line-height: normal;
         }
-        .additional-info {
-            margin-bottom: 30px;
-            padding: 0 24px;
+        .extras-info {
+            padding-left: 32px;
         }
-        .additional-info .block-title {
-            color: #0F0F10;
-            font-size: 14px;
-            line-height: normal;
+        .extras-info .extras-title {
             font-family: 'LatoSemiBold';
             font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: normal;
+            color: #0F0F10;
+            margin-bottom: 16px;
+            text-transform: capitalize;
         }
-        .additional-info .info-blocks-wrapper {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
+        .extras-info .extras-list {
+            padding-left: 0;
+            list-style: none;
+            margin: 0;
+            max-width: 400px;
         }
-        .additional-info .info-blocks-wrapper .info-block {
+        .extras-info .extras-list li {
             display: flex;
             align-items: flex-start;
             justify-content: flex-start;
-            
-        }
-        .additional-info .info-blocks-wrapper .info-block.experience-type {
-            width: 25%;
-            
-        }
-        .additional-info .info-blocks-wrapper .info-block.duration {
-            width: 15%;
-            
-        }
-        .additional-info .info-blocks-wrapper .info-block.languages {
-            width: 15%;
-           
-        }
-        .additional-info .info-blocks-wrapper .info-block.possibility {
-            width: 15%;
-            
-        }
-        .additional-info .info-blocks-wrapper .info-block.accessibility {
-            width: 30%;
-            
-        }
-        .additional-info .info-blocks-wrapper .info-block .icon-wrapper {
-            width: 24px;
-            height: 24px;
-            margin-right: 6px;
-        }
-        .additional-info .info-blocks-wrapper .info-block .icon-wrapper img {
-            width: 100%;
-            display: block;
-        }
-        .additional-info .info-blocks-wrapper .info-block .content-wrapper .card-title {
-            margin-bottom: 6px;
-            color: #0F0F10;
-            font-size: 12px;
-            line-height: normal;
-            font-family: 'LatoSemiBold';
-            font-weight: 600;
-        }
-        .additional-info .info-blocks-wrapper .info-block .content-wrapper .card-text {
-            margin-bottom: 0;
-            color: #0F0F10;
-            font-size: 12px;
-            line-height: normal;
             font-family: 'LatoRegular';
             font-weight: 400;
-        }
-        .additional-info .info-blocks-wrapper .info-block .content-wrapper {
-            width: calc(100% - 38px);
-        }
-        .additional-info .info-blocks-wrapper .info-block .content-wrapper:last-child {
-            margin-bottom: 0;
-            color: #0F0F10;
-            font-size: 12px;
-            line-height: normal;
-            font-family: 'LatoRegular';
-            font-weight: 400;
-        }
-        .columns-wrapper {
-            padding: 0 24px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-        }
-        .columns-wrapper .col {
-            width: 33%;
-        }
-        .columns-wrapper .col + .col {
-            margin-left: 28px;
-        }
-        .columns-wrapper .col .col-title {
-            color: #0F0F10;
-            margin-bottom: 8px;
             font-size: 14px;
-            line-height: normal;
-            text-transform: capitalize;
-            font-family: 'LatoSemiBold';
-            font-weight: 600;
-        }
-        .columns-wrapper .col ul,ol {
-            list-style: none;
-            padding-left: 16px;
-            margin-bottom: 0;
-            width: 100%;
-        }
-        .columns-wrapper .col ul li {
+            line-height: 22px;
             color: #0F0F10;
-            font-size: 12px;
-            line-height: normal;
-            font-family: 'LatoRegular';
-            font-weight: 400;
-            margin-bottom: 0;
-            position: relative;
+            margin: 0;
         }
-        .columns-wrapper .col ul li::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: -16px;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: #F0500B;
+        .extras-info .extras-list li + li {
+            margin-top: 6px;
         }
-        .columns-wrapper .col ul li + li {
-            margin-top: 12px;
+        .extras-info .extras-list li img {
+            margin-right: 10px;
         }
         footer {
             position: absolute;
             bottom: 10px;
-            display: flex;
-            align-items: center;
-            padding: 0 24px;
+            left: 0;
             width: 100%;
         }
-        footer .text-wrapper {
+        footer .top-footer {
+            border-bottom: 1px dashed #D9D9D9;
+            padding: 0 32px;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+            width: 100%;
+        }
+        footer .top-footer .provider {
             display: flex;
             align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            margin-bottom: 12px;
         }
-        footer .text-wrapper.email {
-            margin-right: 14px;
-            width: 20%;
+        footer .top-footer .provider .provider-title {
+            width: 175px;
+            font-family: 'LatoRegular';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+            color: #6D6D6D;
+            margin: 0;
         }
-        footer .text-wrapper.phone {
-            margin-right: 70px;
-            width: 20%;
+        footer .top-footer .provider .provider-name {
+            width: 100%;
+            font-family: 'LatoSemiBold';
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 16px;
+            color: #0F0F10;
+            margin: 0;
         }
-        footer .text-wrapper.domain {
+        footer .top-footer .provider-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+        }
+        footer .top-footer .provider-info .text-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+        }
+        footer .top-footer .provider-info .text-wrapper.email {
             margin-right: 40px;
-            width: 15%;
         }
-        footer .text-wrapper.address {
-           
-            width: 45%;
-        }
-        footer .text-wrapper img {
+        footer .top-footer .provider-info .text-wrapper img {
             margin-right: 8px;
             width: 18px;
             height: 18px;
+            margin-bottom: -3px;
         }
-        footer .text-wrapper .footer-text {
-            color: #0F0F10;
-            font-size: 10px;
-            line-height: normal;
+        footer .top-footer .provider-info .text-wrapper .footer-text {
+            color: #0052F1;
+            display: block;
             font-family: 'LatoRegular';
             font-weight: 400;
+            font-size: 10px;
+            line-height: normal;
+            margin: 0;
+            text-decoration: none;
+        }
+        footer .footer-title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 14px;
+            padding: 0 32px;
+        }
+        footer .footer-title-wrapper img {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+        }
+        footer .footer-title-wrapper h4 {
+            color: #0F0F10;
+            font-family: 'LatoSemiBold';
+            font-weight: 600;
+            font-size: 14px;
+            line-height: normal;
+            margin: 0;
+        }
+        footer .footer-subtitle {
+            color: #0F0F10;
+            font-family: 'LatoSemiBold';
+            font-weight: 600;
+            font-size: 12px;
+            line-height: normal;
+            margin: 0;
+            margin-bottom: 8px;
+            padding: 0 32px;
+        }
+        footer .footer-text-common {
+            color: #0F0F10;
+            font-family: 'LatoRegular';
+            font-weight: 400;
+            font-size: 12px;
+            line-height: normal;
+            margin: 0;
+            margin-bottom: 14px;
+            padding: 0 32px;
+        }
+        footer .footer-text-common a {
+            color: #0052F1;
+            text-decoration: none;
+        }
+        footer .footer-links-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+        footer .footer-links-wrapper .left-col {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 300px;
+        }
+        footer .footer-links-wrapper .left-col .text-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+        }
+        footer .footer-links-wrapper .left-col .text-wrapper.email {
+            margin-right: 40px;
+        }
+        footer .footer-links-wrapper .left-col .text-wrapper img {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            margin-bottom: -3px;
+        }
+        footer .footer-links-wrapper .left-col .text-wrapper .footer-text {
+            color: #0052F1;
+            font-family: 'LatoRegular';
+            font-weight: 400;
+            font-size: 10px;
+            line-height: normal;
+            margin: 0;
+            display: block;
+            text-decoration: none;
+        }
+        footer .footer-links-wrapper .right-col {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        footer .footer-links-wrapper .right-col .link-privacy {
+            color: #0F0F10;
+            font-family: 'LatoRegular';
+            font-weight: 400;
+            font-size: 10px;
+            line-height: normal;
+        }
+        footer .footer-links-wrapper .right-col .link-privacy a {
+            text-decoration: underline;
+            color: #0F0F10;
         }
         /* Add more styles as needed */
     </style>
 </head>
 <body>
-    
     <div class="container">
         <header>
             <img src="data:image/png;base64,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" alt="logo">
@@ -382,43 +464,62 @@
             <h1 class="main-title">
                 {{ experience.name }}
             </h1>
-            <p class="price">
-                €{{ product.total_price }}
-            </p>
+            
         </div>
         <div class="info-wrapper">
-            <div class="booked-by">
-                <p class="booked-by-title">
-                    Provider Company:
+            <div class="left-col">
+                <p class="price">
+                    €{{ product.total_price }}
                 </p>
-                <p class="booked-by-name">
-                    {{ product.parent_experience.provider }}
-                </p>
+                
+                <div class="booked-by">
+                    <p class="booked-by-title">
+                        Booked by:
+                    </p>
+                    <p class="booked-by-name">
+                        {{ product.customer.profile.name }}
+                    </p>
+                </div>
+                <ul class="order-info-list">
+                    <li>
+                        {{ product.date_of_start }}
+                    </li>
+                    <li>
+                        {{ product.time_of_start }}
+                    </li>
+                    <li>
+                        {{ product.adults_count }} {% if product.adults_count > 1 %}Adults{% else %}Adult{% endif %}
+                    </li>
+                    {% if product.child_count %}
+                    <li>
+                        {{ product.child_count }} {% if product.child_count > 1 %}Children{% else %}Child{% endif %}
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="order-info-list">
+                    <li>
+                        {% if experience.parent_experience.is_private %}Private Experience{% else %}Small Group{% endif %}
+                    </li>
+                    <li>
+                        {{ experience.language.name }}
+                    </li>
+                    <li>
+                        {{ experience.display_duration }}
+                    </li>
+                   
+                </ul>
             </div>
-            <div class="booked-by">
-                <p class="booked-by-title">
-                    Booked by:
-                </p>
-                <p class="booked-by-name">
-                    {{ product.customer.profile.name }}
-                </p>
-            </div>
-            <ul class="order-info-list">
-                <li>
-                    {{ product.date_of_start }}
-                </li>
-                <li>
-                    {{ product.time_of_start }}
-                </li>
-                <li>
-                    {{ product.adults_count }} {% if product.adults_count > 1 %}Adults{% else %}Adult{% endif %}
-                </li>
-                {% if product.child_count %}
-                <li>
-                    {{ product.child_count }} {% if product.child_count > 1 %}Children{% else %}Child{% endif %}
-                </li>
+            <div class="right-col">
+                {% if product.qrcode.qr_code %}
+                    <div class="order-qrcode">
+                        <!-- <div class="test-qr"></div> -->
+                        <img src="{{ product.qrcode.qr_code.url }}" alt="qr-code for {{ product.random_order_number }}">
+                        <p class="order-number">
+                            {{ product.random_order_number }}
+                        </p>
+                    </div>
                 {% endif %}
-            </ul>
+            </div>
         </div>
         <div class="location-wrapper">
             <div class="location-block starting">
@@ -448,153 +549,93 @@
                 </div>
             </div>
         </div>
-        <div class="order-qrcode">
-            {% if product.qrcode.qr_code %}
-                <img src="{{ product.qrcode.qr_code.url }}" alt="qr-code for {{ product.random_order_number }}">
-            {% endif %}
-        </div>
-    
-        <div class="additional-info">
-            <h2 class="block-title">
-                Additional info 
+        {% if product.number_added_options > 0 %}
+        <div class="extras-info">
+            <h2 class="extras-title">
+                extras added to Experience
             </h2>
-            <div class="info-blocks-wrapper">
-                <div class="info-block experience-type">
-                    <div class="icon-wrapper">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAASZSURBVHgB7ZjvddMwEMBPbsyjBB7uBJgJSCfAnQAzQcMECRO0TEA7QdMJMBMQJgAmqJkgLq/8eaS1uLNOkWzJiZOU9/qh915rxzpLP51OdycD3Mu93G0RcAsyS6MIYD4MAF5IgFg9lYUE8REgnO5lRQ5bylagBBjA/AjhxrB8kEkJ4bttgDcGnaUPYwE7n2BhwUpy7DJXtzJutkkIDzaF3QjUhRRTtCpa7Gpa1+sP8DLGQQ5hS9geLAWipf07KkF838t+TvTzAHaOtC+iHxLgse99fOcrXoaz9HEuQB7RxATMz/B6oHUu090RTjQq4cH5sgm0WvTH6/5hKeEEbyMFFD6njmbpk1RA+WEVpDvpxycIO+L3Dsj6vDIXrJKrVTEGsSXwPaRZIuREQ9LS6tki5Eh33BVSSY90c9VHZV20+B+EE6esgNBwNkt3x51AaZYSghMNQ7OPsqsD1UZhCBK6x9mfwhqCE6Vwdc4/E+4Ln1+NJdw8N5MI3rNvLwcl/9P3yvHtDXJtdSC+wtoiM3M/j2ExCbLsDRmjULDwHhwuS2iWaKkhK09c5xaRue9tABrm1tA1qzXcYGFxL6htsdIskyWl/XIEty62xW8Su6UBWgVpll4OrlhWnG8AapYbx8rddtvisMyiQQFLxe5IpLC+JObW5zr2RKDG0gCd2xZzQGjn4mVK9xQTm360StDvObRV4c5nFMtvyxzaQMmhDQh4QSjI821VkEBHuUwfVZlJ9SHPfTo4pu4v56zmB22AxAjihAkOV1OlC2MGWAmJ/R4zTubLPpdp/8xMBN6BOwlXMOBO6oVEPbU1ixJVxsFp0wqYNhPOQonpq16UsA4ZZKAgxSklga6gA2wgkMXSI+y+DcKwX6C+O3P+A55EbLe5kLVc7x1Hi7P0lOcR0gMQFmYAssLOGbixNAZlvQTqkFUbVU7o99bzhwWYiVVCY/vcSdQhbV+CQmWKXi1DNXS0FFwwe3ayHDQnhEt9/DT7tfBDsiyOM+TqKvLpCKNsyjdoKXC7TMQnDIIFtDxsA9F6tu/rclDp61HT/gUrtEDujupV1fqVugtSvt3Lfp8s0aFx9inmBqqxPwQrNDQB3NKvejmHNUUVHuE+mJLuqO6zi+LkDf+M6XRLN4F6QbzSEL4Y55Z+xYpUuwyW6tJFSYducD12dUysxhETxbAgr3zio69ztHKVTv2l3yawldXOVZ/ysCUDflPt4oUFKrWiYykKRcAboFyzql8hGV+jZknXYInpXwCrJdEv+gLxpsLLyzBysEpfg+b0j9Id7v4Z5l07x0e2zu2K+lgRgHymn1B0oQikD4DANXAFij741gKJ6p9otFuIjTdQu0inT44uMf/EjQdVBKg+QNCSYgjCnRgO1C6TniWW/+Ho4RmlAhMDxRBmOsKs/KSDMXZsToUyw934WZ1A5Vo+yzubNg5ClBjU5Ut9SiC4tg8PWjqARhEWE1SkxC0qBf/lLe2xAmw9DHbKcp0+kqlcvXOMyq/g9k6fBfaXdf0cufbXPLWEdKymE6uIacdKdd6P/AOo0yZ9aOOTJ/levk12u5d7uYvyD7IpOwBpV48PAAAAAElFTkSuQmCC" alt="icon">
-                    </div>
-                    <div class="content-wrapper">
-                        <p class="card-title">
-                            Type of experience 
-                        </p>
-                        <p class="card-text">
-                            {% if experience.parent_experience.is_private %}Private{% else %}Group{% endif %}
-                        </p>
-                    </div>
-                </div>
-                <div class="info-block duration">
-                    <div class="icon-wrapper">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAOXSURBVHgB7VnrUdtAEP5OxhkeSbAriEqADkQFiAqwKwhUYLuCkAowFSAqQOmADqJUYDMTZzIRcNnTSb7TWbLe/sU345nTvfZjb29vdwHe0S4YWsLCHdjAi53u3QuG3jJAC6hNlIgNgHBEG5zT5wn9BjlTl/R74sAd0PfrEq9MdOF+dBj4hJoOaoAEzt/Qn1UlXJqo0CDDv1ta4uZMCWhMaG+puniupqsSLkU01iKRhG0s9zm4OFKPBC6z1+7Tmh6tZ5dE3DGGAzKJi6G3ekJTos/uwVcO6ybdyz2OD9dVjy8mPSWhl3q/xTD6fL+6Q12iGSRJA2w89H77aICFeyQuobBzGyXJsvzNouN+1Lro5vYvirT47B5O3sB+0XHOsZXsvs3Qe9TJkhLO8pTASm5Cmuyf5tmhWhdp6lYKBZnG6gbVyObKsbI2sNCbGIvPikhKMFtrD4pmD72/tPfrGSKPEcG2EE6QyckAaeWEtDFKvqVNtvO6ZEGSZWMlD1fC7FBElNzIRLUxb3pxyiCW4Su5fEOrKaLSffC1QxcOGTuCsGnt05FPtIKh0Z6rFvKHLo/cROz0fdUTjvTxFNE4wEi+POwYpNWHtfQUl00bdVSz72PneNWVc6KPrImK2671L3d57AmEB4AKagYyxpXQNKr7PVYYJHQHFqh2uOZkoSNY4F9QC1x7WFhXRHmwbtGjId59tIRWiYpARKYcEvTiTNsiqxF9CVSb26gJIjtqSFa71HtB0kpFT0v3aIE4daBAZFguEMkGeZG5HiDTszg99v7Mtq+JoqmfCZ2BtxomY+bRa7f91UUD1NNsz1HttOdJEaXNfqyn4e0SDVGVrH4CMhfLIUo2oQe6ju5w6yKL7MI9uDLnyYAo/2W00ptGNumrwbCVG2uSpSO2zTlxsB5Bhpfpl3HDPdFfPFNtjLKC2AZkr2n/73RyU31MpDB6sJ4VXmbmTEv38F4rNCSpSIAOYOZNQpvH3mpszst0+JSzi4lB/EkbhfdmINsFSSEzL1ivki63qtnsdBmneVWT3CdU5DFGeiA0+7hwPzXyr5KkUMIGyfG20k5hSYcM/YomfTMW1arIiZg33svR+2OS821rGxbJ4BfVPaUvDp3YmTvGcOkSUSmiUmB2gUtDVLDVvsXls7G97HhdNp4oTTRBCcJFIsUpzKrWCyoTTRATdqlgcb6tYItI0+xJpN9kIvO6EVltoia6/mfDO9rGf3DomqN9i6T7AAAAAElFTkSuQmCC" alt="icon">
-                    </div>
-                    <div class="content-wrapper">
-                        <p class="card-title">
-                            Duration
-                        </p>
-                        <p class="card-text">
-                            {{ experience.display_duration }}
-                        </p>
-                    </div>
-                </div>
-                <div class="info-block languages">
-                    <div class="icon-wrapper">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAASaSURBVHgB7VjtUeMwEF05yczdcTeXdOCrgFABSQWYCggVHFRAqCBcBUAFmApIBxcqwB1g5mCGuUB0u5Zsr2VJsQn/jjeTD8uy9LzafbsSwAf+UwjYAPdRvw+wnAQA2xJgiE14DaG+naiPTCWIa4DefBCnCbwRbyJ6H30dCZAn+HcE7TDHF7ocxE8X0BKtiGqCM1DWM5HicIn6zSFzK5tIJATHg/hPDA3RiCgtcQDLE7TGkfE4WkjSssauZb2PPoUAHXxBcYDER8bkZ9/jp2N4D6I0kYDOFVSsSAThdBA/zqEFNOkpTnrAmhcSevvr/Fc0IHkDZYBQYOy3JVgfd2uCE5+wcdEVemMf2QA80JYM2WA7m5IkUDBJeB2DUgYCGmR5pVSkJdGHaIsHzdo3botB/JyQ+7CmIcWBq7916e+jb5GA1dUmJJV1Xoau+wGsdtGNpmY7to1tq9a1DYIkZ+WDFDTNSRJBAX/PMRFEvn6yaqM5aE3W8rdj9g/qE21NQPslDnXRVpzJ1/A7atgdgxOO+/HTWJMlDEmvzY7d+kSldKygdwotoCYotBJdRly6e8tE62+WILDvqdDP6qw3N3jxiTI5utO35v34cQztiE71JE5f8yGNtkgKR+r53iB/CYJh0c6o/L9KH6KvMwmrEElTUOAvLPDNFmRpu9/KFDYAusG1KOqH5QS/zvJ7FR/FNLfHriJMj0fa30LdOMTBUKyXNxg0YX0qsSjHktjn8xG0wmvMiG3zO0YwSZfgJuQKYAi02YmWmnwNCrLB7CH64tTG+vPPCeiiRhqFjxn1YU4MOx7iZ4d8BaPyB/kr/cKa6ESyU06WtDKNvnizThVZBUboNyAqEpIl/Cy4Q6uJg1/syiroimywD0XJJzCBLH/b3cVE4eehj+i7gWpNzOck3Ek+8bp87oNJNFE/0jMYt2IZPDaofF4pPrz53M5FwSAqrGavQrJ73QTWgJHNg+TI5tsM2hCFr9aJohzd6r99tz+J1lqpKyVeyVtTrCqsVRChfj+AiyiCLaWrqKDUl+NlAg2ha4bsJVFjD+y+yhOOiD1EexdFN4A9sIL3kT+bRbICSlWuGNYSsLpF6c3BRVRLUd5hZNfJNOUTurOUDTz4qtKml32k+9XOAGryVM0s0hGh3SlUZeeuWQZaMqLCEPTOSclB1qquGlFd8eQDeqz6ymvILAPp7YsHHavsUQ1MNYS+TGw1sFXwcdIiQtGqV7alpUimgpdSLTSWHm5FlYFUaQnMmoF1n28lqouLRn6odpTBIWvyVPfcL4PE3I7TnK7TE08K7U6hdIHQT5YPvgpdI2IZuVteydQ4M8C64tFZFjqJaj+kwiKpks32VOAmE3y3tauolrm1U3IpqJ4Z7PvG9RYlLP0xy8I5Bs05ty73S/TTW/toXMyz7JP766LJdrzxaR6SOSOBN5qzY0R82908aqm8466gXmiJZR7QsyF/WMVBd2qWkhsRVZNmBxMz8BYthWTlh7o2SVqQsrTZ/L3xIJcOuerHiA2me9MpYPYkbAB29kl1QV+XgKG+nVClhe6Cu1by295FkyX+wAcM/APWGxb10FU7lgAAAABJRU5ErkJggg==" alt="icon">
-                    </div>
-                    <div class="content-wrapper">
-                        <p class="card-title">
-                            Languages
-                        </p>
-                        <p class="card-text">
-                            {{ experience.language.name }}
-                        </p>
-                    </div>
-                </div>
-                <div class="info-block possibility">
-                    <div class="icon-wrapper">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAOhSURBVHgB7VgBTtswFH1OUwmtSGtvkJ2AcgLCCchOMHqCsRMMTgCcgO0Eyw3ITrDuBGQnaCqNDZFS7//Ewa6bCjeJENJ4Ulvbjb+fv/2fvwO84j+FcH1wFg2HwGIMyIC6BfVPyYy+stU2j+q96SjOUrTAk0Rn0eCYHvpAxRAtICBP38Z/ztAQG4nOop1AoPeNimN0BInlp1H89wINUEtUkbymYqCaMgnxlR5PeBm5wVxK2hYBNmJBtuRVZUsC+6P4doq2RHkvCuQ/tGFxCfinRCxDQ8yi3ZDIXqtqKtHf39aet95w/9EgeTaKf5+0IckgG0k54QKBh/wztsSKRy1vpsP49h06grLNXi32PBE/5Am49rc8mkfQe6lxhNaBV4VsTqDki/dtKXluWCGqZIiR0Yb/4tAf82hwlUWD63m0e/7UsxxEhgMoyO6v4Ajfqof8JSG/wwHsEYn8mMtL4KdLHyJ7QRM7KscSEZVnVJ4KiOkS8he1kSL4UzsufD3oblgseAGWIRcsDI117cOjPExI/jgWhuoTknNCof6lLQiaABOlFehPWAqNpZfmoI46Z/ZZpnDEKL4jiRLvWVVorFiNZytLMQHWYa4YSy+CyqOu0UjLdaD6ZNuKuBojMdvouKaJCyIoj414wQpRisI9VUzhjMqjYiuSm1BNlggHsIgaSy+UVIgUDuBjFlrKnIJvCxiyVWRkJlFO34rEYQ4n9BvsaTeUW6pE5WVTR9UsvBROkKEu9xJ0i6D80UpSELVOCKdz3dzTbXOBdUh1zGptVh69cz7KDChj0knoXVHqeQWZViVv/dGng4mzfjxuFdbBLlHGirL9uPcVUT/AFiCNM9K0foIOQYQOdM23ibpjHr1hkgGXy3y13aXNhtR3s5Xz3nc1wAHHCS8ZOlFNKXW/QEdQ9s+l1uZL8/81ogIPR7Shg6pOLn8riyjMx1ILMV8nDptEe6kweUDFsQexR7pNZcH2A6kfS+00s8ajIiLpiaqaXP+frhX+xGXJy0tfHtqEtG22Lmrt27Zclz7lCOTlcE1YyptsfrOZ0JptykURb7JfcwsdnFDjeTlAs6utJtq7qSck2SZ9+s6HxZpHaU/uVcvdlKQNdZs9RQt4NUar1C3BC0KNjpbnrDCOr5eAFaLmOet6WXsuWB5tcm96HnhWpUrdsM1bjOfAClEdSHhR3mTULr3onKhsnVgbLyB2gvKeXQh9gtbYoXdNC/X6RiZ4xSua4R//R3CIHsRqyQAAAABJRU5ErkJggg==" alt="icon">
-                    </div>
-                    <div class="content-wrapper">
-                        <p class="card-title">
-                            Possibility
-                        </p>
-                        {{ experience.display_possibility }}
-                        
-                    </div>
-                </div>
-                <div class="info-block accessibility">
-                    <div class="icon-wrapper">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMnSURBVHgB7ViBcdowFH1ywl3SpBczQd0JmmwAGzgTJJkgdILABEkmSDIBzgSwQegE8QaYO+j1Qov6PxZY5SywZdFce7w7Y9mWvx+S/v9PH9hhB3sMQ9/nA1uEQAWMwsNrCa9FzUDdGkjgvh5NHuEY1kRH4dEtkWrlG5Xtk+h7Bw5hRXQYHl3Siw/qMqF2JCFo6mW46EPXzXo07sMRPFiAiF1gSQjNk2hy5Ufjc2pfZYblBRzCiiiWa1L0aT0OFjfV2ky4TSMawCFsiSrIU93bh+FBQKeteL8VURqtZ9X0Bd4eaM0S4eOGwF436yOf4BCWznQQEKkXmEcvlqid1aMkgSNYjWg9+hGzEzGhnMdMsumSpBPQlN8l4ZHkYxgetrAlVHQmhhxk7b0BtgQHRP8O/hmi+3AKEVBcDUxPycFiWKIU0TS4/zw15XCBGeX/mfF9cri+H02asEChqWeCo/DDjcD0lZRRj0UJ7NCAJTaOaBrcp13KRqfZXb2tQ0T0R4zxcwbvGZZYS1RloB4yYZwQ4Xt67S6vP4tmmto+toC1RIkka85AXZJ6r51XcYgqMBJV67ChLt89LRqJCojr+WSCf4uSzA9PLmYhl2iqK+XcYUiuPRf9kCk8UVhazEgMSxjCU0338AjVwZGjV2VLbZh6qRONsQa8/SAFFdAe6VOupXSdB3x4mN5C21eVgZMUSpmqbXqmhzgifUmJI7bZShumXg/aotIeSIns86VliDZvW1ASBqJC05WygYrgnSqR/bq0DtldJ17y4OUbnouORBm9sHGC1XeI7F2a1ebwyzqXUZToRskJblACXJMiIkMKS6/4g+yYtyqL2Vo4VzWiKp+rYgJarJ5QALz+qHC20ALB6qhJ/OL1Giu7l0XtivUf/RhSEO9qnR9nqHXyAjcT8vB2zc6SkRKdvIjAdQCy9ZL1w5lecSlNNDV63KZ1uvKvJRXFvG90jjFfGvhCH+MCmb+JpEa2RR+/TfvWPm/KWoUKEGkVROpKah1ICqLDzlPELp+LVP1KVUrScuNcrOQJZ4qX4onX9jZUlmVJJ907ZXf24/fSqTv89/gN/rRBm2ZaO5EAAAAASUVORK5CYII=" alt="icon">
-                    </div>
-                    <div class="content-wrapper">
-                        <p class="card-title">
-                            Accessibility
-                        </p>
-                        <p class="card-text">
-                            {{ experience.display_accessibility }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="columns-wrapper">
-            <div class="col">
-                {% if experience.display_include_text %}
-                <h3 class="col-title">
-                    Includes
-                </h3>
-                {{ experience.display_includes_text }}
-                {% endif %}
-            </div>
-            <div class="col">
-                {% if experience.display_what_to_bring_text %}
-                <h3 class="col-title">
-                    What to bring
-                </h3>
-                {{ experience.display_what_to_bring_text }}
-                {% endif %}
-            </div>
-            <div class="col">
-                {% if experience.display_traveler_tips_text %}
-                <h3 class="col-title">
-                    Traveler tips
-                </h3>
-                {{ experience.display_traveler_tips_text }}
-                {% endif %}
-            </div>
-        </div>
-    
-        <div class="additional-info">
-            {% if product.number_added_options > 0 %}
+            <ul class="extras-list">
                 {% for item in product.options.all %}
-                    {% if item.quantity > 0 %}
-                        <li>
-                            <p>
-                                {{ item.quantity }} x {{ item.experience_option }}
-                                {% if item.experience_option.description %}
-                                    <span>{{ item.experience_option.description }}</span>
-                                {% endif %}
-                            </p>
-                            <p>
-                                {% if item.price %}€{{ item.price }}{% else %}free{% endif %}
-                            </p>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+                {% if item.quantity > 0 %}
+                    <li>
+                        <img src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIyIDExLjA4VjEyQzIxLjk5ODggMTQuMTU2NCAyMS4zMDA1IDE2LjI1NDcgMjAuMDA5MyAxNy45ODE4QzE4LjcxODIgMTkuNzA5IDE2LjkwMzMgMjAuOTcyNSAxNC44MzU0IDIxLjU4MzlDMTIuNzY3NCAyMi4xOTUzIDEwLjU1NzMgMjIuMTIxOSA4LjUzNDQ3IDIxLjM3NDZDNi41MTE2OCAyMC42MjczIDQuNzg0NjUgMTkuMjQ2MSAzLjYxMDk2IDE3LjQzNzFDMi40MzcyNyAxNS42MjggMS44Nzk3OSAxMy40ODgxIDIuMDIxNjggMTEuMzM2M0MyLjE2MzU2IDkuMTg0NTUgMi45OTcyMSA3LjEzNjMxIDQuMzk4MjggNS40OTcwNkM1Ljc5OTM1IDMuODU3ODEgNy42OTI3OSAyLjcxNTM3IDkuNzk2MTkgMi4yNDAxM0MxMS44OTk2IDEuNzY0OSAxNC4xMDAzIDEuOTgyMzIgMTYuMDcgMi44NTk5OSIgc3Ryb2tlPSIjMDA3NzI4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0yMiA0TDEyIDE0LjAxTDkgMTEuMDEiIHN0cm9rZT0iIzAwNzcyOCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K'/>
+                        {{ item.experience_option }}
+                        {% if item.experience_option.description %}
+                            {{ item.experience_option.description }}
+                        {% endif %}
+                        
+                    </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
         </div>
-    
+        {% endif %}
         <footer>
-            <div class="text-wrapper email">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAG7SURBVHgB7ZbRUcJAEIZXh/dYAR0EGwALMFiAqcBgASYWYLABsAATC5AKTCxAqAAqgAoi3zrnAJIMwQAP8M1kcrnc7X97t3t3Z9kcOQDnciCOT7hmCrPZTPr9F4njWKrGsixpNpvi+w9ahjMTXO32jaRpqj/Mz6rAKR7EB4P3n0qEkyTJLOsic5x2Np1Os6rBJrbRQAt0jSeTiZg3I6ua0Wi0pAFLwUVlo3Ep3e6zVAW2WEYjaFgSdhxH6vX6vHFXB7DauAz0RRBbxIzn3RUJX+viu+6tdmy1ruaR3peykB30JVgJqOHwS2zbzhcGPO71ehKGT/odBI/S6dxv5D3xgZdBEOg3NnBkXZbkbiCe50mSfOhAyG0MFuU43rE8xkv6YiOPwp0LUaaJxMdjPGcGFiOfMnUMjDJt8ZK+hZBTURRpjvHOYzweZ7bd0Ha8+SYnF+tMjq5jVaMmG4IHTB9RSvAwrQYi1vf9UjvexsKA4TAMNULJT6Y2il51TctSStjguq7mvBnMNmwl/B9Bw+kGciTCZpeJ47ednMfYxPai1sGuPr/C/GBXStPPnXjNUcuh8eeyt29O6bQ3vgGPm5y7lx7qbQAAAABJRU5ErkJggg==" alt="icon">
-                <p class="footer-text">
-                    support@onedaytours.pt
-                </p>
+            <div class="top-footer">
+                <div class="provider">
+                    <p class="provider-title">
+                        Provider Company:
+                    </p>
+                    <p class="provider-name">
+                        {{ product.parent_experience.provider }}
+                    </p>
+                </div>
+                <div class="provider-info">
+                    <div class="text-wrapper email">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAG7SURBVHgB7ZbRUcJAEIZXh/dYAR0EGwALMFiAqcBgASYWYLABsAATC5AKTCxAqAAqgAoi3zrnAJIMwQAP8M1kcrnc7X97t3t3Z9kcOQDnciCOT7hmCrPZTPr9F4njWKrGsixpNpvi+w9ahjMTXO32jaRpqj/Mz6rAKR7EB4P3n0qEkyTJLOsic5x2Np1Os6rBJrbRQAt0jSeTiZg3I6ua0Wi0pAFLwUVlo3Ep3e6zVAW2WEYjaFgSdhxH6vX6vHFXB7DauAz0RRBbxIzn3RUJX+viu+6tdmy1ruaR3peykB30JVgJqOHwS2zbzhcGPO71ehKGT/odBI/S6dxv5D3xgZdBEOg3NnBkXZbkbiCe50mSfOhAyG0MFuU43rE8xkv6YiOPwp0LUaaJxMdjPGcGFiOfMnUMjDJt8ZK+hZBTURRpjvHOYzweZ7bd0Ha8+SYnF+tMjq5jVaMmG4IHTB9RSvAwrQYi1vf9UjvexsKA4TAMNULJT6Y2il51TctSStjguq7mvBnMNmwl/B9Bw+kGciTCZpeJ47ednMfYxPai1sGuPr/C/GBXStPPnXjNUcuh8eeyt29O6bQ3vgGPm5y7lx7qbQAAAABJRU5ErkJggg==" alt="icon">
+                        <a href="{{ product.parent_experience.provider.email }}" class="footer-text">
+                            {{ product.parent_experience.provider.email }}
+                        </a>
+                    </div>
+                    <div class="text-wrapper phone">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAJgSURBVHgBxVc9WttAEB2JArkAiy7pxA1Ilw7TpUM5gZUTxDlBzAninAC4AZRUhpIKOIF1AxYqqMx70sjfYCxZ2MvH+7717M/svtmd2VlZ5JMQ2EYMQKQL9BzKrXMuF9/E4NybTmXMao1uHgTyE+S34pO4240nEAkW/w85v3gPRvUhHcZ3Qe7EB7DbHoin29vxcYPOiDrUFQ8IVbbZQXUKe+IBFXFeNELZkeXEPfEA6+N7yocHV0te6fjwczizIJBLKW9UUqcMnVMpo37t4w5N/Upl2qDfFU+wxGf8wbU5XKS4tRX3MZZJGQ9e7vIM8OFYr8yrJIJmyn4dS8UD7I7pw3OtDub0+jp+hJg6Ew94k6txnBMlmUUuk4amU6bNbz4y14ZtPAGdTtRB9QeIoufnpwvtz9G/o/1f0H8uvsFdM2/Pp0fbj9T6Vz4CVe4mkQ003vEm8rhE2iafbyzqnDtae+QO/TzmFL5ONzejGO1ruoiEGgcZSxRFA5TvGP8KGXFNyxFI/a4ZaDeoJpDDx0d3ZHeuJAlKjvoIhoyKBctnlXP3dbzCq/e8ltgQkDzGpD+YNLKGQQwx/nu2i0B+QefE6DC1srz/PedkPg4NfqVPxyjZknWGGrCNeovIq6D6JyuAhJY4bDOJfsERHUjpp4FGeyJroBWxkhdZS59G+n7CT6VVDWhNrORExiCScvcZo3sVA95FbAw4wZfKLh8NttUAxkARZDVG7FfTizmyJpSE14URn5ihHIWxcQfZxThfPJ7SQeE28Qi9tz2UQxCxbt91p6TLE4gnQ0jO4829/RFYBy9dxwxBp9lLYwAAAABJRU5ErkJggg==" alt="icon">
+                        <a href="tel:{{ product.parent_experience.provider.phone }}" class="footer-text">
+                            {{ product.parent_experience.provider.phone }}
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="text-wrapper phone">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAJgSURBVHgBxVc9WttAEB2JArkAiy7pxA1Ilw7TpUM5gZUTxDlBzAninAC4AZRUhpIKOIF1AxYqqMx70sjfYCxZ2MvH+7717M/svtmd2VlZ5JMQ2EYMQKQL9BzKrXMuF9/E4NybTmXMao1uHgTyE+S34pO4240nEAkW/w85v3gPRvUhHcZ3Qe7EB7DbHoin29vxcYPOiDrUFQ8IVbbZQXUKe+IBFXFeNELZkeXEPfEA6+N7yocHV0te6fjwczizIJBLKW9UUqcMnVMpo37t4w5N/Upl2qDfFU+wxGf8wbU5XKS4tRX3MZZJGQ9e7vIM8OFYr8yrJIJmyn4dS8UD7I7pw3OtDub0+jp+hJg6Ew94k6txnBMlmUUuk4amU6bNbz4y14ZtPAGdTtRB9QeIoufnpwvtz9G/o/1f0H8uvsFdM2/Pp0fbj9T6Vz4CVe4mkQ003vEm8rhE2iafbyzqnDtae+QO/TzmFL5ONzejGO1ruoiEGgcZSxRFA5TvGP8KGXFNyxFI/a4ZaDeoJpDDx0d3ZHeuJAlKjvoIhoyKBctnlXP3dbzCq/e8ltgQkDzGpD+YNLKGQQwx/nu2i0B+QefE6DC1srz/PedkPg4NfqVPxyjZknWGGrCNeovIq6D6JyuAhJY4bDOJfsERHUjpp4FGeyJroBWxkhdZS59G+n7CT6VVDWhNrORExiCScvcZo3sVA95FbAw4wZfKLh8NttUAxkARZDVG7FfTizmyJpSE14URn5ihHIWxcQfZxThfPJ7SQeE28Qi9tz2UQxCxbt91p6TLE4gnQ0jO4829/RFYBy9dxwxBp9lLYwAAAABJRU5ErkJggg==" alt="icon">
-                <p class="footer-text">
-                    +351 968 380 559
-                </p>
+            <div class="footer-title-wrapper">
+                <img src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzM4MjdfMzU5NDgpIj4KPHBhdGggZD0iTTkgMEM0LjAyNTcxIDAgMCA0LjAyNTI1IDAgOUMwIDEzLjk3NDIgNC4wMjUyNSAxOCA5IDE4QzEzLjk3NDMgMTggMTggMTMuOTc0NyAxOCA5QzE4IDQuMDI1NzEgMTMuOTc0NyAwIDkgMFpNOSAxNi43NDQyQzQuNzI5ODUgMTYuNzQ0MiAxLjI1NTgyIDEzLjI3MDIgMS4yNTU4MiA5QzEuMjU1ODIgNC43Mjk4MiA0LjcyOTg1IDEuMjU1ODIgOSAxLjI1NTgyQzEzLjI3MDIgMS4yNTU4MiAxNi43NDQyIDQuNzI5ODIgMTYuNzQ0MiA5QzE2Ljc0NDIgMTMuMjcwMiAxMy4yNzAyIDE2Ljc0NDIgOSAxNi43NDQyWiIgZmlsbD0iIzBGMEYxMCIvPgo8cGF0aCBkPSJNOC43MzMzNiAxMS4zODc5QzguMjM1NzkgMTEuMzg3OSA3LjgzMzAxIDExLjgwMjYgNy44MzMwMSAxMi4zMDAxQzcuODMzMDEgMTIuNzg1OSA4LjIyMzk1IDEzLjIxMjMgOC43MzMzNiAxMy4yMTIzQzkuMjQyNzcgMTMuMjEyMyA5LjY0NTUyIDEyLjc4NTkgOS42NDU1MiAxMi4zMDAxQzkuNjQ1NTIgMTEuODAyNiA5LjIzMDg5IDExLjM4NzkgOC43MzMzNiAxMS4zODc5WiIgZmlsbD0iIzBGMEYxMCIvPgo8cGF0aCBkPSJNOC44ODc1MiA0LjQ4MTMyQzcuMjg4MTkgNC40ODEzMiA2LjU1MzcxIDUuNDI5MSA2LjU1MzcxIDYuMDY4OEM2LjU1MzcxIDYuNTMwODMgNi45NDQ2NSA2Ljc0NDA4IDcuMjY0NSA2Ljc0NDA4QzcuOTA0MjQgNi43NDQwOCA3LjY0MzYzIDUuODMxODUgOC44NTE5OCA1LjgzMTg1QzkuNDQ0MjkgNS44MzE4NSA5LjkxODIgNi4wOTI1IDkuOTE4MiA2LjYzNzQ2QzkuOTE4MiA3LjI3NzE2IDkuMjU0NzcgNy42NDQ0IDguODYzODMgNy45NzYxQzguNTIwMjUgOC4yNzIyMiA4LjA3MDExIDguNzU3OTggOC4wNzAxMSA5Ljc3NjhDOC4wNzAxMSAxMC4zOTI4IDguMjM1OTcgMTAuNTcwNSA4LjcyMTY2IDEwLjU3MDVDOS4zMDIxMiAxMC41NzA1IDkuNDIwNiAxMC4zMDk5IDkuNDIwNiAxMC4wODQ4QzkuNDIwNiA5LjQ2ODc2IDkuNDMyNDQgOS4xMTMzNyAxMC4wODQgOC42MDM5NkMxMC40MDM5IDguMzU1MTkgMTEuNDEwOCA3LjU0OTU4IDExLjQxMDggNi40MzYwMUMxMS40MTA4IDUuMzIyNDQgMTAuNDAzOSA0LjQ4MTMyIDguODg3NTIgNC40ODEzMloiIGZpbGw9IiMwRjBGMTAiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMF8zODI3XzM1OTQ4Ij4KPHJlY3Qgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo='/>
+                <h4>
+                    We’re here to help
+                </h4>
             </div>
-            <div class="text-wrapper domain">
-                <p class="footer-text">
-                    OneDayTours.pt
-                </p>
+            <p class="footer-subtitle">
+                Questions about your activity?
+            </p>
+            <p class="footer-text-common">
+                For questions about your meeting point, pickup service or other queries about what happens on the day, contact your activity provider (see above).
+            </p>
+            <p class="footer-subtitle">
+                Questions about your booking?
+            </p>
+            <p class="footer-text-common">
+                For questions about rescheduling, cancellations, refunds or other matters regarding your booking, contact us at <a href="mailto:support@onedaytours.com">support@onedaytours.com</a> or our customes support numbers.
+            </p>
+            <div class="footer-links-wrapper">
+                <div class="left-col">
+                    <div class="text-wrapper email">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAG7SURBVHgB7ZbRUcJAEIZXh/dYAR0EGwALMFiAqcBgASYWYLABsAATC5AKTCxAqAAqgAoi3zrnAJIMwQAP8M1kcrnc7X97t3t3Z9kcOQDnciCOT7hmCrPZTPr9F4njWKrGsixpNpvi+w9ahjMTXO32jaRpqj/Mz6rAKR7EB4P3n0qEkyTJLOsic5x2Np1Os6rBJrbRQAt0jSeTiZg3I6ua0Wi0pAFLwUVlo3Ep3e6zVAW2WEYjaFgSdhxH6vX6vHFXB7DauAz0RRBbxIzn3RUJX+viu+6tdmy1ruaR3peykB30JVgJqOHwS2zbzhcGPO71ehKGT/odBI/S6dxv5D3xgZdBEOg3NnBkXZbkbiCe50mSfOhAyG0MFuU43rE8xkv6YiOPwp0LUaaJxMdjPGcGFiOfMnUMjDJt8ZK+hZBTURRpjvHOYzweZ7bd0Ha8+SYnF+tMjq5jVaMmG4IHTB9RSvAwrQYi1vf9UjvexsKA4TAMNULJT6Y2il51TctSStjguq7mvBnMNmwl/B9Bw+kGciTCZpeJ47ednMfYxPai1sGuPr/C/GBXStPPnXjNUcuh8eeyt29O6bQ3vgGPm5y7lx7qbQAAAABJRU5ErkJggg==" alt="icon">
+                        <a href="mailto:support@onedaytours.pt" class="footer-text">
+                            support@onedaytours.pt
+                        </a>
+                    </div>
+                    <div class="text-wrapper site">
+                       <img src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTkgMS41QzcuNTE2NjQgMS41IDYuMDY2NTkgMS45Mzk4NyA0LjgzMzIzIDIuNzYzOThDMy41OTk4NiAzLjU4ODA5IDIuNjM4NTYgNC43NTk0MyAyLjA3MDkxIDYuMTI5ODdDMS41MDMyNSA3LjUwMDMyIDEuMzU0NzIgOS4wMDgzMiAxLjY0NDExIDEwLjQ2MzJDMS45MzM1IDExLjkxOCAyLjY0NzgxIDEzLjI1NDQgMy42OTY3IDE0LjMwMzNDNC43NDU2IDE1LjM1MjIgNi4wODE5NyAxNi4wNjY1IDcuNTM2ODMgMTYuMzU1OUM4Ljk5MTY4IDE2LjY0NTMgMTAuNDk5NyAxNi40OTY4IDExLjg3MDEgMTUuOTI5MUMxMy4yNDA2IDE1LjM2MTQgMTQuNDExOSAxNC40MDAxIDE1LjIzNiAxMy4xNjY4QzE2LjA2MDEgMTEuOTMzNCAxNi41IDEwLjQ4MzQgMTYuNSA5QzE2LjQ5NzggNy4wMTE1NyAxNS43MDY5IDUuMTA1MjIgMTQuMzAwOCAzLjY5OTE4QzEyLjg5NDggMi4yOTMxNSAxMC45ODg0IDEuNTAyMjUgOSAxLjVaTTkgMTUuNUM3Ljk2NzUgMTUuNSA2Ljg4NjUgMTQuMTY5IDYuMzUgMTJIMTEuNjVDMTEuMTEzNSAxNC4xNjkgMTAuMDMyNSAxNS41IDkgMTUuNVpNNi4xNDcgMTFDNS45NTEgOS42NzM4NyA1Ljk1MSA4LjMyNjEzIDYuMTQ3IDdIMTEuODUzQzExLjk1MjIgNy42NjIwMyAxMi4wMDEzIDguMzMwNTkgMTIgOUMxMi4wMDEzIDkuNjY5NDEgMTEuOTUyMiAxMC4zMzggMTEuODUzIDExSDYuMTQ3Wk0yLjUgOUMyLjUwMDM3IDguMzIwNzcgMi42MDc2OCA3LjY0NTg0IDIuODE4IDdINS4xNDNDNC45NTIzNCA4LjMyNjUyIDQuOTUyMzQgOS42NzM0OCA1LjE0MyAxMUgyLjgxOEMyLjYwNzY4IDEwLjM1NDIgMi41MDAzNyA5LjY3OTIyIDIuNSA5Wk05IDIuNUMxMC4wMzI1IDIuNSAxMS4xMTM1IDMuODMxIDExLjY1IDZINi4zNUM2Ljg4NjUgMy44MzEgNy45Njc1IDIuNSA5IDIuNVpNMTIuODU3IDdIMTUuMTgyQzE1LjYwNTkgOC4yOTk2NCAxNS42MDU5IDkuNzAwMzUgMTUuMTgyIDExSDEyLjg1N0MxMi45NTE4IDEwLjMzNzUgMTIuOTk5NiA5LjY2OTIgMTMgOUMxMi45OTk2IDguMzMwNzkgMTIuOTUxOCA3LjY2MjQ1IDEyLjg1NyA3Wk0xNC43NjA1IDZIMTIuNjc3QzEyLjQ1NDUgNC45MTI1MSAxMi4wMTgyIDMuODgwMDQgMTEuMzkzNSAyLjk2MjVDMTIuODQyNiAzLjU0MDQgMTQuMDM2OSA0LjYxNzg4IDE0Ljc2MDUgNlpNNi42MDY1IDIuOTYyNUM1Ljk4MTc5IDMuODgwMDQgNS41NDU1MSA0LjkxMjUxIDUuMzIzIDZIMy4yMzk1QzMuOTYzMDYgNC42MTc4OCA1LjE1NzQzIDMuNTQwNCA2LjYwNjUgMi45NjI1Wk0zLjIzOTUgMTJINS4zMjNDNS41NDU1MSAxMy4wODc1IDUuOTgxNzkgMTQuMTIgNi42MDY1IDE1LjAzNzVDNS4xNTc0MyAxNC40NTk2IDMuOTYzMDYgMTMuMzgyMSAzLjIzOTUgMTJaTTExLjM5MzUgMTUuMDM3NUMxMi4wMTgyIDE0LjEyIDEyLjQ1NDUgMTMuMDg3NSAxMi42NzcgMTJIMTQuNzYwNUMxNC4wMzY5IDEzLjM4MjEgMTIuODQyNiAxNC40NTk2IDExLjM5MzUgMTUuMDM3NVoiIGZpbGw9IiMwRjBGMTAiLz4KPC9zdmc+Cg=='/>
+                        <a href="https://onedaytours.pt/" class="footer-text">
+                            OneDayTours.pt
+                        </a>
+                    </div>
+                </div>
+                <div class="right-col">
+                    <p class="link-privacy">
+                        For more information, please view our <a href="https://onedaytours.pt/en/pages/terms-and-conditions/">Terms & Condition</a>  and <a href="https://onedaytours.pt/en/pages/terms-and-conditions/">Privacy Policy</a> 
+                    </p>
+                </div>
             </div>
-            <div class="text-wrapper address">
-                <p class="footer-text">
-                    Estrada do Algueirão, № 148 A - 2725-021 Mem Martins
-                </p>
-            </div>
+            
+           
         </footer>
     </div>
 </body>
