@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block google %}
+    <meta name="robots" content="noindex">
+{% endblock google %}
+{% block header %}
+    <!-- Navbar -->
+    {% include 'include/navbar_empty_confirmation.html' %}
+    <!-- End Navbar -->
+{% endblock %}
+{% load static %}
+
+{% block title %}
+    {{ product.random_order_number }}
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block content %}
+    <div class="cart">
+        <div class="container">
+            <p>Booking ID: {{ product.random_order_number }}</p>
+            <p>Main passenger: {{ product.customer.first_name }} {{ product.customer.last_name|slice:":1" }}.</p>
+            <p>Date: {{ product.date_of_start }}</p>
+            <p>Time: {{ product.time_of_start }}</p>
+            <p>Order details: {{ product.total_booked }} passenger(s) ({{ product.adults_count }} adults, {{ product.child_count }} children)</p>
+            <p>Language: {{ product.language }}</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block cookie_policy %}
+{% endblock cookie_policy %}

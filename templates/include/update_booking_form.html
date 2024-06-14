@@ -56,11 +56,7 @@
                 </button>
                 <p class="total-price" id="childTotalPrice">€0</p> <!-- Added ID -->
             </div>
-            <div class="total-price-wrapper">
-                <p class="total">
-                    Total Price: €<span></span>
-                </p>
-            </div>
+            
         </div>
         <p class="body-text-b3-sb language-selection-title">Choose language</p>
         <div class="language-selection">
@@ -89,6 +85,11 @@
                 </label>
             </div>
         </div>
+        <div class="total-price-wrapper">
+            <p class="total">
+                Total Price: €<span></span>
+            </p>
+        </div>
         <div class="btns-wrapper">
             <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
             <button type="submit" class="btn btn-danger" id="submitBtn">Save</button>
@@ -104,7 +105,7 @@
                         <label class="extras-title" for="option_{{ option.id }}">{{ option.name }}</label>
                         <div class="extras-input-wrapper">
                             <div class="input-block">
-                                <button class="tn-decrement" type="button">
+                                <button class="btn-decrement" type="button">
                                     <img src="{% static 'icons/decrement-icon.svg' %}" alt="decrement">
                                 </button>
                                 <input type="text" id="option_{{ option.id }}" name="option_{{ option.id }}" value="{{ option.quantity }}" readonly>
@@ -123,6 +124,11 @@
                     </li>
                 {% endfor %}
             </ul>
+            <!-- <div class="total-price-extras-wrapper">
+                <p class="total">
+                    Total for optional extras: €<span></span>
+                </p>
+            </div> -->
         {% endif %}
     </div>
 </form>

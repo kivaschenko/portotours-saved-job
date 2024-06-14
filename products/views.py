@@ -1060,3 +1060,15 @@ def update_private_product_without_booking(request):
 
         return JsonResponse({'message': 'Product updated successfully'}, status=201)
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+
+
+# -----
+# QRcode
+
+def check_experience(request, product_number):
+    try:
+        product = Product.objects.get(random_order_number=product_number)
+    except Product.DoesNotExist:
+        logger.error(f"Product {product_number} does not exist")
+        raise Http404(f"Order {product_number} does not exist")
+    return render(request, 'products/check_experience.html', {'product': product})

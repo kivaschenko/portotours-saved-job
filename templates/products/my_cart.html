@@ -224,21 +224,20 @@
                                         </div>
                                         <ul class="options-list">
                                             {% for item in object.options.all %}
-                                            {% if item.quantity > 0 %}
-                                                <li>
-                                                    <p>
-                                                        {{ item.quantity }} x {{ item.experience_option }}
-                                                        {% if item.experience_option.description %}
-                                                        <span>{{ item.experience_option.description }}</span>
-                                                        {% endif %}
-                                                    </p>
-                                                    <p>
-                                                        {% if item.price %}€{{ item.price }}{% else %}free{% endif %}
-                                                    </p>
-
-                                                </li>
-                                            {% endif %}
-                                        {% endfor %}
+                                                {% if item.quantity > 0 %}
+                                                    <li>
+                                                        <p>
+                                                            {{ item.quantity }} x {{ item.experience_option }}
+                                                            {% if item.experience_option.description %}
+                                                                <span>{{ item.experience_option.description }}</span>
+                                                            {% endif %}
+                                                        </p>
+                                                        <p>
+                                                            {% if item.price %}€{{ item.price }}{% else %}free{% endif %}
+                                                        </p>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                     

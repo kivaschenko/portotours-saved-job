@@ -448,6 +448,12 @@
                 </div>
             </div>
         </div>
+        <div class="order-qrcode">
+            {% if product.qrcode.qr_code %}
+                <img src="{{ product.qrcode.qr_code.url }}" alt="qr-code for {{ product.random_order_number }}">
+            {% endif %}
+        </div>
+    
         <div class="additional-info">
             <h2 class="block-title">
                 Additional info 
@@ -545,6 +551,27 @@
                 {% endif %}
             </div>
         </div>
+    
+        <div class="additional-info">
+            {% if product.number_added_options > 0 %}
+                {% for item in product.options.all %}
+                    {% if item.quantity > 0 %}
+                        <li>
+                            <p>
+                                {{ item.quantity }} x {{ item.experience_option }}
+                                {% if item.experience_option.description %}
+                                    <span>{{ item.experience_option.description }}</span>
+                                {% endif %}
+                            </p>
+                            <p>
+                                {% if item.price %}€{{ item.price }}{% else %}free{% endif %}
+                            </p>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    
         <footer>
             <div class="text-wrapper email">
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAG7SURBVHgB7ZbRUcJAEIZXh/dYAR0EGwALMFiAqcBgASYWYLABsAATC5AKTCxAqAAqgAoi3zrnAJIMwQAP8M1kcrnc7X97t3t3Z9kcOQDnciCOT7hmCrPZTPr9F4njWKrGsixpNpvi+w9ahjMTXO32jaRpqj/Mz6rAKR7EB4P3n0qEkyTJLOsic5x2Np1Os6rBJrbRQAt0jSeTiZg3I6ua0Wi0pAFLwUVlo3Ep3e6zVAW2WEYjaFgSdhxH6vX6vHFXB7DauAz0RRBbxIzn3RUJX+viu+6tdmy1ruaR3peykB30JVgJqOHwS2zbzhcGPO71ehKGT/odBI/S6dxv5D3xgZdBEOg3NnBkXZbkbiCe50mSfOhAyG0MFuU43rE8xkv6YiOPwp0LUaaJxMdjPGcGFiOfMnUMjDJt8ZK+hZBTURRpjvHOYzweZ7bd0Ha8+SYnF+tMjq5jVaMmG4IHTB9RSvAwrQYi1vf9UjvexsKA4TAMNULJT6Y2il51TctSStjguq7mvBnMNmwl/B9Bw+kGciTCZpeJ47ednMfYxPai1sGuPr/C/GBXStPPnXjNUcuh8eeyt29O6bQ3vgGPm5y7lx7qbQAAAABJRU5ErkJggg==" alt="icon">

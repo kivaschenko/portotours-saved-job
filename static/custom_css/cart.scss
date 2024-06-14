@@ -1579,19 +1579,7 @@
               font-weight: 600;
             }
           }
-          .total-price-wrapper {
-            text-align: left;
-            margin-top: 20px;
-            .total {
-                display: flex;
-                align-items: center;
-                text-transform: uppercase;
-                color: var(--text-color-third);
-                font-family: "LatoSemiBold";
-                font-size: 18px;
-                line-height: 28px;
-            }
-          }
+          
         }
         .language-selection-title {
           margin-bottom: 12px;
@@ -1652,6 +1640,19 @@
     
           }
         }
+        .total-price-wrapper {
+            text-align: left;
+            margin-top: 20px;
+            .total {
+                display: flex;
+                align-items: center;
+                text-transform: capitalize;
+                color: var(--text-color-third);
+                font-family: "LatoSemiBold";
+                font-size: 18px;
+                line-height: 28px;
+            }
+          }
         .btns-wrapper {
             display: flex;
             align-items: center;
@@ -1754,6 +1755,19 @@
                             color: #0F0F10;
                         }
                     }
+                }
+            }
+            .total-price-extras-wrapper {
+                text-align: left;
+                margin-top: 20px;
+                .total {
+                    display: flex;
+                    align-items: center;
+                    text-transform: capitalize;
+                    color: var(--text-color-third);
+                    font-family: "LatoSemiBold";
+                    font-size: 18px;
+                    line-height: 28px;
                 }
             }
         }

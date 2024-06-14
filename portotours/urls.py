@@ -70,6 +70,8 @@ urlpatterns += [
     path('en/generate-pdf/<int:product_id>/', products_views.generate_pdf, name='generate-pdf'),
     # Stripe web-hook
     path('stripe-webhook/', purchases_views.stripe_webhook, name='stripe-webhook'),
+    # QR codes
+    path('check-experience/<str:product_number>/', products_views.check_experience, name='check-experience'),
 ]
 
 # HOME & ADMIN
