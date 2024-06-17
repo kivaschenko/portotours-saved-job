@@ -454,3 +454,4 @@ CELERY_BEAT_SCHEDULE = {
     }
 }
 PRODUCT_EXPIRE_MINUTES = 60  # Expire timedelta for Product
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000  # You can adjust this value as needed
