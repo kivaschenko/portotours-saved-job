@@ -418,6 +418,7 @@
             margin-bottom: 0;
             font-family: "LatoRegular";
             &:hover {
+              color: var(--text-color-third);
               background-color: white;
             }
             + .dropdown-item {
