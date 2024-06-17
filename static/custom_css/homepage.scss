@@ -453,7 +453,7 @@
             }
             .rating-block {
               margin-right: 0px;
-              margin-bottom: 18px;
+              margin-bottom: 10px;
               position: relative;
               display: flex;
               align-items: center;
@@ -534,7 +534,7 @@
             }
           }
           .best-tours-card-title {
-            margin-bottom: 10px;
+            margin-bottom: 4px;
             text-transform: capitalize;
             @include media-breakpoint-down(md) {
               margin-bottom: 6px;
@@ -639,7 +639,7 @@
                   background-size: cover;
                   background-repeat: no-repeat;
                   background-position: bottom;
-                  padding: 5px 10px 6px;
+                  padding: 5px 10px 5px;
                   img {
                     width: 18px;
                     height: 18px;
@@ -660,7 +660,7 @@
                     font-family: "LatoSemiBold";
                     font-size: 8px;
                     color: #007728;
-                    line-height: 16px;
+                    line-height: 8px;
                     margin-bottom: 0;
                   }
                   .price {
@@ -838,10 +838,11 @@
           margin-bottom: 0;
         }
         a {
-          padding: 12px 15px;
+          padding: 12px 30px;
           img {
             width: 24px;
             height: 24px;
+            margin-left: 16px;
           }
         }
       }

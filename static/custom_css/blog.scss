@@ -613,7 +613,7 @@
                   line-height: 26px;
                   text-decoration: none;
                   &:hover {
-                    color: inherit;
+                    color: var(--text-color-third);
                   }
                 }
                 font-family: "LatoRegular";

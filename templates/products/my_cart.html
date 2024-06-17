@@ -477,9 +477,12 @@
         cartCard.forEach((card) => {
             let optionsWrapper = card.querySelector('.optional-extras-block')
             let arrowIcon = card.querySelector('.extras-title');
+            let icon = card.querySelector('.extras-title img');
             if (arrowIcon) {
                 arrowIcon.addEventListener('click', () => {
                     arrowIcon.classList.toggle('opened');
+                    icon.classList.toggle('opened');
+
                     optionsWrapper.classList.toggle('opened');
                 })
             }
