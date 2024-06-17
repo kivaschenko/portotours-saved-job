@@ -17,7 +17,7 @@ def svg_upload_path(instance, filename):
 
 
 class TagAttraction(models.Model):
-    icon_img = models.ImageField(upload_to=svg_upload_path, blank=True, null=True, help_text="Image in .svg supported.")
+    icon_img = models.FileField(upload_to=svg_upload_path, blank=True, null=True, help_text="Image in .svg supported.")
     tag_name = models.CharField(max_length=30, unique=True, blank=True, null=True)
 
     def __str__(self):

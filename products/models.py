@@ -691,7 +691,7 @@ class Product(models.Model):
     child_count = models.IntegerField(null=True, blank=True, default=0)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     old_total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=Decimal('0'))
-    created_at = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
     expired_time = models.DateTimeField()
     status = models.CharField(max_length=30, null=True, blank=True, default='Pending',
@@ -743,8 +743,8 @@ class Product(models.Model):
         self.stripe_price = int(self.total_price * 100)
         if self.occurrence and self.occurrence.pk is None:
             self.occurrence.save()
-        if not self.created_at:
-            self.created_at = timezone.now()
+        if self.created_at and timezone.is_naive(self.created_at):
+            self.created_at = timezone.make_aware(self.created_at, timezone.get_default_timezone())
         if not self.expired_time:
             self.expired_time = timezone.now() + timezone.timedelta(minutes=settings.PRODUCT_EXPIRE_MINUTES)
         if not self.random_order_number:

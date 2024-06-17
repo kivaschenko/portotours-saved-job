@@ -346,3 +346,4 @@ CORS_ORIGIN_WHITELIST = [
     # Add other allowed origins here if needed
 ]
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000  # You can adjust this value as needed
