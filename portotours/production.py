@@ -314,7 +314,6 @@ DOMAIN = os.environ.get('DOMAIN_NAME', 'localhost:8000')
 NAVBAR_CONTEXT_CACHE_TIMEOUT = 3600
 CELERY_IMPORTS = (
     "products.tasks",
-    "service_layer.tasks",
 )
 CELERY_TIMEZONE = "UTC"
 CELERY_TASK_TRACK_STARTED = True
@@ -334,7 +333,7 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': 90,  # run every 1.5 minutes
     },
     'adjust_time_expires_for_image': {
-        'task': 'service_layer.tasks.adjust_time_expires_for_image',
+        'task': 'products.tasks.adjust_time_expires_for_image',
         'schedule': 2700,  # run every 45 minutes because X-Amz-Expires=3600 1 hour
     }
 }

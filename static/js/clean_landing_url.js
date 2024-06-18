@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let destination = document.getElementById('destination-slug').value;
         let time_of_day = document.getElementById('time_of_day').value;
         let duration = document.getElementById('duration').value;
+        console.log('duration', duration);
 
         let hasChanged = false;
 
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (duration !== 'all') {
             urlParams.set('duration', duration);
+            hasChanged = true;
         } else {
             urlParams.delete('duration');
         }
@@ -70,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('destination-slug').value = destinationSlug;
     document.getElementById('time_of_day').value = timeOfDayValue;
     document.getElementById('duration').value = durationValue;
+    console.log('durationValue', durationValue);
 
     // Clean the URL if all parameters are default
     if (tourTypeValue === 'all' && filterByValue === 'all' && destinationSlug === 'all' && timeOfDayValue === 'all' && durationValue === 'all') {
