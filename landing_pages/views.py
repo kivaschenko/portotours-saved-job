@@ -61,25 +61,12 @@ class LandingPageView(DetailView):
 
             time_of_day = self.request.GET.get('time_of_day', 'all')
             if time_of_day != 'all':
-                experiences_to_remove = []
-                time_filters = {
-                    'morning': {'start__hour__lt': 12},
-                    'afternoon': {'start__hour__gte': 12, 'start__hour__lte': 17},
-                    'evening': {'start__hour__lte': 17},
-                }
-                for experience in experiences_queryset:
-                    events = EventRelation.objects.get_events_for_object(
-                        experience.parent_experience, distinction='experience event'
-                    ).filter(
-                        start__range=(start, end), experienceevent__remaining_participants__gte=1
-                    ).filter(
-                        **time_filters.get(time_of_day, {})
-                    )
-                    if not events.exists():
-                        experiences_to_remove.append(experience)
-
-                if experiences_to_remove:
-                    experiences_queryset = experiences_queryset.exclude(pk__in=[exp.pk for exp in experiences_to_remove])
+                if time_of_day == 'morning':
+                    experiences_queryset = experiences_queryset.filter(parent_experience__time_of_day__name='morning')
+                elif time_of_day == 'afternoon':
+                    experiences_queryset = experiences_queryset.filter(parent_experience__time_of_day__name='afternoon')
+                elif time_of_day == 'evening':
+                    experiences_queryset = experiences_queryset.filter(parent_experience__time_of_day__name='evening')
 
             duration = self.request.GET.get('duration', 'all')
             if duration != 'all':

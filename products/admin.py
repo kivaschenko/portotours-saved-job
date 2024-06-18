@@ -103,6 +103,14 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     list_filter = ['name']
 
+# ---------
+# TimeOfDay
+
+@admin.register(TimeOfDay)
+class TimeOfDayAdmin(admin.ModelAdmin):
+    fields = ['name', 'description']
+    list_display = ['name', 'description']
+
 
 # ----------
 # Experience
