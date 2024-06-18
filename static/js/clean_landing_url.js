@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('duration').value = durationValue;
 
     // Clean the URL if all parameters are default
-    if (tourTypeValue === 'all' && filterByValue === 'all' && destinationSlug === 'all') {
+    if (tourTypeValue === 'all' && filterByValue === 'all' && destinationSlug === 'all' && timeOfDayValue === 'all' && durationValue === 'all') {
         window.history.replaceState(null, null, window.location.pathname);
     }
 });

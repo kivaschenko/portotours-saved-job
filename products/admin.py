@@ -111,6 +111,13 @@ class TimeOfDayAdmin(admin.ModelAdmin):
     fields = ['name', 'description']
     list_display = ['name', 'description']
 
+# --------
+# Duration
+@admin.register(DurationForExperience)
+class DurationForExperienceAdmin(admin.ModelAdmin):
+    fields = ['name', 'description']
+    list_display = ['name', 'description']
+
 
 # ----------
 # Experience
@@ -132,6 +139,7 @@ class OptionLanguageCategoryModelForm(ModelForm):
     allowed_languages = CheckboxSelectMultipleField(queryset=Language.objects.all())
     categories = CheckboxSelectMultipleField(queryset=ExperienceCategory.objects.all(), required=False)
     time_of_day = CheckboxSelectMultipleField(queryset=TimeOfDay.objects.all(), required=False)
+    duration = CheckboxSelectMultipleField(queryset=DurationForExperience.objects.all(), required=False)
 
     class Meta:
         model = ParentExperience

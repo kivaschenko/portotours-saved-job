@@ -231,6 +231,20 @@ class TimeOfDay(models.Model):
         return self.name
 
 
+# ------------------------
+# Duration for Experiences
+
+class DurationForExperience(models.Model):
+    name = models.CharField(max_length=60, unique=True, blank=True, help_text="Duration name max 60 characters")
+    description = models.CharField(max_length=255, blank=True, help_text="Duration description max 255 characters")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('name',)
+
+
 # -----------------
 # ParentExperience
 
@@ -286,6 +300,7 @@ class ParentExperience(models.Model):
     allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
     categories = models.ManyToManyField(ExperienceCategory, help_text="list of categories this experience")
     time_of_day = models.ManyToManyField(TimeOfDay, help_text="list of titme of day variables")
+    duration = models.ManyToManyField(DurationForExperience, help_text="list of duration types")
     free_cancellation = models.BooleanField(default=False, help_text="Free Cancellation is allowed.", null=True)
     free_cancellation_hours = models.IntegerField(null=True, blank=True, default=24, help_text="How many hours the free cancellation period from payment.")
     skip_the_line = models.BooleanField(default=False, null=True, help_text='If this experience is private then it will skip the line')

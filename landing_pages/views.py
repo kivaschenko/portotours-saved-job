@@ -61,38 +61,11 @@ class LandingPageView(DetailView):
 
             time_of_day = self.request.GET.get('time_of_day', 'all')
             if time_of_day != 'all':
-                if time_of_day == 'morning':
-                    experiences_queryset = experiences_queryset.filter(parent_experience__time_of_day__name='morning')
-                elif time_of_day == 'afternoon':
-                    experiences_queryset = experiences_queryset.filter(parent_experience__time_of_day__name='afternoon')
-                elif time_of_day == 'evening':
-                    experiences_queryset = experiences_queryset.filter(parent_experience__time_of_day__name='evening')
+                experiences_queryset = experiences_queryset.filter(parent_experience__time_of_day__name=time_of_day)
 
             duration = self.request.GET.get('duration', 'all')
             if duration != 'all':
-                experiences_to_remove = []
-                duration_filters = {
-                    '0-1': {'duration__lte': timedelta(hours=1)},
-                    '1-4': {'duration__gt': timedelta(hours=1), 'duration__lte': timedelta(hours=4)},
-                    '4-10': {'duration__gt': timedelta(hours=4), 'duration__lte': timedelta(hours=10)},
-                    '24-72': {'duration__gt': timedelta(hours=24), 'duration__lte': timedelta(hours=72)},
-                }
-                duration_filter = duration_filters.get(duration, {})
-                for experience in experiences_queryset:
-                    events = EventRelation.objects.get_events_for_object(
-                        experience.parent_experience, distinction='experience event'
-                    ).filter(
-                        start__range=(start, end), experienceevent__remaining_participants__gte=1
-                    ).annotate(
-                        duration=ExpressionWrapper(F('end') - F('start'), output_field=DurationField())
-                    ).filter(
-                        **duration_filter
-                    )
-                    if not events.exists():
-                        experiences_to_remove.append(experience)
-
-                if experiences_to_remove:
-                    experiences_queryset = experiences_queryset.exclude(pk__in=[exp.pk for exp in experiences_to_remove])
+                experiences_queryset = experiences_queryset.filter(parent_experience__duration__name=duration)
 
             if self.object.destinations.all():
                 experiences_queryset = experiences_queryset.filter(destinations__in=self.object.destinations.all())
