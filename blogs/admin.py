@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.forms import ModelForm
-
-from ckeditor.widgets import CKEditorWidget
+from django.db import models
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from products.models import Experience
-from blogs.models import *  # noqa
+from blogs.models import Category, ParentBlog, Blog, BlockBlog
 
 
 @admin.register(Category)
@@ -24,8 +24,8 @@ class BlockBlogInline(admin.TabularInline):
     model = BlockBlog
     extra = 1
     list_display = ['title', 'text']
-    widgets = {
-        'text': CKEditorWidget(),
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditorUploadingWidget()},
     }
 
 
