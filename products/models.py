@@ -193,8 +193,8 @@ class ExperienceOption(models.Model):
         return f"<Option(id={self.id}, name={self.name} language={self.language})>"
 
 
-# -----------
-# Experience
+# -------------------
+# Experience Provider
 
 class ExperienceProvider(models.Model):
     short_name = models.CharField(max_length=60, unique=True, blank=True, help_text="Short name max 60 characters")
@@ -220,6 +220,19 @@ class ExperienceProvider(models.Model):
             self.slug = slugify(self.short_name)
         super().save(*args, **kwargs)
 
+# ---------------------------
+# Time of day for Experiences
+
+class TimeOfDay(models.Model):
+    name = models.CharField(max_length=60, unique=True, blank=True, help_text="Time of day name max 60 characters")
+    description = models.CharField(max_length=255, blank=True, help_text="Time of day description max 255 characters")
+
+    def __str__(self):
+        return self.name
+
+
+# -----------------
+# ParentExperience
 
 class ParentExperience(models.Model):
     """A Parent Experience brings together all experiences with multilingual content,
@@ -272,6 +285,7 @@ class ParentExperience(models.Model):
     allowed_options = models.ManyToManyField(ExperienceOption, help_text="Options for this experience")
     allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
     categories = models.ManyToManyField(ExperienceCategory, help_text="list of categories this experience")
+    time_of_day = models.ManyToManyField(TimeOfDay, help_text="list of titme of day variables")
     free_cancellation = models.BooleanField(default=False, help_text="Free Cancellation is allowed.", null=True)
     free_cancellation_hours = models.IntegerField(null=True, blank=True, default=24, help_text="How many hours the free cancellation period from payment.")
     skip_the_line = models.BooleanField(default=False, null=True, help_text='If this experience is private then it will skip the line')
