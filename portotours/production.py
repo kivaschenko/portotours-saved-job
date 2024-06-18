@@ -268,6 +268,8 @@ CKEDITOR_CONFIGS = {
 
     }
 }
+CKEDITOR_RESTRICT_BY_DATE = False
+CKEDITOR_RESTRICT_BY_USER = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_URL = '/media/'
@@ -286,6 +288,8 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
+AWS_DEFAULT_ACL = 'public-read'
+# AWS_QUERYSTRING_AUTH = False
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 BOOKING_MINUTES = 30
@@ -310,6 +314,7 @@ DOMAIN = os.environ.get('DOMAIN_NAME', 'localhost:8000')
 NAVBAR_CONTEXT_CACHE_TIMEOUT = 3600
 CELERY_IMPORTS = (
     "products.tasks",
+    "service_layer.tasks",
 )
 CELERY_TIMEZONE = "UTC"
 CELERY_TASK_TRACK_STARTED = True
@@ -327,6 +332,10 @@ CELERY_BEAT_SCHEDULE = {
     'report-about-paid-products': {
         'task': 'products.tasks.report_about_paid',
         'schedule': 90,  # run every 1.5 minutes
+    },
+    'adjust_time_expires_for_image': {
+        'task': 'service_layer.tasks.adjust_time_expires_for_image',
+        'schedule': 2700,  # run every 45 minutes because X-Amz-Expires=3600 1 hour
     }
 }
 # SECURE_SSL_REDIRECT = True

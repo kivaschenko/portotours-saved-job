@@ -359,6 +359,8 @@ CKEDITOR_CONFIGS = {
 
     }
 }
+CKEDITOR_RESTRICT_BY_DATE = False
+CKEDITOR_RESTRICT_BY_USER = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -379,13 +381,15 @@ STORAGES = {
         'BACKEND': 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage',
     }
 }
-
 # DigitalOcean Spaces
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com'
+# Make uploaded files publicly accessible
+AWS_DEFAULT_ACL = 'public-read'
+# AWS_QUERYSTRING_AUTH = False
 
 # STRIPE credentials
 STRIPE_PUBLIC_KEY = 'pk_test_51OwQEkLH746GcpOjrL74ucSlQ0rBoqpETSxbLpFo123JQhzLNz4cvvpdc2X8U67xhUwIwDGf6nz47x6H1rUb8hah00Qn7O5yNT'
