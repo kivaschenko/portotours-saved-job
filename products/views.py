@@ -73,26 +73,26 @@ class ExperienceListView(ListView):
         if time_of_day != 'all':
             queryset = queryset.filter(parent_experience__time_of_day__name=time_of_day)
 
-        selected_categories = self.request.GET.getlist('categories')
-        if selected_categories:
-            for category in selected_categories:
-                # Filter experiences related to each category
-                queryset_for_category = queryset.filter(parent_experience__categories__slug=category)
-                # Intersect the querysets to include only experiences related to all categories
-                queryset = queryset & queryset_for_category
-        # Add remaining_participants attribute to the queryset
-        for experience in queryset:
-            events = EventRelation.objects.get_events_for_object(
-                experience.parent_experience, distinction='experience event'
-            ).filter(
-                start__range=(start, end), experienceevent__remaining_participants__gte=1
-            )
-            if events.exists():
-                first_event = events.first()
-                remaining_participants = first_event.experienceevent.remaining_participants
-                experience.remaining_participants = remaining_participants
-            else:
-                experience.remaining_participants = 0
+        # selected_categories = self.request.GET.getlist('categories')
+        # if selected_categories:
+        #     for category in selected_categories:
+        #         # Filter experiences related to each category
+        #         queryset_for_category = queryset.filter(parent_experience__categories__slug=category)
+        #         # Intersect the querysets to include only experiences related to all categories
+        #         queryset = queryset & queryset_for_category
+        # # Add remaining_participants attribute to the queryset
+        # for experience in queryset:
+        #     events = EventRelation.objects.get_events_for_object(
+        #         experience.parent_experience, distinction='experience event'
+        #     ).filter(
+        #         start__range=(start, end), experienceevent__remaining_participants__gte=1
+        #     )
+        #     if events.exists():
+        #         first_event = events.first()
+        #         remaining_participants = first_event.experienceevent.remaining_participants
+        #         experience.remaining_participants = remaining_participants
+        #     else:
+        #         experience.remaining_participants = 0
 
         return queryset
 
@@ -108,14 +108,14 @@ class ExperienceListView(ListView):
         context['experience_form'] = form
         return context
 
-    # def get(self, request, *args, **kwargs):
-    #     place = self.request.GET.get('place')
-    #     date = self.request.GET.get('date')
-    #     if place == '' and date == '':
-    #         # Reset action, redirect to the same view without query parameters
-    #         lang_code = self.kwargs['lang'].lower()
-    #         return HttpResponseRedirect(reverse('experience-list', kwargs={'lang': lang_code}))
-    #     return super().get(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        place = self.request.GET.get('place')
+        date = self.request.GET.get('date')
+        if place == '' and date == '':
+            # Reset action, redirect to the same view without query parameters
+            lang_code = self.kwargs['lang'].lower()
+            return HttpResponseRedirect(reverse('experience-list', kwargs={'lang': lang_code}))
+        return super().get(request, *args, **kwargs)
 
 
 class ExperienceDetailView(DetailView):
