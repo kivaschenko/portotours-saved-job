@@ -38,14 +38,19 @@ def navbar_context(request, lang=None, **kwargs):
     top_experiences = Experience.active.filter(language__code=lang_code).order_by('-parent_experience__priority_number')[:10]
     most_popular_experiences = Experience.active.filter(language__code=lang_code, parent_experience__show_on_home_page=True).order_by(
         '-parent_experience__priority_number')
-    landing_pages = LandingPage.active.filter(language__code=lang_code).filter(show_in_navbar=True).order_by('-priority_number')
+    landing_pages = LandingPage.active.filter(language__code=lang_code).filter(show_in_navbar=True)
+    landing_pages_for_lisbon_things = LandingPage.active.filter(language__code=lang_code).filter(show_in_lisbon_things=True)[:10]
+    landing_pages_for_out_lisbon_things = LandingPage.active.filter(language__code=lang_code).filter(show_in_out_lisbon_things=True)[:10]
+    landing_pages_for_our_services = LandingPage.active.filter(language__code=lang_code).filter(show_in_menu_our_services=True)[:10]
     context = {
         'top_destinations': top_destinations,
         'top_attractions': top_attractions,
         'top_experiences': top_experiences,
         'most_popular_experiences': most_popular_experiences,
         'number_of_products': number_of_products,
-        'landing_pages': landing_pages,
+        'experience_types': landing_pages_for_lisbon_things,
+        'destinations': landing_pages_for_out_lisbon_things,
+        'landing_pages': landing_pages_for_our_services,
         'cart_not_empty': cart_not_empty,
     }
     cache.set(cache_key, context, timeout=settings.NAVBAR_CONTEXT_CACHE_TIMEOUT)
@@ -64,4 +69,3 @@ def canonical_url(request):
         logger.error(f"URL could not be resolved: {request.path_info}")
         # raise Http404('Page not found')
         return {'canonical_url': ''}
-

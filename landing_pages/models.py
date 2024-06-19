@@ -34,7 +34,7 @@ class LandingPage(models.Model):
     destinations = models.ManyToManyField(Destination, blank=True)
     banner = models.FileField(upload_to='media/banners/', null=True, blank=True,
                               help_text="Banner image, this image will be cropped and scaled max width: 1920 and max height: 460")
-    banner_mobile = models.FileField(upload_to='media/banners/', null=True, blank=True,)
+    banner_mobile = models.FileField(upload_to='media/banners/', null=True, blank=True, )
     card_image = models.FileField(upload_to='media/cards/', null=True, blank=True)
     card_image_mobile = models.FileField(upload_to='media/cards/', null=True, blank=True)
     priority_number = models.IntegerField('Priority', null=True, blank=True, default=0,
@@ -42,7 +42,7 @@ class LandingPage(models.Model):
     is_active = models.BooleanField(default=True)
     show_in_navbar = models.BooleanField(default=False, help_text="Include in the navbar")
     show_in_lisbon_things = models.BooleanField('Add to Lisbon Things to Do (Experience Type)', default=False,
-                                                     help_text="Include in the menu lisbon things")
+                                                help_text="Include in the menu lisbon things")
     show_in_out_lisbon_things = models.BooleanField('Add to Out Of Lisbon Things To Do (Destinations)', default=False,
                                                     help_text="Include in the menu out lisbon things")
     show_in_menu_our_services = models.BooleanField('Add to Our Services', default=False, help_text="Include in the menu our services")
