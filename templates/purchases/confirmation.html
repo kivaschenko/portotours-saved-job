@@ -136,6 +136,7 @@
 
     // Ensure `ecommerce_items` is properly converted to a JavaScript array
     const itemsArray = {{ ecommerce_items|safe }};
+    const purchaseId = {{ purchase.id }};
 
     // Ensure the dataLayer is defined
     window.dataLayer = window.dataLayer || [];
@@ -149,7 +150,7 @@
         window.dataLayer.push({
             event: "purchase",
             ecommerce: {
-                transaction_id: `{{ purchase.id }}`,
+                transaction_id: purchaseId,
                 coupon: "",
                 currency: "EUR",
                 value: "",
