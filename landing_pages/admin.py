@@ -24,8 +24,14 @@ class LandingPageForm(ModelForm):
 @admin.register(LandingPage)
 class LandingPageAdmin(admin.ModelAdmin):
     form = LandingPageForm
-    exclude = ['updated_at', 'card_image']
-    list_display = ['id', 'title', 'slug', 'category', 'show_in_navbar', 'priority_number', 'is_active',  'updated_at']
+    exclude = ['updated_at', 'card_image',]
+    list_display = ['id', 'title', 'slug', 'category',
+                    'show_in_navbar',
+                    'menu_title',
+                    'show_in_lisbon_things',
+                    'show_in_out_lisbon_things',
+                    'show_in_menu_our_services',
+                    'priority_number', 'is_active',  'updated_at']
     list_per_page = 20
     inlines = [FAQLandingPageInline]
 

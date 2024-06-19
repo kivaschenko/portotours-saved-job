@@ -21,6 +21,7 @@ class LandingPageActiveManager(models.Manager):
 
 class LandingPage(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True, help_text="The name of the landing page, views in main header")
+    menu_title = models.CharField(max_length=50, blank=True, null=True, help_text="The name of the landing page, views in menu list, 50 characters maximum")
     content = RichTextField(max_length=20000, blank=True, null=True, help_text="The content under banner place, max 20 000 characters")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, editable=True, blank=True,
                             help_text="max 255 characters, exactly url tail that is unique")
@@ -40,6 +41,11 @@ class LandingPage(models.Model):
                                           help_text="The higher the value of the priority number, the higher it appears in the list")
     is_active = models.BooleanField(default=True)
     show_in_navbar = models.BooleanField(default=False, help_text="Include in the navbar")
+    show_in_lisbon_things = models.BooleanField('Add to Lisbon Things to Do (Experience Type)', default=False,
+                                                     help_text="Include in the menu lisbon things")
+    show_in_out_lisbon_things = models.BooleanField('Add to Out Of Lisbon Things To Do (Destinations)', default=False,
+                                                    help_text="Include in the menu out lisbon things")
+    show_in_menu_our_services = models.BooleanField('Add to Our Services', default=False, help_text="Include in the menu our services")
     blogs_title = models.CharField('Featured Articles Title', max_length=255, help_text="Title above Featured Articles section, max 255 characters",
                                    blank=True, null=True)
     blogs = models.ManyToManyField(Blog, blank=True)
@@ -58,7 +64,7 @@ class LandingPage(models.Model):
     active = LandingPageActiveManager()
 
     class Meta:
-        ordering = ('-priority_number', 'title')
+        ordering = ('-priority_number',)
         unique_together = ('title', 'slug')
 
     def __str__(self):
