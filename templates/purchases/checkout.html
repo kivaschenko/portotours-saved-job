@@ -153,13 +153,13 @@
                                         </div>
                                         <div class="bottom-order-wrapper">
                                             <p class="date">
-                                                MM/DD/YYYY;
+                                                {{ object.date_of_start }}
                                             </p>
                                             <p class="participants">
-                                                Number of participants: X;
+                                                Number of participants: {{ object.total_booked }}
                                             </p>
                                             <p class="free-canc">
-                                                Free cancellation before May 3, 2024, 9:59 A.M.
+                                                Free cancellation before {{ object.free_cancellation_datetime }}
                                             </p>
                                         </div>
                                     </li>
