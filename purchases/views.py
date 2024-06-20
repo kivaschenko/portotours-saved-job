@@ -176,6 +176,10 @@ def checkout_payment_intent_view(request):
 
         total_amount = sum(product.stripe_price for product in products)
 
+        buy_for_myself = data.get('buy_for_myself', True)
+        client_full_name = data.get('client_full_name', '')
+        client_email = data.get('client_email', '')
+
         payment_method_types = [
             "card",
             # "apple_pay",
@@ -183,7 +187,6 @@ def checkout_payment_intent_view(request):
             # "paypal",
             "klarna",
         ]
-
         intent_data = {
             "amount": total_amount,
             "currency": "eur",
@@ -199,9 +202,11 @@ def checkout_payment_intent_view(request):
             },
             "metadata": {
                 "product_ids": str(product_ids),
+                "buy_for_myself": str(buy_for_myself),
+                "client_full_name": client_full_name,
+                "client_email": client_email,
             }
         }
-
         customer_data = {
             'name': '',
             'email': '',
@@ -215,7 +220,6 @@ def checkout_payment_intent_view(request):
                 'state': ''
             }
         }
-
         if user.is_authenticated:
             purchase = Purchase.objects.create(user=user, stripe_price=total_amount, stripe_customer_id=user.profile.stripe_customer_id)
             intent_data.update({'customer': user.profile.stripe_customer_id})
