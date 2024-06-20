@@ -426,21 +426,8 @@
                 orderList.classList.toggle('opened');
             });
         });
-        let orderDetailsWrapper = document.querySelectorAll('.order-details')
-
-        orderDetailsWrapper.forEach((wrapper) => {
-            let orderDetailsBtn = wrapper.querySelector('.details-title-wrapper span')
-            let orderDetailsBtnIcon = orderDetailsBtn.querySelector('img')
-            let orderList = wrapper.querySelector('.orders-list')
-
-            orderDetailsBtn.addEventListener('click', () => {
-                orderDetailsBtn.classList.toggle('opened');
-                orderList.classList.toggle('opened')
-            })
-        })
-
-
     </script>
+
     <!-- For language selector -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 {% endblock %}
