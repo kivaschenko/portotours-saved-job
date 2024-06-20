@@ -31,7 +31,7 @@
                                 My experiences
                             </p>
                         </div>
-                        
+
                     </li>
                     <li class="cart-step-item active">
                         <div class="img-wrapper">
@@ -47,7 +47,7 @@
                                 Billing details
                             </p>
                         </div>
-                        
+
                     </li>
                     <li class="cart-step-item ">
                         <div class="img-wrapper">
@@ -55,7 +55,7 @@
                             <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
                             <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
                         </div>
-                        
+
                         <div class="text-wrapper">
                             <p class="step-text body-text-b4">
                                 3 Step
@@ -64,10 +64,10 @@
                                 Confirmation
                             </p>
                         </div>
-                        
+
                     </li>
                 </ul>
-                
+
             </div>
             <div class="cart-title-wrapper">
                 <h2 class="cart-title">
@@ -108,13 +108,26 @@
                                 €{{ total_sum }}
                             </p>
                         </div>
-
                     </div>
                     <div id="link-authentication-element">
                         <!--Stripe.js injects Link Authentication Element-->
                     </div>
                     <div id="address-element">
                         <!--Stripe.js injects the Address Element-->
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="buy-for-myself" name="buy_for_myself" checked>
+                        <label for="buy-for-myself">I buy experience(s) for myself</label>
+                    </div>
+
+                    <div class="form-group" id="client-full-name-group" style="display: none;">
+                        <label for="client-full-name">Recipient Full Name</label>
+                        <input type="text" id="client-full-name" name="client_full_name">
+                    </div>
+
+                    <div class="form-group" id="client-email-group" style="display: none;">
+                        <label for="client-email">Recipient Email</label>
+                        <input type="email" id="client-email" name="client_email">
                     </div>
                 </div>
                 <div class="right-col">
@@ -143,7 +156,7 @@
                                                 MM/DD/YYYY;
                                             </p>
                                             <p class="participants">
-                                                Number of participants: X; 
+                                                Number of participants: X;
                                             </p>
                                             <p class="free-canc">
                                                 Free cancellation before May 3, 2024, 9:59 A.M.
@@ -164,13 +177,14 @@
 
                     </div>
                     <div class="checkout-btn-wrapper">
-                        <div id="express-checkout-element">
+                        <div id="payment-element">
                             <!-- Mount the Express Checkout Element here -->
                         </div>
                         <!-- Display the payment amount -->
-                        
+
                         <p class="privacy-text">
-                            By clicking "Pay now" button, I agree to the <a href="{% url 'page_detail' slug='terms-and-conditions' %}">Terms of Service</a>  and <a href="{% url 'page_detail' slug='privacy-policy' %}">Privacy Policy</a>
+                            By clicking "Pay now" button, I agree to the <a href="{% url 'page_detail' slug='terms-and-conditions' %}">Terms of Service</a> and
+                            <a href="{% url 'page_detail' slug='privacy-policy' %}">Privacy Policy</a>
                         </p>
                         <button id="submit" class="btn-type-1">
                             <div class="spinner hidden" id="spinner"></div>
@@ -180,12 +194,12 @@
                             Charges will appear on your credit card or bank statement as ONEDAYTOURSLDA
                         </p>
                     </div>
-                   
+
                 </div>
 
                 <div id="payment-message" class="hidden"></div>
             </form>
-            
+
         </div>
         <div class="we-accept-wrapper">
             <div class="container">
@@ -203,48 +217,53 @@
                     <li><img src="{% static 'icons/amex.svg' %}" alt="amex"></li>
                 </ul>
             </div>
-            
+
         </div>
     </div>
-
-
     <!-- Custom JS import -->
     <script>
+        document.getElementById('buy-for-myself').addEventListener('change', function () {
+            const clientFullNameGroup = document.getElementById('client-full-name-group');
+            const clientEmailGroup = document.getElementById('client-email-group');
+            if (this.checked) {
+                clientFullNameGroup.style.display = 'none';
+                clientEmailGroup.style.display = 'none';
+            } else {
+                clientFullNameGroup.style.display = 'block';
+                clientEmailGroup.style.display = 'block';
+            }
+        });
         const stripe = Stripe('{{ stripe_public_key }}');
         let elements;
         let paymentElement;
-
         initialize(); // Call initialize function when the page loads
         checkStatus();
-
         document.querySelector("#payment-form").addEventListener("submit", handleSubmit);
 
         async function initialize() {
             // Check if the product_ids list is empty
             const queryParams = new URLSearchParams(window.location.search);
             const paymentIntentClientSecret = queryParams.get('payment_intent_client_secret');
-
             if (paymentIntentClientSecret) {
                 // If the payment_intent_client_secret is not present, do not initialize the payment form
                 return;
             }
-
             const response = await fetch("/checkout/", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': '{{ csrf_token }}',
                 },
-                body: JSON.stringify({product_ids: {{ product_ids }}}),
+                body: JSON.stringify(
+                    {
+                        product_ids: {{ product_ids }},
+                        buy_for_myself: document.getElementById('buy-for-myself').checked,
+                        client_full_name: document.getElementById('client-full-name').value,
+                        client_email: document.getElementById('client-email').value
+                    }
+                ),
             });
             const {clientSecret, customerData, paymentAmount} = await response.json();
-            // Convert the payment amount from cents to euros
-            // const paymentAmountInEuros = (paymentAmount / 100).toLocaleString('en-US', {
-            //     style: 'currency',
-            //     currency: 'EUR'
-            // });
-            
-            // document.getElementById('payment-amount').textContent = paymentAmountInEuros;
             // Access the nested properties of customerData
             const {name, email, phone, address} = customerData;
             // Create Stripe elements
@@ -268,15 +287,12 @@
                     '.Tab--selected': {
                         border: '1px solid #F0500B',
                         color: '#6D6D6D',
-                        
                     },
                 }
             };
             elements = stripe.elements({appearance, clientSecret});
-
             const linkAuthenticationElement = elements.create("linkAuthentication", {defaultValues: {email: customerData.email}});
             linkAuthenticationElement.mount("#link-authentication-element");
-
             const options = {
                 mode: 'billing',
                 fields: {phone: 'always', email: 'always'},
@@ -292,34 +308,43 @@
             // Mount the address element
             const addressElement = elements.create("address", options);
             addressElement.mount('#address-element');
-
             // Mount the Express Checkout element (Apple Pay, Google Pay, and PayPal)
-            const expressCheckoutElement = elements.create("payment", {
-                paymentMethod: {
-                    card: null, // This allows users to select other payment methods like Apple Pay, Google Pay, and PayPal
-                    billing_details: {
-                        name,
-                        email,
-                        phone,
-                    },
-                },
+            // const expressCheckoutElement = elements.create("payment", {
+            //     paymentMethod: {
+            //         card: null, // This allows users to select other payment methods like Apple Pay, Google Pay, and PayPal
+            //         billing_details: {
+            //             name,
+            //             email,
+            //             phone,
+            //         },
+            //     },
+            // });
+            // expressCheckoutElement.mount("#express-checkout-element");
+            paymentElement = elements.create('payment', {
+                layout: {
+                    type: 'tabs',
+                    defaultCollapsed: false,
+                    radios: true,
+                    spaced: true
+                }
             });
-            expressCheckoutElement.mount("#express-checkout-element");
-
+            paymentElement.mount("#payment-element");
         }
 
         async function handleSubmit(e) {
             e.preventDefault();
-
             setLoading(true);
-
+            const metadata = {
+                buy_for_myself: document.getElementById('buy-for-myself').checked,
+                client_full_name: document.getElementById('client-full-name').value,
+                client_email: document.getElementById('client-email').value
+            };
             const {error} = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
                     return_url: `{{ return_url }}`,
                 },
             });
-
             // This point will only be reached if there is an immediate error when
             // confirming the payment. Otherwise, your customer will be redirected to
             // your `return_url`. For some payment methods like iDEAL, your customer will
@@ -330,7 +355,6 @@
             } else {
                 showMessage("An unexpected error occurred.");
             }
-
             setLoading(false);
         }
 
@@ -339,13 +363,10 @@
             const clientSecret = new URLSearchParams(window.location.search).get(
                 "payment_intent_client_secret"
             );
-
             if (!clientSecret) {
                 return;
             }
-
             const {paymentIntent} = await stripe.retrievePaymentIntent(clientSecret);
-
             switch (paymentIntent.status) {
                 case "succeeded":
                     // Redirect to the confirmation page after a delay
@@ -367,13 +388,10 @@
         }
 
         // ------- UI helpers -------
-
         function showMessage(messageText) {
             const messageContainer = document.querySelector("#payment-message");
-
             messageContainer.classList.remove("hidden");
             messageContainer.textContent = messageText;
-
             setTimeout(function () {
                 messageContainer.classList.add("hidden");
                 messageContainer.textContent = "";
@@ -396,6 +414,18 @@
     </script>
     <!-- Order Details Toggler -->
     <script>
+        // Get all elements with the class 'details-title-wrapper'
+        const orderDetailsBtns = document.querySelectorAll('.details-title-wrapper span');
+        // Loop through each element
+        orderDetailsBtns.forEach(btn => {
+            // Find the corresponding order list within the same container
+            const orderList = btn.closest('.details-title-wrapper').nextElementSibling;
+            // Add click event listener to each button
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('opened');
+                orderList.classList.toggle('opened');
+            });
+        });
         let orderDetailsWrapper = document.querySelectorAll('.order-details')
 
         orderDetailsWrapper.forEach((wrapper) => {
@@ -408,12 +438,9 @@
                 orderList.classList.toggle('opened')
             })
         })
-        
+
 
     </script>
-    <!-- For language selector -->
-    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
-
     <!-- For language selector -->
     <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
 {% endblock %}
