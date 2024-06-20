@@ -130,12 +130,25 @@
                             {% if object_list %}
                                 {% for object in object_list %}
                                     <li class="order-item">
-                                        <p class="order-name">
-                                            {{ object.parent_experience }}
-                                        </p>
-                                        <p class="order-price">
-                                            €{{ object.total_price }}
-                                        </p>
+                                        <div class="top-order-wrapper">
+                                            <p class="order-name">
+                                                {{ object.parent_experience }}
+                                            </p>
+                                            <p class="order-price">
+                                                €{{ object.total_price }}
+                                            </p>
+                                        </div>
+                                        <div class="bottom-order-wrapper">
+                                            <p class="date">
+                                                MM/DD/YYYY;
+                                            </p>
+                                            <p class="participants">
+                                                Number of participants: X; 
+                                            </p>
+                                            <p class="free-canc">
+                                                Free cancellation before May 3, 2024, 9:59 A.M.
+                                            </p>
+                                        </div>
                                     </li>
                                 {% endfor %}
                             {% endif %}
@@ -383,14 +396,19 @@
     </script>
     <!-- Order Details Toggler -->
     <script>
-        let orderDetailsBtn = document.querySelector('.details-title-wrapper span')
-        let orderDetailsBtnIcon = orderDetailsBtn.querySelector('img')
-        let orderList = document.querySelector('.orders-list')
+        let orderDetailsWrapper = document.querySelectorAll('.order-details')
 
-        orderDetailsBtn.addEventListener('click', () => {
-            orderDetailsBtn.classList.toggle('opened');
-            orderList.classList.toggle('opened')
+        orderDetailsWrapper.forEach((wrapper) => {
+            let orderDetailsBtn = wrapper.querySelector('.details-title-wrapper span')
+            let orderDetailsBtnIcon = orderDetailsBtn.querySelector('img')
+            let orderList = wrapper.querySelector('.orders-list')
+
+            orderDetailsBtn.addEventListener('click', () => {
+                orderDetailsBtn.classList.toggle('opened');
+                orderList.classList.toggle('opened')
+            })
         })
+        
 
     </script>
     <!-- For language selector -->
