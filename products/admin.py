@@ -204,6 +204,7 @@ class ExperienceAdmin(admin.ModelAdmin):
 class ProductOptionInline(admin.TabularInline):
     model = ProductOption
     extra = 0
+    readonly_fields = ['stripe_price']
     list_display = ['experience_option', 'price', 'quantity', 'total_sum']
 
 
@@ -219,6 +220,7 @@ class ProductAdmin(admin.ModelAdmin):
         'adults_count',
         'child_count',
         'total_price',
+        'total_sum_with_options',
         'price_is_special',
         'old_total_price',
         'customer',

@@ -36,6 +36,12 @@ class BillingDetailView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         products = self.get_queryset()
         total_sum = products.aggregate(total_sum=Sum('total_price'))['total_sum']
+        if total_sum is None:
+            total_sum = 0
+        options_sum = products.aggregate(options_sum=Sum('options__total_sum'))['options_sum']
+        if options_sum is None:
+            options_sum = 0
+        total_sum += options_sum
         context['total_sum'] = total_sum if total_sum else 0
         context['product_ids'] = [product.pk for product in products]
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
@@ -175,11 +181,9 @@ def checkout_payment_intent_view(request):
         products = Product.active.filter(id__in=product_ids)
 
         total_amount = sum(product.stripe_price for product in products)
-
-        buy_for_myself = data.get('buy_for_myself', True)
-        client_full_name = data.get('client_full_name', '')
-        client_email = data.get('client_email', '')
-
+        total_options_amount = sum(product.options_stripe_price for product in products)
+        if total_options_amount:
+            total_amount += total_options_amount
         payment_method_types = [
             "card",
             # "apple_pay",
@@ -202,9 +206,6 @@ def checkout_payment_intent_view(request):
             },
             "metadata": {
                 "product_ids": str(product_ids),
-                "buy_for_myself": str(buy_for_myself),
-                "client_full_name": client_full_name,
-                "client_email": client_email,
             }
         }
         customer_data = {

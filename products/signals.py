@@ -75,10 +75,13 @@ def apply_second_purchase_discount(sender, instance, created, **kwargs):
             # Subtract discount from total price for private products
             new_total_price = instance.total_price - discount
             instance.total_price = max(new_total_price, 0)  # Ensure price doesn't go negative
+            instance.stripe_price = int(instance.total_price * 100)
         else:
             # Subtract discount from adult price for group products
             new_adult_price = instance.adults_price - discount
             instance.adults_price = max(new_adult_price, 0)  # Ensure price doesn't go negative
+            instance.total_price = instance._count_new_total_price()
+            instance.stripe_price = int(instance.total_price * 100)
 
         instance.price_is_special = True
         instance.save()
@@ -98,7 +101,7 @@ def adjust_prices_after_delete(sender, instance, **kwargs):
                 product.total_price = product.parent_experience.price
             else:
                 product.adults_price = product.parent_experience.price
-                # product.total_price = product._count_new_total_price()
+                product.total_price = product._count_new_total_price()
             product.price_is_special = False
             product.save()
 
@@ -115,10 +118,12 @@ def adjust_prices_after_delete(sender, instance, **kwargs):
             if product.parent_experience.is_private:
                 new_total_price = product.total_price - discount
                 product.total_price = max(new_total_price, Decimal('0.00'))  # Ensure price doesn't go negative
+                product.stripe_price = int(product.total_price * 100)
             else:
                 new_adult_price = product.adults_price - discount
                 product.adults_price = max(new_adult_price, Decimal('0.00'))  # Ensure price doesn't go negative
-                # product.total_price = product._count_new_total_price()
+                product.total_price = product._count_new_total_price()
+                product.stripe_price = int(product.total_price * 100)
 
             product.price_is_special = True
             product.save()
@@ -157,9 +162,12 @@ def adjust_prices_after_update_status_expired(sender, instance, created, **kwarg
             if product.parent_experience.is_private:
                 new_total_price = product.total_price - discount
                 product.total_price = max(new_total_price, Decimal('0.00'))  # Ensure price doesn't go negative
+                product.stripe_price = int(product.total_price * 100)
             else:
                 new_adult_price = product.adults_price - discount
                 product.adults_price = max(new_adult_price, Decimal('0.00'))  # Ensure price doesn't go negative
+                product.total_price = product._count_new_total_price()
+                product.stripe_price = int(product.total_price * 100)
 
             product.price_is_special = True
             product.save()

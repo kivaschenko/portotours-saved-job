@@ -22,6 +22,7 @@ class ProductInline(admin.TabularInline):
         'product_random_order_number',
         'product_parent_experience',
         'product_total_price',
+        'product_total_sum_with_options',
         'product_total_booked',
         'product_language',
         'product_date_of_start',
@@ -31,6 +32,7 @@ class ProductInline(admin.TabularInline):
         'product_random_order_number',
         'product_parent_experience',
         'product_total_price',
+        'product_total_sum_with_options',
         'product_total_booked',
         'product_language',
         'product_date_of_start',
@@ -48,6 +50,10 @@ class ProductInline(admin.TabularInline):
     def product_total_price(self, obj):
         return obj.product.total_price
     product_total_price.short_description = "Total Price"
+
+    def product_total_sum_with_options(self, obj):
+        return obj.product.total_sum_with_options
+    product_total_sum_with_options.short_description = "Total Sum with Options"
 
     def product_date_of_start(self, instance):
         return instance.product.date_of_start
@@ -113,6 +119,3 @@ class PurchaseAdmin(admin.ModelAdmin):
     def user_phone(self, obj):
         return obj.user.profile.phone if obj.user else None
     user_phone.short_description = 'User Phone'
-
-
-

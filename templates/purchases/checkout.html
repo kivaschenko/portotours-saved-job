@@ -94,7 +94,7 @@
                                             {{ object.parent_experience }}
                                         </p>
                                         <p class="order-price">
-                                            €{{ object.total_price }}
+                                            €{{ object.total_sum_with_options }}
                                         </p>
                                     </li>
                                 {% endfor %}
@@ -115,20 +115,6 @@
                     <div id="address-element">
                         <!--Stripe.js injects the Address Element-->
                     </div>
-                    <div class="form-group">
-                        <input type="checkbox" id="buy-for-myself" name="buy_for_myself" checked>
-                        <label for="buy-for-myself">I buy experience(s) for myself</label>
-                    </div>
-
-                    <div class="form-group" id="client-full-name-group" style="display: none;">
-                        <label for="client-full-name">Recipient Full Name</label>
-                        <input type="text" id="client-full-name" name="client_full_name">
-                    </div>
-
-                    <div class="form-group" id="client-email-group" style="display: none;">
-                        <label for="client-email">Recipient Email</label>
-                        <input type="email" id="client-email" name="client_email">
-                    </div>
                 </div>
                 <div class="right-col">
                     <div class="order-details">
@@ -148,7 +134,7 @@
                                                 {{ object.parent_experience }}
                                             </p>
                                             <p class="order-price">
-                                                €{{ object.total_price }}
+                                                €{{ object.total_sum_with_options }}
                                             </p>
                                         </div>
                                         <div class="bottom-order-wrapper">
@@ -222,17 +208,6 @@
     </div>
     <!-- Custom JS import -->
     <script>
-        document.getElementById('buy-for-myself').addEventListener('change', function () {
-            const clientFullNameGroup = document.getElementById('client-full-name-group');
-            const clientEmailGroup = document.getElementById('client-email-group');
-            if (this.checked) {
-                clientFullNameGroup.style.display = 'none';
-                clientEmailGroup.style.display = 'none';
-            } else {
-                clientFullNameGroup.style.display = 'block';
-                clientEmailGroup.style.display = 'block';
-            }
-        });
         const stripe = Stripe('{{ stripe_public_key }}');
         let elements;
         let paymentElement;
@@ -257,9 +232,6 @@
                 body: JSON.stringify(
                     {
                         product_ids: {{ product_ids }},
-                        buy_for_myself: document.getElementById('buy-for-myself').checked,
-                        client_full_name: document.getElementById('client-full-name').value,
-                        client_email: document.getElementById('client-email').value
                     }
                 ),
             });
@@ -334,11 +306,6 @@
         async function handleSubmit(e) {
             e.preventDefault();
             setLoading(true);
-            const metadata = {
-                buy_for_myself: document.getElementById('buy-for-myself').checked,
-                client_full_name: document.getElementById('client-full-name').value,
-                client_email: document.getElementById('client-email').value
-            };
             const {error} = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
