@@ -41,6 +41,19 @@
     
                                     <h3 class="dropdown-title">
                                         <a href="{% url 'attraction-list' lang='en' %}">
+                                            Experience Type
+                                        </a>
+                                    </h3>
+                                    {% for attraction in top_attractions %}
+                                        <a class="dropdown-item"
+                                           href="{% url 'attraction-detail' lang=attraction.language.code.lower slug=attraction.slug %}">{{ attraction.name }}</a>
+                                    {% endfor %}
+                                    
+                                </li>
+                                <li>
+    
+                                    <h3 class="dropdown-title">
+                                        <a href="{% url 'attraction-list' lang='en' %}">
                                             Top Attractions
                                         </a>
                                     </h3>
@@ -65,18 +78,15 @@
                                         Out Of Lisbon Things To Do
                                     </h2>
                                     <h3 class="dropdown-title">
-                                        <a href="{% url 'destination-list' lang='en' %}">
+                                        
                                             Top Destinations
-                                        </a>
+                                        
                                     </h3>
                                     {% for destination in top_destinations %}
                                         <a class="dropdown-item"
                                            href="{% url 'destination-detail' lang=destination.language.code.lower slug=destination.slug %}">{{ destination.name }}</a>
                                     {% endfor %}
-                                    <a href="{% url 'destination-list' lang='en' %}" class="dropdown-item-link">
-                                        see all
-                                        <img src="{% static 'icons/experience-link-icon.svg' %}" alt="link icon">
-                                    </a>
+                                   
                                 </li>
                                 <li>
     

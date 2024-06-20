@@ -66,10 +66,44 @@
 #payment-form .order-details .orders-list li {
   list-style: none;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  flex-direction: column;
   margin-bottom: 0;
 
+}
+#payment-form .order-details .orders-list li .top-order-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+#payment-form .order-details .orders-list li .bottom-order-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 2px;
+}
+#payment-form .order-details .orders-list li .bottom-order-wrapper .date {
+  font-size: 12px;
+  line-height: 16px;
+  color: #6D6D6D;
+  font-family: 'LatoRegular';
+  margin-right: 5px;
+  margin-bottom: 0;
+}
+#payment-form .order-details .orders-list li .bottom-order-wrapper .participants {
+  font-size: 12px;
+  line-height: 16px;
+  color: #6D6D6D;
+  font-family: 'LatoRegular';
+  margin-right: 5px;
+  margin-bottom: 0;
+}
+#payment-form .order-details .orders-list li .bottom-order-wrapper .free-canc {
+  font-size: 12px;
+  line-height: 16px;
+  color: #007728;
+  font-family: 'LatoRegular';
+  margin-right: 0;
+  margin-bottom: 0;
 }
 #payment-form .order-details .orders-list li .order-name {
   font-size: 16px;

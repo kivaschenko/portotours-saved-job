@@ -12461,6 +12461,56 @@ html.off-scroll body {
             margin-right: 10px;
             width: 40px;
             height: 40px; }
+      .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block {
+        margin-top: 40px;
+        margin-bottom: 40px; }
+        @media (max-width: 767.98px) {
+          .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block {
+            margin-bottom: 32px; } }
+        .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block .block-title {
+          color: #0F0F10;
+          font-family: "LatoMedium";
+          font-size: 26px;
+          line-height: 36px;
+          margin-bottom: 16px; }
+          @media (max-width: 767.98px) {
+            .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block .block-title {
+              font-size: 18px;
+              line-height: 28px;
+              margin-bottom: 8px; } }
+        .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block .block-text {
+          color: #0F0F10;
+          font-family: "LatoMedium";
+          font-size: 16px;
+          line-height: 26px;
+          margin-bottom: 24px; }
+          @media (max-width: 767.98px) {
+            .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block .block-text {
+              font-size: 14px;
+              line-height: 22px;
+              margin-bottom: 16px; } }
+        .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block .img-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between; }
+          .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block .img-wrapper .left-col {
+            width: calc((100% - 317px - 16px)); }
+            @media (max-width: 767.98px) {
+              .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block .img-wrapper .left-col {
+                width: 100%; } }
+            .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block .img-wrapper .left-col img {
+              width: 100%; }
+          .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block .img-wrapper .right-col {
+            width: 317px;
+            display: flex;
+            flex-direction: column; }
+            @media (max-width: 767.98px) {
+              .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block .img-wrapper .right-col {
+                display: none; } }
+            .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block .img-wrapper .right-col img {
+              width: 100%; }
+              .experience-info .container .experience-info-inner-wrapper .left-col .comfort-care-block .img-wrapper .right-col img + img {
+                margin-top: 16px; }
       .experience-info .container .experience-info-inner-wrapper .left-col .clean-safe-badge {
         margin-bottom: 24px;
         border-radius: 26px;
@@ -12566,7 +12616,7 @@ html.off-scroll body {
             background: #fff;
             padding: 2px 10px; }
       .experience-info .container .experience-info-inner-wrapper .left-col .experience-timeline {
-        margin-bottom: 60px; }
+        margin-bottom: 40px; }
         @media (max-width: 767.98px) {
           .experience-info .container .experience-info-inner-wrapper .left-col .experience-timeline {
             margin-bottom: 32px; } }
