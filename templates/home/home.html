@@ -7,7 +7,7 @@
         <div class="container">
             <h1 class="hero-title">
                 <img class="logo-desktop" src="{% static 'images/homepage-title.svg' %}" alt="logo">
-                <img class="logo-mobile" src="{% static 'images/homepage-title-mob.svg' %}" alt="logo">
+                <img fetchpriority="high" class="logo-mobile" src="{% static 'images/homepage-title-mob.svg' %}" alt="logo">
             </h1>
             <div class="experience-list-hero-calendar">
                 <form action="{% url 'experience-list' lang=current_language %}" method="get">
@@ -54,37 +54,37 @@
             <div class="why-cards-wrapper">
 
                 <div class="why-card swiper-slide">
-                    <img src="{% static 'icons/why-icon1.svg' %}" alt="why icon" class="why-card-img">
+                    <img loading="lazy" src="{% static 'icons/why-icon1.svg' %}" alt="why icon" class="why-card-img">
                     <p class="why-text">
                         30+ Experiences in Portugal
                     </p>
                 </div>
                 <div class="why-card swiper-slide">
-                    <img src="{% static 'icons/why-icon2.svg' %}" alt="why icon" class="why-card-img">
+                    <img loading="lazy" src="{% static 'icons/why-icon2.svg' %}" alt="why icon" class="why-card-img">
                     <p class="why-text">
                         Guided by local experts
                     </p>
                 </div>
                 <div class="why-card swiper-slide">
-                    <img src="{% static 'icons/why-icon3.svg' %}" alt="why icon" class="why-card-img">
+                    <img loading="lazy" src="{% static 'icons/why-icon3.svg' %}" alt="why icon" class="why-card-img">
                     <p class="why-text">
                         Best price guarantee
                     </p>
                 </div>
                 <div class="why-card swiper-slide">
-                    <img src="{% static 'icons/why-icon4.svg' %}" alt="why icon" class="why-card-img">
+                    <img loading="lazy" src="{% static 'icons/why-icon4.svg' %}" alt="why icon" class="why-card-img">
                     <p class="why-text">
                         No hidden fees
                     </p>
                 </div>
                 <div class="why-card swiper-slide">
-                    <img src="{% static 'icons/why-icon5.svg' %}" alt="why icon" class="why-card-img">
+                    <img loading="lazy" src="{% static 'icons/why-icon5.svg' %}" alt="why icon" class="why-card-img">
                     <p class="why-text">
                         Free cancellation
                     </p>
                 </div>
                 <div class="why-card swiper-slide">
-                    <img src="{% static 'icons/why-icon6.svg' %}" alt="why icon" class="why-card-img">
+                    <img loading="lazy" src="{% static 'icons/why-icon6.svg' %}" alt="why icon" class="why-card-img">
                     <p class="why-text">
                         Safe and secure website
                     </p>
@@ -122,7 +122,7 @@
     <section class="refund-banner">
         <div class="container">
             <div class="img-wrapper">
-                <img src="{% static 'icons/refund-banner-icon.svg' %}" alt="refund banner icon">
+                <img loading="lazy" src="{% static 'icons/refund-banner-icon.svg' %}" alt="refund banner icon">
             </div>
             <div class="banner-content">
                 <h3 class="banner-title">
@@ -137,7 +137,7 @@
     <section class="tour-type">
         <div class="container">
             <div class="tour-type-card">
-                <img src="{% static 'images/tour-type-img1.png' %}" alt="tour type">
+                <img loading="lazy" src="{% static 'images/tour-type-img1.png' %}" alt="tour type">
                 <div class="tour-type-title-btn-wrapper">
                     <h4 class="tour-type-title">Small Groups</h4>
                     <a href="#" target="_blank" class="btn-type-3" onclick="addTypeIsGroupAndNavigate(event, '{{ current_language }}')">
@@ -147,7 +147,7 @@
                 </div>
             </div>
             <div class="tour-type-card">
-                <img src="{% static 'images/tour-type-img2.png' %}" alt="tour type">
+                <img loading="lazy" src="{% static 'images/tour-type-img2.png' %}" alt="tour type">
                 <div class="tour-type-title-btn-wrapper">
                     <h4 class="tour-type-title">Private Experiences</h4>
                     <a href="#" target="_blank" class="btn-type-3" onclick="addTypeIsPrivateAndNavigate(event, '{{ current_language }}')">
@@ -172,7 +172,7 @@
                         {% for attraction in attractions_top_year %}
                             <div class="swiper-slide">
                                 <div class="img-wrapper">
-                                    <img src="{% if attraction.parent_attraction.card_image %}
+                                    <img loading="lazy" src="{% if attraction.parent_attraction.card_image %}
                                         {{ attraction.parent_attraction.card_image.url }}
                                         {% else %}{% endif %}" alt="slider image for {{ attraction.name }}">
                                     {% if attraction.parent_attraction.tags.all %}
@@ -219,7 +219,7 @@
                         {% for destination in destinations_top_year|slice:":2" %}
                             <div class="top-destinations-card">
                                 <a href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
-                                    <img src="{% if destination.parent_destination.card_image %}
+                                    <img loading="lazy" src="{% if destination.parent_destination.card_image %}
                                         {{ destination.parent_destination.card_image.url }}
                                         {% else %}{% endif %}" alt="card img for {{ destination.name }}">
                                     <p class="top-destination-card-title">
@@ -233,7 +233,7 @@
                         {% for destination in destinations_top_year|slice:"2:4" %}
                             <div class="top-destinations-card">
                                 <a href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
-                                    <img src="{% if destination.parent_destination.card_image %}
+                                    <img loading="lazy" src="{% if destination.parent_destination.card_image %}
                                         {{ destination.parent_destination.card_image.url }}
                                         {% else %}{% endif %}" alt="card img for {{ destination.name }}">
                                     <p class="top-destination-card-title">
@@ -247,7 +247,7 @@
                         {% for destination in destinations_top_year|slice:"4:" %}
                             <div class="top-destinations-card">
                                 <a href="{% url 'destination-detail' lang=current_language slug=destination.slug %}">
-                                    <img src="{% if destination.parent_destination.card_image %}
+                                    <img loading="lazy" src="{% if destination.parent_destination.card_image %}
                                         {{ destination.parent_destination.card_image.url }}
                                         {% else %}{% endif %}" alt="card img for {{ destination.name }}">
                                     <p class="top-destination-card-title">
