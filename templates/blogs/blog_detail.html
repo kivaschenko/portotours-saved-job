@@ -22,9 +22,9 @@
             {% else %}
             <img class="img-mobile"  src="{% if object.parent_blog.banner%}{{ object.parent_blog.banner.url }}{% else %}{% endif %}" alt="{{ object.parent_blog.banner.name }}">
             {% endif %}
-            <h2 class="blog-detail-hero-title">
+            <h1 class="blog-detail-hero-title">
                 {{ object.title }}
-            </h2>
+            </h1>
             <div class="blog-detail-hero-info-wrapper">
                 <div class="left-col">
                     {% if object.date_published %}

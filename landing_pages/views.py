@@ -46,17 +46,6 @@ class LandingPageView(DetailView):
                     parent_experience__is_private=(tour_type == 'private')
                 )
 
-            sort_by = self.request.GET.get('filter_by', 'all')
-            if sort_by in ['price_low', 'price_high', 'discount', 'hot_deals']:
-                order_by_field = {
-                    'price_low': 'parent_experience__price',
-                    'price_high': '-parent_experience__price',
-                    'discount': '-parent_experience__increase_percentage_old_price',
-                    'hot_deals': '-parent_experience__is_hot_deals',
-                }.get(sort_by)
-                if order_by_field:
-                    experiences_queryset = experiences_queryset.order_by(order_by_field)
-
             time_of_day = self.request.GET.get('time_of_day', 'all')
             if time_of_day != 'all':
                 experiences_queryset = experiences_queryset.filter(parent_experience__time_of_day__name=time_of_day)

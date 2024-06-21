@@ -12,8 +12,8 @@
             <div class="container">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-lg-0">
-    
-                        
+
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle body-text-b3" role="button" aria-current="page"
                                data-bs-toggle="dropdown" href="#">Lisbon Things To Do</a>
@@ -38,20 +38,17 @@
                                     </a>
                                 </li>
                                 <li>
-    
                                     <h3 class="dropdown-title">
-                                        <a href="{% url 'attraction-list' lang='en' %}">
-                                            Experience Type
-                                        </a>
+                                        Experience Type
                                     </h3>
-                                    {% for attraction in top_attractions %}
+                                    {% for land_page in experience_types.all %}
                                         <a class="dropdown-item"
-                                           href="{% url 'attraction-detail' lang=attraction.language.code.lower slug=attraction.slug %}">{{ attraction.name }}</a>
+                                           href="{% url 'landing-page' lang=land_page.language.code.lower slug=land_page.slug %}">{{ land_page.menu_title }}
+                                        </a>
                                     {% endfor %}
-                                    
                                 </li>
                                 <li>
-    
+
                                     <h3 class="dropdown-title">
                                         <a href="{% url 'attraction-list' lang='en' %}">
                                             Top Attractions
@@ -78,26 +75,26 @@
                                         Out Of Lisbon Things To Do
                                     </h2>
                                     <h3 class="dropdown-title">
-                                        
+                                        <a href="{% url 'destination-list' lang='en' %}">
                                             Top Destinations
-                                        
+                                        </a>
                                     </h3>
-                                    {% for destination in top_destinations %}
+                                    {% for land_page in destinations.all %}
                                         <a class="dropdown-item"
-                                           href="{% url 'destination-detail' lang=destination.language.code.lower slug=destination.slug %}">{{ destination.name }}</a>
+                                           href="{% url 'landing-page' lang=land_page.language.code.lower slug=land_page.slug %}">{{ land_page.menu_title }}
+                                        </a>
                                     {% endfor %}
-                                   
                                 </li>
                                 <li>
-    
+
                                     <h3 class="dropdown-title">
                                         <a href="{% url 'experience-list' lang='en' %}">
                                             Most Popular Experiences
                                         </a>
                                     </h3>
                                     {% for experience in most_popular_experiences %}
-                                    <a class="dropdown-item"
-                                       href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
+                                        <a class="dropdown-item"
+                                           href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">{{ experience.name }}</a>
                                     {% endfor %}
                                     <a href="{% url 'experience-list' lang='en' %}" class="dropdown-item-link">
                                         see all
@@ -111,18 +108,18 @@
                                data-bs-toggle="dropdown" href="#">Our services</a>
                             <ul class="dropdown-menu small">
                                 <li>
-                                   
                                     <h2 class="mobile-dropdown-title">
                                         <img src="{% static 'images/language-arrow.png' %}" alt="language icon">
                                         Our services
                                     </h2>
                                     {% if landing_pages %}
-                                        {% for landing_page in landing_pages %}
-                                        <a class="dropdown-item" href="{% url 'landing-page' lang='en' slug=landing_page.slug %}">{{ landing_page.title }}</a>
+                                        {% for land_page in landing_pages %}
+                                            <a class="dropdown-item"
+                                               href="{% url 'landing-page' lang=land_page.language.code.lower slug=land_page.slug %}">{{ land_page.menu_title }}
+                                            </a>
                                         {% endfor %}
                                     {% endif %}
                                 </li>
-                                
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -170,7 +167,7 @@
                             </ul>
                         </div>
                     </div>
-    
+
                 </div>
                 <div class="login-btn-wrapper login-btn-wrapper-mobile">
                     {% if user.is_authenticated %}
@@ -239,8 +236,8 @@
                     <img src="{% static 'icons/cart-icon.svg' %}" alt="cart icon">
                     {% if number_of_products > 0 %}
                         <span class="items-count rounded-pill">{{ number_of_products }}</span>
-                            {% else %}
-                        {% endif %}
+                    {% else %}
+                    {% endif %}
                     <span>Cart</span>
                     <span class="text-mobile">
                         Checkout now
@@ -263,128 +260,128 @@
     </div>
 </div>
 {% if cart_not_empty %}
-<div class="turbo-sale-banner show">
-    <div class="container"> 
-        <div class="left-col">
-            <img src="{% static 'icons/gift-box.svg' %}" alt="gift icon">
-            <p>
-                Your experience reservation has earned you <span>extra discount</span> from One Day Tours Portugal, use it to book more experiences with us!
-            </p>
-        </div>
-        <div class="right-col">
-            <a href="{% url 'my-cart' lang='en' %}" class="turbo-sale-btn">
-                Checkout
-            </a>
-            <span class="close-icon">
+    <div class="turbo-sale-banner show">
+        <div class="container">
+            <div class="left-col">
+                <img src="{% static 'icons/gift-box.svg' %}" alt="gift icon">
+                <p>
+                    Your experience reservation has earned you <span>extra discount</span> from One Day Tours Portugal, use it to book more experiences with us!
+                </p>
+            </div>
+            <div class="right-col">
+                <a href="{% url 'my-cart' lang='en' %}" class="turbo-sale-btn">
+                    Checkout
+                </a>
+                <span class="close-icon">
                 <img src="{% static 'icons/icon-close.svg' %}" alt="close">
             </span>
-            
+
+            </div>
+
         </div>
-        
     </div>
-</div>
 {% endif %}
 
 
-    <!-- Home page language -->
-    <script>
-       //  document.addEventListener('DOMContentLoaded', function () {
-       //      let homeLink = document.getElementById('home-link');
-       //      let preferredLanguage = navigator.language || navigator.browserLanguage;
-       //      let allowedLanguages = ['en', 'es', 'fr', 'pt'];
-       //      let defaultLanguage = 'en'; // Default language if none of the preferred languages match
+<!-- Home page language -->
+<script>
+    //  document.addEventListener('DOMContentLoaded', function () {
+    //      let homeLink = document.getElementById('home-link');
+    //      let preferredLanguage = navigator.language || navigator.browserLanguage;
+    //      let allowedLanguages = ['en', 'es', 'fr', 'pt'];
+    //      let defaultLanguage = 'en'; // Default language if none of the preferred languages match
 
-       //      // Check if the preferred language is in the allowed languages list
-       //      if (allowedLanguages.includes(preferredLanguage)) {
-       //          defaultLanguage = preferredLanguage;
-       //      }
+    //      // Check if the preferred language is in the allowed languages list
+    //      if (allowedLanguages.includes(preferredLanguage)) {
+    //          defaultLanguage = preferredLanguage;
+    //      }
 
-       //      // Set the href attribute of the home link with the default language
-       //      homeLink.href = '/' + defaultLanguage + '/';
-       //  });
-    </script>
-    <script>
-        // Функция для скрытия баннера
-        function hideBanner() {
-            let turboSaleBanner = document.querySelector('.turbo-sale-banner');
-            if (turboSaleBanner) {
-                turboSaleBanner.classList.remove('show');
-            }
-        }
-    
-        // Функция для показа баннера
-        function showBanner() {
-            let turboSaleBanner = document.querySelector('.turbo-sale-banner');
-            if (turboSaleBanner) {
-                turboSaleBanner.classList.add('show');
-            }
-        }
-    
-        // Получаем значение переменной cart_not_empty из Django
-        const cartNoEmpty = {{ cart_not_empty|lower }};
-
-        console.log(cartNoEmpty)
-    
-        // Проверяем значение переменной cart_not_empty при загрузке страницы
-        if (!cartNoEmpty) {
-            localStorage.removeItem('turboSaleBannerHidden');
-        }
-    
-        // Проверяем localStorage при загрузке страницы
-        if (localStorage.getItem('turboSaleBannerHidden') === 'true') {
-            hideBanner();
-        } else {
-            showBanner();
-        }
-    
+    //      // Set the href attribute of the home link with the default language
+    //      homeLink.href = '/' + defaultLanguage + '/';
+    //  });
+</script>
+<script>
+    // Функция для скрытия баннера
+    function hideBanner() {
         let turboSaleBanner = document.querySelector('.turbo-sale-banner');
         if (turboSaleBanner) {
-            let closeBannerIcon = turboSaleBanner.querySelector('.close-icon');
-            closeBannerIcon.addEventListener('click', () => {
-                hideBanner();
-                localStorage.setItem('turboSaleBannerHidden', 'true');
-            });
+            turboSaleBanner.classList.remove('show');
         }
-    </script>
-    <script>
-        let languageBtn = document.querySelector('.language-switcher .default-language');
-        languageBtn.addEventListener('click', () => {
-            languageBtn.classList.toggle('opened')
-            
+    }
+
+    // Функция для показа баннера
+    function showBanner() {
+        let turboSaleBanner = document.querySelector('.turbo-sale-banner');
+        if (turboSaleBanner) {
+            turboSaleBanner.classList.add('show');
+        }
+    }
+
+    // Получаем значение переменной cart_not_empty из Django
+    const cartNoEmpty = {{ cart_not_empty|lower }};
+
+    console.log(cartNoEmpty)
+
+    // Проверяем значение переменной cart_not_empty при загрузке страницы
+    if (!cartNoEmpty) {
+        localStorage.removeItem('turboSaleBannerHidden');
+    }
+
+    // Проверяем localStorage при загрузке страницы
+    if (localStorage.getItem('turboSaleBannerHidden') === 'true') {
+        hideBanner();
+    } else {
+        showBanner();
+    }
+
+    let turboSaleBanner = document.querySelector('.turbo-sale-banner');
+    if (turboSaleBanner) {
+        let closeBannerIcon = turboSaleBanner.querySelector('.close-icon');
+        closeBannerIcon.addEventListener('click', () => {
+            hideBanner();
+            localStorage.setItem('turboSaleBannerHidden', 'true');
         });
-        let languageBtnMobile = document.querySelector('.language-switcher-mobile .default-language');
-        languageBtnMobile.addEventListener('click', () => {
-            languageBtnMobile.classList.toggle('opened')
-            
-        });
+    }
+</script>
+<script>
+    let languageBtn = document.querySelector('.language-switcher .default-language');
+    languageBtn.addEventListener('click', () => {
+        languageBtn.classList.toggle('opened')
 
-        let burgerMobileMenuBtn = document.querySelector('.burger');
-        let burgerMobileCloseMenuBtn = document.querySelector('.burger-close');
-        
-        let dropdownMenus = document.querySelectorAll('.dropdown-menu');
+    });
+    let languageBtnMobile = document.querySelector('.language-switcher-mobile .default-language');
+    languageBtnMobile.addEventListener('click', () => {
+        languageBtnMobile.classList.toggle('opened')
+
+    });
+
+    let burgerMobileMenuBtn = document.querySelector('.burger');
+    let burgerMobileCloseMenuBtn = document.querySelector('.burger-close');
+
+    let dropdownMenus = document.querySelectorAll('.dropdown-menu');
 
 
-        let navbar = document.querySelector('.navbar');
-        burgerMobileMenuBtn.addEventListener('click', () => {
-            navbar.classList.toggle('opened');
-            burgerMobileMenuBtn.classList.toggle('hide')
-            burgerMobileCloseMenuBtn.classList.toggle('hide')
-            document.documentElement.classList.add('overflow');
-            
+    let navbar = document.querySelector('.navbar');
+    burgerMobileMenuBtn.addEventListener('click', () => {
+        navbar.classList.toggle('opened');
+        burgerMobileMenuBtn.classList.toggle('hide')
+        burgerMobileCloseMenuBtn.classList.toggle('hide')
+        document.documentElement.classList.add('overflow');
+
+    })
+    burgerMobileCloseMenuBtn.addEventListener('click', () => {
+        navbar.classList.toggle('opened');
+        burgerMobileCloseMenuBtn.classList.toggle('hide')
+        burgerMobileMenuBtn.classList.toggle('hide')
+        document.documentElement.classList.remove('overflow');
+
+    })
+
+    dropdownMenus.forEach((menu) => {
+        let goBackBtn = menu.querySelector('.mobile-dropdown-title img')
+        goBackBtn.addEventListener('click', () => {
+            menu.classList.toggle('show')
         })
-        burgerMobileCloseMenuBtn.addEventListener('click', () => {
-            navbar.classList.toggle('opened');
-            burgerMobileCloseMenuBtn.classList.toggle('hide')
-            burgerMobileMenuBtn.classList.toggle('hide')
-            document.documentElement.classList.remove('overflow');
-           
-        })
-
-        dropdownMenus.forEach((menu) => {
-            let goBackBtn = menu.querySelector('.mobile-dropdown-title img')
-            goBackBtn.addEventListener('click', () => {
-                menu.classList.toggle('show')
-            })
-        })
-    </script>
+    })
+</script>
 

@@ -36,6 +36,12 @@ class BillingDetailView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         products = self.get_queryset()
         total_sum = products.aggregate(total_sum=Sum('total_price'))['total_sum']
+        if total_sum is None:
+            total_sum = 0
+        options_sum = products.aggregate(options_sum=Sum('options__total_sum'))['options_sum']
+        if options_sum is None:
+            options_sum = 0
+        total_sum += options_sum
         context['total_sum'] = total_sum if total_sum else 0
         context['product_ids'] = [product.pk for product in products]
         context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
@@ -175,7 +181,9 @@ def checkout_payment_intent_view(request):
         products = Product.active.filter(id__in=product_ids)
 
         total_amount = sum(product.stripe_price for product in products)
-
+        total_options_amount = sum(product.options_stripe_price for product in products)
+        if total_options_amount:
+            total_amount += total_options_amount
         payment_method_types = [
             "card",
             # "apple_pay",
@@ -183,7 +191,6 @@ def checkout_payment_intent_view(request):
             # "paypal",
             "klarna",
         ]
-
         intent_data = {
             "amount": total_amount,
             "currency": "eur",
@@ -201,7 +208,6 @@ def checkout_payment_intent_view(request):
                 "product_ids": str(product_ids),
             }
         }
-
         customer_data = {
             'name': '',
             'email': '',
@@ -215,7 +221,6 @@ def checkout_payment_intent_view(request):
                 'state': ''
             }
         }
-
         if user.is_authenticated:
             purchase = Purchase.objects.create(user=user, stripe_price=total_amount, stripe_customer_id=user.profile.stripe_customer_id)
             intent_data.update({'customer': user.profile.stripe_customer_id})

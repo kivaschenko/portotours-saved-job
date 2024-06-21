@@ -1247,6 +1247,65 @@
             }
           }
         }
+        .comfort-care-block {
+          margin-top: 40px;
+          margin-bottom: 40px;
+          @include media-breakpoint-down(md) {
+            margin-bottom: 32px;
+          }
+          .block-title {
+            color: #0F0F10;
+            font-family: "LatoMedium";
+            font-size: 26px;
+            line-height: 36px;
+            margin-bottom: 16px;
+            @include media-breakpoint-down(md) {
+              font-size: 18px;
+              line-height: 28px;
+              margin-bottom: 8px;
+            }
+          }
+          .block-text {
+            color: #0F0F10;
+            font-family: "LatoMedium";
+            font-size: 16px;
+            line-height: 26px;
+            margin-bottom: 24px;
+            @include media-breakpoint-down(md) {
+              font-size: 14px;
+              line-height: 22px;
+              margin-bottom: 16px;
+            }
+          }
+          .img-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .left-col {
+              width: calc((100% - 317px - 16px));
+              @include media-breakpoint-down(md) {
+                width: 100%;
+              }
+              img {
+                width: 100%;
+              }
+            }
+            .right-col {
+              width: 317px;
+              display: flex;
+              flex-direction: column;
+              @include media-breakpoint-down(md) {
+                display: none;
+              }
+              img {
+                width: 100%;
+                + img {
+                  margin-top: 16px;
+                }
+              }
+            }
+          }
+        }
         .clean-safe-badge {
           margin-bottom: 24px;
           border-radius: 26px;
@@ -1365,7 +1424,7 @@
           }
         }
         .experience-timeline {
-          margin-bottom: 60px;
+          margin-bottom: 40px;
           @include media-breakpoint-down(md) {
             margin-bottom: 32px;
           }

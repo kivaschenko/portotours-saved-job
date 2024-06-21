@@ -9,4 +9,6 @@ python manage.py loaddata accounts/fixtures/testing/users.json
 
 python manage.py dumpdata --format=json --indent=4 --exclude=auth --exclude=contenttypes --exclude=sessions --out dumpdb.json
 
+http://127.0.0.1:8000/confirmation/en/?payment_intent_id=pi_3PT56WLH746GcpOj1n05r7lO
+
 http://127.0.0.1:8000/confirmation/en/?payment_intent_id=pi_3PT56WLH746GcpOj1n05r7lO

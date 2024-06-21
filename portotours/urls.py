@@ -84,6 +84,8 @@ urlpatterns += [
     path('', home_views.HomeView.as_view(), name='home'),
     path('en/pages/<slug:slug>/', home_views.PageDetailView.as_view(), name='page_detail'),
     path('<str:lang>/company/<slug:slug>/', home_views.AboutUsDetailView.as_view(), name='about-us'),
+    # for development and noindex
+    # path('test-page-noindex/', home_views.TestPageView.as_view(), name='test-page-noindex'),
 ]
 
 # ACCOUNTS & PROFILES

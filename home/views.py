@@ -94,3 +94,7 @@ class AboutUsDetailView(DetailView):
             raise Http404
         self.lang = lang
         self.extra_context.update({'current_language': lang})
+
+
+class TestPageView(TemplateView):
+    template_name = 'home/test_page.html'

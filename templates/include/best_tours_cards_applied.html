@@ -5,7 +5,7 @@
     <div class="img-wrapper">
         <a href="javascript:void(0)"
            onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }})">
-            <img src="{% if experience.parent_experience.card_image %}
+            <img loading="lazy" src="{% if experience.parent_experience.card_image %}
                                     {{ experience.parent_experience.card_image.url }}
                                     {% else %}{% endif %}" alt="card image for {{ experience.name }}">
         </a>

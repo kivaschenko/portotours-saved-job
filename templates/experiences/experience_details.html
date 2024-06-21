@@ -409,7 +409,25 @@
                             </btn>
                         </div>
                     {% endif %}
-
+                    {% if object.parent_experience.we_care_about_comfort %}
+                        <div class="comfort-care-block">
+                            <h3 class="block-title">
+                                We care about your comfort
+                            </h3>
+                            <p class="block-text">
+                                The comfort and safety of our clients through tours and transfers is one of our key priorities. We provide high-quality technical maintenance and update our fleet on time to ensure trustworthy customer service.
+                            </p>
+                            <div class="img-wrapper">
+                                <div class="left-col">
+                                    <img src="{% static 'images/comfort-img1.png' %}" alt="comfort img">
+                                </div>
+                                <div class="right-col">
+                                    <img src="{% static 'images/comfort-img2.png' %}" alt="comfort img">
+                                    <img src="{% static 'images/comfort-img3.png' %}" alt="comfort img">
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                     {% if object.parent_experience.clean_and_safe %}
                         <div class="clean-safe-badge">
                             <div class="img-wrapper">
@@ -422,11 +440,6 @@
                                 </p>
                             </div>
                         </div>
-                    {% endif %}
-                
-                    {% if object.parent_experience.we_care_about_comfort %}
-                        <h3>We care about your comfort!</h3>
-                        <div>Here some pretty pictures will be...</div>
                     {% endif %}
 
                     {% if object.includes_text or object.not_includes_text %}

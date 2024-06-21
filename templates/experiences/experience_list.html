@@ -105,7 +105,7 @@
                             <option value="price_low">Price - Low To High</option>
                             <option value="price_high">Price - High To Low</option>
                             <option value="discount">Discount</option>
-                            <option value="hot_deals">Hot deals first</option>
+                            <option value="hot_deals">Best Sellers first</option>
                         </select>
                     </div>
                 </div>
@@ -376,6 +376,8 @@
                 let filterBy = document.getElementById('filter_by').value;
                 let time_of_day = document.getElementById('time_of_day').value;
                 let duration = document.getElementById('duration').value;
+                let date = document.getElementById('id_date').value;
+                let place = document.getElementById('id_place').value;
 
                 let hasChanged = false;
 
@@ -388,6 +390,7 @@
 
                 if (duration !== 'all') {
                     urlParams.set('duration', duration);
+                    hasChanged = true;
                 } else {
                     urlParams.delete('duration');
                 }
@@ -405,7 +408,20 @@
                 } else {
                     urlParams.delete('filter_by');
                 }
+                
+                if (date !== '') {
+                    urlParams.set('date', date);
+                    hasChanged = true;
+                } else {
+                    urlParams.delete('date')
+                }
 
+                if (place !== '') {
+                    urlParams.set('place', place);
+                    hasChanged = true;
+                } else {
+                    urlParams.delete('place')
+                }
                 if (hasChanged) {
                     window.history.replaceState(null, null, window.location.pathname + '?' + urlParams.toString());
                 } else {
@@ -425,14 +441,18 @@
             let filterByValue = urlParams.get('filter_by') || 'all';
             let timeOfDayValue = urlParams.get('time_of_day') || 'all';
             let durationValue = urlParams.get('duration') || 'all';
+            let dateValue = urlParams.get('date') || '';
+            let placeValue = urlParams.get('place') || '';
 
             document.getElementById('tour_type').value = tourTypeValue;
             document.getElementById('filter_by').value = filterByValue;
             document.getElementById('time_of_day').value = timeOfDayValue;
             document.getElementById('duration').value = durationValue;
+            document.getElementById('id_date').value = dateValue;
+            document.getElementById('id_place').value = placeValue;
 
             // Clean the URL if all parameters are default
-            if (tourTypeValue === 'all' && filterByValue === 'all' && timeOfDayValue === 'all' && durationValue === 'all') {
+            if (tourTypeValue === 'all' && filterByValue === 'all' && timeOfDayValue === 'all' && durationValue === 'all' && dateValue === '' && placeValue === '') {
                 window.history.replaceState(null, null, window.location.pathname);
             }
         });

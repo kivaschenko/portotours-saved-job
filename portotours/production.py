@@ -77,7 +77,7 @@ SESSION_CACHE_ALIAS = "default"
 # Cookie name. This can be whatever you want.
 SESSION_COOKIE_NAME = "sessionid"
 # Age of cookie, in seconds (default: 2 weeks).
-SESSION_COOKIE_AGE = 60 * 60  # minutes
+SESSION_COOKIE_AGE = 60 * 60 * 24  # 24 hours
 # A string like "example.com", or None for standard domain cookie.
 SESSION_COOKIE_DOMAIN = None
 # Whether the session cookie should be secure (https:// only).
@@ -110,6 +110,7 @@ CACHES = {
         "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
     },
 }
+CACHE_MIDDLEWARE_SECONDS = 3600  # 1 hour for dynamic content
 ROOT_URLCONF = 'portotours.urls'
 TEMPLATES = [
     {

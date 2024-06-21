@@ -763,12 +763,13 @@ class Product(models.Model):
         if self.adults_price and self.child_price:
             self.total_price = self._count_new_total_price()
         self.old_total_price = self._count_old_total_price()
-        if self.parent_experience.is_private:
-            self.stripe_product_id = (f"{self.parent_experience.parent_name.upper()} start: {self.start_datetime} language: {self.language} "
-                                      f"type: private | max_participants: {self.parent_experience.max_participants}")
-        else:
-            self.stripe_product_id = (f"{self.parent_experience.parent_name.upper()} start: {self.start_datetime} language: {self.language} "
-                                      f"type: group | participants: {self.adults_count} adults & {self.child_count} children.")
+        if not self.stripe_product_id:
+            if self.parent_experience.is_private:
+                self.stripe_product_id = (f"{self.parent_experience.parent_name.upper()} start: {self.start_datetime} language: {self.language} "
+                                          f"type: private | max_participants: {self.parent_experience.max_participants}")
+            else:
+                self.stripe_product_id = (f"{self.parent_experience.parent_name.upper()} start: {self.start_datetime} language: {self.language} "
+                                          f"type: group | participants: {self.adults_count} adults & {self.child_count} children.")
         self.stripe_price = int(self.total_price * 100)
         if self.occurrence and self.occurrence.pk is None:
             self.occurrence.save()
@@ -877,6 +878,28 @@ class Product(models.Model):
     def number_added_options(self):
         return self.options.filter(quantity__gt=0).count()
 
+    @property
+    def options_total_sum(self):
+        res = self.options.filter(quantity__gt=0).aggregate(total_sum=Sum('total_sum'))['total_sum']
+        if res is None:
+            res = 0
+        return res
+
+    @property
+    def options_stripe_price(self):
+        res = self.options.filter(quantity__gt=0).aggregate(stripe_price=Sum('stripe_price'))['stripe_price']
+        if res is None:
+            res = 0
+        return res
+
+    @property
+    def total_sum_with_options(self):
+        sum_options = self.options.filter(quantity__gt=0).aggregate(total_sum=Sum('total_sum'))['total_sum']
+        if sum_options is None:
+            sum_options = 0
+        res = self.total_price + sum_options
+        return res
+
 
 def generate_random_code():
     """Don't touch it because issue in migrations appears too much."""
@@ -893,6 +916,7 @@ class ProductOption(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=0)
     total_sum = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    stripe_price = models.IntegerField(null=True, blank=True)  # 100 * total_sum
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -904,6 +928,7 @@ class ProductOption(models.Model):
         if not self.price:
             self.price = self.experience_option.price
         self.total_sum = self.price * self.quantity
+        self.stripe_price = int(self.total_sum * 100)
         super(ProductOption, self).save(*args, **kwargs)
 
 
