@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin import AdminSite
 from django.contrib.gis.admin import GISModelAdmin
 from django.contrib.gis.forms.widgets import OSMWidget
 from django.core.exceptions import ValidationError
@@ -9,27 +10,18 @@ from schedule.models import *  # noqa
 
 from products.models import *  # noqa
 from products.forms import ExperienceEventFormSet
+from .admin_views import calendar_view, events_view
 
 # Hide exceeded models from django-scheduler
 admin.site.unregister(Calendar)
 admin.site.unregister(CalendarRelation)
 admin.site.unregister(Occurrence)
-admin.site.unregister(Event)
+# admin.site.unregister(Event)
 admin.site.unregister(EventRelation)
+
 
 # ----------------------
 # Custom ExperienceEvent
-
-# admin.py
-from django.contrib import admin
-from django.urls import reverse
-from django.utils.html import format_html
-from django.contrib.admin import AdminSite
-from .models import ExperienceEvent
-from .forms import ExperienceEventForm
-from .admin_views import calendar_view, events_view
-from schedule.models import Rule
-
 
 class MyAdminSite(AdminSite):
     site_header = "My Admin"
@@ -41,35 +33,71 @@ class MyAdminSite(AdminSite):
 
         urls = super().get_urls()
         custom_urls = [
-            path('calendar/<int:event_id>/', self.admin_view(calendar_view), name='admin-calendar'),
-            path('events/', self.admin_view(events_view), name='admin-events'),
+            path('schedule/calendar/<int:calendar_id>/', self.admin_view(calendar_view), name='admin-calendar'),
+            # path('schedule/events/<int:calendar_id>/', self.admin_view(events_view), name='admin-events'),
         ]
         return custom_urls + urls
-
-    def index(self, request, extra_context=None):
-        if extra_context is None:
-            extra_context = {}
-        extra_context['custom_links'] = [
-            {'url': reverse('admin-calendar', args=[1]), 'name': 'Calendar'},  # Change args as needed
-            {'url': reverse('admin-events'), 'name': 'Events'}
-        ]
-        return super().index(request, extra_context=extra_context)
 
 
 admin_site = MyAdminSite(name='myadmin')
 
 
-@admin.register(ExperienceEvent, site=admin_site)
+class ExperienceEventInline(admin.TabularInline):
+    model = ExperienceEvent
+    exclude = [
+        'title',
+        'description',
+        'booked_participants',
+        'remaining_participants',
+        'color_event',
+        'creator',
+    ]
+    formset = ExperienceEventFormSet
+
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            if not instance.creator:
+                instance.creator = request.user
+            instance.save()
+        formset.save_m2m()
+
+
+@admin.register(Calendar)
+class ExperienceCalendarAdmin(admin.ModelAdmin):
+    exclude = ['name', 'slug', ]
+    readonly_fields = ['is_private']
+    inlines = [ExperienceEventInline]
+    list_display = ['name', 'is_private']
+
+    def is_private(self, obj):
+        relation = obj.calendarrelation_set.first()
+        if relation:
+            parent_experience_obj = relation.content_object
+            if parent_experience_obj is None:
+                return 'N/A'
+            if parent_experience_obj.is_private:
+                return 'Private'
+            else:
+                return 'Group'
+        return None
+
+    is_private.short_description = 'Parent Experience is'
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['calendar_url'] = reverse('admin-calendar', args=[object_id])
+        return super().change_view(request, object_id, form_url, extra_context=extra_context)
+
+
+@admin.register(ExperienceEvent)
 class ExperienceEventAdmin(admin.ModelAdmin):
-    form = ExperienceEventForm
-    list_display = ['id', 'title', 'start', 'end', 'rule', 'end_recurring_period', 'max_participants', 'booked_participants', 'remaining_participants',
-                    'special_price', 'child_special_price', 'total_price']
-    list_filter = ['start', 'rule', 'calendar']
-    search_fields = ['title', 'description']
+    list_display = ['id', 'title', 'max_participants', 'booked_participants',
+                    'remaining_participants', 'special_price', 'child_special_price', 'total_price']
+    # readonly_fields = ['title', 'max_participants', 'booked_participants', 'remaining_participants']
+    search_fields = ['title', 'description', ]
+    list_filter = ['start', 'calendar']
     list_per_page = 20
-
-
-# admin.site.register(Rule)
 
 
 # ------------
@@ -157,6 +185,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     list_filter = ['name']
 
+
 # ---------
 # TimeOfDay
 
@@ -164,6 +193,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class TimeOfDayAdmin(admin.ModelAdmin):
     fields = ['name', 'description']
     list_display = ['name', 'description']
+
 
 # --------
 # Duration
@@ -288,59 +318,6 @@ class ProductAdmin(admin.ModelAdmin):
                        'session_key', 'expired_time']
     list_per_page = 20
     inlines = [ProductOptionInline]
-
-
-class ExperienceEventInline(admin.TabularInline):
-    model = ExperienceEvent
-    exclude = [
-        'title',
-        'description',
-        'booked_participants',
-        'remaining_participants',
-        'color_event',
-        'creator',
-    ]
-    formset = ExperienceEventFormSet
-
-    def save_formset(self, request, form, formset, change):
-        instances = formset.save(commit=False)
-        for instance in instances:
-            if not instance.creator:
-                instance.creator = request.user
-            instance.save()
-        formset.save_m2m()
-
-
-@admin.register(Calendar)
-class ExperienceCalendarAdmin(admin.ModelAdmin):
-    exclude = ['name', 'slug', ]
-    readonly_fields = ['is_private']
-    inlines = [ExperienceEventInline]
-    list_display = ['name', 'is_private']
-
-    def is_private(self, obj):
-        relation = obj.calendarrelation_set.first()
-        if relation:
-            parent_experience_obj = relation.content_object
-            if parent_experience_obj is None:
-                return 'N/A'
-            if parent_experience_obj.is_private:
-                return 'Private'
-            else:
-                return 'Group'
-        return None
-
-    is_private.short_description = 'Parent Experience is'
-
-
-# @admin.register(ExperienceEvent)
-# class ExperienceEventAdmin(admin.ModelAdmin):
-#     list_display = ['id', 'title', 'max_participants', 'booked_participants',
-#                     'remaining_participants', 'special_price', 'child_special_price', 'total_price']
-#     # readonly_fields = ['title', 'max_participants', 'booked_participants', 'remaining_participants']
-#     search_fields = ['title', 'description', ]
-#     list_filter = ['start', 'calendar']
-#     list_per_page = 20
 
 
 @admin.register(Occurrence)

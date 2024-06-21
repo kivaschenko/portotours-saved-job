@@ -1,0 +1,37 @@
+{% extends "admin/change_form.html" %}
+
+{% block content %}
+
+<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+
+<div id='calendar'></div>
+
+<script>
+    $(document).ready(function() {
+        var calendarId = "{{ original.id }}";
+        $('#calendar').fullCalendar({
+            events: '/odt-admin/schedule/events/' + calendarId + '/', // URL to fetch events for the specific calendar
+            editable: true,
+            selectable: true,
+            selectHelper: true,
+            select: function(start, end) {
+                var title = prompt('Event Title:');
+                if (title) {
+                    var eventData = {
+                        title: title,
+                        start: start,
+                        end: end
+                    };
+                    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                }
+                $('#calendar').fullCalendar('unselect');
+            },
+        });
+    });
+</script>
+
+    {{ block.super }}
+{% endblock %}

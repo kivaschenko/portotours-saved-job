@@ -11,9 +11,9 @@
 <div id="calendar"></div>
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
+    const calendarEl = document.getElementById('calendar');
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    const calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
       events: '{% url 'event-occurrences' event.id %}',
       headerToolbar: {
