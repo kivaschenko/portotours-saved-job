@@ -409,6 +409,7 @@
                             </btn>
                         </div>
                     {% endif %}
+                    {% if object.parent_experience.we_care_about_comfort %}
                         <div class="comfort-care-block">
                             <h3 class="block-title">
                                 We care about your comfort
@@ -426,6 +427,7 @@
                                 </div>
                             </div>
                         </div>
+                    {% endif %}
                     {% if object.parent_experience.clean_and_safe %}
                         <div class="clean-safe-badge">
                             <div class="img-wrapper">

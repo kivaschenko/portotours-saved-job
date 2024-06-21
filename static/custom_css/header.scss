@@ -325,6 +325,14 @@
       }
 
       .nav-item {
+        &:first-child {
+          .dropdown-menu {
+            width: 770px;
+            @include media-breakpoint-down(md) {
+              width: 100%;
+            }
+          }
+        }
         + .nav-item {
           margin-left: 25px;
           @include media-breakpoint-down(md) {

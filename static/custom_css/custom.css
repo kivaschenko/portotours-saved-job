@@ -7898,6 +7898,11 @@ html.off-scroll body {
     @media (max-width: 767.98px) {
       .header .navbar .navbar-nav {
         margin-bottom: 0; } }
+    .header .navbar .navbar-nav .nav-item:first-child .dropdown-menu {
+      width: 770px; }
+      @media (max-width: 767.98px) {
+        .header .navbar .navbar-nav .nav-item:first-child .dropdown-menu {
+          width: 100%; } }
     .header .navbar .navbar-nav .nav-item + .nav-item {
       margin-left: 25px; }
       @media (max-width: 767.98px) {
@@ -14079,7 +14084,9 @@ html.off-scroll body {
   .blog-detail-hero .container .blog-detail-hero-title {
     color: var(--text-color-second);
     text-transform: capitalize;
-    margin-bottom: 28px; }
+    margin-bottom: 28px;
+    font-size: 44px;
+    line-height: 56px; }
     @media (max-width: 767.98px) {
       .blog-detail-hero .container .blog-detail-hero-title {
         margin-bottom: 20px;

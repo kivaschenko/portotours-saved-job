@@ -2,7 +2,7 @@
 <div class="best-tours-card">
     <div class="img-wrapper">
         <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" target="_blank">
-            <img src="{% if experience.parent_experience.card_image %}
+            <img loading="lazy" src="{% if experience.parent_experience.card_image %}
                                     {{ experience.parent_experience.card_image.url }}
                                     {% else %}{% endif %}" alt="card image for {{ experience.name }}">
         </a>
@@ -10,7 +10,7 @@
     <div class="card-content-wrapper">
         {% if experience.parent_experience.increase_percentage_old_price %}
             <div class="discount-banner-wrapper">
-                <img src="{% static 'icons/discount-bg.svg' %}" alt="discount bg">
+                <img loading="lazy" src="{% static 'icons/discount-bg.svg' %}" alt="discount bg">
                 <p class="discount">
                     {{ experience.parent_experience.increase_percentage_old_price }}% discount
                 </p>
@@ -70,18 +70,18 @@
         <div class="tour-info-wrapper">
             <ul class="tour-info-list">
                 <li>
-                    <img src="{% static 'icons/duration-icon.svg' %}" alt="duration icon">
+                    <img loading="lazy" src="{% static 'icons/duration-icon.svg' %}" alt="duration icon">
                     {{ experience.display_duration }}
                 </li>
                 {% if experience.parent_experience.is_private %}
                     <li>
-                        <img src="{% static 'icons/private-tour-icon.svg' %}" alt="private tour icon">
+                        <img loading="lazy" src="{% static 'icons/private-tour-icon.svg' %}" alt="private tour icon">
                         Private experience
                     </li>
                 {% else %}
 
                     <li>
-                        <img src="{% static 'icons/group-tour-icon.svg' %}" alt="tour icon">
+                        <img loading="lazy" src="{% static 'icons/group-tour-icon.svg' %}" alt="tour icon">
                         Small Group
                     </li>
                 {% endif %}
