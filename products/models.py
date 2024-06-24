@@ -585,9 +585,10 @@ class ExperienceEvent(Event):
 
     @property
     def calendar_title(self):
-        title = "Price: {price}"
+        title = "€ {price} Participants: {booked}/{max_participants}"
         if self.special_price:
-            calendar_title = title.format(price=self.special_price)
+            calendar_title = title.format(price=self.special_price, booked=self.booked_participants,
+                                          max_participants=self.max_participants)
         else:
             calendar_title = title.format(price=self.total_price)
         return calendar_title

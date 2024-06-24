@@ -51,6 +51,8 @@ class ExperienceEventInline(admin.TabularInline):
         'remaining_participants',
         'color_event',
         'creator',
+        'rule',
+        'end_recurring_period',
     ]
     formset = ExperienceEventFormSet
 
@@ -105,9 +107,15 @@ class ExperienceCalendarAdmin(admin.ModelAdmin):
 
 @admin.register(ExperienceEvent)
 class ExperienceEventAdmin(admin.ModelAdmin):
+    exclude = [
+        'description',
+        'color_event',
+        'rule',
+        'end_recurring_period',
+    ]
     list_display = ['id', 'title', 'max_participants', 'booked_participants',
                     'remaining_participants', 'special_price', 'child_special_price', 'total_price']
-    # readonly_fields = ['title', 'max_participants', 'booked_participants', 'remaining_participants']
+    readonly_fields = ['title', 'calendar']
     search_fields = ['title', 'description', ]
     list_filter = ['start', 'calendar']
     list_per_page = 20
