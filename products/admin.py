@@ -358,7 +358,7 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Occurrence)
 class ExperienceOccurrenceAdmin(admin.ModelAdmin):
     readonly_fields = ['product_id', 'customer']
-    list_display = ['id', 'product_id', 'event', 'customer', 'start', ]
+    list_display = ['id', 'product_id', 'event', 'customer', 'start', 'cancelled']
     list_filter = ['start', ]
     search_fields = ['event', 'title', 'description', ]
     list_per_page = 20
@@ -375,6 +375,13 @@ class ExperienceOccurrenceAdmin(admin.ModelAdmin):
             if product.customer is not None:
                 return product.customer
         return None
+    
+    def get_queryset(self, request):
+        # Return an empty queryset to hide existing instances
+        return self.model.objects.filter(product__isnull=False)
+    
+    def has_add_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(ExperienceOption)
