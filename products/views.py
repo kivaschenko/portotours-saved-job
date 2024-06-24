@@ -1031,3 +1031,22 @@ def check_experience(request, product_number):
         logger.error(f"Product {product_number} does not exist")
         raise Http404(f"Order {product_number} does not exist")
     return render(request, 'products/check_experience.html', {'product': product})
+
+
+# ------------------
+# Calandars handlers
+
+@csrf_exempt
+def events_view(request, calendar_id):
+    try:
+        calendar = Calendar.objects.get(pk=calendar_id)
+        events = calendar.events.all()
+        print('events:', events)
+        events_list = [{
+            'title': event.title,
+            'start': event.start.isoformat(),
+            'end': event.end.isoformat()
+        } for event in events]
+        return JsonResponse({'result': events_list}, status=200)
+    except json.decoder.JSONDecodeError as exp:
+        return HttpResponseBadRequest(f'Invalid JSON data: {exp}')

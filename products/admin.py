@@ -10,7 +10,7 @@ from schedule.models import *  # noqa
 
 from products.models import *  # noqa
 from products.forms import ExperienceEventFormSet
-from .admin_views import calendar_view, events_view
+from .admin_views import calendar_view
 
 # Hide exceeded models from django-scheduler
 admin.site.unregister(Calendar)
@@ -33,8 +33,7 @@ class MyAdminSite(AdminSite):
 
         urls = super().get_urls()
         custom_urls = [
-            path('schedule/calendar/<int:calendar_id>/', self.admin_view(calendar_view), name='admin-calendar'),
-            path('schedule/events/<int:calendar_id>/', self.admin_view(events_view), name='admin-events'),
+            path('schedule/calendar/<int:calendar_id>/change/', self.admin_view(calendar_view), name='admin-calendar'),
         ]
         return custom_urls + urls
 

@@ -2,35 +2,74 @@
 
 {% block content %}
 
-<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
-<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+!-- rrule lib -->
+<script src='https://cdn.jsdelivr.net/npm/rrule@2.6.4/dist/es5/rrule.min.js'></script>
+
+<!-- fullcalendar bundle  "IMPORTANT"-->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+<!-- or download fullcalendar@6.x.xx (static) and link it from there -->
+
+<!-- the rrule-to-fullcalendar connector. must go AFTER the rrule lib -->
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@6.1.11/index.global.min.js'></script>
 
 <div id='calendar'></div>
 
 <script>
-    $(document).ready(function() {
-        var calendarId = "{{ original.id }}";
-        $('#calendar').fullCalendar({
-            events: '/odt-admin/schedule/events/' + calendarId + '/', // URL to fetch events for the specific calendar
-            editable: true,
-            selectable: true,
-            selectHelper: true,
-            select: function(start, end) {
-                var title = prompt('Event Title:');
-                if (title) {
-                    var eventData = {
-                        title: title,
-                        start: start,
-                        end: end
-                    };
-                    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-                }
-                $('#calendar').fullCalendar('unselect');
+    const calendarId = {{ original.id }};
+    const url = '/get-events-for-calendar/' + calendarId + '/';
+    
+    async function fetchEventData(calendarId, url) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            console.log(data.result);
+            handleEventData(data.result);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    function handleEventData(data) {
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            // event data:
+            events: data,
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
             },
         });
-    });
+        calendar.render()
+    }
+
+    document.addEventListener('DOMContentLoaded', async function () {
+        await fetchEventData(calendarId, url);
+    }) 
+    // $(document).ready(function() {
+    //     $('#calendar').fullCalendar({
+    //         events: '/get-events-for-calendar/' + calendarId + '/', // URL to fetch events for the specific calendar
+    //         editable: true,
+    //         selectable: true,
+    //         selectHelper: true,
+    //         select: function(start, end) {
+    //             var title = prompt('Event Title:');
+    //             if (title) {
+    //                 var eventData = {
+    //                     title: title,
+    //                     start: start,
+    //                     end: end
+    //                 };
+    //                 $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+    //             }
+    //             $('#calendar').fullCalendar('unselect');
+    //         },
+    //     });
+    // });
 </script>
 
     {{ block.super }}

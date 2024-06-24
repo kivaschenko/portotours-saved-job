@@ -56,6 +56,8 @@ urlpatterns = [
     path('update-group-product-without-booking/', products_views.update_group_product_without_booking, name='update-group-product-without-booking'),
     path('create-private-product-without-booking/', products_views.create_private_product_without_booking, name='create-private-product-without-booking'),
     path('update-private-product-without-booking/', products_views.update_private_product_without_booking, name='update-private-product-without-booking'),
+    # Calendar events
+    path('get-events-for-calendar/<int:calendar_id>/', products_views.events_view, name='get-events-for-calendar'),
 ]
 
 # PRODUCTS & PURCHASES
@@ -76,7 +78,7 @@ urlpatterns += [
 
 # HOME & ADMIN
 urlpatterns += [
-    path('grappelli/', include('grappelli.urls')),  # grappelli URLS
+    path('grappelli/', include('grappelli.urls')),
     path('odt-admin/', admin.site.urls),
     path('odt-admin/', include('products.admin_urls')),
     # path('', RedirectView.as_view(url=reverse_lazy('home', kwargs={'lang': 'en'})), name='redirect_home'),
