@@ -584,6 +584,15 @@ class ExperienceEvent(Event):
         super().save(*args, **kwargs)
 
     @property
+    def calendar_title(self):
+        title = "Price: {price}"
+        if self.special_price:
+            calendar_title = title.format(price=self.special_price)
+        else:
+            calendar_title = title.format(price=self.total_price)
+        return calendar_title
+        
+    @property
     def hours(self):
         return float(self.seconds) / 3600
 

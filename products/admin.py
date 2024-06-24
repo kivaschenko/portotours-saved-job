@@ -16,8 +16,9 @@ from .admin_views import calendar_view
 admin.site.unregister(Calendar)
 admin.site.unregister(CalendarRelation)
 admin.site.unregister(Occurrence)
-# admin.site.unregister(Event)
+admin.site.unregister(Event)
 admin.site.unregister(EventRelation)
+admin.site.unregister(Rule)
 
 
 # ----------------------
@@ -53,6 +54,18 @@ class ExperienceEventInline(admin.TabularInline):
     ]
     formset = ExperienceEventFormSet
 
+    def get_queryset(self, request):
+        # Return an empty queryset to hide existing instances
+        return self.model.objects.none()
+
+    def has_change_permission(self, request, obj=None):
+        # Prevent changing existing instances
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        # Prevent deleting existing instances
+        return False
+
     def save_formset(self, request, form, formset, change):
         instances = formset.save(commit=False)
         for instance in instances:
@@ -60,6 +73,7 @@ class ExperienceEventInline(admin.TabularInline):
                 instance.creator = request.user
             instance.save()
         formset.save_m2m()
+
 
 
 @admin.register(Calendar)

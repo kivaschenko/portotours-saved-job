@@ -1034,19 +1034,30 @@ def check_experience(request, product_number):
 
 
 # ------------------
-# Calandars handlers
+# Calendars handlers
 
 @csrf_exempt
 def events_view(request, calendar_id):
     try:
-        calendar = Calendar.objects.get(pk=calendar_id)
-        events = calendar.events.all()
-        print('events:', events)
-        events_list = [{
-            'title': event.title,
-            'start': event.start.isoformat(),
-            'end': event.end.isoformat()
-        } for event in events]
-        return JsonResponse({'result': events_list}, status=200)
+        events = ExperienceEvent.objects.filter(calendar_id=calendar_id)
+        custom_events = []
+        for event in events:
+            item = {
+                'id': event.id,
+                'title': event.calendar_title,
+                'start': event.start.isoformat(),
+                'end': event.end.isoformat(),
+                'url': f'/odt-admin/products/experienceevent/{event.id}/change/',
+                'extendedProps': {
+                    'max_participants': event.max_participants,
+                    'booked_participants': event.booked_participants,
+                    'remaining_participants': event.remaining_participants,
+                    'special_price': event.special_price,
+                    'child_special_price': event.child_special_price,
+                    'total_price': event.total_price,
+                }
+            }
+            custom_events.append(item)
+        return JsonResponse({'result': custom_events}, status=200)
     except json.decoder.JSONDecodeError as exp:
         return HttpResponseBadRequest(f'Invalid JSON data: {exp}')
