@@ -37,3 +37,10 @@ class Purchase(models.Model):
 
     def __repr__(self):
         return f'<Purchase: {self.id} | {self.stripe_payment_intent_id}>'
+
+    @property
+    def float_price(self):
+        if self.stripe_price > 0:
+            return round(self.stripe_price/100, 2)
+        else:
+            return 0.0
