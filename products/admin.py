@@ -77,7 +77,6 @@ class ExperienceEventInline(admin.TabularInline):
         formset.save_m2m()
 
 
-
 @admin.register(Calendar)
 class ExperienceCalendarAdmin(admin.ModelAdmin):
     exclude = ['name', 'slug', ]
@@ -104,6 +103,18 @@ class ExperienceCalendarAdmin(admin.ModelAdmin):
         extra_context['calendar_url'] = reverse('admin-calendar', args=[object_id])
         return super().change_view(request, object_id, form_url, extra_context=extra_context)
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+
 
 @admin.register(ExperienceEvent)
 class ExperienceEventAdmin(admin.ModelAdmin):
@@ -119,6 +130,9 @@ class ExperienceEventAdmin(admin.ModelAdmin):
     search_fields = ['title', 'description', ]
     list_filter = ['start', 'calendar']
     list_per_page = 20
+
+    def has_add_permission(self, request, obj=None):
+        return False
 
 
 # ------------

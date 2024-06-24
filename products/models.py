@@ -587,12 +587,11 @@ class ExperienceEvent(Event):
     def calendar_title(self):
         title = "€ {price} Participants: {booked}/{max_participants}"
         if self.special_price:
-            calendar_title = title.format(price=self.special_price, booked=self.booked_participants,
-                                          max_participants=self.max_participants)
+            calendar_title = title.format(price=self.special_price, booked=self.booked_participants, max_participants=self.max_participants)
         else:
-            calendar_title = title.format(price=self.total_price)
+            calendar_title = title.format(price=self.total_price, booked=self.booked_participants, max_participants=self.max_participants)
         return calendar_title
-        
+
     @property
     def hours(self):
         return float(self.seconds) / 3600
