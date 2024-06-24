@@ -1055,6 +1055,9 @@ def events_view(request, calendar_id):
                     'special_price': event.special_price,
                     'child_special_price': event.child_special_price,
                     'total_price': event.total_price,
+                    'start_date': event.start_date,
+                    'start_time': event.start_time,
+                    'hours': round(event.hours, 2),
                 }
             }
             custom_events.append(item)
