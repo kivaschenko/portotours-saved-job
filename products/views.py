@@ -1,14 +1,12 @@
 from django.contrib.sessions.models import Session
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import ExpressionWrapper, DurationField
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonResponse, HttpResponse, Http404
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, ListView, DeleteView, View
-from schedule.models import EventRelation
 from weasyprint import HTML
 
 from home.forms import ExperienceSearchForm

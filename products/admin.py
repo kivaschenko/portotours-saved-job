@@ -34,7 +34,7 @@ class MyAdminSite(AdminSite):
         urls = super().get_urls()
         custom_urls = [
             path('schedule/calendar/<int:calendar_id>/', self.admin_view(calendar_view), name='admin-calendar'),
-            # path('schedule/events/<int:calendar_id>/', self.admin_view(events_view), name='admin-events'),
+            path('schedule/events/<int:calendar_id>/', self.admin_view(events_view), name='admin-events'),
         ]
         return custom_urls + urls
 
