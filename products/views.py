@@ -1071,7 +1071,6 @@ def events_view(request, calendar_id):
                     'is_full': is_full
                 }
             }
-            print(item)
             custom_events.append(item)
         return JsonResponse({'result': custom_events}, status=200)
     except json.decoder.JSONDecodeError as exp:

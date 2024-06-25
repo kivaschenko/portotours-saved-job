@@ -1,3 +1,5 @@
+# signals.py
+
 import logging
 from decimal import Decimal
 
@@ -47,6 +49,32 @@ def fill_empty_prices_and_set_relation(sender, instance, created, **kwargs):
 
         # Set event relation
         EventRelation.objects.create(event=instance, content_object=parent_experience_obj, distinction='experience event')
+
+        # New logic to handle occurrences if the instance has a rule
+        if instance.rule and instance.end_recurring_period is not None:
+            occurrences = instance.get_occurrences(start=instance.effective_start, end=instance.effective_end)
+            for occurrence in occurrences:
+                # Skip the occurrence if it matches the start and end of the original instance
+                if occurrence.original_start == instance.start and occurrence.original_end == instance.end:
+                    continue
+
+                new_event = ExperienceEvent(
+                    title=instance.title,
+                    description=instance.description,
+                    calendar=instance.calendar,
+                    start=occurrence.original_start,
+                    end=occurrence.original_end,
+                    max_participants=instance.max_participants,
+                    booked_participants=instance.booked_participants,
+                    remaining_participants=instance.remaining_participants,
+                    special_price=instance.special_price,
+                    child_special_price=instance.child_special_price,
+                    total_price=instance.total_price,
+                    # Copy other necessary fields
+                )
+                new_event.rule = None
+                new_event.save()
+                logger.info(f"Event created by signal:\t{new_event}\n")
 
 
 @receiver(post_save, sender=Product)

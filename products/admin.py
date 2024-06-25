@@ -59,7 +59,7 @@ class ExperienceEventInline(admin.TabularInline):
 
     def get_queryset(self, request):
         # Return an empty queryset to hide existing instances
-        return self.model.objects.none()
+        return self.model.objects.filter(rule__isnull=False)
 
     def has_change_permission(self, request, obj=None):
         # Prevent changing existing instances
@@ -67,7 +67,7 @@ class ExperienceEventInline(admin.TabularInline):
 
     def has_delete_permission(self, request, obj=None):
         # Prevent deleting existing instances
-        return False
+        return True
 
     def save_formset(self, request, form, formset, change):
         instances = formset.save(commit=False)
@@ -84,6 +84,8 @@ class ExperienceCalendarAdmin(admin.ModelAdmin):
     readonly_fields = ['is_private']
     inlines = [ExperienceEventInline]
     list_display = ['name', 'is_private']
+    list_per_page = 20
+    list_filter = ['name']
 
     def is_private(self, obj):
         relation = obj.calendarrelation_set.first()
@@ -122,12 +124,15 @@ class ExperienceEventAdmin(admin.ModelAdmin):
     exclude = [
         'description',
         'color_event',
-        'rule',
-        'end_recurring_period',
+        # 'rule',
+        # 'end_recurring_period',
     ]
     list_display = ['id', 'title', 'rule', 'end_recurring_period', 'max_participants', 'booked_participants',
                     'remaining_participants', 'special_price', 'child_special_price', 'total_price']
-    readonly_fields = ['title', 'calendar', 'rule', 'end_recurring_period']
+    readonly_fields = [
+        'title',
+        'calendar',
+    ]
     search_fields = ['title', 'description', ]
     list_filter = ['start', 'calendar']
     list_per_page = 20
