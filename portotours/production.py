@@ -263,6 +263,7 @@ CKEDITOR_CONFIGS = {
              'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-',
                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']},
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'insert', 'items': ['Image', 'Table', 'SpecialChar']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             {'name': 'source', 'items': ['Source']},
         ],
