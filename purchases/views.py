@@ -34,6 +34,8 @@ class BillingDetailView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Add the template name to the context
+        context['template_name'] = self.template_name
         products = self.get_queryset()
         total_sum = products.aggregate(total_sum=Sum('total_price'))['total_sum']
         if total_sum is None:
@@ -153,6 +155,8 @@ class ConfirmationView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Add the template name to the context
+        context['template_name'] = self.template_name
         payment_intent_id = self.request.GET.get('payment_intent_id')
         if payment_intent_id:
             purchase = Purchase.last24hours_manager.filter(stripe_payment_intent_id=payment_intent_id).first()

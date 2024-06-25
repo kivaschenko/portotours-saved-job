@@ -125,6 +125,8 @@ class ExperienceDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Add the template name to the context
+        context['template_name'] = self.template_name
         # Find all other languages
         brothers = self.object.parent_experience.child_experiences.all()
         if brothers.exists():
@@ -262,6 +264,8 @@ class ProductCartView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['ecommerce_items'] = []
+        # Add the template name to the context
+        context['template_name'] = self.template_name
         queryset = self.get_queryset()  # Ensure queryset is evaluated every time
         if queryset.exists():
             latest_product = queryset.latest()
@@ -293,6 +297,11 @@ class DeleteProductView(DeleteView):
     template_name = 'products/delete_product_form.html'
     success_url = reverse_lazy('my-cart', kwargs={'lang': 'en'})
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add the template name to the context
+        context['template_name'] = self.template_name
+
     def delete(self, request, *args, **kwargs):
         """
         Call the delete() method on the fetched object and then redirect to the
@@ -312,6 +321,11 @@ class CancelProductView(DeleteView):
     model = Product
     template_name = 'products/cancel_form.html'
     success_url = reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add the template name to the context
+        context['template_name'] = self.template_name
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -519,6 +533,11 @@ class EditProductView(DetailView):
     template_name = 'products/update_product.html'
     queryset = Product.objects.all()
     extra_context = {}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add the template name to the context
+        context['template_name'] = self.template_name
 
     def get_object(self, queryset=None):
         obj = super(EditProductView, self).get_object(queryset=queryset)

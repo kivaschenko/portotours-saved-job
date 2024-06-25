@@ -69,7 +69,7 @@
         <!-- Swiper Slider -->
         <link rel="stylesheet" href="{% static 'custom_css/swiper-bundle.min.css' %}"/>
         <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
-        
+
     {% endblock links_and_styles %}
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -85,6 +85,17 @@
     {% block content %}
     {% endblock content %}
 </main>
+
+{% if template_name == 'experiences/experience_details.html' or template_name == 'products/update_product.html' or template_name == 'products/my_cart.html' or template_name == 'purchases/checkout.html' or template_name == 'purchases/confirmation.html' or template_name == 'products/delete_product_form.html' or template_name == 'products/cancel_form.html' %}
+    <!--hide widget -->
+    <div id="widget" style="display: none"></div>
+{% else %}
+    <!-- Виджет -->
+    <div id="widget">
+        <!-- код виджета -->
+        <p>Delete this after...</p>
+    </div>
+{% endif %}
 
 <footer class="mt-auto footer">
     <div class="container">
@@ -191,56 +202,56 @@
     });
 </script>
 {% block cookie_policy %}
-<script type="text/javascript">
-    var _iub = _iub || [];
-    _iub.csConfiguration = {
-        "askConsentAtCookiePolicyUpdate": true,
-        "countryDetection": true,
-        "enableFadp": true,
-        "enableLgpd": true,
-        "enableTcf": true,
-        "enableUspr": true,
-        "floatingPreferencesButtonDisplay": "anchored-bottom-left",
-        "googleAdditionalConsentMode": true,
-        "lang": "en",
-        "lgpdAppliesGlobally": false,
-        "perPurposeConsent": true,
-        "preferenceCookie": {"expireAfter": 180},
-        "siteId": 3650775,
-        "tcfPurposes": {"2": "consent_only", "7": "consent_only", "8": "consent_only", "9": "consent_only", "10": "consent_only", "11": "consent_only"},
-        "usPreferencesWidgetDisplay": "inline-left",
-        "whitelabel": false,
-        "cookiePolicyId": 97833443,
-        "banner": {
-            "acceptButtonCaptionColor": "#FFFFFF",
-            "acceptButtonColor": "#0073CE",
-            "acceptButtonDisplay": true,
-            "backgroundColor": "#FFFFFF",
-            "closeButtonDisplay": false,
-            "customizeButtonCaptionColor": "#4D4D4D",
-            "customizeButtonColor": "#DADADA",
-            "customizeButtonDisplay": true,
-            "explicitWithdrawal": true,
-            "fontSizeBody": "10px",
-            "listPurposes": true,
-            "logo": null,
-            "ownerName": "onedaytours.pt",
-            "position": "float-bottom-left",
-            "rejectButtonCaptionColor": "#FFFFFF",
-            "rejectButtonColor": "#0073CE",
-            "rejectButtonDisplay": true,
-            "showTitle": false,
-            "showTotalNumberOfProviders": true,
-            "textColor": "#000000"
-        }
-    };
-</script>
-<script type="text/javascript" src="https://cs.iubenda.com/autoblocking/3650775.js"></script>
-<script type="text/javascript" src="//cdn.iubenda.com/cs/tcf/stub-v2.js"></script>
-<script type="text/javascript" src="//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js"></script>
-<script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
-<script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
-<script defer src="https://static.getbutton.io/widget/bundle.js?id=NVUaC"></script>
+    <script type="text/javascript">
+        var _iub = _iub || [];
+        _iub.csConfiguration = {
+            "askConsentAtCookiePolicyUpdate": true,
+            "countryDetection": true,
+            "enableFadp": true,
+            "enableLgpd": true,
+            "enableTcf": true,
+            "enableUspr": true,
+            "floatingPreferencesButtonDisplay": "anchored-bottom-left",
+            "googleAdditionalConsentMode": true,
+            "lang": "en",
+            "lgpdAppliesGlobally": false,
+            "perPurposeConsent": true,
+            "preferenceCookie": {"expireAfter": 180},
+            "siteId": 3650775,
+            "tcfPurposes": {"2": "consent_only", "7": "consent_only", "8": "consent_only", "9": "consent_only", "10": "consent_only", "11": "consent_only"},
+            "usPreferencesWidgetDisplay": "inline-left",
+            "whitelabel": false,
+            "cookiePolicyId": 97833443,
+            "banner": {
+                "acceptButtonCaptionColor": "#FFFFFF",
+                "acceptButtonColor": "#0073CE",
+                "acceptButtonDisplay": true,
+                "backgroundColor": "#FFFFFF",
+                "closeButtonDisplay": false,
+                "customizeButtonCaptionColor": "#4D4D4D",
+                "customizeButtonColor": "#DADADA",
+                "customizeButtonDisplay": true,
+                "explicitWithdrawal": true,
+                "fontSizeBody": "10px",
+                "listPurposes": true,
+                "logo": null,
+                "ownerName": "onedaytours.pt",
+                "position": "float-bottom-left",
+                "rejectButtonCaptionColor": "#FFFFFF",
+                "rejectButtonColor": "#0073CE",
+                "rejectButtonDisplay": true,
+                "showTitle": false,
+                "showTotalNumberOfProviders": true,
+                "textColor": "#000000"
+            }
+        };
+    </script>
+    <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/3650775.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/tcf/stub-v2.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
+    <script defer src="https://static.getbutton.io/widget/bundle.js?id=NVUaC"></script>
 {% endblock cookie_policy %}
 </body>
 </html>
