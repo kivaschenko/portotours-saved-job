@@ -18,7 +18,7 @@ admin.site.unregister(CalendarRelation)
 admin.site.unregister(Occurrence)
 admin.site.unregister(Event)
 admin.site.unregister(EventRelation)
-admin.site.unregister(Rule)
+# admin.site.unregister(Rule)
 
 
 # ----------------------
@@ -51,9 +51,10 @@ class ExperienceEventInline(admin.TabularInline):
         'remaining_participants',
         'color_event',
         'creator',
-        'rule',
-        'end_recurring_period',
+        # 'rule',
+        # 'end_recurring_period',
     ]
+    extra = 1
     formset = ExperienceEventFormSet
 
     def get_queryset(self, request):
@@ -124,9 +125,9 @@ class ExperienceEventAdmin(admin.ModelAdmin):
         'rule',
         'end_recurring_period',
     ]
-    list_display = ['id', 'title', 'max_participants', 'booked_participants',
+    list_display = ['id', 'title', 'rule', 'end_recurring_period', 'max_participants', 'booked_participants',
                     'remaining_participants', 'special_price', 'child_special_price', 'total_price']
-    readonly_fields = ['title', 'calendar']
+    readonly_fields = ['title', 'calendar', 'rule', 'end_recurring_period']
     search_fields = ['title', 'description', ]
     list_filter = ['start', 'calendar']
     list_per_page = 20

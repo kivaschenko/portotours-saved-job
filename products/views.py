@@ -1039,9 +1039,19 @@ def check_experience(request, product_number):
 @csrf_exempt
 def events_view(request, calendar_id):
     try:
+        calendar = Calendar.objects.get(id=calendar_id)
+        relation = calendar.calendarrelation_set.first()
+        parent_experience = relation.content_object
         events = ExperienceEvent.objects.filter(calendar_id=calendar_id)
         custom_events = []
         for event in events:
+            is_full = False
+            if parent_experience.is_private:
+                if event.booked_participants > 0:  # whole expirience bought
+                    is_full = True
+            else:
+                if event.remaining_participants == 0:
+                    is_full = True
             item = {
                 'id': event.id,
                 'title': event.calendar_title,
@@ -1058,8 +1068,10 @@ def events_view(request, calendar_id):
                     'start_date': event.start_date,
                     'start_time': event.start_time,
                     'hours': round(event.hours, 2),
+                    'is_full': is_full
                 }
             }
+            print(item)
             custom_events.append(item)
         return JsonResponse({'result': custom_events}, status=200)
     except json.decoder.JSONDecodeError as exp:

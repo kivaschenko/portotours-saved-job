@@ -542,11 +542,11 @@ class ExperienceEvent(Event):
     max_participants = models.IntegerField(null=True, blank=True, help_text="Maximum number of participants, if 0 then inherit from Parent Experience.")
     booked_participants = models.IntegerField(null=True, blank=True, help_text="Already booked places.")
     remaining_participants = models.IntegerField(null=True, blank=True, help_text="Remaining participants.")
-    special_price = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2,
+    special_price = models.DecimalField('Adult Price (Group)', null=True, blank=True, max_digits=10, decimal_places=2,
                                         help_text="Special price if different from Parent Experience.")
-    child_special_price = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2,
+    child_special_price = models.DecimalField('Child Price (Group)', null=True, blank=True, max_digits=10, decimal_places=2,
                                               help_text="Special child price if different from Parent Experience.")
-    total_price = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2, help_text="Total price for whole private tour.")
+    total_price = models.DecimalField('Total Price (Private)', null=True, blank=True, max_digits=10, decimal_places=2, help_text="Total price for whole private tour.")
 
     class Meta:
         verbose_name = "Experience Event"

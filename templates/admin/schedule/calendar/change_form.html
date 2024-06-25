@@ -81,7 +81,7 @@
                 return { domNodes: [customHtml] };
             },
             eventClassNames: function(arg) {
-                if (arg.event.extendedProps.booked_participants === arg.event.extendedProps.max_participants) {
+                if (arg.event.extendedProps.is_full === true) {
                     return ['event-full'];
                 }
                 return [];
