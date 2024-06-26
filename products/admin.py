@@ -53,6 +53,7 @@ class ExperienceEventInline(admin.TabularInline):
         'creator',
         # 'rule',
         # 'end_recurring_period',
+        'rule_event',
     ]
     extra = 1
     formset = ExperienceEventFormSet
@@ -63,7 +64,7 @@ class ExperienceEventInline(admin.TabularInline):
 
     def has_change_permission(self, request, obj=None):
         # Prevent changing existing instances
-        return False
+        return True
 
     def has_delete_permission(self, request, obj=None):
         # Prevent deleting existing instances
@@ -132,6 +133,7 @@ class ExperienceEventAdmin(admin.ModelAdmin):
     readonly_fields = [
         'title',
         'calendar',
+        'rule_event',
     ]
     search_fields = ['title', 'description', ]
     list_filter = ['start', 'calendar']

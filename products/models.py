@@ -546,7 +546,10 @@ class ExperienceEvent(Event):
                                         help_text="Special price if different from Parent Experience.")
     child_special_price = models.DecimalField('Child Price (Group)', null=True, blank=True, max_digits=10, decimal_places=2,
                                               help_text="Special child price if different from Parent Experience.")
-    total_price = models.DecimalField('Total Price (Private)', null=True, blank=True, max_digits=10, decimal_places=2, help_text="Total price for whole private tour.")
+    total_price = models.DecimalField('Total Price (Private)', null=True, blank=True, max_digits=10, decimal_places=2,
+                                      help_text="Total price for whole private tour.")
+    rule_event = models.ForeignKey('ExperienceEvent', on_delete=models.SET_NULL, null=True, blank=True, related_name='child_rule_events')
+    stop_rule_date = models.DateField(null=True, blank=True, help_text="Date of stop rule. Define and save this before CASCADE delete will running!")
 
     class Meta:
         verbose_name = "Experience Event"

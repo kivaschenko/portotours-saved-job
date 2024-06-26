@@ -3,7 +3,7 @@
 import logging
 from decimal import Decimal
 
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete, pre_delete
 from django.dispatch import receiver
 
 from schedule.models import Calendar, EventRelation
@@ -36,7 +36,7 @@ def fill_empty_prices_and_set_relation(sender, instance, created, **kwargs):
             instance.max_participants = parent_experience_obj.max_participants
         if not instance.booked_participants:
             instance.booked_participants = 0
-            instance.remaining_participants = parent_experience_obj.max_participants
+            instance.remaining_participants = instance.max_participants
         else:
             instance.remaining_participants = instance.max_participants - instance.booked_participants
         if not instance.special_price and not parent_experience_obj.is_private:
@@ -55,8 +55,8 @@ def fill_empty_prices_and_set_relation(sender, instance, created, **kwargs):
             occurrences = instance.get_occurrences(start=instance.effective_start, end=instance.effective_end)
             for occurrence in occurrences:
                 # Skip the occurrence if it matches the start and end of the original instance
-                if occurrence.original_start == instance.start and occurrence.original_end == instance.end:
-                    continue
+                # if occurrence.original_start == instance.start and occurrence.original_end == instance.end:
+                #     continue
 
                 new_event = ExperienceEvent(
                     title=instance.title,
@@ -70,11 +70,16 @@ def fill_empty_prices_and_set_relation(sender, instance, created, **kwargs):
                     special_price=instance.special_price,
                     child_special_price=instance.child_special_price,
                     total_price=instance.total_price,
+                    rule_event=instance,
                     # Copy other necessary fields
                 )
                 new_event.rule = None
                 new_event.save()
-                logger.info(f"Event created by signal:\t{new_event}\n")
+
+            # Assign for instance max number to booked for instance because one using as Rule not as Event
+            instance.booked_participants = instance.max_participants
+            instance.remaining_participants = 0
+            instance.save()
 
 
 @receiver(post_save, sender=Product)
@@ -205,3 +210,27 @@ def adjust_prices_after_update_status_expired(sender, instance, created, **kwarg
 def create_qrcode(sender, instance, created, **kwargs):
     if created:
         create_qrcode_for_product(instance)
+
+
+@receiver(pre_delete, sender=ExperienceEvent)
+def delete_child_rule_events(sender, instance, **kwargs):
+    print(f"Triggered pre_delete for {instance}")
+    if not instance.rule:
+        print("No rule found, exiting signal.")
+        return
+
+    queryset = instance.child_rule_events.all()
+
+    if instance.stop_rule_date:
+        print(f"Filtering events starting from {instance.stop_rule_date}")
+        queryset = queryset.filter(start__gte=instance.stop_rule_date)
+        if not queryset.exists():
+            print("No child rule events found after stop_rule_date, exiting signal.")
+            return
+
+    for event in queryset.iterator():
+        print(f"Deleting child rule event: {event}")
+        print(f"event.booked_participants: {event.booked_participants}")
+        if event.booked_participants == 0:
+            event.delete()
+            print(f"Child event {event} deleted")

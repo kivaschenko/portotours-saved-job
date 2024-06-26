@@ -18,6 +18,11 @@
         background-color: #d27878 !important;
         border-color: red !important;
     }
+    
+    .fc-event.booking {
+        background-color: #0dcaf0 !important;
+        border-color: black !important;
+    }
 </style>
 
 <script>
@@ -82,8 +87,11 @@
             eventClassNames: function(arg) {
                 if (arg.event.extendedProps.is_full === true) {
                     return ['event-full'];
+                } else if (arg.event.extendedProps.booked_participants > 0) {
+                    return ['booking']
+                } else {
+                    return [];
                 }
-                return [];
             }
         });
         calendar.render();

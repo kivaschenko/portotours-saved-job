@@ -1061,7 +1061,7 @@ def events_view(request, calendar_id):
         calendar = Calendar.objects.get(id=calendar_id)
         relation = calendar.calendarrelation_set.first()
         parent_experience = relation.content_object
-        events = ExperienceEvent.objects.filter(calendar_id=calendar_id)
+        events = ExperienceEvent.objects.filter(calendar_id=calendar_id).filter(rule__isnull=True)
         custom_events = []
         for event in events:
             is_full = False
