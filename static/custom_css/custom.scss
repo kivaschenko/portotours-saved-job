@@ -1,7 +1,4 @@
-// Import Bootstrap source files
 @import "../bootstrap/scss/bootstrap.scss";
-@import '../bootstrap/scss/mixins';
-@import "./root.scss";
 @import "./header.scss";
 @import "./footer.scss";
 @import "./authorization.scss";
@@ -18,6 +15,211 @@
 @import "./about.scss";
 
 
+
+
+@font-face {
+    font-family: 'LatoBold';
+    src: local('Lato'), url('../fonts/Lato-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'LatoSemiBold';
+    src: local('Lato'), url('../fonts/Lato-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'LatoMedium';
+    src: local('Lato'), url('../fonts/Lato-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'LatoRegular';
+    src: local('Lato'), url('../fonts/Lato-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+
+:root{
+    /*<editor-fold desc="COLORS">*/
+    --main-color: #000;
+    --second-color: #FFB23B;
+    --text-color-main: #0F0F10;
+    --text-color-second: #fff;
+    --text-color-third: #F0500B;
+
+}
+
+
+.text-color-main {
+    color: var(--text-color-main);
+}
+.text-color-second {
+    color: var(--text-color-second);
+}
+
+h1 {
+    font-size: 92px;
+    line-height: 110px;
+    font-family: 'LatoBold';
+    margin-bottom: 0;
+    @include media-breakpoint-down(md) {
+
+    }
+}
+h2 {
+    font-size: 44px;
+    line-height: 56px;
+    font-family: 'LatoSemiBold';
+    @include media-breakpoint-down(md) {
+        font-size: 26px;
+        line-height: 36px;     
+    }
+}
+h4 {
+    font-size: 32px;
+    line-height: 42px;
+    font-family: 'LatoSemiBold';
+    @include media-breakpoint-down(md) {
+        font-size: 18px;
+        line-height: 28px;     
+    }
+}
+h5 {
+    font-size: 26px;
+    line-height: 36px;
+    font-family: 'LatoMedium';
+    @include media-breakpoint-down(md) {
+        font-size: 18px;
+        line-height: 28px;     
+    }
+}
+.container {
+    max-width: 1312px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+    @include media-breakpoint-down(md) {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+}
+.body-text-b1 {
+    font-family: 'LatoRegular';
+    font-size: 20px;
+    line-height: 30px;
+    @include media-breakpoint-down(md) {
+        font-size: 16px;
+        line-height: 24px;
+    }
+}
+.body-text-b2 {
+    font-family: 'LatoSemiBold';
+    font-size: 18px;
+    line-height: 28px;
+    @include media-breakpoint-down(md) {
+        font-family: 'LatoRegular';
+        font-size: 14px;
+        line-height: 22px;
+    }
+}
+
+.body-text-b3 {
+    font-family: 'LatoRegular';
+    font-size: 16px;
+    line-height: 26px;
+}
+.body-text-b3-sb {
+    font-family: 'LatoSemiBold';
+    font-size: 16px;
+    line-height: 26px;
+}
+.body-text-b4 {
+    font-family: 'LatoRegular';
+    font-size: 14px;
+    line-height: 22px;
+    
+}
+
+.btn-type-1 {
+    border-radius: 38px;
+    background: var(--text-color-third);
+    color: white;
+    border: none;
+    width: fit-content;
+    padding: 18px 0;
+    text-transform: uppercase;
+    font-family: 'LatoSemiBold';
+    font-size: 18px;
+    line-height: normal;
+    text-decoration: none;
+    
+}
+.btn-type-1:hover {
+    background: #DA4303;
+    color: white;
+}
+.btn-type-2 {
+    border-radius: 40px;
+    border: 1px solid var(--text-color-third);
+    background: var(--text-color-second);
+    color: var(--text-color-third);
+    padding: 18px 62px;
+    width: fit-content;
+    font-family: 'LatoSemiBold';
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'LatoSemiBold';
+    font-size: 18px;
+    line-height: normal;
+    display: block;
+    text-decoration: none;
+    @include media-breakpoint-down(md) {
+        width: 100%;
+        font-size: 18px;
+        line-height: normal;
+    }
+}
+.btn-type-2:hover {
+    background: #FFF6F2;
+    color: #DA4303;
+}
+.btn-type-3 {
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(20px);
+    padding: 12px 30px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-family: 'LatoSemiBold';
+    font-size: 18px;
+    line-height: normal;
+    text-decoration: none;
+    cursor: pointer;
+    img {
+        margin-left: 16px;
+    }
+    &:hover {
+        border-radius: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        background: rgba(255, 255, 255, 0.40);
+        backdrop-filter: blur(20px);
+        color: white;
+    }
+}
+
+html.off-scroll,
+html.off-scroll body {
+  overflow: hidden;
+  touch-action: none;
+}
 
 // Your custom styles here
 html {
