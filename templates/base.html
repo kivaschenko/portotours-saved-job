@@ -54,9 +54,7 @@
         <!-- Canonical URL -->
         <link rel="canonical" href="{{ canonical_url }}">
         <!-- Bootstrap 5 Custom CSS -->
-        <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css"/>
-        <!-- Icons -->
-        <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+        <link href="{% sass_src 'custom_css/custom.css' %}" rel="stylesheet" type="text/css"/>
         <!-- Favicons -->
         <link rel="icon" sizes="16x16" href="{% static 'icons/Favicon_16x16.svg' %}">
         <link rel="icon" sizes="32x32" href="{% static 'icons/Favicon_32x32.svg' %}">
@@ -87,14 +85,9 @@
 </main>
 
 {% if template_name == 'experiences/experience_details.html' or template_name == 'products/update_product.html' or template_name == 'products/my_cart.html' or template_name == 'purchases/checkout.html' or template_name == 'purchases/confirmation.html' or template_name == 'products/delete_product_form.html' or template_name == 'products/cancel_form.html' %}
-    <!--hide widget -->
-    <div id="widget" style="display: none"></div>
+    
 {% else %}
-    <!-- Виджет -->
-    <div id="widget">
-        <!-- код виджета -->
-        <p>Delete this after...</p>
-    </div>
+    <script defer src="https://static.getbutton.io/widget/bundle.js?id=NVUaC"></script>
 {% endif %}
 
 <footer class="mt-auto footer">
@@ -251,7 +244,7 @@
     <script type="text/javascript" src="//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js"></script>
     <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
     <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
-    <script defer src="https://static.getbutton.io/widget/bundle.js?id=NVUaC"></script>
+    
 {% endblock cookie_policy %}
 </body>
 </html>

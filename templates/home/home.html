@@ -7,6 +7,7 @@
         <div class="container">
             <h1 class="hero-title">
                 <img class="logo-desktop" src="{% static 'images/homepage-title.svg' %}" alt="logo">
+                <link rel="preload" fetchpriority="high" as="image" href="{% static 'images/homepage-hero-bg-mob.jpg' %}" type="image/webp">
                 <img fetchpriority="high" class="logo-mobile" src="{% static 'images/homepage-title-mob.svg' %}" alt="logo">
             </h1>
             <div class="experience-list-hero-calendar">
