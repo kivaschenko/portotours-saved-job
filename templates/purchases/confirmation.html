@@ -137,7 +137,7 @@
     // Ensure `ecommerce_items` is properly converted to a JavaScript array
     const itemsArray = {{ ecommerce_items|safe }};
     const purchaseId = {{ purchase.id }};
-    const purchaseTotalPrice = {{ purchase.float_price }};
+    const purchaseTotalPrice = `{{ purchase.float_price }}`;
 
     // Ensure the dataLayer is defined
     window.dataLayer = window.dataLayer || [];
