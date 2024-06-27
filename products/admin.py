@@ -1,3 +1,4 @@
+# admin.py
 from django.contrib import admin
 from django.contrib.admin import AdminSite
 from django.contrib.gis.admin import GISModelAdmin
@@ -18,6 +19,8 @@ admin.site.unregister(CalendarRelation)
 admin.site.unregister(Occurrence)
 admin.site.unregister(Event)
 admin.site.unregister(EventRelation)
+
+
 # admin.site.unregister(Rule)
 
 
@@ -42,21 +45,57 @@ class MyAdminSite(AdminSite):
 admin_site = MyAdminSite(name='myadmin')
 
 
+class ExperienceEventForm(ModelForm):
+    class Meta:
+        model = ExperienceEvent
+        exclude = [
+            'title',
+            'description',
+            'booked_participants',
+            'remaining_participants',
+            'color_event',
+            'creator',
+            'rule_event',
+        ]
+
+    def __init__(self, *args, **kwargs):
+        # Capture the calendar instance passed through the form kwargs
+        calendar_instance = self.calendar_instance
+        super().__init__(*args, **kwargs)
+        if calendar_instance:
+            relation = calendar_instance.calendarrelation_set.first()
+            if relation:
+                parent_experience_obj = relation.content_object
+                if parent_experience_obj:
+                    self.fields['max_participants'].initial = parent_experience_obj.max_participants
+                    if parent_experience_obj.is_private:
+                        self.fields['total_price'].initial = parent_experience_obj.price
+                    else:
+                        self.fields['special_price'].initial = parent_experience_obj.price
+                        self.fields['child_special_price'].initial = parent_experience_obj.child_price
+
+
 class ExperienceEventInline(admin.TabularInline):
     model = ExperienceEvent
-    exclude = [
-        'title',
-        'description',
-        'booked_participants',
-        'remaining_participants',
-        'color_event',
-        'creator',
-        # 'rule',
-        # 'end_recurring_period',
-        'rule_event',
-    ]
+    form = ExperienceEventForm
     extra = 1
     formset = ExperienceEventFormSet
+    verbose_name = "Custom Recurring Rule for Experience Event"
+    verbose_name_plural = "Custom Recurring Rules for Experience Events"
+
+    def get_formset(self, request, obj=None, **kwargs):
+        formset = super().get_formset(request, obj, **kwargs)
+        formset.form.base_fields['max_participants'].required = False
+        formset.form.base_fields['total_price'].required = False
+        formset.form.base_fields['special_price'].required = False
+        formset.form.base_fields['child_special_price'].required = False
+        return formset
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        # Pass the calendar instance to the form
+        form.calendar_instance = obj
+        return form
 
     def get_queryset(self, request):
         # Return an empty queryset to hide existing instances
@@ -107,6 +146,15 @@ class ExperienceCalendarAdmin(admin.ModelAdmin):
         extra_context['calendar_url'] = reverse('admin-calendar', args=[object_id])
         return super().change_view(request, object_id, form_url, extra_context=extra_context)
 
+    def get_inline_instances(self, request, obj=None):
+        inline_instances = []
+        for inline in self.inlines:
+            inline_instance = inline(self.model, self.admin_site)
+            if obj:
+                inline_instance.form.calendar_instance = obj
+            inline_instances.append(inline_instance)
+        return inline_instances
+
     def has_delete_permission(self, request, obj=None):
         return False
 
@@ -128,7 +176,7 @@ class ExperienceEventAdmin(admin.ModelAdmin):
         # 'rule',
         # 'end_recurring_period',
     ]
-    list_display = ['id', 'title', 'rule', 'end_recurring_period', 'max_participants', 'booked_participants',
+    list_display = ['id', 'title', 'start', 'rule', 'end_recurring_period', 'max_participants', 'booked_participants',
                     'remaining_participants', 'special_price', 'child_special_price', 'total_price']
     readonly_fields = [
         'title',
@@ -383,11 +431,11 @@ class ExperienceOccurrenceAdmin(admin.ModelAdmin):
             if product.customer is not None:
                 return product.customer
         return None
-    
+
     def get_queryset(self, request):
         # Return an empty queryset to hide existing instances
         return self.model.objects.filter(product__isnull=False)
-    
+
     def has_add_permission(self, request, obj=None):
         return False
 
