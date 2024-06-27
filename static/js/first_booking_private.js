@@ -238,16 +238,15 @@ const controller = {
 
             // Check if response is successful
             if (response.ok) {
+                // Push data to Google analytics
+                window.dataLayer.push({ecommerce: null});
+                window.dataLayer.push({
+                    event: "add_to_cart",
+                    ecommerce: [model.googleItems],
+                });
                 if (model.cart_not_empty) {
                     // Handle successful response
                     const languageSlug = model.bookingData.language_code.toLowerCase();
-
-                    // Push data to Google analytics
-                    window.dataLayer.push({ecommerce: null});
-                    window.dataLayer.push({
-                        event: "add_to_cart",
-                        ecommerce: [model.googleItems],
-                    });
                     setTimeout(() => {
                         // window.open(`/my-cart/${languageSlug}/`)
                         window.location.href = `/my-cart/${languageSlug}/`;

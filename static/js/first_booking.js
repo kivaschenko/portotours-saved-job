@@ -200,13 +200,13 @@ const controller = {
             });
 
             if (response.ok) {
+                window.dataLayer.push({ ecommerce: null });
+                window.dataLayer.push({
+                    event: "add_to_cart",
+                    ecommerce: [model.googleItems],
+                });
                 if (model.cart_not_empty) {
                     const languageSlug = model.bookingData.language_code.toLowerCase();
-                    window.dataLayer.push({ ecommerce: null });
-                    window.dataLayer.push({
-                        event: "add_to_cart",
-                        ecommerce: [model.googleItems],
-                    });
                     setTimeout(() => {
                         window.location.href = `/my-cart/${languageSlug}/`;
                     }, 200);
