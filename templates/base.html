@@ -84,12 +84,6 @@
     {% endblock content %}
 </main>
 
-{% if template_name == 'experiences/experience_details.html' or template_name == 'products/update_product.html' or template_name == 'products/my_cart.html' or template_name == 'purchases/checkout.html' or template_name == 'purchases/confirmation.html' or template_name == 'products/delete_product_form.html' or template_name == 'products/cancel_form.html' %}
-    
-{% else %}
-    <script defer src="https://static.getbutton.io/widget/bundle.js?id=NVUaC"></script>
-{% endif %}
-
 <footer class="mt-auto footer">
     <div class="container">
         <div class="row">
@@ -245,6 +239,10 @@
     <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
     <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
     
+    
 {% endblock cookie_policy %}
+{% block whatsup %}
+    <script defer src="https://static.getbutton.io/widget/bundle.js?id=NVUaC"></script>
+{% endblock whatsup %}
 </body>
 </html>
