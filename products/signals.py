@@ -5,7 +5,6 @@ from decimal import Decimal
 
 from django.db.models.signals import post_save, post_delete, pre_delete
 from django.dispatch import receiver
-
 from schedule.models import Calendar, EventRelation
 
 from .models import ParentExperience, ExperienceEvent, Product
@@ -214,23 +213,30 @@ def create_qrcode(sender, instance, created, **kwargs):
 
 @receiver(pre_delete, sender=ExperienceEvent)
 def delete_child_rule_events(sender, instance, **kwargs):
-    print(f"Triggered pre_delete for {instance}")
     if not instance.rule:
-        print("No rule found, exiting signal.")
         return
 
     queryset = instance.child_rule_events.all()
 
     if instance.stop_rule_date:
-        print(f"Filtering events starting from {instance.stop_rule_date}")
         queryset = queryset.filter(start__gte=instance.stop_rule_date)
         if not queryset.exists():
-            print("No child rule events found after stop_rule_date, exiting signal.")
             return
 
     for event in queryset.iterator():
-        print(f"Deleting child rule event: {event}")
-        print(f"event.booked_participants: {event.booked_participants}")
         if event.booked_participants == 0:
             event.delete()
-            print(f"Child event {event} deleted")
+
+
+@receiver(post_save, sender=ExperienceEvent)
+def update_prices_for_child_rule_events(sender, instance, created, **kwargs):
+    if not created and instance.rule:
+        queryset = instance.child_rule_events.all()
+
+        for event in queryset.iterator():
+            if event.booked_participants == 0:
+                event.max_participants = instance.max_participants
+                event.special_price = instance.special_price
+                event.child_special_price = instance.child_special_price
+                event.total_price = instance.total_price
+                event.save()
