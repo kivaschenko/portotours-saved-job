@@ -321,12 +321,10 @@
         }
     
         // Получаем значение переменной cart_not_empty из Django
-        const cartNoEmpty = {{ cart_not_empty|lower }};
+        const cartNotEmpty = {{ cart_not_empty|lower }};
 
-        console.log(cartNoEmpty)
-    
         // Проверяем значение переменной cart_not_empty при загрузке страницы
-        if (!cartNoEmpty) {
+        if (!cartNotEmpty) {
             localStorage.removeItem('turboSaleBannerHidden');
         }
     

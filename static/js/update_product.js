@@ -576,9 +576,9 @@ const controller = {
 };
 
 // Function to fetch JSON data using AJAX
-async function fetchEventData(parentExperienceId) {
+async function fetchEventData(parentExperienceId, url) {
     try {
-        const response = await fetch(`/actual-experience-events/${parentExperienceId}/`);
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -631,7 +631,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     await fetchEventDataForCurrentEvent(currentEventId);
 
     // Fetch event data and wait for it to complete
-    await fetchEventData(parentExperienceId);
+    let fetchUrl;
+    if (priceIsSpecial) {
+        fetchUrl = `/actual-experience-events-with-discount/${parentExperienceId}/`;
+    } else {
+        fetchUrl = `/actual-experience-events/${parentExperienceId}/`;
+    }
+    await fetchEventData(parentExperienceId, fetchUrl);
 
     // Disable submit button, ticket selection, and language selection blocks on page load
     const submitBtn = document.getElementById('submitBtn');

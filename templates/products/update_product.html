@@ -61,6 +61,13 @@
         const totalPrice = {{ object.total_price }};
         const languageProduct = `{{ object.language.code }}`;
         const optionExtras = {{ options|safe }};
+        {% if object.price_is_special %}
+            const priceIsSpecial = true;
+        {% else %}
+            const priceIsSpecial = false;
+        {% endif %}
+        console.log('const priseISpecial=', priceIsSpecial);
+
     </script>
 
     {% if object.parent_experience.is_private %}
