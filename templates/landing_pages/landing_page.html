@@ -48,7 +48,7 @@
                         </p>
                         <select name="experience filter" id="destination-slug">
                             <option value="all">All</option>
-                            {% for destination in destinations %}
+                            {% for destination in select_destinations %}
                                 <option value="{{ destination.0 }}">{{ destination.1 }}</option>
                             {% endfor %}
                         </select>
