@@ -1,5 +1,5 @@
 .home-hero {
-  background-image: url(../images/homepage-hero-bg.jpg);
+  background-image: url(../images/homepage-hero-bg.jpeg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -17,10 +17,42 @@
     .hero-title {
       color: white;
       font-family: "LatoSemiBold";
-      font-size: 44px;
+      font-size: 70px;
       line-height: 56px;
       text-align: left;
       padding-left: 24px;
+      span.top-title-text {
+        font-family: "LatoSemiBold";
+        font-size: 34px;
+        line-height: normal;
+        margin: 0;
+        margin-bottom: 22px;
+        display: block;
+        @include media-breakpoint-down(md) {
+          font-size: 18px;
+          margin-bottom: 4px;
+        }
+      }
+      span.bottom-title-text {
+        font-family: "LatoSemiBold";
+        font-size: 26px;
+        line-height: normal;
+        margin: 0;
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        @include media-breakpoint-down(md) {
+          font-size: 18px;
+          margin-top: 5px;
+        }
+        img {
+          margin-left: 14px;
+          @include media-breakpoint-down(md) {
+            max-width: 130px;
+            margin-left: 5px;
+          }
+        }
+      }
       @include media-breakpoint-down(md) {
         background-image: url(../images/homepage-hero-bg-mob.jpg);
         background-position: center;
@@ -28,38 +60,13 @@
         background-size: cover;
         padding-top: 43px;
         padding-bottom: 43px;
-        font-size: 18px;
+        font-size: 34px;
         line-height: normal;
         margin-bottom: 0;
-      }
-      span {
-        display: block;
-        margin-top: 16px;
-        margin-bottom: 32px;
         font-family: "LatoBold";
-        font-size: 92px;
-        line-height: 110px;
-        @include media-breakpoint-down(md) {
-          font-size: 34px;
-          line-height: normal;
-          margin-bottom: 4px;
-          margin-top: 2px;
-        }
       }
-      img {
-        &.logo-mobile {
-          display: none;
-        }
-        @include media-breakpoint-down(md) {
-          width: 270px;
-          &.logo-desktop {
-            display: none;
-          }
-          &.logo-mobile {
-            display: block;
-          }
-        }
-      }
+      
+     
     }
     .experience-list-hero-calendar {
       position: absolute;
