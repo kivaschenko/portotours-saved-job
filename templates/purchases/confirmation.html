@@ -125,6 +125,7 @@
 <!-- Google tracker data pusher -->
 <script>
     // Function to check if the data has already been pushed
+    localStorage.setItem('isDataPushed', 'false');
     function isDataPushed() {
         return localStorage.getItem('isDataPushed') === 'true';
     }
@@ -146,7 +147,7 @@
     if (!isDataPushed()) {
         // Clear the previous ecommerce object.
         window.dataLayer.push({ ecommerce: null });
-
+        
         // Push the new ecommerce data
         window.dataLayer.push({
             event: "purchase",

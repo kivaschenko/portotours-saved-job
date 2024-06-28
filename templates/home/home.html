@@ -6,9 +6,14 @@
     <section class="home-hero">
         <div class="container">
             <h1 class="hero-title">
-                <img class="logo-desktop" src="{% static 'images/homepage-title.svg' %}" alt="logo">
-                <link rel="preload" fetchpriority="high" as="image" href="{% static 'images/homepage-hero-bg-mob.jpg' %}" type="image/webp">
-                <img fetchpriority="high" class="logo-mobile" src="{% static 'images/homepage-title-mob.svg' %}" alt="logo">
+                <span class="top-title-text">
+                    Experience
+                </span>
+                Lisbon & Portugal 
+                <span class="bottom-title-text">
+                    with
+                    <img src="{% static 'icons/hero-logo.svg' %}" alt="">
+                </span>
             </h1>
             <div class="experience-list-hero-calendar">
                 <form action="{% url 'experience-list' lang=current_language %}" method="get">
