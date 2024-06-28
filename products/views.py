@@ -125,8 +125,6 @@ class ExperienceDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Add the template name to the context
-        context['template_name'] = self.template_name
         # Find all other languages
         brothers = self.object.parent_experience.child_experiences.all()
         if brothers.exists():
@@ -343,6 +341,44 @@ class CancelProductView(DeleteView):
         return HttpResponseRedirect(self.get_success_url())
 
 
+class EditProductView(DetailView):
+    model = Product
+    template_name = 'products/update_product.html'
+    queryset = Product.pending.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(EditProductView, self).get_context_data(**kwargs)
+        obj = self.get_object()
+
+        # Get options for current Experience
+        options_list = []
+        options = obj.options.all()
+        if options:
+            for option in options:
+                temp = {
+                    'id': option.experience_option.id,
+                    'name': option.experience_option.name,
+                    'description': option.experience_option.description,
+                    'price': float(option.price),
+                    'quantity': option.quantity,
+                    'max_quantity': option.experience_option.max_quantity,
+                }
+                options_list.append(temp)
+        context['options'] = options_list
+
+        if self.request.user.is_authenticated:
+            context.update({'customer_id': self.request.user.id})
+            context.update({'session_key': self.request.session.session_key})
+        else:
+            context['customer_id'] = None
+            # If the user is not authenticated, get the current session
+            if not self.request.session.exists(self.request.session.session_key):
+                self.request.session.create()
+            context.update({'session_key': self.request.session.session_key})
+
+        return context
+
+
 def get_actual_experience_events(request, parent_experience_id):
     try:
         result = get_actual_events_for_experience(parent_experience_id)
@@ -526,57 +562,6 @@ def get_private_event_booking_data(request, event_id):
         'experience_event_id': event.experienceevent.id,
     }
     return JsonResponse({'result': actual_data_dict}, status=200)
-
-
-class EditProductView(DetailView):
-    model = Product
-    template_name = 'products/update_product.html'
-    queryset = Product.objects.all()
-    extra_context = {}
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Add the template name to the context
-        context['template_name'] = self.template_name
-
-    def get_object(self, queryset=None):
-        obj = super(EditProductView, self).get_object(queryset=queryset)
-
-        # Get options for current Experience
-        options_list = []
-        options = obj.options.all()
-        if options:
-            for option in options:
-                temp = {
-                    'id': option.experience_option.id,
-                    'name': option.experience_option.name,
-                    'description': option.experience_option.description,
-                    'price': float(option.price),
-                    'quantity': option.quantity,
-                    'max_quantity': option.experience_option.max_quantity,
-                }
-                options_list.append(temp)
-        self.extra_context['options'] = options_list
-
-        return obj
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        context = self.get_context_data(object=self.object)
-        return self.render_to_response(context)
-
-    def setup(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            self.extra_context.update({'customer_id': request.user.id})
-            self.extra_context.update({'session_key': request.session.session_key})
-        else:
-            self.extra_context['customer_id'] = None
-            # If the user is not authenticated, get the current session
-            if not request.session.exists(request.session.session_key):
-                request.session.create()
-            self.extra_context.update({'session_key': request.session.session_key})
-        kwargs = super(EditProductView, self).setup(request, *args, **kwargs)
-        return kwargs
 
 
 @csrf_exempt
