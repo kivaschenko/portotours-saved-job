@@ -334,10 +334,6 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'products.tasks.report_about_paid',
         'schedule': 90,  # run every 1.5 minutes
     },
-    'adjust_time_expires_for_image': {
-        'task': 'products.tasks.adjust_time_expires_for_image',
-        'schedule': 2700,  # run every 45 minutes because X-Amz-Expires=3600 1 hour
-    }
 }
 # SECURE_SSL_REDIRECT = True
 PRODUCT_EXPIRE_MINUTES = 60  # Expire timedelta for Product in minutes
