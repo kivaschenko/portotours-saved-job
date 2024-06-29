@@ -22,7 +22,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run tests
-        run: python3 manage.py test
+        run: python3 manage.py test --settings=test_settings.py
 
   build_and_deploy:
     runs-on: ubuntu-22.04
