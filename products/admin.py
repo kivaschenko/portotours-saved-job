@@ -312,7 +312,7 @@ class CheckboxSelectMultipleField(ModelMultipleChoiceField):
 class OptionLanguageCategoryModelForm(ModelForm):
     allowed_options = CheckboxSelectMultipleField(queryset=ExperienceOption.active.all(), required=False)
     allowed_languages = CheckboxSelectMultipleField(queryset=Language.objects.all())
-    categories = CheckboxSelectMultipleField(queryset=ExperienceCategory.objects.all(), required=False)
+    # categories = CheckboxSelectMultipleField(queryset=ExperienceCategory.objects.all(), required=False)
     time_of_day = CheckboxSelectMultipleField(queryset=TimeOfDay.objects.all(), required=False)
     duration = CheckboxSelectMultipleField(queryset=DurationForExperience.objects.all(), required=False)
 
