@@ -76,6 +76,4 @@ venv.bak/
 # PyCharm
 .idea/
 # locally dev files
-commands.txt
-dumpdb.json
 service_layer/debug_emails/

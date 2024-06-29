@@ -299,7 +299,7 @@ class ParentExperience(models.Model):
     allowed_options = models.ManyToManyField(ExperienceOption, help_text="Options for this experience")
     allowed_languages = models.ManyToManyField(Language, help_text="list of languages this experience")
     categories = models.ManyToManyField(ExperienceCategory, help_text="list of categories this experience")
-    time_of_day = models.ManyToManyField(TimeOfDay, help_text="list of titme of day variables")
+    time_of_day = models.ManyToManyField(TimeOfDay, help_text="list of time of day variables")
     duration = models.ManyToManyField(DurationForExperience, help_text="list of duration types")
     free_cancellation = models.BooleanField(default=False, help_text="Free Cancellation is allowed.", null=True)
     free_cancellation_hours = models.IntegerField(null=True, blank=True, default=24, help_text="How many hours the free cancellation period from payment.")

@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.urls import reverse, resolve
 from datetime import timedelta
 from schedule.models import Calendar
-from products.models import Experience, ParentExperience, ExperienceEvent, Language, ExperienceCategory
+from products.models import Experience, ParentExperience, ExperienceEvent, Language, ExperienceCategory, TimeOfDay, DurationForExperience
 from reviews.models import Testimonial
 from destinations.models import Destination
 from .models import LandingPage
@@ -15,6 +15,7 @@ class LandingPageViewTest(TestCase):
     fixtures = [
         'accounts/fixtures/testing/users.json',
         'products/fixtures/testing/languages.json',
+        'products/fixtures/testing/filters.json',
         'destinations/fixtures/testing/destinations.json'
     ]
 
@@ -37,6 +38,8 @@ class LandingPageViewTest(TestCase):
         languages = Language.objects.filter(code__in=["EN", "FR", "PT"])
         self.wine_parent_experience.allowed_languages.set(languages)
         self.wine_parent_experience.categories.set([self.wine_category, self.walking_category])
+        self.wine_parent_experience.time_of_day.set([TimeOfDay.objects.get(name='evening'), TimeOfDay.objects.get(name='afternoon')])
+        self.wine_parent_experience.duration.set([DurationForExperience.objects.get(name='1-4'), DurationForExperience.objects.get(name='4-10')])
 
         self.wine_calendar = Calendar.objects.get_calendar_for_object(self.wine_parent_experience)
 
@@ -151,9 +154,9 @@ class LandingPageViewTest(TestCase):
         self.assertEqual(context['testimonials'][0], self.testimonial)
 
         # Check if destinations are included
-        self.assertIn('destinations', context)
-        self.assertEqual(len(context['destinations']), 1)
-        self.assertEqual(context['destinations'][0][0], 'lisbon-test-destination-en-lang')
+        self.assertIn('select_destinations', context)
+        self.assertEqual(len(context['select_destinations']), 1)
+        self.assertEqual(context['select_destinations'][0][0], 'lisbon-test-destination-en-lang')
 
     def test_get_context_data_filter_duration_6_hours(self):
         request = self.factory.get(reverse('landing-page', kwargs={'slug': 'test-landing-page', 'lang': 'en'}), {

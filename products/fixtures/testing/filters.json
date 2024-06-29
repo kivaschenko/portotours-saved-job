@@ -1,0 +1,58 @@
+[
+{
+    "model": "products.timeofday",
+    "pk": 1,
+    "fields": {
+        "name": "morning",
+        "description": "Start hour less than 12:00pm"
+    }
+},
+{
+    "model": "products.timeofday",
+    "pk": 2,
+    "fields": {
+        "name": "afternoon",
+        "description": "Start hour great than 12:00pm and less than 17:00pm"
+    }
+},
+{
+    "model": "products.timeofday",
+    "pk": 3,
+    "fields": {
+        "name": "evening",
+        "description": "Start hour great than 17:00"
+    }
+},
+{
+    "model": "products.durationforexperience",
+    "pk": 1,
+    "fields": {
+        "name": "0-1",
+        "description": "duration less than 1 hour"
+    }
+},
+{
+    "model": "products.durationforexperience",
+    "pk": 2,
+    "fields": {
+        "name": "1-4",
+        "description": "duration great than 1 hour and less than 4 hours"
+    }
+},
+{
+    "model": "products.durationforexperience",
+    "pk": 3,
+    "fields": {
+        "name": "4-10",
+        "description": "duration great than 4 hours and less than 10 hours"
+    }
+},
+{
+    "model": "products.durationforexperience",
+    "pk": 4,
+    "fields": {
+        "name": "24-72",
+        "description": "duration great than 24 hours and less than 72 hours"
+    }
+}
+]
