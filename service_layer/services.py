@@ -74,7 +74,7 @@ def create_new_stripe_customer_id(name: str, email: str, phone: str = '', addres
     return customer
 
 
-def set_real_user_in_purchase(payment_intent_id: str, customer_id: str, max_attempts=3, retry_delay=5):
+def set_real_user_in_purchase(payment_intent_id: str, customer_id: str, max_attempts=5, retry_delay=5):
     attempt = 0
 
     while attempt < max_attempts:
@@ -94,16 +94,14 @@ def set_real_user_in_purchase(payment_intent_id: str, customer_id: str, max_atte
     if purchases:
         try:
             for purchase in purchases:
-                if purchase.user_id == 1:  # no real user, admin assigned
-                    purchase.user = profile.user
-                    purchase.save()
-                    # Update user in products
-                    products = purchase.products.all()
-                    for product in products:
-                        product.customer = purchase.user
-                        product.save()
-                        logger.info(f"Updated user for {product}\n")
-
+                purchase.user = profile.user
+                purchase.save()
+                # Update user in products
+                products = purchase.products.all()
+                for product in products:
+                    product.customer = purchase.user
+                    product.save()
+                    logger.info(f"Updated user for {product}\n")
         except Exception as e:
             logger.error(f"Exception while handling purchase: {e}")
 
@@ -173,17 +171,17 @@ def send_product_paid_email_staff(product):
                f'\tNumber of passengers: {product.total_booked}\n'
                f'\tLanguage: {product.language}\n'
                f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n')
-    send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
-              fail_silently=False)
-    # body = [message,]
-    # if product.number_added_options > 0:
-    #     body.append(f'\tOptional extras included:\n')
-    #     for option in product.options.filter(quantity__gt=0):
-    #         option = f'\t\t{option.experience_option.name} {option.experience_option.description} x {option.quantity}\n'
-    #         body.append(option)
-    #
-    # send_mail(subject=subject, message='\n'.join(body), from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
+    # send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
     #           fail_silently=False)
+    body = [message,]
+    if product.number_added_options > 0:
+        body.append(f'\tOptional extras included:\n')
+        for option in product.options.filter(quantity__gt=0):
+            option = f'\t\t{option.experience_option.name} {option.experience_option.description} x {option.quantity}\n'
+            body.append(option)
+
+    send_mail(subject=subject, message='\n'.join(body), from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
+              fail_silently=False)
 
 
 def update_products_status_if_expired():
@@ -223,19 +221,19 @@ def send_email_notification_to_customer(product):
     message = (f'Congratulations, {product.customer.profile.name}! \n\tYour product "{product.full_name}" (ID: {product.random_order_number}) paid.\n'
                f'Total price: {product.total_price} EUR.\n'
                f'You can download your PDF here: {url}.')
-    send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[product.customer.profile.email], fail_silently=False)
-    # message = (f'Congratulations, {product.customer.profile.name}!\n'
-    #            f'\tYour product "{product.full_name}" (ID: {product.random_order_number}) paid.\n'
-    #            f'\tTotal price: {product.total_price} EUR.\n')
-    # body = [message,]
-    # if product.number_added_options > 0:
-    #     body.append(f'Optional extras included:\n')
-    #     for option in product.options.filter(quantity__gt=0):
-    #         option = f'\t\t{option.experience_option.name} {option.experience_option.description} x {option.quantity}\n'
-    #         body.append(option)
-    # pdf_link = f'You can download your PDF here: {url}.'
-    # body.append(pdf_link)
-    # send_mail(subject=subject, message='\n'.join(body), from_email=settings.ORDER_EMAIL, recipient_list=[product.customer.profile.email], fail_silently=False)
+    # send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[product.customer.profile.email], fail_silently=False)
+    message = (f'Congratulations, {product.customer.profile.name}!\n'
+               f'\tYour product "{product.full_name}" (ID: {product.random_order_number}) paid.\n'
+               f'\tTotal price: {product.total_price} EUR.\n')
+    body = [message,]
+    if product.number_added_options > 0:
+        body.append(f'Optional extras included:\n')
+        for option in product.options.filter(quantity__gt=0):
+            option = f'\t\t{option.experience_option.name} {option.experience_option.description} x {option.quantity}\n'
+            body.append(option)
+    pdf_link = f'You can download your PDF here: {url}.'
+    body.append(pdf_link)
+    send_mail(subject=subject, message='\n'.join(body), from_email=settings.ORDER_EMAIL, recipient_list=[product.customer.profile.email], fail_silently=False)
 
 
 def send_report_about_paid_products():

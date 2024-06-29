@@ -15,7 +15,8 @@ def handle(event: events.Event):
 
 def handle_stripe_charge_success(event: events.StripeChargeSucceeded):
     event_dict = event.__dict__
-    tasks.complete_charge_success(**event_dict)
+    # tasks.complete_charge_success(**event_dict)
+    services.handle_charge_success(**event_dict)
 
 
 # Stripe PaymentIntent
