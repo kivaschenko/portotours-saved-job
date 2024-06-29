@@ -220,20 +220,16 @@ def set_booking_after_payment(product):
 def send_email_notification_to_customer(product):
     url = 'https://onedaytours.pt/en/generate-pdf/{}/'.format(product.id)
     subject = f'Thanks! Your booking {product.random_order_number} is confirmed for {product.full_name}'
-    message = (f'Congratulations, {product.customer.profile.name}! \n\tYour product "{product.full_name}" (ID: {product.random_order_number}) paid.\n'
-               f'Total price: {product.total_price} EUR.\n'
-               f'You can download your PDF here: {url}.')
-    # send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[product.customer.profile.email], fail_silently=False)
     message = (f'Congratulations, {product.customer.profile.name}!\n'
-               f'\tYour product "{product.full_name}" (ID: {product.random_order_number}) paid.\n'
-               f'\tTotal price: {product.total_price} EUR.\n')
+               f'Your product "{product.full_name}" (ID: {product.random_order_number}) been` paid.\n'
+               f'AMOUNT: {product.total_price} EUR.\n')
     body = [message,]
     if product.number_added_options > 0:
-        body.append(f'\tOptional extras included for total sum {product.options_total_sum} EUR:\n')
+        body.append(f'Optional extras included for total sum {product.options_total_sum} EUR:\n')
         for option in product.options.filter(quantity__gt=0):
-            option = f'\t\t{option.experience_option.name} {option.experience_option.description} x {option.quantity}\n'
+            option = f'{option.experience_option.name} {option.experience_option.description} x {option.quantity}\n'
             body.append(option)
-        body.append(f'\t====================================\n\tTotal sum with options: {product.total_sum_with_options} EUR:\n')
+        body.append(f'====================================\nTotal order amount: {product.total_sum_with_options} EUR:\n')
     pdf_link = f'You can download your PDF here: {url}.'
     body.append(pdf_link)
     send_mail(subject=subject, message='\n'.join(body), from_email=settings.ORDER_EMAIL, recipient_list=[product.customer.profile.email], fail_silently=False)
