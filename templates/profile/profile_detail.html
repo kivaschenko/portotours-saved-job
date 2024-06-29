@@ -25,19 +25,19 @@
                     <div class="block-content">
                         <div class="input-wrapper">
                             <p class="label">Email Address</p>
-                            <p class="info-text">{{ object.profile.email }}</p>
+                            <p class="info-text">{{ object.email }}</p>
                         </div>
                         <div class="input-wrapper">
                             <p class="label">Full Name</p>
-                            <p class="info-text">{{ object.profile.name }}</p>
+                            <p class="info-text">{{ object.name }}</p>
                         </div>
                         <div class="input-wrapper">
                             <p class="label">Phone Number</p>
-                            <p class="info-text">{{ object.profile.phone }}</p>
+                            <p class="info-text">{{ object.phone }}</p>
                         </div>
                         <div class="avatar-wrapper">
                             {% if object.profile.avatar %}
-                                <img src="{{ object.profile.avatar.url }}" alt="Avatar" width="100" height="100">
+                                <img src="{{ object.avatar.url }}" alt="Avatar" width="100" height="100">
                             {% else %}
                                 <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="100" height="100">
                             {% endif %}
@@ -61,19 +61,19 @@
                     <div class="block-content">
                         <div class="input-wrapper">
                             <p class="label">Address 1</p>
-                            <p class="info-text">{{ object.profile.address_line1 }}</p>
+                            <p class="info-text">{{ object.address_line1 }}</p>
                         </div>
                         <div class="input-wrapper">
                             <p class="label">Postcode/Zip code</p>
-                            <p class="info-text">{{ object.profile.address_postal_code }}</p>
+                            <p class="info-text">{{ object.address_postal_code }}</p>
                         </div>
                         <div class="input-wrapper">
                             <p class="label">Address 2</p>
-                            <p class="info-text">{{ object.profile.address_line2 }}</p>
+                            <p class="info-text">{{ object.address_line2 }}</p>
                         </div>
                         <div class="input-wrapper">
                             <p class="label">Country</p>
-                            <p class="info-text">{{ object.profile.address_country }}</p>
+                            <p class="info-text">{{ object.address_country }}</p>
                         </div>
                         <div class="btn-wrapper">
                             <a class="edit-profile-btn" href="{% url 'address-update' %}">Edit</a>
@@ -119,8 +119,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% if object.product_set.all %}
-                        {% for product in object.product_set.all %}
+                    {% if object.user.product_set.all %}
+                        {% for product in object.user.product_set.all %}
                             <tr>
                                 <td>{{ product.created_at|date }}</td>
                                 <td>{{ product.full_name }}</td>
