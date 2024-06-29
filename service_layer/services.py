@@ -170,15 +170,17 @@ def send_product_paid_email_staff(product):
     message = (f'\tProduct name: {product.full_name}\n'
                f'\tNumber of passengers: {product.total_booked}\n'
                f'\tLanguage: {product.language}\n'
+               f'\tTotal price: {product.total_price} EUR\n'
                f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n')
     # send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
     #           fail_silently=False)
     body = [message,]
     if product.number_added_options > 0:
-        body.append(f'\tOptional extras included:\n')
+        body.append(f'\tOptional extras included for total sum {product.options_total_sum} EUR:\n')
         for option in product.options.filter(quantity__gt=0):
             option = f'\t\t{option.experience_option.name} {option.experience_option.description} x {option.quantity}\n'
             body.append(option)
+        body.append(f'\t====================================\n\tTotal sum with options: {product.total_sum_with_options} EUR:\n')
 
     send_mail(subject=subject, message='\n'.join(body), from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
               fail_silently=False)
@@ -227,10 +229,11 @@ def send_email_notification_to_customer(product):
                f'\tTotal price: {product.total_price} EUR.\n')
     body = [message,]
     if product.number_added_options > 0:
-        body.append(f'Optional extras included:\n')
+        body.append(f'\tOptional extras included for total sum {product.options_total_sum} EUR:\n')
         for option in product.options.filter(quantity__gt=0):
             option = f'\t\t{option.experience_option.name} {option.experience_option.description} x {option.quantity}\n'
             body.append(option)
+        body.append(f'\t====================================\n\tTotal sum with options: {product.total_sum_with_options} EUR:\n')
     pdf_link = f'You can download your PDF here: {url}.'
     body.append(pdf_link)
     send_mail(subject=subject, message='\n'.join(body), from_email=settings.ORDER_EMAIL, recipient_list=[product.customer.profile.email], fail_silently=False)
