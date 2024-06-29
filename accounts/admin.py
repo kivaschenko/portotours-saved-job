@@ -52,7 +52,7 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
-    list_display = ("id", "email", "first_name", "last_name", "is_staff", "profile")
+    list_display = ("id", "email", "first_name", "last_name", "is_staff", "profile", "last_login")
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
     search_fields = ("first_name", "last_name", "email")
 

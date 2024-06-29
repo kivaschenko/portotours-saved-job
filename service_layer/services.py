@@ -3,9 +3,11 @@ import time
 
 import stripe
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.template.loader import render_to_string
 from django.utils import timezone
+
+from weasyprint import HTML
 
 from accounts.models import User, Profile
 from products.models import Product
@@ -218,21 +220,46 @@ def set_booking_after_payment(product):
 
 
 def send_email_notification_to_customer(product):
-    url = 'https://onedaytours.pt/en/generate-pdf/{}/'.format(product.id)
+    url = 'https://onedaytours.pt/en/generate-pdf/{}/'.format(product.random_order_number)
     subject = f'Thanks! Your booking {product.random_order_number} is confirmed for {product.full_name}'
     message = (f'Congratulations, {product.customer.profile.name}!\n'
-               f'Your product "{product.full_name}" (ID: {product.random_order_number}) been` paid.\n'
-               f'AMOUNT: {product.total_price} EUR.\n')
-    body = [message,]
+               f'\nYour product "{product.full_name}" (ID: {product.random_order_number}) has been paid.\n'
+               f'\nAMOUNT: {product.total_price} EUR.\n')
+    body = [message]
+
     if product.number_added_options > 0:
         body.append(f'Optional extras included for total sum {product.options_total_sum} EUR:\n')
         for option in product.options.filter(quantity__gt=0):
-            option = f'{option.experience_option.name} {option.experience_option.description} x {option.quantity}\n'
-            body.append(option)
+            option_text = f'{option.experience_option.name} {option.experience_option.description} x {option.quantity}\n'
+            body.append(option_text)
         body.append(f'====================================\nTotal order amount: {product.total_sum_with_options} EUR:\n')
+
     pdf_link = f'You can download your PDF here: {url}.'
     body.append(pdf_link)
-    send_mail(subject=subject, message='\n'.join(body), from_email=settings.ORDER_EMAIL, recipient_list=[product.customer.profile.email], fail_silently=False)
+    email_body = '\n'.join(body)
+
+    # Generate the PDF
+    experience = product.parent_experience.child_experiences.filter(language_id=product.language_id).first()
+    context = {'product': product, 'experience': experience}
+    html_template = render_to_string('products/product_pdf.html', context)
+    pdf_file = HTML(string=html_template).write_pdf()
+
+    # Define the custom filename
+    custom_filename = f'Booking_{product.random_order_number}.pdf'
+
+    # Create the email
+    email = EmailMessage(
+        subject=subject,
+        body=email_body,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        to=[product.customer.profile.email],
+    )
+
+    # Attach the PDF file with a custom filename
+    email.attach(custom_filename, pdf_file, 'application/pdf')
+
+    # Send the email
+    email.send(fail_silently=False)
 
 
 def send_report_about_paid_products():

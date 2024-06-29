@@ -721,7 +721,7 @@ def custom_bad_request_view(request, exception=None):
 # PDF Generator
 
 def generate_pdf(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
+    product = get_object_or_404(Product, random_order_number=product_id)
     experience = product.parent_experience.child_experiences.filter(language_id=product.language_id).first()
     context = {'product': product, 'experience': experience}
     html_template = render_to_string('products/product_pdf.html', context)

@@ -129,7 +129,7 @@
                                 <td>{{ product.status }}</td>
                                 <td>
                                     {% if product.status == 'Payment' %}
-                                    <a href="{% url 'generate-pdf' product.id %}" class="btn btn-type-2">
+                                    <a href="{% url 'generate-pdf' product.random_order_number %}" class="btn btn-type-2">
                                         download pdf
                                     </a>
                                     {% endif %}
