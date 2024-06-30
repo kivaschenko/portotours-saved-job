@@ -173,3 +173,13 @@ docker image rm   <your-old-docker-image-ID>
 docker ps -a
 exit
 ```
+
+## Dump DB and recovery DB
+Cron and a file `backup_db.sh` are used to automatically receive a database dump and send it to email. On the server the file lives here: `/etc/backup_django`.
+To recovery DB from dump you can use the file `recovery_db.sh` that is in same place on the server.
+In project there saved copies in directory `cron_services`.
+
+You can use commands to exchange files through ssh like this:
+```
+scp cron_services/backup_db.sh root@164.90.217.249:/etc/backup_django
+```
