@@ -295,11 +295,6 @@ class DeleteProductView(DeleteView):
     template_name = 'products/delete_product_form.html'
     success_url = reverse_lazy('my-cart', kwargs={'lang': 'en'})
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Add the template name to the context
-        context['template_name'] = self.template_name
-
     def delete(self, request, *args, **kwargs):
         """
         Call the delete() method on the fetched object and then redirect to the

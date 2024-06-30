@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'django_extensions',
+    'compressor',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -310,6 +311,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 SASS_PROCESSOR_INCLUDE_DIRS = [
@@ -459,3 +461,12 @@ CELERY_BEAT_SCHEDULE = {
 }
 PRODUCT_EXPIRE_MINUTES = 60  # Expire timedelta for Product
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000  # You can adjust this value as needed
+# django-compressor
+COMPRESS_ENABLED = True
+# COMPRESS_OFFLINE = True
+COMPRESS_ROOT = STATIC_ROOT
+# COMPRESS_URL = 'https://fra1.digitaloceanspaces.com/portotoursmedia/'
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.rCSSMinFilter',
+]
