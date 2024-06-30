@@ -174,6 +174,18 @@ docker ps -a
 exit
 ```
 
+### NGING settings
+The copy of ngin.conf saved in project: `ssl_cert/nginx.conf`.
+To exchange files use command like:
+```
+scp root@164.90.217.249:/etc/nginx/sites-available/nginx.conf projects/portotours/ssl_cert/
+```
+After changes run:
+```
+root@docker2503onubuntu2204-s-2vcpu-4gb-amd-fra1-01:~# systemctl reload nginx
+root@docker2503onubuntu2204-s-2vcpu-4gb-amd-fra1-01:~# systemctl status nginx.service
+```
+
 ## Dump DB and recovery DB
 Cron and a file `backup_db.sh` are used to automatically receive a database dump and send it to email. On the server the file lives here: `/etc/backup_django`.
 To recovery DB from dump you can use the file `recovery_db.sh` that is in same place on the server.
