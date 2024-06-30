@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'django_extensions',
+    'compressor',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
@@ -314,6 +315,7 @@ STATICFILES_FINDERS = (
 
 SASS_PROCESSOR_INCLUDE_DIRS = [
     os.path.join(BASE_DIR, 'static/custom_css'),
+    os.path.join(BASE_DIR, 'static/custom_css/custom.scss')
 ]
 
 # Set up Sass Processor settings

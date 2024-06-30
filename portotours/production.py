@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'corsheaders',
     'django_extensions',
+    'compressor',
     # local
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
