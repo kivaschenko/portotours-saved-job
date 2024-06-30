@@ -262,8 +262,6 @@ class ProductCartView(UserIsAuthenticatedOrSessionKeyRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['ecommerce_items'] = []
-        # Add the template name to the context
-        context['template_name'] = self.template_name
         queryset = self.get_queryset()  # Ensure queryset is evaluated every time
         if queryset.exists():
             latest_product = queryset.latest()
@@ -314,11 +312,6 @@ class CancelProductView(DeleteView):
     model = Product
     template_name = 'products/cancel_form.html'
     success_url = reverse_lazy('home')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Add the template name to the context
-        context['template_name'] = self.template_name
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
