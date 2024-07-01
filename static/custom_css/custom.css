@@ -5828,7 +5828,8 @@ textarea.form-control-lg {
           border-bottom: 1px solid #6D6D6D;
           padding-left: 0;
           padding-right: 0;
-          margin: 0; } }
+          margin: 0;
+          flex-direction: column; } }
       .footer .container .row .footer-info {
         width: fit-content;
         margin-right: 40px; }
