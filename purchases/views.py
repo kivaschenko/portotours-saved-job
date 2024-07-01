@@ -79,6 +79,7 @@ def stripe_webhook(request):
 def handle_payment_intent_failed(event):
     payment_intent = event['data']['object']
     logger.info(f"Received payment intent: {payment_intent.id} failed.")
+    logger.info(f"Received payment intent:\n {payment_intent}")
     error = payment_intent['last_payment_error']
     logger.error(f'A payment failed due to {error["message"]}.')
     billing_details = error['payment_method']['billing_details']
@@ -103,6 +104,7 @@ def handle_payment_intent_failed(event):
 def handle_payment_intent_succeeded(event):
     payment_intent = event['data']['object']
     logger.info(f"PaymentIntent {payment_intent.id} succeeded.")
+    logger.info(f"Received payment intent:\n {payment_intent}")
     payment_intent_event = StripePaymentIntentSucceeded(payment_intent_id=payment_intent.id)
     handle(payment_intent_event)
 
@@ -110,6 +112,7 @@ def handle_payment_intent_succeeded(event):
 def handle_charge_succeeded(event):
     charge = event['data']['object']
     logger.info(f"Charge {charge.id} succeeded.")
+    logger.info(f"Charge:\n {charge}")
     billing_details = charge.billing_details
     charge_event = StripeChargeSucceeded(
         payment_intent_id=charge.payment_intent,
@@ -130,6 +133,7 @@ def handle_charge_succeeded(event):
 def handle_customer_created(event):
     customer = event['data']['object']
     logger.info(f"Stripe customer {customer.id} created.")
+    logger.info(f"Stripe customer:\n {customer}")
     stripe_customer_created_event = StripeCustomerCreated(
         stripe_customer_id=customer.id,
         name=customer.name,
