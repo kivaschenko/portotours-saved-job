@@ -16,14 +16,15 @@ logger = logging.getLogger(__name__)
 def navbar_context(request, lang=None, **kwargs):
     session_key = request.session.session_key
     cart_not_empty = Product.pending.filter(session_key=session_key).order_by('created_at').exists()
-    user = request.user
+    user = getattr(request, 'user', None)  # Safe way to access request.user
+    # user = request.user
     if lang is None:
         lang_code = 'EN'
     else:
         lang_code = lang.upper()
     cache_key = f'navbar_context_{lang_code}'
     number_of_products = 0
-    if user.is_authenticated:
+    if user is not None and user.is_authenticated:
         if Product.pending.filter(customer=user).exists():
             number_of_products = Product.pending.filter(customer=user).count()
     elif session_key:
