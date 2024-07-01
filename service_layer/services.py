@@ -54,6 +54,7 @@ def handle_charge_success(payment_intent_id: str, stripe_customer_id: str, name:
                                                  address_line2, address_postal_code, address_state)
         print(f"Stripe customer id: {customer['id']}")
         stripe_customer_id = customer['id']
+    print('Inside handle charge success.')
     create_profile_and_generate_password(stripe_customer_id, name, email, phone, address_city, address_country, address_line1, address_line2,
                                          address_postal_code, address_state)
     # Update the PaymentIntent to bind it to the new customer
@@ -351,25 +352,3 @@ def create_message_about_products(purchase: Purchase):
         body.append(message)
 
     return subject, '\n'.join(body)
-
-
-def check_user_is_not_assigned_to_purchased_products_and_fix_it():
-    # collect all paid Products without assigned user
-    purchases = Purchase.last24hours_manager.filter(completed=True).filter(user__isnull=True)
-    if not purchases:
-        return
-    args = []
-    for purchase in purchases:
-        # create args
-        args.append((purchase.stripe_payment_intent_id, purchase.stripe_customer_id))
-    for arg in args:
-        set_real_user_in_purchase(*arg)
-
-
-def clean_expired_products():
-    '''Be carefull because the signal post_delete exists to adjust prices!
-        Not used yet...
-    '''
-    products = Product.lost_products.all()
-    for product in products:
-        product.delete()
