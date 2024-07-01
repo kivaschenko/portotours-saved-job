@@ -471,6 +471,10 @@
                 <p class="price">
                     €{{ product.total_price }}
                 </p>
+                <!-- Total price of the Product with all options -->
+                <p class="price">
+                    €{{ product.total_sum_with_options }}
+                </p>
                 
                 <div class="booked-by">
                     <p class="booked-by-title">
@@ -552,18 +556,29 @@
         {% if product.number_added_options > 0 %}
         <div class="extras-info">
             <h2 class="extras-title">
+                <!-- number of added options --> {{ product.number_added_options }}
                 extras added to Experience
+                <!-- total sum of added options -->
+                €{{ product.options_total_sum }}
             </h2>
             <ul class="extras-list">
                 {% for item in product.options.all %}
                 {% if item.quantity > 0 %}
                     <li>
                         <img src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIyIDExLjA4VjEyQzIxLjk5ODggMTQuMTU2NCAyMS4zMDA1IDE2LjI1NDcgMjAuMDA5MyAxNy45ODE4QzE4LjcxODIgMTkuNzA5IDE2LjkwMzMgMjAuOTcyNSAxNC44MzU0IDIxLjU4MzlDMTIuNzY3NCAyMi4xOTUzIDEwLjU1NzMgMjIuMTIxOSA4LjUzNDQ3IDIxLjM3NDZDNi41MTE2OCAyMC42MjczIDQuNzg0NjUgMTkuMjQ2MSAzLjYxMDk2IDE3LjQzNzFDMi40MzcyNyAxNS42MjggMS44Nzk3OSAxMy40ODgxIDIuMDIxNjggMTEuMzM2M0MyLjE2MzU2IDkuMTg0NTUgMi45OTcyMSA3LjEzNjMxIDQuMzk4MjggNS40OTcwNkM1Ljc5OTM1IDMuODU3ODEgNy42OTI3OSAyLjcxNTM3IDkuNzk2MTkgMi4yNDAxM0MxMS44OTk2IDEuNzY0OSAxNC4xMDAzIDEuOTgyMzIgMTYuMDcgMi44NTk5OSIgc3Ryb2tlPSIjMDA3NzI4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0yMiA0TDEyIDE0LjAxTDkgMTEuMDEiIHN0cm9rZT0iIzAwNzcyOCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K'/>
-                        {{ item.experience_option }}
+                        <!-- Option name -->
+                        {{ item.experience_option.name }}
+                        <!--Option description -->
                         {% if item.experience_option.description %}
                             {{ item.experience_option.description }}
                         {% endif %}
-                        
+                        <!-- Option price -->
+                        €{{ item.price }}
+                        <!-- Options quantity -->
+                        {{ item.quantity }}
+                        <!-- Total sum for Option -->
+                        €{{ item.total_sum }}
+
                     </li>
                 {% endif %}
             {% endfor %}

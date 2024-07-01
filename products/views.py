@@ -715,7 +715,7 @@ def generate_pdf(request, product_id):
     html_template = render_to_string('products/product_pdf.html', context)
     pdf_file = HTML(string=html_template).write_pdf()
 
-    filename = f'Booked_{product.random_order_number}.pdf'
+    filename = f'Booking_{product.random_order_number}.pdf'
     response = HttpResponse(pdf_file, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="{filename}"'
     return response
