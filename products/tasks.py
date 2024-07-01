@@ -30,15 +30,3 @@ def create_profile_and_send_password(stripe_customer_id: str = None, name: str =
 def report_about_paid():
     from service_layer.services import send_report_about_paid_products
     send_report_about_paid_products()
-
-
-@shared_task()
-def set_read_public_for_new_images_in_uploads_folder():
-    from service_layer.s3_utils import adjust_time_expires_for_image
-    adjust_time_expires_for_image()
-
-
-@shared_task()
-def adjust_lost_user_in_purchase_and_products():
-    from service_layer.services import check_user_is_not_assigned_to_purchased_products_and_fix_it
-    check_user_is_not_assigned_to_purchased_products_and_fix_it()
