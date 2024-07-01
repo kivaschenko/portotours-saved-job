@@ -9,6 +9,7 @@ class Event:
 @dataclass
 class StripeChargeSucceeded(Event):
     payment_intent_id: str
+    stripe_customer_id: str
     name: str
     email: str
     phone: str
