@@ -135,19 +135,19 @@ def handle_customer_created(event):
     customer = event['data']['object']
     logger.info(f"Stripe customer {customer.id} created.")
     logger.info(f"Stripe customer:\n {customer}")
-    # stripe_customer_created_event = StripeCustomerCreated(
-    #     stripe_customer_id=customer.id,
-    #     name=customer.name,
-    #     email=customer.email,
-    #     phone=customer.phone,
-    #     address_city=customer['address']['city'],
-    #     address_country=customer['address']['country'],
-    #     address_line1=customer['address']['line1'],
-    #     address_line2=customer['address']['line2'],
-    #     address_postal_code=customer['address']['postal_code'],
-    #     address_state=customer['address']['state']
-    # )
-    # handle(stripe_customer_created_event)
+    stripe_customer_created_event = StripeCustomerCreated(
+        stripe_customer_id=customer.id,
+        name=customer.name,
+        email=customer.email,
+        phone=customer.phone,
+        address_city=customer['address']['city'],
+        address_country=customer['address']['country'],
+        address_line1=customer['address']['line1'],
+        address_line2=customer['address']['line2'],
+        address_postal_code=customer['address']['postal_code'],
+        address_state=customer['address']['state']
+    )
+    handle(stripe_customer_created_event)
 
 
 def payment_intent_updated(event):

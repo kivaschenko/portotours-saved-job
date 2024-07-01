@@ -355,4 +355,21 @@ def create_message_about_products(purchase: Purchase):
 
 def check_user_is_not_assigned_to_purchased_products_and_fix_it():
     # collect all paid Products without assigned user
-    purchases = Purchase.last24hours_manager.filter(completed=True).filter()
+    purchases = Purchase.last24hours_manager.filter(completed=True).filter(user__isnull=True)
+    if not purchases:
+        return
+    args = []
+    for purchase in purchases:
+        # create args
+        args.append((purchase.stripe_payment_intent_id, purchase.stripe_customer_id))
+    for arg in args:
+        set_real_user_in_purchase(*arg)
+
+
+def clean_expired_products():
+    '''Be carefull because the signal post_delete exists to adjust prices!
+        Not used yet...
+    '''
+    products = Product.lost_products.all()
+    for product in products:
+        product.delete()

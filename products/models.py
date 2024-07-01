@@ -705,7 +705,7 @@ class ProductPendingManager(models.Manager):
 class ProductLostManager(models.Manager):
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(status='Expired', customer__isnull=True, start_datetime__lt=timezone.now())
+        return queryset.filter(status='Expired', start_datetime__lt=timezone.now())
 
 
 class ProductForReportManager(models.Manager):

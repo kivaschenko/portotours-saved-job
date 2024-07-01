@@ -335,6 +335,10 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'products.tasks.report_about_paid',
         'schedule': 90,  # run every 1.5 minutes
     },
+    'adjust_lost_user_in_purchase': {
+        'task': 'adjust_lost_user_in_purchase_and_products',
+        'schedule': 15,  # run every 15 sec
+    }
 }
 # SECURE_SSL_REDIRECT = True
 PRODUCT_EXPIRE_MINUTES = 60  # Expire timedelta for Product in minutes
