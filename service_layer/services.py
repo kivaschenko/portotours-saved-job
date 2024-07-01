@@ -51,8 +51,15 @@ def handle_charge_success(payment_intent_id: str, stripe_customer_id: str, name:
         # Create Stripe Customer
         customer = create_new_stripe_customer_id(name, email, phone, address_city, address_country, address_line1,
                                                  address_line2, address_postal_code, address_state)
-        print(f"Stripe customer id: {customer.id}")
-    set_real_user_in_purchase(payment_intent_id, customer.id)
+        print(f"Stripe customer id: {customer['id']}")
+        stripe_customer_id = customer['id']
+    # Update the PaymentIntent to bind it to the new customer
+    updated_payment_intent = stripe.PaymentIntent.modify(
+        payment_intent_id,
+        customer=stripe_customer_id
+    )
+    print('updated_payment_intent', updated_payment_intent)
+    set_real_user_in_purchase(payment_intent_id, stripe_customer_id)
 
 
 def create_new_stripe_customer_id(name: str, email: str, phone: str = '', address_city: str = '', address_country: str = '', address_line1: str = '',
