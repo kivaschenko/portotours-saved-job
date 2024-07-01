@@ -75,7 +75,7 @@ class ProfileAdmin(admin.ModelAdmin):
     )
     search_fields = ('name', 'stripe_customer_id', 'email')
     list_per_page = 20
-    readonly_fields = ('display_avatar',)
+    readonly_fields = ('display_avatar', 'stripe_customer_id',)
 
     def display_avatar(self, obj):
         if obj.avatar:

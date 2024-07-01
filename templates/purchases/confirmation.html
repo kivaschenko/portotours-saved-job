@@ -101,7 +101,7 @@
                                         {% endif %}
                                     </ul>
                                     <ul class="content-list">
-                                        <li>{% if object.parent_experience.is_private %}Private{% else %}Group{% endif %} type</li>
+                                        <li>{% if object.parent_experience.is_private %}Private{% else %}Small Group{% endif %}</li>
                                         <li>{{ object.language }} Language</li>
                                     </ul>
                                     <a href="{% url 'generate-pdf' product_id=object.random_order_number %}" class="download-pdf btn-type-1">

@@ -74,10 +74,10 @@ class ProductInline(admin.TabularInline):
 
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
-    exclude = ('stripe_customer_id', 'stripe_checkout_session_id', 'stripe_price',)
+    exclude = ('stripe_checkout_session_id', 'stripe_price',)
     list_filter = ('user', 'completed', 'timestamp')
     search_fields = ('stripe_payment_intent_id',)
-    list_display = ('id', 'total_price', 'completed', 'timestamp', 'user', 'stripe_payment_intent_id', 'error_code')
+    list_display = ('id', 'total_price', 'completed', 'timestamp', 'user', 'stripe_payment_intent_id', 'stripe_customer_id', 'error_code')
     readonly_fields = ('total_price', 'timestamp', 'completed', 'stripe_payment_intent_id', 'user_name', 'user_email', 'user_phone', 'error_code', 'error_message')
     list_per_page = 20
     inlines = (ProductInline,)
