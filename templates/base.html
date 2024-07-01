@@ -90,30 +90,30 @@
         <div class="row">
             {% block footer_columns %}
                 <div class="footer-info">
-                    <img src="{% static 'icons/main-logo.svg' %}" alt="main logo in footer">
+                    <img loading="lazy" src="{% static 'icons/main-logo.svg' %}" alt="main logo in footer">
                     <ul class="social-links-list">
-                        <li><a href=""><img src="{% static 'icons/fb.svg' %}" alt="social icon"></a></li>
-                        <li><a href=""><img src="{% static 'icons/ig.svg' %}" alt="social icon"></a></li>
-                        <li><a href=""><img src="{% static 'icons/tiktio.svg' %}" alt="social icon"></a></li>
-                        <li><a href=""><img src="{% static 'icons/link.svg' %}" alt="social icon"></a></li>
-                        <li><a href=""><img src="{% static 'icons/wup.svg' %}" alt="social icon"></a></li>
+                        <li><a href=""><img loading="lazy" src="{% static 'icons/fb.svg' %}" alt="social icon"></a></li>
+                        <li><a href=""><img loading="lazy" src="{% static 'icons/ig.svg' %}" alt="social icon"></a></li>
+                        <li><a href=""><img loading="lazy" src="{% static 'icons/tiktio.svg' %}" alt="social icon"></a></li>
+                        <li><a href=""><img loading="lazy" src="{% static 'icons/link.svg' %}" alt="social icon"></a></li>
+                        <li><a href=""><img loading="lazy" src="{% static 'icons/wup.svg' %}" alt="social icon"></a></li>
                     </ul>
                     <p class="footer-contacts-title">
                         Contacts
                     </p>
                     <div class="phone-wrapper">
                         <a href="tel:+351968380559" class="phone-link">
-                            <img src="{% static 'icons/phone-icon-white.svg' %}" alt="phone icon">
+                            <img loading="lazy" src="{% static 'icons/phone-icon-white.svg' %}" alt="phone icon">
                             +351 968 380 559
                         </a>
                     </div>
 
                     <div class="email-wrapper">
-                        <img src="{% static 'icons/email-icon-white.svg' %}" alt="email icon">
+                        <img loading="lazy" src="{% static 'icons/email-icon-white.svg' %}" alt="email icon">
                         support@onedaytours.com
                     </div>
                     <div class="address-wrapper">
-                        <img src="{% static 'icons/pin-icon-white.svg' %}" alt="pin icon">
+                        <img loading="lazy" src="{% static 'icons/pin-icon-white.svg' %}" alt="pin icon">
                         Estrada do Algueirão, № 148 A - 2725-021 Mem Martins
                     </div>
                 </div>
@@ -125,25 +125,7 @@
                         <li><a href="{% url 'about-us' lang='en' slug='about-us' %}" class="footer-link">About us</a></li>
                         <li><a href="{% url 'page_detail' slug='price-match-policy' %}" class="footer-link">Price Match Policy</a></li>
                         <li><a href="{% url 'page_detail' slug='terms-and-conditions' %}" class="footer-link">Terms and conditions</a></li>
-                        <li>
-                            <a href="https://www.iubenda.com/privacy-policy/97833443"
-                               class="iubenda-nostyle iubenda-noiframe iubenda-embed iub-legal-only iubenda-noiframe " title="Privacy Policy ">Privacy
-                                Policy</a>
-                            <script type="text/javascript">(function (w, d) {
-                                var loader = function () {
-                                    var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0];
-                                    s.src = "https://cdn.iubenda.com/iubenda.js";
-                                    tag.parentNode.insertBefore(s, tag);
-                                };
-                                if (w.addEventListener) {
-                                    w.addEventListener("load", loader, false);
-                                } else if (w.attachEvent) {
-                                    w.attachEvent("onload", loader);
-                                } else {
-                                    w.onload = loader;
-                                }
-                            })(window, document);</script>
-                        </li>
+                        <li><a href="{% url 'page_detail' slug='privacy-policy' %}" class="footer-link">Privacy Policy</a></li>
                         <li><a href="https://www.livroreclamacoes.pt/Inicio/" class="footer-link">Complaints Record Book</a></li>
                     </ul>
                 </div>
@@ -184,7 +166,7 @@
 </footer>
 <!-- Bootstrap 5 JS -->
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-<script>
+<script defer>
     const currentYear = new Date().getFullYear();
     const spanElements = document.querySelectorAll('.currentYear');
     spanElements.forEach(span => {
@@ -192,7 +174,7 @@
     });
 </script>
 {% block cookie_policy %}
-<script type="text/javascript">
+<script defer type="text/javascript">
     var _iub = _iub || [];
     _iub.csConfiguration = {
         "askConsentAtCookiePolicyUpdate": true,
@@ -236,14 +218,17 @@
         }
     };
 </script>
-<script defer type="text/javascript" src="https://cs.iubenda.com/autoblocking/3650775.js"></script>
-<script defer type="text/javascript" src="//cdn.iubenda.com/cs/tcf/stub-v2.js"></script>
-<script defer type="text/javascript" src="//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js"></script>
-<script defer type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
+<!-- <script defer type="text/javascript" src="https://cs.iubenda.com/autoblocking/3650775.js"></script> -->
+<!-- <script defer type="text/javascript" src="//cdn.iubenda.com/cs/tcf/stub-v2.js"></script> -->
+<!-- <script defer type="text/javascript" src="//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js"></script> -->
+<!-- <script defer type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script> -->
 <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
 {% endblock cookie_policy %}
 {% block whatsup %}
 <script defer src="https://static.getbutton.io/widget/bundle.js?id=NVUaC"></script>
 {% endblock whatsup %}
+
+<!-- <a href="https://www.iubenda.com/privacy-policy/97833443" class="iubenda-white iubenda-noiframe iubenda-embed iub-legal-only iubenda-noiframe iub-body-embed" title="Privacy Policy">Privacy Policy</a>
+<script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script> -->
 </body>
 </html>

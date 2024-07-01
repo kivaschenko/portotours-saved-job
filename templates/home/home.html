@@ -148,7 +148,7 @@
                     <h4 class="tour-type-title">Small Groups</h4>
                     <a href="#" target="_blank" class="btn-type-3" onclick="addTypeIsGroupAndNavigate(event, '{{ current_language }}')">
                         Learn more
-                        <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="arrow">
+                        <img loading="lazy" src="{% static 'icons/btn_arrow_white.svg' %}" alt="arrow">
                     </a>
                 </div>
             </div>
@@ -158,7 +158,7 @@
                     <h4 class="tour-type-title">Private Experiences</h4>
                     <a href="#" target="_blank" class="btn-type-3" onclick="addTypeIsPrivateAndNavigate(event, '{{ current_language }}')">
                         Learn more
-                        <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="arrow">
+                        <img loading="lazy" src="{% static 'icons/btn_arrow_white.svg' %}" alt="arrow">
                     </a>
                 </div>
             </div>
@@ -288,9 +288,9 @@
                                 </p>
                                 <div class="author-wrapper">
                                     {% if testimonial.profile.avatar %}
-                                        <img src="{{ testimonial.profile.avatar.url }}" alt="Avatar">
+                                        <img loading="lazy" src="{{ testimonial.profile.avatar.url }}" alt="Avatar">
                                     {% else %}
-                                        <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar">
+                                        <img loading="lazy" src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar">
                                     {% endif %}
                                     <p class="name">{{ testimonial.profile.name }}</p>
                                 </div>
@@ -322,7 +322,7 @@
     <div class="subscribe-popup">
         <div class="subscribe-popup-inner">
             <a href="#" class="close-popup-btn">
-                <img src="{% static 'icons/icon-close.svg' %}" alt="close button">
+                <img loading="lazy" src="{% static 'icons/icon-close.svg' %}" alt="close button">
             </a>
             <h2 class="popup-title">
                 Thank you for subscribing!
@@ -337,8 +337,8 @@
     </div>
 
     <!-- Local JS -->
-    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
-    <script>
+    <script defer src="{% static 'js/lang_selector_list_page.js' %}"></script>
+    <script defer>
         const swiperAttractionHero = new Swiper(".top-attractions-slider", {
             speed: 4000,
             autoplay: {
@@ -372,7 +372,7 @@
             },
         });
     </script>
-    <script>
+    <script defer>
         const swiperTestimonials = new Swiper(".testimonials-slider", {
             speed: 1000,
             spaceBetween: 24,
@@ -405,7 +405,7 @@
             },
         });
     </script>
-    <script>
+    <script defer>
         let experienceCardList = document.querySelector('.best-tours-cards-wrapper')
         let experienceCardListItems = experienceCardList.querySelectorAll('.best-tours-card');
         experienceCardListItems.forEach((item) => {
@@ -429,7 +429,7 @@
             }
         });
     </script>
-    <script>
+    <script defer>
         const dateInput = document.getElementById('id_date');
 
         const today = new Date();
@@ -442,7 +442,7 @@
 
         dateInput.value = formattedDate;
     </script>
-    <script>
+    <script defer>
         function addTypeIsGroupAndNavigate(event, lang) {
             event.preventDefault();
             const url = `/${lang}/experiences/?tour_type=group&filter_by=all`;
@@ -455,6 +455,6 @@
             window.location.href = url;
         }
     </script>
-    <script src="{% static 'js/subscription.js' %}"></script>
-    <script src="{% static 'google_analytics/data_pusher.js' %}"></script>
+    <script defer src="{% static 'js/subscription.js' %}"></script>
+    <script defer src="{% static 'google_analytics/data_pusher.js' %}"></script>
 {% endblock %}

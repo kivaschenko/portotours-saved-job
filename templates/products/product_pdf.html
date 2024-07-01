@@ -469,10 +469,6 @@
         <div class="info-wrapper">
             <div class="left-col">
                 <p class="price">
-                    €{{ product.total_price }}
-                </p>
-                <!-- Total price of the Product with all options -->
-                <p class="price">
                     €{{ product.total_sum_with_options }}
                 </p>
                 
@@ -504,13 +500,16 @@
                     <li>
                         {% if experience.parent_experience.is_private %}Private Experience{% else %}Small Group{% endif %}
                     </li>
+                    {% if experience.language.name %}
                     <li>
                         {{ experience.language.name }}
                     </li>
+                    {% endif %}
+                    {% if experience.display_duration %}
                     <li>
                         {{ experience.display_duration }}
                     </li>
-                   
+                    {% endif %}
                 </ul>
             </div>
             <div class="right-col">
@@ -556,10 +555,8 @@
         {% if product.number_added_options > 0 %}
         <div class="extras-info">
             <h2 class="extras-title">
-                <!-- number of added options --> {{ product.number_added_options }}
-                extras added to Experience
-                <!-- total sum of added options -->
-                €{{ product.options_total_sum }}
+                {{ product.number_added_options }}
+                extra(s) added to Experience
             </h2>
             <ul class="extras-list">
                 {% for item in product.options.all %}
@@ -572,13 +569,6 @@
                         {% if item.experience_option.description %}
                             {{ item.experience_option.description }}
                         {% endif %}
-                        <!-- Option price -->
-                        €{{ item.price }}
-                        <!-- Options quantity -->
-                        {{ item.quantity }}
-                        <!-- Total sum for Option -->
-                        €{{ item.total_sum }}
-
                     </li>
                 {% endif %}
             {% endfor %}

@@ -214,7 +214,7 @@
                                             </a>
                                             <h2 class="extras-title">
                                                     {% if object.number_added_options > 0 %}
-                                                    Optional {{ object.number_added_options }} extras added to your experience:
+                                                    {{ object.number_added_options }} Optional extra(s) added to your experience:
                                                     <span>€{{ object.options.all|sum_prices }}</span>
                                                     <img src="{% static 'icons/options-arrow.svg' %}" alt="arrow">
                                                     {% else %}
