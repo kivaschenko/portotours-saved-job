@@ -157,9 +157,9 @@ def create_profile_and_generate_password(stripe_customer_id: str = None, name: s
                               address_state=address_state)
             profile.save()
             logger.info(f'Profile created with id: {profile.id}')
+            send_new_password_by_email(email, new_password, new_user)
         else:
-            logger.info(f"New user: {new_user} updated with a new password.\n")
-        send_new_password_by_email(email, new_password, new_user)
+            logger.info(f"The user: {new_user} already exists.\n")
     except Exception as e:
         logger.error(f"Exception while handling customer: {e}")
 
@@ -204,7 +204,6 @@ def send_product_paid_email_staff(product):
 def update_products_status_if_expired():
     logger.info(f'Start updating status of expired products.')
     queryset = Product.objects.filter(status='Pending').all()
-    logger.info(f'queryset length: {len(queryset)}')
     updated_products = []
     if queryset.count() > 0:
         now = timezone.now()

@@ -66,6 +66,7 @@ def stripe_webhook(request):
     event_type_handlers = {
         'payment_intent.payment_failed': handle_payment_intent_failed,
         'payment_intent.succeeded': handle_payment_intent_succeeded,
+        'payment_intent.updated': payment_intent_updated,
         'charge.succeeded': handle_charge_succeeded,
         'customer.created': handle_customer_created
     }
@@ -134,19 +135,25 @@ def handle_customer_created(event):
     customer = event['data']['object']
     logger.info(f"Stripe customer {customer.id} created.")
     logger.info(f"Stripe customer:\n {customer}")
-    stripe_customer_created_event = StripeCustomerCreated(
-        stripe_customer_id=customer.id,
-        name=customer.name,
-        email=customer.email,
-        phone=customer.phone,
-        address_city=customer['address']['city'],
-        address_country=customer['address']['country'],
-        address_line1=customer['address']['line1'],
-        address_line2=customer['address']['line2'],
-        address_postal_code=customer['address']['postal_code'],
-        address_state=customer['address']['state']
-    )
-    handle(stripe_customer_created_event)
+    # stripe_customer_created_event = StripeCustomerCreated(
+    #     stripe_customer_id=customer.id,
+    #     name=customer.name,
+    #     email=customer.email,
+    #     phone=customer.phone,
+    #     address_city=customer['address']['city'],
+    #     address_country=customer['address']['country'],
+    #     address_line1=customer['address']['line1'],
+    #     address_line2=customer['address']['line2'],
+    #     address_postal_code=customer['address']['postal_code'],
+    #     address_state=customer['address']['state']
+    # )
+    # handle(stripe_customer_created_event)
+
+
+def payment_intent_updated(event):
+    payment_intent = event['data']['object']
+    logger.info(f"Payment intent {payment_intent.id} updated.")
+    logger.info(f"Received payment intent:\n {payment_intent}")
 
 
 def handle_unhandled_event(event):
