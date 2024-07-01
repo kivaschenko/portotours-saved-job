@@ -8,10 +8,10 @@ def check_expired_products():
 
 
 @shared_task()
-def complete_charge_success(payment_intent_id: str, name: str, email: str, phone: str = '', address_city: str = '', address_country: str = '',
+def complete_charge_success(payment_intent_id: str, stripe_customer_id: str, name: str, email: str, phone: str = '', address_city: str = '', address_country: str = '',
                             address_line1: str = '', address_line2: str = '', address_postal_code: str = '', address_state: str = '', **kwargs):
     from service_layer.services import handle_charge_success
-    handle_charge_success(payment_intent_id, name, email, phone, address_city, address_country, address_line1, address_line2, address_postal_code,
+    handle_charge_success(payment_intent_id, stripe_customer_id, name, email, phone, address_city, address_country, address_line1, address_line2, address_postal_code,
                           address_state)
 
 

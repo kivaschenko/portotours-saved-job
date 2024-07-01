@@ -29,7 +29,7 @@ def update_purchase_by_payment_intent_id(payment_intent_id: str, customer_id: st
         purchase = Purchase.objects.filter(stripe_payment_intent_id=payment_intent_id).first()
         purchase.completed = True
         purchase.save()
-        if customer_id is not None:
+        if customer_id:
             purchase.stripe_customer_id = customer_id
             purchase.save()
         logger.info(f"Completed payment for Purchase {purchase}\n")
@@ -44,16 +44,15 @@ def update_purchase_by_payment_intent_id(payment_intent_id: str, customer_id: st
         logger.error(f"Exception while handling payment: {e}")
 
 
-def handle_charge_success(payment_intent_id: str, name: str, email: str, phone: str = '', address_city: str = '', address_country: str = '',
+def handle_charge_success(payment_intent_id: str, stripe_customer_id: str, name: str, email: str, phone: str = '', address_city: str = '', address_country: str = '',
                           address_line1: str = '', address_line2: str = '', address_postal_code: str = '', address_state: str = '', **kwargs):
     logger.info(f"Handling charge success for payment intent: {payment_intent_id}.")
-    # Check user exist
-    if not User.objects.filter(email=email).exists():
-        logger.info(f"Email address {email} does not exist.")
+    if not stripe_customer_id:
         # Create Stripe Customer
         customer = create_new_stripe_customer_id(name, email, phone, address_city, address_country, address_line1,
                                                  address_line2, address_postal_code, address_state)
-        set_real_user_in_purchase(payment_intent_id, customer.id)
+        print(f"Stripe customer id: {customer.id}")
+    set_real_user_in_purchase(payment_intent_id, customer.id)
 
 
 def create_new_stripe_customer_id(name: str, email: str, phone: str = '', address_city: str = '', address_country: str = '', address_line1: str = '',
@@ -97,6 +96,7 @@ def set_real_user_in_purchase(payment_intent_id: str, customer_id: str, max_atte
         try:
             for purchase in purchases:
                 purchase.user = profile.user
+                purchase.stripe_customer_id = customer_id
                 purchase.save()
                 # Update user in products
                 products = purchase.products.all()
@@ -339,3 +339,8 @@ def create_message_about_products(purchase: Purchase):
         body.append(message)
 
     return subject, '\n'.join(body)
+
+
+def check_user_is_not_assigned_to_purchased_products_and_fix_it():
+    # collect all paid Products without assigned user
+    purchases = Purchase.last24hours_manager.filter(completed=True)

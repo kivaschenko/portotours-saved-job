@@ -113,6 +113,7 @@ def handle_charge_succeeded(event):
     billing_details = charge.billing_details
     charge_event = StripeChargeSucceeded(
         payment_intent_id=charge.payment_intent,
+        stripe_customer_id=charge.customer,
         name=billing_details.name,
         email=billing_details.email,
         phone=billing_details.phone,
