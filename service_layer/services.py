@@ -44,7 +44,8 @@ def update_purchase_by_payment_intent_id(payment_intent_id: str, customer_id: st
         logger.error(f"Exception while handling payment: {e}")
 
 
-def handle_charge_success(payment_intent_id: str, stripe_customer_id: str, name: str, email: str, phone: str = '', address_city: str = '', address_country: str = '',
+def handle_charge_success(payment_intent_id: str, stripe_customer_id: str, name: str, email: str, phone: str = '', address_city: str = '',
+                          address_country: str = '',
                           address_line1: str = '', address_line2: str = '', address_postal_code: str = '', address_state: str = '', **kwargs):
     logger.info(f"Handling charge success for payment intent: {payment_intent_id}.")
     if not stripe_customer_id:
@@ -53,12 +54,17 @@ def handle_charge_success(payment_intent_id: str, stripe_customer_id: str, name:
                                                  address_line2, address_postal_code, address_state)
         print(f"Stripe customer id: {customer['id']}")
         stripe_customer_id = customer['id']
+    create_profile_and_generate_password(stripe_customer_id, name, email, phone, address_city, address_country, address_line1, address_line2,
+                                         address_postal_code, address_state)
     # Update the PaymentIntent to bind it to the new customer
     updated_payment_intent = stripe.PaymentIntent.modify(
         payment_intent_id,
         customer=stripe_customer_id
     )
     print('updated_payment_intent', updated_payment_intent)
+    purchase = Purchase.objects.filter(stripe_payment_intent_id=payment_intent_id).first()
+    purchase.stripe_customer_id = stripe_customer_id
+    purchase.save()
     set_real_user_in_purchase(payment_intent_id, stripe_customer_id)
 
 
@@ -82,7 +88,7 @@ def create_new_stripe_customer_id(name: str, email: str, phone: str = '', addres
     return customer
 
 
-def set_real_user_in_purchase(payment_intent_id: str, customer_id: str, max_attempts=5, retry_delay=5):
+def set_real_user_in_purchase(payment_intent_id: str, customer_id: str, max_attempts=3, retry_delay=3):
     attempt = 0
 
     while attempt < max_attempts:
@@ -103,7 +109,7 @@ def set_real_user_in_purchase(payment_intent_id: str, customer_id: str, max_atte
         try:
             for purchase in purchases:
                 purchase.user = profile.user
-                purchase.stripe_customer_id = customer_id
+                # purchase.stripe_customer_id = customer_id
                 purchase.save()
                 # Update user in products
                 products = purchase.products.all()
@@ -183,7 +189,7 @@ def send_product_paid_email_staff(product):
                f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n')
     # send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
     #           fail_silently=False)
-    body = [message,]
+    body = [message, ]
     if product.number_added_options > 0:
         body.append(f'\tOptional extras included for total sum {product.options_total_sum} EUR:\n')
         for option in product.options.filter(quantity__gt=0):
@@ -336,7 +342,7 @@ def create_message_about_products(purchase: Purchase):
     product_order_numbers = [product.random_order_number for product in products]
     subject = "Unsuccessful attempt of payment for order(s): " + ', '.join(product_order_numbers)
     purchase_info = f"Purchase Id: {purchase.id}\n"
-    body = [purchase_info,]
+    body = [purchase_info, ]
     for product in products:
         message = (f"\nOrder ID: {product.random_order_number}\n"
                    f"\tProduct name: {product.full_name}\n"
@@ -350,4 +356,4 @@ def create_message_about_products(purchase: Purchase):
 
 def check_user_is_not_assigned_to_purchased_products_and_fix_it():
     # collect all paid Products without assigned user
-    purchases = Purchase.last24hours_manager.filter(completed=True)
+    purchases = Purchase.last24hours_manager.filter(completed=True).filter()

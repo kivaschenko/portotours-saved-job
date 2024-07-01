@@ -40,8 +40,8 @@ def collect_user_data(event: events.StripePaymentIntentFailed):
 
 def check_profile_and_send_password_email(event: events.StripeCustomerCreated):
     event_dict = event.__dict__
-    # tasks.create_profile_and_send_password.delay(**event_dict)
-    services.create_profile_and_generate_password(**event_dict)
+    tasks.create_profile_and_send_password.delay(**event_dict)
+    # services.create_profile_and_generate_password(**event_dict)
 
 
 # Main handlers dict
