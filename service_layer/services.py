@@ -144,7 +144,6 @@ def get_first_last_name(customer_name):
 def create_profile_and_generate_password(stripe_customer_id: str = None, name: str = None, email: str = None, phone: str = None,
                                          address_city: str = None, address_country: str = None, address_line1: str = None, address_line2: str = None,
                                          address_postal_code: str = None, address_state: str = None, **kwargs) -> bool:
-    logger.infor(f"Start to create Profile for stripe_customer {stripe_customer_id}.")
     if email is None:
         return False
     try:
