@@ -68,7 +68,7 @@ def stripe_webhook(request):
         # 'payment_intent.succeeded': handle_payment_intent_succeeded,
         # 'payment_intent.updated': payment_intent_updated,
         'charge.succeeded': handle_charge_succeeded,
-        # 'customer.created': handle_customer_created
+        'customer.created': handle_customer_created
     }
 
     handler = event_type_handlers.get(event.type, handle_unhandled_event)
