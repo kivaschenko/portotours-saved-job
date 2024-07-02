@@ -15,8 +15,9 @@ def handle(event: events.Event):
 
 def handle_stripe_charge_success(event: events.StripeChargeSucceeded):
     event_dict = event.__dict__
-    tasks.complete_charge_success(**event_dict)
+    # tasks.complete_charge_success(**event_dict)
     # services.handle_charge_success(**event_dict)
+    services.alternate_way_to_handle_charge_succeeded(**event_dict)
 
 
 # Stripe PaymentIntent
@@ -48,7 +49,9 @@ def check_profile_and_send_password_email(event: events.StripeCustomerCreated):
 
 HANDLERS = {
     events.StripePaymentIntentSucceeded: [set_purchase_status_completed, ],
-    events.StripeChargeSucceeded: [handle_stripe_charge_success, ],
+    events.StripeChargeSucceeded: [
+        handle_stripe_charge_success,
+    ],
     events.StripeCustomerCreated: [check_profile_and_send_password_email, ],
     events.StripePaymentIntentFailed: [send_email_failed_payment, collect_user_data, ]
 }

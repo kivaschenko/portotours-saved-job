@@ -43,9 +43,10 @@ def update_purchase_by_payment_intent_id(payment_intent_id: str, customer_id: st
         logger.error(f"Exception while handling payment: {e}")
 
 
-def handle_charge_success(payment_intent_id: str, stripe_customer_id: str, name: str, email: str, phone: str = '', address_city: str = '',
-                          address_country: str = '',
-                          address_line1: str = '', address_line2: str = '', address_postal_code: str = '', address_state: str = '', **kwargs):
+def handle_charge_success(payment_intent_id: str, stripe_customer_id: str, name: str, email: str,
+                          phone: str = '', address_city: str = '', address_country: str = '',
+                          address_line1: str = '', address_line2: str = '', address_postal_code: str = '',
+                          address_state: str = '', **kwargs):
     logger.info(f"Handling charge success for payment intent: {payment_intent_id}.")
     if not stripe_customer_id:
         # Create Stripe Customer
@@ -90,7 +91,7 @@ def create_new_stripe_customer_id(name: str, email: str, phone: str = '', addres
 
 def set_real_user_in_purchase(payment_intent_id: str, customer_id: str, max_attempts=3, retry_delay=3):
     attempt = 0
-
+    profile = None
     while attempt < max_attempts:
         try:
             profile = Profile.objects.get(stripe_customer_id=customer_id)
@@ -103,18 +104,21 @@ def set_real_user_in_purchase(payment_intent_id: str, customer_id: str, max_atte
 
             logger.warning(f"Profile not found. Retrying in {retry_delay} seconds...")
             time.sleep(retry_delay)
-
+    if not profile:
+        logger.error(f"Profile not found. Could not fetch profile for customer_id: {customer_id}.")
     purchases = Purchase.last24hours_manager.filter(stripe_payment_intent_id=payment_intent_id, user_id__in=[None, 0, 1])
     if purchases:
         try:
             for purchase in purchases:
                 purchase.user = profile.user
-                # purchase.stripe_customer_id = customer_id
+                purchase.stripe_customer_id = customer_id
+                purchase.completed = True
                 purchase.save()
                 # Update user in products
                 products = purchase.products.all()
                 for product in products:
                     product.customer = purchase.user
+                    product.status = 'Payment'
                     product.save()
                     logger.info(f"Updated user for {product}\n")
         except Exception as e:
@@ -140,6 +144,7 @@ def get_first_last_name(customer_name):
 def create_profile_and_generate_password(stripe_customer_id: str = None, name: str = None, email: str = None, phone: str = None,
                                          address_city: str = None, address_country: str = None, address_line1: str = None, address_line2: str = None,
                                          address_postal_code: str = None, address_state: str = None, **kwargs) -> bool:
+    logger.infor(f"Start to create Profile for stripe_customer {stripe_customer_id}.")
     if email is None:
         return False
     try:
@@ -354,3 +359,38 @@ def create_message_about_products(purchase: Purchase):
         body.append(message)
 
     return subject, '\n'.join(body)
+
+
+# --------------
+# CHARGE HANDLER
+def alternate_way_to_handle_charge_succeeded(payment_intent_id: str, stripe_customer_id: str, name: str, email: str,
+                                             phone: str = '', address_city: str = '', address_country: str = '',
+                                             address_line1: str = '', address_line2: str = '', address_postal_code: str = '',
+                                             address_state: str = '', **kwargs):
+    logger.info(f"Handling charge succeeded for payment intent: {payment_intent_id}.")
+    if not stripe_customer_id:
+        # Create Stripe customer for current PaymentIntent
+        customer = create_new_stripe_customer_id(name, email, phone, address_city, address_country, address_line1,
+                                                 address_line2, address_postal_code, address_state)
+        print(f"New Stripe customer id: {customer['id']} was created for payment_intent: {payment_intent_id}.")
+        stripe_customer_id = customer['id']
+        # Bind the new Customer to PaymentIntent
+        updated_payment_intent = stripe.PaymentIntent.modify(
+            payment_intent_id,
+            customer=stripe_customer_id
+        )
+        logger.info(f"Stripe PaymentIntent ID: {updated_payment_intent['id']} was updated with customer: {stripe_customer_id}.")
+        create_profile_and_generate_password(
+            stripe_customer_id=stripe_customer_id,
+            name=name,
+            email=email,
+            phone=phone,
+            address_city=address_city,
+            address_country=address_country,
+            address_line1=address_line1,
+            address_line2=address_line2,
+            address_postal_code=address_postal_code,
+            address_state=address_state,
+            **kwargs
+        )
+    set_real_user_in_purchase(payment_intent_id=payment_intent_id, customer_id=stripe_customer_id)

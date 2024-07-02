@@ -67,10 +67,10 @@ class CustomUserManager(UserManager):
         """
         try:
             user = self.get(email=email)
-            # new_password = self.make_random_password()
-            # user.set_password(new_password)
-            # user.save()
-            return user, '', False
+            new_password = self.make_random_password()
+            user.set_password(new_password)
+            user.save()
+            return user, new_password, False
         except self.model.DoesNotExist:
             return self.create_user_without_password(email, **extra_fields)
 

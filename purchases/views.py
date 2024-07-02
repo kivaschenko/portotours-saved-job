@@ -65,10 +65,10 @@ def stripe_webhook(request):
 
     event_type_handlers = {
         'payment_intent.payment_failed': handle_payment_intent_failed,
-        'payment_intent.succeeded': handle_payment_intent_succeeded,
-        'payment_intent.updated': payment_intent_updated,
+        # 'payment_intent.succeeded': handle_payment_intent_succeeded,
+        # 'payment_intent.updated': payment_intent_updated,
         'charge.succeeded': handle_charge_succeeded,
-        'customer.created': handle_customer_created
+        # 'customer.created': handle_customer_created
     }
 
     handler = event_type_handlers.get(event.type, handle_unhandled_event)
@@ -154,6 +154,8 @@ def payment_intent_updated(event):
     payment_intent = event['data']['object']
     logger.info(f"Payment intent {payment_intent.id} updated.")
     logger.info(f"Received payment intent:\n {payment_intent}")
+    payment_intent_event = StripePaymentIntentSucceeded(payment_intent_id=payment_intent.id)
+    handle(payment_intent_event)
 
 
 def handle_unhandled_event(event):
