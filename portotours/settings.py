@@ -264,7 +264,6 @@ LOGGING = {
         "django": {
             "handlers": [
                 "log_to_stdout",
-                "log_to_file"
             ],
             "level": "INFO",
             "propagate": True,
@@ -272,7 +271,6 @@ LOGGING = {
         "products": {
             "handlers": [
                 "log_to_stdout",
-                "log_to_file"
             ],
             "level": "INFO",
             "propagate": False,
@@ -280,7 +278,6 @@ LOGGING = {
         "purchases": {
             "handlers": [
                 "log_to_stdout",
-                "log_to_file"
             ],
             "level": "INFO",
             "propagate": False,
@@ -288,7 +285,6 @@ LOGGING = {
         "accounts": {
             "handlers": [
                 "log_to_stdout",
-                "log_to_file"
             ],
             "level": "INFO",
             "propagate": False,

@@ -199,7 +199,6 @@ LOGGING = {
         "django": {
             "handlers": [
                 "log_to_stdout",
-                "log_to_file"
             ],
             "level": "INFO",
             "propagate": True,

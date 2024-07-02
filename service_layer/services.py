@@ -22,7 +22,6 @@ BASE_ENDPOINT = settings.BASE_ENDPOINT
 
 # Purchase services
 
-
 def update_purchase_by_payment_intent_id(payment_intent_id: str, customer_id: str = None):
     try:
         # Update purchase status
@@ -165,42 +164,8 @@ def create_profile_and_generate_password(stripe_customer_id: str = None, name: s
         logger.error(f"Exception while handling customer: {e}")
 
 
-def send_new_password_by_email(email: str, password: str, name: str = '',
-                               subject: str = 'Your New Password',
-                               template_name: str = 'email_templates/new_password_email.html',
-                               from_email: str = None):
-    if from_email is None:
-        from_email = settings.DEFAULT_FROM_EMAIL
-    html_message = render_to_string(template_name, {'password': password, 'name': name})
-    logger.info(f'Sending email to {email} to {name}.\n')
-    send_mail(subject=subject, message='', html_message=html_message,
-              from_email=from_email, recipient_list=[email], fail_silently=False)
-    logger.info(f"New password sent to {email}.")
-
-
 # ---------------------------
 # Product & Purchase services
-
-def send_product_paid_email_staff(product):
-    subject = f'New Order: {product.random_order_number}, {product.full_name}, {product.date_of_start}'
-    message = (f'\tProduct name: {product.full_name}\n'
-               f'\tNumber of passengers: {product.total_booked}\n'
-               f'\tLanguage: {product.language}\n'
-               f'\tTotal price: {product.total_price} EUR\n'
-               f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n')
-    # send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
-    #           fail_silently=False)
-    body = [message, ]
-    if product.number_added_options > 0:
-        body.append(f'\tOptional extras included for total sum {product.options_total_sum} EUR:\n')
-        for option in product.options.filter(quantity__gt=0):
-            option = f'\t\t{option.experience_option.name} {option.experience_option.description} x {option.quantity}\n'
-            body.append(option)
-        body.append(f'\t====================================\n\tTotal sum with options: {product.total_sum_with_options} EUR:\n')
-
-    send_mail(subject=subject, message='\n'.join(body), from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
-              fail_silently=False)
-
 
 def update_products_status_if_expired():
     logger.info(f'Start updating status of expired products.')
@@ -230,6 +195,30 @@ def set_booking_after_payment(product):
     else:
         status = f'Succeeded setting booking after Product id: {product.id}.'
         logger.info(status)
+
+
+# ---------------
+# EMAILS SERVICES
+
+def send_product_paid_email_staff(product):
+    subject = f'New Order: {product.random_order_number}, {product.full_name}, {product.date_of_start}'
+    message = (f'\tProduct name: {product.full_name}\n'
+               f'\tNumber of passengers: {product.total_booked}\n'
+               f'\tLanguage: {product.language}\n'
+               f'\tTotal price: {product.total_price} EUR\n'
+               f'\tPassenger details: ({product.customer.profile.name}, {product.customer.profile.email}, {product.customer.profile.phone})\n')
+    # send_mail(subject, message, from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
+    #           fail_silently=False)
+    body = [message, ]
+    if product.number_added_options > 0:
+        body.append(f'\tOptional extras included for total sum {product.options_total_sum} EUR:\n')
+        for option in product.options.filter(quantity__gt=0):
+            option = f'\t\t{option.experience_option.name} {option.experience_option.description} x {option.quantity}\n'
+            body.append(option)
+        body.append(f'\t====================================\n\tTotal sum with options: {product.total_sum_with_options} EUR:\n')
+
+    send_mail(subject=subject, message='\n'.join(body), from_email=settings.ORDER_EMAIL, recipient_list=[settings.ADMIN_EMAIL, settings.MANAGER_EMAIL],
+              fail_silently=False)
 
 
 def send_email_notification_to_customer(product):
@@ -283,6 +272,19 @@ def send_report_about_paid_products():
         send_email_notification_to_customer(product)
         product.reported = True
         product.save()
+
+
+def send_new_password_by_email(email: str, password: str, name: str = '',
+                               subject: str = 'Your New Password',
+                               template_name: str = 'email_templates/new_password_email.html',
+                               from_email: str = None):
+    if from_email is None:
+        from_email = settings.DEFAULT_FROM_EMAIL
+    html_message = render_to_string(template_name, {'password': password, 'name': name})
+    logger.info(f'Sending email to {email} to {name}.\n')
+    send_mail(subject=subject, message='', html_message=html_message,
+              from_email=from_email, recipient_list=[email], fail_silently=False)
+    logger.info(f"New password sent to {email}.")
 
 
 def update_purchase_and_send_email_payment_intent_failed(payment_intent_id: str = None, stripe_customer_id: str = '',
