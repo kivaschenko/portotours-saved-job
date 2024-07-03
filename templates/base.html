@@ -9,13 +9,10 @@
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X9P4D6080"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
-
             function gtag() {
                 dataLayer.push(arguments);
             }
-
             gtag('js', new Date());
-
             gtag('config', 'G-9X9P4D6080');
         </script>
         <!-- Google Tag Manager -->
@@ -33,7 +30,6 @@
             f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-PDPBPWJC');</script>
         <!-- End Google Tag Manager -->
-
         <!-- Google Tag Manager (noscript) -->
         <noscript>
             <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PDPBPWJC"
@@ -65,10 +61,10 @@
         </style>
         {% compress css %}
             <!-- Bootstrap 5 Custom CSS -->
-            <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css"/>
             <!-- Swiper Slider -->
             <link rel="stylesheet" href="{% static 'custom_css/swiper-bundle.min.css' %}"/>
         {% endcompress %}
+        {% block extended_css %}{% endblock %}
         <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 
     {% endblock links_and_styles %}
