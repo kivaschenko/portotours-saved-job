@@ -1,3 +1,5 @@
+@import "../custom_css/custom.scss";
+
 .ppc-hero {
     position: relative;
     .img-hero-wrapper {
@@ -90,7 +92,7 @@
         }
     }
     .title-btn-wrapper.ppc-title-btn-wrapper {
-        flex-direction: column;
+        
         align-items: flex-start;
         @include media-breakpoint-down(md) {
             align-items: center;
@@ -105,7 +107,7 @@
         .filters-wrapper {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             @include media-breakpoint-down(md) {
               flex-direction: column;
               justify-content: flex-start;

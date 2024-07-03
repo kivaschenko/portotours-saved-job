@@ -5,13 +5,22 @@
     <!-- End Navbar -->
 {% endblock %}
 {% load static %}
+
+{% load compress %}
+{% load sass_tags %}
 {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billing details | One Day Tours Portugal</title>
     <script src="https://js.stripe.com/v3/"></script>
-    <link rel="stylesheet" href="{% static 'stripe/checkout.css' %}"/>
 {% endblock head %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/cart.scss' %}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'stripe/checkout.css' %}" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
 
 {% block content %}
     <div class="cart">

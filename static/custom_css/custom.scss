@@ -1,18 +1,18 @@
 @import "../bootstrap/scss/bootstrap.scss";
 @import "./header.scss";
 @import "./footer.scss";
-@import "./authorization.scss";
 @import "./pagination.scss";
-@import "./destinations.scss";
-@import "./homepage.scss";
-@import "./attraction.scss";
-@import "./experience.scss";
-@import "./blog.scss";
-@import "./cart.scss";
-@import "./account.scss";
-@import "./error_page.scss";
-@import "./landing.scss";
-@import "./about.scss";
+// @import "./destinations.scss";
+// @import "./authorization.scss";
+// @import "./homepage.scss";
+// @import "./attraction.scss";
+// @import "./experience.scss";
+// @import "./blog.scss";
+// @import "./cart.scss";
+// @import "./account.scss";
+// @import "./error_page.scss";
+// @import "./landing.scss";
+// @import "./about.scss";
 
 
 
@@ -342,4 +342,130 @@ a {
     
     
     
+}
+
+.faq {
+    .container {
+        padding-top: 60px;
+        padding-bottom: 70px;
+        max-width: 1090px;
+        @include media-breakpoint-down(md) {
+            width: 100%;
+            padding-top: 24px;
+            padding-bottom: 24px;
+        }
+    }
+    .faq-title {
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: capitalize;
+        @include media-breakpoint-down(md) {
+            margin-bottom: 14px;
+        }
+    }
+    .faq-subtitle {
+        margin-bottom: 20px;
+        text-align: center;
+        @include media-breakpoint-down(md) {
+            margin-bottom: 24px;
+            font-size: 16px;
+            line-height: 24px;
+        }
+    }
+    .faq-block {
+        border-radius: 16px;
+        border: 1px solid var(--text-color-third);
+        background: var(--text-color-second);
+        padding: 24px;
+        @include media-breakpoint-down(md) {
+            border: none;
+            padding: 10px 0;
+        }
+        + .faq-block {
+            margin-top: 16px;
+            @include media-breakpoint-down(md) {
+                margin-top: 0;
+            }
+        }
+        div {
+            p {
+                @include media-breakpoint-down(md) {
+                    font-family: 'LatoRegular';
+                    font-size: 14px;
+                    line-height: 22px;
+                    margin-bottom: 8px;
+                }
+            }
+        }
+    }
+    .faq-question {
+        font-family: 'LatoBold';
+        font-size: 18px;
+        line-height: 28px;
+        margin-top: 0;
+        margin-bottom: 16px;
+        @include media-breakpoint-down(md) {
+            font-family: 'LatoSemiBold';
+            font-size: 14px;
+            line-height: 22px;
+            margin-bottom: 12px;
+        }
+        
+    }
+    ul {
+        list-style: none;
+        padding-left: 24px;
+        margin: 0;
+        li {
+            position: relative;
+            margin-bottom: 0;
+            font-family: 'LatoRegular';
+            font-size: 16px;
+            line-height: 26px;
+            @include media-breakpoint-down(md) {
+                font-family: 'LatoRegular';
+                font-size: 14px;
+                line-height: 22px;
+            }
+            + li {
+                margin-top: 8px;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color: #F0500B;
+                border-radius: 50%;
+                left: -24px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+    ol {
+        margin: 0;
+        padding-left: 18px;
+        li {
+            position: relative;
+            margin-bottom: 0;
+            font-family: 'LatoRegular';
+            font-size: 16px;
+            line-height: 26px;
+            @include media-breakpoint-down(md) {
+                font-family: 'LatoRegular';
+                font-size: 14px;
+                line-height: 22px;
+            }
+            a {
+                &:hover {
+                    color: var(--text-color-third);
+                }
+            }
+            + li {
+                margin-top: 8px;
+            }
+            
+        }
+    }
 }

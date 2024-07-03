@@ -6,12 +6,21 @@
 {% endblock %}
 {% load static %}
 
+{% load compress %}
+{% load sass_tags %}
+
 {% block title %}
     Update booking data for Experience
 {% endblock %}
 {% block title_suffix %}
     | One Day Tours Portugal
 {% endblock title_suffix %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/cart.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
 
 {% block content %}
     <div class="edit-cart-item-wrapper">

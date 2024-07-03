@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load compress %}
+{% load sass_tags %}
 {% block head %}
-    
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/errro_page.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
 {% endblock %}
+{% endblock %}
+
+
 {% block content %}
     <body>
     <!-- Error Page -->
