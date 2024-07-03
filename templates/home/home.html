@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+
 {% load compress %}
 {% load sass_tags %}
-{% block compressed_css %}
-{% compress css %}
-    <!-- Bootstrap 5 Custom CSS -->
-    <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css"/>
-{% endcompress %}
-{% endblock compressed_css %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/homepage.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
 {% block content %}
 
     <section class="home-hero">

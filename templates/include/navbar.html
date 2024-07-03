@@ -1,4 +1,14 @@
 {% load static %}
+
+{% load compress %}
+{% load sass_tags %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/header.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
 <div class="container">
     <div class="header-top-row">
         <div class="header-left-col">

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load compress %}
+{% load sass_tags %}
 {% block title %}
     Explore the best Portugal destinations
 {% endblock %}
@@ -12,6 +13,12 @@
     <meta name="description" content="Destinations list page">
     <meta name="keywords" content="destinations">
 {% endblock meta_tags %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/destinations.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
 
 {% block content %}
     <section class="destination-list-hero">

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block header %}
     <!-- Navbar -->
     {% include 'include/navbar_empty.html' %}
@@ -7,12 +8,21 @@
 {% load static %}
 {% load custom_filters %}
 
+{% load compress %}
+{% load sass_tags %}
+
 {% block title %}
     My Cart
 {% endblock %}
 {% block title_suffix %}
     | One Day Tours Portugal
 {% endblock title_suffix %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/cart.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
 
 {% block content %}
     <div class="cart">

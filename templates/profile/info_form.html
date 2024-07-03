@@ -2,12 +2,21 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
+{% load compress %}
+{% load sass_tags %}
+
 {% block title %}
     Personal information form
 {% endblock %}
 {% block title_suffix %}
     | One Day Tours Portugal
 {% endblock title_suffix %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/account.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
 
 {% block content %}
 <section class="account-details">

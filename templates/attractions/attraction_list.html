@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% load compress %}
+{% load sass_tags %}
+
 {% block title %}
     Best Portugal Attractions and Activities
 {% endblock %}
@@ -10,6 +14,12 @@
     <meta name="description" content="Attractions list page">
     <meta name="keywords" content="attractions">
 {% endblock meta_tags %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/attraction.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
 
 {% block content %}
     <section class="attraction-list-hero">

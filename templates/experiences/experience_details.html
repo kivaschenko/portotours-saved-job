@@ -3,6 +3,9 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
+{% load compress %}
+{% load sass_tags %}
+
 {% block title %}
     {{ object.page_title }}
 {% endblock %}
@@ -14,6 +17,11 @@
     <meta name="description" content="{{ object.page_description }}">
     <meta name="keywords" content="{{ object.page_keywords }}">
 {% endblock meta_tags %}
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/experience.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
 
 {% block content %}
     <div class="mobile-form-btn-wrapper">

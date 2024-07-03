@@ -318,7 +318,8 @@ COMPRESS_CSS_FILTERS = [
 COMPRESS_PRECOMPILERS = [
     ('text/x-scss', 'django_libsass.SassCompiler'),
 ]
-
+# COMPRESS_URL = 'https://fra1.digitaloceanspaces.com/portotoursmedia/'
+# COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 SASS_PROCESSOR_INCLUDE_DIRS = [
     os.path.join(BASE_DIR, 'static/custom_css'),
     os.path.join(BASE_DIR, 'static/custom_css/custom.scss')
