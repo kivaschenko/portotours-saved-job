@@ -64,7 +64,9 @@
             <!-- Swiper Slider -->
             <link rel="stylesheet" href="{% static 'custom_css/swiper-bundle.min.css' %}"/>
         {% endcompress %}
-        {% block extended_css %}{% endblock %}
+        {% block extended_css %}
+            <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css"/>
+        {% endblock %}
         <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 
     {% endblock links_and_styles %}
