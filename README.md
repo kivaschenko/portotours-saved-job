@@ -124,6 +124,13 @@ If you have update some changes (added new .scss ) then run:
 ./manage.py compilescss
 ./manage.py collectstatic
 ```
+To compress static files css after editing before running use too:
+```
+./manage.py compress
+
+./manage.py runserver
+```
+
 within your (venv) command line interface.
 [According Django Sass Processor docs.](https://github.com/jrief/django-sass-processor)
 
