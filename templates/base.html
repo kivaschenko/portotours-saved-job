@@ -66,10 +66,10 @@
         {% compress css %}
         <!-- Bootstrap 5 Custom CSS -->
         <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css"/>
-        <!-- Swiper Slider -->
-        <link rel="stylesheet" href="{% static 'custom_css/swiper-bundle.min.css' %}"/>
         {% endcompress %}
 
+        <!-- Swiper Slider -->
+        <link rel="stylesheet" href="{% static 'custom_css/swiper-bundle.min.css' %}"/>
         <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 
     {% endblock links_and_styles %}
