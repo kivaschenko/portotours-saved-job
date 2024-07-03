@@ -303,11 +303,21 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/accounts/login'
 
 # Bootstrap Sass
-STATICFILES_FINDERS = (
+STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'sass_processor.finders.CssFinder',
-)
+    'sass_processor.finders.CssFinder',  # Correct finder for sass_processor
+    'compressor.finders.CompressorFinder',  # Correct finder for django-compressor
+]
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter',
+]
+COMPRESS_PRECOMPILERS = [
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+]
 
 SASS_PROCESSOR_INCLUDE_DIRS = [
     os.path.join(BASE_DIR, 'static/custom_css'),
