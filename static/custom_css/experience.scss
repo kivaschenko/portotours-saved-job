@@ -2847,7 +2847,126 @@
     }
   }
 }
+.why {
+  &.experience-page {
+    .container {
+      padding-bottom: 40px;
+      padding-top: 0;
 
+      @include media-breakpoint-down(md) {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+    }
+    .why-title {
+      @include media-breakpoint-down(md) {
+        font-size: 18px;
+        line-height: 28px;
+        margin-bottom: 24px;
+      }
+    }
+    .why-subtitle {
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
+    }
+  }
+  &.why-slider {
+    .container {
+      .why-cards-wrapper {
+        .why-card {
+          background: none;
+          padding: 0;
+          img {
+            border-radius: 16px;
+            background-color: #f3faf5;
+            padding: 14px;
+            width: 100px;
+            height: 100px;
+            margin-right: 22px;
+          }
+          .why-card-inner-wrapper {
+            text-align: left;
+            .why-subtext {
+              margin: 0;
+              font-size: 14px;
+              line-height: normal;
+              color: #0f0f10;
+              margin-top: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .container {
+    padding-top: 70px;
+    padding-bottom: 46px;
+    text-align: center;
+    @include media-breakpoint-down(md) {
+      padding-top: 25px;
+      padding-bottom: 25px;
+    }
+    .why-title {
+      margin-bottom: 20px;
+      @include media-breakpoint-down(md) {
+        margin-bottom: 14px;
+      }
+    }
+    .why-subtitle {
+      margin-bottom: 40px;
+      @include media-breakpoint-down(md) {
+        margin-bottom: 24px;
+        font-size: 14px;
+        line-height: 22px;
+      }
+    }
+    .why-cards-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      overflow: hidden;
+      position: relative;
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+      }
+      .why-card {
+        width: calc((100% - 48px) / 3);
+        display: flex;
+        align-items: center;
+        padding: 34px;
+        border-radius: 20px;
+        background: #f8f8f8;
+        margin-bottom: 24px;
+        @include media-breakpoint-down(md) {
+          width: 100%;
+          padding: 9px 28px;
+          border-radius: 16px;
+          margin-bottom: 6px;
+        }
+        img {
+          width: 72px;
+          margin-right: 14px;
+          @include media-breakpoint-down(md) {
+            width: 32px;
+            margin-right: 18px;
+          }
+        }
+        .why-text {
+          font-family: "LatoRegular";
+          font-size: 20px;
+          line-height: normal;
+          text-transform: capitalize;
+          margin: 0;
+          @include media-breakpoint-down(md) {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
 .also-interested {
   background-color: #F3FAF5;
   .container {
