@@ -8842,4 +8842,336 @@ a {
     line-height: normal;
     margin-top: 4px; }
 
+.also-interested {
+  background-color: #F3FAF5; }
+  .also-interested .container {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px; }
+    @media (max-width: 767.98px) {
+      .also-interested .container {
+        padding-top: 20px;
+        padding-bottom: 20px; } }
+    .also-interested .container .also-interested-title {
+      margin-bottom: 20px;
+      line-height: 44px; }
+      @media (max-width: 767.98px) {
+        .also-interested .container .also-interested-title {
+          margin-bottom: 14px; } }
+    .also-interested .container .also-interested-subtitle {
+      margin-bottom: 40px; }
+      @media (max-width: 767.98px) {
+        .also-interested .container .also-interested-subtitle {
+          margin-bottom: 24px;
+          font-size: 16px;
+          line-height: 24px; } }
+    @media (max-width: 767.98px) {
+      .also-interested .container .swiper-also-interested {
+        position: relative;
+        width: 100%; } }
+    .also-interested .container .swiper-pagination-bullet {
+      background: var(--text-color-third); }
+    .also-interested .container .also-interested-cards-wrapper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 0px; }
+      @media (max-width: 767.98px) {
+        .also-interested .container .also-interested-cards-wrapper {
+          align-items: center;
+          flex-direction: column;
+          justify-content: center; } }
+      .also-interested .container .also-interested-cards-wrapper .also-interested-card {
+        width: calc((100% - 48px)/3);
+        position: relative; }
+        @media (max-width: 767.98px) {
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card {
+            width: 100%;
+            display: flex;
+            flex-direction: column; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card + .also-interested-card {
+              margin-top: 30px; } }
+        .also-interested .container .also-interested-cards-wrapper .also-interested-card > a .discount-banner-wrapper {
+          position: absolute;
+          right: 0;
+          top: 20px; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card > a .discount-banner-wrapper .discount {
+            position: absolute;
+            top: 3px;
+            right: 10px;
+            font-family: "LatoSemiBold";
+            font-size: 14px;
+            line-height: normal;
+            color: white;
+            text-transform: capitalize; }
+        .also-interested .container .also-interested-cards-wrapper .also-interested-card > a .also-interested-img {
+          margin-bottom: 16px;
+          display: block;
+          width: 100%;
+          max-height: 235px;
+          object-fit: cover;
+          border-radius: 26px;
+          overflow: hidden; }
+          @media (max-width: 767.98px) {
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card > a .also-interested-img {
+              width: 100%;
+              margin-bottom: 14px; } }
+        @media (max-width: 767.98px) {
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card > a {
+            order: 1; } }
+        .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          margin-bottom: 14px; }
+          @media (max-width: 767.98px) {
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper {
+              order: 3;
+              flex-wrap: wrap;
+              margin-bottom: 6px; } }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .rating-block {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; }
+            @media (max-width: 767.98px) {
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .rating-block {
+                width: 100%;
+                margin-bottom: 5px;
+                margin-right: 0; } }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .rating-block img {
+              max-width: 132px;
+              display: block; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .rating-block p {
+              margin-right: 8px;
+              margin-bottom: 0;
+              margin-top: 0;
+              color: #0F0F10;
+              font-size: 14px;
+              line-height: 22px;
+              font-family: 'LatoRegular'; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .duration-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .duration-wrapper p {
+              color: #6D6D6D !important;
+              font-size: 14px;
+              line-height: 20px;
+              font-family: 'LatoRegular';
+              margin-right: 20px;
+              margin-bottom: 0; }
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .duration-wrapper p span {
+                color: #6D6D6D !important; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .duration-wrapper img {
+              margin-right: 10px;
+              width: 20px;
+              height: 20px; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .tour-type-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            color: #6D6D6D;
+            font-size: 14px;
+            line-height: 20px;
+            font-family: 'LatoRegular';
+            margin-bottom: 0; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .rating-info-wrapper .tour-type-wrapper img {
+              margin-right: 10px;
+              width: 20px;
+              height: 20px; }
+        .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          margin-bottom: 16px; }
+          @media (max-width: 767.98px) {
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper {
+              order: 2;
+              flex-direction: column;
+              margin-bottom: 10px; } }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper .tour-link {
+            font-family: "LatoSemiBold";
+            font-size: 18px;
+            line-height: normal;
+            text-transform: uppercase;
+            text-decoration: none;
+            margin-top: 0;
+            padding: 19px 0px;
+            margin-right: 20px;
+            width: 200px; }
+            @media (max-width: 767.98px) {
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper .tour-link {
+                margin-right: 0;
+                width: 100%;
+                margin-bottom: 10px; } }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper .tour-link:hover {
+              text-decoration: none; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper .tour-link img {
+              margin-left: 16px; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper .free-canc-title {
+            color: #007728;
+            margin: 0;
+            font-family: "LatoBold";
+            font-size: 12px;
+            line-height: 22px;
+            text-transform: uppercase; }
+            @media (max-width: 767.98px) {
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .book-banner-wrapper .free-canc-title {
+                font-size: 16px;
+                line-height: 22px;
+                margin-bottom: 0; } }
+        .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-title {
+          margin-top: 0;
+          font-size: 26px;
+          line-height: 36px;
+          font-family: 'LatoMedium';
+          text-align: left;
+          text-transform: capitalize;
+          color: #0F0F10;
+          margin-bottom: 6px; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-title.destination-title {
+            text-align: center; }
+          @media (max-width: 767.98px) {
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-title {
+              font-size: 18px;
+              line-height: 28px;
+              font-family: 'LatoSemiBold';
+              order: 4; } }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-title a {
+            text-decoration: none; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-title a:hover {
+              color: inherit; }
+        @media (max-width: 767.98px) {
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .also-interested-card-text {
+            order: 5; } }
+        .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper {
+          display: flex;
+          flex-direction: column; }
+          @media (max-width: 767.98px) {
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper {
+              order: 5; } }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .group-tour {
+            display: flex;
+            align-items: baseline;
+            justify-content: flex-start;
+            margin-bottom: 4px; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .group-tour .from-text {
+              color: #6D6D6D;
+              font-size: 14px;
+              line-height: 22px;
+              font-family: 'LatoRegular';
+              margin-bottom: 0;
+              margin-right: 10px; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .group-tour .old-price {
+              text-decoration: line-through;
+              color: #6D6D6D;
+              font-size: 16px;
+              line-height: normal;
+              font-family: 'LatoRegular';
+              margin-bottom: 0;
+              margin-right: 6px; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .group-tour .current-price {
+              color: #0F0F10;
+              font-size: 26px;
+              line-height: 36px;
+              font-family: 'LatoMedium';
+              margin-bottom: 0;
+              margin-right: 4px; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .group-tour .per-person {
+              color: #6D6D6D;
+              font-size: 14px;
+              line-height: 22px;
+              font-family: 'LatoRegular';
+              margin-bottom: 0; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .private-tour {
+            display: flex;
+            align-items: baseline;
+            justify-content: flex-start; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .private-tour .old-price {
+              color: #6D6D6D;
+              font-size: 16px;
+              line-height: normal;
+              font-family: 'LatoRegular';
+              margin-bottom: 0;
+              margin-right: 10px;
+              text-decoration: line-through; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .private-tour .current-price {
+              color: #6D6D6D;
+              font-size: 20px;
+              line-height: 30px;
+              font-family: 'LatoRegular';
+              margin-bottom: 0;
+              margin-right: 4px; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper .private-tour .per-person {
+              color: #6D6D6D;
+              font-size: 14px;
+              line-height: 22px;
+              font-family: 'LatoRegular';
+              margin-bottom: 0; }
+          .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale {
+            display: flex;
+            flex-direction: column;
+            border-radius: 6px;
+            background: #FFF;
+            overflow: hidden;
+            margin-bottom: 4px; }
+            @media (max-width: 767.98px) {
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale {
+                width: calc(100% + 32px);
+                margin-left: -16px;
+                overflow: auto; } }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale .top-discount-label {
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              background-image: url(../icons/turbo-sale-badge-bg.svg);
+              background-size: cover;
+              background-repeat: no-repeat;
+              background-position: bottom;
+              padding: 5px 10px 6px; }
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale .top-discount-label img {
+                width: 18px;
+                height: 18px;
+                margin-right: 7px; }
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale .top-discount-label p {
+                color: white;
+                font-family: "LatoSemiBold";
+                font-size: 14px;
+                line-height: 16px;
+                margin: 0;
+                text-transform: uppercase; }
+            .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale .bottom-discount-label {
+              padding: 4px 10px 2px; }
+              .also-interested .container .also-interested-cards-wrapper .also-interested-card .tour-price-wrapper.turbo-sale .bottom-discount-label .discount-info-text {
+                font-family: "LatoSemiBold";
+                font-size: 8px;
+                color: #007728;
+                line-height: 16px;
+                margin-bottom: 0;
+                text-align: left; }
+    .also-interested .container .also-interested-more-info-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; }
+      @media (max-width: 767.98px) {
+        .also-interested .container .also-interested-more-info-wrapper {
+          flex-direction: column; } }
+      .also-interested .container .also-interested-more-info-wrapper .also-interested-more-info-title {
+        text-transform: capitalize;
+        margin: 0; }
+        @media (max-width: 767.98px) {
+          .also-interested .container .also-interested-more-info-wrapper .also-interested-more-info-title {
+            width: 100%;
+            font-size: 18px;
+            line-height: 28px;
+            margin-bottom: 14px;
+            font-family: 'LatoSemiBold';
+            text-align: left; } }
+      .also-interested .container .also-interested-more-info-wrapper .also-interested-info-link {
+        width: 340px; }
+        @media (max-width: 767.98px) {
+          .also-interested .container .also-interested-more-info-wrapper .also-interested-info-link {
+            width: 100%; } }
+
 /*# sourceMappingURL=experience.css.map */
