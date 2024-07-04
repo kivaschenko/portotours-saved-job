@@ -2847,3 +2847,401 @@
     }
   }
 }
+
+.also-interested {
+  background-color: #F3FAF5;
+  .container {
+      text-align: center;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      @include media-breakpoint-down(md) {
+          padding-top: 20px;
+          padding-bottom: 20px;
+      }
+      .also-interested-title {
+          margin-bottom: 20px;
+          line-height: 44px;
+          @include media-breakpoint-down(md) {
+              margin-bottom: 14px;
+          }
+      }
+      .also-interested-subtitle {
+          margin-bottom: 40px;
+          @include media-breakpoint-down(md) {
+              margin-bottom: 24px;
+              font-size: 16px;
+              line-height: 24px;
+          }
+      }
+      .swiper-also-interested {
+          @include media-breakpoint-down(md) {
+              position: relative;
+              
+              width: 100%;
+              
+          }
+      }
+      .swiper-pagination-bullet {
+          background: var(--text-color-third);
+      }
+      .also-interested-cards-wrapper {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          margin-bottom: 0px;
+          @include media-breakpoint-down(md) {
+              align-items: center;
+              flex-direction: column;
+              justify-content: center;
+          }
+          .also-interested-card {
+              width: calc((100% - 48px)/3);
+              position: relative;
+              @include media-breakpoint-down(md) {
+                  width: 100%;
+                  display: flex;
+                  flex-direction: column;
+                  + .also-interested-card {
+                      margin-top: 30px;
+                  }
+              }
+              > a {
+                  .discount-banner-wrapper {
+                      position: absolute;
+                      right: 0;
+                      top: 20px;
+                      
+                      .discount {
+                        position: absolute;
+                        top: 3px;
+                        right: 10px;
+                        font-family: "LatoSemiBold";
+                        font-size: 14px;
+                        line-height: normal;
+                        color: white;
+                        text-transform: capitalize;
+                      }
+                    }
+                  .also-interested-img {
+                      margin-bottom: 16px;
+                      display: block;
+                      width: 100%;
+                      max-height: 235px;
+                      object-fit: cover;
+                      border-radius: 26px;
+                      overflow: hidden;
+                      @include media-breakpoint-down(md) {
+                          width: 100%;
+                          margin-bottom: 14px;
+                      }
+                  }
+                  @include media-breakpoint-down(md) {
+                      order: 1;
+                  }
+              }
+              
+              .rating-info-wrapper {
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-start;
+                  margin-bottom: 14px;
+                  @include media-breakpoint-down(md) {
+                      order: 3;
+                      flex-wrap: wrap;
+                      margin-bottom: 6px;
+                  }
+                  .rating-block {
+                      margin-right: 20px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: flex-start;
+                      @include media-breakpoint-down(md) {
+                          width: 100%;
+                          margin-bottom: 5px;
+                          margin-right: 0;
+                      }
+                      img {
+                          max-width: 132px;
+                          
+                          display: block;
+                      }
+                      p {
+                          margin-right: 8px;
+                          margin-bottom: 0;
+                          margin-top: 0;
+                          color: #0F0F10;
+                          font-size: 14px;
+                          line-height: 22px;
+                          font-family: 'LatoRegular';
+
+                      }
+                  }
+                  .duration-wrapper {
+                      display: flex;
+                      align-items: center;
+                      justify-content: flex-start;
+                      p {
+                          color: #6D6D6D !important;
+                          font-size: 14px;
+                          line-height: 20px;
+                          font-family: 'LatoRegular';
+                          margin-right: 20px;
+                          margin-bottom: 0;
+                          span {
+                              color: #6D6D6D !important;
+                          }
+                      }
+                      img {
+                          margin-right: 10px;
+                          width: 20px;
+                          height: 20px;
+                      }
+                  }
+                 
+                  .tour-type-wrapper {
+                      display: flex;
+                      align-items: center;
+                      justify-content: flex-start;
+                      color: #6D6D6D;
+                      font-size: 14px;
+                      line-height: 20px;
+                      font-family: 'LatoRegular';
+                      margin-bottom: 0;
+                      img {
+                          margin-right: 10px;
+                          width: 20px;
+                          height: 20px;
+                      }
+                  }
+              }
+              .book-banner-wrapper {
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-start;
+                  margin-bottom: 16px;
+                  @include media-breakpoint-down(md) {
+                      order: 2;
+                      flex-direction: column;
+                      margin-bottom: 10px;
+                  }
+                  .tour-link {
+                    font-family: "LatoSemiBold";
+                    font-size: 18px;
+                    line-height: normal;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    margin-top: 0;
+                    padding: 19px 0px;
+                    margin-right: 20px;
+                    width: 200px;
+                    @include media-breakpoint-down(md) {
+                      margin-right: 0;
+                      width: 100%;
+                      margin-bottom: 10px;
+                    }
+                    
+                    &:hover {
+                      text-decoration: none;
+                    }
+                    img {
+                      margin-left: 16px;
+                    }
+                  }
+                  .free-canc-title {
+                    color: #007728;
+                    margin: 0;
+                    font-family: "LatoBold";
+                    font-size: 12px;
+                    line-height: 22px;
+                    text-transform: uppercase;
+                    @include media-breakpoint-down(md) {
+                      font-size: 16px;
+                      line-height: 22px;
+                      margin-bottom: 0;
+                    }
+                  }
+              }
+              .also-interested-card-title {
+                  margin-top: 0;
+                  font-size: 26px;
+                  line-height: 36px;
+                  font-family: 'LatoMedium';
+                  text-align: left;
+                  text-transform: capitalize;
+                  color: #0F0F10;
+                  margin-bottom: 6px;
+                  &.destination-title {
+                      text-align: center;
+                  }
+                  @include media-breakpoint-down(md) {
+                      font-size: 18px;
+                      line-height: 28px;
+                      font-family: 'LatoSemiBold';
+                      order: 4;
+                      
+                  }
+                  a {
+                      text-decoration: none;
+                      &:hover {
+                          color: inherit;
+                      }
+                  }
+              }
+              .also-interested-card-text {
+                  @include media-breakpoint-down(md) {
+                      order: 5;
+                  }
+              }
+              .tour-price-wrapper {
+                  display: flex;
+                  flex-direction: column;
+                  @include media-breakpoint-down(md) {
+                      order: 5;
+                  }
+                  .group-tour {
+                      display: flex;
+                      align-items: baseline;
+                      justify-content: flex-start;
+                      margin-bottom: 4px;
+                      .from-text {
+                          color: #6D6D6D;
+                          font-size: 14px;
+                          line-height: 22px;
+                          font-family: 'LatoRegular';
+                          margin-bottom: 0;
+                          margin-right: 10px;
+                      }
+                      .old-price {
+                          text-decoration: line-through;
+                          color: #6D6D6D;
+                          font-size: 16px;
+                          line-height: normal;
+                          font-family: 'LatoRegular';
+                          margin-bottom: 0;
+                          margin-right: 6px;
+                      }
+                      .current-price {
+                          color: #0F0F10;
+                          font-size: 26px;
+                          line-height: 36px;
+                          font-family: 'LatoMedium';
+                          margin-bottom: 0;
+                          margin-right: 4px;
+                      }
+                      .per-person {
+                          
+                          color: #6D6D6D;
+                          font-size: 14px;
+                          line-height: 22px;
+                          font-family: 'LatoRegular';
+                          margin-bottom: 0;
+                          
+                      }
+                  }
+                  .private-tour {
+                      display: flex;
+                      align-items: baseline;
+                      justify-content: flex-start;
+                      .old-price {
+                          color: #6D6D6D;
+                          font-size: 16px;
+                          line-height: normal;
+                          font-family: 'LatoRegular';
+                          margin-bottom: 0;
+                          margin-right: 10px;
+                          text-decoration: line-through;
+                      }
+                      .current-price {
+                          color: #6D6D6D;
+                          font-size: 20px;
+                          line-height: 30px;
+                          font-family: 'LatoRegular';
+                          margin-bottom: 0;
+                          margin-right: 4px;
+                      }
+                      .per-person {
+                          color: #6D6D6D;
+                          font-size: 14px;
+                          line-height: 22px;
+                          font-family: 'LatoRegular';
+                          margin-bottom: 0;
+                      }
+                  }
+                  &.turbo-sale {
+                      display: flex;
+                      flex-direction: column;
+                      border-radius: 6px;
+                      background: #FFF;
+                      overflow: hidden;
+                      margin-bottom: 4px;
+                      @include media-breakpoint-down(md) {
+                          width: calc(100% + 32px);
+                          margin-left: -16px;
+                          overflow: auto;
+                        }
+                      .top-discount-label {
+                          display: flex;
+                          align-items: center;
+                          justify-content: flex-start;
+                          background-image: url(../icons/turbo-sale-badge-bg.svg);
+                          background-size: cover;
+                          background-repeat: no-repeat;
+                          background-position: bottom;
+                          padding: 5px 10px 6px;
+                          img {
+                            width: 18px;
+                            height: 18px;
+                            margin-right: 7px;
+                          }
+                          p {
+                            color: white;
+                            font-family: "LatoSemiBold";
+                            font-size: 14px;
+                            line-height: 16px;
+                            margin: 0;
+                            text-transform: uppercase;
+                          }
+                      }
+                      .bottom-discount-label {
+                          padding: 4px 10px 2px;
+                          .discount-info-text {
+                              font-family: "LatoSemiBold";
+                              font-size: 8px;
+                              color: #007728;
+                              line-height: 16px;
+                              margin-bottom: 0;
+                              text-align: left;
+                            }
+                      }
+                  }
+              }
+          }
+      }
+      .also-interested-more-info-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          @include media-breakpoint-down(md) {
+              flex-direction: column;
+          }
+          .also-interested-more-info-title {
+              text-transform: capitalize;
+              margin: 0;
+              @include media-breakpoint-down(md) {
+                  width: 100%;
+                  font-size: 18px;
+                  line-height: 28px;
+                  margin-bottom: 14px;
+                  font-family: 'LatoSemiBold';
+                  text-align: left;
+              }
+          }
+          .also-interested-info-link {
+              width: 340px;
+              @include media-breakpoint-down(md) {
+                  width: 100%;
+              }
+          }
+      }
+  }
+}
