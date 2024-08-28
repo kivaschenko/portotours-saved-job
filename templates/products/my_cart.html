@@ -1,0 +1,504 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <!-- Navbar -->
+    {% include 'include/navbar_empty.html' %}
+    <!-- End Navbar -->
+{% endblock %}
+{% load static %}
+{% load custom_filters %}
+
+{% load compress %}
+{% load sass_tags %}
+
+{% block title %}
+    My Cart
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/cart.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <div class="cart">
+        <div class="container">
+            <div class="cart-steps-wrapper">
+                <ul class="cart-steps">
+                    <li class="cart-step-item active">
+                        <div class="img-wrapper">
+                            <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                            <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        </div>
+                        <div class="text-wrapper">
+                            <p class="step-text body-text-b4">
+                                1 Step
+                            </p>
+                            <p class="body-text-b3 step-title">
+                                My experiences
+                            </p>
+                        </div>
+
+                    </li>
+                    <li class="cart-step-item">
+                        <div class="img-wrapper">
+                            <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                            <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                            <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        </div>
+                        <div class="text-wrapper">
+                            <p class="step-text body-text-b4">
+                                2 Step
+                            </p>
+                            <p class="body-text-b3 step-title">
+                                Billing details
+                            </p>
+                        </div>
+
+                    </li>
+                    <li class="cart-step-item">
+                        <div class="img-wrapper">
+                            <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                            <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                            <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        </div>
+
+                        <div class="text-wrapper">
+                            <p class="step-text body-text-b4">
+                                3 Step
+                            </p>
+                            <p class="body-text-b3 step-title">
+                                Confirmation
+                            </p>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+            {% if object_list %}
+                <div class="cart-title-wrapper">
+                    <h2 class="cart-title">
+                        Please review your order
+                    </h2>
+                    <p class="cart-title-info">
+
+                        <!-- Add a span element for the common timer -->
+                        <strong> <img src="{% static 'icons/cart-info-icon.svg' %}" alt="cart info icon"> <span id="common-timer" style="margin-right: 1rem;"></span></strong>
+                        We've reserved a place in the experience for you. Please review your order and make payment to keep it.
+                    </p>
+                </div>
+                <div class="cart-cards-info">
+                    <div class="cart-card-col">
+                        <h2 class="cart-cards-title">
+                            Order details
+                        </h2>
+                        {% for object in object_list %}
+                            <div class="cart-card" id="cart_card_{{ object.id }}">
+                                <p class="card-title-mobile">
+                                    {{ object.parent_experience.parent_name }}
+                                </p>
+                                <div class="img-wrapper">
+                                    <p class="card-img-badge">
+                                        {% if object.second_purchase_discount %}
+                                        {{ object.second_purchase_discount }}% discount
+                                        {% else %}
+                                        {{ object.parent_experience.increase_percentage_old_price }}% discount
+                                        {% endif %}
+                                    </p>
+                                    <img src="{{ object.parent_experience.card_image.url }}" class="card-img"
+                                         alt="card image preview for {{ object.parent_experience }}">
+                                </div>
+                                <div class="card-content-wrapper">
+                                    <p class="card-title">
+                                        {{ object.parent_experience.parent_name }}
+                                    </p>
+                                    <div class="card-content-inner-wrapper">
+                                        <div class="card-col">
+                                            <p class="card-col-title">
+                                                Date
+                                            </p>
+                                            <p class="card-col-text date-value">
+                                                {{ object.date_of_start }}
+                                            </p>
+                                            <p class="card-col-title">
+                                                Language
+                                            </p>
+                                            <p class="card-col-text">
+                                                {{ object.language }}
+                                            </p>
+                                        </div>
+                                        <div class="card-col">
+                                            <p class="card-col-title">
+                                                Time
+                                            </p>
+                                            <p class="card-col-text time-value">
+                                                {{ object.time_of_start }}
+                                            </p>
+                                            {% if object.parent_experience.is_private %}
+                                                <p class="card-col-title">
+                                                    Adult
+                                                </p>
+                                                <p class="card-col-text">
+                                                    {{ object.adults_count }}
+                                                </p>
+                                            {% else %}
+                                                <p class="card-col-title">
+                                                    Adult Price
+                                                </p>
+                                                <p class="card-col-text">
+                                                    {{ object.adults_count }} x €{{ object.adults_price }}
+                                                </p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-col">
+                                            <p class="card-col-title">
+                                                Experience type
+                                            </p>
+                                            <p class="card-col-text">
+                                                {% if object.parent_experience.is_private %}Private{% else %}Small Group{% endif %}
+                                            </p>
+                                            {% if object.child_count > 0 %}
+                                                {% if object.parent_experience.is_private %}
+                                                    <p class="card-col-title">
+                                                        Children
+                                                    </p>
+                                                    <p class="card-col-text">
+                                                        {{ object.child_count }}
+                                                    </p>
+                                                {% else %}
+                                                    <p class="card-col-title">
+                                                        Children Price
+                                                    </p>
+                                                    <p class="card-col-text">
+                                                        {{ object.child_count }} x €{{ object.child_price }}
+                                                    </p>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-col {% if object.price_is_special %}special-price{% endif %}">
+                                            {% if object.price_is_special %}
+                                                <div class="">
+                                                    <p class="card-col-title">
+                                                        <img src="{% static 'icons/info-icon-cart.svg' %}" alt="cart icon">
+                                                        <span class="special-price-text">
+                                                            Your experience reservation has earned extra discount from One Day Tours Portugal.
+                                                        </span>
+                                                        Special price
+                                                    </p>
+                                                    <p class="card-col-text">
+                                                        €{{ object.total_price }}
+                                                    </p>
+                                                </div>
+                                                <div class="turbo-mode-banner">
+                                                    <div class="top-discount-label">
+                                                        <img src="{% static 'icons/green-gift-icon.svg' %}" alt="gift">
+                                                        <p>
+                                                            -€{{ object.second_purchase_discount }} APPLIED
+                                                        </p>
+                                                    </div>
+                                                    <div class="bottom-discount-label">
+                                                        <p class="discount-info-text">
+                                                            Experience is eligable for special discount.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <p class="card-col-title">
+                                                    Price
+                                                </p>
+                                                <p class="card-col-text">
+                                                    €{{ object.total_price }}
+                                                </p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="optional-extras-block">
+                                        <div class="title-wrapper">
+                                            <a href="{% url 'edit-product' object.pk %}" class="edit-extras-btn">
+                                                <img src="{% static 'icons/edit-extras-icon.svg' %}" alt="edit icon">
+                                            </a>
+                                            <h2 class="extras-title">
+                                                    {% if object.number_added_options > 0 %}
+                                                    {{ object.number_added_options }} Optional extra(s) added to your experience:
+                                                    <span>€{{ object.options.all|sum_prices }}</span>
+                                                    <img src="{% static 'icons/options-arrow.svg' %}" alt="arrow">
+                                                    {% else %}
+                                                         No optional extras added to your experience
+                                                    {% endif %}
+                                            </h2>
+                                        </div>
+                                        <ul class="options-list">
+                                            {% for item in object.options.all %}
+                                                {% if item.quantity > 0 %}
+                                                    <li>
+                                                        <p>
+                                                            {{ item.quantity }} x {{ item.experience_option }}
+                                                            {% if item.experience_option.description %}
+                                                                <span>{{ item.experience_option.description }}</span>
+                                                            {% endif %}
+                                                        </p>
+                                                        <p>
+                                                            {% if item.price %}€{{ item.price }}{% else %}free{% endif %}
+                                                        </p>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="hover-block">
+                                        <ul class="hover-block-btns-list">
+                                            <li class="hover-block-item">
+                                                <a href="{% url 'edit-product' object.pk %}">
+                                                    <img src="{% static 'icons/cart-edit-icon.svg' %}" alt="edit">
+                                                    <span>Edit</span>
+                                                </a>
+                                            </li>
+                                            <li class="hover-block-item">
+                                                <a href="{% url 'delete-product' object.pk %}">
+                                                    <img class="default-img" src="{% static 'icons/cart-remove-icon.svg' %}" alt="remove">
+                                                    <img class="red-img" src="{% static 'icons/red-trash-icon.svg' %}" alt="remove">
+                                                    <span>Delete</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    {% if object.free_cancellation_datetime %}
+                                        <div class="risk-free-banner">
+                                            <img src="{% static 'icons/risk-free-icon.svg' %}" alt="risk free icon">
+                                            <span>
+                                            Risk free!
+                                        </span>
+                                            <p class="risk-free-text">
+                                                Free cancellation before {{ object.free_cancellation_datetime }}
+                                            </p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                               
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="cart-order-info-col">
+                        <div class="order-info-wrapper">
+                            <p class="price">
+                                Price for {{ object_list|length }} experience(s)
+                                <span>
+                                €{% if old_price_sum %}{{ old_price_sum }}{% else %}0{% endif %}
+                            </span>
+                            </p>
+                            {% if optional_extras %}
+                            <p class="price">
+                                Optional extras
+                                <span>
+                                €{{ optional_extras }}
+                            </p>
+                            {% endif %}
+                            <p class="price">
+                                Processing fees
+                                <span>
+                                FREE
+                            </span>
+                            </p>
+                            {% if discounted_price_sum %}
+                                <div class="price discount">
+                                    <div class="icon-wrapper">
+                                        <img src="{% static 'icons/flash-icon.svg' %}" alt="flash icon">
+                                        Instant discount - €{{ discounted_price_sum }}
+                                    </div>
+                                    <span>
+                                     APPLIED
+                                    </span>
+                                </div>
+                            {% endif %}
+                            {% if total_second_discount %}
+                                <div class="price discount">
+                                    <div class="icon-wrapper">
+                                        <img src="{% static 'icons/black-gift.svg' %}" alt="gift icon">
+                                        Special offer discount - €{{ total_second_discount }}
+                                    </div>
+                                    <span>
+                                     APPLIED
+                                    </span>
+                                </div>
+                            {% endif %}
+                            <p class="total-price">
+                                Total
+                                <span>
+                                €{% if total_price_sum %}{{ total_price_sum }}{% else %}0{% endif %}
+                            </span>
+                            </p>
+                            <div class="price-match-banner">
+                                <img src="{% static 'icons/info-icon.svg' %}" alt="info icon">
+                                <p class="hidden-text">
+                                    If you find a better price on any similar product available from another travel company operating in Portugal, we'll be happy to match it!
+                                </p>
+                                We price match. Find it for less, and we’ll match it!
+                            </div>
+                            <a href="{% url 'payment-form' lang='en' %}" class="order-btn btn-type-1">
+                                Checkout
+                            </a>
+                            <p class="secure-checkout">
+                                <img src="{% static 'icons/lock-icon.svg' %}" alt="lock icon">
+                                Secure Checkout
+                            </p>
+                        </div>
+                        <div class="purchase-includes">
+                            <h4 class="purchase-includes-title">
+                                Your purchase includes:
+                            </h4>
+                            <ul>
+                                <li>Best price on the market</li>
+                                <li>Taxes and Fees</li>
+                                <li>Free cancellation</li>
+                                <li>Experiences developed by local experts</li>
+                                <li>Personal and accident insurance</li>
+                                <li>Discount for children</li>
+                                <li>Award-winning customer support</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="purchase-includes purchase-includes-mobile">
+                        <a href="{% url 'payment-form' lang='en' %}" class="order-btn-mobile btn-type-1">
+                            Checkout
+                        </a>
+                        <h4 class="purchase-includes-title">
+                            Your purchase includes:
+                        </h4>
+                        <ul>
+                            <li>Best price on the market</li>
+                            <li>Taxes and Fees</li>
+                            <li>Free cancellation</li>
+                            <li>Experiences developed by local experts</li>
+                            <li>Personal and accident insurance</li>
+                            <li>Discount for children</li>
+                            <li>Award-winning customer support</li>
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <div class="empty-cart-wrapper">
+                    <div class="container">
+                        <h2 class="empty-cart-title">
+                            your basket is empty
+                        </h2>
+                        <img src="{% static 'images/empty-cart-icon.svg' %}" alt="empty cart icon" class="empty-cart-img">
+                        <a href="{% url 'experience-list' lang='en' %}" class="btn-type-1 empty-cart-btn">List of experiences</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- For language selector -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+
+    <!-- JavaScript script for the timer -->
+    <script>
+        // Declare timer globally
+        let commonTimer;
+        let createdAt; // Variable to store the createdAt value
+        let deadline; // Variable to store the deadline value
+
+        // Function to update the common timer
+        function updateCommonTimer() {
+            const now = new Date();
+            const timeDiff = (deadline - now) / 1000; // Time difference in seconds
+
+            const minutes = Math.floor(timeDiff / 60);
+            const seconds = Math.floor(timeDiff % 60);
+
+            // Format minutes and seconds with leading zeros if needed
+            const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+            const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+            document.getElementById('common-timer').innerText = `${formattedMinutes}:${formattedSeconds}`;
+
+            // Check if the deadline has passed
+            if (timeDiff <= 0) {
+                clearInterval(commonTimer); // Stop the timer
+                // Reset the deadline to 30 minutes from now
+                deadline = new Date(Date.now() + (30 * 60 * 1000));
+                // Restart the timer
+                commonTimer = setInterval(updateCommonTimer, 1000);
+                // Update the timer immediately
+                updateCommonTimer();
+            }
+        }
+
+        // Function to start the common timer with the provided createdAt value
+        function startCommonTimer() {
+            // Parse the createdAt string into a Date object in UTC
+            const [dateStr, timeStr] = createdAt.split(' ');
+            const [year, month, day] = dateStr.split('-').map(Number);
+            const [hour, minute, second] = timeStr.split(':').map(Number);
+            const createdAtDate = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
+
+            // Set the deadline to 30 minutes after the createdAt time
+            deadline = new Date(createdAtDate.getTime() + (30 * 60 * 1000)); // 30 minutes in milliseconds
+
+            // Update the timer every second
+            commonTimer = setInterval(updateCommonTimer, 1000);
+
+            // Update the timer immediately
+            updateCommonTimer();
+        }
+
+        // Call the function to start the common timer after the DOM has fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the createdAt value from the template variable
+            createdAt = '{{ last_created_at|date:"Y-m-d H:i:s" }}';
+
+            if (createdAt) {
+                // Start the common timer with the provided createdAt value
+                startCommonTimer();
+            }
+        });
+    </script>
+
+    <!-- Google tracker data pusher -->
+    <script>
+        // Ensure `ecommerce_items` is properly converted to a JavaScript array
+        const itemsArray = {{ ecommerce_items|safe }};
+
+        // Ensure the dataLayer is defined
+        window.dataLayer = window.dataLayer || [];
+
+        // Clear the previous ecommerce object.
+        window.dataLayer.push({ecommerce: null});
+
+        // Push the new ecommerce data
+        window.dataLayer.push({
+            event: "begin_checkout",
+            ecommerce: {
+                currency: "EUR",
+                value: "",
+                items: itemsArray,
+            }
+        });
+    </script>
+    <script>
+        let cartCard = document.querySelectorAll('.cart-card');
+        cartCard.forEach((card) => {
+            let optionsWrapper = card.querySelector('.optional-extras-block')
+            let arrowIcon = card.querySelector('.extras-title');
+            let icon = card.querySelector('.extras-title img');
+            if (arrowIcon) {
+                arrowIcon.addEventListener('click', () => {
+                    arrowIcon.classList.toggle('opened');
+                    icon.classList.toggle('opened');
+
+                    optionsWrapper.classList.toggle('opened');
+                })
+            }
+        })
+    </script>
+
+{% endblock %}
+{% block footer_columns %}{% endblock %}
+{% block whatsup %}{% endblock whatsup %}

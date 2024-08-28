@@ -1,0 +1,63 @@
+<!-- custom_delete.html -->
+{% extends "base.html" %}
+{% load static %}
+{% load compress %}
+{% load sass_tags %}
+{% block title %}
+    Cancel Paid Experience
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/cart.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <div class="remove-cart-item-wrapper">
+        <div class="container">
+            <h2 class="remove-cart-item-title">Delete experience</h2>
+            <p class="remove-cart-item-subtitle">Are you sure you want to cancel this experience {{ object.order_number }}?</p>
+            <div class="remove-cart-item">
+                <div class="img-wrapper">
+                    <img src="{% if object.parent_experience.card_image %}{{ object.parent_experience.card_image.url }}{% else %}{% endif %}" alt="card image for {{ object.parent_experience.parent_name }}">
+                </div>
+                <div class="content-wrapper">
+                    <h3 class="content-title">
+                        {{ object.parent_experience.parent_name }}
+                    </h3>
+                    <ul class="content-list">
+                        <li>{{ object.date_of_start }}</li>
+                        <li>{{ object.time_of_start }}</li>
+                    </ul>
+                    <ul class="content-list">
+                        <li>{{ object.adults_count }} Adult</li>
+                        <li>{{ object.child_count }} Child</li>
+                    </ul>
+                    <ul class="content-list">
+                        <li>{% if object.parent_experience.is_private %}Private Type{% else %}Group Type{% endif %}</li>
+                        <li>{{ object.language }} Language</li>
+                    </ul>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-delete">
+                            <img src="{% static 'icons/trash-icon-orange.svg' %}" alt="delete icon red">
+                            Delete
+                        </button>
+                        <button type="button" class="btn btn-cancel" id="cancel-btn">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("cancel-btn").onclick = function () {
+            history.go(-1); // Go back one page in history
+        };
+    </script>
+{% endblock %}
+{% block whatsup %}{% endblock whatsup %}

@@ -1,0 +1,109 @@
+{% load static %}
+<div class="best-tours-card">
+    <div class="img-wrapper">
+        <a href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}" target="_blank">
+            <img loading="lazy" src="{% if experience.parent_experience.card_image %}
+                                    {{ experience.parent_experience.card_image.url }}
+                                    {% else %}{% endif %}" alt="card image for {{ experience.name }}">
+        </a>
+    </div>
+    <div class="card-content-wrapper">
+        {% if experience.parent_experience.increase_percentage_old_price %}
+            <div class="discount-banner-wrapper">
+                <img loading="lazy" src="{% static 'icons/discount-bg.svg' %}" alt="discount bg">
+                <p class="discount">
+                    {{ experience.parent_experience.increase_percentage_old_price }}% discount
+                </p>
+            </div>
+        {% endif %}
+        <div class="rating-wrapper body-text-b4">
+            {% if experience.average_rating %}
+                <div class="rating-block">
+                    <p class="rating-num">{{ experience.average_rating }}</p>
+                    <div class="rating">
+                        <div class="icon-wrapper">
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                      stroke="#FDB601"/>
+                            </svg>
+                        </div>
+                        <div class="icon-wrapper">
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                      stroke="#FDB601"/>
+                            </svg>
+                        </div>
+                        <div class="icon-wrapper">
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                      stroke="#FDB601"/>
+                            </svg>
+                        </div>
+                        <div class="icon-wrapper">
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                      stroke="#FDB601"/>
+                            </svg>
+                        </div>
+                        <div class="icon-wrapper">
+                            <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                      stroke="#FDB601"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                </div>
+            {% else %}
+                <div class="rating-block">
+                    <p class="rating-num">5.0</p>
+                    <img src="{% static 'icons/5-stars-icon.svg' %}" alt="best tour">
+                </div>
+            {% endif %}
+        </div>
+        <a class="title-link" target="_blank"
+           href="{% url 'experience-detail' lang=experience.language.code.lower slug=experience.slug %}">
+            <p class="best-tours-card-title body-text-b2">
+                {{ experience.name }}
+            </p>
+        </a>
+        <div class="tour-info-wrapper">
+            <ul class="tour-info-list">
+                <li>
+                    <img loading="lazy" src="{% static 'icons/duration-icon.svg' %}" alt="duration icon">
+                    {{ experience.display_duration }}
+                </li>
+                {% if experience.parent_experience.is_private %}
+                    <li>
+                        <img loading="lazy" src="{% static 'icons/private-tour-icon.svg' %}" alt="private tour icon">
+                        Private experience
+                    </li>
+                {% else %}
+
+                    <li>
+                        <img loading="lazy" src="{% static 'icons/group-tour-icon.svg' %}" alt="tour icon">
+                        Small Group
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="price-link-wrapper">
+            <p class="tour-price">
+                {% if experience.parent_experience.increase_percentage_old_price %}
+                    <span class="old-price">€ {{ experience.parent_experience.old_price }}</span>
+                {% endif %}
+                € {{ experience.parent_experience.price }}
+                <span>{% if experience.parent_experience.is_private %}{% else %}/ per person{% endif %}</span>
+            </p>
+            <div class="book-banner-wrapper">
+                <a href="javascript:void(0)" onclick="trackButtonClick('{{ experience.get_absolute_url }}', {{ experience.ecommerce_items|safe }})"
+                   class="tour-link btn-type-1">
+                    Book
+                </a>
+                <p class="free-canc-title">
+                    + free cancellation
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

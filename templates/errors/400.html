@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load compress %}
+{% load sass_tags %}
+{% block head %}
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/error_page.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+{% endblock %}
+
+
+{% block content %}
+    <body>
+    <!-- Error Page -->
+    <div class="error-page">
+        <div class="container error-page-container">
+            <img src="{% static 'icons/error_400.svg' %}" alt="error img">
+            <h4 class="error-title">
+                ERROR
+            </h4>
+            <p class="error-subtitle">
+                Bad Request (Invalid Host)
+            </p>
+            <a href="/" class="error-link btn-type-1">
+                go to homepage
+            </a>
+        </div>
+    </div>
+    <!-- Error Page -->
+    
+{% endblock %}
+

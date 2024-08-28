@@ -1,0 +1,408 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load compress %}
+{% load sass_tags %}
+{% block title %}
+    {{ object.page_title }}
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block meta_tags %}
+    <meta name="description" content={{ object.page_description }}>
+{% endblock meta_tags %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/landing.scss' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% sass_src 'custom_css/homepage.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+{% block content %}
+    <section class="ppc-hero">
+        <div class="img-hero-wrapper">
+            {% if object.banner %}
+                <img class="img-desktop" src="{{ object.banner.url }}">
+               
+            {% else %}
+                <img src="{% static 'images/destination-list-hero-img.png' %}">
+            {% endif %}
+            {% if object.banner_mobile %}
+                <img class="img-mobile" src="{{ object.banner_mobile.url }}">
+            {% endif %}
+        </div>
+
+        <div class="container">
+
+            <h1 class="ppc-hero-title">
+                {% if object.title %}{{ object.title }}{% endif %}
+            </h1>
+        </div>
+    </section>
+
+    <section class="best-tours">
+        <div class="container">
+
+            {% if object.content %}
+                <div class="ppc-text">{{ object.display_content }}</div>
+            {% endif %}
+            <div class="title-btn-wrapper ppc-title-btn-wrapper">
+
+                <div class="filters-wrapper">
+                    <div class="filter-wrapper">
+                        <p class="experience-filter-title">
+                            Destinations
+                        </p>
+                        <select name="experience filter" id="destination-slug">
+                            <option value="all">All</option>
+                            {% for destination in select_destinations %}
+                                <option value="{{ destination.0 }}">{{ destination.1 }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-wrapper">
+                        <p class="experience-filter-title">
+                            Type
+                        </p>
+                        <select name="experience filter" id="tour_type">
+                            <option value="all">All</option>
+                            <option value="private">Private</option>
+                            <option value="group">Group</option>
+                        </select>
+                    </div>
+                    <div class="filter-wrapper">
+                        <p class="experience-filter-title">
+                            Time of Day
+                        </p>
+                        <select name="experience filter" id="time_of_day">
+                            <option value="all">All</option>
+                            <option value="morning">Morning (Before 12PM)</option>
+                            <option value="afternoon">Afternoon (After 12PM)</option>
+                            <option value="evening">Evening and night (After 5PM)</option>
+                        </select>
+                    </div>
+                    <div class="filter-wrapper">
+                        <p class="experience-filter-title">
+                            Duration
+                        </p>
+                        <select name="experience filter" id="duration">
+                            <option value="all">All</option>
+                            <option value="0-1">Up to 1 hour</option>
+                            <option value="1-4">1 to 4 hours</option>
+                            <option value="4-10">4 to 10 hours</option>
+                            <option value="24-72">1 to 3 days</option>
+                        </select>
+                    </div>
+                    <div class="filter-wrapper">
+                        <p class="experience-filter-title">
+                            Sort by
+                        </p>
+                        <select name="experience filter" id="filter_by">
+                            <option value="all">All</option>
+                            <option value="price_low">Price - Low To High</option>
+                            <option value="price_high">Price - High To Low</option>
+                            <option value="discount">Discount</option>
+                            <option value="hot_deals">Best Sellers first</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="best-tours-cards-wrapper ppc-best-tours">
+                {% if experiences %}
+                    {% for experience in experiences %}
+                        {% if cart_not_empty %}
+                            {% include 'include/best_tours_cards_applied.html' %}
+                        {% else %}
+                            {% include 'include/best_tours_cards.html' %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    No experiences found based on your search criteria
+                {% endif %}
+                {% if experiences.has_other_pages %}
+                    <div class="pagination-block ppc-pagination">
+
+                        {% if experiences.has_previous %}
+                            <button class="pagination-btn prev">
+                                <a href="?page={{ experiences.previous_page_number }}">
+                                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                                </a>
+                            </button>
+                        {% else %}
+                            <button class="pagination-btn prev">
+                                <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+                            </button>
+                        {% endif %}
+                        <ul class="pagination-list">
+                            {% for num in experiences.paginator.page_range %}
+
+                                {% if experiences.number == num %}
+                                    <li class="pagination-list-item active">{{ num }}</li>
+                                {% elif num > experiences.number|add:'-5' and num < experiences.number|add:'5' %}
+                                    <li class="pagination-list-item"><a class="" href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+
+                            {% endfor %}
+                        </ul>
+                        {% if experiences.has_next %}
+                            <button class="pagination-btn next">
+                                <a href="?page={{ page_obj.next_page_number }}">
+                                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                                </a>
+                            </button>
+                        {% else %}
+                            <button class="pagination-btn next">
+                                <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+                            </button>
+                        {% endif %}
+
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </section>
+
+    <section class="why landing-page">
+        <div class="container">
+            <h2 class="why-title">
+                Why book with OneDayTours?
+            </h2>
+            <p class="why-subtitle body-text-b1">
+                Create the best of your experience by visiting Portugal with our exclusive tours
+            </p>
+            <div class="why-cards-wrapper">
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon1.svg' %}" alt="why icon" class="why-card-img">
+                    <p class="why-text">
+                        30+ Experiences in Portugal
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon2.svg' %}" alt="why icon" class="why-card-img">
+                    <p class="why-text">
+                        Guided by local experts
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon3.svg' %}" alt="why icon" class="why-card-img">
+                    <p class="why-text">
+                        Best price guarantee
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon4.svg' %}" alt="why icon" class="why-card-img">
+                    <p class="why-text">
+                        No hidden fees
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon5.svg' %}" alt="why icon" class="why-card-img">
+                    <p class="why-text">
+                        Free cancellation
+                    </p>
+                </div>
+                <div class="why-card swiper-slide">
+                    <img src="{% static 'icons/why-icon6.svg' %}" alt="why icon" class="why-card-img">
+                    <p class="why-text">
+                        Safe and secure website
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="refund-banner ppc-page">
+        <div class="container">
+            <div class="img-wrapper">
+                <img src="{% static 'icons/refund-banner-icon.svg' %}" alt="refund banner">
+            </div>
+            <div class="banner-content">
+                <h3 class="banner-title">
+                    Free cancellation + 100% Refund
+                </h3>
+                <p class="banner-subtitle">
+                    Full refund of reservation is available up to 24 hours before your trip starts
+                </p>
+            </div>
+        </div>
+    </section>
+
+    {% if testimonials %}
+        <section class="testimonials-slider-section">
+            <div class="container">
+                <h2 class="testimonials-title">
+                    testimonials
+                </h2>
+                <p class="testimonials-subtitle body-text-b1">
+                    Read the reviews of our clients about their experience with our service
+                </p>
+                <div class="testimonials-slider">
+                    <div class="swiper-wrapper">
+                        {% for testimonial in testimonials %}
+                            <div class="swiper-slide">
+                                <p class="swiper-text">
+                                    {{ testimonial.short_text }}
+                                </p>
+                                <div class="author-wrapper">
+                                    {% if testimonial.profile.avatar %}
+                                        <img src="{{ testimonial.profile.avatar.url }}" alt="Avatar">
+                                    {% else %}
+                                        <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar">
+                                    {% endif %}
+                                    <p class="name">{{ testimonial.profile.name }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if object.blogs.all %}
+        <section class="blog-articles">
+            <div class="container">
+                <h2 class="blog-article-title">{{ object.blogs_title }}</h2>
+                <div class="blog-article-cards-wrapper">
+                    {% for object in object.blogs.all %}
+                        <div class="blog-card">
+                            <div class="img-wrapper">
+                                <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
+                                    <img class="img-desktop" src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
+                            {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
+                            {% if object.parent_blog.card_image_mobile %}
+                                    <img class="img-mobile" src="{% if object.parent_blog.card_image_mobile %}{{ object.parent_blog.card_image_mobile.url }}
+                            {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
+                            {% endif %}
+                                </a>
+
+                            </div>
+                            <div class="card-content-wrapper">
+                                <p class="card-date">
+                                    {{ object.date_published|date }}
+                                </p>
+                                <h5 class="card-title">
+                                    <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
+                                        {{ object.title }}
+                                    </a>
+                                </h5>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if object.seo_title and object.seo_text %}
+        <section class="text-block">
+            <div class="container">
+                <h2 class="text-block-title">
+                    {{ object.seo_title }}
+                </h2>
+                <div class="text-block-content">
+                    {{ object.display_seo_text }}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+
+    {% if object.faq_landing_list.all %}
+        <section class="faq">
+            <div class="container">
+                <h2 class="faq-title">
+                    {% if object.faq_title %}{{ object.faq_title }}{% endif %}
+                </h2>
+                <p class="faq-subtitle">
+                    {% if object.faq_subtitle %}{{ object.faq_subtitle }}{% endif %}
+                </p>
+                {% for record in object.faq_landing_list.all %}
+                    <div class="faq-block">
+                        <p class="faq-question">{{ record.question }}</p>
+                        <div>{{ record.display_answer }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if object.related_landing_pages.all %}
+        <section class="guided-tours">
+            <div class="container">
+                <h2>{% if object.title_related_landing_pages %}{{ object.title_related_landing_pages }}{% else %}{{ object.title }}{% endif %}</h2>
+                <ul>
+                    {% for land_page in object.related_landing_pages.all %}
+                        <li><a href="{% url "landing-page" lang=land_page.language.code.lower slug=land_page.slug %}">{{ land_page.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    {% endif %}
+
+    <!-- Custom JS import -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+    <script src="{% static 'js/clean_landing_url.js' %}"></script>
+    <script>
+        const swiperTestimonials = new Swiper(".testimonials-slider", {
+            speed: 1000,
+            spaceBetween: 24,
+            loop: true,
+            slidesPerView: 3,
+            autoplay: {
+                delay: 5000,
+            },
+            centeredSlides: true,
+            breakpoints: {
+                200: {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                },
+                767: {
+                    slidesPerView: 3,
+                    spaceBetween: 24,
+                }
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+    <script>
+        let experienceCardList = document.querySelector('.best-tours-cards-wrapper')
+        let experienceCardListItems = experienceCardList.querySelectorAll('.best-tours-card');
+        experienceCardListItems.forEach((item) => {
+            let averageRating = item.querySelector('.rating-num').textContent;
+            if (averageRating) {
+                function fillStars(rating) {
+                    const iconWrappers = item.querySelectorAll('.icon-wrapper');
+                    const filledStars = Math.floor(rating);
+                    const fraction = rating - filledStars;
+                    iconWrappers.forEach((iconWrapper, index) => {
+                        if (index < filledStars) {
+                            iconWrapper.querySelector('.star').classList.add('filled');
+                        } else if (index === filledStars) {
+                            iconWrapper.style.setProperty('--fraction', fraction);
+                            iconWrapper.classList.add('partial-fill');
+                        }
+                    });
+                }
+
+                fillStars(averageRating);
+            }
+        });
+    </script>
+     <script src="{% static 'google_analytics/data_pusher.js' %}"></script>
+{% endblock %}

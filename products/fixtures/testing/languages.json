@@ -1,0 +1,38 @@
+[
+{
+    "model": "products.language",
+    "pk": 1,
+    "fields": {
+        "code": "EN",
+        "name": "English",
+        "is_active": true
+    }
+},
+{
+    "model": "products.language",
+    "pk": 2,
+    "fields": {
+        "code": "ES",
+        "name": "Español",
+        "is_active": true
+    }
+},
+{
+    "model": "products.language",
+    "pk": 3,
+    "fields": {
+        "code": "FR",
+        "name": "Français",
+        "is_active": true
+    }
+},
+{
+    "model": "products.language",
+    "pk": 4,
+    "fields": {
+        "code": "PT",
+        "name": "Português",
+        "is_active": true
+    }
+}
+]

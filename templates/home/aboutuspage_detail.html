@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load compress %}
+{% load sass_tags %}
+
+{% block title %}
+    {{ object.page_title }}
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/about.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block meta_tags %}
+    <meta name="description" content="{{ object.page_description }}">
+    <meta name="keywords" content="{{ object.page_keywords }}">
+{% endblock meta_tags %}
+
+{% block content %}
+
+    <section class="about-us-text-image">
+        <div class="container">
+            <div class="left-col">
+                
+                <h2 class="left-col-title">
+                    <img src="{% static 'icons/about-us-icon.svg' %}" alt="about icon" class="left-col-icon">
+                    {{ object.title }}
+                </h2>
+                {% if object.intro_text %}
+                    <p class="left-col-text">
+                        {{ object.intro_text }}
+                    </p>
+                {% endif %}
+            </div>
+            <div class="right-col">
+                <img class="image-desktop" src="{{ object.main_image_desktop.url }}" alt="about us image">
+                <img class="image-mobile" src="{{ object.main_image_mobile.url }}" alt="about us image">
+            </div>
+        </div>
+    </section>
+    <section class="about-us-text-image about-us-text-image--reversed">
+        <div class="container">
+            <div class="left-col">
+                
+                <h2 class="left-col-title">
+                    <img src="{% static 'icons/mission-icon.svg' %}" alt="mission icon" class="left-col-icon">
+                    {{ object.our_mission_title }}
+                </h2>
+                {% if object.our_mission_text %}
+                    <p class="left-col-text">
+                        {{ object.our_mission_text }}
+                    </p>
+                {% endif %}
+            </div>
+            <div class="right-col">
+                <img class="image-desktop" src="{% static 'images/about-mission-img.png' %}" alt="about us image">
+                <img class="image-mobile" src="{% static 'images/about-mission-img-mob.png' %}" alt="about us image">
+            </div>
+        </div>
+    </section>
+    {% if object.our_values.all %}
+    <section class="values">
+        <div class="container">
+            <div class="values-card title-card">
+                
+                {% if object.our_values_title %}
+                <h3 class="section-title">
+                    <img src="{% static 'icons/values-icon.svg' %}" alt="values icon" class="title-card-icon">
+                    {{ object.our_values_title }}
+                </h3>
+                {% endif %}
+            </div>
+            {% for value in object.our_values.all %}
+            <div class="values-card">
+                {% if value.icon_img %}
+                <img src="{{ value.icon_img.url }}" alt="values card icon">
+                {% endif %}
+                <h5 class="card-title">
+                    {{ value.value_title }}
+                </h5>
+                <p class="card-text">
+                    {{ value.value_text }}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    {% if object.staff.all %}
+    <section class="team">
+        <div class="container">
+            <h2 class="team-title">
+                <img src="{% static 'icons/team-icon.svg' %}" alt="icon" class="team-icon">
+                Our Team
+            </h2>
+            <p class="team-info">
+                We've assembled our company of travel experts and enthusiasts to radically change the classical time-consuming approach to travel planning.
+            </p>
+            <div class="team-cards-wrapper">
+                {% for person in object.staff.all %}
+                    <div class="team-card">
+                        {% if person.photo %}
+                            <img src="{{ person.photo.url }}">
+                        {% endif %}
+                        <h5 class="name">
+                            {{ person.full_name }}
+                        </h5>
+                        <p class="position">
+                            {{ person.position }}
+                        </p>
+                        <p class="info-text">
+                            {{ person.description }}
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+
+    <!-- Local JS -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+{% endblock %}

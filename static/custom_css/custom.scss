@@ -1,0 +1,471 @@
+@import "../bootstrap/scss/bootstrap.scss";
+@import "./header.scss";
+@import "./footer.scss";
+@import "./pagination.scss";
+// @import "./destinations.scss";
+// @import "./authorization.scss";
+// @import "./homepage.scss";
+// @import "./attraction.scss";
+// @import "./experience.scss";
+// @import "./blog.scss";
+// @import "./cart.scss";
+// @import "./account.scss";
+// @import "./error_page.scss";
+// @import "./landing.scss";
+// @import "./about.scss";
+
+
+
+
+@font-face {
+    font-family: 'LatoBold';
+    src: local('Lato'), url('../fonts/Lato-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'LatoSemiBold';
+    src: local('Lato'), url('../fonts/Lato-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'LatoMedium';
+    src: local('Lato'), url('../fonts/Lato-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'LatoRegular';
+    src: local('Lato'), url('../fonts/Lato-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+
+:root{
+    /*<editor-fold desc="COLORS">*/
+    --main-color: #000;
+    --second-color: #FFB23B;
+    --text-color-main: #0F0F10;
+    --text-color-second: #fff;
+    --text-color-third: #F0500B;
+
+}
+
+
+.text-color-main {
+    color: var(--text-color-main);
+}
+.text-color-second {
+    color: var(--text-color-second);
+}
+
+h1 {
+    font-size: 92px;
+    line-height: 110px;
+    font-family: 'LatoBold';
+    margin-bottom: 0;
+    @include media-breakpoint-down(md) {
+
+    }
+}
+h2 {
+    font-size: 44px;
+    line-height: 56px;
+    font-family: 'LatoSemiBold';
+    @include media-breakpoint-down(md) {
+        font-size: 26px;
+        line-height: 36px;     
+    }
+}
+h4 {
+    font-size: 32px;
+    line-height: 42px;
+    font-family: 'LatoSemiBold';
+    @include media-breakpoint-down(md) {
+        font-size: 18px;
+        line-height: 28px;     
+    }
+}
+h5 {
+    font-size: 26px;
+    line-height: 36px;
+    font-family: 'LatoMedium';
+    @include media-breakpoint-down(md) {
+        font-size: 18px;
+        line-height: 28px;     
+    }
+}
+.container {
+    max-width: 1312px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+    @include media-breakpoint-down(md) {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+}
+.body-text-b1 {
+    font-family: 'LatoRegular';
+    font-size: 20px;
+    line-height: 30px;
+    @include media-breakpoint-down(md) {
+        font-size: 16px;
+        line-height: 24px;
+    }
+}
+.body-text-b2 {
+    font-family: 'LatoSemiBold';
+    font-size: 18px;
+    line-height: 28px;
+    @include media-breakpoint-down(md) {
+        font-family: 'LatoRegular';
+        font-size: 14px;
+        line-height: 22px;
+    }
+}
+
+.body-text-b3 {
+    font-family: 'LatoRegular';
+    font-size: 16px;
+    line-height: 26px;
+}
+.body-text-b3-sb {
+    font-family: 'LatoSemiBold';
+    font-size: 16px;
+    line-height: 26px;
+}
+.body-text-b4 {
+    font-family: 'LatoRegular';
+    font-size: 14px;
+    line-height: 22px;
+    
+}
+
+.btn-type-1 {
+    border-radius: 38px;
+    background: var(--text-color-third);
+    color: white;
+    border: none;
+    width: fit-content;
+    padding: 18px 0;
+    text-transform: uppercase;
+    font-family: 'LatoSemiBold';
+    font-size: 18px;
+    line-height: normal;
+    text-decoration: none;
+    
+}
+.btn-type-1:hover {
+    background: #DA4303;
+    color: white;
+}
+.btn-type-2 {
+    border-radius: 40px;
+    border: 1px solid var(--text-color-third);
+    background: var(--text-color-second);
+    color: var(--text-color-third);
+    padding: 18px 62px;
+    width: fit-content;
+    font-family: 'LatoSemiBold';
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'LatoSemiBold';
+    font-size: 18px;
+    line-height: normal;
+    display: block;
+    text-decoration: none;
+    @include media-breakpoint-down(md) {
+        width: 100%;
+        font-size: 18px;
+        line-height: normal;
+    }
+}
+.btn-type-2:hover {
+    background: #FFF6F2;
+    color: #DA4303;
+}
+.btn-type-3 {
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(20px);
+    padding: 12px 30px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-family: 'LatoSemiBold';
+    font-size: 18px;
+    line-height: normal;
+    text-decoration: none;
+    cursor: pointer;
+    img {
+        margin-left: 16px;
+    }
+    &:hover {
+        border-radius: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        background: rgba(255, 255, 255, 0.40);
+        backdrop-filter: blur(20px);
+        color: white;
+    }
+}
+
+html.off-scroll,
+html.off-scroll body {
+  overflow: hidden;
+  touch-action: none;
+}
+
+// Your custom styles here
+html {
+    &.overflow {
+        overflow: hidden;
+    }
+    @include media-breakpoint-down(md) {
+        overflow-x: hidden;
+        
+    }
+}
+body {
+    @include media-breakpoint-down(md) {
+        overflow-x: hidden;
+    }
+}
+
+// Override Bootstrap variables if needed
+$primary: #F0500B;
+$secondary: #ba77e3;
+
+// Continue with other customizations
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary
+);
+
+.btn-primary {
+    background-color: $primary;
+    border-color: $primary;
+}
+
+.btn {
+    border-radius: 2.35rem;
+}
+
+a {
+    color: #0F0F10;
+}
+.nav-link {
+    color: #0F0F10;
+}
+
+.subscribe-popup {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 19;
+    display: none;
+    .subscribe-popup-inner {
+        position: fixed;
+        width: 866px;
+        height: 550px;
+        background-color: white;
+        padding: 160px 84px;
+        border-radius: 20px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 20;
+        
+        @include media-breakpoint-down(md) {
+            width: calc(100% - 32px);
+            padding: 120px 20px;
+            height: auto;
+        }
+        .close-popup-btn {
+            position: absolute;
+            right: 40px;
+            top: 40px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            img {
+                width: 100%;
+            }
+            @include media-breakpoint-down(md) {
+                right: 24px;
+                top: 24px;
+            }
+        }
+        .popup-title {
+            text-align: center;
+            margin-bottom: 24px;
+            text-transform: capitalize;
+            font-size: 44px;
+            line-height: 56px;
+            font-family: 'LatoSemiBold';
+            @include media-breakpoint-down(md) {
+                font-size: 26px;
+                line-height: 36px;
+                margin-bottom: 16px;
+            }
+        }
+        .popup-text {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 20px;
+            line-height: 30px;
+            font-family: 'LatoRegular';
+            @include media-breakpoint-down(md) {
+                font-size: 16px;
+                line-height: 24px;
+                margin-bottom: 45px;
+            }
+        }
+        .btn-popup {
+            width: 260px;
+            margin: 0 auto;
+            display: block;
+            text-align: center;
+            @include media-breakpoint-down(md) {
+    
+            }
+        }
+    }
+    
+    
+    
+}
+
+.faq {
+    .container {
+        padding-top: 60px;
+        padding-bottom: 70px;
+        max-width: 1090px;
+        @include media-breakpoint-down(md) {
+            width: 100%;
+            padding-top: 24px;
+            padding-bottom: 24px;
+        }
+    }
+    .faq-title {
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: capitalize;
+        @include media-breakpoint-down(md) {
+            margin-bottom: 14px;
+        }
+    }
+    .faq-subtitle {
+        margin-bottom: 20px;
+        text-align: center;
+        @include media-breakpoint-down(md) {
+            margin-bottom: 24px;
+            font-size: 16px;
+            line-height: 24px;
+        }
+    }
+    .faq-block {
+        border-radius: 16px;
+        border: 1px solid var(--text-color-third);
+        background: var(--text-color-second);
+        padding: 24px;
+        @include media-breakpoint-down(md) {
+            border: none;
+            padding: 10px 0;
+        }
+        + .faq-block {
+            margin-top: 16px;
+            @include media-breakpoint-down(md) {
+                margin-top: 0;
+            }
+        }
+        div {
+            p {
+                @include media-breakpoint-down(md) {
+                    font-family: 'LatoRegular';
+                    font-size: 14px;
+                    line-height: 22px;
+                    margin-bottom: 8px;
+                }
+            }
+        }
+    }
+    .faq-question {
+        font-family: 'LatoBold';
+        font-size: 18px;
+        line-height: 28px;
+        margin-top: 0;
+        margin-bottom: 16px;
+        @include media-breakpoint-down(md) {
+            font-family: 'LatoSemiBold';
+            font-size: 14px;
+            line-height: 22px;
+            margin-bottom: 12px;
+        }
+        
+    }
+    ul {
+        list-style: none;
+        padding-left: 24px;
+        margin: 0;
+        li {
+            position: relative;
+            margin-bottom: 0;
+            font-family: 'LatoRegular';
+            font-size: 16px;
+            line-height: 26px;
+            @include media-breakpoint-down(md) {
+                font-family: 'LatoRegular';
+                font-size: 14px;
+                line-height: 22px;
+            }
+            + li {
+                margin-top: 8px;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color: #F0500B;
+                border-radius: 50%;
+                left: -24px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+    ol {
+        margin: 0;
+        padding-left: 18px;
+        li {
+            position: relative;
+            margin-bottom: 0;
+            font-family: 'LatoRegular';
+            font-size: 16px;
+            line-height: 26px;
+            @include media-breakpoint-down(md) {
+                font-family: 'LatoRegular';
+                font-size: 14px;
+                line-height: 22px;
+            }
+            a {
+                &:hover {
+                    color: var(--text-color-third);
+                }
+            }
+            + li {
+                margin-top: 8px;
+            }
+            
+        }
+    }
+}

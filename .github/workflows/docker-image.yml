@@ -1,0 +1,64 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Check Python version
+        run: python --version
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y binutils libgdal-dev
+          sudo apt-get install graphviz graphviz-dev
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      # - name: Run tests
+      #   run: python3 manage.py test --settings=portotours.settings
+
+  build_and_deploy:
+    runs-on: ubuntu-22.04
+    needs: build
+    if: ${{ needs.build.result == 'success' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Debug Information
+        run: |
+          echo "DROPLET_IP: ${{ secrets.DROPLET_IP }}"
+          echo "DROPLET_USERNAME: ${{ secrets.DROPLET_USERNAME }}"
+          echo "SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}"
+      - name: Log in to DockerHub
+        run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Build and push Docker image
+        env:
+          STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+        run: |
+          docker build -t portotours/portotours:latest .
+          docker push portotours/portotours:latest
+      - name: SSH into Digital Ocean Droplet and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
+          script: |
+            docker pull portotours/portotours:latest
+            docker stop django-portotours || true
+            docker rm django-portotours || true
+            docker volume rm $(docker volume ls -q) || true
+            docker rmi $(docker images -q --filter "dangling=true") || true
+            docker run -d --name django-portotours \
+              -e STRIPE_PUBLIC_KEY=${{ secrets.STRIPE_PUBLIC_KEY }} \
+              -e STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }} \
+              -p 8000:8000 portotours/portotours:latest
+            systemctl reload nginx

@@ -1,0 +1,107 @@
+{% extends "admin/change_form.html" %}
+
+{% block content %}
+
+<!-- fullcalendar bundle  "IMPORTANT"-->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+<!-- or download fullcalendar@6.x.xx (static) and link it from there -->
+
+<div id='calendar'></div>
+
+<style>
+    .fc-event {
+        border-color: #206caf;
+        color: #206caf;
+    }
+
+    .fc-event.event-full {
+        background-color: #d27878 !important;
+        border-color: red !important;
+    }
+    
+    .fc-event.booking {
+        background-color: #0dcaf0 !important;
+        border-color: black !important;
+    }
+</style>
+
+<script>
+    const calendarId = {{ original.id }};
+    const url = '/get-events-for-calendar/' + calendarId + '/';
+
+    async function fetchEventData(calendarId, url) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            console.log('Fetched event data:', data.result); // Debugging log
+            handleEventData(data.result);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    function handleEventData(data) {
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            timeZone: 'UTC',
+            events: data,
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            eventClick: function(info) {
+                window.open(info.event.url, '_blank');
+                info.jsEvent.preventDefault();
+            },
+            eventContent: function(arg) {
+                // Create a wrapper div for custom HTML content
+                const customHtml = document.createElement('div');
+                customHtml.innerHTML = `
+                    <div>
+                        <h3>${arg.event.title}</h3>
+                        <br>
+                        Start: ${arg.event.extendedProps.start_time} ${arg.event.extendedProps.start_date}
+                        <br>
+                        Hours: ${arg.event.extendedProps.hours}
+                        <br>
+                        Max participants: ${arg.event.extendedProps.max_participants}
+                        <br>
+                        Booked: ${arg.event.extendedProps.booked_participants}
+                        <br>
+                        Remaind: ${arg.event.extendedProps.remaining_participants}
+                        <br>
+                        Special price: ${arg.event.extendedProps.special_price}
+                        <br>
+                        Child special price: ${arg.event.extendedProps.child_special_price}
+                        <br>
+                        Total price: ${arg.event.extendedProps.total_price}
+                    </div>`;
+                // Return the custom HTML content as a child of the default element
+                return { domNodes: [customHtml] };
+            },
+            eventClassNames: function(arg) {
+                if (arg.event.extendedProps.is_full === true) {
+                    return ['event-full'];
+                } else if (arg.event.extendedProps.booked_participants > 0) {
+                    return ['booking']
+                } else {
+                    return [];
+                }
+            }
+        });
+        calendar.render();
+    }
+
+    document.addEventListener('DOMContentLoaded', async function () {
+        await fetchEventData(calendarId, url);
+    });
+
+</script>
+
+{{ block.super }}
+{% endblock %}

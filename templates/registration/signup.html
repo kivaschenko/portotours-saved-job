@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load compress %}
+{% load sass_tags %}
+{% block title %}
+    SignUp
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/authorization.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-2"></div>
+            <div class="col-md-auto">
+                        <form method="post" action="{% url 'signup' %}" style="margin: 2rem;">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <input class="btn btn-primary" type="submit" value="Register">
+                        </form>
+            </div>
+            <div class="col col-lg-2"></div>
+        </div>
+    </div>
+{% endblock %}

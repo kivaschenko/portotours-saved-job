@@ -1,0 +1,36 @@
+{% load static %}
+<div class="pagination-block" id="pagination-block">
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <button class="pagination-btn prev">
+                <a href="?page={{ page_obj.previous_page_number }}">
+                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                </a>
+            </button>
+        {% else %}
+            <button class="pagination-btn prev">
+                <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+            </button>
+        {% endif %}
+        <ul class="pagination-list" id="pagination-list">
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="pagination-list-item active">{{ num }}</li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="pagination-list-item"><a class="pagination-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% if page_obj.has_next %}
+            <button class="pagination-btn next">
+                <a href="?page={{ page_obj.next_page_number }}">
+                    <img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">
+                </a>
+            </button>
+        {% else %}
+            <button class="pagination-btn next">
+                <img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">
+            </button>
+        {% endif %}
+    {% endif %}
+</div>

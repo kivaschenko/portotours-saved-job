@@ -1,0 +1,281 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load compress %}
+{% load sass_tags %}
+
+{% block title %}
+    {{ object.page_title }}
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block meta_tags %}
+    <meta name="description" content="{{ object.page_description }}">
+    <meta name="keywords" content="{{ object.page_keywords }}">
+{% endblock meta_tags %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/attraction.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+
+    <section class="attraction-hero">
+        <div class="container">
+            {% if object.introduction_title %}
+                <h1 class="attraction-hero-title">
+                    {{ object.introduction_title }}
+                </h1>
+            {% endif %}
+            {% if object.introduction_text_above_slider %}
+                {{ object.display_introduction_text_above_slider }}
+            {% endif %}
+
+            <div class="attraction-hero-slider">
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_1 %}
+                            <img class="img-desktop" src="{{ object.parent_attraction.slider_image_1.url }}" alt="Image for slider 1">
+                        {% endif %}
+                        {% if object.parent_attraction.slider_image_1_mobile %}
+                            <img class="img-mobile" src="{{ object.parent_attraction.slider_image_1_mobile.url }}" alt="Mobile Image for slider 1">
+                        {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_2 %}
+                            <img class="img-desktop" src="{{ object.parent_attraction.slider_image_2.url }}" alt="Image for slider 2">
+                        {% endif %}
+                        {% if object.parent_attraction.slider_image_2_mobile %}
+                            <img class="img-mobile" src="{{ object.parent_attraction.slider_image_2_mobile.url }}" alt="Mobile Image for slider 2">
+                        {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_3 %}
+                            <img class="img-desktop" src="{{ object.parent_attraction.slider_image_3.url }}" alt="Image for slider 1">
+                        {% endif %}
+                        {% if object.parent_attraction.slider_image_3_mobile %}
+                            <img class="img-mobile" src="{{ object.parent_attraction.slider_image_3_mobile.url }}" alt="Mobile Image for slider 3">
+                        {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_4 %}
+                            <img class="img-desktop" src="{{ object.parent_attraction.slider_image_4.url }}" alt="Image for slider 1">
+                        {% endif %}
+                        {% if object.parent_attraction.slider_image_4_mobile %}
+                            <img class="img-mobile" src="{{ object.parent_attraction.slider_image_4_mobile.url }}" alt="Mobile Image for slider 4">
+                        {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_5 %}
+                            <img class="img-desktop" src="{{ object.parent_attraction.slider_image_5.url }}" alt="Image for slider 1">
+                        {% endif %}
+                        {% if object.parent_attraction.slider_image_5_mobile %}
+                            <img class="img-mobile" src="{{ object.parent_attraction.slider_image_5_mobile.url }}" alt="Mobile Image for slider 5">
+                        {% endif %}
+                    </div>
+                    <div class="swiper-slide">
+                        {% if object.parent_attraction.slider_image_6 %}
+                            <img class="img-desktop" src="{{ object.parent_attraction.slider_image_6.url }}" alt="Image for slider 1">
+                        {% endif %}
+                        {% if object.parent_attraction.slider_image_6_mobile %}
+                            <img class="img-mobile" src="{{ object.parent_attraction.slider_image_6_mobile.url }}" alt="Mobile Image for slider 6">
+                        {% endif %}
+                    </div>
+
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            {% if object.introduction_text_below_slider %}
+                {{ object.display_introduction_text_below_slider }}
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="attraction-info-cards">
+        <div class="container">
+            {% if object.info_title %}
+                <h2 class="attraction-info-cards-title">
+                    {{ object.info_title }}
+                </h2>
+            {% endif %}
+            {% if object.info_subtitle %}
+                <p class="body-text-b3 attraction-info-cards-subtitle">
+                    {{ object.info_subtitle }}
+                </p>
+            {% endif %}
+            <div class="attraction-info-cards-wrapper">
+                {% if object.time_of_work %}
+                    <div class="attraction-info-card">
+                        <img src="{% static 'icons/attraction-info-card-img1.svg' %}" alt="card icon" class="attraction-info-card-img">
+                        <p class="body-text-b2 attraction-info-card-title">
+                            Time of work
+                        </p>
+                        {{ object.display_time_of_work|safe }}
+                    </div>
+                {% endif %}
+                {% if object.address %}
+                    <div class="attraction-info-card">
+                        <img src="{% static 'icons/attraction-info-card-img2.svg' %}" alt="card icon" class="attraction-info-card-img">
+                        <p class="body-text-b2 attraction-info-card-title">
+                            Address
+                        </p>
+                        {{ object.display_address }}
+                    </div>
+                {% endif %}
+                {% if object.price %}
+                    <div class="attraction-info-card">
+                        <img src="{% static 'icons/attraction-info-card-img3.svg' %}" alt="card icon" class="attraction-info-card-img">
+                        <p class="body-text-b2 attraction-info-card-title">
+                            Price
+                        </p>
+                        {{ object.display_price }}
+                    </div>
+                {% endif %}
+                {% if object.accessibility %}
+                    <div class="attraction-info-card">
+                        <img src="{% static 'icons/attraction-info-card-img4.svg' %}" alt="card icon" class="attraction-info-card-img">
+                        <p class="body-text-b2 attraction-info-card-title">
+                            Accessibility
+                        </p>
+                        {{ object.display_accessibility }}
+                    </div>
+                {% endif %}
+                {% if object.possibility %}
+                    <div class="attraction-info-card">
+                        <img src="{% static 'icons/attraction-info-card-img5.svg' %}" alt="card icon" class="attraction-info-card-img">
+                        <p class="body-text-b2 attraction-info-card-title">
+                            Possibility
+                        </p>
+                        {{ object.display_possibility }}
+                    </div>
+                    </div>
+                {% endif %}
+        </div>
+    </section>
+
+    {% if object.recommendations_experiences.all %}
+        <section class="also-interested">
+            <div class="container">
+                <h2 class="also-interested-title">
+                    {{ object.recommendations_title }}
+                </h2>
+                <p class="also-interested-subtitle body-text-b2">
+                    {{ object.recommendations_subtitle }}
+                </p>
+                <div class="swiper-also-interested">
+                    <div class="also-interested-cards-wrapper">
+                        {% for experience in object.recommendations_experiences.all %}
+                            {% if cart_not_empty %}
+                                {% include 'include/also_interested_cards_applied.html' %}
+                            {% else %}
+                                {% include 'include/also_interested_cards.html' %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if object.faqattraction_set.all %}
+        <section class="faq">
+            <div class="container">
+                <h2 class="faq-title">
+                    {{ object.faq_title }}
+                </h2>
+                <p class="faq-subtitle">
+                    {{ object.faq_subtitle }}
+                </p>
+                {% for record in object.faqattraction_set.all %}
+                    <div class="faq-block">
+                        <p class="faq-question">{{ record.question }}</p>
+                        <div>{{ record.display_answer }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    <script>
+        const swiper = new Swiper(".swiper-attractions", {
+            slidesPerView: 2,
+            speed: 1000,
+            spaceBetween: 24,
+            breakpoints: {
+                200: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 24,
+                }
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+    <script>
+        // Define all window.location.pathname according language value
+        const languages = {{ languages|safe }};  // from response extra_context
+        // Define current language according object.language
+        const currentLanguage = `{{ current_language }}`  // from response extra_context
+
+    </script>
+    <script>
+        const swiperAttractionHero = new Swiper(".attraction-hero-slider", {
+            slidesPerView: 3,
+            speed: 1000,
+            spaceBetween: 24,
+            breakpoints: {
+                200: {
+                    slidesPerView: 1,
+                    spaceBetween: 14,
+                    slidesPerView: 1.4,
+                    pagination: {
+                        el: '.swiper-pagination',
+                    },
+                    centeredSlides: true,
+                    loop: true,
+                },
+                767: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                }
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+    <script>
+        console.log(window.innerWidth)
+        if (window.innerWidth < 768) {
+
+            const swiperAlsoInterested = new Swiper(".swiper-also-interested", {
+                slidesPerView: 1.4,
+                speed: 1000,
+                spaceBetween: 14,
+                centeredSlides: true,
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            });
+        }
+    </script>
+    <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
+    <script src="{% static 'google_analytics/data_pusher.js' %}"></script>
+{% endblock %}

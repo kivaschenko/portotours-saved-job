@@ -1,0 +1,40 @@
+{% load static %}
+<div class="container">
+    <div class="header-top-row empty">
+        <div class="header-left-col">
+            <div class="header-logo-wrapper">
+                <a href="{% url 'home' %}" class="logo-link" id="home-link">
+                    <img src="{% static 'icons/logo_black.svg' %}" alt="Logo">
+                </a>
+            </div>
+        </div>
+
+        <div class="header-right-col">
+            <h6 class="secure-payment-title">
+                <img src="{% static 'icons/stripe-lock.svg' %}" alt="lock icon">
+                Guaranteed <span>safe & secure</span> checkout
+                <img src="{% static 'icons/powered-stripe.svg' %}" alt="stripe">
+            </h6>
+        </div>
+
+    </div>
+    
+    <!-- Home page language -->
+    <script>
+       //  document.addEventListener('DOMContentLoaded', function () {
+       //      let homeLink = document.getElementById('home-link');
+       //      let preferredLanguage = navigator.language || navigator.browserLanguage;
+       //      let allowedLanguages = ['en', 'es', 'fr', 'pt'];
+       //      let defaultLanguage = 'en'; // Default language if none of the preferred languages match
+
+       //      // Check if the preferred language is in the allowed languages list
+       //      if (allowedLanguages.includes(preferredLanguage)) {
+       //          defaultLanguage = preferredLanguage;
+       //      }
+
+       //      // Set the href attribute of the home link with the default language
+       //      homeLink.href = '/' + defaultLanguage + '/';
+       //  });
+    </script>
+
+</div>

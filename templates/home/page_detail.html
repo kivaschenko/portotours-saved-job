@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load compress %}
+{% load sass_tags %}
+
+{% block title %}
+    {{ object.page_title }}
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/custom.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block meta_tags %}
+    <meta name="description" content="{{ object.page_description }}">
+    <meta name="keywords" content="{{ object.page_keywords }}">
+{% endblock meta_tags %}
+
+{% block content %}
+    <div class="container">
+        {% if object.title %}
+        <h2>{{ object.title }}</h2>
+        {% endif %}
+    {% if object.content %}
+        {{ object.display_content }}
+    {% endif %}
+    </div>
+
+    <!-- Local JS -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+{% endblock %}

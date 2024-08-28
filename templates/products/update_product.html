@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block header %}
+    <!-- Navbar -->
+    {% include 'include/navbar_empty.html' %}
+    <!-- End Navbar -->
+{% endblock %}
+{% load static %}
+
+{% load compress %}
+{% load sass_tags %}
+
+{% block title %}
+    Update booking data for Experience
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/cart.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <div class="edit-cart-item-wrapper">
+        <div class="container">
+            <h2 class="edit-cart-item-title">
+                Edit your experience
+            </h2>
+            <h3 class="name-tour-title">
+                {{ object.parent_experience }}
+            </h3>
+            <div class="booking-form-wrapper">
+                {% if object.parent_experience.is_private %}
+                {% include 'include/update_private_booking_form.html' %}
+                {% else %}
+                {% include 'include/update_booking_form.html' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("cancel-btn").onclick = function () {
+            history.go(-1); // Go back one page in history
+        };
+    </script>
+
+    <script>
+        {% if user.is_authenticated %}
+            const customerId = {{ customer_id }};  // from response context
+        {% else %}
+            const customerId = null;
+        {% endif %}
+        // Define session key
+        const sessionKey = `{{ session_key }}`;  // from response context
+        // Define ParentExperience id
+        const parentExperienceId = {{ object.parent_experience_id }};  // from response context
+        // Define Event id
+        const currentEventId = {{ object.occurrence.event_id }};
+        // Define Product data
+        const productId = {{ object.id }};
+        const adultCount = {{ object.adults_count }};
+        const childCount = {{ object.child_count }};
+        const adultPrice = {{ object.adults_price }};
+        const childPrice = {{ object.child_price }};
+        const startDate = `{{ object.date_of_start }}`;
+        const startTime = `{{ object.time_of_start }}`;
+        const totalPrice = {{ object.total_price }};
+        const languageProduct = `{{ object.language.code }}`;
+        const optionExtras = {{ options|safe }};
+        {% if object.price_is_special %}
+            const priceIsSpecial = true;
+        {% else %}
+            const priceIsSpecial = false;
+        {% endif %}
+        console.log('const priseISpecial=', priceIsSpecial);
+
+    </script>
+
+    {% if object.parent_experience.is_private %}
+        <script src="{% static 'js/update_private_product.js' %}"></script>
+    {% else %}
+        <script src="{% static 'js/update_product.js' %}"></script>
+    {% endif %}
+{% endblock content %}
+{% block footer_columns %}{% endblock %}
+{% block whatsup %}{% endblock whatsup %}

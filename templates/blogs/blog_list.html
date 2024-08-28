@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+{% load compress %}
+{% load sass_tags %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Portugal travel blog
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/blog.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+{% block content %}
+    <section class="blog-hero">
+        <div class="container">
+            <h1 class="blog-hero-title">
+                Portugal travel blog
+            </h1>
+            <p class="blog-hero-subtitle">
+                Get insider information from locals and become more prepared for your trip to Portugal
+            </p>
+        </div>
+    </section>
+    <section class="blog-list">
+        <div class="container">
+            <form method="GET" class="attraction-filter-form">
+                {{ filter_form }}
+                <div class="form-btns-wrapper">
+                    <button type="submit" class="btn btn-submit">Apply</button>
+                    <button type="button" class="btn btn-reset" onclick="resetForm()">Reset</button>
+                </div>
+            </form>
+            {% if object_list %}
+                <div class="blog-cards-wrapper">
+                    {% for object in object_list %}
+                        <div class="blog-card">
+                            <div class="img-wrapper">
+                                <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
+                                    <img class="img-desktop" src="{% if object.parent_blog.card_image %}{{ object.parent_blog.card_image.url }}
+                                        {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
+                                    <img class="img-mobile" src="{% if object.parent_blog.card_image_mobile %}{{ object.parent_blog.card_image_mobile.url }}
+                                        {% else %}{% endif %}" alt="Card image for blog {{ object.title }}">
+                                </a>
+                            </div>
+                            <div class="card-content-wrapper">
+                                <p class="card-date">
+                                    {{ object.date_published|date }}
+                                </p>
+                                <h5 class="card-title">
+                                    <a href="{% url 'blog-detail' slug=object.slug lang=object.language.code.lower %}">
+                                        {{ object.title }}
+                                    </a>
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="offers-banner">
+        <div class="container">
+            <h2 class="offers-banner-title">
+                Special Offers
+            </h2>
+            <p class="offers-banner-subtitle">
+                Get exclusive benefits and premium discounts with our subscription plan
+            </p>
+            <form id="subscription-form" action="" method="post" class="offers-banner-form">
+                {% csrf_token %}
+                {{ subscription_form|crispy }}
+                <button type="submit" class="form-submit-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="subscribe-popup">
+        <a href="#" class="close-popup-btn">
+            <img src="{% static 'icons/icon-close.svg' %}" alt="close button">
+        </a>
+        <h2 class="popup-title">
+            Thank you for subscribing!
+        </h2>
+        <p class="popup-text">
+            We'll keep you updated on the latest news and discounts from our company.
+        </p>
+        <a href="#" class="btn-popup btn-type-1" id="continue-btn">
+            Continue
+        </a>
+    </div>
+
+    <!-- Custom JS import -->
+    <script src="{% static 'js/lang_selector_list_page.js' %}"></script>
+    <script src="{% static 'js/subscription.js' %}"></script>
+    <script>
+        function resetForm() {
+            window.location.href = "{% url 'attraction-list' lang=current_language %}";  // Redirect to the same page without any parameters
+        }
+    </script>
+{% endblock content %}

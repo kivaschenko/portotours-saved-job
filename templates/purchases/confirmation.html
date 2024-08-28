@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block header %}
+    <!-- Navbar -->
+    {% include 'include/navbar_empty_confirmation.html' %}
+    <!-- End Navbar -->
+{% endblock %}
+{% load static %}
+
+{% load compress %}
+{% load sass_tags %}
+
+{% block title %}
+    Confirmation from Stripe Checkout
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/cart.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <div class="cart">
+        <div class="container">
+            <div class="cart-steps-wrapper">
+                <ul class="cart-steps">
+                    <li class="cart-step-item finished">
+                        <div class="img-wrapper">
+                            <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                            <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        </div>
+                        <div class="text-wrapper">
+                            <p class="step-text body-text-b4">
+                                1 Step
+                            </p>
+                            <p class="body-text-b3 step-title">
+                                My experiences
+                            </p>
+                        </div>
+                        
+                    </li>
+                    <li class="cart-step-item finished">
+                        <div class="img-wrapper">
+                            <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                            <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                            <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        </div>
+                        <div class="text-wrapper">
+                            <p class="step-text body-text-b4">
+                                2 Step
+                            </p>
+                            <p class="body-text-b3 step-title">
+                                Billing details
+                            </p>
+                        </div>
+                        
+                    </li>
+                    <li class="cart-step-item active">
+                        <div class="img-wrapper">
+                            <img src="{% static 'icons/step-disabled-icon.svg' %}" alt="step" class="disabled">
+                            <img src="{% static 'icons/step-active-icon.svg' %}" alt="step" class="active">
+                            <img src="{% static 'icons/step-finished-icon.svg' %}" alt="step" class="finished">
+                        </div>
+                        
+                        <div class="text-wrapper">
+                            <p class="step-text body-text-b4">
+                                3 Step
+                            </p>
+                            <p class="body-text-b3 step-title">
+                                Confirmation
+                            </p>
+                        </div>
+                        
+                    </li>
+                </ul>
+                
+            </div>
+            <div class="cart-title-wrapper">
+                <h2 class="cart-title">
+                    Congratulations!
+                </h2>
+                <p class="cart-subtitle">
+                    Your booking is confirmed. Please check the details below and your email.
+                </p>
+            </div>
+            <section id="success" class="hidden confirmation-info">
+                {% if purchase %}
+                    {% if object_list %}
+                        {% for object in object_list %}
+                            <div class="experience-card">
+                                <div class="img-wrapper">
+                                    <img src="{% if object.parent_experience.card_image %}
+                                        {{ object.parent_experience.card_image.url }}{% else %}{% endif %}" alt="card image preview for {{ object.parent_experience }}">
+                                </div>
+                                <div class="content-wrapper">
+                                    <h4 class="content-title">
+                                        {{ object.parent_experience.parent_name }}
+                                    </h4>
+                                    <ul class="content-list">
+                                        <li>{{ object.date_of_start }}</li>
+                                        <li>{{ object.time_of_start }}</li>
+                                    </ul>
+                                    <ul class="content-list">
+                                        <li>{{ object.adults_count }} Adult</li>
+                                        {% if object.child_count %}
+                                        <li>{{ object.child_count }} Children</li>
+                                        {% endif %}
+                                    </ul>
+                                    <ul class="content-list">
+                                        <li>{% if object.parent_experience.is_private %}Private{% else %}Small Group{% endif %}</li>
+                                        <li>{{ object.language }} Language</li>
+                                    </ul>
+                                    <a href="{% url 'generate-pdf' product_id=object.random_order_number %}" class="download-pdf btn-type-1">
+                                        download pdf
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+            </section>
+            <div class="confirmation-btns-wrapper">
+                <a href="{% url 'experience-list' lang='en' %}" class="continue-shopping-btn">
+                    Continue shopping
+                </a>
+                
+            </div>
+        </div>
+    </div>
+
+<!-- Google tracker data pusher -->
+<script>
+    // Function to check if the data has already been pushed
+    localStorage.setItem('isDataPushed', 'false');
+    function isDataPushed() {
+        return localStorage.getItem('isDataPushed') === 'true';
+    }
+
+    // Function to mark the data as pushed
+    function markDataAsPushed() {
+        localStorage.setItem('isDataPushed', 'true');
+    }
+
+    // Ensure `ecommerce_items` is properly converted to a JavaScript array
+    const itemsArray = {{ ecommerce_items|safe }};
+    const purchaseId = {{ purchase.id }};
+    const purchaseTotalPrice = `{{ purchase.float_price }}`;
+
+    // Ensure the dataLayer is defined
+    window.dataLayer = window.dataLayer || [];
+
+    // Push the data only if it hasn't been pushed yet
+    if (!isDataPushed()) {
+        // Clear the previous ecommerce object.
+        window.dataLayer.push({ ecommerce: null });
+        
+        // Push the new ecommerce data
+        window.dataLayer.push({
+            event: "purchase",
+            ecommerce: {
+                transaction_id: purchaseId,
+                coupon: "",
+                currency: "EUR",
+                value: purchaseTotalPrice,
+                items: itemsArray,
+            }
+        });
+
+        // Mark the data as pushed
+        markDataAsPushed();
+    }
+</script>
+
+{% endblock %}
+{% block whatsup %}{% endblock whatsup %}

@@ -1,0 +1,997 @@
+{% extends "base.html" %}
+{% load crispy_forms_field %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% load compress %}
+{% load sass_tags %}
+
+{% block title %}
+    {{ object.page_title }}
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block meta_tags %}
+    <meta name="description" content="{{ object.page_description }}">
+    <meta name="keywords" content="{{ object.page_keywords }}">
+{% endblock meta_tags %}
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/experience.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <div class="mobile-form-btn-wrapper">
+        <div class="container">
+            <p class="mobile-form-btn-title">
+                From
+                <span>
+                    € {{ object.parent_experience.price }}
+                </span>
+            </p>
+            <a href="#" class="btn-type-1 mobile-form-btn">
+                check availability
+            </a>
+        </div>
+
+
+    </div>
+    <div class="upsale-popup-wrapper">
+        <div class="popup-inner-wrapper">
+            <button type="button" class="close-popup-btn">
+                <img src="{% static 'icons/icon-close.svg' %}" alt="green check">
+            </button>
+            <div class="popup-top-wrapper">
+                <div class="left-col">
+                    <div class="title-wrapper">
+                        <img src="{% static 'icons/icon-check-green.svg' %}" alt="green check">
+                        <h4 class="popup-title">
+                            Done! The experience was successfully added to cart.
+                        </h4>
+
+                    </div>
+                    <div class="booked-tour-info-wrapper">
+                        <h5 class="tour-name">
+                            {{ object.name }}
+                        </h5>
+                        <ul class="tour-info-list">
+                            <li>MM/DD/YYYY</li>
+                            <li>11:10 AM</li>
+                            <li>2 Adult</li>
+                            <li>3 Children</li>
+                            <li>English</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="right-col">
+                    <a href="{% url 'my-cart' lang='en' %}" class="link-to-cart btn-type-1">
+                        Checkout cart
+                    </a>
+                    <a href="{% url 'experience-list' lang='en' %}" class="link-to-cart btn-type-2">
+                        continue shopping
+                    </a>
+                </div>
+            </div>
+            <div class="popup-bottom-wrapper">
+                <h2 class="popup-main-title">
+                    Enjoy your special discount for all additional experiences!
+                </h2>
+                <p class="popup-subtitle">
+                    Now private and small group experiences are available to you at a special price
+                </p>
+                <div class="popup-tour-cards-wrapper">
+                    <div class="tour-type-card">
+                        <img src="{% static 'icons/10off-label.svg' %}" alt="label icon" class="discount-label">
+                        <img src="{% static 'images/tour-type-img1.png' %}" alt="tour type">
+                        <div class="tour-type-title-btn-wrapper">
+                            <h4 class="tour-type-title">Small Groups</h4>
+                            <a href="#" target="_blank" class="btn-type-3" onclick="addTypeIsGroupAndNavigate(event, '{{ current_language }}')">
+                                Learn more
+                                <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="arrow">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tour-type-card">
+                        <img src="{% static 'icons/30off-label.svg' %}" alt="label icon" class="discount-label">
+                        <img src="{% static 'images/tour-type-img2.png' %}" alt="tour type">
+                        <div class="tour-type-title-btn-wrapper">
+                            <h4 class="tour-type-title">Private Experiences</h4>
+                            <a href="#" target="_blank" class="btn-type-3" onclick="addTypeIsPrivateAndNavigate(event, '{{ current_language }}')">
+                                Learn more
+                                <img src="{% static 'icons/btn_arrow_white.svg' %}" alt="arrow">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="experience-hero-info">
+            {% if object.parent_experience.free_cancellation %}
+                <p class="experience-hero-info-text">
+                    <img src="{% static 'icons/experience-info-icon1.svg' %}" alt="free cancellation icon">
+                    free cancellation
+                </p>
+            {% endif %}
+            {% if object.parent_experience.hotel_pick_up %}
+                <p class="experience-hero-info-text">
+                    <img src="{% static 'icons/pickup-icon.svg' %}" alt="hotel icon">
+                    hotel pick up
+                </p>
+            {% endif %}
+            {% if object.parent_experience.recommended_by_locals %}
+                <p class="experience-hero-info-text">
+                    <img src="{% static 'icons/green-thumb.svg' %}" alt="green thumb icon">
+                    recommended by locals
+                </p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="sticky-container">
+        <div class="sticky-block">
+            <div class="container">
+                <div class="experience-hero-title-wrapper">
+                    <h1 class="experience-hero-title">
+                        {{ object.name }}
+                    </h1>
+                    <div class="expreriece-hero-price-btn-wrapper">
+                        <div class="price-wrapper">
+                            <p class="price-title">
+                                From
+                            </p>
+                            <p class="old-price-amount">
+                                €{{ object.parent_experience.old_price }}
+                            </p>
+                            <p class="price-amount">
+                                €{{ object.parent_experience.price }}
+                            </p>
+                        </div>
+                        <a href="#goToForm" class="experience-hero-btn btn-type-1">
+                            check availability
+                        </a>
+                    </div>
+                </div>
+                {% if approved_reviews_count > 0 %}
+                    <div class="reviews-rating-wrapper">
+                        <a href="#reviews" class="reviews-count">
+                            {{ approved_reviews_count }} reviews
+                        </a>
+                        <div class="rating-img-wrapper">
+                            <p class="rating-num">{{ object.average_rating }}</p>
+                            <div class="rating">
+                                <div class="icon-wrapper">
+                                    <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                              stroke="#FDB601"/>
+                                    </svg>
+                                </div>
+                                <div class="icon-wrapper">
+                                    <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                              stroke="#FDB601"/>
+                                    </svg>
+                                </div>
+                                <div class="icon-wrapper">
+                                    <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                              stroke="#FDB601"/>
+                                    </svg>
+                                </div>
+                                <div class="icon-wrapper">
+                                    <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                              stroke="#FDB601"/>
+                                    </svg>
+                                </div>
+                                <div class="icon-wrapper">
+                                    <svg class="star" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.4912 14.9174C10.1877 14.7475 9.81781 14.7475 9.51434 14.9174L4.82657 17.5414L5.87355 12.2722C5.94133 11.9311 5.82701 11.5793 5.57167 11.3431L1.62752 7.69571L6.96233 7.06318C7.30769 7.02224 7.60697 6.80479 7.75264 6.48899L10.0028 1.61075L12.2529 6.48898C12.3985 6.80479 12.6978 7.02224 13.0432 7.06319L18.378 7.69572L14.4339 11.3431C14.1785 11.5793 14.0642 11.9311 14.132 12.2722L15.1789 17.5414L10.4912 14.9174Z"
+                                              stroke="#FDB601"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="reviews-rating-wrapper">
+                        <div class="rating-img-wrapper">
+                            <p class="rating-num">5.0</p>
+                            <img src="{% static 'icons/5-stars-icon.svg' %}" alt="star icon">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {% if object.images.all %}
+            <section class="experience-hero">
+                <div class="container">
+                    <div class="experience-hero-swiper">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper">
+                            <!-- Slides -->
+                            {% for image in object.images.all %}
+                                <div class="swiper-slide">
+                                    <img src="{% if image.slider_image.url %}{{ image.slider_image.url }}{% endif %}" alt="slider image"
+                                         class="attraction-image img-desktop">
+                                         {% if image.slider_image_mobile %}  
+                                        <img src="{% if image.slider_image_mobile.url %}{{ image.slider_image_mobile.url }}{% endif %}" alt="slider image"
+                                        class="attraction-image img-mobile">
+                                        {% else %}
+                                        <img src="{% if image.slider_image.url %}{{ image.slider_image.url }}{% endif %}" alt="slider image"
+                                        class="attraction-image img-mobile">
+                                        {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    </div>
+
+    <section class="experience-info">
+        <div class="container">
+            {% if object.info_title %}
+                <h2 class="experience-info-title" id="goToForm">
+                    {{ object.info_title }}
+                </h2>
+            {% endif %}
+            {% if object.info_subtitle %}
+                <p class="experience-info-subtitle" >
+                    {{ object.info_subtitle }}
+                </p>
+            {% endif %}
+            <div class="experience-info-inner-wrapper">
+                <div class="left-col">
+                    <div class="experience-cards" >
+                        <div class="experience-card">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/experience-card-icon1.svg' %}" alt="card icon">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title">
+                                    Type of experience
+                                </p>
+                                <p class="card-text">
+                                    {% if object.parent_experience.is_private %}Private{% else %}Group{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        {% if object.duration %}
+                            <div class="experience-card">
+                                <div class="img-wrapper">
+                                    <img src="{% static 'icons/experience-card-icon2.svg' %}" alt="card icon">
+                                </div>
+                                <div class="card-content">
+                                    <p class="card-title">
+                                        Duration
+                                    </p>
+                                    <p class="card-text">
+                                        {{ object.display_duration }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if object.accessibility %}
+                            <div class="experience-card">
+                                <div class="img-wrapper">
+                                    <img src="{% static 'icons/experience-card-icon3.svg' %}" alt="card icon">
+                                </div>
+                                <div class="card-content">
+                                    <p class="card-title">
+                                        Accessibility
+                                    </p>
+                                    <p class="card-text">
+                                        {{ object.display_accessibility }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if object.possibility %}
+                            <div class="experience-card">
+                                <div class="img-wrapper">
+                                    <img src="{% static 'icons/experience-card-icon4.svg' %}" alt="card icon">
+                                </div>
+                                <div class="card-content">
+                                    <p class="card-title">
+                                        Possibility
+                                    </p>
+                                    <p class="card-text">
+                                        {{ object.display_possibility }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if object.parent_experience.allowed_languages.all %}
+                            <div class="experience-card">
+                                <div class="img-wrapper">
+                                    <img src="{% static 'icons/experience-card-icon5.svg' %}" alt="card icon">
+                                </div>
+                                <div class="card-content">
+                                    <p class="card-title">
+                                        Languages
+                                    </p>
+                                    <p class="card-text">
+                                        {% for language in object.parent_experience.allowed_languages.all %}
+                                            <span>{{ language.name }}{% if not forloop.last %},{% endif %}</span>
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if object.parent_experience.pick_up_location %}
+                            <div class="experience-card">
+                                <div class="img-wrapper">
+                                    <img src="{% static 'icons/experience-card-icon6.svg' %}" alt="card icon">
+                                </div>
+                                <div class="card-content">
+                                    <p class="card-title">
+                                        Pick Up Location
+                                    </p>
+                                    <p class="card-text">
+                                        {{ object.parent_experience.pick_up_location }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="risk-free-badge">
+                        <img src="{% static 'icons/shield-icon.svg' %}" alt="shield icon">
+                        <h3 class="badge-title">
+                            <span>risk free!</span> Cancellation is available up to 24 hours before your trip starts
+                        </h3>
+                    </div>
+                    {% if not object.parent_experience.is_private and object.parent_experience.child_price < object.parent_experience.price %}
+                        <div class="children-discount-badge">
+                            <h3 class="badge-title">
+                                <img src="{% static 'icons/children-icon.svg' %}" alt="children icon">
+                                Price for children only from €{{ object.parent_experience.child_price }}
+                            </h3>
+                        </div>
+                    {% endif %}
+                    {% if object.full_description %}
+                        <div class="experience-description">
+                            {% if object.title_description %}
+                                <h5 class="description-title">
+                                    {{ object.title_description }}
+                                </h5>
+                            {% endif %}
+                            <p>
+                                {{ object.display_full_description }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if object.parent_experience.allowed_options.all %}
+                    <div class="optional-extras-wrapper">
+                        <h4 class="optional-extras-title">
+                            optional extras available
+                        </h4>
+                        <ul>
+                            {% for option in object.parent_experience.allowed_options.all %}
+                            <li>
+                                {{ option.name }} 
+                                <!-- {% if option.description %}<sm>{{ option.description }}</sm>{% endif %} - {{ option.price }} -->
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% if object.schedule.all %}
+                        <div class="experience-timeline">
+                            {% if object.schedule_title %}
+                                <h5 class="experience-timeline-title">
+                                    {{ object.schedule_title }}
+                                </h5>
+                                <p class="experience-timeline-subtitle">
+                                    The time, duration, and order of stops are subject to change based on traffic, weather conditions, and other circumstances beyond our control.
+                                </p>
+                            {% endif %}
+                            <div class="experience-timeline-inner">
+                                {% for schedule_item in object.schedule.all %}
+                                    <div class="timeline-block">
+                                        <div class="time-title-wrapper">
+                                            <p class="time">
+                                                {{ schedule_item.time|time:"h:i A" }}
+                                            </p>
+                                            <p class="timeline-title">
+                                                {{ schedule_item.name_stop }}
+                                            </p>
+                                        </div>
+                                        <p>
+                                            {{ schedule_item.description }}
+                                        </p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <btn class="timeline-btn-open btn-type-2">
+                                Show more
+                            </btn>
+                        </div>
+                    {% endif %}
+                    {% if object.parent_experience.we_care_about_comfort %}
+                        <div class="comfort-care-block">
+                            <h3 class="block-title">
+                                We care about your comfort
+                            </h3>
+                            <p class="block-text">
+                                The comfort and safety of our clients through tours and transfers is one of our key priorities. We provide high-quality technical maintenance and update our fleet on time to ensure trustworthy customer service.
+                            </p>
+                            <div class="img-wrapper">
+                                <div class="left-col">
+                                    <img src="{% static 'images/comfort-img1.png' %}" alt="comfort img">
+                                </div>
+                                <div class="right-col">
+                                    <img src="{% static 'images/comfort-img2.png' %}" alt="comfort img">
+                                    <img src="{% static 'images/comfort-img3.png' %}" alt="comfort img">
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if object.parent_experience.clean_and_safe %}
+                        <div class="clean-safe-badge">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/clean-safe-badge.svg' %}" alt="badge">
+                            </div>
+                            <div class="content-wrapper">
+                                <p class="badge-text">
+                                    Сertified with the “Clean & Safe” seal to guarantee that we will comply with all mandatory hygiene and safety standards by
+                                    WHO/ the National Tourist Authority in coordination with the General Directorate of Health.
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if object.includes_text or object.not_includes_text %}
+                        <div class="experience-info-block experience-include">
+                            {% if object.includes_title %}
+                                <h5>{{ object.includes_title }}</h5>
+                            {% endif %}
+                            <!-- What included and NOT included lists -->
+                            <div class="info-block-inner">
+                                {{ object.display_includes_text }}
+                                {{ object.display_not_includes_text }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if object.traveler_tips_text %}
+                        <div class="experience-info-block travel-tips">
+                            <h5>{{ object.traveler_tips_title }}</h5>
+                            {{ object.display_traveler_tips_text }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="aside-form">
+                    <div class="booking-form-wrapper">
+                        <img src="{% static 'images/booking-form-banner.svg' %}" alt="form banner">
+                        <img src="{% static 'icons/icon-back.svg' %}" alt="go back" class="btn-back">
+
+                        <!-- Text above calendar -->
+                        {% if object.text_above_calendar %}
+                            <div class="form-text-wrapper">
+                                <img src="{% static 'icons/fire-icon.svg' %}" alt="fire icon">
+                                <p class="form-text-banner">{{ object.text_above_calendar }}</p>
+                            </div>
+
+                        {% endif %}
+                        {% if object.parent_experience.is_private %}
+                            {% include 'include/private_booking_form.html' %}
+                        {% else %}
+                            {% include 'include/booking_form.html' %}
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="why experience-page why-slider">
+        <div class="container">
+            {% if object.why_title %}
+                <h2 class="why-title">
+                    {{ object.why_title }}
+                </h2>
+            {% endif %}
+            {% if object.why_subtitle %}
+                <p class="why-subtitle body-text-b1">
+                    {{ object.why_subtitle }}
+                </p>
+            {% endif %}
+            <div class="why-cards-wrapper">
+                <div class="swiper-wrapper">
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon1.svg' %}" alt="why icon" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                30+ Experiences in Portugal
+                            </p>
+                            <p class="why-subtext">
+                                Explore a wide range of unique options from historical tours and outdoor adventures to culinary trips and wine tasting.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon2.svg' %}" alt="why icon" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Guided by local experts
+                            </p>
+                            <p class="why-subtext">
+                                Get unforgettable experiences and unique insider information from local experts through carefully created tours.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon3.svg' %}" alt="why icon" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Best price guarantee
+                            </p>
+                            <p class="why-subtext">
+                                Get the best price guaranteed for booking our top-quality products and services.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon4.svg' %}" alt="why icon" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                No hidden fees
+                            </p>
+                            <p class="why-subtext">
+                                Enjoy a transparent pricing policy, paying for what you need for a smooth shopping experience.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon5.svg' %}" alt="why icon" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Free cancellation
+                            </p>
+                            <p class="why-subtext">
+                                Enjoy the flexibility with free cancellation, don't worry about additional costs, and feel free to adjust your plans.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="why-card swiper-slide">
+                        <img src="{% static 'icons/why-icon6.svg' %}" alt="why icon" class="why-card-img">
+                        <div class="why-card-inner-wrapper">
+                            <p class="why-text">
+                                Safe and secure website
+                            </p>
+                            <p class="why-subtext">
+                                Be confident with our reliable and protected service as your online safety at every step is our priority.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if object.experience_recommendations.all %}
+        <section class="also-interested">
+            <div class="container">
+                <h2 class="also-interested-title">
+                    {{ object.recommendations_title }}
+                </h2>
+                <p class="also-interested-subtitle body-text-b2">
+                    {{ object.recommendations_subtitle }}
+                </p>
+                <div class="swiper-also-interested">
+                    <div class="also-interested-cards-wrapper">
+                        {% for experience in object.experience_recommendations.all %}
+                            {% if cart_not_empty %}
+                                {% include 'include/also_interested_cards_applied.html' %}
+                            {% else %}
+                                {% include 'include/also_interested_cards.html' %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <h2 class="reviews-title">
+                Reviews
+            </h2>
+            <div class="reviews-inner-wrapper">
+                <div class="left-col">
+                    {% include 'reviews/review_list.html' %}
+                </div>
+                <div class="right-col">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ review_form|crispy }}
+                        <button class="btn btn-primary" type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        let openFullBtn = document.querySelector('.timeline-btn-open');
+        let experienceTimelineWrapper = document.querySelector('.experience-timeline-inner');
+        if (openFullBtn) {
+            openFullBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+            experienceTimelineWrapper.classList.toggle('opened')
+            if (experienceTimelineWrapper.classList.contains('opened')) {
+                openFullBtn.innerHTML = 'Show Less'
+            } else {
+                openFullBtn.innerHTML = 'Show More'
+            }
+
+        })
+        }
+        
+    </script>
+
+    <!--Review list with pagination -->
+
+    <script>
+        // There are constants from backend using for switch languages and send data for booking
+
+        // Define all window.location.pathname according language value
+        const languages = {{ languages|safe }};  // from response extra_context
+        // Define current language according object.language
+        const currentLanguage = `{{ current_language }}`;  // from response extra_context
+        // Define current customer None or user.id
+        {% if user.is_authenticated %}
+            const customerId = {{ customer_id }};  // from response extra_context
+        {% else %}
+            const customerId = null;
+        {% endif %}
+        // Define session key
+        const sessionKey = `{{ session_key }}`;  // from response extra_context
+        // Define ParentExperience id
+        const parentExperienceId = {{ object.parent_experience_id }};  // from response extra_context
+        // Google tracker info
+        const ecommerceItems = {{ object.ecommerce_items|safe }};
+        // Cart has product(s)
+        const cartNotEmpty = {% if cart_not_empty %}true{% else %}false{% endif %};
+        // grab second purchase discount
+        const secondPurchaseDiscount = {{ object.parent_experience.second_purchase_discount }};
+        // Get all allowed extra options
+        const optionExtras = {{ options|safe }};
+    </script>
+
+    {% if object.parent_experience.is_private %}
+        <script src="{% static 'js/first_booking_private.js' %}"></script>
+    {% else %}
+        <script src="{% static 'js/first_booking.js' %}"></script>
+    {% endif %}
+
+
+    <script>
+
+        const swiperTestimonials = new Swiper(".testimonials-slider", {
+            speed: 5000,
+            spaceBetween: 24,
+            loop: true,
+            slidesPerView: 3,
+            autoplay: {
+                delay: 2000,
+            },
+            centeredSlides: true,
+            breakpoints: {
+                200: {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+
+                },
+                767: {
+                    slidesPerView: 3,
+                    spaceBetween: 24,
+
+                }
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+
+        const swiperTopAttraction = new Swiper(".experience-hero-swiper", {
+            slidesPerView: 2,
+            speed: 1000,
+            spaceBetween: 24,
+            breakpoints: {
+                200: {
+                    spaceBetween: 14,
+                    slidesPerView: 1.4,
+                    centeredSlides: true,
+                    loop: true,
+                },
+                767: {
+                    slidesPerView: 1.5,
+                    spaceBetween: 24,
+                    centeredSlides: true,
+                    loop: true,
+                }
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+        });
+
+        const swiperWhy = new Swiper(".why-cards-wrapper", {
+            slidesPerView: 2,
+            speed: 10000,
+            spaceBetween: 24,
+            autoplay: {
+                delay: 100,
+
+            },
+            loop: true,
+            breakpoints: {
+                200: {
+                    spaceBetween: 14,
+                    slidesPerView: 1,
+                    centeredSlides: true,
+                    loop: true,
+                },
+                767: {
+                    slidesPerView: 3,
+                    spaceBetween: 44,
+
+
+                }
+            },
+
+
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var radios = document.querySelectorAll('input[type=radio][name="rating"]');
+
+            radios.forEach(function (radio) {
+                radio.addEventListener('click', function () {
+                    var selectedIndex = parseInt(this.value) - 1; // Индекс выбранной кнопки (отсчет с 0)
+                    radios.forEach(function (r, index) {
+                        if (index < selectedIndex) {
+                            r.classList.add('highlighted');
+                        } else {
+                            r.classList.remove('highlighted');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <script>
+        const experienceId = {{ object.id }};
+        // reviews.js
+        document.addEventListener('DOMContentLoaded', () => {
+            const reviewContainer = document.getElementById('reviewContainer');
+            const paginationContainer = document.getElementById('paginationContainer');
+
+
+            {% if object.review_set.count > 0 %}
+                // Function to fetch reviews with pagination
+                async function fetchReviews(pageNumber) {
+                    try {
+                        const response = await fetch(`/reviews/${experienceId}/?page=${pageNumber}`);
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch reviews');
+                        }
+                        return await response.json();
+                    } catch (error) {
+                        console.error('Error fetching reviews:', error);
+                        return {reviews: [], has_next: false, has_previous: false};
+                    }
+                }
+            {% endif %}
+
+            {% if object.review_set.count > 0 %}
+                // Function to render reviews
+                function renderReviews(reviewsData) {
+                    const reviewsList = document.getElementById('reviewsList');
+                    reviewsList.innerHTML = ''; // Clear existing reviews
+                    reviewsData.forEach(review => {
+                        // Create HTML elements for each review and append them to reviewsList
+                        const reviewItem = document.createElement('li');
+                        reviewItem.classList.add('reviews-list-item');
+                        const starsWrapper = document.createElement('div');
+                        starsWrapper.classList.add('review-stars-wrapper');
+                        starsWrapper.classList.add(`star-${review.rating}`);
+                        starsWrapper.innerHTML = `
+                        <img class="star3" src="{% static 'icons/3-stars-icon.svg' %}" alt="3 start review">
+                        <img class="star4" src="{% static 'icons/4-stars-icon.svg' %}" alt="4 start review">
+                        <img class="star5" src="{% static 'icons/5-stars-icon.svg' %}" alt="5 start review">
+                    `;
+                        const reviewTitle = document.createElement('h4');
+                        reviewTitle.classList.add('review-title');
+                        reviewTitle.textContent = review.title;
+                        const reviewText = document.createElement('p');
+                        reviewText.classList.add('review-text');
+                        reviewText.textContent = review.short_text;
+                        const reviewAuthor = document.createElement('p');
+                        reviewAuthor.classList.add('review-author');
+                        reviewAuthor.textContent = review.full_name;
+
+                        // Append elements to reviewItem
+                        reviewItem.appendChild(starsWrapper);
+                        reviewItem.appendChild(reviewTitle);
+                        reviewItem.appendChild(reviewText);
+                        reviewItem.appendChild(reviewAuthor);
+
+                        // Append reviewItem to reviewsList
+                        reviewsList.appendChild(reviewItem);
+                    });
+                }
+            {% else %}
+                const reviewsList = document.getElementById('reviewsList');
+                const emptyReviewItem = document.createElement('li');
+                emptyReviewItem.classList.add('reviews-list-item');
+                const emptyReviewBlock = document.createElement('div');
+                emptyReviewBlock.classList.add('empty-review-block');
+                emptyReviewBlock.innerHTML = `
+                    <img class="empty-review-img" src="{% static 'icons/empty-review-img.svg' %}" alt="empty review">
+                    <p class="empty-review-text"> There are no reviews for this experience yet. <br/> Be the first one to write one. </p>
+                    `;
+
+                emptyReviewItem.appendChild(emptyReviewBlock);
+                reviewsList.appendChild(emptyReviewItem);
+
+
+            {% endif %}
+            {% if object.review_set.count > 5 %}
+                // Function to render pagination controls
+                function renderPaginationControls(paginationData) {
+                    paginationContainer.innerHTML = ''; // Clear existing pagination controls
+
+                    const {has_next, has_previous, next_page_number, previous_page_number, total_pages, current_page_number} = paginationData;
+
+                    // Render previous page button
+                    const prevButton = document.createElement('button');
+                    prevButton.innerHTML = `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
+                    prevButton.classList.add('pagination-btn', 'prev')
+                    prevButton.addEventListener('click', () => handlePaginationClick(previous_page_number));
+                    paginationContainer.appendChild(prevButton);
+                    if (has_previous) {
+                        prevButton.innerHTML = `<img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">`
+                    }
+                    const paginationList = document.createElement('ul')
+                    paginationContainer.appendChild(paginationList)
+                    paginationList.classList.add('pagination-list')
+                    // Render page numbers
+                    for (let i = 1; i <= total_pages; i++) {
+                        const pageButton = document.createElement('button');
+                        pageButton.classList.add('pagination-list-item')
+                        pageButton.textContent = i;
+                        if (i === current_page_number) {
+                            pageButton.disabled = true;
+                        }
+                        pageButton.addEventListener('click', () => handlePaginationClick(i));
+                        paginationList.appendChild(pageButton);
+                    }
+
+                    // Render next page button
+                    const nextButton = document.createElement('button');
+                    nextButton.innerHTML =
+                        `<img src="{% static 'icons/pagination-icon-grey.svg' %}" alt="prev icon" class="grey">`
+                    nextButton.classList.add('pagination-btn', 'next')
+                    nextButton.addEventListener('click', () => handlePaginationClick(next_page_number));
+                    paginationContainer.appendChild(nextButton);
+                    if (has_next) {
+                        nextButton.innerHTML = `<img src="{% static 'icons/pagination-arrow.svg' %}" alt="prev icon" class="orange">`
+                    }
+                }
+            {% endif %}
+
+            {% if object.review_set.count > 0 %}
+                // Function to handle pagination click event
+                function handlePaginationClick(pageNumber) {
+                    fetchReviews(pageNumber)
+                        .then(data => {
+                            renderReviews(data.reviews);
+                            {% if object.review_set.count > 5 %}
+                                renderPaginationControls(data);
+                            {% endif %}
+                        })
+                        .catch(error => {
+                            console.error('Error fetching reviews:', error);
+                        });
+                }
+            {% endif %}
+            // Fetch reviews for the first page when the page loads
+
+            {% if object.review_set.count > 0 %}
+                handlePaginationClick(1);
+            {% else %}
+
+            {% endif %}
+        });
+    </script>
+    <script>
+        let averageRating = {{object.average_rating}};
+        if (averageRating) {
+            function fillStars(rating) {
+                const iconWrappers = document.querySelectorAll('.icon-wrapper');
+                const filledStars = Math.floor(rating);
+                const fraction = rating - filledStars;
+
+                iconWrappers.forEach((iconWrapper, index) => {
+                    if (index < filledStars) {
+                        iconWrapper.querySelector('.star').classList.add('filled');
+                    } else if (index === filledStars) {
+                        iconWrapper.style.setProperty('--fraction', fraction);
+                        iconWrapper.classList.add('partial-fill');
+                    }
+                });
+            }
+            fillStars(averageRating);
+        }
+    </script>
+
+    <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
+
+    <!-- Google tracker data pusher -->
+    <script>
+        // Ensure `object.ecommerce_items` is properly converted to a JavaScript array
+        const itemsArray = {{ object.ecommerce_items|safe }};
+
+        // Ensure the dataLayer is defined
+        window.dataLayer = window.dataLayer || [];
+
+        // Clear the previous ecommerce object.
+        window.dataLayer.push({ecommerce: null});
+
+        // Push the new ecommerce data
+        window.dataLayer.push({
+            event: "view_item",
+            ecommerce: {
+                items: itemsArray,
+            }
+        });
+    </script>
+
+    <script>
+        function addTypeIsGroupAndNavigate(event, lang) {
+            event.preventDefault();
+            const url = `/${lang}/experiences/?tour_type=group&filter_by=all`;
+            window.location.href = url;
+        }
+
+        function addTypeIsPrivateAndNavigate(event, lang) {
+            event.preventDefault();
+            const url = `/${lang}/experiences/?tour_type=private&filter_by=all`;
+            window.location.href = url;
+        }
+    </script>
+
+{% endblock %}
+
+{% block whatsup %}{% endblock whatsup %}

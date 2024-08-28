@@ -1,0 +1,53 @@
+@import "../custom_css/custom.scss";
+
+.error-page {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    .error-page-container {
+        max-width: 905px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        img {
+            width: 100%;
+            max-height: 500px;
+            display: block;
+        }
+        .error-title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 100px;
+            font-family: 'LatoRegular';
+            font-size: 32px;
+            color: black;
+            @include media-breakpoint-down(md) {
+                
+                font-size: 26px;
+            }
+        }
+        .error-subtitle {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'LatoRegular';
+            color: #6D6D6D;
+            font-size: 14px;
+            line-height: normal;
+            bottom: 60px;
+            @include media-breakpoint-down(md) {
+                bottom: 50px;
+                
+            }
+        }
+        .error-link {
+            display: block;
+            width: 320px;
+            margin: 16px auto 0;
+            @include media-breakpoint-down(md) {
+                margin: 50px auto 0;
+            }
+        }
+    }
+
+}

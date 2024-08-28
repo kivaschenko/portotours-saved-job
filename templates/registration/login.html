@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load compress %}
+{% load sass_tags %}
+
+{% block title %}
+    Login
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/authorization.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <section class="authorization">
+        <div class="container">
+            <form method="post" action="{% url 'login' %}" class="authorization-form">
+                <h4>login</h4>
+                {% csrf_token %}
+                {{ form|crispy }}
+               
+                    <a href="{% url 'password_reset' %}" class="lost-password-link">
+                        Forgotten your password?
+                    </a>
+               
+                <button class="btn-type-1" type="submit">Login</button>
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
+           
+            <!-- <p>Don't have account?</p>
+            <p style="margin-top: 20px; position: relative;"><a href="{% url 'signup' %}" class="btn btn-warning"> Register free a new here.</a></p> -->
+            
+        </div>
+    </section>
+    
+{% endblock %}

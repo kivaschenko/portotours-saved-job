@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load compress %}
+{% load sass_tags %}
+
+{% load crispy_forms_tags %}
+{% block title %}
+    {{ object.page_title }}
+{% endblock %}
+{% block title_suffix %}
+    | One Day Tours Portugal
+{% endblock title_suffix %}
+{% block meta_tags %}
+    <meta name="description" content="{{ object.page_description }}">
+    <meta name="keywords" content="{{ object.page_keywords }}">
+{% endblock meta_tags %}
+
+{% block extended_css %}
+    {% compress css %}
+    <link href="{% sass_src 'custom_css/blog.scss' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+
+    <section class="blog-detail-hero">
+        <div class="container">
+            <img class="img-desktop" src="{% if object.parent_blog.banner %}{{ object.parent_blog.banner.url }}{% else %}{% endif %}" alt="{{ object.parent_blog.banner.name }}">
+            {% if object.parent_blog.banner_mobile %}
+            <img class="img-mobile"  src="{% if object.parent_blog.banner_mobile %}{{ object.parent_blog.banner_mobile.url }}{% else %}{% endif %}" alt="{{ object.parent_blog.banner.name }}">
+            {% else %}
+            <img class="img-mobile"  src="{% if object.parent_blog.banner%}{{ object.parent_blog.banner.url }}{% else %}{% endif %}" alt="{{ object.parent_blog.banner.name }}">
+            {% endif %}
+            <h1 class="blog-detail-hero-title">
+                {{ object.title }}
+            </h1>
+            <div class="blog-detail-hero-info-wrapper">
+                <div class="left-col">
+                    {% if object.date_published %}
+                        <div class="publication-info">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/blog-calendat-icon.svg' %}" alt="calendar icon">
+                            </div>
+                            <div class="content-wrapper">
+                                <p class="content-title">
+                                    Publication
+                                </p>
+                                <p class="content-text">
+                                    {{ object.date_published|date }}
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if object.read_time %}
+                        <div class="publication-info">
+                            <div class="img-wrapper">
+                                <img src="{% static 'icons/blog-read-icon.svg' %}" alt="blog icon">
+                            </div>
+                            <div class="content-wrapper">
+                                <p class="content-title">
+                                    Reading time
+                                </p>
+                                <p class="content-text">
+                                    {{ object.read_time }} minutes
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="right-col">
+                    {% if object.author.profile.name %}
+                        <div class="publication-author">
+                            <div class="img-wrapper">
+                                {% if object.author.profile.avatar %}
+                                    <img src="{{ object.author.profile.avatar.url }}" alt="author avatar">
+                                {% endif %}
+                            </div>
+                            <div class="content-wrapper">
+                                <p class="content-title">
+                                    Author
+                                </p>
+                                <p class="content-text">
+                                    {{ object.author.profile.name }}
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="blog-content">
+        <div class="container">
+            <div class="left-col">
+                {% if object.blocks.all %}
+                    {% if object.short_description %}
+                        <p>{{ object.short_description }}</p>
+                    {% endif %}
+                    {% for block in object.blocks.all %}
+                        <h3 id="{{ block.pk }}">{{ block.title }}</h3>
+                        {{ block.display_text }}
+                        {% if forloop.counter == midpoint %}
+                            {% if object.middle_picture %}
+                                <img src="{{ object.middle_picture.url }}" alt="Middle Picture">
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="right-col">
+                {% if object.categories.all %}
+                    <div class="categories-wrapper">
+                        <h5 class="blog-categories-title">
+                            Categories
+                        </h5>
+                        {% for category in object.categories.all %}
+                            <button type="button" class="btn btn-light">{{ category }}</button>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if object.blocks.all %}
+                    <div class="aside-block">
+                        <h3 class="aside-block-title">
+                            Table of Contents
+                        </h3>
+                        <ul class="aside-block-list">
+                            {% for block in object.blocks.all %}
+                                <li><a href="#{{ block.pk }}">{{ block.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% if object.experience_recommendations.all %}
+        <section class="also-interested">
+            <div class="container">
+                <h2 class="also-interested-title">
+                    {{ object.recommendations_title }}
+                </h2>
+                <p class="also-interested-subtitle body-text-b2">
+                    {{ object.recommendations_subtitle }}
+                </p>
+                <div class="swiper-also-interested">
+                    <div class="also-interested-cards-wrapper">
+                        {% for experience in object.experience_recommendations.all %}
+                            {% if cart_not_empty %}
+                                {% include 'include/also_interested_cards_applied.html' %}
+                            {% else %}
+                                {% include 'include/also_interested_cards.html' %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    
+    <section class="offers-banner blog">
+        <div class="container">
+            <h2 class="offers-banner-title">
+                Special Offers
+            </h2>
+            <p class="offers-banner-subtitle">
+                Get exclusive benefits and premium discounts with our subscription plan
+            </p>
+            <form id="subscription-form" action="" method="post" class="offers-banner-form">
+                {% csrf_token %}
+                {{ subscription_form|crispy }}
+                <button type="submit" class="form-submit-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="subscribe-popup">
+        <a href="#" class="close-popup-btn">
+            <img src="{% static 'icons/icon-close.svg' %}" alt="close button">
+        </a>
+        <h2 class="popup-title">
+            Thank you for subscribing!
+        </h2>
+        <p class="popup-text">
+            We'll keep you updated on the latest news and discounts from our company.
+        </p>
+        <a href="#" class="btn-popup btn-type-1" id="continue-btn">
+            Continue
+        </a>
+    </div>
+
+    <script>
+        const swiper = new Swiper(".swiper-attractions", {
+            slidesPerView: 2,
+            speed: 1000,
+            spaceBetween: 24,
+            breakpoints: {
+                200: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 24,
+                }
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+    <script>
+        // Define all window.location.pathname according language value
+        const languages = {{ languages|safe }};  // from response extra_context
+        // Define current language according object.language
+        const currentLanguage = `{{ current_language }}`  // from response extra_context
+
+    </script>
+    <script>
+        const swiperAttractionHero = new Swiper(".attraction-hero-slider", {
+            slidesPerView: 3,
+            speed: 1000,
+            spaceBetween: 24,
+            breakpoints: {
+                200: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                767: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                }
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+    <script src="{% static 'js/subscription.js' %}"></script>
+    <script src="{% static 'js/lang_selector_detail_page.js' %}"></script>
+{% endblock content %}

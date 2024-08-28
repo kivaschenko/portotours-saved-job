@@ -1,0 +1,1 @@
+const currentYear=new Date().getFullYear();const spanElements=document.querySelectorAll('.currentYear');spanElements.forEach(span=>{span.textContent=currentYear;});;

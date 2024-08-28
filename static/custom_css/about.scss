@@ -1,0 +1,315 @@
+@import "../custom_css/custom.scss";
+.about-us-text-image {
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    padding-top: 40px;
+    @include media-breakpoint-down(md) {
+        padding-top: 10px;
+        padding-bottom: 20px;
+        flex-direction: column;
+    }
+    .left-col {
+      width: 630px;
+      @include media-breakpoint-down(md) {
+        width: 100%;
+      }
+      .left-col-title {
+        font-family: "LatoSemiBold";
+        font-size: 64px;
+        line-height: normal;
+        color: #0f0f10;
+        margin-top: 0;
+        margin-bottom: 24px;
+        text-transform: capitalize;
+        display: flex;
+        flex-direction: column;
+        @include media-breakpoint-down(md) {
+            flex-direction: row;
+            font-size: 36px;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+        .left-col-icon {
+            display: block;
+            width: 72px;
+            height: 72px;
+            margin-bottom: 10px;
+            @include media-breakpoint-down(md) {
+                width: 40px;
+                height: 40px;
+                margin-bottom: 0;
+                margin-right: 20px;
+            }
+          }
+      }
+      .left-col-text {
+        font-family: "LatoRegular";
+        font-size: 18px;
+        line-height: 28px;
+        margin-bottom: 0;
+        margin-top: 0;
+        color: #0f0f10;
+        @include media-breakpoint-down(md) {
+            font-size: 14px;
+            line-height: 22px;
+            margin-bottom: 20px;
+        }
+      }
+    }
+    .right-col {
+      width: calc(100% - 40px - 630px);
+      border-radius: 26px;
+      overflow: hidden;
+      @include media-breakpoint-down(md) {
+        width: 100%;
+      }
+      img {
+        width: 100%;
+
+        &.image-desktop {
+          display: block;
+          height: 500px;
+          @include media-breakpoint-down(md) {
+            display: none;
+          }
+        }
+        &.image-mobile {
+          display: none;
+          @include media-breakpoint-down(md) {
+            display: block;
+            height: 280px;
+          }
+        }
+      }
+    }
+  }
+  &--reversed {
+    .container {
+      flex-direction: row-reverse;
+      padding-top: 40px;
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+        padding-top: 20px;
+      }
+    }
+  }
+}
+.values {
+  .container {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 40px;
+    @include media-breakpoint-down(md) {
+        flex-direction: column;
+        padding-top: 20px;
+    }
+    .values-card {
+      width: calc((100% - 48px) / 3);
+      margin-bottom: 24px;
+      @include media-breakpoint-down(md) {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      &.title-card {
+        padding-top: 40px;
+        @include media-breakpoint-down(md) {
+            padding-top: 0;
+        }
+        .section-title {
+          font-family: "LatoSemiBold";
+          font-size: 64px;
+          line-height: normal;
+          color: #0f0f10;
+          text-transform: capitalize;
+          margin-bottom: 0;
+          display: flex;
+          flex-direction: column;
+          @include media-breakpoint-down(md) {
+            flex-direction: row;
+            font-size: 36px;
+          }
+          img.title-card-icon {
+            display: block;
+            width: 72px;
+            height: 72px;
+            margin-bottom: 16px;
+            @include media-breakpoint-down(md) {
+                margin-bottom: 0;
+                width: 40px;
+                height: 40px;
+                margin-right: 20px;
+            }
+          }
+        }
+      }
+      &:not(.title-card) {
+        border-radius: 26px;
+        border: 1px solid #d9d9d9;
+        background: #fff;
+        padding: 24px 25px;
+        @include media-breakpoint-down(md) {
+            border-radius: 0;
+            border: none;
+            padding: 0;
+        }
+        img {
+          width: 40px;
+          height: 40px;
+          display: block;
+          margin-bottom: 16px;
+          @include media-breakpoint-down(md) {
+            margin-bottom: 8px;
+            width: 28px;
+            height: 28px;
+          }
+        }
+        .card-title {
+          font-family: "LatoSemiBold";
+          font-size: 18px;
+          line-height: 28px;
+          color: #0f0f10;
+          margin-top: 0;
+          margin-bottom: 10px;
+          @include media-breakpoint-down(md) {
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 6px;
+          }
+        }
+        .card-text {
+            font-family: "LatoRegular";
+            font-size: 16px;
+            line-height: 26px;
+            color: #0f0f10;
+            margin-bottom: 0;
+            margin-top: 0;
+            @include media-breakpoint-down(md) {
+                font-size: 14px;
+                line-height: 22px;
+            }
+        }
+      }
+    }
+  }
+}
+.team {
+  .container {
+    padding-top: 40px;
+    padding-bottom: 60px;
+    @include media-breakpoint-down(md) {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    
+    .team-title {
+      color: #0f0f10;
+      font-family: "LatoSemiBold";
+      font-size: 64px;
+      line-height: normal;
+      margin-top: 0;
+      margin-bottom: 24px;
+      text-transform: capitalize;
+      display: flex;
+      flex-direction: column;
+      .team-icon {
+        width: 72px;
+        height: 72px;
+        display: block;
+        margin-bottom: 10px;
+        @include media-breakpoint-down(md) {
+            margin-bottom: 0;
+            width: 40px;
+            height: 40px;
+            margin-right: 20px;
+        }
+      }
+      @include media-breakpoint-down(md) {
+        flex-direction: row;
+        font-size: 36px;
+      }
+    }
+    .team-info {
+        margin-bottom: 40px;
+        margin-top: 0;
+        color: #0f0f10;
+        font-family: "LatoRegular";
+        font-size: 18px;
+        line-height: 28px;
+        @include media-breakpoint-down(md) {
+            margin-bottom: 24px;
+            font-size: 14px;
+            line-height: 22px;
+        }
+    }
+    .team-cards-wrapper {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        @include media-breakpoint-down(md) {
+            flex-direction: column;
+        }
+        .team-card {
+            width: calc((100% - 82px)/3);
+            @include media-breakpoint-down(md) {
+                width: 100%;
+                + .team-card {
+                    margin-top: 30px;
+                }
+            }
+            > img {
+                height: 410px;
+                border-radius: 26px;
+                overflow: hidden;
+                margin-bottom: 18px;
+                display: block;
+                width: 100%;
+                @include media-breakpoint-down(md) {
+                    height: auto;
+                    margin-bottom: 16px;
+                }
+            }
+            .name {
+                color: #0f0f10;
+                font-family: "LatoMedium";
+                font-size: 26px;
+                line-height: 36px;
+                margin-top: 0;
+                margin-bottom: 8px;
+                text-transform: capitalize;
+                @include media-breakpoint-down(md) {
+                    font-size: 22px;
+                    line-height: 32px;
+                }
+            }
+            .position {
+                color: #6D6D6D;
+                font-family: "LatoRegular";
+                font-size: 18px;
+                line-height: 28px;
+                margin-top: 0;
+                margin-bottom: 12px;
+                @include media-breakpoint-down(md) {
+                    font-size: 14px;
+                    line-height: 22px;
+                }
+            }
+            .info-text {
+                color: #0f0f10;
+                font-family: "LatoRegular";
+                font-size: 16px;
+                line-height: 26px;
+                margin-bottom: 0;
+                @include media-breakpoint-down(md) {
+                    font-size: 14px;
+                    line-height: 22px;
+                }
+            }
+        }
+    }
+  }
+}
