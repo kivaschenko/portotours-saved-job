@@ -1,0 +1,32 @@
+Content-Type: multipart/alternative;
+ boundary="===============4091798108155832509=="
+MIME-Version: 1.0
+Subject: Your New Password
+From: default-email@example.com
+To: kivaschenko@protonmail.com
+Date: Tue, 02 Jul 2024 10:26:58 -0000
+Message-ID: <171991601861.31345.17416450235923039429@teomeo>
+
+--===============4091798108155832509==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h3>Dear K. Ivashchenko,</h3>
+    <p>We created your account automatically.</p>
+    <p>Your new password is: rOW544lEwk</p>
+    <!-- You can add more HTML content here -->
+    <a href="www.onedaytours.pt/en/login/">Log In</a>
+</body>
+</html>
+
+--===============4091798108155832509==--
+
+-------------------------------------------------------------------------------
