@@ -1,62 +1,144 @@
 services:
-#  db:
-#    container_name: postgresql_db
-#    image: postgis/postgis:15-3.3
-#    restart: always
-#    ports:
-#      - 54321:5432
-#    env_file:
-#      - .env
-#    environment:
-#      - POSTGRES_USER=${DB_USER}
-#      - POSTGRES_PASSWORD=${DB_PASSWORD}
-#      - POSTGRES_DB=${DB_NAME}
-#    volumes:
-#      - postgres:/var/lib/postgresql/data/
-#    healthcheck:
-#      test: ["CMD-SHELL", "pg_isready --dbname=${DB_NAME} --host=localhost --port=5432 --username=${DB_USER}"]
-#      interval: 2s
-#      timeout: 5s
-#      retries: 5
-#      start_period: 10s
+  db:
+    container_name: postgresql_db
+    image: postgis/postgis:15-3.3
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "54321:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready --dbname=${DB_NAME} --host=localhost --port=5432 --username=${DB_USER}"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+      start_period: 45s
 
-#    app:
-#      build: .
-#      container_name: django_app
-#      env_file:
-#        - .env
-#      volumes:
-#        - django:/volume_app/
-#      command:
-#        python3 manage.py migrate &&
-#        python3 manage.py runserver 8000
-#      ports:
-#        - 8000:8000
-#      depends_on:
-#        db:
-#          condition: service_healthy
+  redis:
+    container_name: redis
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+    container_name: django_app
+    user: "0:0"
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      CACHES_LOCATION: redis://redis:6379/1
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+      ALLOWED_HOSTS: localhost,127.0.0.1,0.0.0.0
+      BASE_ENDPOINT: http://127.0.0.1:8000
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-local}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-local}
+      AWS_STORAGE_BUCKET_NAME: ${AWS_STORAGE_BUCKET_NAME:-portotours-dev}
+      AWS_S3_REGION_NAME: ${AWS_S3_REGION_NAME:-fra1}
+      RUN_MIGRATIONS: "1"
+      RUN_COLLECTSTATIC: "0"
+      RUN_COMPRESS: "0"
+      ENABLE_CELERY: "0"
+      GUNICORN_WORKERS: "1"
+    command: >
+      bash -c '
+        set -e
+        echo "Waiting for database to be ready..."
+        for i in {1..60}; do
+          if pg_isready -h db -p 5432 -U ${DB_USER} 2>/dev/null; then
+            echo "Database is ready!"
+            break
+          fi
+          echo "Attempt $i/60: Waiting for database..."
+          sleep 1
+        done
+        echo "Running migrations..."
+        python manage.py migrate --noinput
+        echo "Starting Django development server..."
+        python manage.py runserver 0.0.0.0:8000
+      '
+    volumes:
+      - .:/app:Z
+      - static_data:/app/static
+      - media_data:/app/media
+      - app_logs:/app/log
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  celery:
+    build:
+      context: .
+    container_name: django_celery
+    user: "0:0"
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DJANGO_SETTINGS_MODULE: portotours.settings
+      DEBUG: "True"
+      DB_HOST: db
+      DB_PORT: 5432
+      CACHES_LOCATION: redis://redis:6379/1
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-local}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-local}
+      AWS_STORAGE_BUCKET_NAME: ${AWS_STORAGE_BUCKET_NAME:-portotours-dev}
+      AWS_S3_REGION_NAME: ${AWS_S3_REGION_NAME:-fra1}
+    command: celery -A portotours worker -l INFO --beat --scheduler django
+    volumes:
+      - .:/app:Z
+      - app_logs:/app/log
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
+    restart: unless-stopped
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=112358
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: 112358
     ports:
-      - 5050:80
+      - "5050:80"
     volumes:
-      - pgadmin:/volume_pgadmin/
-
-  redis:
-    container_name: redis
-    image: redis:alpine
-    restart: always
-    ports:
-      - 6379:6379
-    volumes:
-      - redis:/var/lib/redis/data
+      - pgadmin:/var/lib/pgadmin
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
-  pgadmin:
-#  postgres:
+  postgres:
   redis:
+  pgadmin:
+  static_data:
+  media_data:
+  app_logs:

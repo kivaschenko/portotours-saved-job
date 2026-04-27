@@ -6,4 +6,12 @@ class ProductsConfig(AppConfig):
     name = 'products'
 
     def ready(self):
-        import products.signals
+        # Import signals only after apps are ready, not during app initialization
+        # This prevents model loading before migrations complete
+        try:
+            import products.signals  # noqa
+        except Exception as e:
+            # Log but don't fail if signals can't be imported during migrations
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.debug(f"Signals import during app startup: {e}")

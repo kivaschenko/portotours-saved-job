@@ -7,6 +7,7 @@ ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE portotours.production
 ENV STRIPE_PUBLIC_KEY=$STRIPE_PUBLIC_KEY
 ENV STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
+ENV LOGGING_FILE=/app/log/portotours.log
 
 # Set work directory
 WORKDIR /app/
@@ -15,6 +16,7 @@ WORKDIR /app/
 RUN apt-get update \
     && apt-get install -y binutils libgdal-dev \
     && apt-get install -y graphviz graphviz-dev \
+    && apt-get install -y postgresql-client \
     && apt-get install -y redis-server \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -29,10 +31,14 @@ COPY . /app/
 # Create logfile
 RUN mkdir -p /app/log && touch /app/log/portotours.log
 
-# Collect static files and migrate database
-RUN python manage.py compress
-RUN python manage.py collectstatic --noinput
-# RUN python manage.py migrate
+# Ensure manage.py is executable
+RUN chmod +x manage.py
+
+# Create necessary directories
+RUN mkdir -p /app/staticfiles /app/media
+
+# Set proper permissions for the app directory
+RUN chmod -R 755 /app && chmod -R 777 /app/media /app/staticfiles
 
 # Expose the port that Django will run on
 EXPOSE 8000
@@ -42,6 +48,12 @@ COPY start.sh /app/start.sh
 
 # Make the startup script executable
 RUN chmod +x /app/start.sh
+
+# Non-root user (optional but recommended)
+RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
+USER appuser
+# Set proper permissions for log, media, and staticfiles directories for the non-root user
+RUN  chmod -R 755 /app/log && chmod 777 /app/log/portotours.log && chmod -R 755 /app/media && chmod -R 755 /app/staticfiles
 
 # Execute the startup script
 CMD ["/app/start.sh"]
